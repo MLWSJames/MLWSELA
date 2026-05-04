@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Choice & Poetry | 词语选择与诗歌</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.cn{font-family:'Noto Sans SC',sans-serif}
+
+/* HEADER */
+.header{background:var(--ml-green-dark);color:#fff;padding:14px 20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.header h1{font-family:'Literata',serif;font-size:1.1rem;flex:1;min-width:200px}
+.header h1 span{display:block;font-family:'Noto Sans SC',sans-serif;font-size:.75rem;opacity:.8;font-style:normal}
+.progress-wrap{flex:1;min-width:120px}
+.progress-bar-bg{background:rgba(255,255,255,.2);border-radius:99px;height:8px}
+.progress-bar{background:var(--ml-gold);border-radius:99px;height:8px;width:0%;transition:width .4s}
+.progress-text{font-size:.7rem;opacity:.8;margin-top:3px}
+.leave-badge{background:var(--ml-red);color:#fff;font-size:.72rem;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.status-pips{display:flex;gap:6px;align-items:center}
+.pip{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.3);transition:background .4s}
+.pip.done{background:var(--ml-gold)}
+
+/* ANTI-CHEAT NOTICE */
+.notice{background:var(--amber-light);border-left:4px solid var(--amber);padding:10px 16px;max-width:900px;margin:14px auto 0;border-radius:4px;font-size:.82rem;color:var(--amber)}
+
+/* TABS */
+.tabs-nav{max-width:900px;margin:16px auto 0;padding:0 12px;display:flex;gap:8px;flex-wrap:wrap}
+.tab-btn{font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;padding:8px 18px;border:2px solid var(--border);border-radius:8px 8px 0 0;background:#fff;cursor:pointer;color:var(--ink2);transition:all .2s}
+.tab-btn.active{background:var(--ml-green);color:#fff;border-color:var(--ml-green)}
+
+/* TAB CONTENT */
+.tab-content{display:none;max-width:900px;margin:0 auto;padding:20px 12px 80px}
+.tab-content.active{display:block}
+
+/* SECTION HEADERS */
+.section-title{font-family:'Literata',serif;font-size:1.15rem;color:var(--ml-green-dark);margin:24px 0 10px;border-bottom:2px solid var(--ml-green-light);padding-bottom:6px}
+.section-title .cn{font-size:.85rem;color:var(--ink2);margin-left:6px;font-weight:400}
+
+/* VOCAB CARDS */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:12px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt)}
+.vocab-pos{font-size:.73rem;color:var(--amber);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin:2px 0 6px}
+.vocab-cn-word{font-family:'Noto Sans SC',sans-serif;font-size:.88rem;color:var(--ml-green-dark);font-weight:500}
+.vocab-def{font-size:.82rem;color:var(--ink2);margin:5px 0 3px}
+.vocab-cn-def{font-family:'Noto Sans SC',sans-serif;font-size:.78rem;color:#555;margin-bottom:7px}
+.vocab-example{font-family:'Literata',serif;font-style:italic;font-size:.8rem;color:var(--ink);border-top:1px solid var(--border);padding-top:7px}
+.speak-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;cursor:pointer;color:var(--ml-green-dark);font-weight:600;margin-top:8px}
+.speak-btn:hover{background:var(--ml-green);color:#fff}
+
+/* CONCEPT BOX */
+.concept-box{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:18px;line-height:1.65}
+.concept-box p{font-size:.88rem;margin-bottom:8px;color:var(--ink2)}
+.concept-box p.cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#555;margin-bottom:14px}
+.key-rule{background:var(--ml-green-light);border-left:4px solid var(--ml-green);border-radius:6px;padding:12px 16px;margin-top:10px}
+.key-rule h4{font-size:.82rem;font-weight:700;color:var(--ml-green-dark);margin-bottom:6px}
+.key-rule ul{list-style:disc;padding-left:18px;font-size:.82rem;color:var(--ink2)}
+.key-rule ul li{margin-bottom:4px}
+.key-rule ul li .cn{font-family:'Noto Sans SC',sans-serif;font-size:.77rem;color:#555}
+
+/* NAME INPUT */
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:6px;padding:6px 12px;font-size:.85rem;font-family:'DM Sans',sans-serif;flex:1;min-width:140px;max-width:280px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+
+/* PRACTICE CARDS */
+.practice-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.practice-num{font-size:.72rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.passage-title{font-family:'Literata',serif;font-size:.95rem;font-weight:600;color:var(--cobalt);margin-bottom:8px}
+.passage-text{font-family:'Literata',serif;font-size:.86rem;line-height:1.7;background:var(--mist);border-left:3px solid var(--ml-gold);padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:12px;color:var(--ink)}
+.question-text{font-size:.88rem;font-weight:600;color:var(--ink);margin-bottom:4px}
+.question-cn{font-family:'Noto Sans SC',sans-serif;font-size:.8rem;color:#666;margin-bottom:10px}
+.options{display:grid;gap:7px}
+.opt-btn{display:block;width:100%;text-align:left;background:var(--mist);border:1px solid var(--border);border-radius:7px;padding:9px 13px;font-size:.83rem;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink2);transition:all .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;color:#065f46;font-weight:600}
+.opt-btn.wrong{background:#fee2e2;border-color:var(--ml-red);color:var(--ml-red)}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:10px;font-size:.8rem;padding:8px 12px;border-radius:6px;background:var(--amber-light);color:var(--amber);line-height:1.5}
+.rationale .cn{font-family:'Noto Sans SC',sans-serif;font-size:.76rem;display:block;margin-top:4px;color:#92400e}
+
+/* EXIT TICKET */
+.exit-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px}
+.exit-num{font-size:.7rem;font-weight:700;color:var(--cobalt);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.exit-q{font-size:.87rem;font-weight:600;color:var(--ink);margin-bottom:3px}
+.exit-q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.78rem;color:#666;margin-bottom:9px}
+
+/* SCORE / REFLECTION / DOWNLOAD */
+.score-box{background:var(--ml-green-light);border:1px solid var(--ml-green);border-radius:10px;padding:14px 18px;margin:18px 0;text-align:center;display:none}
+.score-box .score-num{font-size:1.6rem;font-weight:700;color:var(--ml-green-dark)}
+.score-box p{font-size:.82rem;color:var(--ml-green-dark);margin-top:4px}
+.reflection-area{margin:18px 0;display:block}
+.reflection-area h3{font-family:'Literata',serif;font-size:.95rem;color:var(--cobalt);margin-bottom:10px}
+.reflect-q{font-size:.85rem;font-weight:600;color:var(--ink2);margin-bottom:4px}
+.reflect-q .cn{font-family:'Noto Sans SC',sans-serif;font-size:.78rem;font-weight:400;color:#666}
+.reflect-textarea{width:100%;min-height:80px;border:1px solid var(--border);border-radius:7px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.84rem;margin-bottom:14px;resize:vertical}
+.reflect-textarea:focus{outline:2px solid var(--ml-green)}
+.download-btn{background:var(--ml-green-dark);color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:.88rem;font-weight:700;cursor:pointer;display:inline-block;margin-top:10px}
+.download-btn:hover{background:var(--ml-green)}
+
+/* TIMER */
+.timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:8px 16px;border-radius:99px;font-size:.82rem;font-weight:600;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+
+@media(max-width:520px){
+  .vocab-grid{grid-template-columns:1fr}
+  .header h1{font-size:.95rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <h1>Word Choice &amp; Poetry<span class="cn">词语选择与诗歌元素</span></h1>
+    <span class="leave-badge" id="leaveBadge">🚪 Leaves: 0</span>
+    <div class="status-pips">
+      <div class="pip" id="pipTue" title="Tuesday"></div>
+      <div class="pip" id="pipWed" title="Wednesday"></div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTICE -->
+<div class="notice" style="max-width:900px;margin:14px auto 0">
+  ⚠️ <strong>Academic Integrity Notice:</strong> This module tracks how many times you leave the page. Stay focused — exits are recorded and included in your downloaded report. &nbsp;|&nbsp; <span class="cn">本模块记录离开页面次数，请保持专注。</span>
+</div>
+
+<!-- STUDENT NAME -->
+<div style="max-width:900px;margin:10px auto 0;padding:0 12px">
+  <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <label for="studentName" style="font-weight:700;color:var(--cobalt);font-size:.88rem;white-space:nowrap">Student Name | 学生姓名:</label>
+    <input type="text" id="studentName" placeholder="Type your full name before starting / 开始前请输入全名" style="flex:1;min-width:200px;max-width:360px;border:1px solid var(--border);border-radius:6px;padding:7px 12px;font-size:.88rem;font-family:'DM Sans',sans-serif">
+  </div>
+</div>
+
+<!-- TABS NAV -->
+<div class="tabs-nav">
+  <button class="tab-btn active" onclick="switchTab('vocab',this)">📚 Vocabulary | 词汇</button>
+  <button class="tab-btn" onclick="switchTab('tue',this)">📅 Tuesday | 星期二</button>
+  <button class="tab-btn" onclick="switchTab('wed',this)">📅 Wednesday | 星期三</button>
+</div>
+
+<!-- ===== TAB: VOCAB ===== -->
+<div id="tab-vocab" class="tab-content active">
+  <div class="section-title">📚 Key Vocabulary <span class="cn">关键词汇</span></div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ===== TAB: TUESDAY ===== -->
+<div id="tab-tue" class="tab-content">
+  <div class="section-title">Tuesday: Word Choice, Connotation &amp; Tone <span class="cn">星期二：词语选择、内涵与语气</span></div>
+
+  <!-- CONCEPT -->
+  <div class="concept-box">
+    <p><strong>Word choice</strong> (also called <em>diction</em>) is the specific selection of words an author uses. Every word an author picks is a decision — and that decision shapes the reader's experience.</p>
+    <p class="cn"><strong>词语选择</strong>（也叫 <em>措辞</em>）是作者使用特定词语的选择。作者选择的每个词都是一个决定——这个决定影响读者的体验。</p>
+
+    <p><strong>Connotation</strong> is the emotional or cultural meaning a word carries beyond its dictionary definition (denotation). For example, "home" and "house" both describe a place to live, but "home" feels warm and personal, while "house" is neutral and structural.</p>
+    <p class="cn"><strong>内涵</strong>是词语超出字典释义（外延）之外所携带的情感或文化含义。例如，"家"和"房子"都描述居住的地方，但"家"给人温暖和亲切的感觉，而"房子"则中性且结构性。</p>
+
+    <p><strong>Tone</strong> is the author's attitude toward the subject or audience, revealed through word choice. Tone can be hopeful, angry, sad, sarcastic, respectful, or many other attitudes. Changing even one word can shift an entire tone.</p>
+    <p class="cn"><strong>语气</strong>是作者通过词语选择传达的对主题或读者的态度。语气可以是充满希望的、愤怒的、悲伤的、讽刺的、恭敬的或其他多种态度。甚至改变一个词就可以改变整体语气。</p>
+
+    <div class="key-rule">
+      <h4>🔑 Key Rules | 关键规则</h4>
+      <ul>
+        <li>Denotation = dictionary meaning &nbsp;<span class="cn">外延 = 字典含义</span></li>
+        <li>Connotation = emotional/cultural meaning &nbsp;<span class="cn">内涵 = 情感/文化含义</span></li>
+        <li>Positive connotation: words that feel good (e.g., "slim") &nbsp;<span class="cn">正面内涵：感觉好的词（如"苗条"）</span></li>
+        <li>Negative connotation: words that feel bad (e.g., "skinny") &nbsp;<span class="cn">负面内涵：感觉不好的词（如"瘦骨嶙峋"）</span></li>
+        <li>Tone is the author's attitude — identified through diction &nbsp;<span class="cn">语气是作者的态度——通过措辞识别</span></li>
+        <li>Same denotation ≠ same connotation &nbsp;<span class="cn">相同外延 ≠ 相同内涵</span></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <!-- PRACTICES -->
+  <div class="section-title">📝 Practice <span class="cn">练习</span></div>
+  <div id="tuePracticeContainer"></div>
+
+  <!-- EXIT -->
+  <div class="section-title">🎯 Exit Ticket <span class="cn">课堂检测</span></div>
+  <div id="tueExitContainer"></div>
+
+  <div class="score-box" id="tueScoreBox">
+    <div class="score-num" id="tueScoreNum">—</div>
+    <p id="tueScoreMsg">Tuesday Exit Ticket Complete | 星期二课堂检测完成</p>
+  </div>
+
+  <div class="reflection-area" id="tueReflection">
+    <h3>💭 Reflection | 反思</h3>
+    <div class="reflect-q">1. Choose one word from today's reading. Explain how its connotation affects the meaning of the passage. <span class="cn">从今天的阅读中选择一个词。解释其内涵如何影响段落的含义。</span></div>
+    <textarea class="reflect-textarea" id="tueRef1" placeholder="Write your answer here... / 在此写下您的答案..."></textarea>
+    <div class="reflect-q">2. Think of two words with the same denotation but different connotations (like "thin" and "slim"). Write a sentence using each one and explain how the tone changes. <span class="cn">想出两个外延相同但内涵不同的词（如"细"和"苗条"）。用每个词写一句话，并解释语气如何变化。</span></div>
+    <textarea class="reflect-textarea" id="tueRef2" placeholder="Write your answer here... / 在此写下您的答案..."></textarea>
+  </div>
+  <button class="download-btn" id="tueDlBtn" onclick="downloadReport('tue')">⬇️ Download Tuesday Report (TXT)</button>
+</div>
+
+<!-- ===== TAB: WEDNESDAY ===== -->
+<div id="tab-wed" class="tab-content">
+  <div class="section-title">Wednesday: Elements of Poetry <span class="cn">星期三：诗歌元素</span></div>
+
+  <!-- CONCEPT -->
+  <div class="concept-box">
+    <p><strong>Poetry</strong> is a form of writing that uses language in a concentrated, musical way to express ideas and emotions. Unlike prose, poetry often uses line breaks, rhythm, and figurative language to create meaning.</p>
+    <p class="cn"><strong>诗歌</strong>是一种以集中、音乐性的方式使用语言来表达思想和情感的写作形式。与散文不同，诗歌常常使用换行、节奏和修辞语言来创造含义。</p>
+
+    <p><strong>Key elements of poetry include:</strong></p>
+    <p class="cn"><strong>诗歌的关键元素包括：</strong></p>
+    <ul style="font-size:.85rem;padding-left:18px;margin-bottom:8px;color:var(--ink2)">
+      <li><strong>Speaker</strong> — the voice of the poem (not always the author). <span class="cn">说话者——诗歌的声音（不总是作者）。</span></li>
+      <li><strong>Stanza</strong> — a group of lines, like a paragraph in poetry. <span class="cn">诗节——一组诗行，类似诗歌中的段落。</span></li>
+      <li><strong>Rhyme &amp; Rhyme Scheme</strong> — pattern of end sounds (labeled A, B, C…). <span class="cn">押韵和韵式——末尾音的模式（标记为A、B、C……）。</span></li>
+      <li><strong>Rhythm</strong> — the beat or flow of a poem. <span class="cn">节奏——诗歌的节拍或流动。</span></li>
+      <li><strong>Imagery</strong> — language that appeals to the senses. <span class="cn">意象——诉诸感官的语言。</span></li>
+      <li><strong>Simile</strong> — a comparison using "like" or "as." <span class="cn">明喻——使用"像"或"如"的比较。</span></li>
+      <li><strong>Metaphor</strong> — a direct comparison without "like" or "as." <span class="cn">暗喻——不用"像"或"如"的直接比较。</span></li>
+      <li><strong>Personification</strong> — giving human traits to non-human things. <span class="cn">拟人——赋予非人事物人的特征。</span></li>
+    </ul>
+    <div class="key-rule">
+      <h4>🔑 Key Rules | 关键规则</h4>
+      <ul>
+        <li>Speaker ≠ author; identify the speaker's perspective <span class="cn">说话者 ≠ 作者；识别说话者的视角</span></li>
+        <li>A stanza is a grouped set of lines &nbsp;<span class="cn">诗节是一组诗行</span></li>
+        <li>Rhyme scheme: label each end sound A, B, C in order &nbsp;<span class="cn">韵式：按顺序标记每个末尾音</span></li>
+        <li>Imagery = any sensory detail (sight, sound, touch, taste, smell) &nbsp;<span class="cn">意象 = 任何感官细节（视觉、听觉、触觉、味觉、嗅觉）</span></li>
+        <li>Figurative language creates deeper meaning than literal words &nbsp;<span class="cn">修辞语言创造比字面意思更深的含义</span></li>
+      </ul>
+    </div>
+  </div>
+
+
+
+  <!-- PRACTICES -->
+  <div class="section-title">📝 Practice <span class="cn">练习</span></div>
+  <div id="wedPracticeContainer"></div>
+
+  <!-- EXIT -->
+  <div class="section-title">🎯 Exit Ticket <span class="cn">课堂检测</span></div>
+  <div id="wedExitContainer"></div>
+
+  <div class="score-box" id="wedScoreBox">
+    <div class="score-num" id="wedScoreNum">—</div>
+    <p id="wedScoreMsg">Wednesday Exit Ticket Complete | 星期三课堂检测完成</p>
+  </div>
+
+  <div class="reflection-area" id="wedReflection">
+    <h3>💭 Reflection | 反思</h3>
+    <div class="reflect-q">1. Choose one figurative language technique (simile, metaphor, or personification). Write your own example and explain what it means. <span class="cn">选择一种修辞技巧（明喻、暗喻或拟人）。写出你自己的例子并解释其含义。</span></div>
+    <textarea class="reflect-textarea" id="wedRef1" placeholder="Write your answer here... / 在此写下您的答案..."></textarea>
+    <div class="reflect-q">2. Think about a poem you have read or heard. Describe one element of poetry you noticed and explain how it affected you as a reader. <span class="cn">想想你读过或听过的一首诗。描述你注意到的一个诗歌元素，并解释它如何影响你作为读者的感受。</span></div>
+    <textarea class="reflect-textarea" id="wedRef2" placeholder="Write your answer here... / 在此写下您的答案..."></textarea>
+  </div>
+  <button class="download-btn" id="wedDlBtn" onclick="downloadReport('wed')">⬇️ Download Wednesday Report (TXT)</button>
+</div>
+
+<!-- MASTER DOWNLOAD BAR -->
+<div id="masterDlBar" style="display:none;max-width:900px;margin:18px auto 0;padding:0 12px">
+  <div style="background:var(--ml-green-dark);border-radius:10px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div>
+      <div style="color:#fff;font-weight:700;font-size:1rem">✅ Module Complete!</div>
+      <div style="color:var(--ml-gold);font-size:.82rem;margin-top:3px" class="cn">模块完成！请下载您的报告提交给老师。</div>
+      <div style="color:rgba(255,255,255,.8);font-size:.8rem;margin-top:2px">Download your report and submit the TXT file to your teacher.</div>
+    </div>
+    <button onclick="downloadFullReport()" style="background:var(--ml-gold);color:var(--ink);border:none;border-radius:8px;padding:12px 26px;font-size:.92rem;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif">⬇️ Download Full Report</button>
+  </div>
+</div>
+
+<!-- TIMER -->
+<div class="timer" id="timerDisplay">⏱ 00:00</div>
+
+<script>
+// ===== STATE =====
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 45; // 5 vocab + 10 tue practice + 10 tue exit + 10 wed practice + 10 wed exit
+
+const tueAnswers = {};
+const tueExitAnswers = {};
+const wedAnswers = {};
+const wedExitAnswers = {};
+let tueScore = 0;
+let wedScore = 0;
+let tueExitDone = false;
+let wedExitDone = false;
+
+// ===== VOCAB DATA =====
+const VOCAB = [
+  {word:"diction",pos:"noun",cn:"\u63aa\u8f9e",def:"The choice and use of words in writing or speech.",cn_def:"\u5199\u4f5c\u6216\u6f14\u8bb2\u4e2d\u8bcd\u8bed\u7684\u9009\u62e9\u548c\u4f7f\u7528\u3002",example:"The poet's careful diction made every word feel important."},
+  {word:"connotation",pos:"noun",cn:"\u5185\u6db5",def:"The emotional or cultural meaning associated with a word beyond its literal definition.",cn_def:"\u8bcd\u8bed\u8d85\u51fa\u5b57\u9762\u5b9a\u4e49\u4e4b\u5916\u6240\u5173\u8054\u7684\u60c5\u611f\u6216\u6587\u5316\u542b\u4e49\u3002",example:"The word 'serpent' has a negative connotation because it suggests danger."},
+  {word:"denotation",pos:"noun",cn:"\u5916\u5ef6",def:"The direct, literal dictionary meaning of a word.",cn_def:"\u4e00\u4e2a\u8bcd\u7684\u76f4\u63a5\u3001\u5b57\u9762\u7684\u5b57\u5178\u542b\u4e49\u3002",example:"The denotation of 'snake' is simply a reptile without legs."},
+  {word:"tone",pos:"noun",cn:"\u8bed\u6c14",def:"The author's attitude toward the subject, revealed through word choice.",cn_def:"\u4f5c\u8005\u901a\u8fc7\u8bcd\u8bed\u9009\u62e9\u6240\u8868\u8fbe\u7684\u5bf9\u4e3b\u9898\u7684\u6001\u5ea6\u3002",example:"The author's hopeful tone made readers feel the character would survive."},
+  {word:"imagery",pos:"noun",cn:"\u610f\u8c61",def:"Descriptive language that appeals to the five senses.",cn_def:"\u8bc9\u8bf8\u4e94\u79cd\u611f\u5b98\u7684\u63cf\u8ff0\u6027\u8bed\u8a00\u3002",example:"The imagery of the cold, grey rain made the poem feel lonely."},
+  {word:"simile",pos:"noun",cn:"\u660e\u55bb",def:"A comparison between two things using the words 'like' or 'as.'",cn_def:"\u7528\"\u50cf\"\u6216\"\u5982\"\u6bd4\u8f83\u4e24\u4ef6\u4e8b\u7269\u3002",example:"Her smile was like sunshine breaking through clouds."},
+  {word:"metaphor",pos:"noun",cn:"\u6697\u55bb",def:"A direct comparison between two unlike things without using 'like' or 'as.'",cn_def:"\u4e0d\u7528\"\u50cf\"\u6216\"\u5982\"\u76f4\u63a5\u6bd4\u8f83\u4e24\u79cd\u4e0d\u540c\u4e8b\u7269\u3002",example:"Life is a journey with many unexpected turns."},
+  {word:"personification",pos:"noun",cn:"\u62df\u4eba",def:"Giving human qualities or actions to non-human things.",cn_def:"\u8d4b\u4e88\u975e\u4eba\u4e8b\u7269\u4eba\u7c7b\u7684\u54c1\u8d28\u6216\u884c\u4e3a\u3002",example:"The wind whispered secrets through the trees."},
+  {word:"stanza",pos:"noun",cn:"\u8bd7\u8282",def:"A grouped set of lines in a poem, similar to a paragraph in prose.",cn_def:"\u8bd7\u6b4c\u4e2d\u7684\u4e00\u7ec4\u8bd7\u884c\uff0c\u7c7b\u4f3c\u6563\u6587\u4e2d\u7684\u6bb5\u843d\u3002",example:"The poem has three stanzas, each with four lines."},
+  {word:"rhyme scheme",pos:"noun phrase",cn:"\u97f5\u5f0f",def:"The pattern of rhyming sounds at the end of lines in a poem, labeled with letters.",cn_def:"\u8bd7\u6b4c\u884c\u672b\u62bc\u97f5\u97f3\u7684\u6a21\u5f0f\uff0c\u7528\u5b57\u6bcd\u6807\u8bb0\u3002",example:"In the ABAB rhyme scheme, the first and third lines rhyme with each other."}
+];
+
+// ===== TUESDAY PRACTICES =====
+const TUE_PRACTICES = [
+  {
+    id:'tue_q1',
+    title:"The Market Description",
+    passage:"Mei walked through the crowded market. Vendors called out from every stall. The air was thick with the smell of fresh fruit, grilled meat, and something sweet she could not name. She pressed through the narrow path, her shoulder bag clutched tightly to her chest. Around her, the noise rose and fell like a wave. She smiled. She had missed this place.",
+    q:"What is the overall tone of this passage?",
+    q_cn:"\u8fd9\u6bb5\u6587\u5b57\u7684\u603b\u4f53\u8bed\u6c14\u662f\u4ec0\u4e48\uff1f",
+    hint:null,
+    options:["A. Fearful and tense|A. \u6050\u60e7\u800c\u7d27\u5f20","B. Nostalgic and warm|B. \u6000\u65e7\u800c\u6e29\u6696","C. Angry and bitter|C. \u6124\u6012\u800c\u82e6\u6da9","D. Bored and indifferent|D. \u65e0\u804a\u800c\u51b7\u6f20"],
+    correct:"B",
+    rationale:"Correct! The words 'missed this place' and the smile show nostalgia and warmth.|\u6b63\u786e\uff01\"\u60f3\u5ff5\u8fd9\u4e2a\u5730\u65b9\"\u548c\u5fae\u7b11\u8868\u660e\u4e86\u6000\u65e7\u548c\u6e29\u6696\u3002",
+    rationale_wrong:{A:"The passage does not contain fearful language; Mei smiles and feels at home.|\u6587\u6bb5\u4e2d\u6ca1\u6709\u6050\u60e7\u6027\u8bed\u8a00\uff1bMei\u5fae\u7b11\u7740\u611f\u5230\u5982\u5f52\u3002",C:"No anger or bitterness is present; the tone is positive.|\u6ca1\u6709\u6124\u6012\u6216\u82e6\u6da9\uff1b\u8bed\u6c14\u662f\u79ef\u6781\u7684\u3002",D:"Mei smiles and notices many details, showing engagement, not boredom.|Mei\u5fae\u7b11\u5e76\u6ce8\u610f\u5230\u8bb8\u591a\u7ec6\u8282\uff0c\u8868\u660e\u6295\u5165\u800c\u975e\u65e0\u804a\u3002"}
+  },
+  {
+    id:'tue_q2',
+    title:"Two Headlines",
+    passage:"A journalist wrote two headlines for the same event: Headline 1: 'Protestors Flood City Streets in Passionate Demonstration.' Headline 2: 'Mob Blocks City Streets in Chaotic Disturbance.' Both headlines describe the same event \u2014 hundreds of people marching through a city. However, the two headlines create very different feelings in the reader.",
+    q:"Which word from Headline 2 has a strongly negative connotation?",
+    q_cn:"\u6807\u98982\u4e2d\u54ea\u4e2a\u8bcd\u5177\u6709\u5f3a\u70c8\u7684\u8d1f\u9762\u5185\u6db5\uff1f",
+    hint:null,
+    options:["A. City|A. \u57ce\u5e02","B. Streets|B. \u8857\u9053","C. Mob|C. \u66b4\u5f92","D. Blocks|D. \u963b\u6321"],
+    correct:"C",
+    rationale:"Correct! 'Mob' suggests a violent, uncontrolled crowd \u2014 a strongly negative connotation.|\u6b63\u786e\uff01\"\u66b4\u5f92\"\u6697\u793a\u66b4\u529b\u3001\u5931\u63a7\u7684\u4eba\u7fa4\u2014\u2014\u5177\u6709\u5f3a\u70c8\u7684\u8d1f\u9762\u5185\u6db5\u3002",
+    rationale_wrong:{A:"'City' is a neutral word with no positive or negative connotation.|\"\u57ce\u5e02\"\u662f\u4e00\u4e2a\u4e2d\u6027\u8bcd\uff0c\u6ca1\u6709\u6b63\u9762\u6216\u8d1f\u9762\u5185\u6db5\u3002",B:"'Streets' is a neutral location word with no emotional charge.|\"\u8857\u9053\"\u662f\u4e00\u4e2a\u4e2d\u6027\u5730\u70b9\u8bcd\uff0c\u6ca1\u6709\u60c5\u611f\u8272\u5f69\u3002",D:"'Blocks' is a neutral verb describing an action; it doesn't carry strong connotation.|\"\u963b\u6321\"\u662f\u63cf\u8ff0\u52a8\u4f5c\u7684\u4e2d\u6027\u52a8\u8bcd\uff0c\u4e0d\u643a\u5e26\u5f3a\u70c8\u5185\u6db5\u3002"}
+  },
+  {
+    id:'tue_q3',
+    title:"Describing the Dog",
+    passage:"Chen wrote two sentences about the same dog: Sentence 1: 'The dog was thin and scraggly, its ribs showing through dirty fur.' Sentence 2: 'The dog was lean and athletic, its sleek coat catching the light.' Both sentences describe a thin dog, but the reader feels very differently about the animal after reading each one.",
+    q:"What is the main reason the two sentences create different feelings?",
+    q_cn:"\u8fd9\u4e24\u53e5\u8bdd\u4ea7\u751f\u4e0d\u540c\u611f\u53d7\u7684\u4e3b\u8981\u539f\u56e0\u662f\u4ec0\u4e48\uff1f",
+    hint:null,
+    options:["A. One sentence is longer than the other.|A. \u4e00\u53e5\u6bd4\u53e6\u4e00\u53e5\u66f4\u957f\u3002","B. The words have different connotations even though they describe similar things.|B. \u5373\u4f7f\u63cf\u8ff0\u76f8\u4f3c\u4e8b\u7269\uff0c\u8bcd\u8bed\u7684\u5185\u6db5\u4e5f\u4e0d\u540c\u3002","C. One sentence uses similes and the other does not.|C. \u4e00\u53e5\u4f7f\u7528\u4e86\u660e\u55bb\uff0c\u53e6\u4e00\u53e5\u6ca1\u6709\u3002","D. The sentences are about different animals.|D. \u8fd9\u4e24\u53e5\u8bdd\u662f\u5173\u4e8e\u4e0d\u540c\u52a8\u7269\u7684\u3002"],
+    correct:"B",
+    rationale:"Correct! 'Scraggly' and 'dirty' have negative connotations, while 'lean' and 'sleek' have positive ones.|\u6b63\u786e\uff01\"\u908b\u9062\"\u548c\"\u80ae\u810f\"\u5177\u6709\u8d1f\u9762\u5185\u6db5\uff0c\u800c\"\u7cbe\u5e72\"\u548c\"\u5149\u6ed1\"\u5177\u6709\u6b63\u9762\u5185\u6db5\u3002",
+    rationale_wrong:{A:"Length does not cause emotional effect; word choice does.|\u957f\u5ea6\u4e0d\u4f1a\u4ea7\u751f\u60c5\u611f\u6548\u679c\uff1b\u8bcd\u8bed\u9009\u62e9\u624d\u4f1a\u3002",C:"Neither sentence uses a simile \u2014 there is no 'like' or 'as' comparison.|\u4e24\u53e5\u8bdd\u90fd\u6ca1\u6709\u4f7f\u7528\u660e\u55bb\u2014\u2014\u6ca1\u6709\"\u50cf\"\u6216\"\u5982\"\u7684\u6bd4\u8f83\u3002",D:"Both sentences are clearly about the same thin dog.|\u4e24\u53e5\u8bdd\u663e\u7136\u90fd\u662f\u5173\u4e8e\u540c\u4e00\u53ea\u7626\u72d7\u7684\u3002"}
+  },
+  {
+    id:'tue_q4',
+    title:"The Teacher's Office",
+    passage:"Wang opened the door to the teacher's office. The room was small and packed with stacks of papers. Books lined every wall, some leaning at odd angles. An old desk sat in the center, covered with pens, sticky notes, and empty coffee cups. The teacher looked up from her work, her eyes tired but kind.",
+    q:"Which word best describes the tone of this passage?",
+    q_cn:"\u54ea\u4e2a\u8bcd\u6700\u80fd\u63cf\u8ff0\u8fd9\u6bb5\u6587\u5b57\u7684\u8bed\u6c14\uff1f",
+    hint:null,
+    options:["A. Frightening|A. \u4ee4\u4eba\u6050\u60e7\u7684","B. Humorous|B. \u5e7d\u9ed8\u7684","C. Observational and neutral|C. \u89c2\u5bdf\u6027\u4e14\u4e2d\u6027\u7684","D. Angry|D. \u6124\u6012\u7684"],
+    correct:"C",
+    rationale:"Correct! The passage describes what Wang sees without strong emotional language \u2014 observational and neutral.|\u6b63\u786e\uff01\u8fd9\u6bb5\u8bdd\u63cf\u8ff0\u4e86Wang\u6240\u770b\u5230\u7684\u5185\u5bb9\uff0c\u6ca1\u6709\u5f3a\u70c8\u7684\u60c5\u611f\u8bed\u8a00\u2014\u2014\u89c2\u5bdf\u6027\u4e14\u4e2d\u6027\u3002",
+    rationale_wrong:{A:"No frightening details are present; the teacher has 'kind' eyes.|\u6ca1\u6709\u4ee4\u4eba\u6050\u60e7\u7684\u7ec6\u8282\uff1b\u8001\u5e08\u6709\"\u5584\u826f\"\u7684\u773c\u775b\u3002",B:"Nothing is written for comedic effect; the description is straightforward.|\u6ca1\u6709\u4e3a\u559c\u5267\u6548\u679c\u800c\u5199\uff1b\u63cf\u8ff0\u662f\u76f4\u63a5\u7684\u3002",D:"There is no anger in the word choices or events described.|\u63cf\u8ff0\u7684\u8bcd\u8bed\u9009\u62e9\u6216\u4e8b\u4ef6\u4e2d\u6ca1\u6709\u6124\u6012\u3002"}
+  },
+  {
+    id:'tue_q5',
+    title:"Positive and Negative Pairs",
+    passage:"Lin was studying word pairs for her English class. Her teacher had given her a list: 'assertive' vs. 'aggressive,' 'frugal' vs. 'cheap,' 'confident' vs. 'arrogant,' and 'curious' vs. 'nosy.' She noticed that in each pair, both words had the same basic meaning but very different feelings attached to them. She wrote in her notebook: 'Same idea, different judgment.'",
+    q:"What concept does Lin's notebook entry ('Same idea, different judgment') best describe?",
+    q_cn:"Lin\u7b14\u8bb0\u672c\u4e0a\u7684\u5185\u5bb9\uff08\"\u76f8\u540c\u60f3\u6cd5\uff0c\u4e0d\u540c\u5224\u65ad\"\uff09\u6700\u80fd\u63cf\u8ff0\u4ec0\u4e48\u6982\u5ff5\uff1f",
+    hint:null,
+    options:["A. Denotation|A. \u5916\u5ef6","B. Connotation|B. \u5185\u6db5","C. Rhyme scheme|C. \u97f5\u5f0f","D. Tone|D. \u8bed\u6c14"],
+    correct:"B",
+    rationale:"Correct! Connotation is the emotional judgment or feeling a word carries beyond its basic meaning.|\u6b63\u786e\uff01\u5185\u6db5\u662f\u8bcd\u8bed\u9664\u57fa\u672c\u542b\u4e49\u4e4b\u5916\u6240\u643a\u5e26\u7684\u60c5\u611f\u5224\u65ad\u6216\u611f\u53d7\u3002",
+    rationale_wrong:{A:"Denotation is the literal dictionary definition, not the emotional judgment.|\u5916\u5ef6\u662f\u5b57\u9762\u5b57\u5178\u5b9a\u4e49\uff0c\u800c\u975e\u60c5\u611f\u5224\u65ad\u3002",C:"Rhyme scheme is about sounds in poetry, not word meanings.|\u97f5\u5f0f\u662f\u5173\u4e8e\u8bd7\u6b4c\u4e2d\u7684\u58f0\u97f3\uff0c\u800c\u975e\u8bcd\u8bed\u542b\u4e49\u3002",D:"Tone is the author's attitude, not the difference between word pairs.|\u8bed\u6c14\u662f\u4f5c\u8005\u7684\u6001\u5ea6\uff0c\u800c\u975e\u8bcd\u5bf9\u4e4b\u95f4\u7684\u5dee\u5f02\u3002"}
+  },
+  {
+    id:'tue_q6',
+    title:"Rewriting the Weather",
+    passage:"A student rewrote the same weather description three times: Version 1: 'Rain fell on the city.' Version 2: 'Cold, grey rain drowned the city in silence.' Version 3: 'A refreshing shower washed the city clean.' All three sentences describe rain, but each one creates a different mood.",
+    q:"Which version has the most negative tone?",
+    q_cn:"\u54ea\u4e2a\u7248\u672c\u7684\u8bed\u6c14\u6700\u8d1f\u9762\uff1f",
+    hint:null,
+    options:["A. Version 1|A. \u7248\u672c1","B. Version 2|B. \u7248\u672c2","C. Version 3|C. \u7248\u672c3","D. All three have the same tone.|D. \u4e09\u4e2a\u7248\u672c\u8bed\u6c14\u76f8\u540c\u3002"],
+    correct:"B",
+    rationale:"Correct! 'Cold, grey,' 'drowned,' and 'silence' all carry negative connotations that create a dark, hopeless mood.|\u6b63\u786e\uff01\"\u5bd2\u51b7\u3001\u7070\u8272\"\u3001\"\u6df9\u6ca1\"\u548c\"\u6c89\u9ed8\"\u90fd\u643a\u5e26\u8d1f\u9762\u5185\u6db5\uff0c\u8425\u9020\u51fa\u9ed1\u6697\u3001\u7edd\u671b\u7684\u6c1b\u56f4\u3002",
+    rationale_wrong:{A:"Version 1 is neutral \u2014 it simply states a fact with no emotional language.|\u7248\u672c1\u662f\u4e2d\u6027\u7684\u2014\u2014\u5b83\u53ea\u662f\u9648\u8ff0\u4e8b\u5b9e\uff0c\u6ca1\u6709\u60c5\u611f\u8bed\u8a00\u3002",C:"Version 3 uses 'refreshing' and 'washed clean' \u2014 positive language suggesting renewal.|\u7248\u672c3\u4f7f\u7528\"\u4ee4\u4eba\u795e\u6e05\u6c14\u723d\"\u548c\"\u6d17\u5e72\u51c0\"\u2014\u2014\u79ef\u6781\u7684\u8bed\u8a00\u6697\u793a\u66f4\u65b0\u3002",D:"Word choice creates clear tonal differences among the three versions.|\u8bcd\u8bed\u9009\u62e9\u5728\u4e09\u4e2a\u7248\u672c\u4e4b\u95f4\u521b\u9020\u4e86\u660e\u663e\u7684\u8bed\u6c14\u5dee\u5f02\u3002"}
+  },
+  {
+    id:'tue_q7',
+    title:"The Politician's Speech",
+    passage:"The politician stood at the podium. 'Our great nation is facing a challenge,' he said. 'But challenges make us stronger. Our people are resilient. Our communities are united. Together, we will rise.' The crowd cheered. His speech had lasted only two minutes, but the audience left feeling hopeful.",
+    q:"What is the tone of the politician's speech?",
+    q_cn:"\u8fd9\u4f4d\u653f\u6cbb\u5bb6\u6f14\u8bb2\u7684\u8bed\u6c14\u662f\u4ec0\u4e48\uff1f",
+    hint:null,
+    options:["A. Pessimistic and defeated|A. \u60b2\u89c2\u800c\u6cae\u4e27","B. Inspiring and optimistic|B. \u9f13\u821e\u4eba\u5fc3\u4e14\u4e50\u89c2\u7684","C. Sarcastic and mocking|C. \u8bbd\u523a\u4e14\u5632\u5f04\u7684","D. Confused and uncertain|D. \u56f0\u60d1\u4e14\u4e0d\u786e\u5b9a\u7684"],
+    correct:"B",
+    rationale:"Correct! Words like 'resilient,' 'united,' and 'rise' create an inspiring and optimistic tone.|\u6b63\u786e\uff01\"\u575a\u97e7\"\u3001\"\u56e2\u7ed3\"\u548c\"\u5d1b\u8d77\"\u7b49\u8bcd\u521b\u9020\u4e86\u9f13\u821e\u4eba\u5fc3\u4e14\u4e50\u89c2\u7684\u8bed\u6c14\u3002",
+    rationale_wrong:{A:"No negative or defeated language is used; the speech focuses on strength.|\u6ca1\u6709\u4f7f\u7528\u8d1f\u9762\u6216\u6cae\u4e27\u7684\u8bed\u8a00\uff1b\u6f14\u8bb2\u4fa7\u91cd\u4e8e\u529b\u91cf\u3002",C:"The speech is sincere; there is no irony or mockery in the word choice.|\u6f14\u8bb2\u662f\u771f\u8bda\u7684\uff1b\u8bcd\u8bed\u9009\u62e9\u4e2d\u6ca1\u6709\u8bbd\u523a\u6216\u5632\u5f04\u3002",D:"The speech is clear and confident \u2014 the opposite of confused.|\u6f14\u8bb2\u6e05\u6670\u800c\u81ea\u4fe1\u2014\u2014\u4e0e\u56f0\u60d1\u76f8\u53cd\u3002"}
+  },
+  {
+    id:'tue_q8',
+    title:"The Word 'Old'",
+    passage:"Zhang's grandmother was 82 years old. When Zhang described her to different people, she used different words: to her friend, she said her grandmother was 'elderly and wise.' In her diary, she wrote that her grandmother was 'ancient and frail.' To her grandmother's face, she said she was 'experienced and full of stories.' All three descriptions meant old, but each felt different.",
+    q:"Which description has the most positive connotation?",
+    q_cn:"\u54ea\u4e2a\u63cf\u8ff0\u5177\u6709\u6700\u6b63\u9762\u7684\u5185\u6db5\uff1f",
+    hint:null,
+    options:["A. Ancient and frail|A. \u53e4\u8001\u800c\u865a\u5f31","B. Elderly and wise|B. \u5e74\u957f\u800c\u777f\u667a","C. Experienced and full of stories|C. \u7ecf\u9a8c\u4e30\u5bcc\u4e14\u5145\u6ee1\u6545\u4e8b","D. A and B equally|D. A\u548cB\u540c\u7b49"],
+    correct:"C",
+    rationale:"Correct! 'Experienced and full of stories' focuses on richness and value \u2014 the most positive framing.|\u6b63\u786e\uff01\"\u7ecf\u9a8c\u4e30\u5bcc\u4e14\u5145\u6ee1\u6545\u4e8b\"\u4fa7\u91cd\u4e8e\u4e30\u5bcc\u6027\u548c\u4ef7\u503c\u2014\u2014\u6700\u6b63\u9762\u7684\u8868\u8fbe\u3002",
+    rationale_wrong:{A:"'Ancient' and 'frail' carry negative connotations suggesting weakness and deterioration.|\"\u53e4\u8001\"\u548c\"\u865a\u5f31\"\u643a\u5e26\u8d1f\u9762\u5185\u6db5\uff0c\u6697\u793a\u8f6f\u5f31\u548c\u8870\u9000\u3002",B:"'Elderly and wise' is positive but less celebratory than 'experienced and full of stories.'|\"\u5e74\u957f\u800c\u777f\u667a\"\u662f\u79ef\u6781\u7684\uff0c\u4f46\u4e0d\u5982\"\u7ecf\u9a8c\u4e30\u5bcc\u4e14\u5145\u6ee1\u6545\u4e8b\"\u90a3\u6837\u5145\u6ee1\u8d5e\u7f8e\u3002",D:"'Ancient and frail' is clearly negative, so A cannot be equally positive.|\"\u53e4\u8001\u800c\u865a\u5f31\"\u660e\u663e\u662f\u8d1f\u9762\u7684\uff0c\u6240\u4ee5A\u4e0d\u80fd\u540c\u6837\u79ef\u6781\u3002"}
+  },
+  {
+    id:'tue_q9',
+    title:"Author's Word Choice in a Story",
+    passage:"In a short story, a character is described in two different ways by two different characters who know her. Her teacher says: 'She is determined and hardworking.' Her rival says: 'She is stubborn and obsessive.' Both characters are describing the same girl's behavior \u2014 her habit of practicing piano for four hours every day.",
+    q:"What does this example best illustrate?",
+    q_cn:"\u8fd9\u4e2a\u4f8b\u5b50\u6700\u80fd\u8bf4\u660e\u4ec0\u4e48\uff1f",
+    hint:null,
+    options:["A. The girl is actually two different people.|A. \u8fd9\u4e2a\u5973\u5b69\u5b9e\u9645\u4e0a\u662f\u4e24\u4e2a\u4e0d\u540c\u7684\u4eba\u3002","B. Word choice affects how the reader judges a character.|B. \u8bcd\u8bed\u9009\u62e9\u5f71\u54cd\u8bfb\u8005\u5bf9\u4eba\u7269\u7684\u5224\u65ad\u3002","C. The teacher and rival have different jobs.|C. \u8001\u5e08\u548c\u5bf9\u624b\u6709\u4e0d\u540c\u7684\u5de5\u4f5c\u3002","D. Piano practice is always described negatively.|D. \u94a2\u7434\u7ec3\u4e60\u603b\u662f\u88ab\u8d1f\u9762\u63cf\u8ff0\u3002"],
+    correct:"B",
+    rationale:"Correct! 'Determined' vs. 'stubborn' \u2014 same behavior, different judgment \u2014 shows how diction shapes character perception.|\u6b63\u786e\uff01\"\u575a\u5b9a\"\u5bf9\u6bd4\"\u56fa\u6267\"\u2014\u2014\u76f8\u540c\u884c\u4e3a\uff0c\u4e0d\u540c\u5224\u65ad\u2014\u2014\u5c55\u793a\u4e86\u63aa\u8f9e\u5982\u4f55\u5851\u9020\u5bf9\u4eba\u7269\u7684\u8ba4\u77e5\u3002",
+    rationale_wrong:{A:"Both characters are clearly describing the same person and the same behavior.|\u4e24\u4e2a\u4eba\u7269\u663e\u7136\u90fd\u5728\u63cf\u8ff0\u540c\u4e00\u4e2a\u4eba\u548c\u540c\u4e00\u884c\u4e3a\u3002",C:"Their jobs are not relevant; what matters is their word choice and perspective.|\u4ed6\u4eec\u7684\u5de5\u4f5c\u4e0d\u76f8\u5173\uff1b\u91cd\u8981\u7684\u662f\u4ed6\u4eec\u7684\u8bcd\u8bed\u9009\u62e9\u548c\u89c6\u89d2\u3002",D:"The teacher uses positive words about the practice, not negative ones.|\u8001\u5e08\u7528\u79ef\u6781\u7684\u8bcd\u8bed\u63cf\u8ff0\u7ec3\u4e60\uff0c\u800c\u975e\u8d1f\u9762\u7684\u3002"}
+  },
+  {
+    id:'tue_q10',
+    title:"The Letter",
+    passage:"Ling received a letter from the school about her behavior during class. One version of the letter said: 'Ling demonstrated creative thinking and enthusiastic participation.' A second version of the same letter said: 'Ling was disruptive and difficult to control.' Both letters described the same classroom event \u2014 Ling had called out answers without raising her hand.",
+    q:"What is the best explanation for why the two letters feel so different?",
+    q_cn:"\u4e24\u5c01\u4fe1\u611f\u89c9\u5982\u6b64\u4e0d\u540c\u7684\u6700\u4f73\u89e3\u91ca\u662f\u4ec0\u4e48\uff1f",
+    hint:null,
+    options:["A. They are about different events.|A. \u5b83\u4eec\u662f\u5173\u4e8e\u4e0d\u540c\u4e8b\u4ef6\u7684\u3002","B. One letter is longer.|B. \u4e00\u5c01\u4fe1\u66f4\u957f\u3002","C. The word choice reflects different connotations and tones.|C. \u8bcd\u8bed\u9009\u62e9\u53cd\u6620\u4e86\u4e0d\u540c\u7684\u5185\u6db5\u548c\u8bed\u6c14\u3002","D. Letters cannot describe classroom events.|D. \u4fe1\u4ef6\u65e0\u6cd5\u63cf\u8ff0\u8bfe\u5802\u4e8b\u4ef6\u3002"],
+    correct:"C",
+    rationale:"Correct! 'Creative and enthusiastic' vs. 'disruptive and difficult' are the same action described with opposite connotations.|\u6b63\u786e\uff01\"\u6709\u521b\u610f\u4e14\u70ed\u60c5\"\u5bf9\u6bd4\"\u7834\u574f\u6027\u4e14\u96be\u4ee5\u63a7\u5236\"\u662f\u7528\u76f8\u53cd\u5185\u6db5\u63cf\u8ff0\u540c\u4e00\u884c\u52a8\u3002",
+    rationale_wrong:{A:"Both letters describe the exact same event \u2014 Ling calling out answers.|\u4e24\u5c01\u4fe1\u90fd\u63cf\u8ff0\u4e86\u5b8c\u5168\u76f8\u540c\u7684\u4e8b\u4ef6\u2014\u2014Ling\u558a\u51fa\u7b54\u6848\u3002",B:"Letter length does not cause the emotional difference; word choice does.|\u4fe1\u4ef6\u957f\u5ea6\u4e0d\u4f1a\u5f15\u8d77\u60c5\u611f\u5dee\u5f02\uff1b\u8bcd\u8bed\u9009\u62e9\u624d\u4f1a\u3002",D:"Letters can and regularly do describe classroom behavior and events.|\u4fe1\u4ef6\u53ef\u4ee5\u4e5f\u7ecf\u5e38\u63cf\u8ff0\u8bfe\u5802\u884c\u4e3a\u548c\u4e8b\u4ef6\u3002"}
+  }
+];
+
+// ===== TUESDAY EXIT =====
+const TUE_EXIT = [
+  {q:"What is 'denotation'?",q_cn:"\u4ec0\u4e48\u662f'\u5916\u5ef6'\uff1f",opts:["A. The emotional feeling of a word|A. \u8bcd\u8bed\u7684\u60c5\u611f\u611f\u53d7","B. The literal dictionary meaning of a word|B. \u8bcd\u8bed\u7684\u5b57\u9762\u5b57\u5178\u542b\u4e49","C. The author's attitude toward readers|C. \u4f5c\u8005\u5bf9\u8bfb\u8005\u7684\u6001\u5ea6","D. The rhythm of a poem|D. \u8bd7\u6b4c\u7684\u8282\u594f"],correct:"B",rat:"Denotation is the direct, literal dictionary definition.|\u5916\u5ef6\u662f\u76f4\u63a5\u7684\u3001\u5b57\u9762\u7684\u5b57\u5178\u5b9a\u4e49\u3002"},
+  {q:"Which of the following words has the most positive connotation?",q_cn:"\u4ee5\u4e0b\u54ea\u4e2a\u8bcd\u5177\u6709\u6700\u6b63\u9762\u7684\u5185\u6db5\uff1f",opts:["A. Cheap|A. \u4fbf\u5b9c\uff08\u5c0f\u6c14\uff09","B. Frugal|B. \u8282\u4fed","C. Stingy|C. \u541d\u556c","D. Miserly|D. \u8d2a\u5a6a"],correct:"B",rat:"'Frugal' suggests careful, wise saving \u2014 a positive connotation.|\"\u8282\u4fed\"\u6697\u793a\u8c28\u614e\u3001\u660e\u667a\u7684\u50a8\u84c4\u2014\u2014\u6b63\u9762\u5185\u6db5\u3002"},
+  {q:"Tone is best defined as:",q_cn:"\u8bed\u6c14\u6700\u597d\u7684\u5b9a\u4e49\u662f\uff1a",opts:["A. The main idea of a text|A. \u6587\u672c\u7684\u4e3b\u65e8","B. The author's attitude toward the subject revealed through word choice|B. \u4f5c\u8005\u901a\u8fc7\u8bcd\u8bed\u9009\u62e9\u63ed\u793a\u7684\u5bf9\u4e3b\u9898\u7684\u6001\u5ea6","C. A rhyming pattern in poetry|C. \u8bd7\u6b4c\u4e2d\u7684\u62bc\u97f5\u6a21\u5f0f","D. The length of a passage|D. \u6bb5\u843d\u7684\u957f\u5ea6"],correct:"B",rat:"Tone is the author's attitude, identified through diction (word choice).|\u8bed\u6c14\u662f\u4f5c\u8005\u7684\u6001\u5ea6\uff0c\u901a\u8fc7\u63aa\u8f9e\uff08\u8bcd\u8bed\u9009\u62e9\uff09\u6765\u8bc6\u522b\u3002"},
+  {q:"'Assertive' and 'aggressive' share the same denotation but different connotations. What does this mean?",q_cn:"'assertive'\uff08\u575a\u5b9a\uff09\u548c'aggressive'\uff08\u597d\u6597\uff09\u6709\u76f8\u540c\u7684\u5916\u5ef6\u4f46\u4e0d\u540c\u7684\u5185\u6db5\u3002\u8fd9\u610f\u5473\u7740\u4ec0\u4e48\uff1f",opts:["A. They describe completely different actions.|A. \u5b83\u4eec\u63cf\u8ff0\u5b8c\u5168\u4e0d\u540c\u7684\u884c\u52a8\u3002","B. They have the same literal meaning but different emotional feelings.|B. \u5b83\u4eec\u6709\u76f8\u540c\u7684\u5b57\u9762\u542b\u4e49\uff0c\u4f46\u60c5\u611f\u611f\u53d7\u4e0d\u540c\u3002","C. They are both always used negatively.|C. \u5b83\u4eec\u90fd\u603b\u662f\u88ab\u8d1f\u9762\u4f7f\u7528\u3002","D. They cannot be used in the same sentence.|D. \u5b83\u4eec\u4e0d\u80fd\u7528\u5728\u540c\u4e00\u53e5\u8bdd\u4e2d\u3002"],correct:"B",rat:"Same basic meaning (being strong), but 'assertive' is positive and 'aggressive' is negative.|\u76f8\u540c\u7684\u57fa\u672c\u542b\u4e49\uff08\u5f3a\u52bf\uff09\uff0c\u4f46\"\u575a\u5b9a\"\u662f\u6b63\u9762\u7684\uff0c\"\u597d\u6597\"\u662f\u8d1f\u9762\u7684\u3002"},
+  {q:"A passage describes a storm as 'a welcome relief after the dry, burning weeks.' What is the tone?",q_cn:"\u4e00\u6bb5\u6587\u5b57\u5c06\u66b4\u98ce\u96e8\u63cf\u8ff0\u4e3a\"\u5e72\u71e5\u3001\u708e\u70ed\u6570\u5468\u540e\u53d7\u6b22\u8fce\u7684\u89e3\u8131\"\u3002\u8bed\u6c14\u662f\u4ec0\u4e48\uff1f",opts:["A. Terrified|A. \u6050\u60e7\u7684","B. Grateful and relieved|B. \u611f\u6fc0\u548c\u8f7b\u677e\u7684","C. Angry|C. \u6124\u6012\u7684","D. Confused|D. \u56f0\u60d1\u7684"],correct:"B",rat:"'Welcome relief' shows the narrator appreciates the storm \u2014 grateful and relieved.|\"\u53d7\u6b22\u8fce\u7684\u89e3\u8131\"\u8868\u660e\u53d9\u8ff0\u8005\u611f\u6fc0\u66b4\u98ce\u96e8\u2014\u2014\u611f\u6fc0\u548c\u8f7b\u677e\u3002"},
+  {q:"Which sentence has the most negative tone?",q_cn:"\u54ea\u4e2a\u53e5\u5b50\u7684\u8bed\u6c14\u6700\u8d1f\u9762\uff1f",opts:["A. The children played happily in the park.|A. \u5b69\u5b50\u4eec\u5728\u516c\u56ed\u91cc\u5feb\u4e50\u5730\u73a9\u800d\u3002","B. The children wandered through the park.|B. \u5b69\u5b50\u4eec\u6f2b\u6b65\u5728\u516c\u56ed\u91cc\u3002","C. The children screamed and trampled through the park.|C. \u5b69\u5b50\u4eec\u5728\u516c\u56ed\u91cc\u5c16\u53eb\u7740\u6a2a\u51b2\u76f4\u649e\u3002","D. The children ran to the park.|D. \u5b69\u5b50\u4eec\u8dd1\u5411\u516c\u56ed\u3002"],correct:"C",rat:"'Screamed' and 'trampled' carry negative, chaotic connotations.|\"\u5c16\u53eb\"\u548c\"\u6a2a\u51b2\u76f4\u649e\"\u643a\u5e26\u8d1f\u9762\u3001\u6df7\u4e71\u7684\u5185\u6db5\u3002"},
+  {q:"An author chooses the word 'dwelling' instead of 'home.' What effect does this create?",q_cn:"\u4f5c\u8005\u9009\u62e9\"\u4f4f\u6240\"\u800c\u4e0d\u662f\"\u5bb6\"\u3002\u8fd9\u4f1a\u4ea7\u751f\u4ec0\u4e48\u6548\u679c\uff1f",opts:["A. It makes the place feel warmer and more personal.|A. \u5b83\u4f7f\u5730\u65b9\u611f\u89c9\u66f4\u6e29\u6696\u548c\u66f4\u4e2a\u4eba\u5316\u3002","B. It makes the place feel more formal and less personal.|B. \u5b83\u4f7f\u5730\u65b9\u611f\u89c9\u66f4\u6b63\u5f0f\uff0c\u66f4\u5c11\u4e2a\u4eba\u5316\u3002","C. It adds humor to the description.|C. \u5b83\u4e3a\u63cf\u8ff0\u589e\u6dfb\u4e86\u5e7d\u9ed8\u611f\u3002","D. It has no effect on meaning.|D. \u5b83\u5bf9\u542b\u4e49\u6ca1\u6709\u5f71\u54cd\u3002"],correct:"B",rat:"'Dwelling' is formal and clinical; 'home' is warm and personal \u2014 connotation differs.|\"\u4f4f\u6240\"\u6b63\u5f0f\u4e14\u51b7\u6f20\uff1b\"\u5bb6\"\u6e29\u6696\u800c\u4e2a\u4eba\u5316\u2014\u2014\u5185\u6db5\u4e0d\u540c\u3002"},
+  {q:"Which of the following best describes the relationship between word choice and tone?",q_cn:"\u4ee5\u4e0b\u54ea\u9879\u6700\u80fd\u63cf\u8ff0\u8bcd\u8bed\u9009\u62e9\u4e0e\u8bed\u6c14\u4e4b\u95f4\u7684\u5173\u7cfb\uff1f",opts:["A. Tone creates word choice.|A. \u8bed\u6c14\u521b\u9020\u8bcd\u8bed\u9009\u62e9\u3002","B. Word choice is one of the main tools authors use to create tone.|B. \u8bcd\u8bed\u9009\u62e9\u662f\u4f5c\u8005\u521b\u9020\u8bed\u6c14\u7684\u4e3b\u8981\u5de5\u5177\u4e4b\u4e00\u3002","C. Word choice and tone are unrelated.|C. \u8bcd\u8bed\u9009\u62e9\u548c\u8bed\u6c14\u65e0\u5173\u3002","D. Tone only exists in poetry.|D. \u8bed\u6c14\u53ea\u5b58\u5728\u4e8e\u8bd7\u6b4c\u4e2d\u3002"],correct:"B",rat:"Authors deliberately choose words to shape how the reader feels \u2014 this creates tone.|\u4f5c\u8005\u523b\u610f\u9009\u62e9\u8bcd\u8bed\u6765\u5851\u9020\u8bfb\u8005\u7684\u611f\u53d7\u2014\u2014\u8fd9\u5c31\u521b\u9020\u4e86\u8bed\u6c14\u3002"},
+  {q:"The headline 'Brave Officers Restore Order' and 'Police Crack Down on Protesters' describe the same event. What accounts for the difference?",q_cn:"\u6807\u9898\"\u52c7\u6562\u7684\u8b66\u5bdf\u6062\u590d\u79e9\u5e8f\"\u548c\"\u8b66\u5bdf\u9547\u538b\u6297\u8bae\u8005\"\u63cf\u8ff0\u540c\u4e00\u4e8b\u4ef6\u3002\u5dee\u5f02\u7684\u539f\u56e0\u662f\u4ec0\u4e48\uff1f",opts:["A. Different denotations|A. \u4e0d\u540c\u7684\u5916\u5ef6","B. Different sentence lengths|B. \u4e0d\u540c\u7684\u53e5\u5b50\u957f\u5ea6","C. Different connotations and tones created by word choice|C. \u8bcd\u8bed\u9009\u62e9\u521b\u9020\u7684\u4e0d\u540c\u5185\u6db5\u548c\u8bed\u6c14","D. The events described are different.|D. \u63cf\u8ff0\u7684\u4e8b\u4ef6\u4e0d\u540c\u3002"],correct:"C",rat:"'Brave' vs. 'crack down' and 'restore order' vs. 'protesters' create opposite emotional framings.|\"\u52c7\u6562\"\u5bf9\u6bd4\"\u9547\u538b\"\u548c\"\u6062\u590d\u79e9\u5e8f\"\u5bf9\u6bd4\"\u6297\u8bae\u8005\"\u521b\u9020\u4e86\u76f8\u53cd\u7684\u60c5\u611f\u6846\u67b6\u3002"},
+  {q:"A student reads: 'The old house groaned under the weight of years, its windows clouded and dark.' What is the most likely tone?",q_cn:"\u5b66\u751f\u9605\u8bfb\uff1a\"\u65e7\u623f\u5b50\u5728\u5c81\u6708\u7684\u91cd\u538b\u4e0b\u547b\u541f\uff0c\u5b83\u7684\u7a97\u6237\u6df7\u6d4a\u800c\u9ed1\u6697\u3002\"\u6700\u53ef\u80fd\u7684\u8bed\u6c14\u662f\u4ec0\u4e48\uff1f",opts:["A. Cheerful and bright|A. \u6b22\u5feb\u800c\u660e\u4eae","B. Mysterious and melancholy|B. \u795e\u79d8\u800c\u5fe7\u90c1","C. Hopeful and energetic|C. \u5145\u6ee1\u5e0c\u671b\u4e14\u5145\u6ee1\u6d3b\u529b","D. Humorous and playful|D. \u5e7d\u9ed8\u800c\u4fcf\u76ae"],correct:"B",rat:"'Groaned,' 'clouded,' and 'dark' create a mysterious and melancholy tone.|\"\u547b\u541f\"\u3001\"\u6df7\u6d4a\"\u548c\"\u9ed1\u6697\"\u521b\u9020\u4e86\u795e\u79d8\u800c\u5fe7\u90c1\u7684\u8bed\u6c14\u3002"}
+];
+
+// ===== WEDNESDAY PRACTICES =====
+const WED_PRACTICES = [
+  {
+    id:'wed_q1',
+    title:"The Rain Poem",
+    passage:"Read this short poem: 'The rain falls soft on rooftops grey, / It washes all the dust away. / The sparrow hides beneath the eave, / While puddles form among the leaves.' This poem has four lines and follows a pattern where lines 1 and 2 rhyme, and lines 3 and 4 rhyme.",
+    q:"What is the rhyme scheme of this poem?",
+    q_cn:"\u8fd9\u9996\u8bd7\u7684\u97f5\u5f0f\u662f\u4ec0\u4e48\uff1f",
+    hint:null,
+    options:["A. ABAB|A. ABAB","B. AABB|B. AABB","C. ABBA|C. ABBA","D. AAAA|D. AAAA"],
+    correct:"B",
+    rationale:"Correct! Lines 1&2 rhyme (grey/away=AA) and lines 3&4 rhyme (eave/leaves=BB), giving AABB.|\u6b63\u786e\uff01\u7b2c1\u30012\u884c\u62bc\u97f5\uff08grey/away=AA\uff09\uff0c\u7b2c3\u30014\u884c\u62bc\u97f5\uff08eave/leaves=BB\uff09\uff0c\u5f62\u6210AABB\u3002",
+    rationale_wrong:{A:"ABAB would mean lines 1 and 3 rhyme, and 2 and 4 rhyme \u2014 not the case here.|ABAB\u610f\u5473\u7740\u7b2c1\u30013\u884c\u62bc\u97f5\uff0c\u7b2c2\u30014\u884c\u62bc\u97f5\u2014\u2014\u8fd9\u91cc\u4e0d\u662f\u8fd9\u79cd\u60c5\u51b5\u3002",C:"ABBA means 1 and 4 rhyme, and 2 and 3 rhyme \u2014 check the actual end words.|ABBA\u610f\u5473\u7740\u7b2c1\u30014\u884c\u62bc\u97f5\uff0c\u7b2c2\u30013\u884c\u62bc\u97f5\u2014\u2014\u68c0\u67e5\u5b9e\u9645\u7684\u672b\u5c3e\u8bcd\u3002",D:"AAAA means all four lines rhyme \u2014 but 'grey/away' don't rhyme with 'eave/leaves.'|AAAA\u610f\u5473\u7740\u56db\u884c\u90fd\u62bc\u97f5\u2014\u2014\u4f46\"grey/away\"\u4e0e\"eave/leaves\"\u4e0d\u62bc\u97f5\u3002"}
+  },
+  {
+    id:'wed_q2',
+    title:"The Sun Woke Up",
+    passage:"Read this excerpt from a poem: 'The sun stretched its golden arms across the horizon, / Yawned behind the mountains, / Then slowly rose to greet the waiting world.' The sun is described as if it has a body and feelings.",
+    q:"Which literary device is used in this poem excerpt?",
+    q_cn:"\u8fd9\u9996\u8bd7\u7247\u6bb5\u4e2d\u4f7f\u7528\u4e86\u54ea\u79cd\u6587\u5b66\u624b\u6cd5\uff1f",
+    hint:null,
+    options:["A. Simile|A. \u660e\u55bb","B. Metaphor|B. \u6697\u55bb","C. Personification|C. \u62df\u4eba","D. Rhyme|D. \u62bc\u97f5"],
+    correct:"C",
+    rationale:"Correct! The sun is given human actions \u2014 stretched, yawned, rose to greet \u2014 this is personification.|\u6b63\u786e\uff01\u592a\u9633\u88ab\u8d4b\u4e88\u4e86\u4eba\u7c7b\u884c\u4e3a\u2014\u2014\u4f38\u5c55\u3001\u6253\u54c8\u6b20\u3001\u5347\u8d77\u95ee\u5019\u2014\u2014\u8fd9\u662f\u62df\u4eba\u3002",
+    rationale_wrong:{A:"A simile uses 'like' or 'as' \u2014 there is no such comparison here.|\u660e\u55bb\u4f7f\u7528\"\u50cf\"\u6216\"\u5982\"\u2014\u2014\u8fd9\u91cc\u6ca1\u6709\u8fd9\u6837\u7684\u6bd4\u8f83\u3002",B:"A metaphor directly calls one thing another; here the sun isn't being compared to something \u2014 it's being given human traits.|\u6697\u55bb\u76f4\u63a5\u79f0\u4e00\u4e8b\u7269\u4e3a\u53e6\u4e00\u4e8b\u7269\uff1b\u8fd9\u91cc\u592a\u9633\u4e0d\u662f\u88ab\u6bd4\u4f5c\u67d0\u7269\u2014\u2014\u800c\u662f\u88ab\u8d4b\u4e88\u4e86\u4eba\u7c7b\u7279\u5f81\u3002",D:"This excerpt does not have a regular rhyme pattern between line endings.|\u8fd9\u4e2a\u7247\u6bb5\u7684\u884c\u672b\u6ca1\u6709\u89c4\u5f8b\u7684\u62bc\u97f5\u6a21\u5f0f\u3002"}
+  },
+  {
+    id:'wed_q3',
+    title:"Her Voice, A River",
+    passage:"Read this line from a poem: 'Her voice is a river \u2014 / Deep and dark in the center, / Rushing over stones at the edges, / Always moving, never still.' The poet is describing a woman's voice using a natural object.",
+    q:"Which literary device is used?",
+    q_cn:"\u4f7f\u7528\u4e86\u54ea\u79cd\u6587\u5b66\u624b\u6cd5\uff1f",
+    hint:null,
+    options:["A. Personification|A. \u62df\u4eba","B. Simile|B. \u660e\u55bb","C. Metaphor|C. \u6697\u55bb","D. Stanza|D. \u8bd7\u8282"],
+    correct:"C",
+    rationale:"Correct! 'Her voice IS a river' \u2014 no 'like' or 'as' \u2014 this is a direct metaphor.|\u6b63\u786e\uff01\"\u5979\u7684\u58f0\u97f3\u662f\u4e00\u6761\u6cb3\"\u2014\u2014\u6ca1\u6709\"\u50cf\"\u6216\"\u5982\"\u2014\u2014\u8fd9\u662f\u4e00\u4e2a\u76f4\u63a5\u7684\u6697\u55bb\u3002",
+    rationale_wrong:{A:"Personification gives human traits to non-human things; a river isn't being given human traits here.|\u62df\u4eba\u662f\u8d4b\u4e88\u975e\u4eba\u4e8b\u7269\u4eba\u7c7b\u7279\u5f81\uff1b\u8fd9\u91cc\u6cb3\u6d41\u6ca1\u6709\u88ab\u8d4b\u4e88\u4eba\u7c7b\u7279\u5f81\u3002",B:"A simile would say 'her voice is LIKE a river' \u2014 the word 'like' is absent.|\u660e\u55bb\u4f1a\u8bf4\"\u5979\u7684\u58f0\u97f3\u50cf\u4e00\u6761\u6cb3\"\u2014\u2014\"\u50cf\"\u5b57\u4e0d\u5728\u3002",D:"A stanza is a structural feature (grouped lines) \u2014 it's not a literary device for comparison.|\u8bd7\u8282\u662f\u4e00\u4e2a\u7ed3\u6784\u7279\u5f81\uff08\u5206\u7ec4\u7684\u8bd7\u884c\uff09\u2014\u2014\u5b83\u4e0d\u662f\u7528\u4e8e\u6bd4\u8f83\u7684\u6587\u5b66\u624b\u6cd5\u3002"}
+  },
+  {
+    id:'wed_q4',
+    title:"The Smell of Rain",
+    passage:"Read this stanza from a poem about summer: 'The smell of rain on hot pavement rose, / Like bread fresh from the oven. / The children ran outside, arms stretched wide \u2014 / Their laughter filling the sudden quiet.' This stanza has four lines. The poem has three stanzas in total.",
+    q:"How many lines does the complete poem most likely have?",
+    q_cn:"\u6574\u9996\u8bd7\u6700\u53ef\u80fd\u6709\u591a\u5c11\u884c\uff1f",
+    hint:null,
+    options:["A. 4 lines|A. 4\u884c","B. 8 lines|B. 8\u884c","C. 12 lines|C. 12\u884c","D. 16 lines|D. 16\u884c"],
+    correct:"C",
+    rationale:"Correct! 3 stanzas \u00d7 4 lines each = 12 lines total.|\u6b63\u786e\uff013\u4e2a\u8bd7\u8282 \u00d7 \u6bcf\u82824\u884c = \u517112\u884c\u3002",
+    rationale_wrong:{A:"4 lines would be only one stanza \u2014 but the poem has three stanzas.|4\u884c\u53ea\u662f\u4e00\u4e2a\u8bd7\u8282\u2014\u2014\u4f46\u8fd9\u9996\u8bd7\u6709\u4e09\u4e2a\u8bd7\u8282\u3002",B:"8 lines would be only two stanzas, not three.|8\u884c\u53ea\u6709\u4e24\u4e2a\u8bd7\u8282\uff0c\u800c\u4e0d\u662f\u4e09\u4e2a\u3002",D:"16 lines would mean 4 stanzas or irregular lengths \u2014 the poem has 3 regular stanzas.|16\u884c\u610f\u5473\u77404\u4e2a\u8bd7\u8282\u6216\u4e0d\u89c4\u5219\u957f\u5ea6\u2014\u2014\u8fd9\u9996\u8bd7\u67093\u4e2a\u89c4\u5219\u8bd7\u8282\u3002"}
+  },
+  {
+    id:'wed_q5',
+    title:"Like a Burning Coal",
+    passage:"Read this poem line: 'Her anger was like a burning coal \u2014 / Hot to touch, glowing in the dark, / Something that could ignite everything around it.' The speaker is describing a person's emotion using a comparison with 'like.'",
+    q:"What literary device is used?",
+    q_cn:"\u4f7f\u7528\u4e86\u4ec0\u4e48\u6587\u5b66\u624b\u6cd5\uff1f",
+    hint:null,
+    options:["A. Personification|A. \u62df\u4eba","B. Metaphor|B. \u6697\u55bb","C. Simile|C. \u660e\u55bb","D. Stanza|D. \u8bd7\u8282"],
+    correct:"C",
+    rationale:"Correct! 'Her anger WAS LIKE a burning coal' \u2014 the word 'like' signals a simile.|\u6b63\u786e\uff01\"\u5979\u7684\u6124\u6012\u50cf\u4e00\u5757\u71c3\u70e7\u7684\u7164\"\u2014\u2014\"\u50cf\"\u5b57\u8868\u660e\u8fd9\u662f\u4e00\u4e2a\u660e\u55bb\u3002",
+    rationale_wrong:{A:"Personification gives human traits to non-human objects \u2014 anger is already human.|\u62df\u4eba\u662f\u8d4b\u4e88\u975e\u4eba\u4e8b\u7269\u4eba\u7c7b\u7279\u5f81\u2014\u2014\u6124\u6012\u672c\u8eab\u5df2\u7ecf\u662f\u4eba\u7c7b\u7684\u3002",B:"A metaphor says X IS Y with no 'like' or 'as.' The word 'like' is present here.|\u6697\u55bb\u8bf4X\u662fY\uff0c\u6ca1\u6709\"\u50cf\"\u6216\"\u5982\"\u3002\u8fd9\u91cc\u6709\"\u50cf\"\u5b57\u3002",D:"A stanza is a grouped set of lines \u2014 a structural term, not a comparison device.|\u8bd7\u8282\u662f\u4e00\u7ec4\u8bd7\u884c\u2014\u2014\u662f\u7ed3\u6784\u672f\u8bed\uff0c\u4e0d\u662f\u6bd4\u8f83\u624b\u6cd5\u3002"}
+  },
+  {
+    id:'wed_q6',
+    title:"Who Is Speaking?",
+    passage:"Read this poem: 'I am made of sand and silence. / No one walks here anymore. / The tide takes what it will \u2014 / And I ask for nothing in return.' The poem uses the word 'I,' but it is clearly not written by the beach itself. The speaker of the poem seems to be the beach, using a human-like voice.",
+    q:"What is the term for the voice that speaks in a poem?",
+    q_cn:"\u8bd7\u6b4c\u4e2d\u8bf4\u8bdd\u7684\u58f0\u97f3\u53eb\u4ec0\u4e48\uff1f",
+    hint:null,
+    options:["A. The author|A. \u4f5c\u8005","B. The stanza|B. \u8bd7\u8282","C. The speaker|C. \u8bf4\u8bdd\u8005","D. The imagery|D. \u610f\u8c61"],
+    correct:"C",
+    rationale:"Correct! The speaker is the voice of the poem \u2014 which may or may not be the author.|\u6b63\u786e\uff01\u8bf4\u8bdd\u8005\u662f\u8bd7\u6b4c\u7684\u58f0\u97f3\u2014\u2014\u53ef\u80fd\u662f\u4e5f\u53ef\u80fd\u4e0d\u662f\u4f5c\u8005\u3002",
+    rationale_wrong:{A:"The author wrote the poem, but the speaker is the voice inside the poem \u2014 they are not always the same.|\u4f5c\u8005\u5199\u4e86\u8fd9\u9996\u8bd7\uff0c\u4f46\u8bf4\u8bdd\u8005\u662f\u8bd7\u4e2d\u7684\u58f0\u97f3\u2014\u2014\u4ed6\u4eec\u4e0d\u603b\u662f\u540c\u4e00\u4e2a\u4eba\u3002",B:"A stanza is a group of lines \u2014 it is not a voice or perspective.|\u8bd7\u8282\u662f\u4e00\u7ec4\u8bd7\u884c\u2014\u2014\u5b83\u4e0d\u662f\u58f0\u97f3\u6216\u89c6\u89d2\u3002",D:"Imagery is descriptive sensory language \u2014 not the voice that speaks the poem.|\u610f\u8c61\u662f\u63cf\u8ff0\u6027\u7684\u611f\u5b98\u8bed\u8a00\u2014\u2014\u4e0d\u662f\u8bf4\u8bd7\u7684\u58f0\u97f3\u3002"}
+  },
+  {
+    id:'wed_q7',
+    title:"Seeing the City",
+    passage:"Read this stanza: 'The city shines like a thousand lanterns at night, / Its streets hum with the breath of moving crowds. / Steam rises from manholes, drifting out of sight \u2014 / A sleeping giant wrapped in swirling clouds.' The poem describes a city using vivid sensory details.",
+    q:"Which line contains imagery that appeals to the sense of sound?",
+    q_cn:"\u54ea\u4e00\u884c\u5305\u542b\u8bc9\u8bf8\u542c\u89c9\u7684\u610f\u8c61\uff1f",
+    hint:null,
+    options:["A. 'The city shines like a thousand lanterns at night'|A. \"\u57ce\u5e02\u5728\u591c\u665a\u50cf\u5343\u76cf\u706f\u7b3c\u4e00\u6837\u95ea\u8000\"","B. 'Its streets hum with the breath of moving crowds'|B. \"\u5b83\u7684\u8857\u9053\u968f\u7740\u79fb\u52a8\u4eba\u7fa4\u7684\u547c\u5438\u55e1\u55e1\u4f5c\u54cd\"","C. 'Steam rises from manholes, drifting out of sight'|C. \"\u84b8\u6c7d\u4ece\u4e95\u76d6\u5347\u8d77\uff0c\u6d88\u5931\u5728\u89c6\u7ebf\u4e4b\u5916\"","D. 'A sleeping giant wrapped in swirling clouds'|D. \"\u4e00\u4e2a\u6c89\u7761\u7684\u5de8\u4eba\u88ab\u65cb\u8f6c\u7684\u4e91\u96fe\u5305\u88f9\""],
+    correct:"B",
+    rationale:"Correct! 'Hum' is a sound word \u2014 streets making a humming sound is auditory imagery.|\u6b63\u786e\uff01\"\u55e1\u55e1\"\u662f\u58f0\u97f3\u8bcd\u2014\u2014\u8857\u9053\u53d1\u51fa\u55e1\u55e1\u58f0\u662f\u542c\u89c9\u610f\u8c61\u3002",
+    rationale_wrong:{A:"'Shines' and 'lanterns' are visual imagery \u2014 appealing to sight, not sound.|\"\u95ea\u8000\"\u548c\"\u706f\u7b3c\"\u662f\u89c6\u89c9\u610f\u8c61\u2014\u2014\u8bc9\u8bf8\u89c6\u89c9\uff0c\u800c\u975e\u542c\u89c9\u3002",C:"'Steam rises' and 'drifting' are visual images \u2014 we see movement, not hear it.|\"\u84b8\u6c7d\u5347\u8d77\"\u548c\"\u98d8\u8d70\"\u662f\u89c6\u89c9\u610f\u8c61\u2014\u2014\u6211\u4eec\u770b\u5230\u8fd0\u52a8\uff0c\u800c\u975e\u542c\u5230\u5b83\u3002",D:"'Sleeping giant' is a metaphor and visual image \u2014 no sound is referenced.|\"\u6c89\u7761\u7684\u5de8\u4eba\"\u662f\u4e00\u4e2a\u6697\u55bb\u548c\u89c6\u89c9\u610f\u8c61\u2014\u2014\u6ca1\u6709\u63d0\u5230\u58f0\u97f3\u3002"}
+  },
+  {
+    id:'wed_q8',
+    title:"The Broken Bridge",
+    passage:"Read this excerpt: 'Time is a river \u2014 / It carves its path through stone. / The old bridge is gone now; / Only I remember what it felt like to cross.' The poem reflects on memory and the passing of time.",
+    q:"Which literary device is used in 'Time is a river'?",
+    q_cn:"'\u65f6\u95f4\u662f\u4e00\u6761\u6cb3'\u4e2d\u4f7f\u7528\u4e86\u54ea\u79cd\u6587\u5b66\u624b\u6cd5\uff1f",
+    hint:null,
+    options:["A. Simile|A. \u660e\u55bb","B. Metaphor|B. \u6697\u55bb","C. Personification|C. \u62df\u4eba","D. Rhyme|D. \u62bc\u97f5"],
+    correct:"B",
+    rationale:"Correct! 'Time IS a river' \u2014 a direct comparison without 'like' or 'as' \u2014 is a metaphor.|\u6b63\u786e\uff01\"\u65f6\u95f4\u662f\u4e00\u6761\u6cb3\"\u2014\u2014\u6ca1\u6709\"\u50cf\"\u6216\"\u5982\"\u7684\u76f4\u63a5\u6bd4\u8f83\u2014\u2014\u662f\u4e00\u4e2a\u6697\u55bb\u3002",
+    rationale_wrong:{A:"A simile needs 'like' or 'as' \u2014 for example, 'Time is LIKE a river.' Those words are absent here.|\u660e\u55bb\u9700\u8981\"\u50cf\"\u6216\"\u5982\"\u2014\u2014\u4f8b\u5982\"\u65f6\u95f4\u50cf\u4e00\u6761\u6cb3\"\u3002\u8fd9\u91cc\u6ca1\u6709\u8fd9\u4e9b\u8bcd\u3002",C:"Personification would give human traits to time or the river \u2014 here time is compared to a river, not given human actions.|\u62df\u4eba\u4f1a\u8d4b\u4e88\u65f6\u95f4\u6216\u6cb3\u6d41\u4eba\u7c7b\u7279\u5f81\u2014\u2014\u8fd9\u91cc\u65f6\u95f4\u88ab\u6bd4\u4f5c\u6cb3\u6d41\uff0c\u800c\u975e\u88ab\u8d4b\u4e88\u4eba\u7c7b\u884c\u4e3a\u3002",D:"The excerpt does not have a regular rhyme between line endings.|\u8fd9\u4e2a\u7247\u6bb5\u7684\u884c\u672b\u6ca1\u6709\u89c4\u5f8b\u7684\u62bc\u97f5\u3002"}
+  },
+  {
+    id:'wed_q9',
+    title:"ABAB Pattern",
+    passage:"Read this poem: 'The moon hangs low above the field, (A) / The stars are scattered, cold and bright. (B) / A farmer walks, his lantern held (A) / Against the dark of winter night.' (B) Notice which lines end with similar sounds.",
+    q:"What is the rhyme scheme of this poem?",
+    q_cn:"\u8fd9\u9996\u8bd7\u7684\u97f5\u5f0f\u662f\u4ec0\u4e48\uff1f",
+    hint:null,
+    options:["A. AABB|A. AABB","B. ABAB|B. ABAB","C. ABBA|C. ABBA","D. AAAA|D. AAAA"],
+    correct:"B",
+    rationale:"Correct! 'field' and 'held' rhyme (A), 'bright' and 'night' rhyme (B) \u2014 alternating = ABAB.|\u6b63\u786e\uff01'field'\u548c'held'\u62bc\u97f5\uff08A\uff09\uff0c'bright'\u548c'night'\u62bc\u97f5\uff08B\uff09\u2014\u2014\u4ea4\u66ff = ABAB\u3002",
+    rationale_wrong:{A:"AABB means lines 1&2 rhyme, and 3&4 rhyme. Here 1&3 rhyme and 2&4 rhyme.|AABB\u610f\u5473\u7740\u7b2c1\u30012\u884c\u62bc\u97f5\uff0c\u7b2c3\u30014\u884c\u62bc\u97f5\u3002\u8fd9\u91cc\u7b2c1\u30013\u884c\u62bc\u97f5\uff0c\u7b2c2\u30014\u884c\u62bc\u97f5\u3002",C:"ABBA means 1&4 rhyme and 2&3 rhyme \u2014 check: 'field'/'night' and 'bright'/'held' don't rhyme that way.|ABBA\u610f\u5473\u7740\u7b2c1\u30014\u884c\u62bc\u97f5\uff0c\u7b2c2\u30013\u884c\u62bc\u97f5\u2014\u2014\u68c0\u67e5\uff1a'field'/'night'\u548c'bright'/'held'\u4e0d\u662f\u8fd9\u6837\u62bc\u97f5\u7684\u3002",D:"AAAA means all lines share the same end sound \u2014 clearly not the case here.|AAAA\u610f\u5473\u7740\u6240\u6709\u884c\u5171\u4eab\u76f8\u540c\u7684\u672b\u5c3e\u97f3\u2014\u2014\u663e\u7136\u8fd9\u91cc\u4e0d\u662f\u8fd9\u79cd\u60c5\u51b5\u3002"}
+  },
+  {
+    id:'wed_q10',
+    title:"The Wind Listens",
+    passage:"Read this poem: 'The wind leaned close to hear her secret, / Bent low among the whispering grass. / It carried her words across the river / And kept them, silent, as it passed.' In this poem, the wind has human-like actions and feelings.",
+    q:"Identify the literary device AND explain what it creates in the poem.",
+    q_cn:"\u8bc6\u522b\u6587\u5b66\u624b\u6cd5\u5e76\u89e3\u91ca\u5b83\u5728\u8bd7\u4e2d\u521b\u9020\u4e86\u4ec0\u4e48\u3002",
+    hint:null,
+    options:["A. Simile \u2014 it compares the wind to a person using 'like'|A. \u660e\u55bb\u2014\u2014\u5b83\u7528\"\u50cf\"\u5c06\u98ce\u4e0e\u4eba\u76f8\u6bd4","B. Metaphor \u2014 it says the wind IS a person|B. \u6697\u55bb\u2014\u2014\u5b83\u8bf4\u98ce\u662f\u4e00\u4e2a\u4eba","C. Personification \u2014 it gives the wind human actions, creating a sense of intimacy|C. \u62df\u4eba\u2014\u2014\u5b83\u8d4b\u4e88\u98ce\u4eba\u7c7b\u884c\u4e3a\uff0c\u8425\u9020\u4eb2\u5bc6\u611f","D. Imagery \u2014 it describes what the wind smells like|D. \u610f\u8c61\u2014\u2014\u5b83\u63cf\u8ff0\u98ce\u7684\u6c14\u5473"],
+    correct:"C",
+    rationale:"Correct! 'Leaned,' 'bent,' 'carried,' and 'kept' are all human actions given to the wind \u2014 personification creates intimacy and mystery.|\u6b63\u786e\uff01\"\u503e\u8eab\"\u3001\"\u5f2f\u8170\"\u3001\"\u643a\u5e26\"\u548c\"\u4fdd\u5b58\"\u90fd\u662f\u8d4b\u4e88\u98ce\u7684\u4eba\u7c7b\u884c\u4e3a\u2014\u2014\u62df\u4eba\u521b\u9020\u4e86\u4eb2\u5bc6\u611f\u548c\u795e\u79d8\u611f\u3002",
+    rationale_wrong:{A:"No 'like' or 'as' is used \u2014 this eliminates simile.|\u6ca1\u6709\u4f7f\u7528\"\u50cf\"\u6216\"\u5982\"\u2014\u2014\u8fd9\u6392\u9664\u4e86\u660e\u55bb\u3002",B:"The wind is not said to BE a person \u2014 it's given human traits, which is personification, not metaphor.|\u98ce\u6ca1\u6709\u88ab\u8bf4\u6210\u662f\u4e00\u4e2a\u4eba\u2014\u2014\u5b83\u88ab\u8d4b\u4e88\u4e86\u4eba\u7c7b\u7279\u5f81\uff0c\u8fd9\u662f\u62df\u4eba\uff0c\u4e0d\u662f\u6697\u55bb\u3002",D:"Imagery appeals to the senses \u2014 while present, the primary device is personification giving the wind human agency.|\u610f\u8c61\u8bc9\u8bf8\u611f\u5b98\u2014\u2014\u867d\u7136\u5b58\u5728\uff0c\u4f46\u4e3b\u8981\u624b\u6cd5\u662f\u62df\u4eba\uff0c\u8d4b\u4e88\u98ce\u4eba\u7c7b\u80fd\u52a8\u6027\u3002"}
+  }
+];
+
+// ===== WEDNESDAY EXIT =====
+const WED_EXIT = [
+  {q:"What is a stanza?",q_cn:"\u4ec0\u4e48\u662f\u8bd7\u8282\uff1f",opts:["A. A type of rhyme|A. \u4e00\u79cd\u62bc\u97f5","B. A group of lines in a poem, like a paragraph|B. \u8bd7\u6b4c\u4e2d\u7684\u4e00\u7ec4\u8bd7\u884c\uff0c\u7c7b\u4f3c\u6bb5\u843d","C. The speaker of a poem|C. \u8bd7\u6b4c\u7684\u8bf4\u8bdd\u8005","D. A comparison using 'like' or 'as'|D. \u4f7f\u7528\"\u50cf\"\u6216\"\u5982\"\u7684\u6bd4\u8f83"],correct:"B",rat:"A stanza is a grouped set of lines \u2014 the structural unit of a poem, like a paragraph in prose.|\u8bd7\u8282\u662f\u4e00\u7ec4\u8bd7\u884c\u2014\u2014\u8bd7\u6b4c\u7684\u7ed3\u6784\u5355\u5143\uff0c\u7c7b\u4f3c\u6563\u6587\u4e2d\u7684\u6bb5\u843d\u3002"},
+  {q:"Which sentence is an example of a simile?",q_cn:"\u54ea\u4e2a\u53e5\u5b50\u662f\u660e\u55bb\u7684\u4f8b\u5b50\uff1f",opts:["A. The moon is a silver coin.|A. \u6708\u4eae\u662f\u4e00\u679a\u94f6\u5e01\u3002","B. The moon shone over the village.|B. \u6708\u4eae\u7167\u8000\u5728\u6751\u5e84\u4e0a\u3002","C. The moon glowed like a lantern above the trees.|C. \u6708\u4eae\u50cf\u706f\u7b3c\u4e00\u6837\u5728\u6811\u4e0a\u53d1\u5149\u3002","D. The moon moved through the clouds.|D. \u6708\u4eae\u7a7f\u8fc7\u4e91\u5c42\u79fb\u52a8\u3002"],correct:"C",rat:"'Like a lantern' \u2014 the word 'like' signals a simile.|\"\u50cf\u706f\u7b3c\"\u2014\u2014\"\u50cf\"\u5b57\u8868\u660e\u8fd9\u662f\u660e\u55bb\u3002"},
+  {q:"Which sentence is an example of a metaphor?",q_cn:"\u54ea\u4e2a\u53e5\u5b50\u662f\u6697\u55bb\u7684\u4f8b\u5b50\uff1f",opts:["A. Her laugh was like music.|A. \u5979\u7684\u7b11\u58f0\u50cf\u97f3\u4e50\u3002","B. Her laugh was music.|B. \u5979\u7684\u7b11\u58f0\u662f\u97f3\u4e50\u3002","C. She laughed loudly.|C. \u5979\u5927\u58f0\u7b11\u4e86\u3002","D. She smiled at the music.|D. \u5979\u5bf9\u7740\u97f3\u4e50\u5fae\u7b11\u3002"],correct:"B",rat:"'Her laugh WAS music' \u2014 a direct comparison without 'like' or 'as' \u2014 is a metaphor.|\"\u5979\u7684\u7b11\u58f0\u662f\u97f3\u4e50\"\u2014\u2014\u6ca1\u6709\"\u50cf\"\u6216\"\u5982\"\u7684\u76f4\u63a5\u6bd4\u8f83\u2014\u2014\u662f\u6697\u55bb\u3002"},
+  {q:"What does personification mean?",q_cn:"\u62df\u4eba\u662f\u4ec0\u4e48\u610f\u601d\uff1f",opts:["A. Giving a poem a title|A. \u7ed9\u8bd7\u6b4c\u8d77\u6807\u9898","B. Giving human traits or actions to non-human things|B. \u8d4b\u4e88\u975e\u4eba\u4e8b\u7269\u4eba\u7c7b\u7279\u5f81\u6216\u884c\u4e3a","C. Using words that rhyme at the end of lines|C. \u5728\u884c\u672b\u4f7f\u7528\u62bc\u97f5\u8bcd","D. Describing a character's feelings|D. \u63cf\u8ff0\u4eba\u7269\u7684\u611f\u53d7"],correct:"B",rat:"Personification = giving human qualities to non-human things.|\u62df\u4eba = \u8d4b\u4e88\u975e\u4eba\u4e8b\u7269\u4eba\u7c7b\u54c1\u8d28\u3002"},
+  {q:"What is the rhyme scheme of a poem where lines 1 and 3 rhyme and lines 2 and 4 rhyme?",q_cn:"\u7b2c1\u30013\u884c\u62bc\u97f5\uff0c\u7b2c2\u30014\u884c\u62bc\u97f5\u7684\u8bd7\u7684\u97f5\u5f0f\u662f\u4ec0\u4e48\uff1f",opts:["A. AABB|A. AABB","B. ABBA|B. ABBA","C. ABAB|C. ABAB","D. AAAA|D. AAAA"],correct:"C",rat:"1 and 3 rhyme (A), 2 and 4 rhyme (B) \u2014 alternating = ABAB.|\u7b2c1\u30013\u884c\u62bc\u97f5\uff08A\uff09\uff0c\u7b2c2\u30014\u884c\u62bc\u97f5\uff08B\uff09\u2014\u2014\u4ea4\u66ff = ABAB\u3002"},
+  {q:"'The trees bowed their heads as the king approached.' What literary device is this?",q_cn:"\"\u6811\u6728\u5728\u56fd\u738b\u8d70\u8fd1\u65f6\u4f4e\u4e0b\u4e86\u5934\u3002\"\u8fd9\u662f\u4ec0\u4e48\u6587\u5b66\u624b\u6cd5\uff1f",opts:["A. Simile|A. \u660e\u55bb","B. Metaphor|B. \u6697\u55bb","C. Personification|C. \u62df\u4eba","D. Stanza|D. \u8bd7\u8282"],correct:"C",rat:"Trees bowing their heads is a human action given to a non-human thing \u2014 personification.|\u6811\u6728\u4f4e\u5934\u662f\u8d4b\u4e88\u975e\u4eba\u4e8b\u7269\u7684\u4eba\u7c7b\u884c\u4e3a\u2014\u2014\u62df\u4eba\u3002"},
+  {q:"What does the speaker of a poem refer to?",q_cn:"\u8bd7\u6b4c\u4e2d\u7684\u8bf4\u8bdd\u8005\u6307\u7684\u662f\u4ec0\u4e48\uff1f",opts:["A. The author of the poem|A. \u8bd7\u6b4c\u7684\u4f5c\u8005","B. The voice that narrates the poem, which may or may not be the author|B. \u53d9\u8ff0\u8bd7\u6b4c\u7684\u58f0\u97f3\uff0c\u53ef\u80fd\u662f\u4e5f\u53ef\u80fd\u4e0d\u662f\u4f5c\u8005","C. The main character in the poem's story|C. \u8bd7\u6b4c\u6545\u4e8b\u4e2d\u7684\u4e3b\u8981\u4eba\u7269","D. The reader of the poem|D. \u8bd7\u6b4c\u7684\u8bfb\u8005"],correct:"B",rat:"The speaker is the voice inside the poem \u2014 not always the author.|\u8bf4\u8bdd\u8005\u662f\u8bd7\u4e2d\u7684\u58f0\u97f3\u2014\u2014\u4e0d\u603b\u662f\u4f5c\u8005\u3002"},
+  {q:"Which of the following is an example of visual imagery?",q_cn:"\u4ee5\u4e0b\u54ea\u4e2a\u662f\u89c6\u89c9\u610f\u8c61\u7684\u4f8b\u5b50\uff1f",opts:["A. The bread smelled warm and sweet.|A. \u9762\u5305\u95fb\u8d77\u6765\u6e29\u6696\u800c\u751c\u871c\u3002","B. The thunder cracked like a cannon.|B. \u96f7\u58f0\u50cf\u5927\u70ae\u4e00\u6837\u8f70\u9e23\u3002","C. The golden leaves drifted past the dark window.|C. \u91d1\u8272\u7684\u6811\u53f6\u98d8\u8fc7\u9ed1\u6697\u7684\u7a97\u6237\u3002","D. The velvet cushion felt soft beneath her hands.|D. \u5929\u9e45\u7ed2\u57ab\u5728\u5979\u7684\u624b\u4e0b\u611f\u89c9\u67d4\u8f6f\u3002"],correct:"C",rat:"'Golden leaves' and 'dark window' appeal to what we see \u2014 visual imagery.|\"\u91d1\u8272\u7684\u6811\u53f6\"\u548c\"\u9ed1\u6697\u7684\u7a97\u6237\"\u8bc9\u8bf8\u6211\u4eec\u770b\u5230\u7684\u2014\u2014\u89c6\u89c9\u610f\u8c61\u3002"},
+  {q:"A poem has the AABB rhyme scheme. Which lines rhyme with each other?",q_cn:"\u4e00\u9996\u8bd7\u6709AABB\u97f5\u5f0f\u3002\u54ea\u4e9b\u884c\u5f7c\u6b64\u62bc\u97f5\uff1f",opts:["A. Lines 1&3 and lines 2&4|A. \u7b2c1\u30013\u884c\u548c\u7b2c2\u30014\u884c","B. Lines 1&2 and lines 3&4|B. \u7b2c1\u30012\u884c\u548c\u7b2c3\u30014\u884c","C. Lines 1&4 and lines 2&3|C. \u7b2c1\u30014\u884c\u548c\u7b2c2\u30013\u884c","D. All four lines rhyme with each other|D. \u56db\u884c\u90fd\u5f7c\u6b64\u62bc\u97f5"],correct:"B",rat:"AABB: lines 1&2 rhyme (AA), lines 3&4 rhyme (BB).|AABB\uff1a\u7b2c1\u30012\u884c\u62bc\u97f5\uff08AA\uff09\uff0c\u7b2c3\u30014\u884c\u62bc\u97f5\uff08BB\uff09\u3002"},
+  {q:"Why do poets use figurative language like similes, metaphors, and personification?",q_cn:"\u8bd7\u4eba\u4e3a\u4ec0\u4e48\u4f7f\u7528\u660e\u55bb\u3001\u6697\u55bb\u548c\u62df\u4eba\u7b49\u4fee\u8f9e\u8bed\u8a00\uff1f",opts:["A. To make poems longer|A. \u4f7f\u8bd7\u6b4c\u66f4\u957f","B. To create deeper meaning and emotion beyond what literal words can express|B. \u521b\u9020\u8d85\u8d8a\u5b57\u9762\u8bcd\u8bed\u6240\u80fd\u8868\u8fbe\u7684\u66f4\u6df1\u542b\u4e49\u548c\u60c5\u611f","C. To confuse the reader|C. \u8ff7\u60d1\u8bfb\u8005","D. Because poetry has no rules|D. \u56e0\u4e3a\u8bd7\u6b4c\u6ca1\u6709\u89c4\u5219"],correct:"B",rat:"Figurative language allows poets to express complex emotions and ideas in imaginative, resonant ways.|\u4fee\u8f9e\u8bed\u8a00\u5141\u8bb8\u8bd7\u4eba\u4ee5\u5bcc\u6709\u60f3\u8c61\u529b\u3001\u5f15\u8d77\u5171\u9e23\u7684\u65b9\u5f0f\u8868\u8fbe\u590d\u6742\u7684\u60c5\u611f\u548c\u601d\u60f3\u3002"}
+];
+
+// ===== BUILD FUNCTIONS =====
+function buildVocab() {
+  const grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML = `
+      <div class="vocab-word">${v.word}</div>
+      <div class="vocab-pos">${v.pos}</div>
+      <div class="vocab-cn-word cn">${v.cn}</div>
+      <div class="vocab-def">${v.def}</div>
+      <div class="vocab-cn-def cn">${v.cn_def}</div>
+      <div class="vocab-example">"${v.example}"</div>
+      <button class="speak-btn" onclick="speakWord('${v.word}')">🔊 Pronounce</button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function speakWord(word) {
+  if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = 'en-US'; u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+    addProgress(0.5);
+  }
+}
+
+function buildPractices(tabKey, data, containerId) {
+  const container = document.getElementById(containerId);
+  data.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'practice-card';
+    const optionsHTML = item.options.map(opt => {
+      const [en, cn_] = opt.split('|');
+      const letter = en.trim()[0];
+      const wrongRat = item.rationale_wrong[letter] ? encodeURIComponent(item.rationale_wrong[letter]) : '';
+      return `<button class="opt-btn"
+        onclick="selectAnswer('${tabKey}','${item.id}','${letter}',this,'${item.correct}')"
+        data-letter="${letter}"
+        data-wrong="${wrongRat}"
+        id="${item.id}_${letter}">
+        ${en}<br><span class="cn" style="font-size:.76rem;opacity:.85">${cn_}</span>
+      </button>`;
+    }).join('');
+    card.innerHTML = `
+      <div class="practice-num">Practice ${idx+1}</div>
+      <div class="passage-title">${item.title}</div>
+      <div class="passage-text">${item.passage}</div>
+      <div class="question-text">${item.q}</div>
+      <div class="question-cn cn">${item.q_cn}</div>
+      <div class="options" id="${item.id}_opts">${optionsHTML}</div>
+      <div class="rationale" id="${item.id}_rat" style="display:none"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function selectAnswer(tabKey, qid, selected, btn, correct) {
+  const answers = tabKey === 'tue' ? tueAnswers : wedAnswers;
+  if (answers[qid]) return;
+  answers[qid] = selected;
+  const opts = document.querySelectorAll(`#${qid}_opts .opt-btn`);
+  opts.forEach(b => b.disabled = true);
+  const ratDiv = document.getElementById(`${qid}_rat`);
+  if (selected === correct) {
+    btn.classList.add('correct');
+    const practice = (tabKey === 'tue' ? TUE_PRACTICES : WED_PRACTICES).find(p => p.id === qid);
+    const [enRat, cnRat] = practice.rationale.split('|');
+    ratDiv.innerHTML = `✅ ${enRat}<span class="cn" style="display:block;margin-top:4px">✅ ${cnRat||''}</span>`;
+    addProgress(1);
+  } else {
+    btn.classList.add('wrong');
+    document.getElementById(`${qid}_${correct}`)?.classList.add('correct');
+    const wrongEncoded = btn.getAttribute('data-wrong');
+    const wrongText = wrongEncoded ? decodeURIComponent(wrongEncoded) : 'This answer is incorrect.';
+    const [enW, cnW] = wrongText.split('|');
+    ratDiv.innerHTML = `❌ ${enW}<span class="cn" style="display:block;margin-top:4px">❌ ${cnW||''}</span>`;
+    addProgress(0.5);
+  }
+  ratDiv.style.display = 'block';
+}
+
+function buildExitTicket(tabKey, data, containerId, scoreBoxId, scoreNumId, reflId, dlId) {
+  const container = document.getElementById(containerId);
+  data.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'exit-card';
+    const optsHTML = item.opts.map(opt => {
+      const [en, cn_] = opt.split('|');
+      const letter = en.trim()[0];
+      return `<button class="opt-btn"
+        onclick="selectExit('${tabKey}',${idx},'${letter}',this,'${item.correct}','${scoreBoxId}','${scoreNumId}')"
+        data-letter="${letter}"
+        id="exit_${tabKey}_${idx}_${letter}">
+        ${en}<br><span class="cn" style="font-size:.76rem;opacity:.85">${cn_}</span>
+      </button>`;
+    }).join('');
+    card.innerHTML = `
+      <div class="exit-num">Exit Question ${idx+1}</div>
+      <div class="exit-q">${item.q}</div>
+      <div class="exit-q-cn cn">${item.q_cn}</div>
+      <div class="options" id="exit_${tabKey}_${idx}_opts">${optsHTML}</div>
+      <div class="rationale" id="exit_${tabKey}_${idx}_rat" style="display:none"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function selectExit(tabKey, idx, selected, btn, correct, scoreBoxId, scoreNumId) {
+  const answers = tabKey === 'tue' ? tueExitAnswers : wedExitAnswers;
+  if (answers[idx] !== undefined) return;
+  answers[idx] = selected;
+  const opts = document.querySelectorAll(`#exit_${tabKey}_${idx}_opts .opt-btn`);
+  opts.forEach(b => b.disabled = true);
+  const ratDiv = document.getElementById(`exit_${tabKey}_${idx}_rat`);
+  const exitData = tabKey === 'tue' ? TUE_EXIT : WED_EXIT;
+  const [enRat, cnRat] = exitData[idx].rat.split('|');
+  if (selected === correct) {
+    btn.classList.add('correct');
+    if (tabKey === 'tue') tueScore++; else wedScore++;
+    ratDiv.innerHTML = `✅ ${enRat}<span class="cn" style="display:block;margin-top:4px">✅ ${cnRat||''}</span>`;
+    addProgress(1);
+  } else {
+    btn.classList.add('wrong');
+    document.getElementById(`exit_${tabKey}_${idx}_${correct}`)?.classList.add('correct');
+    ratDiv.innerHTML = `❌ ${enRat}<span class="cn" style="display:block;margin-top:4px">❌ ${cnRat||''}</span>`;
+    addProgress(0.5);
+  }
+  ratDiv.style.display = 'block';
+  if (Object.keys(answers).length === 10) {
+    const score = tabKey === 'tue' ? tueScore : wedScore;
+    document.getElementById(scoreNumId).textContent = `${score} / 10`;
+    document.getElementById(scoreBoxId).style.display = 'block';
+    document.getElementById(`pip${tabKey.charAt(0).toUpperCase()+tabKey.slice(1)}`).classList.add('done');
+  }
+}
+
+function downloadReport(tabKey) {
+  const name = document.getElementById('studentName').value.trim() || 'Student';
+  const now = new Date();
+  const dateStr = now.toLocaleDateString();
+  const score = tabKey === 'tue' ? tueScore : wedScore;
+  const exitData = tabKey === 'tue' ? TUE_EXIT : WED_EXIT;
+  const practices = tabKey === 'tue' ? TUE_PRACTICES : WED_PRACTICES;
+  const practiceAnswers = tabKey === 'tue' ? tueAnswers : wedAnswers;
+  const exitAnswers = tabKey === 'tue' ? tueExitAnswers : wedExitAnswers;
+  const label = tabKey === 'tue' ? 'Tuesday: Word Choice, Connotation & Tone' : 'Wednesday: Elements of Poetry';
+  const ref1 = document.getElementById(`${tabKey}Ref1`).value.trim() || '(no response)';
+  const ref2 = document.getElementById(`${tabKey}Ref2`).value.trim() || '(no response)';
+
+  const sep = '='.repeat(50);
+  const thin = '-'.repeat(50);
+
+  let lines = [
+    sep,
+    'MLWS ESL MODULE REPORT',
+    label,
+    sep,
+    `Student      : ${name}`,
+    `Date         : ${dateStr}`,
+    `Session Time : ${formatTime(secondsElapsed)}`,
+    `Page Leaves  : ${leaveCount}`,
+    `Exit Ticket  : ${score} / 10`,
+    '',
+    thin,
+    'PRACTICE QUESTIONS (10)',
+    thin,
+  ];
+
+  practices.forEach((p, i) => {
+    const ans = practiceAnswers[p.id] || 'Not answered';
+    const result = ans === p.correct ? 'CORRECT' : `INCORRECT (Correct: ${p.correct})`;
+    const chosenOpt = p.options.find(o => o.trim().startsWith(ans + '.'));
+    const chosenText = chosenOpt ? chosenOpt.split('|')[0].trim() : ans;
+    lines.push('');
+    lines.push(`Q${i+1}: ${p.q}`);
+    p.options.forEach(opt => {
+      const optEn = opt.split('|')[0].trim();
+      const letter = optEn[0];
+      const marker = letter === ans ? (ans === p.correct ? '✓' : '✗') : (letter === p.correct && ans !== p.correct ? '✓' : ' ');
+      lines.push(`  [${marker}] ${optEn}`);
+    });
+    lines.push(`  → ${result}`);
+  });
+
+  lines.push('');
+  lines.push(thin);
+  lines.push('EXIT TICKET (10)');
+  lines.push(thin);
+
+  exitData.forEach((e, i) => {
+    const ans = exitAnswers[i] !== undefined ? exitAnswers[i] : 'Not answered';
+    const result = ans === e.correct ? 'CORRECT' : `INCORRECT (Correct: ${e.correct})`;
+    lines.push('');
+    lines.push(`Q${i+1}: ${e.q}`);
+    e.opts.forEach(opt => {
+      const optEn = opt.split('|')[0].trim();
+      const letter = optEn[0];
+      const marker = letter === ans ? (ans === e.correct ? '✓' : '✗') : (letter === e.correct && ans !== e.correct ? '✓' : ' ');
+      lines.push(`  [${marker}] ${optEn}`);
+    });
+    lines.push(`  → ${result}`);
+  });
+
+  lines.push('');
+  lines.push(thin);
+  lines.push('REFLECTION');
+  lines.push(thin);
+  lines.push('');
+  lines.push('Q1: ' + ref1);
+  lines.push('');
+  lines.push('Q2: ' + ref2);
+  lines.push('');
+  lines.push(sep);
+
+  const blob = new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `MLWS_${tabKey === 'tue' ? 'Tuesday' : 'Wednesday'}_${name.replace(/\s+/g,'_')}_${dateStr.replace(/\//g,'-')}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+
+function switchTab(name, clickedBtn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  clickedBtn.classList.add('active');
+}
+
+function addProgress(pts) { /* progress tracking removed */ }
+
+function startTimer() {
+  setInterval(() => {
+    secondsElapsed++;
+    document.getElementById('timerDisplay').textContent = '⏱ ' + formatTime(secondsElapsed);
+  }, 1000);
+}
+
+function formatTime(s) {
+  const m = Math.floor(s/60);
+  const sec = s % 60;
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = `🚪 Leaves: ${leaveCount}`;
+    }
+  });
+}
+
+window.onload = () => {
+  buildVocab();
+  buildPractices('tue', TUE_PRACTICES, 'tuePracticeContainer');
+  buildExitTicket('tue', TUE_EXIT, 'tueExitContainer', 'tueScoreBox', 'tueScoreNum');
+  buildPractices('wed', WED_PRACTICES, 'wedPracticeContainer');
+  buildExitTicket('wed', WED_EXIT, 'wedExitContainer', 'wedScoreBox', 'wedScoreNum');
+  startTimer();
+  trackNavigation();
+};
+</script>
+</body>
+</html>
