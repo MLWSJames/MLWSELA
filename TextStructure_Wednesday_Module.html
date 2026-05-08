@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Structure | 文章结构</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;--ml-red:#c1121f;--ml-gold:#e9c46a;--ink:#1a2a1a;--ink2:#2d3748;--mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.cn{font-family:'Noto Sans SC',sans-serif}
+.header{background:linear-gradient(135deg,var(--ml-green-dark),var(--ml-green));color:#fff;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.header-left h1{font-family:'Literata',serif;font-size:1.2rem;font-weight:600}
+.header-left .subtitle{font-size:.8rem;opacity:.8}
+.header-right{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.leave-badge{background:var(--ml-red);color:#fff;font-size:.72rem;font-weight:700;padding:.2rem .5rem;border-radius:999px}
+.pip-row{display:flex;gap:.4rem;align-items:center}
+.pip{width:10px;height:10px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:transparent;transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.progress-bar-wrap{background:rgba(255,255,255,.2);height:5px}
+.progress-bar{height:5px;background:var(--ml-gold);width:0%;transition:width .4s}
+.progress-text{font-size:.7rem;text-align:right;padding:.15rem .75rem;color:#aaa;background:#fff}
+.notice{background:var(--amber-light);border-left:4px solid var(--amber);padding:.6rem 1rem;font-size:.82rem;color:var(--amber)}
+.tabs-nav{display:flex;background:#fff;border-bottom:2px solid var(--border);overflow-x:auto}
+.tab-btn{padding:.75rem 1.25rem;font-weight:600;font-size:.85rem;border:none;background:transparent;cursor:pointer;color:var(--ink2);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green)}
+.tab-content{display:none;padding:1.25rem;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1rem}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1rem;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.vocab-word{font-size:1.1rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#888;font-style:italic;margin-bottom:.3rem}
+.vocab-cn-word{font-size:.9rem;font-weight:700;color:var(--cobalt);margin-bottom:.3rem}
+.vocab-def{font-size:.83rem;color:var(--ink2);margin-bottom:.25rem;line-height:1.5}
+.vocab-cn-def{font-size:.78rem;color:#666;margin-bottom:.4rem;line-height:1.5}
+.vocab-example{font-size:.78rem;font-style:italic;color:#555;border-left:3px solid var(--ml-green-light);padding-left:.5rem;margin-bottom:.5rem}
+.speak-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:.25rem .55rem;cursor:pointer;font-size:.75rem;color:var(--ml-green-dark);font-weight:600}
+.speak-btn:hover{background:var(--ml-green);color:#fff}
+.section-hd{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin:1.5rem 0 .75rem;padding-bottom:.3rem;border-bottom:2px solid var(--ml-green-light)}
+.section-sub{font-size:.78rem;color:#888;font-weight:400}
+.concept-box{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-bottom:1.25rem;line-height:1.7;font-size:.9rem}
+.concept-box h3{font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:.5rem}
+.cn-block{font-size:.82rem;margin-top:.5rem;padding-top:.5rem;border-top:1px dashed var(--border);color:#555}
+.key-rules{background:var(--ml-green-light);border-radius:8px;padding:.9rem 1rem;margin-top:.75rem}
+.key-rules h4{font-size:.82rem;font-weight:700;color:var(--ml-green-dark);margin-bottom:.4rem}
+.key-rules ul{padding-left:1.1rem;font-size:.83rem;line-height:1.8}
+.key-rules .cn{display:block;color:#555;font-size:.75rem}
+.structure-table{width:100%;border-collapse:collapse;margin-top:.75rem;font-size:.82rem}
+.structure-table th{background:var(--ml-green);color:#fff;padding:.5rem .75rem;text-align:left}
+.structure-table td{padding:.5rem .75rem;border-bottom:1px solid var(--border)}
+.structure-table tr:nth-child(even) td{background:#f4fbf6}
+.name-block{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;background:#fff;border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem}
+.name-block label{font-weight:600;font-size:.85rem;white-space:nowrap}
+.name-block input{border:1px solid var(--border);border-radius:6px;padding:.4rem .75rem;font-size:.85rem;flex:1;font-family:'DM Sans',sans-serif}
+.name-block input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.practice-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.1rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.practice-num{font-size:.72rem;font-weight:700;color:var(--ml-green);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+.practice-title{font-family:'Literata',serif;font-size:.98rem;font-weight:600;color:var(--ink);margin-bottom:.5rem}
+.practice-passage{font-family:'Literata',serif;font-size:.86rem;line-height:1.8;background:var(--mist);border-left:3px solid var(--ml-green-light);padding:.75rem 1rem;border-radius:6px;margin-bottom:.75rem;color:var(--ink2)}
+.practice-q{font-size:.88rem;font-weight:600;margin-bottom:.25rem}
+.practice-q-cn{font-size:.78rem;color:#666;margin-bottom:.6rem}
+.options-grid{display:grid;gap:.4rem}
+.opt-btn{background:#f9fafb;border:1.5px solid var(--border);border-radius:7px;padding:.5rem .75rem;text-align:left;cursor:pointer;font-size:.83rem;font-family:'DM Sans',sans-serif;transition:background .15s,border-color .15s;line-height:1.5;width:100%}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;color:#065f46;font-weight:600}
+.opt-btn.wrong{background:#fee2e2;border-color:var(--ml-red);color:#991b1b}
+.opt-btn:disabled{cursor:not-allowed}
+.opt-cn{display:block;font-size:.73rem;color:#777;margin-top:.15rem}
+.rationale{margin-top:.6rem;padding:.55rem .75rem;border-radius:7px;font-size:.8rem;line-height:1.5;display:none}
+.rationale.show{display:block}
+.rationale.ok{background:#d1fae5;color:#065f46;border-left:3px solid #059669}
+.rationale.bad{background:#fee2e2;color:#991b1b;border-left:3px solid var(--ml-red)}
+.rationale-cn{display:block;margin-top:.2rem;font-size:.75rem;opacity:.85}
+.exit-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.75rem}
+.exit-q{font-size:.87rem;font-weight:600;margin-bottom:.2rem}
+.exit-q-cn{font-size:.76rem;color:#666;margin-bottom:.5rem}
+.score-panel{display:none;background:linear-gradient(135deg,var(--ml-green-dark),var(--ml-green));color:#fff;border-radius:12px;padding:1.25rem;text-align:center;margin:1rem 0}
+.score-panel.show{display:block}
+.score-big{font-size:2.2rem;font-weight:700;font-family:'Literata',serif}
+.score-label{font-size:.82rem;opacity:.8}
+.score-msg{margin-top:.5rem;font-size:.9rem}
+.score-cn{font-size:.78rem;opacity:.8;margin-top:.2rem}
+.reflection-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.1rem;margin-top:.75rem}
+.refl-q{font-size:.86rem;font-weight:600;margin-bottom:.2rem}
+.refl-q-cn{font-size:.76rem;color:#666;margin-bottom:.4rem}
+textarea{width:100%;border:1.5px solid var(--border);border-radius:7px;padding:.5rem .75rem;font-size:.84rem;font-family:'DM Sans',sans-serif;resize:vertical;min-height:70px}
+textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.dl-btn{background:#aaa;color:#fff;border:none;border-radius:8px;padding:.65rem 1.25rem;font-size:.86rem;font-weight:700;cursor:not-allowed;font-family:'DM Sans',sans-serif;margin-top:.75rem;opacity:.6;display:block}
+.dl-btn.unlocked{background:var(--ml-green);cursor:pointer;opacity:1}
+.dl-btn.unlocked:hover{background:var(--ml-green-dark)}
+.dl-hint{font-size:.76rem;color:#888;margin-top:.3rem}
+.timer{position:fixed;bottom:1rem;right:1rem;background:var(--ink);color:#fff;border-radius:999px;padding:.35rem .85rem;font-size:.8rem;font-weight:600;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+@media(max-width:580px){.vocab-grid{grid-template-columns:1fr}.header-left h1{font-size:1rem}.tab-btn{padding:.6rem .85rem;font-size:.78rem}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>Text Structure <span class="cn">文章结构</span></h1>
+    <div class="subtitle cn">Grade 11 English · MLWS · Wednesday</div>
+  </div>
+  <div class="header-right">
+    <div class="pip-row">
+      <span style="font-size:.7rem;opacity:.7">Progress:</span>
+      <div class="pip" id="pip-vocab"></div>
+      <div class="pip" id="pip-wed"></div>
+    </div>
+    <div class="leave-badge">👁 Leaves: <span id="leaveCount">0</span></div>
+  </div>
+</div>
+<div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+<div class="progress-text">Progress</div>
+<div class="notice">⚠️ This tab is being monitored. Switching away will be recorded. <span class="cn">切换标签页会被记录。</span></div>
+
+<div class="tabs-nav">
+  <button class="tab-btn active" onclick="switchTab('vocab',this)">📚 Vocabulary <span class="cn">词汇</span></button>
+  <button class="tab-btn" onclick="switchTab('wed',this)">📖 Wednesday <span class="cn">星期三</span></button>
+</div>
+
+<div id="tab-vocab" class="tab-content active">
+  <div class="section-hd">Vocabulary <span class="section-sub cn">本周词汇</span></div>
+  <p style="font-size:.83rem;color:#666;margin-bottom:.75rem">Click 🔊 to hear each word. <span class="cn">点击🔊听单词发音。</span></p>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<div id="tab-wed" class="tab-content">
+  <div class="name-block">
+    <label>Name / 姓名:</label>
+    <input type="text" id="wedName" placeholder="Type your name here…">
+  </div>
+
+  <div class="section-hd">Concept Explanation <span class="section-sub cn">概念讲解</span></div>
+  <div class="concept-box">
+    <h3>How Authors Organize Writing: Four Text Structures</h3>
+    <p>When an author writes a text, they must decide <strong>how to arrange their ideas</strong>. This arrangement is called <strong>text structure</strong>. Choosing the right structure helps the reader follow the author's thinking.</p><br>
+    <p><strong>Cause and Effect</strong> — the author explains what happened (cause) and what resulted (effect). Signal words: <em>because, as a result, therefore, so, due to.</em></p>
+    <p><strong>Problem and Solution</strong> — the author presents a difficulty and then explains how it can be fixed. Signal words: <em>the problem is, one solution, this can be solved by.</em></p>
+    <p><strong>Compare and Contrast</strong> — the author puts two things side by side. Signal words: <em>however, on the other hand, similarly, in contrast, both.</em></p>
+    <p><strong>Chronological Order</strong> — events are listed from first to last. Signal words: <em>first, next, then, after that, finally.</em></p>
+    <div class="cn-block cn">
+      文章结构是作者组织想法和信息的方式。<br>
+      因果关系——解释原因和结果。比较与对比——展示两件事的异同。问题与解决方案——提出问题并解决。时间顺序——按先后顺序排列事件。
+    </div>
+    <div class="key-rules">
+      <h4>🔑 Key Rules / 重点规则</h4>
+      <ul>
+        <li>Signal words are clues to the structure. <span class="cn">信号词是结构的线索。</span></li>
+        <li>One text can use more than one structure. <span class="cn">一篇文章可以使用多种结构。</span></li>
+        <li>Knowing the structure helps you predict what comes next. <span class="cn">了解结构帮助你预测接下来的内容。</span></li>
+      </ul>
+    </div>
+    <table class="structure-table">
+      <tr><th>Structure</th><th>Purpose</th><th>Signal Words</th></tr>
+      <tr><td>Cause &amp; Effect</td><td>Why + What resulted</td><td>because, so, therefore</td></tr>
+      <tr><td>Problem &amp; Solution</td><td>Difficulty + Fix</td><td>the problem is, one solution</td></tr>
+      <tr><td>Compare &amp; Contrast</td><td>Similarities + Differences</td><td>however, similarly, both</td></tr>
+      <tr><td>Chronological</td><td>Order of events</td><td>first, next, then, finally</td></tr>
+    </table>
+  </div>
+
+  <div class="section-hd">Practice <span class="section-sub cn">练习 · 10题</span></div>
+  <div id="practiceContainer"></div>
+
+  <div class="section-hd">Exit Ticket <span class="section-sub cn">课后检测 · 10题</span></div>
+  <div id="exitContainer"></div>
+
+  <div class="score-panel" id="scorePanel">
+    <div class="score-big" id="scoreNum">—</div>
+    <div class="score-label">Exit Ticket Score / 课后检测分数</div>
+    <div class="score-msg" id="scoreMsg"></div>
+    <div class="score-cn cn" id="scoreCn"></div>
+  </div>
+
+  <div class="reflection-block">
+    <div class="section-hd" style="margin-top:0">Reflection <span class="section-sub cn">反思</span></div>
+    <div class="refl-q">1. Think about a text you have read this year. What text structure did the author use? How did that structure help you understand the information?</div>
+    <div class="refl-q-cn cn">想想你今年读过的一篇文章。作者使用了什么文章结构？这种结构如何帮助你理解信息？</div>
+    <textarea id="wedRefl1" placeholder="Write your answer here…"></textarea>
+    <div class="refl-q" style="margin-top:.75rem">2. If you were writing a news article about a school problem (such as too much homework), which text structure would you choose? Why?</div>
+    <div class="refl-q-cn cn">如果你要写一篇关于学校问题（例如作业太多）的新闻文章，你会选择哪种文章结构？为什么？</div>
+    <textarea id="wedRefl2" placeholder="Write your answer here…"></textarea>
+  </div>
+
+  <button class="dl-btn" id="dlBtn" onclick="downloadReport()">⬇ Download Report / 下载报告</button>
+  <p class="dl-hint" id="dlHint">Complete the exit ticket to unlock. / 完成课后检测后解锁。</p>
+</div>
+
+<div class="timer" id="timerDisplay">⏱ 00:00</div>
+
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 20;
+var exitScore = 0;
+var exitAnswered = 0;
+var practiceAnswers = {};
+var exitAnswers = {};
+
+// ── VOCAB DATA ──
+var VOCAB = [
+  {word:'text structure', pos:'noun phrase', cn:'文章结构', def:'The way an author organizes ideas and information in a text.', cn_def:'作者组织文章中想法和信息的方式。', example:'Understanding text structure helps readers predict what comes next.'},
+  {word:'cause', pos:'noun', cn:'原因', def:'The reason why something happens.', cn_def:'某事发生的原因。', example:'Heavy rain was the cause of the flooding in the city.'},
+  {word:'effect', pos:'noun', cn:'结果', def:'The result or outcome of a cause.', cn_def:'原因所产生的结果。', example:'One effect of staying up too late is feeling tired the next day.'},
+  {word:'chronological', pos:'adjective', cn:'按时间顺序的', def:'Arranged in the order in which events happened, from first to last.', cn_def:'按照事件发生的先后顺序排列。', example:'A biography is usually organized in chronological order.'},
+  {word:'compare', pos:'verb', cn:'比较', def:'To look at two or more things and notice what is similar about them.', cn_def:'观察两件或多件事物，注意它们的相同之处。', example:'The article compares summer weather in Beijing and Dalian.'},
+  {word:'contrast', pos:'verb', cn:'对比', def:'To look at two or more things and notice what is different about them.', cn_def:'观察两件或多件事物，注意它们的不同之处。', example:'The essay contrasts the diet of students who exercise with those who do not.'},
+  {word:'signal word', pos:'noun phrase', cn:'信号词', def:'A word or phrase that hints at the organizational structure of a text.', cn_def:'暗示文章组织结构的词或短语。', example:'The word "therefore" is a signal word for cause and effect.'},
+  {word:'solution', pos:'noun', cn:'解决方案', def:'An answer or fix to a problem.', cn_def:'对问题的解决方法。', example:'The school\'s solution to noise in the hallway was to add signs.'},
+  {word:'organize', pos:'verb', cn:'组织', def:'To arrange things in a clear and logical order.', cn_def:'以清晰、合乎逻辑的方式排列事物。', example:'A good writer organizes ideas before starting to write.'},
+  {word:'sequence', pos:'noun', cn:'顺序', def:'A set of events or steps arranged in a specific order.', cn_def:'按照特定顺序排列的一组事件或步骤。', example:'The sequence of events in the story moves from morning to night.'}
+];
+
+// ── PRACTICE DATA ──
+var PRACTICES = [
+  {
+    id:'p1', title:'The River and the Town',
+    passage:'For many years, the town of Greenfield had a serious problem. The old river bridge was too narrow for modern trucks. Delivery vehicles could not cross, so local shops often ran out of supplies. After years of complaints, the town council approved a plan to build a wider bridge. Once the new bridge opened, trucks could pass freely. Shops received their orders on time, and the local economy began to improve.',
+    q:'What text structure does this passage mainly use?',
+    q_cn:'这篇文章主要使用了什么文章结构？',
+    opts:[
+      {en:'A. Chronological order — events listed from first to last', cn:'A. 时间顺序——事件从先到后排列', letter:'A'},
+      {en:'B. Compare and contrast — two things placed side by side', cn:'B. 比较与对比——两件事并排放置', letter:'B'},
+      {en:'C. Problem and solution — a difficulty is identified and then fixed', cn:'C. 问题与解决方案——提出困难然后解决', letter:'C'},
+      {en:'D. Cause and effect — the author only explains why events occur', cn:'D. 因果关系——作者只解释为什么事情发生', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Correct! The passage presents a clear problem (narrow bridge) and a solution (wider bridge).',
+    rat_cn:'正确！文章提出了一个明确的问题（桥太窄）以及解决方案（更宽的桥）。',
+    wrong:{
+      A:{en:'Chronological order uses time words like "first" and "then." This passage focuses on a difficulty and its fix.',cn:'时间顺序用时间词排列事件。这篇文章关注困难及解决方法。'},
+      B:{en:'Compare and contrast discusses how two things are similar and different. This passage does not compare two things.',cn:'比较与对比讨论两件事的异同。这篇文章没有比较两件事。'},
+      D:{en:'While there is cause-effect inside, the main purpose is to present a problem and solution.',cn:'虽然文章中有因果关系，但主要目的是提出问题并解决。'}
+    }
+  },
+  {
+    id:'p2', title:'Two Study Methods',
+    passage:'Many students study by re-reading their notes over and over. Others practice by testing themselves — covering their notes and trying to recall the information from memory. Re-reading feels easy and comfortable, but research shows it is less effective. Self-testing feels harder, but students who use it remember more information on exam day. Both methods take time, but only one of them truly prepares the brain for a test.',
+    q:'Which signal words in the passage suggest a compare and contrast structure?',
+    q_cn:'文章中哪些信号词暗示了比较与对比的结构？',
+    opts:[
+      {en:'A. "over and over" and "from memory"', cn:'A. "反复"和"凭记忆"', letter:'A'},
+      {en:'B. "both" and "but"', cn:'B. "两者"和"但是"', letter:'B'},
+      {en:'C. "research shows" and "exam day"', cn:'C. "研究表明"和"考试当天"', letter:'C'},
+      {en:'D. "comfortable" and "harder"', cn:'D. "舒适"和"更难"', letter:'D'}
+    ],
+    correct:'B',
+    rat_en:'Correct! "Both" acknowledges two things together, and "but" signals a difference — classic compare/contrast signal words.',
+    rat_cn:'正确！"Both"表示两件事在一起，"but"表示不同——这些是经典的比较对比信号词。',
+    wrong:{
+      A:{en:'"Over and over" and "from memory" describe actions, not the organizational structure.',cn:'"反复"和"凭记忆"描述动作，而不是文章结构。'},
+      C:{en:'"Research shows" introduces evidence and "exam day" is a time reference. Neither signals compare/contrast.',cn:'"研究表明"引入证据，"考试当天"是时间参考，两者都不暗示比较对比结构。'},
+      D:{en:'"Comfortable" and "harder" are adjectives describing feelings, not structural signal words.',cn:'"舒适"和"更难"是描述感受的形容词，不是结构信号词。'}
+    }
+  },
+  {
+    id:'p3', title:'The Life of Marie Curie',
+    passage:'Marie Curie was born in Poland in 1867. As a young woman, she moved to Paris to study science, because women could not attend university in Poland at that time. She earned two degrees — one in physics and one in mathematics. In 1898, she and her husband Pierre discovered two new elements. In 1903, she became the first woman to win a Nobel Prize. She won a second Nobel Prize in 1911, making her the first person to win the award twice.',
+    q:'What text structure does this passage mainly use?',
+    q_cn:'这篇文章主要使用了什么文章结构？',
+    opts:[
+      {en:'A. Problem and solution', cn:'A. 问题与解决方案', letter:'A'},
+      {en:'B. Cause and effect', cn:'B. 因果关系', letter:'B'},
+      {en:'C. Compare and contrast', cn:'C. 比较与对比', letter:'C'},
+      {en:'D. Chronological order', cn:'D. 时间顺序', letter:'D'}
+    ],
+    correct:'D',
+    rat_en:'Correct! The passage moves through Marie Curie\'s life using years in order: 1867, 1898, 1903, 1911.',
+    rat_cn:'正确！文章按年份顺序介绍玛丽·居里的生平：1867、1898、1903、1911。',
+    wrong:{
+      A:{en:'A problem-solution structure identifies a central difficulty and offers a fix. This passage does not have that focus.',cn:'问题与解决方案结构会提出困难并提供解决方法。这篇文章没有这样的重点。'},
+      B:{en:'While the text mentions one cause, the main purpose is to tell events in order, not show cause and effect.',cn:'虽然文章提到一个原因，但主要目的是按顺序讲述事件，而不是展示因果关系。'},
+      C:{en:'Compare and contrast requires two subjects placed side by side. This passage is only about one person.',cn:'比较与对比需要两个主题并排。这篇文章只关于一个人。'}
+    }
+  },
+  {
+    id:'p4', title:'Air Quality and Health',
+    passage:'Cities with high levels of air pollution report higher rates of breathing problems among children. Doctors say that when children breathe polluted air every day, their lungs do not develop properly. As a result, many children with lung problems miss school more often. Missing school causes them to fall behind in their studies. Poor academic performance, in turn, can reduce a student\'s confidence and future opportunities.',
+    q:'Which of the following best describes the structure of this passage?',
+    q_cn:'下列哪项最能描述这篇文章的结构？',
+    opts:[
+      {en:'A. Chronological — events listed from earliest to most recent', cn:'A. 时间顺序——事件从最早到最近排列', letter:'A'},
+      {en:'B. Problem and solution — the author offers a fix for air pollution', cn:'B. 问题与解决方案——作者提出了解决方法', letter:'B'},
+      {en:'C. Cause and effect — each event leads to the next in a chain', cn:'C. 因果关系——每个事件依次导致下一个', letter:'C'},
+      {en:'D. Compare and contrast — two different cities are compared', cn:'D. 比较与对比——比较两个不同的城市', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Correct! The passage creates a chain: pollution → lung problems → missed school → falling behind → reduced confidence.',
+    rat_cn:'正确！文章形成了一条链：污染→肺部问题→缺课→落后→信心下降。',
+    wrong:{
+      A:{en:'There are no specific dates or time words ordering events. The passage explains causes and effects.',cn:'没有具体日期或时间词排列事件。文章解释的是因果关系。'},
+      B:{en:'The passage does not offer any solution to air pollution — it only describes the results.',cn:'文章没有提出任何解决方案——只描述了结果。'},
+      D:{en:'Only one type of city is discussed. No comparison between two different places is made.',cn:'只讨论了一种类型的城市，没有比较两个不同的地方。'}
+    }
+  },
+  {
+    id:'p5', title:'Reading on Paper vs. Reading on Screen',
+    passage:'Students who read on paper often score higher on comprehension tests than students who read on screens. Paper readers tend to read more slowly and carefully. Screen readers, on the other hand, often skip sections and scroll quickly through text. Both groups can understand simple texts, but paper readers show an advantage with complex material. However, screen reading is faster for finding specific facts.',
+    q:'What is the main purpose of this passage?',
+    q_cn:'这篇文章的主要目的是什么？',
+    opts:[
+      {en:'A. To explain why screens cause eye damage', cn:'A. 解释为什么屏幕会导致眼睛损伤', letter:'A'},
+      {en:'B. To show the order in which reading technology has changed over time', cn:'B. 展示阅读技术随时间变化的顺序', letter:'B'},
+      {en:'C. To present a problem with school reading programs and suggest a solution', cn:'C. 提出学校阅读项目的问题并提出解决方案', letter:'C'},
+      {en:'D. To compare two reading methods by showing similarities and differences', cn:'D. 通过展示异同来比较两种阅读方法', letter:'D'}
+    ],
+    correct:'D',
+    rat_en:'Correct! The passage places paper reading and screen reading side by side using signal words like "on the other hand," "both," and "however."',
+    rat_cn:'正确！文章将纸质阅读和屏幕阅读并排，使用"on the other hand"、"both"和"however"等信号词。',
+    wrong:{
+      A:{en:'Eye damage is never mentioned in the passage.',cn:'文章中从未提到眼睛损伤。'},
+      B:{en:'The passage does not discuss the history of reading technology in time order.',cn:'文章没有按时间顺序讨论阅读技术的历史。'},
+      C:{en:'There is no problem being solved. The author is comparing, not proposing a fix.',cn:'没有要解决的问题。作者是在比较，而不是提出解决方法。'}
+    }
+  },
+  {
+    id:'p6', title:'The School Garden',
+    passage:'The cafeteria at Bright Star Middle School was serving food that many students refused to eat. The vegetables were canned and the meals felt disconnected from real food. Teachers noticed that students were skipping lunch and losing energy by the afternoon. To solve this, the school started a garden program. Students grew tomatoes, cucumbers, and herbs. The cafeteria began using fresh produce from the garden. Within one semester, lunch attendance increased by forty percent.',
+    q:'In this passage, what is the problem and what is the solution?',
+    q_cn:'在这篇文章中，问题是什么，解决方案是什么？',
+    opts:[
+      {en:'A. Problem: students disliked gardening. Solution: the school changed the menu.', cn:'A. 问题：学生不喜欢园艺。解决方案：学校改变了菜单。', letter:'A'},
+      {en:'B. Problem: canned food led to skipped lunches and low energy. Solution: a student garden providing fresh produce.', cn:'B. 问题：罐头食品导致学生跳过午餐。解决方案：学生花园提供新鲜农产品。', letter:'B'},
+      {en:'C. Problem: the school had no cafeteria. Solution: they built one with a garden.', cn:'C. 问题：学校没有食堂。解决方案：建了一个有花园的食堂。', letter:'C'},
+      {en:'D. Problem: students did not know how to grow vegetables. Solution: teachers taught them farming.', cn:'D. 问题：学生不知道如何种植蔬菜。解决方案：教师教他们农业。', letter:'D'}
+    ],
+    correct:'B',
+    rat_en:'Correct! The problem is canned food causing students to skip lunch. The solution is the garden program that supplied fresh produce.',
+    rat_cn:'正确！问题是罐头食品导致学生跳过午餐。解决方案是提供新鲜农产品的花园项目。',
+    wrong:{
+      A:{en:'The passage never says students disliked gardening. The problem is food quality.',cn:'文章从未说学生不喜欢园艺。问题是食物质量。'},
+      C:{en:'The school already had a cafeteria.',cn:'学校已经有食堂了。'},
+      D:{en:'Teaching farming was part of the solution, not the answer to the stated problem.',cn:'教农业是解决方案的一部分，不是所述问题的答案。'}
+    }
+  },
+  {
+    id:'p7', title:'A Rainy Morning',
+    passage:'Mei arrived at school late. First, she had overslept because her alarm did not ring. Next, she discovered that her umbrella was broken. Then, she had to wait fifteen minutes for the next bus. After that, the bus driver took a different route due to road construction. Finally, she walked three blocks in the rain. By the time she reached her classroom, her shoes were completely wet.',
+    q:'Which signal words confirm that this passage uses chronological order?',
+    q_cn:'哪些信号词证实这篇文章使用了时间顺序？',
+    opts:[
+      {en:'A. "broken," "different," and "completely"', cn:'A. "坏了"、"不同的"和"完全"', letter:'A'},
+      {en:'B. "because," "due to," and "by the time"', cn:'B. "因为"、"由于"和"当……时"', letter:'B'},
+      {en:'C. "first," "next," "then," "after that," and "finally"', cn:'C. "首先"、"接着"、"然后"、"之后"和"最后"', letter:'C'},
+      {en:'D. "overslept," "discovered," and "reached"', cn:'D. "睡过头"、"发现"和"到达"', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Correct! "First, next, then, after that, finally" are classic chronological signal words showing the order of events.',
+    rat_cn:'正确！"First, next, then, after that, finally"是经典的时间顺序信号词，显示事件的发生顺序。',
+    wrong:{
+      A:{en:'"Broken," "different," and "completely" are adjectives and adverbs — they do not signal time order.',cn:'"坏了"、"不同的"和"完全"是形容词和副词，不表示时间顺序。'},
+      B:{en:'"Because" and "due to" are cause-effect signal words. The main structure here is chronological.',cn:'"因为"和"由于"是因果关系信号词。这里的主要结构是时间顺序。'},
+      D:{en:'"Overslept," "discovered," and "reached" are verbs describing actions, not the organizational structure.',cn:'"睡过头"、"发现"和"到达"是描述动作的动词，不是文章组织结构。'}
+    }
+  },
+  {
+    id:'p8', title:'Online Classes and Traditional Classes',
+    passage:'Online classes and traditional classroom classes both teach the same subjects, but they do so in very different ways. In a traditional class, students sit together and the teacher can answer questions immediately. In an online class, students work from home and communicate through screens. Both types require students to complete assignments, but online students must manage their time independently. Traditional students follow a set schedule, while online students often choose when to work.',
+    q:'Based on the passage, in what way are online classes and traditional classes SIMILAR?',
+    q_cn:'根据文章，网络课程和传统课程有何相同之处？',
+    opts:[
+      {en:'A. Both require students to sit together in the same room.', cn:'A. 两者都要求学生坐在同一个房间里。', letter:'A'},
+      {en:'B. Both classes use only online communication tools.', cn:'B. 两种课程都只使用在线通讯工具。', letter:'B'},
+      {en:'C. Both require students to complete assignments.', cn:'C. 两者都要求学生完成作业。', letter:'C'},
+      {en:'D. Both allow students to choose when to work.', cn:'D. 两者都允许学生选择何时学习。', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Correct! The passage states that "both types require students to complete assignments."',
+    rat_cn:'正确！文章说明"两种类型都要求学生完成作业"。',
+    wrong:{
+      A:{en:'Traditional students sit together, but online students work from home. This is a difference.',cn:'传统学生坐在一起，但网络学生在家学习。这是不同点。'},
+      B:{en:'Traditional classes do not use online tools as their main method.',cn:'传统课程不以在线工具为主要方式。'},
+      D:{en:'Online students choose when to work, but traditional students follow a set schedule — this is a difference.',cn:'网络学生选择何时学习，但传统学生遵循固定时间表——这是不同点。'}
+    }
+  },
+  {
+    id:'p9', title:'The Missing Textbook',
+    passage:'Zhang could not find his English textbook anywhere. Without it, he could not complete his homework. He searched his desk, his bag, and his locker — nothing. He began to worry that he would receive a zero. His teacher, Ms. Lin, noticed his anxiety. She suggested that Zhang check the library lending shelf, where students sometimes returned found items. Zhang went to the library immediately. The textbook was there, neatly placed on the shelf.',
+    q:'What is the main text structure of this passage?',
+    q_cn:'这篇文章的主要文章结构是什么？',
+    opts:[
+      {en:'A. Chronological order', cn:'A. 时间顺序', letter:'A'},
+      {en:'B. Compare and contrast', cn:'B. 比较与对比', letter:'B'},
+      {en:'C. Problem and solution', cn:'C. 问题与解决方案', letter:'C'},
+      {en:'D. Cause and effect', cn:'D. 因果关系', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Correct! There is a clear problem (Zhang cannot find his textbook) and a clear solution (checking the library shelf).',
+    rat_cn:'正确！有一个明确的问题（张找不到他的教科书）和一个明确的解决方案（查看图书馆书架）。',
+    wrong:{
+      A:{en:'Events are mentioned in order, but the main purpose is to present a problem and resolve it.',cn:'事件按顺序提及，但主要目的是提出问题并解决。'},
+      B:{en:'No two things are being compared in this passage.',cn:'这篇文章中没有比较两件事。'},
+      D:{en:'While there is cause-effect inside, the passage is organized around solving a problem.',cn:'虽然文章中有因果关系，但文章围绕解决问题组织。'}
+    }
+  },
+  {
+    id:'p10', title:'Junk Food in Schools',
+    passage:'Many students buy chips, candy, and sugary drinks from school vending machines every day. Doctors warn that eating too much sugar and processed food causes energy crashes in the afternoon, making it harder to concentrate in class. Poor concentration leads to lower grades. Lower grades, over time, can affect a student\'s chances of entering university. The food students eat at school connects directly to their academic future.',
+    q:'The sentence "Poor concentration leads to lower grades" uses what text structure clue?',
+    q_cn:'"注意力不集中导致成绩下降"这句话使用了什么文章结构线索？',
+    opts:[
+      {en:'A. A time word showing chronological order', cn:'A. 表示时间顺序的时间词', letter:'A'},
+      {en:'B. A similarity word showing compare and contrast', cn:'B. 表示相似的词，显示比较与对比', letter:'B'},
+      {en:'C. A cause-and-effect relationship shown by "leads to"', cn:'C. "leads to"表示的因果关系', letter:'C'},
+      {en:'D. A problem statement requiring a solution', cn:'D. 需要解决方案的问题陈述', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Correct! "Leads to" is a cause-and-effect signal phrase showing that poor concentration causes lower grades.',
+    rat_cn:'正确！"Leads to"是因果关系信号短语，表示注意力不集中导致成绩下降。',
+    wrong:{
+      A:{en:'There are no time words in this sentence. It does not describe a sequence of events.',cn:'这句话中没有时间词。它不描述事件顺序。'},
+      B:{en:'No similarity is being established. There is no second thing being compared.',cn:'没有建立相似性。没有第二件事与之比较。'},
+      D:{en:'The sentence does not state a problem that needs solving. It explains that one thing causes another.',cn:'这句话没有陈述需要解决的问题。它解释了一件事导致另一件事。'}
+    }
+  }
+];
+
+// ── EXIT TICKET DATA ──
+var EXIT = [
+  {
+    q:'Which text structure explains WHY something happened and WHAT resulted from it?',
+    q_cn:'哪种文章结构解释了为什么发生了某事以及结果是什么？',
+    opts:[
+      {en:'A. Chronological order', cn:'A. 时间顺序', letter:'A'},
+      {en:'B. Problem and solution', cn:'B. 问题与解决方案', letter:'B'},
+      {en:'C. Cause and effect', cn:'C. 因果关系', letter:'C'},
+      {en:'D. Compare and contrast', cn:'D. 比较与对比', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Cause and effect explains a reason (cause) and its result (effect).',
+    rat_cn:'因果关系解释原因及其结果。'
+  },
+  {
+    q:'A student reads: "First, Lin packed her bag. Next, she put on her shoes. Then, she left the house." What structure is this?',
+    q_cn:'一个学生读到：首先，林收拾了书包。接着，她穿上鞋子。然后，她离开了家。这是什么结构？',
+    opts:[
+      {en:'A. Problem and solution', cn:'A. 问题与解决方案', letter:'A'},
+      {en:'B. Chronological order', cn:'B. 时间顺序', letter:'B'},
+      {en:'C. Cause and effect', cn:'C. 因果关系', letter:'C'},
+      {en:'D. Compare and contrast', cn:'D. 比较与对比', letter:'D'}
+    ],
+    correct:'B',
+    rat_en:'"First, next, then" are chronological signal words showing events in time order.',
+    rat_cn:'"First, next, then"是时间顺序信号词，显示事件的时间顺序。'
+  },
+  {
+    q:'Which signal word is MOST likely to appear in a cause and effect text?',
+    q_cn:'哪个信号词最可能出现在因果关系文章中？',
+    opts:[
+      {en:'A. However', cn:'A. 然而', letter:'A'},
+      {en:'B. Similarly', cn:'B. 同样地', letter:'B'},
+      {en:'C. Finally', cn:'C. 最后', letter:'C'},
+      {en:'D. Therefore', cn:'D. 因此', letter:'D'}
+    ],
+    correct:'D',
+    rat_en:'"Therefore" signals that what follows is a result or conclusion — a key cause-and-effect word.',
+    rat_cn:'"Therefore"表示后面是结果或结论——这是一个重要的因果关系词。'
+  },
+  {
+    q:'A passage about cats and dogs uses the words "both" and "but" to describe similarities and differences. What structure is this?',
+    q_cn:'一段关于猫和狗的文章使用"both"和"but"来描述异同。这是什么结构？',
+    opts:[
+      {en:'A. Chronological order', cn:'A. 时间顺序', letter:'A'},
+      {en:'B. Cause and effect', cn:'B. 因果关系', letter:'B'},
+      {en:'C. Compare and contrast', cn:'C. 比较与对比', letter:'C'},
+      {en:'D. Problem and solution', cn:'D. 问题与解决方案', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'"Both" and "but" are compare/contrast signal words showing similarities and differences.',
+    rat_cn:'"Both"和"but"是比较对比信号词，显示异同。'
+  },
+  {
+    q:'A health article says many teenagers do not drink enough water, then suggests keeping a water bottle at the desk. What structure is this?',
+    q_cn:'一篇健康文章说许多青少年喝水不足，然后建议在桌子上放一个水瓶。这是什么结构？',
+    opts:[
+      {en:'A. Chronological order', cn:'A. 时间顺序', letter:'A'},
+      {en:'B. Compare and contrast', cn:'B. 比较与对比', letter:'B'},
+      {en:'C. Cause and effect', cn:'C. 因果关系', letter:'C'},
+      {en:'D. Problem and solution', cn:'D. 问题与解决方案', letter:'D'}
+    ],
+    correct:'D',
+    rat_en:'A problem (not drinking enough water) is identified, and a solution (keep a water bottle nearby) is offered.',
+    rat_cn:'提出了一个问题（喝水不足），并提供了解决方案（在附近放水瓶）。'
+  },
+  {
+    q:'Which of the following is a signal word for compare and contrast?',
+    q_cn:'下列哪项是比较与对比的信号词？',
+    opts:[
+      {en:'A. As a result', cn:'A. 因此', letter:'A'},
+      {en:'B. The problem is', cn:'B. 问题是', letter:'B'},
+      {en:'C. On the other hand', cn:'C. 另一方面', letter:'C'},
+      {en:'D. First of all', cn:'D. 首先', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'"On the other hand" introduces a contrasting point — a classic compare/contrast signal phrase.',
+    rat_cn:'"On the other hand"引入一个对比观点——这是经典的比较对比信号短语。'
+  },
+  {
+    q:'A biography lists: birth, school years, first discovery, Nobel Prize. What structure is this?',
+    q_cn:'一部传记列出：出生、求学年代、第一次发现、诺贝尔奖。这是什么结构？',
+    opts:[
+      {en:'A. Problem and solution', cn:'A. 问题与解决方案', letter:'A'},
+      {en:'B. Cause and effect', cn:'B. 因果关系', letter:'B'},
+      {en:'C. Chronological order', cn:'C. 时间顺序', letter:'C'},
+      {en:'D. Compare and contrast', cn:'D. 比较与对比', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Life events ordered from earliest to most recent show chronological structure.',
+    rat_cn:'从最早到最近排列的生活事件显示时间顺序结构。'
+  },
+  {
+    q:'If a reader wants to predict what comes next in a text, what should they do first?',
+    q_cn:'如果读者想要预测文章接下来的内容，他们应该首先做什么？',
+    opts:[
+      {en:'A. Count the number of paragraphs', cn:'A. 数一数段落数', letter:'A'},
+      {en:'B. Look up every difficult vocabulary word', cn:'B. 查找每个难词', letter:'B'},
+      {en:'C. Identify the text structure the author is using', cn:'C. 识别作者使用的文章结构', letter:'C'},
+      {en:'D. Read only the first and last sentences', cn:'D. 只读第一句和最后一句', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Knowing the text structure allows a reader to predict what kind of information will come next.',
+    rat_cn:'了解文章结构使读者能够预测文章接下来会出现什么类型的信息。'
+  },
+  {
+    q:'Read: "Because the electricity went out, the food melted. The melted food caused a bad smell, which led students to avoid the cafeteria." How many cause-effect links are in this chain?',
+    q_cn:'阅读：因为停电，食物融化了。融化的食物产生了难闻的气味，导致学生避开食堂。这条链中有多少个因果关系链接？',
+    opts:[
+      {en:'A. One link only', cn:'A. 只有一个链接', letter:'A'},
+      {en:'B. Two links', cn:'B. 两个链接', letter:'B'},
+      {en:'C. Three links', cn:'C. 三个链接', letter:'C'},
+      {en:'D. Zero — this is chronological, not cause and effect', cn:'D. 零——这是时间顺序，不是因果关系', letter:'D'}
+    ],
+    correct:'C',
+    rat_en:'Three links: electricity outage causes food to melt; melting causes bad smell; bad smell causes students to leave.',
+    rat_cn:'三个链接：停电导致食物融化；融化导致异味；异味导致学生离开。'
+  },
+  {
+    q:'An article uses the words "similarly," "in contrast," and "both." What text structure is most likely being used?',
+    q_cn:'一篇文章使用了"similarly"、"in contrast"和"both"等词。最可能使用的是什么文章结构？',
+    opts:[
+      {en:'A. Cause and effect', cn:'A. 因果关系', letter:'A'},
+      {en:'B. Chronological order', cn:'B. 时间顺序', letter:'B'},
+      {en:'C. Problem and solution', cn:'C. 问题与解决方案', letter:'C'},
+      {en:'D. Compare and contrast', cn:'D. 比较与对比', letter:'D'}
+    ],
+    correct:'D',
+    rat_en:'"Similarly," "in contrast," and "both" are all compare/contrast signal words pointing to similarities and differences.',
+    rat_cn:'"Similarly"、"in contrast"和"both"都是比较对比信号词，指向两个主题之间的异同。'
+  }
+];
+
+// ── BUILD VOCAB ──
+function buildVocab() {
+  var g = document.getElementById('vocabGrid');
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = function() { window.speechSynthesis.getVoices(); };
+  }
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    var btn = document.createElement('button');
+    btn.className = 'speak-btn';
+    btn.textContent = '🔊 Listen';
+    btn.addEventListener('click', function() { speakWord(v.word); });
+    card.innerHTML = '<div class="vocab-word">' + v.word + '</div>' +
+      '<div class="vocab-pos">' + v.pos + '</div>' +
+      '<div class="vocab-cn-word cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-cn-def cn">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    card.appendChild(btn);
+    g.appendChild(card);
+  });
+  document.getElementById('pip-vocab').classList.add('done');
+}
+
+function speakWord(word) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  var u = new SpeechSynthesisUtterance(word);
+  u.lang = 'en-US'; u.rate = 0.82; u.pitch = 1.05;
+  var voices = window.speechSynthesis.getVoices();
+  var preferred = ['Samantha','Google US English','Microsoft Aria','Alex','Karen','Moira','Tessa'];
+  var pick = null;
+  for (var i = 0; i < preferred.length; i++) {
+    for (var j = 0; j < voices.length; j++) {
+      if (voices[j].name.indexOf(preferred[i]) > -1 && voices[j].lang.indexOf('en') === 0) { pick = voices[j]; break; }
+    }
+    if (pick) break;
+  }
+  if (!pick) pick = voices.find(function(v) { return v.lang.indexOf('en-US') === 0; });
+  if (pick) u.voice = pick;
+  window.speechSynthesis.speak(u);
+}
+
+// ── BUILD PRACTICES ──
+function buildPractices() {
+  var c = document.getElementById('practiceContainer');
+  PRACTICES.forEach(function(q, i) {
+    var card = document.createElement('div');
+    card.className = 'practice-card';
+    var inner = '<div class="practice-num">Question ' + (i+1) + ' of ' + PRACTICES.length + '</div>' +
+      '<div class="practice-title">' + q.title + '</div>' +
+      '<div class="practice-passage">' + q.passage + '</div>' +
+      '<div class="practice-q">' + q.q + '</div>' +
+      '<div class="practice-q-cn cn">' + q.q_cn + '</div>' +
+      '<div class="options-grid" id="pg_' + q.id + '"></div>' +
+      '<div class="rationale" id="pr_' + q.id + '"></div>';
+    card.innerHTML = inner;
+    c.appendChild(card);
+    var grid = document.getElementById('pg_' + q.id);
+    q.opts.forEach(function(opt) {
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.innerHTML = opt.en + '<span class="opt-cn cn">' + opt.cn + '</span>';
+      btn.addEventListener('click', (function(o) {
+        return function() { selectPractice(q, o.letter, btn); };
+      })(opt));
+      grid.appendChild(btn);
+    });
+  });
+}
+
+function selectPractice(q, letter, btn) {
+  var grid = document.getElementById('pg_' + q.id);
+  var ratEl = document.getElementById('pr_' + q.id);
+  if (grid.querySelector('.correct') || grid.querySelector('.wrong')) return;
+  var allBtns = grid.querySelectorAll('.opt-btn');
+  allBtns.forEach(function(b) { b.disabled = true; });
+  var isCorrect = letter === q.correct;
+  if (isCorrect) {
+    btn.classList.add('correct');
+    ratEl.innerHTML = '✅ ' + q.rat_en + '<span class="rationale-cn cn">' + q.rat_cn + '</span>';
+    ratEl.className = 'rationale show ok';
+    addProgress(1);
+  } else {
+    btn.classList.add('wrong');
+    var wr = q.wrong[letter];
+    ratEl.innerHTML = '❌ ' + (wr ? wr.en : '') + '<span class="rationale-cn cn">' + (wr ? wr.cn : '') + '</span>';
+    ratEl.className = 'rationale show bad';
+    var correctBtn = grid.querySelector('#pg_' + q.id + ' .opt-btn:nth-child(' + ('ABCD'.indexOf(q.correct)+1) + ')');
+    allBtns.forEach(function(b) {
+      if (b.innerHTML.indexOf(q.correct + '.') === 0 || b.innerHTML.startsWith(q.correct + '.')) b.classList.add('correct');
+    });
+  }
+  practiceAnswers[q.id] = {selected: letter, correct: q.correct, isCorrect: isCorrect};
+}
+
+// ── BUILD EXIT TICKET ──
+function buildExit() {
+  var c = document.getElementById('exitContainer');
+  EXIT.forEach(function(q, i) {
+    var card = document.createElement('div');
+    card.className = 'exit-card';
+    card.innerHTML = '<div class="exit-q">Exit Q' + (i+1) + ': ' + q.q + '</div>' +
+      '<div class="exit-q-cn cn">' + q.q_cn + '</div>' +
+      '<div class="options-grid" id="eg_' + i + '"></div>' +
+      '<div class="rationale" id="er_' + i + '"></div>';
+    c.appendChild(card);
+    var grid = document.getElementById('eg_' + i);
+    q.opts.forEach(function(opt) {
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.innerHTML = opt.en + '<span class="opt-cn cn">' + opt.cn + '</span>';
+      btn.addEventListener('click', (function(o, idx) {
+        return function() { selectExit(q, idx, o.letter, btn); };
+      })(opt, i));
+      grid.appendChild(btn);
+    });
+  });
+}
+
+function selectExit(q, idx, letter, btn) {
+  if (exitAnswers[idx]) return;
+  var grid = document.getElementById('eg_' + idx);
+  var ratEl = document.getElementById('er_' + idx);
+  var allBtns = grid.querySelectorAll('.opt-btn');
+  allBtns.forEach(function(b) { b.disabled = true; });
+  var isCorrect = letter === q.correct;
+  if (isCorrect) {
+    btn.classList.add('correct');
+    exitScore++;
+    addProgress(1);
+  } else {
+    btn.classList.add('wrong');
+    allBtns.forEach(function(b) {
+      if (b.innerHTML.startsWith(q.correct + '.')) b.classList.add('correct');
+    });
+  }
+  ratEl.innerHTML = (isCorrect ? '✅ ' : '❌ ') + q.rat_en + '<span class="rationale-cn cn">' + q.rat_cn + '</span>';
+  ratEl.className = 'rationale show ' + (isCorrect ? 'ok' : 'bad');
+  exitAnswers[idx] = {selected: letter, correct: q.correct, isCorrect: isCorrect};
+  exitAnswered++;
+  if (exitAnswered === EXIT.length) showScore();
+}
+
+function showScore() {
+  var panel = document.getElementById('scorePanel');
+  panel.classList.add('show');
+  document.getElementById('scoreNum').textContent = exitScore + ' / ' + EXIT.length;
+  var pct = Math.round(exitScore / EXIT.length * 100);
+  var msg, cn;
+  if (pct >= 90) { msg = 'Excellent work! 🏆'; cn = '非常出色！继续保持！'; }
+  else if (pct >= 70) { msg = 'Good effort! Keep reviewing. 👍'; cn = '不错的努力！继续复习。'; }
+  else { msg = 'Keep practicing — you are getting there. 💪'; cn = '继续练习——你在进步！'; }
+  document.getElementById('scoreMsg').textContent = msg;
+  document.getElementById('scoreCn').textContent = cn;
+  document.getElementById('pip-wed').classList.add('done');
+  var dlBtn = document.getElementById('dlBtn');
+  dlBtn.classList.add('unlocked');
+  dlBtn.style.cursor = 'pointer';
+  document.getElementById('dlHint').style.display = 'none';
+}
+
+// ── DOWNLOAD ──
+function downloadReport() {
+  if (!document.getElementById('dlBtn').classList.contains('unlocked')) return;
+  var name = document.getElementById('wedName').value.trim() || 'Student';
+  var date = new Date().toLocaleDateString();
+  var time = formatTime(secondsElapsed);
+  var txt = 'MLWS TEXT STRUCTURE MODULE — WEDNESDAY REPORT\n';
+  txt += '='.repeat(50) + '\n';
+  txt += 'Student: ' + name + '\nDate: ' + date + '\nSession Time: ' + time + '\nTab Leaves: ' + leaveCount + '\nExit Score: ' + exitScore + ' / ' + EXIT.length + '\n\n';
+  txt += 'PRACTICE ANSWERS\n' + '-'.repeat(30) + '\n';
+  PRACTICES.forEach(function(q, i) {
+    var a = practiceAnswers[q.id];
+    txt += 'Q' + (i+1) + ' [' + q.title + ']: ';
+    txt += a ? ('Selected: ' + a.selected + ' | Correct: ' + a.correct + ' | ' + (a.isCorrect ? 'CORRECT' : 'INCORRECT') + '\n') : 'Not answered\n';
+  });
+  txt += '\nEXIT TICKET\n' + '-'.repeat(30) + '\n';
+  EXIT.forEach(function(q, i) {
+    var a = exitAnswers[i];
+    txt += 'Exit Q' + (i+1) + ': ';
+    txt += a ? ('Selected: ' + a.selected + ' | Correct: ' + a.correct + ' | ' + (a.isCorrect ? 'CORRECT' : 'INCORRECT') + '\n') : 'Not answered\n';
+  });
+  txt += '\nREFLECTION\n' + '-'.repeat(30) + '\n';
+  txt += 'Q1: ' + (document.getElementById('wedRefl1').value.trim() || '(no response)') + '\n\n';
+  txt += 'Q2: ' + (document.getElementById('wedRefl2').value.trim() || '(no response)') + '\n';
+  var blob = new Blob([txt], {type: 'text/plain'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'TextStructure_Wed_' + name.replace(/\s+/g,'_') + '_' + date.replace(/\//g,'-') + '.txt';
+  a.click();
+}
+
+// ── UTILS ──
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  document.getElementById('progressBar').style.width = (progressPoints / totalPoints * 100) + '%';
+}
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timerDisplay').textContent = '⏱ ' + formatTime(secondsElapsed);
+  }, 1000);
+}
+function formatTime(s) {
+  var m = Math.floor(s/60), sec = s%60;
+  return (m<10?'0':'')+m+':'+(sec<10?'0':'')+sec;
+}
+function trackLeaves() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) { leaveCount++; document.getElementById('leaveCount').textContent = leaveCount; }
+  });
+}
+
+window.onload = function() {
+  buildVocab();
+  buildPractices();
+  buildExit();
+  startTimer();
+  trackLeaves();
+};
+</script>
+</body>
+</html>
