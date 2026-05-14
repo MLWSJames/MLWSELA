@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Tattoo Journey - Complete Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            background: #f5f5f5;
+            border-bottom: 3px solid #003366;
+            overflow-x: auto;
+        }
+        
+        .tab-button {
+            flex: 1;
+            min-width: 140px;
+            padding: 15px 10px;
+            background: #e8e8e8;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s;
+            border-right: 1px solid #ddd;
+        }
+        
+        .tab-button:hover {
+            background: #d8d8d8;
+        }
+        
+        .tab-button.active {
+            background: white;
+            color: #003366;
+            border-bottom: 3px solid #990000;
+        }
+        
+        .content {
+            padding: 40px;
+            min-height: 500px;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .wrist-philosophy {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .wrist-philosophy h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #ff6f00;
+            padding-bottom: 15px;
+        }
+        
+        .wrist-intro {
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: center;
+            font-style: italic;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        
+        .foundation {
+            background: linear-gradient(135deg, #990000 0%, #cc0000 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .foundation h4 {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+        }
+        
+        .foundation p {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+        
+        .radiating-phrases {
+            margin-top: 40px;
+        }
+        
+        .radiating-phrases h4 {
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .phrase-card {
+            background: white;
+            color: #333;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            border-left: 6px solid #ff6f00;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .phrase-card .latin {
+            font-size: 1.6em;
+            color: #003366;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .phrase-card .english {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .phrase-card .meaning {
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: #444;
+        }
+        
+        .wrist-summary {
+            background: linear-gradient(135deg, #ff6f00 0%, #ff8f00 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            line-height: 1.8;
+        }
+        
+        .chinese-main {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .chinese-chars {
+            font-size: 4em;
+            color: #990000;
+            font-weight: bold;
+            margin: 20px 0;
+            letter-spacing: 20px;
+        }
+        
+        .pinyin {
+            font-size: 1.5em;
+            font-style: italic;
+            color: #666;
+            margin: 15px 0;
+        }
+        
+        .meaning {
+            font-size: 1.3em;
+            color: #003366;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 10px;
+        }
+        
+        .description {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+            margin: 20px 0;
+        }
+        
+        .style-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .style-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .style-box {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .james-style {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 3px solid #003366;
+        }
+        
+        .wife-style {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            border: 3px solid #990000;
+        }
+        
+        .style-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .style-box .demo-text {
+            font-size: 3em;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+        }
+        
+        .james-style .demo-text {
+            font-family: 'Times New Roman', serif;
+            font-weight: bold;
+            letter-spacing: 10px;
+        }
+        
+        .wife-style .demo-text {
+            font-family: 'Brush Script MT', cursive;
+            font-style: italic;
+            letter-spacing: 5px;
+        }
+        
+        .style-description {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #555;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .benefits-list {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .benefits-list h3 {
+            color: #003366;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .benefit-item {
+            padding: 15px;
+            margin: 15px 0;
+            background: white;
+            border-left: 5px solid #990000;
+            border-radius: 5px;
+        }
+        
+        .benefit-item strong {
+            color: #003366;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+        
+        .calligraphy-styles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .cal-style-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid #990000;
+        }
+        
+        .cal-style-card h4 {
+            color: #003366;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .cal-style-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .cal-style-card li {
+            padding: 5px 0;
+            line-height: 1.6;
+        }
+        
+        .cal-style-card li:before {
+            content: "• ";
+            color: #990000;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .phrase-list {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .phrase-item {
+            padding: 20px;
+            margin: 15px 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .phrase-latin {
+            font-size: 1.4em;
+            color: #003366;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .phrase-english {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .steps-list {
+            counter-reset: step-counter;
+        }
+        
+        .step-item {
+            counter-increment: step-counter;
+            padding: 25px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+            padding-left: 80px;
+        }
+        
+        .step-item:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            background: #990000;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .step-item h4 {
+            color: #003366;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .step-item p {
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #ff6f00;
+            margin: 20px 0;
+        }
+        
+        .highlight-box strong {
+            color: #e65100;
+            font-size: 1.1em;
+        }
+        
+        .final-message {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .final-chinese {
+            font-size: 4em;
+            color: #990000;
+            margin: 20px 0;
+            letter-spacing: 20px;
+        }
+        
+        .final-latin {
+            font-size: 2.5em;
+            color: #003366;
+            font-style: italic;
+            margin: 20px 0;
+        }
+        
+        .final-english {
+            font-size: 1.8em;
+            color: #555;
+            margin: 20px 0;
+        }
+        
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .overview-card {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .left-wrist {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            border: 3px solid #990000;
+        }
+        
+        .right-wrist {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 3px solid #003366;
+        }
+        
+        .overview-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .overview-card .big-text {
+            font-size: 2em;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .overview-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .overview-card li {
+            padding: 10px 0;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+        
+        .overview-card li:before {
+            content: "→ ";
+            color: #990000;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .tabs {
+                display: none;
+            }
+            .tab-content {
+                display: block !important;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 Our Tattoo Journey 🌟</h1>
+            <p>Meaningful Symbols for Our Partnership</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab(0)">Overview</button>
+            <button class="tab-button" onclick="showTab(1)">Right Wrist Philosophy</button>
+            <button class="tab-button" onclick="showTab(2)">Chinese Translation</button>
+            <button class="tab-button" onclick="showTab(3)">Calligraphy Styles</button>
+            <button class="tab-button" onclick="showTab(4)">Your Personal Styles</button>
+            <button class="tab-button" onclick="showTab(5)">All Latin Phrases</button>
+            <button class="tab-button" onclick="showTab(6)">Elvish/Tengwar</button>
+            <button class="tab-button" onclick="showTab(7)">Next Steps</button>
+        </div>
+        
+        <div class="content">
+            <!-- Tab 0: Overview -->
+            <div class="tab-content active">
+                <h2 style="color: #003366; margin-bottom: 30px; text-align: center;">The Complete Vision</h2>
+                
+                <div class="overview-grid">
+                    <div class="overview-card left-wrist">
+                        <h3>Left Wrist: The WHY</h3>
+                        <div class="big-text">Simul Melius</div>
+                        <p style="text-align: center; font-style: italic; margin-bottom: 15px;">Together, better</p>
+                        <p style="text-align: center; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 5px; margin-bottom: 20px;"><strong>✓ ALREADY HAVE THIS</strong></p>
+                        <div style="border-top: 2px solid #990000; padding-top: 20px; margin-top: 20px;">
+                            <p style="text-align: center; font-weight: bold; margin-bottom: 10px;">ADDING:</p>
+                            <div class="big-text" style="font-size: 1.8em;">相得益彰</div>
+                            <p style="text-align: center; font-style: italic;">(Xiāng dé yì zhāng)</p>
+                        </div>
+                        <ul style="margin-top: 15px;">
+                            <li>You bring out the best in each other</li>
+                            <li>Chinese companion to Simul Melius</li>
+                            <li>Both in same calligraphy style</li>
+                            <li>Two ancient languages, one truth</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="overview-card right-wrist">
+                        <h3>Right Wrist: The HOW</h3>
+                        <p style="text-align: center; font-size: 1.3em; margin-bottom: 20px;">Everything radiates from a center</p>
+                        <ul>
+                            <li><strong>Memento Mori</strong> — Time is short</li>
+                            <li><strong>Esse Quam Videri</strong> — Be real, not performed</li>
+                            <li><strong>Via Semper Pergit</strong> — The road goes on</li>
+                            <li><strong>Excellentia Est Taedium</strong> — Excellence is boring work</li>
+                            <li style="margin-top: 15px; font-style: italic;">These define how you live Simul Melius</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <h3 style="color: #e65100; margin-bottom: 15px; text-align: center;">The Complete Architecture</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8; text-align: center;">
+                        <strong>Left wrist:</strong> Simul Melius (already have) + 相得益彰 (adding)<br>
+                        <em>The WHY. The foundation in two languages.</em><br><br>
+                        <strong>Right wrist:</strong> Four phrases radiating outward<br>
+                        <em>The HOW. The daily work of keeping that promise.</em>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Tab 1: Right Wrist Philosophy -->
+            <div class="tab-content">
+                <div class="wrist-philosophy">
+                    <h3>Right Wrist: The How</h3>
+                    <div class="wrist-intro">
+                        Four phrases that radiate outward.<br>
+                        These are how you live Simul Melius.<br>
+                        The daily work of keeping that promise.
+                    </div>
+                    
+                    <div class="radiating-phrases">
+                        <h4>The Four Phrases</h4>
+                        
+                        <div class="phrase-card">
+                            <div class="latin">Memento Mori</div>
+                            <div class="english">Remember you will die</div>
+                            <div class="meaning">
+                                Not dark — clarifying. Time is short, so the people you choose to spend it with matter. It's why <em>Simul Melius</em> isn't just a nice sentiment, it's a decision you keep making.
+                            </div>
+                        </div>
+                        
+                        <div class="phrase-card">
+                            <div class="latin">Esse Quam Videri</div>
+                            <div class="english">To be rather than to seem</div>
+                            <div class="meaning">
+                                What you bring into the marriage and the life. No performance, no mask. Brittany gets the real version. That's the promise underneath <em>Simul Melius</em>.
+                            </div>
+                        </div>
+                        
+                        <div class="phrase-card">
+                            <div class="latin">Via Semper Pergit</div>
+                            <div class="english">The road goes ever on</div>
+                            <div class="meaning">
+                                Xiangyang to Dalian. Alabama to Nashville to China. The two of you keep moving, keep beginning again. The road didn't stop at the door — you took each other through it.
+                            </div>
+                        </div>
+                        
+                        <div class="phrase-card">
+                            <div class="latin">Excellentia Est Taedium</div>
+                            <div class="english">Excellence is tedium (boring)</div>
+                            <div class="meaning">
+                                The unglamorous truth behind building a life together. The ordinary Tuesday mornings, the hard seasons, the relentless showing up. <em>Simul Melius</em> isn't magic — it's work. Boring, worthy, excellent work.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="wrist-summary">
+                        Left wrist is the WHY (Simul Melius + 相得益彰).<br>
+                        Right wrist is the HOW (these four phrases).
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 2: Chinese Translation -->
+            <div class="tab-content">
+                <div class="chinese-main">
+                    <h2 style="color: #003366; margin-bottom: 20px;">Adding to Left Wrist with Simul Melius</h2>
+                    <div class="chinese-chars">相得益彰</div>
+                    <div class="pinyin">Xiāng dé yì zhāng</div>
+                    <div class="meaning">"You bring out the best in each other"</div>
+                    <div class="description">
+                        <p><strong>Classical Chinese Idiom (成语 chéngyǔ)</strong></p>
+                        <p style="margin-top: 15px;">This beautiful four-character phrase has been used in Chinese literature for over 2,000 years. It goes beyond "better together" to express that your partnership makes each of you shine brighter.</p>
+                        <p style="margin-top: 15px;"><strong>Literal meaning:</strong> When together, you enhance each other's virtues and brilliance, making your strengths more prominent and visible.</p>
+                    </div>
+                    
+                    <div class="highlight-box" style="margin-top: 40px;">
+                        <strong>Left Wrist - The WHY:</strong><br><br>
+                        <strong>Simul Melius</strong> (Already have) + <strong>相得益彰</strong> (Adding)<br><br>
+                        Same meaning in two ancient languages. Latin and Chinese. Both expressing the same profound truth about your partnership. This is the foundation — the WHY you choose each other.
+                    </div>
+                    
+                    <div class="benefits-list" style="margin-top: 30px;">
+                        <h3>Why This Works Perfectly</h3>
+                        <div class="benefit-item">
+                            <strong>✓ Same Meaning, Two Languages</strong>
+                            Simul Melius (Latin) and 相得益彰 (Chinese) both express "better together" but with deeper cultural resonance
+                        </div>
+                        <div class="benefit-item">
+                            <strong>✓ Both Ancient Languages</strong>
+                            Latin (Roman Empire) and Classical Chinese (2,000+ years) — timeless wisdom from two great civilizations
+                        </div>
+                        <div class="benefit-item">
+                            <strong>✓ Shows Respect for Chinese Culture</strong>
+                            As an educator in China, choosing a classical idiom shows deep cultural appreciation
+                        </div>
+                        <div class="benefit-item">
+                            <strong>✓ Perfect Complement</strong>
+                            The existing Simul Melius stays; 相得益彰 adds to it, enriching the meaning
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 3: Calligraphy Styles -->
+            <div class="tab-content">
+                <h2 style="color: #003366; margin-bottom: 30px; text-align: center;">Chinese Calligraphy Styles for 相得益彰</h2>
+                <div class="calligraphy-styles">
+                    <div class="cal-style-card">
+                        <h4>楷书 (Kǎishū) - Regular Script</h4>
+                        <ul>
+                            <li>Clear, structured, readable</li>
+                            <li>Like Times New Roman in English</li>
+                            <li>Most formal and legible</li>
+                            <li>Each stroke is distinct and precise</li>
+                            <li><strong>Perfect for James's right wrist (Simul Melius foundation)</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cal-style-card">
+                        <h4>行书 (Xíngshū) - Semi-Cursive</h4>
+                        <ul>
+                            <li>Flowing, elegant, artistic</li>
+                            <li>Like cursive writing in English</li>
+                            <li>More fluid than Regular Script</li>
+                            <li>Strokes connect smoothly</li>
+                            <li><strong>Perfect for Brittany's left wrist (相得益彰)</strong></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cal-style-card">
+                        <h4>隶书 (Lìshū) - Clerical Script</h4>
+                        <ul>
+                            <li>Ancient, wide, flat appearance</li>
+                            <li>Artistic and distinctive</li>
+                            <li>Historical feel from Han Dynasty</li>
+                            <li>Bold and architectural</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cal-style-card">
+                        <h4>草书 (Cǎoshū) - Cursive Script</h4>
+                        <ul>
+                            <li>Highly stylized, very flowing</li>
+                            <li>Artistic but harder to read</li>
+                            <li>Most expressive and dynamic</li>
+                            <li>For advanced calligraphers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 4: Personal Styles -->
+            <div class="tab-content">
+                <h2 style="color: #003366; margin-bottom: 30px; text-align: center;">Calligraphy Style for 相得益彰</h2>
+                
+                <div class="highlight-box" style="margin-bottom: 30px;">
+                    <strong>Important:</strong> Since this is being added to your LEFT wrist alongside the existing Simul Melius, you'll want to match the style you already have. Both Simul Melius and 相得益彰 should be in the same calligraphy style for visual consistency.
+                </div>
+                
+                <h3 style="text-align: center; color: #990000; margin-bottom: 30px;">Recommended Style: 楷书 (Kǎishū) - Regular Script</h3>
+                
+                <div class="style-box james-style" style="max-width: 600px; margin: 0 auto;">
+                    <h3>相得益彰 in Regular Script</h3>
+                    <div class="demo-text">相得益彰</div>
+                    <div class="style-description">
+                        <strong>楷书 (Kǎishū) - Regular Script</strong><br>
+                        Clean lines • Structured • Professional • Highly readable<br><br>
+                        <em>Like Times New Roman in Latin script</em><br><br>
+                        This matches the formal, classical style of your existing Simul Melius tattoo. Both phrases will have the same aesthetic weight and visual harmony on your left wrist.
+                    </div>
+                </div>
+                
+                <div class="benefits-list" style="margin-top: 40px;">
+                    <h3>Why Regular Script (楷书) Works Best</h3>
+                    <div class="benefit-item">
+                        <strong>✓ Visual Consistency</strong>
+                        Matches the formal, structured aesthetic of Latin text
+                    </div>
+                    <div class="benefit-item">
+                        <strong>✓ Maximum Readability</strong>
+                        Most legible style - colleagues and students will immediately recognize it
+                    </div>
+                    <div class="benefit-item">
+                        <strong>✓ Classical & Timeless</strong>
+                        The "Times New Roman" of Chinese calligraphy - formal and enduring
+                    </div>
+                    <div class="benefit-item">
+                        <strong>✓ Both Wrists Balanced</strong>
+                        Left wrist: structured classical text (Latin + Chinese)<br>
+                        Right wrist: radiating phrases (Latin)
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <strong>Alternative Consideration:</strong> If your Simul Melius has any cursive or flowing elements, you could consider <strong>行书 (Xíngshū) - Semi-Cursive</strong> instead to match that flow. But for most classical Latin tattoos, Regular Script (楷书) is the perfect complement.
+                </div>
+            </div>
+            
+            <!-- Tab 5: All Latin Phrases -->
+            <div class="tab-content">
+                <h2 style="color: #003366; margin-bottom: 30px;">Complete Latin Phrase Collection</h2>
+                
+                <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); border: 3px solid #990000; padding: 25px; border-radius: 15px; margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 10px; text-align: center; color: #990000;">LEFT WRIST - The WHY</h3>
+                    <p style="font-size: 1.1em; font-style: italic; text-align: center; color: #333;">The Foundation (Already Have + Adding)</p>
+                    
+                    <div class="phrase-item" style="margin-top: 20px; border: 3px solid #990000;">
+                        <div class="phrase-latin">Simul Melius</div>
+                        <div class="phrase-english"><strong>✓ ALREADY HAVE:</strong> Together, better. The foundation you already carry.</div>
+                    </div>
+                    
+                    <div class="phrase-item" style="border: 3px solid #990000;">
+                        <div class="phrase-latin">相得益彰 (Xiāng dé yì zhāng)</div>
+                        <div class="phrase-english"><strong>ADDING:</strong> You bring out the best in each other. Same meaning as Simul Melius, expressed in classical Chinese.</div>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border: 3px solid #003366; padding: 25px; border-radius: 15px; margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 10px; text-align: center; color: #003366;">RIGHT WRIST - The HOW</h3>
+                    <p style="font-size: 1.1em; font-style: italic; text-align: center; color: #333;">Four Phrases Radiating Outward</p>
+                </div>
+                
+                <div class="phrase-list">
+                    <div class="phrase-item">
+                        <div class="phrase-latin">Memento Mori</div>
+                        <div class="phrase-english">Remember you will die<br>Time is short. The people you choose matter. This is why Simul Melius is a decision you keep making.</div>
+                    </div>
+                    
+                    <div class="phrase-item">
+                        <div class="phrase-latin">Esse Quam Videri</div>
+                        <div class="phrase-english">To be, rather than to seem<br>No performance, no mask. Brittany gets the real version. The promise underneath Simul Melius.</div>
+                    </div>
+                    
+                    <div class="phrase-item">
+                        <div class="phrase-latin">Via Semper Pergit</div>
+                        <div class="phrase-english">The road goes ever on<br>Xiangyang to Dalian. Alabama to Nashville to China. You keep moving, keep beginning again together.</div>
+                    </div>
+                    
+                    <div class="phrase-item">
+                        <div class="phrase-latin">Excellentia Est Taedium</div>
+                        <div class="phrase-english">Excellence is tedium (boring)<br>The ordinary Tuesdays, hard seasons, relentless showing up. Simul Melius isn't magic — it's work.</div>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); color: #333; padding: 25px; border-radius: 15px; margin-top: 40px; margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 10px; color: #e65100;">ADDITIONAL PHRASES (Not Part of Current Plan)</h3>
+                    <p style="font-size: 1em; font-style: italic;">Other meaningful options for future consideration</p>
+                </div>
+                
+                <div class="phrase-list">
+                    <div class="phrase-item">
+                        <div class="phrase-latin">Amor Est Ministrare</div>
+                        <div class="phrase-english">Love is being of service<br>True love manifests through serving others</div>
+                    </div>
+                    
+                    <div class="phrase-item">
+                        <div class="phrase-latin">Tempus Fugit</div>
+                        <div class="phrase-english">Time flies<br>Make the most of each moment • Don't waste precious time</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 6: Elvish -->
+            <div class="tab-content">
+                <h2 style="color: #003366; margin-bottom: 30px;">Tengwar Script (Elvish) - Bilbo's Journey</h2>
+                <div class="description">
+                    <h3 style="color: #990000; margin-bottom: 20px;">Words from Bilbo's Song</h3>
+                    <div class="phrase-list">
+                        <div class="phrase-item">
+                            <strong style="color: #003366;">Journey</strong><br>
+                            The essence of Bilbo's song. Simple and powerful.
+                        </div>
+                        
+                        <div class="phrase-item">
+                            <strong style="color: #003366;">Adventure</strong><br>
+                            A longer word that showcases the flowing nature of Tengwar script.
+                        </div>
+                        
+                        <div class="phrase-item">
+                            <strong style="color: #003366;">Wanderer</strong><br>
+                            Representing Bilbo or the spirit of travels.
+                        </div>
+                        
+                        <div class="phrase-item">
+                            <strong style="color: #003366;">Road</strong><br>
+                            A key word from the song, short and impactful.
+                        </div>
+                        
+                        <div class="phrase-item">
+                            <strong style="color: #003366;">Onward</strong><br>
+                            Representing the continuity of the journey.
+                        </div>
+                    </div>
+                    
+                    <div class="benefits-list">
+                        <h3>Design Considerations:</h3>
+                        <div class="benefit-item">
+                            <strong>Placement</strong>
+                            Single word as focal point or multiple woven throughout sleeve design
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Size Variation</strong>
+                            Mix larger and smaller script for visual interest
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Integration</strong>
+                            Script interacting with landscape elements, wrapping around the winding road
+                        </div>
+                        <div class="benefit-item">
+                            <strong>Stylization</strong>
+                            Adapt script to fit overall aesthetic (organic or angular)
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Connection to Via Semper Pergit:</strong> "The road goes ever on" — Bilbo's journey echoes your own. Alabama to Nashville to China. Xiangyang to Dalian. The road keeps calling.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 7: Next Steps -->
+            <div class="tab-content">
+                <h2 style="color: #003366; margin-bottom: 30px;">Next Steps for Your New Tattoos</h2>
+                
+                <div class="highlight-box" style="margin-bottom: 30px;">
+                    <h3 style="color: #e65100; margin-bottom: 15px;">What You're Getting</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;">
+                        <strong>Left Wrist:</strong> Adding 相得益彰 to accompany existing Simul Melius<br>
+                        <strong>Right Wrist:</strong> Four new Latin phrases (Memento Mori, Esse Quam Videri, Via Semper Pergit, Excellentia Est Taedium)
+                    </p>
+                </div>
+                
+                <div class="steps-list">
+                    <div class="step-item">
+                        <h4>VERIFICATION (Chinese)</h4>
+                        <p>Show 相得益彰 to your Chinese colleagues at Maple Leaf World School. They'll likely be deeply impressed by your choice of such a classical, meaningful idiom! Get their feedback and confirm the cultural appropriateness.</p>
+                        <p style="margin-top: 10px;"><strong>Questions to ask them:</strong></p>
+                        <p>• Is this phrase culturally appropriate for a non-Chinese person?<br>
+                        • Does it convey the meaning I intend?<br>
+                        • Any suggestions for calligraphy style?</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>CALLIGRAPHY SAMPLE (Chinese)</h4>
+                        <p>Ask a colleague skilled in calligraphy to write 相得益彰 in <strong>楷书 (Regular Script)</strong> to match the formal style of your existing Simul Melius tattoo.</p>
+                        <p style="margin-top: 10px;">Get this written beautifully on good paper. This will be your reference image. <strong>DO NOT rely on computer fonts</strong> - they lack the artistic quality and proper stroke work needed.</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>LATIN PHRASE VERIFICATION</h4>
+                        <p>Double-check your four Latin phrases with a Latin scholar if possible:</p>
+                        <p>• <strong>Memento Mori</strong> - Standard, well-known<br>
+                        • <strong>Esse Quam Videri</strong> - Standard, well-known<br>
+                        • <strong>Via Semper Pergit</strong> - Verify exact wording<br>
+                        • <strong>Excellentia Est Taedium</strong> - Verify exact wording</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>FIND YOUR ARTIST</h4>
+                        <p><strong>For Chinese characters:</strong> Find an artist experienced with Chinese calligraphy. In Xiangyang or Dalian, there should be artists familiar with traditional characters.</p>
+                        <p style="margin-top: 10px;"><strong>For Latin text:</strong> Find an artist skilled in fine lettering work, especially if you want the four right wrist phrases to radiate from a center point.</p>
+                        <p style="margin-top: 10px;"><em>Tip: You might need two different artists - one for Chinese calligraphy, one for Latin lettering.</em></p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>PLACEMENT & DESIGN DECISIONS</h4>
+                        <p><strong>Left Wrist:</strong></p>
+                        <p>• Position 相得益彰 to complement existing Simul Melius<br>
+                        • Consider: above, below, or wrapping around?<br>
+                        • Match the size and visual weight</p>
+                        
+                        <p style="margin-top: 15px;"><strong>Right Wrist:</strong></p>
+                        <p>• Four phrases radiating from center (like compass points?)<br>
+                        • Or arranged in a flowing pattern?<br>
+                        • Work with artist on layout that flows with wrist movement</p>
+                    </div>
+                    
+                    <div class="step-item">
+                        <h4>SIZE CONSIDERATIONS</h4>
+                        <p><strong>Chinese characters:</strong> Four characters need adequate space. Don't go too small - calligraphy needs room to breathe. Minimum 3-4 inches total length.</p>
+                        <p style="margin-top: 10px;"><strong>Latin phrases:</strong> Four separate phrases will need careful sizing and spacing. Make sure each is readable but the overall composition doesn't overwhelm the wrist.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 40px;">
+                    <h3 style="color: #e65100; margin-bottom: 15px;">Timeline Recommendation</h3>
+                    <p style="line-height: 1.8;">
+                        <strong>Before Dalian move (August 2026):</strong> Get verification and calligraphy samples from Xiangyang colleagues<br>
+                        <strong>After settling in Dalian:</strong> Research artists, get the work done when you're settled and comfortable<br>
+                        <strong>Consider:</strong> You might do left wrist and right wrist in separate sessions
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(index) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            contents.forEach(content => content.classList.remove('active'));
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            contents[index].classList.add('active');
+            buttons[index].classList.add('active');
+            
+            document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
