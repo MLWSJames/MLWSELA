@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Point of View | 观点与叙述视角</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;
+  --ml-red:#c1121f;--ml-gold:#e9c46a;--ink:#1a2a1a;--ink2:#2d3748;
+  --mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--ink);min-height:100vh;}
+h1,h2,h3{font-family:'Literata',serif;}
+.cn{font-family:'Noto Sans SC',sans-serif;}
+
+/* HEADER */
+.site-header{background:var(--ml-green-dark);color:#fff;padding:14px 20px 10px;}
+.header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.header-title{font-size:1.18rem;font-weight:700;letter-spacing:.01em;}
+.header-sub{font-size:.82rem;opacity:.8;font-family:'Noto Sans SC',sans-serif;}
+#leaveBadge{font-size:.78rem;background:rgba(255,255,255,.15);border-radius:20px;padding:3px 10px;white-space:nowrap;}
+.progress-row{margin-top:8px;display:flex;align-items:center;gap:10px;}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.2);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s;}
+#progressText{font-size:.75rem;color:rgba(255,255,255,.85);white-space:nowrap;}
+.pip-row{display:flex;gap:6px;align-items:center;margin-top:6px;}
+.pip{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.25);transition:background .4s;}
+.pip.done{background:var(--ml-gold);}
+
+/* TABS */
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);padding:0 8px;gap:2px;}
+.tab-btn{border:none;background:transparent;padding:11px 18px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;color:#555;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--ml-green);}
+.tab-btn.active{color:var(--ml-green-dark);border-bottom-color:var(--ml-green-dark);font-weight:700;}
+.tab-content{display:none;padding:20px 16px 80px;max-width:860px;margin:0 auto;}
+.tab-content.active{display:block;}
+
+/* VOCAB */
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:16px;}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.vocab-word{font-size:1.25rem;font-weight:700;color:var(--ml-green-dark);font-family:'Literata',serif;}
+.vocab-pos{font-size:.75rem;color:#888;font-style:italic;margin-bottom:6px;}
+.vocab-cn-word{font-size:1rem;font-weight:700;color:var(--cobalt);font-family:'Noto Sans SC',sans-serif;margin-bottom:6px;}
+.vocab-def{font-size:.88rem;color:var(--ink2);line-height:1.5;margin-bottom:4px;}
+.vocab-cn-def{font-size:.83rem;color:#555;font-family:'Noto Sans SC',sans-serif;line-height:1.5;margin-bottom:8px;}
+.vocab-example{font-size:.83rem;color:var(--cobalt);font-style:italic;border-left:3px solid var(--ml-gold);padding-left:8px;margin-bottom:8px;}
+.speak-btn{border:none;background:var(--ml-green-light);color:var(--ml-green-dark);border-radius:6px;padding:4px 10px;font-size:.8rem;cursor:pointer;font-weight:600;}
+.speak-btn:hover{background:var(--ml-green);color:#fff;}
+
+/* CONCEPT BLOCKS */
+.section-head{font-size:1.15rem;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:6px;margin:24px 0 12px;}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.concept-card h3{font-size:1rem;color:var(--cobalt);margin-bottom:6px;}
+.concept-card p{font-size:.9rem;color:var(--ink2);line-height:1.6;margin-bottom:6px;}
+.concept-card .cn{font-size:.85rem;color:#555;line-height:1.6;}
+.callout{background:var(--amber-light);border-left:4px solid var(--amber);border-radius:8px;padding:12px 16px;margin:14px 0;}
+.callout strong{color:var(--amber);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;}
+.callout p{font-size:.88rem;color:var(--ink2);margin-top:4px;line-height:1.55;}
+.callout .cn{font-size:.83rem;color:#666;margin-top:3px;}
+.info-box{background:var(--ml-green-light);border:1px solid #b7e4c7;border-radius:8px;padding:12px 16px;margin:14px 0;}
+.info-box p{font-size:.88rem;color:var(--ml-green-dark);line-height:1.55;}
+.info-box .cn{font-size:.83rem;color:#276749;margin-top:4px;}
+.cobalt-box{background:#e8eef7;border:1px solid #c3d0e8;border-radius:8px;padding:12px 16px;margin:14px 0;}
+.cobalt-box p{font-size:.88rem;color:var(--cobalt);line-height:1.55;}
+.cobalt-box .cn{font-size:.83rem;color:#365080;margin-top:4px;}
+table.concept-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.86rem;}
+table.concept-table th{background:var(--ml-green-dark);color:#fff;padding:8px 10px;text-align:left;font-weight:600;}
+table.concept-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--ink2);vertical-align:top;}
+table.concept-table tr:nth-child(even) td{background:#f4f8f5;}
+table.concept-table .cn{font-size:.8rem;color:#555;display:block;margin-top:2px;}
+.color-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.color-cell{border-radius:8px;padding:12px;font-size:.85rem;line-height:1.5;}
+.color-cell.green{background:var(--ml-green-light);border:1px solid #b7e4c7;color:var(--ml-green-dark);}
+.color-cell.cobalt{background:#e8eef7;border:1px solid #c3d0e8;color:var(--cobalt);}
+.color-cell.amber{background:var(--amber-light);border:1px solid #fcd34d;color:var(--amber);}
+.color-cell.red{background:#fee2e2;border:1px solid #fca5a5;color:#991b1b;}
+.color-cell strong{display:block;font-weight:700;margin-bottom:3px;}
+.color-cell .cn{font-size:.8rem;margin-top:3px;opacity:.8;}
+.step-list{list-style:none;padding:0;margin:10px 0;}
+.step-list li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);font-size:.88rem;color:var(--ink2);line-height:1.5;}
+.step-list li:last-child{border-bottom:none;}
+.step-num{min-width:26px;height:26px;background:var(--ml-green-dark);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;margin-top:1px;}
+.step-list .cn{font-size:.82rem;color:#555;display:block;margin-top:2px;}
+
+/* NAME INPUT */
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.name-row label{font-size:.9rem;font-weight:600;color:var(--ink2);}
+.name-row input{border:2px solid var(--border);border-radius:8px;padding:8px 12px;font-size:.9rem;font-family:'DM Sans',sans-serif;width:220px;}
+.name-row input:focus{outline:none;border-color:var(--ml-green);}
+
+/* QUIZ */
+.quiz-head{font-size:1.1rem;color:var(--ml-green-dark);margin:28px 0 4px;}
+.quiz-instruction{font-size:.84rem;color:#777;margin-bottom:14px;}
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.q-num{font-size:.76rem;color:#999;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.passage-box{background:#f5f7f5;border-left:4px solid var(--ml-green);border-radius:6px;padding:12px 14px;font-size:.87rem;font-family:'Literata',serif;color:var(--ink2);line-height:1.65;margin-bottom:10px;}
+.q-text{font-size:.93rem;font-weight:600;color:var(--ink);line-height:1.5;margin-bottom:4px;}
+.q-cn{font-size:.85rem;color:#555;margin-bottom:10px;}
+.opts-wrap{display:flex;flex-direction:column;gap:7px;margin-bottom:8px;}
+.opt-btn{border:2px solid var(--border);background:#fafafa;border-radius:8px;padding:9px 12px;text-align:left;cursor:pointer;font-size:.87rem;font-family:'DM Sans',sans-serif;color:var(--ink2);transition:all .2s;line-height:1.45;}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:var(--ml-green-light);}
+.opt-btn:disabled{cursor:default;}
+.opt-btn.selected-correct{background:#d1fae5;border-color:#059669;color:#065f46;}
+.opt-btn.selected-wrong{background:#fee2e2;border-color:#ef4444;color:#991b1b;}
+.opt-btn.show-correct{background:#d1fae5;border-color:#059669;}
+.rationale{font-size:.84rem;border-radius:7px;padding:10px 13px;margin-top:4px;display:none;line-height:1.5;}
+.rationale.show{display:block;}
+.rationale.correct-rat{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0;}
+.rationale.wrong-rat{background:#fff7ed;color:#92400e;border:1px solid #fcd34d;}
+.rationale .cn{font-size:.8rem;color:inherit;opacity:.8;margin-top:3px;display:block;}
+
+/* REFLECT */
+.reflect-section{margin-top:30px;background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;}
+.reflect-section h3{font-size:1rem;color:var(--ml-green-dark);margin-bottom:14px;}
+.reflect-q{margin-bottom:16px;}
+.reflect-q label{font-size:.88rem;font-weight:600;color:var(--ink2);display:block;margin-bottom:6px;}
+.reflect-q .cn{font-size:.83rem;color:#666;display:block;margin-bottom:6px;}
+.reflect-q textarea{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:.87rem;font-family:'DM Sans',sans-serif;resize:vertical;min-height:70px;}
+.reflect-q textarea:focus{outline:none;border-color:var(--ml-green);}
+.reflect-q textarea.filled{border-color:var(--ml-green);}
+.grat-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;font-size:.9rem;color:var(--ink2);}
+.grat-row input{border:2px solid var(--border);border-radius:8px;padding:8px 12px;font-size:.88rem;font-family:'DM Sans',sans-serif;flex:1;min-width:160px;}
+.grat-row input:focus{outline:none;border-color:var(--ml-gold);}
+.grat-row input.filled{border-color:var(--ml-gold);}
+.download-btn{display:block;width:100%;padding:13px;border:none;border-radius:10px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;background:#ccc;color:#fff;pointer-events:none;transition:all .3s;}
+.download-btn.ready{background:var(--ml-green-dark);pointer-events:auto;cursor:pointer;}
+.download-btn.ready:hover{background:var(--ml-green);}
+.hint-text{font-size:.79rem;color:#999;text-align:center;margin-top:7px;}
+.hint-text.hidden{display:none;}
+
+/* TIMER */
+#timer-box{position:fixed;bottom:16px;right:16px;background:var(--ml-green-dark);color:#fff;border-radius:20px;padding:7px 14px;font-size:.85rem;font-weight:600;z-index:900;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+@media(max-width:600px){
+  .color-row{grid-template-columns:1fr;}
+  #vocab-grid{grid-template-columns:1fr;}
+  .tab-btn{padding:10px 12px;font-size:.82rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ANTI-CHEAT LAYER 1: Always visible -->
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+
+<!-- ANTI-CHEAT LAYER 2: Flash on leave -->
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span>
+</div>
+
+<!-- HEADER -->
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Point of View · <span class="cn">观点与叙述视角</span></div>
+      <div class="header-sub cn">MLWS Grade 11 English · 枫叶学校 11年级英语</div>
+    </div>
+    <span id="leaveBadge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+    <span id="progressText">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;color:rgba(255,255,255,.6);">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-tue" title="Tuesday"></div>
+    <div class="pip" id="pip-wed" title="Wednesday"></div>
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" onclick="switchTab('tue',this)">📖 Tuesday · 星期二</button>
+  <button class="tab-btn" onclick="switchTab('wed',this)">🔍 Wednesday · 星期三</button>
+</div>
+
+<!-- ============ VOCAB TAB ============ -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.88rem;color:#666;margin-bottom:14px;">Click 🔊 to hear the pronunciation. Learn these words before the lessons. <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span></p>
+  <div id="vocab-grid"></div>
+</div>
+
+<!-- ============ TUESDAY TAB ============ -->
+<div id="tab-tue" class="tab-content">
+  <div class="name-row">
+    <label for="tueName">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="tueName" placeholder="First Last">
+  </div>
+
+  <h2 class="section-head">Point of View and the Reader · <span class="cn">叙述视角与读者</span></h2>
+
+  <!-- CONCEPT 1: What is POV? -->
+  <div class="concept-card">
+    <h3>What is Point of View? · <span class="cn">什么是叙述视角？</span></h3>
+    <p><strong>Point of view (POV)</strong> is the position from which a story or piece of writing is told. It controls what information the reader receives and how the reader feels about the topic.</p>
+    <p class="cn">叙述视角（POV）是讲述故事或文章内容的角度。它决定读者获得哪些信息，以及读者对话题的感受。</p>
+    <p style="margin-top:8px;">Every author makes a <strong>choice</strong> about point of view. That choice is never accidental — it shapes your entire experience as a reader.</p>
+    <p class="cn">每位作者都会对叙述视角做出<strong>选择</strong>。这种选择从来不是偶然的——它决定了你作为读者的全部体验。</p>
+  </div>
+
+  <!-- POV Types Table -->
+  <h3 class="section-head" style="font-size:1rem;">The Four Types of Narrator · <span class="cn">四种叙述者类型</span></h3>
+  <table class="concept-table">
+    <thead><tr><th>Type · 类型</th><th>Pronoun · 代词</th><th>What the narrator knows · 叙述者知道什么</th><th>Example · 例子</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1st Person</strong><span class="cn">第一人称</span></td><td>I, me, my</td><td>Only their own thoughts and feelings<span class="cn">只了解自己的思想和感受</span></td><td>"I felt afraid."</td></tr>
+      <tr><td><strong>3rd Person Limited</strong><span class="cn">第三人称限制</span></td><td>he, she, they</td><td>One character's inner thoughts<span class="cn">一个角色的内心想法</span></td><td>"She felt afraid."</td></tr>
+      <tr><td><strong>3rd Person Omniscient</strong><span class="cn">第三人称全知</span></td><td>he, she, they</td><td>ALL characters' thoughts and feelings<span class="cn">所有角色的思想和感受</span></td><td>"Both characters felt afraid."</td></tr>
+      <tr><td><strong>Objective</strong><span class="cn">客观视角</span></td><td>he, she, they</td><td>Only external actions — no thoughts<span class="cn">只有外部行动——没有内心想法</span></td><td>"She walked away quickly."</td></tr>
+    </tbody>
+  </table>
+
+  <!-- CONCEPT 2: Reliable vs Unreliable -->
+  <div class="concept-card">
+    <h3>Reliable vs. Unreliable Narrators · <span class="cn">可靠叙述者与不可靠叙述者</span></h3>
+    <div class="color-row">
+      <div class="color-cell green">
+        <strong>Reliable Narrator · 可靠叙述者</strong>
+        The narrator tells the truth. You can trust what they say. The story matches what really happened.
+        <span class="cn">叙述者说的是实话。你可以相信他们说的话。故事与实际发生的事情相符。</span>
+      </div>
+      <div class="color-cell red">
+        <strong>Unreliable Narrator · 不可靠叙述者</strong>
+        The narrator's account cannot be fully trusted. They may be lying, mistaken, biased, or mentally unstable.
+        <span class="cn">叙述者的叙述不能完全信任。他们可能在撒谎、犯错、有偏见或精神不稳定。</span>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>⚠️ Key Question · 关键问题</strong>
+      <p>When you read, always ask: <em>Why would this narrator see events this way? What are they NOT telling me?</em></p>
+      <p class="cn">阅读时要始终问自己：<em>为什么这个叙述者会这样看待事件？他们没有告诉我什么？</em></p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 3: Subjective vs Objective -->
+  <div class="concept-card">
+    <h3>Subjective vs. Objective Writing · <span class="cn">主观写作与客观写作</span></h3>
+    <div class="color-row">
+      <div class="color-cell cobalt">
+        <strong>Subjective · 主观</strong>
+        Based on personal feelings, opinions, and experiences. The author's emotions influence the writing.
+        <span class="cn">基于个人感受、观点和经历。作者的情感影响写作。</span>
+        <span class="cn" style="display:block;margin-top:4px;font-style:italic;">"The new park is a beautiful gift to the community."</span>
+      </div>
+      <div class="color-cell amber">
+        <strong>Objective · 客观</strong>
+        Based on facts. The author does not express personal opinion. Both sides are presented equally.
+        <span class="cn">基于事实。作者不表达个人观点。双方被平等呈现。</span>
+        <span class="cn" style="display:block;margin-top:4px;font-style:italic;">"The park opened in March and cost 2 million yuan."</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCEPT 4: How to Determine Author's POV -->
+  <h3 class="section-head" style="font-size:1rem;">How to Determine an Author's POV · <span class="cn">如何判断作者的观点</span></h3>
+  <div class="callout">
+    <strong>🔑 5-Step Method · 五步法</strong>
+    <p>Use these steps every time you analyze a text for point of view.</p>
+    <p class="cn">每次分析文本中的叙述视角时都使用这些步骤。</p>
+  </div>
+  <ul class="step-list">
+    <li><span class="step-num">1</span><div><strong>Analyze word choice (diction)</strong> — Look for emotional, positive, or negative words. Words reveal attitude.<span class="cn">分析词语选择（用词）——寻找情绪性、积极或消极的词语。词语揭示态度。</span></div></li>
+    <li><span class="step-num">2</span><div><strong>Notice what is included</strong> — What facts, examples, or stories does the author choose to include?<span class="cn">注意包含的内容——作者选择包含哪些事实、例子或故事？</span></div></li>
+    <li><span class="step-num">3</span><div><strong>Notice what is excluded</strong> — What does the author leave out? Missing information can reveal bias.<span class="cn">注意排除的内容——作者省略了什么？缺失的信息可以揭示偏见。</span></div></li>
+    <li><span class="step-num">4</span><div><strong>Check for bias</strong> — Does the author only show one side? Do they use loaded language? Do they ignore evidence?<span class="cn">检查偏见——作者是否只展示一面？是否使用带有情绪色彩的语言？是否忽略证据？</span></div></li>
+    <li><span class="step-num">5</span><div><strong>Remember: it is their opinion</strong> — Author's POV is not the same as proven fact. Think critically.<span class="cn">记住：这是他们的观点——作者的观点与经过证明的事实不同。要批判性思考。</span></div></li>
+  </ul>
+
+  <!-- Worked Example -->
+  <div class="info-box">
+    <p><strong>Worked Example · 示例分析</strong></p>
+    <p style="margin-top:6px;font-style:italic;">"The city council's reckless decision will destroy our beloved neighborhood and erase years of hard work."</p>
+    <p style="margin-top:6px;">Word choice clues: <em>reckless</em> (negative judgment), <em>destroy</em> (extreme negative), <em>beloved</em> (emotional attachment), <em>hard work</em> (sympathy appeal). The author is clearly <strong>against</strong> the decision. This is <strong>subjective</strong> writing.</p>
+    <p class="cn">用词线索：<em>鲁莽的</em>（负面判断）、<em>摧毁</em>（极端负面）、<em>心爱的</em>（情感依附）、<em>辛勤工作</em>（同情诉求）。作者明显<strong>反对</strong>该决定。这是<strong>主观</strong>写作。</p>
+  </div>
+
+  <!-- QUIZ -->
+  <h2 class="quiz-head">📝 Tuesday Quiz · 星期二测验</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="tueQuizContainer"></div>
+
+  <!-- REFLECT -->
+  <div class="reflect-section">
+    <h3>📝 Reflection · <span class="cn">反思</span></h3>
+    <div class="reflect-q">
+      <label>1. Describe one example from your own reading or daily life where an author or speaker showed bias. What words or choices revealed their point of view?</label>
+      <span class="cn">描述一个你在阅读或日常生活中遇到的作者或演讲者表现出偏见的例子。哪些词语或选择揭示了他们的观点？</span>
+      <textarea id="tueRef1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Why is it important to identify the narrator's reliability before you trust the information in a text?</label>
+      <span class="cn">为什么在相信文本信息之前，判断叙述者的可靠性很重要？</span>
+      <textarea id="tueRef2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <span>Today I am grateful for</span>
+      <input type="text" id="tueGrat" placeholder="write here...">
+    </div>
+    <button class="download-btn" id="tueDownloadBtn" onclick="tryDownload('tue')">
+      ⬇ Download Tuesday Report · 下载星期二报告
+    </button>
+    <p class="hint-text" id="tueHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段以解锁下载。</p>
+  </div>
+</div>
+
+<!-- ============ WEDNESDAY TAB ============ -->
+<div id="tab-wed" class="tab-content">
+  <div class="name-row">
+    <label for="wedName">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="wedName" placeholder="First Last">
+  </div>
+
+  <h2 class="section-head">Analyzing Contrasting Points of View · <span class="cn">分析对比性叙述视角</span></h2>
+
+  <!-- Character POV intro -->
+  <div class="concept-card">
+    <h3>What Characters See, Think, and Say · <span class="cn">角色所见、所想、所说</span></h3>
+    <p>In a story, each character has their own <strong>point of view</strong>. A character's POV is shaped by their experiences, goals, fears, and personality. Two characters in the same scene can have completely different perspectives.</p>
+    <p class="cn">在故事中，每个角色都有自己的<strong>叙述视角</strong>。角色的观点由他们的经历、目标、恐惧和个性决定。同一场景中的两个角色可以有完全不同的看法。</p>
+  </div>
+
+  <!-- Three lenses -->
+  <h3 class="section-head" style="font-size:1rem;">Three Lenses for Character POV · <span class="cn">分析角色视角的三个维度</span></h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:16px;">
+    <div class="color-cell green" style="text-align:center;">
+      <strong>👁 What They SEE<span class="cn">他们所见</span></strong>
+      The events and details they observe. A character only sees what is in front of them.
+      <span class="cn">他们观察到的事件和细节。角色只能看到眼前的事物。</span>
+    </div>
+    <div class="color-cell cobalt" style="text-align:center;">
+      <strong>💭 What They THINK<span class="cn">他们所想</span></strong>
+      Their inner thoughts, opinions, and judgments. These are private unless the narrator reveals them.
+      <span class="cn">他们内心的想法、观点和判断。除非叙述者揭示，否则这些是私密的。</span>
+    </div>
+    <div class="color-cell amber" style="text-align:center;">
+      <strong>🗣 What They SAY<span class="cn">他们所说</span></strong>
+      Their dialogue. Characters may say things that do NOT match what they think.
+      <span class="cn">他们的对话。角色可能说的话与他们想的不一致。</span>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>💡 Key Insight · 关键认识</strong>
+    <p>What a character SAYS and what they THINK are often different. This gap is called <strong>dramatic irony</strong> — the reader knows more than the character (or another character) knows.</p>
+    <p class="cn">角色所说的和他们所想的往往不同。这个差距叫做<strong>戏剧性反讽</strong>——读者知道的比角色（或另一个角色）知道的更多。</p>
+  </div>
+
+  <!-- Compare vs. Story -->
+  <div class="concept-card">
+    <h3>Character POV vs. The Story's Message · <span class="cn">角色视角与故事主旨</span></h3>
+    <p>A character's point of view is <strong>limited and personal</strong>. The story's overall message (theme or central idea) is bigger — it is what the author wants ALL readers to understand.</p>
+    <p class="cn">角色的观点是<strong>有限且个人的</strong>。故事的整体主旨（主题或中心思想）更广泛——它是作者希望所有读者理解的内容。</p>
+    <table class="concept-table">
+      <thead><tr><th>Character POV · 角色视角</th><th>Story's Message · 故事主旨</th></tr></thead>
+      <tbody>
+        <tr><td>Personal · <span class="cn">个人的</span></td><td>Universal · <span class="cn">普遍的</span></td></tr>
+        <tr><td>Limited by their experience · <span class="cn">受经历限制</span></td><td>Goes beyond any one character · <span class="cn">超越任何单一角色</span></td></tr>
+        <tr><td>May be wrong or biased · <span class="cn">可能是错误的或有偏见的</span></td><td>Reflects the author's purpose · <span class="cn">反映作者意图</span></td></tr>
+        <tr><td>Found in: dialogue, thoughts, actions · <span class="cn">在对话、想法、行动中体现</span></td><td>Found in: patterns, endings, contrasts · <span class="cn">在模式、结局、对比中体现</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- How to Compare -->
+  <h3 class="section-head" style="font-size:1rem;">How to Compare Contrasting POVs · <span class="cn">如何比较对比性观点</span></h3>
+  <ul class="step-list">
+    <li><span class="step-num">1</span><div><strong>Identify each character's goal or motivation</strong> — What does each character want? Why do they want it?<span class="cn">确定每个角色的目标或动机——每个角色想要什么？为什么？</span></div></li>
+    <li><span class="step-num">2</span><div><strong>Find where they agree and disagree</strong> — What do they see the same way? Where does the conflict come from?<span class="cn">找出他们同意和不同意的地方——他们对什么看法相同？冲突来自哪里？</span></div></li>
+    <li><span class="step-num">3</span><div><strong>Ask: who has more information?</strong> — Does one character know something the other doesn't? How does this create tension?<span class="cn">问：谁有更多信息？一个角色知道另一个角色不知道的事吗？这如何制造紧张感？</span></div></li>
+    <li><span class="step-num">4</span><div><strong>Compare to the author's message</strong> — Does the story validate one POV? Or does it show that both characters are partly right and partly wrong?<span class="cn">与作者主旨比较——故事是否支持某一观点？还是显示两个角色各有对错？</span></div></li>
+  </ul>
+
+  <!-- Worked Comparison Example -->
+  <div class="info-box">
+    <p><strong>Worked Example: Two Characters, Same Scene · 示例：同一场景，两个角色</strong></p>
+    <p style="margin-top:6px;font-size:.87rem;line-height:1.6;">A factory closes. <br>
+    <strong>Worker's POV:</strong> "This is a disaster. My family will have no income. The owners are greedy."<br>
+    <strong>Owner's POV:</strong> "This was the only choice. We had no money left. I tried to save the company."<br><br>
+    Both POVs are real — both are limited. The story's message might be: <em>economic hardship damages everyone, and there are no simple villains.</em></p>
+    <p class="cn">工厂关闭了。工人的观点："这是灾难。我的家庭将没有收入。老板们太贪婪了。"老板的观点："这是唯一的选择。我们没有钱了。我努力挽救公司。"两种观点都是真实的——都是有限的。故事的主旨可能是：<em>经济困难伤害所有人，没有简单的坏人。</em></p>
+  </div>
+
+  <!-- QUIZ -->
+  <h2 class="quiz-head">📝 Wednesday Quiz · 星期三测验</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="wedQuizContainer"></div>
+
+  <!-- REFLECT -->
+  <div class="reflect-section">
+    <h3>📝 Reflection · <span class="cn">反思</span></h3>
+    <div class="reflect-q">
+      <label>1. Think of a conflict in a story, movie, or your own life. Describe the same event from two different characters' (or people's) points of view. How does each perspective change the meaning?</label>
+      <span class="cn">想一个故事、电影或你自己生活中的冲突。从两个不同角色（或人物）的视角描述同一事件。每种视角如何改变其含义？</span>
+      <textarea id="wedRef1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. How can understanding multiple points of view make you a better reader AND a better person in real life?</label>
+      <span class="cn">理解多种观点如何让你成为更好的读者，也成为现实生活中更好的人？</span>
+      <textarea id="wedRef2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <span>Today I am grateful for</span>
+      <input type="text" id="wedGrat" placeholder="write here...">
+    </div>
+    <button class="download-btn" id="wedDownloadBtn" onclick="tryDownload('wed')">
+      ⬇ Download Wednesday Report · 下载星期三报告
+    </button>
+    <p class="hint-text" id="wedHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段以解锁下载。</p>
+  </div>
+</div>
+
+<!-- TIMER -->
+<div id="timer-box">⏱ 00:00</div>
+
+<script>
+// ============ STATE ============
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 20; // 2 tabs × 10 questions
+
+var tueAnswers = {};
+var tueScore = {val:0};
+var tueDone = {val:0};
+var wedAnswers = {};
+var wedScore = {val:0};
+var wedDone = {val:0};
+
+// ============ VOCAB DATA ============
+var VOCAB = [
+  {word:"omniscient",pos:"adjective",cn:"全知的",def:"Knowing everything; a narrator who knows the thoughts and feelings of ALL characters.",cn_def:"了解一切的；知道所有角色的思想和感受的叙述者。",example:"The omniscient narrator told us what every character was thinking at the same time."},
+  {word:"limited",pos:"adjective",cn:"有限的",def:"Restricted to one perspective; a narrator who can only access one character's inner thoughts.",cn_def:"限于一种视角的；只能了解一个角色内心想法的叙述者。",example:"The limited narrator only shared Maya's thoughts, leaving the other characters mysterious."},
+  {word:"objective",pos:"adjective",cn:"客观的",def:"Based on facts, not personal feelings; an objective narrator reports only actions and dialogue.",cn_def:"基于事实而非个人感受的；客观叙述者只报道行动和对话。",example:"The news report was objective because it presented facts from both sides without opinion."},
+  {word:"subjective",pos:"adjective",cn:"主观的",def:"Based on personal feelings, opinions, or experiences; influenced by emotion rather than facts.",cn_def:"基于个人感受、观点或经历的；受情感而非事实影响的。",example:"Her review was subjective because it was based entirely on her personal taste."},
+  {word:"narrator",pos:"noun",cn:"叙述者",def:"The person or voice that tells the story to the reader.",cn_def:"向读者讲述故事的人或声音。",example:"The narrator described the town as if they had lived there their whole life."},
+  {word:"reliable",pos:"adjective",cn:"可靠的",def:"Can be trusted; a reliable narrator tells the truth and does not mislead the reader.",cn_def:"可以信任的；可靠的叙述者说实话，不误导读者。",example:"Readers trusted the narrator because her account was detailed, consistent, and reliable."}
+];
+
+// ============ TUESDAY QUIZ ============
+var TUE_Q = [
+  {
+    id:"t1",
+    title:"The Journalist",
+    passage:"Maria wrote her article with great care. She described the protest as violent and dangerous, using phrases like raging mob and lawless crowd. However, she only interviewed people who opposed the protest. She did not speak to any of the protesters.",
+    q:"What technique reveals Maria's point of view in this passage?",
+    q_cn:"哪种技巧揭示了这段话中玛丽亚的叙述视角？",
+    options:["A. She described the weather accurately|A. 她准确描述了天气","B. She used negative word choice and excluded opposing voices|B. 她使用了消极的词语选择并排除了反对声音","C. She interviewed too many people|C. 她采访了太多人","D. She wrote the article too quickly|D. 她写文章太快了"],
+    correct:"B",
+    rat_right:"Negative words like 'raging mob' and excluding protesters' voices are classic signs of biased, subjective POV.|像'愤怒的暴徒'这样的负面词语以及排除抗议者声音，是带有偏见的主观视角的典型标志。",
+    rat_wrong:{A:"The passage says nothing about weather — this is not relevant to POV.|文章没有提到天气——这与叙述视角无关。",C:"The number of interviews is not the issue — the problem is WHO she chose to interview.|采访人数不是问题所在——问题在于她选择采访谁。",D:"Speed of writing does not reveal point of view.|写作速度不能揭示叙述视角。"}
+  },
+  {
+    id:"t2",
+    title:"Narrator Types",
+    q:"A story uses the pronoun 'I' and the narrator only knows their own thoughts. Which POV is this?",
+    q_cn:"一个故事使用代词'我'，叙述者只知道自己的想法。这是哪种叙述视角？",
+    options:["A. Third person omniscient|A. 第三人称全知","B. Objective|B. 客观视角","C. First person|C. 第一人称","D. Third person limited|D. 第三人称限制"],
+    correct:"C",
+    rat_right:"First person POV uses 'I' and restricts the reader to one narrator's inner experience.|第一人称视角使用'我'，将读者限制在一个叙述者的内心体验中。",
+    rat_wrong:{A:"Third person omniscient uses 'he/she/they' and knows ALL characters' thoughts.|第三人称全知使用'他/她/他们'并了解所有角色的想法。",B:"Objective POV reports only external actions — no inner thoughts at all.|客观视角只报道外部行动——完全没有内心想法。",D:"Third person limited also uses 'he/she' not 'I'.|第三人称限制也使用'他/她'而不是'我'。"}
+  },
+  {
+    id:"t3",
+    title:"Word Choice Analysis",
+    passage:"The new shopping center brought desperately needed jobs to our struggling town. Finally, families can breathe again.",
+    q:"Which word in this passage best reveals a subjective point of view?",
+    q_cn:"这段话中哪个词最能揭示主观叙述视角？",
+    options:["A. shopping center|A. 购物中心","B. jobs|B. 工作","C. desperately|C. 迫切地","D. families|D. 家庭"],
+    correct:"C",
+    rat_right:"'Desperately' is an emotional, loaded word that expresses the author's strong personal feeling about the town's need — it reveals subjective POV.|'迫切地'是一个带有情感色彩的词语，表达了作者对城镇需求的强烈个人感受——它揭示了主观视角。",
+    rat_wrong:{A:"'Shopping center' is a neutral, factual noun.|'购物中心'是一个中性的、事实性的名词。",B:"'Jobs' is a neutral, factual noun.|'工作'是一个中性的、事实性的名词。",D:"'Families' is a neutral noun, though it does create some emotional appeal.|'家庭'是一个中性名词，虽然确实产生了一些情感诉求。"}
+  },
+  {
+    id:"t4",
+    title:"What Is Excluded",
+    passage:"The school's new phone policy has been a great success. Students are more focused and teachers are happier. The change has made our school a better place.",
+    q:"What important information does this passage EXCLUDE that might reveal bias?",
+    q_cn:"这段话排除了哪些可能揭示偏见的重要信息？",
+    options:["A. Information about the school's name|A. 关于学校名称的信息","B. The students' own opinions about the phone policy|B. 学生们对手机政策的看法","C. The weather on the day the policy started|C. 政策开始当天的天气","D. A list of all the teachers|D. 所有教师的名单"],
+    correct:"B",
+    rat_right:"Excluding student opinions creates one-sided reporting. Students are most affected by this policy — their views must be part of a balanced account.|排除学生意见会导致片面报道。学生受此政策影响最大——他们的意见必须成为平衡报道的一部分。",
+    rat_wrong:{A:"The school's name is not relevant to bias in this context.|学校名称与这里的偏见无关。",C:"Weather is completely irrelevant to the policy.|天气与该政策完全无关。",D:"A full teacher list is not necessary for a balanced report.|完整的教师名单对于平衡报道来说不是必要的。"}
+  },
+  {
+    id:"t5",
+    title:"Reliable Narrator",
+    passage:"Jake told the class he had not cheated on the test. Later, the teacher found a small paper with answers hidden in Jake's sleeve.",
+    q:"What does this passage reveal about Jake as a narrator?",
+    q_cn:"这段话揭示了杰克作为叙述者的什么特质？",
+    options:["A. Jake is an omniscient narrator|A. 杰克是全知叙述者","B. Jake is an objective narrator|B. 杰克是客观叙述者","C. Jake is a reliable narrator|C. 杰克是可靠叙述者","D. Jake is an unreliable narrator|D. 杰克是不可靠叙述者"],
+    correct:"D",
+    rat_right:"Jake's statement contradicts evidence found by the teacher. A narrator who lies or hides the truth is unreliable.|杰克的陈述与老师发现的证据相矛盾。说谎或隐瞒真相的叙述者是不可靠的。",
+    rat_wrong:{A:"Omniscient means knowing all characters' thoughts — this is about honesty, not knowledge.|全知意味着了解所有角色的想法——这是关于诚实，而非知识。",B:"Objective narrators report facts without opinion — Jake is actively lying.|客观叙述者不带观点地报告事实——杰克在主动撒谎。",C:"A reliable narrator tells the truth. Jake clearly did not.|可靠的叙述者说实话。杰克显然没有。"}
+  },
+  {
+    id:"t6",
+    title:"Author's Purpose and POV",
+    passage:"Every year, thousands of dogs are abandoned and left to suffer in shelters. These innocent animals deserve loving homes. If you truly care about life, you will adopt, not shop.",
+    q:"Which statement best describes the author's point of view?",
+    q_cn:"哪句话最能描述作者的叙述视角？",
+    options:["A. The author is neutral about pet adoption|A. 作者对宠物收养持中立态度","B. The author strongly supports pet adoption and uses emotional language to persuade|B. 作者强烈支持宠物收养，并用情感语言来说服读者","C. The author thinks pet shelters should close|C. 作者认为宠物收养所应该关闭","D. The author presents equal arguments for and against adoption|D. 作者对收养的正反论点进行了平等呈现"],
+    correct:"B",
+    rat_right:"Words like 'innocent,' 'suffer,' and the direct challenge 'if you truly care' show strong personal opinion and emotional persuasion.|'无辜的'、'受苦'等词以及直接挑战'如果你真的在乎'显示出强烈的个人观点和情感说服。",
+    rat_wrong:{A:"The passage is clearly emotional and one-sided — not neutral at all.|这段话明显是情感化和片面的——完全不中立。",C:"Nothing in the passage suggests shelters should close.|文章中没有任何内容表明收养所应该关闭。",D:"The passage only presents the pro-adoption side.|文章只呈现了支持收养的一方。"}
+  },
+  {
+    id:"t7",
+    title:"Objective vs. Subjective",
+    q:"Which sentence is an example of OBJECTIVE writing?",
+    q_cn:"哪个句子是客观写作的例子？",
+    options:["A. The sunset was the most breathtaking sight I have ever seen.|A. 日落是我见过的最令人叹为观止的景色。","B. The government made a terrible mistake that hurt everyone.|B. 政府犯了一个伤害所有人的严重错误。","C. The temperature in Dalian in January averages minus 5 degrees Celsius.|C. 大连一月份的平均气温为零下5摄氏度。","D. Students today are much lazier than they used to be.|D. 现在的学生比以前懒多了。"],
+    correct:"C",
+    rat_right:"This sentence states a measurable, verifiable fact with no emotional language — a perfect example of objective writing.|这句话陈述了一个可测量、可验证的事实，没有情感语言——是客观写作的完美例子。",
+    rat_wrong:{A:"'Most breathtaking' is a personal, emotional opinion — subjective.|'最令人叹为观止的'是个人情感判断——主观的。",B:"'Terrible mistake' is a strong personal judgment — subjective.|'严重错误'是强烈的个人判断——主观的。",D:"'Much lazier' is a generalized opinion without evidence — subjective.|'懒多了'是没有证据的泛化观点——主观的。"}
+  },
+  {
+    id:"t8",
+    title:"Checking for Bias",
+    passage:"Studies show that students who sleep 8 or more hours perform better on tests. One researcher says, 'Sleep is perhaps the single most important factor in academic success.'",
+    q:"How could a reader check this passage for potential bias?",
+    q_cn:"读者如何检查这段话是否存在潜在偏见？",
+    options:["A. Count how many sentences are in the passage|A. 数数这段话有多少句子","B. Ask whether other researchers agree or disagree with this claim|B. 询问其他研究人员是否同意或不同意这一观点","C. Check if the passage is written in English or Chinese|C. 检查这段话是用英语还是中文写的","D. Look up the meaning of every word|D. 查找每个词的含义"],
+    correct:"B",
+    rat_right:"Checking whether other researchers agree or disagree helps determine if this is a widely supported finding or just one biased source.|检查其他研究人员是否同意或不同意，有助于判断这是否是被广泛支持的发现，还是只是一个带有偏见的来源。",
+    rat_wrong:{A:"Sentence count has nothing to do with bias.|句子数量与偏见无关。",C:"Language of writing is irrelevant to bias.|写作语言与偏见无关。",D:"Looking up word meanings helps comprehension but does not reveal bias.|查找词义有助于理解，但不能揭示偏见。"}
+  },
+  {
+    id:"t9",
+    title:"POV and Reader Experience",
+    q:"How does first person POV most directly affect a reader's experience?",
+    q_cn:"第一人称视角如何最直接地影响读者的体验？",
+    options:["A. It provides the most factual and objective account of events|A. 它提供最真实客观的事件叙述","B. It allows the reader to know ALL characters' thoughts equally|B. 它让读者平等地了解所有角色的想法","C. It creates intimacy but limits the reader to one character's perspective|C. 它创造亲密感，但将读者限制在一个角色的视角中","D. It removes all emotion from the story|D. 它消除了故事中的所有情感"],
+    correct:"C",
+    rat_right:"First person creates a close, personal bond with the narrator, but the reader only knows what that one narrator knows and believes — which may be incomplete.|第一人称与叙述者建立亲密的个人联系，但读者只了解那一个叙述者知道和相信的内容——这可能是不完整的。",
+    rat_wrong:{A:"First person is actually the LEAST objective — it is the most personal.|第一人称实际上是最不客观的——它是最个人化的。",B:"Knowing all characters' thoughts is omniscient POV, not first person.|了解所有角色的想法是全知视角，不是第一人称。",D:"First person typically adds MORE emotion, not less.|第一人称通常增加更多情感，而不是减少。"}
+  },
+  {
+    id:"t10",
+    title:"Author's POV vs. Fact",
+    passage:"Social media is destroying the social skills of young people. Teenagers spend hours staring at their phones instead of having real conversations.",
+    q:"Which statement best describes this passage?",
+    q_cn:"哪句话最能描述这段话？",
+    options:["A. This is a factual, objective summary supported by data|A. 这是一个有数据支持的事实性客观摘要","B. This is the author's subjective opinion presented as if it were a proven fact|B. 这是作者的主观观点，以经过证明的事实的形式呈现","C. This is an omniscient narrator's view|C. 这是全知叙述者的观点","D. This is a reliable first-person account|D. 这是一个可靠的第一人称叙述"],
+    correct:"B",
+    rat_right:"'Is destroying' is stated as a definite fact, but no data is provided. This is a strong personal opinion framed as truth — a classic POV marker.|'正在摧毁'被陈述为确定的事实，但没有提供数据。这是一个以真理为框架的强烈个人观点——这是叙述视角的典型标志。",
+    rat_wrong:{A:"No data or research is cited — this is an opinion, not a proven fact.|没有引用数据或研究——这是观点，不是经过证明的事实。",C:"Omniscient narrators are characters in fiction — this is a non-fiction opinion piece.|全知叙述者是虚构作品中的角色——这是一篇非虚构观点文章。",D:"There is no 'I' narrator here, and the claim is unverified.|这里没有'我'叙述者，而且这一说法未经验证。"}
+  }
+];
+
+// ============ WEDNESDAY QUIZ ============
+var WED_Q = [
+  {
+    id:"w1",
+    title:"Same Scene, Different Eyes",
+    passage:"The championship game ended. Coach Rivera smiled and clapped her hands. She thought: 'We worked so hard for this. The team deserves this victory.' Across the field, Coach Park lowered his head. He thought: 'My players gave everything. I failed them.'",
+    q:"What technique does this passage use to show contrasting points of view?",
+    q_cn:"这段话使用了什么技巧来展示对比性叙述视角？",
+    options:["A. Objective reporting of statistics|A. 客观报道统计数据","B. Showing each coach's internal thoughts in the same scene|B. 在同一场景中展示每位教练的内心想法","C. First person narration from one coach|C. 来自一位教练的第一人称叙述","D. A single omniscient narrator with no emotion|D. 没有情感的单一全知叙述者"],
+    correct:"B",
+    rat_right:"The passage shows both coaches' inner thoughts in the same scene, allowing readers to directly compare their contrasting perspectives.|文章在同一场景中展示了两位教练的内心想法，让读者直接比较他们对比性的叙述视角。",
+    rat_wrong:{A:"No statistics are used — the passage focuses entirely on emotional inner responses.|没有使用统计数据——文章完全专注于情感内心反应。",C:"Both coaches are described in third person, not first person.|两位教练都以第三人称描述，而不是第一人称。",D:"The passage is full of emotion — it is not objective.|文章充满情感——它不是客观的。"}
+  },
+  {
+    id:"w2",
+    title:"What a Character Sees",
+    passage:"From the back of the classroom, David watched as the teacher praised Sarah's project. He crossed his arms. He thought: 'She always gets everything. Nobody notices how hard I work.'",
+    q:"What does David's point of view reveal about his character?",
+    q_cn:"大卫的叙述视角揭示了他性格的什么特点？",
+    options:["A. David is generous and happy for Sarah|A. 大卫很大方，为莎拉感到高兴","B. David is jealous and feels overlooked|B. 大卫嫉妒并感到被忽视","C. David thinks he is less talented than Sarah|C. 大卫认为自己不如莎拉有才华","D. David agrees that Sarah deserved the praise|D. 大卫同意莎拉值得称赞"],
+    correct:"B",
+    rat_right:"Crossing his arms is a closed, defensive gesture, and his thoughts reveal envy ('she always gets everything') and a feeling of invisibility ('nobody notices').|交叉双臂是封闭防御的姿态，他的想法揭示了嫉妒（'她总是得到一切'）和被忽视的感觉（'没人注意'）。",
+    rat_wrong:{A:"There is no sign of generosity — his body language and thoughts show jealousy.|没有慷慨的迹象——他的肢体语言和想法显示出嫉妒。",C:"David does not say he lacks talent — he says his talent is unrecognized.|大卫没有说他缺乏才华——他说他的才华未被认可。",D:"His thoughts directly contrast with this — he resents the praise given to Sarah.|他的想法与此直接矛盾——他对给莎拉的称赞感到不满。"}
+  },
+  {
+    id:"w3",
+    title:"Say vs. Think",
+    passage:"'Of course I'm fine,' Lisa said, smiling at her friend. Inside, she was exhausted and angry. She had spent three nights preparing the presentation, and now her partner was taking all the credit.",
+    q:"What is the relationship between what Lisa SAYS and what she THINKS?",
+    q_cn:"莉萨所说的和她所想的之间有什么关系？",
+    options:["A. What she says and thinks are identical|A. 她说的和想的完全相同","B. What she says is the opposite of what she thinks|B. 她说的与她想的相反","C. She says she is angry but thinks she is fine|C. 她说自己很生气但认为自己没事","D. She does not have any inner thoughts|D. 她没有任何内心想法"],
+    correct:"B",
+    rat_right:"Lisa says 'I'm fine' but is actually exhausted and angry. This gap between speech and thought is called dramatic irony.|莉萨说'我没事'但实际上筋疲力尽而且愤怒。言语与想法之间的这种差距叫做戏剧性反讽。",
+    rat_wrong:{A:"Her words ('I'm fine') completely contradict her feelings ('exhausted and angry').|她的话（'我没事'）与她的感受（'筋疲力尽而且愤怒'）完全矛盾。",C:"It is the reverse — she says she is fine but thinks she is not.|情况相反——她说她没事但认为她不好。",D:"The passage explicitly describes her inner thoughts.|文章明确描述了她的内心想法。"}
+  },
+  {
+    id:"w4",
+    title:"Character POV vs. Story Message",
+    passage:"Throughout the novel, the mayor believed that tearing down the old market would bring progress to the city. But the story showed how the market had held the community together for generations, and how its destruction left an emptiness that no new building could fill.",
+    q:"What is the relationship between the mayor's POV and the story's overall message?",
+    q_cn:"市长的叙述视角与故事整体主旨之间的关系是什么？",
+    options:["A. They are identical — the story agrees that progress is good|A. 它们是相同的——故事同意进步是好的","B. The story's message contradicts the mayor's POV|B. 故事的主旨与市长的叙述视角相矛盾","C. The mayor has no point of view in the story|C. 市长在故事中没有叙述视角","D. The story avoids taking any position|D. 故事避免持任何立场"],
+    correct:"B",
+    rat_right:"The mayor believed destruction meant progress, but the story's message shows that community bonds are more important than modern buildings — directly contradicting his POV.|市长认为破坏意味着进步，但故事的主旨表明社区纽带比现代建筑更重要——直接与他的观点相矛盾。",
+    rat_wrong:{A:"The story shows the negative consequences of the mayor's belief — it does not support his view.|故事展示了市长信念的负面后果——它不支持他的观点。",C:"The passage clearly states the mayor's belief about progress.|文章明确陈述了市长对进步的看法。",D:"The story does take a position — it values community over development.|故事确实持有立场——它重视社区而非发展。"}
+  },
+  {
+    id:"w5",
+    title:"Motivation and Conflict",
+    passage:"Rosa wanted to save the forest. She saw it as a living treasure full of beauty and wildlife. The developer saw the same land as an opportunity to build 500 homes for families who needed affordable housing.",
+    q:"Why do Rosa and the developer have opposing points of view?",
+    q_cn:"为什么罗莎和开发商有对立的叙述视角？",
+    options:["A. One of them is lying|A. 他们中有一个在撒谎","B. They have different goals, values, and ways of seeing the land|B. 他们有不同的目标、价值观和看待土地的方式","C. They both want to destroy the forest|C. 他们都想摧毁森林","D. One of them is unintelligent|D. 他们中有一个不聪明"],
+    correct:"B",
+    rat_right:"Rosa values nature and wildlife; the developer values affordable housing. Neither is lying — they have genuinely different goals and values, which creates the conflict.|罗莎重视自然和野生动物；开发商重视经济适用房。没有人在撒谎——他们有真正不同的目标和价值观，这产生了冲突。",
+    rat_wrong:{A:"There is no evidence of lying — both are expressing their honest beliefs.|没有撒谎的证据——双方都在表达他们的真实想法。",C:"Rosa explicitly wants to save the forest — not destroy it.|罗莎明确想要拯救森林——而不是摧毁它。",D:"Neither character is described as unintelligent — they have different priorities.|没有角色被描述为不聪明——他们只是有不同的优先事项。"}
+  },
+  {
+    id:"w6",
+    title:"Information Asymmetry",
+    passage:"Anna hid the surprise party plans in her room. When her brother walked in, she quickly covered the papers. 'What's that?' he asked. 'Nothing,' she said, smiling too widely.",
+    q:"What does the reader know that Anna's brother does NOT know?",
+    q_cn:"读者知道什么是安娜的哥哥不知道的？",
+    options:["A. Anna's age|A. 安娜的年龄","B. The brother's real name|B. 哥哥的真名","C. There is a surprise party being planned for someone|C. 有人正在为某人策划惊喜派对","D. The color of Anna's room|D. 安娜房间的颜色"],
+    correct:"C",
+    rat_right:"The reader learned about the surprise party plans in the first sentence. The brother has no idea — he only sees Anna acting strangely. This is dramatic irony.|读者在第一句话中了解到了惊喜派对计划。哥哥不知道——他只看到安娜表现奇怪。这就是戏剧性反讽。",
+    rat_wrong:{A:"Anna's age is not mentioned anywhere in the passage.|文章中没有提到安娜的年龄。",B:"Neither character's full name is discussed.|没有讨论任何角色的全名。",D:"The color of the room is not relevant and not mentioned.|房间的颜色不相关且未提及。"}
+  },
+  {
+    id:"w7",
+    title:"Comparing Two POVs",
+    passage:"The parent thought: 'I am protecting my child by setting rules.' The teenager thought: 'These rules show that my parent does not trust me.' Same action. Two completely different interpretations.",
+    q:"What is the most accurate comparison of these two points of view?",
+    q_cn:"对这两种叙述视角最准确的比较是什么？",
+    options:["A. Both POVs are wrong|A. 两种叙述视角都是错的","B. The parent's POV is correct and the teenager's is wrong|B. 家长的叙述视角是正确的，青少年的是错误的","C. Each POV is valid within its own experience, but they interpret the same event differently|C. 每种叙述视角在自己的经历中都是有效的，但它们以不同方式解释同一事件","D. They actually have the same POV|D. 他们实际上有相同的叙述视角"],
+    correct:"C",
+    rat_right:"Both characters have their own logic. The parent acts from love and responsibility; the teenager responds from a need for trust and independence. Both are real — but they see the same thing differently.|两个角色都有自己的逻辑。家长出于爱和责任行事；青少年从信任和独立的需求出发回应。两者都是真实的——但他们对同一件事的看法不同。",
+    rat_wrong:{A:"Neither POV is wrong — both are real, understandable responses.|两种叙述视角都没有错——都是真实的、可以理解的反应。",B:"The story does not take sides — it presents both as understandable.|故事不偏袒任何一方——它将两者都呈现为可以理解的。",D:"The passage explicitly shows they interpret the rules in opposite ways.|文章明确显示他们以相反的方式解释规则。"}
+  },
+  {
+    id:"w8",
+    title:"Limited Knowledge",
+    passage:"From where he stood at the back of the line, Marco could not see what was causing the delay. He assumed the person at the front was being difficult on purpose.",
+    q:"What does this passage reveal about how a character's LIMITED position affects their POV?",
+    q_cn:"这段话揭示了角色的有限位置如何影响其叙述视角？",
+    options:["A. Marco has all the information he needs to judge the situation|A. 马可有判断情况所需的所有信息","B. Marco's judgment is based on incomplete information|B. 马可的判断基于不完整的信息","C. The person at the front is definitely being difficult|C. 队伍前面的人肯定在找麻烦","D. Marco should move to the middle of the line|D. 马可应该移到队伍中间"],
+    correct:"B",
+    rat_right:"Marco cannot see the cause of the delay but still makes a judgment. This shows how limited physical and informational position leads to assumptions and biased POV.|马可看不到延误的原因，但仍然做出了判断。这说明有限的物理和信息位置如何导致假设和有偏见的叙述视角。",
+    rat_wrong:{A:"Marco explicitly lacks information — he 'could not see' the cause.|马可明确缺乏信息——他'看不到'原因。",C:"There is no evidence of this — it is Marco's unfounded assumption.|没有证据支持这一点——这是马可无根据的假设。",D:"Moving in line is a physical action irrelevant to the analysis of POV.|在队伍中移动是一个与叙述视角分析无关的物理行动。"}
+  },
+  {
+    id:"w9",
+    title:"Story vs. Character: Theme",
+    passage:"Throughout the story, the main character believed that winning was the only thing that mattered. But by the final chapter, after losing the race and still gaining the respect of his rivals, the story revealed a deeper truth.",
+    q:"What is the most likely theme the STORY is communicating, as contrasted with the character's POV?",
+    q_cn:"与角色的叙述视角相比，故事最可能传达的主题是什么？",
+    options:["A. Winning is the most important goal in life|A. 赢得胜利是生活中最重要的目标","B. True success is measured by respect and character, not just victory|B. 真正的成功由尊重和品格衡量，而不仅仅是胜利","C. Characters should never change their beliefs|C. 角色不应该改变他们的信仰","D. Losing always leads to failure|D. 失败总是导致失败"],
+    correct:"B",
+    rat_right:"The character began believing winning was everything, but the story's ending showed that earning respect through character is a deeper form of success — directly challenging his original POV.|角色一开始相信赢得胜利就是一切，但故事结局表明通过品格赢得尊重是更深层次的成功形式——直接挑战了他最初的叙述视角。",
+    rat_wrong:{A:"The story's arc contradicts this belief — the character loses and still finds meaning.|故事弧线与这一信念相矛盾——角色失败了但仍然找到了意义。",C:"The story is precisely about a character experiencing growth and change.|故事正是关于一个角色经历成长和变化的。",D:"The story shows that losing can lead to a different, valuable kind of gain.|故事表明，失败可以带来不同的、有价值的收获。"}
+  },
+  {
+    id:"w10",
+    title:"Final Synthesis",
+    passage:"After reading both characters' accounts of the argument, the reader realizes that each person remembered events differently. Neither was completely lying — but neither was completely right.",
+    q:"What does this passage suggest about point of view and truth?",
+    q_cn:"这段话对叙述视角和真相有什么启示？",
+    options:["A. Only one character can be telling the truth|A. 只有一个角色可能在说实话","B. POV is always completely accurate and objective|B. 叙述视角总是完全准确和客观的","C. Multiple perspectives can each capture part of the truth, and truth is often complex|C. 多种视角各自可以捕捉部分真相，而真相往往是复杂的","D. It is impossible to ever know the truth|D. 永远不可能知道真相"],
+    correct:"C",
+    rat_right:"The passage shows that both characters had genuine but incomplete views of the same event. This is the key lesson of studying POV: truth is often multidimensional.|文章表明两个角色对同一事件都有真实但不完整的看法。这是学习叙述视角的关键课题：真相往往是多维的。",
+    rat_wrong:{A:"The passage explicitly says 'neither was completely lying' — both have some truth.|文章明确说'没有人完全在撒谎'——两者都有一定的真相。",B:"The passage shows exactly the opposite — POV can be selective and incomplete.|文章恰恰显示了相反的情况——叙述视角可以是选择性的和不完整的。",D:"This is too extreme — the passage suggests we can get closer to truth by considering multiple perspectives.|这太极端了——文章表明我们可以通过考虑多种视角来更接近真相。"}
+  }
+];
+
+// ============ BUILD VOCAB ============
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+
+    var wordEl = document.createElement('div'); wordEl.className='vocab-word'; wordEl.textContent=v.word;
+    var posEl = document.createElement('div'); posEl.className='vocab-pos'; posEl.textContent=v.pos;
+    var cnEl = document.createElement('div'); cnEl.className='vocab-cn-word'; cnEl.textContent=v.cn;
+    var defEl = document.createElement('div'); defEl.className='vocab-def'; defEl.textContent=v.def;
+    var cnDefEl = document.createElement('div'); cnDefEl.className='vocab-cn-def cn'; cnDefEl.textContent=v.cn_def;
+    var exEl = document.createElement('div'); exEl.className='vocab-example'; exEl.textContent=v.example;
+
+    var spk = document.createElement('button'); spk.className='speak-btn'; spk.textContent='🔊 Pronounce';
+    spk.addEventListener('click', (function(word){
+      return function() {
+        if ('speechSynthesis' in window) {
+          var u = new SpeechSynthesisUtterance(word);
+          u.lang='en-US'; u.rate=0.85;
+          speechSynthesis.speak(u);
+        }
+      };
+    })(v.word));
+
+    card.appendChild(wordEl); card.appendChild(posEl); card.appendChild(cnEl);
+    card.appendChild(defEl); card.appendChild(cnDefEl); card.appendChild(exEl);
+    card.appendChild(spk);
+    grid.appendChild(card);
+  });
+}
+
+// ============ BUILD QUIZ ============
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+  var letters = ['A','B','C','D'];
+
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div'); card.className='quiz-card';
+
+    var num = document.createElement('div'); num.className='q-num';
+    num.textContent = 'Question ' + (idx+1) + ' of ' + data.length;
+    card.appendChild(num);
+
+    if (item.title) {
+      var titleEl = document.createElement('div');
+      titleEl.style.cssText='font-size:.78rem;color:#888;font-style:italic;margin-bottom:4px;';
+      titleEl.textContent = item.title;
+      card.appendChild(titleEl);
+    }
+
+    if (item.passage) {
+      var pasEl = document.createElement('div'); pasEl.className='passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    var qEl = document.createElement('div'); qEl.className='q-text'; qEl.textContent=item.q;
+    var qCn = document.createElement('div'); qCn.className='q-cn cn'; qCn.textContent=item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement('div'); optsWrap.className='opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className='rationale';
+    var answered = false;
+
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/,'');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/,'') : '';
+
+      var btn = document.createElement('button');
+      btn.className='opt-btn'; btn.dataset.letter=letter;
+
+      var strong = document.createElement('strong'); strong.textContent=letter+'. ';
+      var enS = document.createElement('span'); enS.textContent=enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className='cn'; cnS.textContent=cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener('click', (function(b, l, ow, rd, it){
+        return function() {
+          if (answered) return;
+          answered = true;
+          answers[it.id] = l;
+
+          ow.querySelectorAll('.opt-btn').forEach(function(x){
+            x.disabled = true;
+            if (x.dataset.letter === it.correct) x.classList.add('show-correct');
+          });
+
+          var ratText, ratCn, ratParts;
+          if (l === it.correct) {
+            b.classList.add('selected-correct');
+            ratParts = it.rat_right.split('|');
+            ratText = '✅ ' + ratParts[0];
+            ratCn = ratParts[1] || '';
+            rd.className = 'rationale show correct-rat';
+            addProgress(1);
+            scoreObj.val++;
+          } else {
+            b.classList.add('selected-wrong');
+            var wr = it.rat_wrong[l] || '';
+            ratParts = wr.split('|');
+            ratText = '❌ ' + ratParts[0] + ' (Correct: ' + it.correct + ')';
+            ratCn = ratParts[1] || '';
+            rd.className = 'rationale show wrong-rat';
+          }
+
+          var rDiv = document.createElement('div'); rDiv.textContent=ratText;
+          if (ratCn) {
+            var rBr = document.createElement('br');
+            var rCnS = document.createElement('span'); rCnS.className='cn'; rCnS.textContent=ratCn;
+            rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+          }
+          rd.appendChild(rDiv);
+
+          doneObj.val++;
+          if (doneObj.val >= data.length) onComplete();
+        };
+      })(btn, letter, optsWrap, ratDiv, item));
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap); card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+// ============ READINESS GATE ============
+function checkReadiness(tabKey) {
+  var doneObj = tabKey === 'tue' ? tueDone : wedDone;
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey+'DownloadBtn');
+  var hint = document.getElementById(tabKey+'Hint');
+  if (ready) { btn.classList.add('ready'); hint.classList.add('hidden'); }
+  else { btn.classList.remove('ready'); hint.classList.remove('hidden'); }
+}
+
+function wireListeners(tabKey) {
+  ['Ref1','Ref2'].forEach(function(fld){
+    document.getElementById(tabKey+fld).addEventListener('input', function(){
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey+'Grat').addEventListener('input', function(){
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+
+// ============ DOWNLOAD ============
+function tryDownload(tabKey) {
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var doneObj = tabKey === 'tue' ? tueDone : wedDone;
+  var scoreObj = tabKey === 'tue' ? tueScore : wedScore;
+  var qData = tabKey === 'tue' ? TUE_Q : WED_Q;
+  var ansData = tabKey === 'tue' ? tueAnswers : wedAnswers;
+  var dayLabel = tabKey === 'tue' ? 'Tuesday — POV and the Reader' : 'Wednesday — Analyzing Contrasting POVs';
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+
+  var name = document.getElementById(tabKey+'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var txt = '';
+
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Day: ' + dayLabel + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  qData.forEach(function(item, i) {
+    var sel = ansData[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Q: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+
+// ============ UTILITIES ============
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function(){
+    secondsElapsed++;
+    document.getElementById('timer-box').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+
+// ============ INIT ============
+document.addEventListener('DOMContentLoaded', function(){
+  buildVocab();
+
+  buildQuiz(TUE_Q, 'tueQuizContainer', tueAnswers, tueScore, tueDone, function(){
+    checkReadiness('tue');
+  });
+  buildQuiz(WED_Q, 'wedQuizContainer', wedAnswers, wedScore, wedDone, function(){
+    checkReadiness('wed');
+  });
+
+  wireListeners('tue');
+  wireListeners('wed');
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
