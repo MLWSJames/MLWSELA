@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poetry &amp; Drama | 诗歌与戏剧</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #f0f4f0; color: var(--ink); min-height: 100vh; }
+.cn { font-family: 'Noto Sans SC', sans-serif; }
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, var(--ml-green-dark), var(--ml-green));
+  color: #fff;
+  padding: 14px 20px 10px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.header-top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.header-logo { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.5px; font-family: 'Literata', serif; }
+.header-sub { font-size: 0.8rem; opacity: 0.8; }
+.header-badge {
+  margin-left: auto; background: var(--ml-red); color: #fff;
+  border-radius: 12px; padding: 2px 10px; font-size: 0.78rem; font-weight: 600;
+  white-space: nowrap;
+}
+.status-pips { display: flex; gap: 6px; margin-top: 8px; align-items: center; }
+.pip {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: rgba(255,255,255,0.3); border: 2px solid rgba(255,255,255,0.5);
+  transition: background 0.4s, border-color 0.4s;
+}
+.pip.done { background: var(--ml-gold); border-color: var(--ml-gold); }
+.pip-label { font-size: 0.75rem; opacity: 0.8; margin-left: 4px; }
+.progress-bar-wrap { margin-top: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; height: 6px; }
+.progress-bar { height: 100%; border-radius: 4px; background: var(--ml-gold); width: 0%; transition: width 0.4s; }
+.progress-text { font-size: 0.72rem; opacity: 0.75; margin-top: 3px; }
+
+/* NOTICE */
+.notice {
+  background: var(--amber-light); border-left: 4px solid var(--amber);
+  padding: 8px 16px; font-size: 0.82rem; color: var(--amber); display: none;
+}
+
+/* TABS */
+.tab-bar {
+  display: flex; gap: 0; background: var(--ml-green-dark);
+  overflow-x: auto; padding: 0 12px;
+}
+.tab-btn {
+  padding: 10px 18px; font-size: 0.85rem; font-weight: 600;
+  color: rgba(255,255,255,0.7); background: none; border: none;
+  cursor: pointer; border-bottom: 3px solid transparent;
+  white-space: nowrap; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+.tab-btn:hover { color: #fff; }
+.tab-btn.active { color: var(--ml-gold); border-bottom-color: var(--ml-gold); }
+.tab-content { display: none; padding: 24px 16px 80px; max-width: 900px; margin: 0 auto; }
+.tab-content.active { display: block; }
+
+/* SECTION HEADERS */
+.section-header {
+  background: linear-gradient(135deg, var(--cobalt), #2a4a7f);
+  color: #fff; border-radius: 10px; padding: 16px 20px; margin-bottom: 20px;
+}
+.section-header h2 { font-family: 'Literata', serif; font-size: 1.2rem; }
+.section-header p { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+
+/* NAME INPUT */
+.name-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.name-row label { font-weight: 600; font-size: 0.9rem; }
+.name-input {
+  border: 2px solid var(--border); border-radius: 8px;
+  padding: 8px 12px; font-size: 0.9rem; font-family: 'DM Sans', sans-serif;
+  flex: 1; min-width: 180px; max-width: 300px;
+}
+.name-input:focus { outline: none; border-color: var(--ml-green); }
+
+/* VOCAB CARDS */
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px; }
+.vocab-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s;
+}
+.vocab-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.1); }
+.vocab-word { font-size: 1.1rem; font-weight: 700; color: var(--ml-green-dark); font-family: 'Literata', serif; }
+.vocab-pos { font-size: 0.75rem; color: var(--amber); font-style: italic; margin-bottom: 4px; }
+.vocab-cn { font-size: 0.95rem; color: var(--cobalt); font-weight: 500; }
+.vocab-def { font-size: 0.85rem; color: var(--ink2); margin: 6px 0 4px; line-height: 1.5; }
+.vocab-cn-def { font-size: 0.82rem; color: #555; line-height: 1.5; }
+.vocab-example { font-size: 0.82rem; color: var(--ml-green-dark); border-top: 1px solid var(--border); margin-top: 8px; padding-top: 8px; font-style: italic; }
+.speak-btn {
+  background: var(--ml-green-light); border: none; border-radius: 6px;
+  padding: 4px 8px; cursor: pointer; font-size: 0.8rem; color: var(--ml-green-dark);
+  margin-top: 8px; transition: background 0.2s;
+}
+.speak-btn:hover { background: var(--ml-green); color: #fff; }
+
+/* CONCEPT BOXES */
+.concept-box {
+  background: #fff; border: 1px solid var(--border); border-radius: 12px;
+  padding: 18px 20px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.concept-box h3 { font-family: 'Literata', serif; color: var(--ml-green-dark); font-size: 1.05rem; margin-bottom: 8px; }
+.concept-box .cn-label { font-size: 0.82rem; color: var(--cobalt); margin-bottom: 10px; }
+.concept-box p { font-size: 0.88rem; line-height: 1.65; color: var(--ink2); margin-bottom: 8px; }
+.concept-box ul { padding-left: 18px; }
+.concept-box li { font-size: 0.88rem; line-height: 1.65; color: var(--ink2); margin-bottom: 4px; }
+.concept-box .example-verse {
+  background: var(--mist); border-left: 3px solid var(--ml-gold);
+  padding: 10px 14px; border-radius: 0 8px 8px 0; font-family: 'Literata', serif;
+  font-size: 0.88rem; line-height: 1.8; margin: 10px 0; white-space: pre-line;
+}
+.tag { display: inline-block; background: var(--ml-green-light); color: var(--ml-green-dark); border-radius: 6px; padding: 2px 8px; font-size: 0.75rem; font-weight: 600; margin-right: 4px; margin-bottom: 4px; }
+.tag.red { background: #fde8e8; color: var(--ml-red); }
+.tag.gold { background: var(--amber-light); color: var(--amber); }
+.tag.blue { background: #e8f0fe; color: var(--cobalt); }
+
+/* PRACTICE CARDS */
+.practice-section-label {
+  font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--ml-green); margin: 24px 0 12px; padding-left: 4px;
+  border-left: 3px solid var(--ml-green); padding-left: 10px;
+}
+.practice-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 12px;
+  padding: 18px 20px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.practice-q-num { font-size: 0.75rem; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.practice-passage {
+  background: var(--mist); border-left: 3px solid var(--ml-green);
+  padding: 12px 16px; border-radius: 0 8px 8px 0;
+  font-family: 'Literata', serif; font-size: 0.88rem; line-height: 1.8;
+  margin-bottom: 14px; white-space: pre-line; color: var(--ink);
+}
+.practice-q { font-size: 0.92rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.practice-q-cn { font-size: 0.82rem; color: var(--cobalt); margin-bottom: 12px; }
+.options-wrap { display: flex; flex-direction: column; gap: 8px; }
+.opt-btn {
+  background: var(--mist); border: 2px solid var(--border); border-radius: 8px;
+  padding: 10px 14px; text-align: left; cursor: pointer; font-size: 0.87rem;
+  color: var(--ink2); font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+  line-height: 1.45;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--ml-green); background: var(--ml-green-light); }
+.opt-btn.correct { background: #d1fae5; border-color: #059669; color: #065f46; font-weight: 600; }
+.opt-btn.wrong { background: #fee2e2; border-color: var(--ml-red); color: var(--ml-red); }
+.opt-btn:disabled { cursor: default; }
+.rationale {
+  margin-top: 12px; padding: 10px 14px; border-radius: 8px;
+  font-size: 0.84rem; line-height: 1.6; display: none;
+}
+.rationale.show { display: block; }
+.rationale.correct-rat { background: #d1fae5; border-left: 3px solid #059669; color: #065f46; }
+.rationale.wrong-rat { background: #fee2e2; border-left: 3px solid var(--ml-red); color: #7f1d1d; }
+.hint-box {
+  background: var(--amber-light); border-radius: 8px; padding: 8px 12px;
+  font-size: 0.82rem; color: var(--amber); margin-bottom: 10px; display: none;
+}
+
+/* EXIT TICKET */
+.exit-section {
+  background: linear-gradient(135deg, #1b4332, var(--ml-green));
+  color: #fff; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px;
+}
+.exit-section h3 { font-family: 'Literata', serif; font-size: 1.1rem; margin-bottom: 4px; }
+.exit-section p { font-size: 0.85rem; opacity: 0.85; }
+.exit-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 12px;
+  padding: 16px 18px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.exit-q { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.exit-q-cn { font-size: 0.8rem; color: var(--cobalt); margin-bottom: 10px; }
+
+/* SCORE BOX */
+.score-box {
+  background: var(--ml-green-light); border: 2px solid var(--ml-green);
+  border-radius: 12px; padding: 16px 20px; text-align: center; margin: 16px 0; display: none;
+}
+.score-box .big-score { font-size: 2rem; font-weight: 700; color: var(--ml-green-dark); }
+.score-box .score-label { font-size: 0.85rem; color: var(--ml-green); }
+
+/* REFLECTION */
+.reflection-wrap { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; display: none; }
+.reflection-wrap.show { display: block; }
+.reflection-q { font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.reflection-q-cn { font-size: 0.8rem; color: var(--cobalt); margin-bottom: 8px; }
+.reflection-textarea {
+  width: 100%; border: 2px solid var(--border); border-radius: 8px;
+  padding: 10px 12px; font-size: 0.87rem; font-family: 'DM Sans', sans-serif;
+  resize: vertical; min-height: 90px; color: var(--ink);
+}
+.reflection-textarea:focus { outline: none; border-color: var(--ml-green); }
+
+/* DOWNLOAD BTN */
+.dl-btn {
+  background: var(--ml-green-dark); color: #fff; border: none;
+  border-radius: 10px; padding: 12px 24px; font-size: 0.95rem; font-weight: 700;
+  cursor: pointer; width: 100%; margin-top: 10px; font-family: 'DM Sans', sans-serif;
+  transition: background 0.2s; display: none;
+}
+.dl-btn.show { display: block; }
+.dl-btn:hover { background: var(--ml-green); }
+
+/* TIMER */
+#timerDisplay {
+  position: fixed; bottom: 18px; right: 18px;
+  background: var(--ml-green-dark); color: #fff;
+  border-radius: 20px; padding: 6px 14px; font-size: 0.85rem; font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 200;
+}
+
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+@media (max-width: 600px) {
+  .tab-content { padding: 16px 12px 80px; }
+  .vocab-grid { grid-template-columns: 1fr; }
+  .header-logo { font-size: 1.1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-logo">🍁 Poetry &amp; Drama | <span class="cn">诗歌与戏剧</span></div>
+      <div class="header-sub">MLWS Grade 11 English · <span class="cn">枫叶世界学校 11年级英语</span></div>
+    </div>
+    <div class="header-badge" id="leaveBadge">🚪 Leaves: 0</div>
+  </div>
+  <div class="status-pips">
+    <div class="pip" id="pipTue" title="Tuesday Quiz"></div>
+    <div class="pip" id="pipWed" title="Wednesday Quiz"></div>
+    <span class="pip-label cn">完成状态</span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="progress-text" id="progressText">Progress: 0% · <span class="cn">进度：0%</span></div>
+</div>
+
+<!-- PERSISTENT WARNING BANNER -->
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.83rem;font-weight:600;text-align:center;">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. · <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div class="notice" id="leaveNotice">🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span></div>
+
+<!-- TABS -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">📚 Vocabulary <span class="cn">词汇</span></button>
+  <button class="tab-btn" onclick="switchTab('tue', this)">📝 Tuesday — Poetry Forms <span class="cn">诗歌形式</span></button>
+  <button class="tab-btn" onclick="switchTab('wed', this)">🎭 Wednesday — Drama <span class="cn">戏剧</span></button>
+</div>
+
+<!-- ══════════════════════════════ VOCAB TAB ══════════════════════════════ -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="section-header">
+    <h2>📚 Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+    <p>Study each word. Click 🔊 to hear the pronunciation. · <span class="cn">学习每个单词，点击🔊听发音。</span></p>
+  </div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ══════════════════════════════ TUESDAY TAB ══════════════════════════════ -->
+<div class="tab-content" id="tab-tue">
+  <div class="section-header">
+    <h2>📝 Tuesday: How Can the Form of a Poem or Drama Affect Its Meaning?</h2>
+    <p class="cn">诗歌或戏剧的形式如何影响其含义？</p>
+  </div>
+
+  <div class="name-row">
+    <label for="tueName">Student Name · <span class="cn">姓名</span>:</label>
+    <input class="name-input" id="tueName" type="text" placeholder="Your name · 你的名字">
+  </div>
+
+  <!-- CONCEPT: Form vs. Meaning -->
+  <div class="concept-box">
+    <h3>What Is "Form" in Literature? · <span class="cn">文学中的"形式"是什么？</span></h3>
+    <div class="cn-label cn">形式是指作品的结构方式——行数、押韵方式、韵律等。</div>
+    <p>In literature, <strong>form</strong> refers to the way a piece is structured — the number of lines, how it rhymes, how many syllables are in each line, and how it is organized. Form is different from <strong>content</strong> (what the poem says). But form and content work together to create <strong>meaning</strong>.</p>
+    <p>Think of it this way: if you whisper something, the message feels different than if you shout the same words. The "form" of how you say it changes the meaning.</p>
+    <p><span class="tag">Form 形式</span> <span class="tag gold">Structure 结构</span> <span class="tag blue">Meaning 含义</span></p>
+  </div>
+
+  <!-- CONCEPT: Rhyme Scheme -->
+  <div class="concept-box">
+    <h3>Rhyme Scheme · <span class="cn">押韵方式 (韵式)</span></h3>
+    <div class="cn-label cn">押韵方式是指诗句末尾的单词如何押韵的规律，用字母表示。</div>
+    <p>A <strong>rhyme scheme</strong> is the pattern of rhyming words at the end of each line. We label the pattern using letters: the first end-sound is A, the next new sound is B, and so on.</p>
+    <div class="example-verse">Shall I compare thee to a summer's <strong>day</strong>?   (A)
+Thou art more lovely and more <strong>temperate</strong>:  (B)
+Rough winds do shake the darling buds of <strong>May</strong>,  (A)
+And summer's lease hath all too short a <strong>date</strong>:  (B)</div>
+    <p>This pattern — ABAB — is very common in <strong>sonnets</strong>. The rhyme scheme creates a musical feeling and makes lines feel connected.</p>
+  </div>
+
+  <!-- CONCEPT: Meter -->
+  <div class="concept-box">
+    <h3>Meter · <span class="cn">韵律 / 格律</span></h3>
+    <div class="cn-label cn">韵律是指诗句中音节的规律性节奏。</div>
+    <p><strong>Meter</strong> is the rhythmic pattern of stressed (loud) and unstressed (quiet) syllables in a line of poetry. The most common meter in English poetry is <strong>iambic pentameter</strong>: 10 syllables per line, alternating unstressed and stressed.</p>
+    <div class="example-verse">da-DUM / da-DUM / da-DUM / da-DUM / da-DUM
+"Shall I / com-PARE / thee TO / a SUM / mer's DAY?"</div>
+    <p>Meter gives poetry a heartbeat — a regular rhythm that can make it feel formal, musical, or urgent. When a poet <em>breaks</em> the meter on purpose, it creates emphasis.</p>
+    <p><span class="tag">Iamb 抑扬格</span> <span class="tag gold">Pentameter 五步格</span> <span class="tag blue">Stress 重音</span></p>
+  </div>
+
+  <!-- CONCEPT: English Sonnet -->
+  <div class="concept-box">
+    <h3>The English (Shakespearean) Sonnet · <span class="cn">英式（莎士比亚）十四行诗</span></h3>
+    <div class="cn-label cn">英式十四行诗由14行组成，分为三个四行组和一个对句，通常以ABAB CDCD EFEF GG的押韵方式排列。</div>
+    <p>The <strong>English sonnet</strong> (also called the Shakespearean sonnet) has exactly <strong>14 lines</strong> written in iambic pentameter. It is organized into:</p>
+    <ul>
+      <li>Three <strong>quatrains</strong> (4-line stanzas) — each develops one idea</li>
+      <li>One <strong>couplet</strong> (2-line ending) — the "turn" or conclusion, called the <strong>volta</strong></li>
+    </ul>
+    <p>Rhyme scheme: <strong>ABAB CDCD EFEF GG</strong></p>
+    <p>The form forces the poet to explore a topic in three different ways, then deliver a final surprising or summarizing thought. The <em>form itself</em> creates an argument structure.</p>
+    <p><span class="tag">14 lines 14行</span> <span class="tag gold">Volta 转折</span> <span class="tag blue">Couplet 对句</span></p>
+  </div>
+
+  <!-- CONCEPT: Italian Sonnet -->
+  <div class="concept-box">
+    <h3>The Italian (Petrarchan) Sonnet · <span class="cn">意式（彼特拉克）十四行诗</span></h3>
+    <div class="cn-label cn">意式十四行诗分为八行组（octave）和六行组（sestet），常用来提出问题再给出解答。</div>
+    <p>The <strong>Italian sonnet</strong> (Petrarchan) also has <strong>14 lines</strong>, but its structure is different:</p>
+    <ul>
+      <li><strong>Octave</strong> (8 lines) — ABBAABBA — presents a problem or question</li>
+      <li><strong>Sestet</strong> (6 lines) — CDECDE or similar — offers a resolution or response</li>
+    </ul>
+    <p>The <strong>volta</strong> (turn) happens between the octave and sestet. Italian sonnets often feel like someone asking a deep question and then answering it. The two-part structure creates a sense of tension and release.</p>
+    <p><span class="tag">Octave 八行组</span> <span class="tag gold">Sestet 六行组</span> <span class="tag blue">Problem → Solution 问题→解决</span></p>
+  </div>
+
+  <!-- CONCEPT: Free Verse -->
+  <div class="concept-box">
+    <h3>Free Verse · <span class="cn">自由诗</span></h3>
+    <div class="cn-label cn">自由诗没有固定的押韵方式或韵律，诗人可以自由选择长短和结构。</div>
+    <p><strong>Free verse</strong> poetry has <strong>no fixed rhyme scheme</strong> and <strong>no fixed meter</strong>. Each line can be any length. The poet chooses where to break lines, which creates emphasis and meaning.</p>
+    <div class="example-verse">I am nobody! Who are you?
+Are you nobody, too?
+Then there's a pair of us — don't tell!
+They'd banish us, you know.</div>
+    <p>Even without rhyme rules, free verse is not "random." The poet makes careful choices about line breaks, white space, and rhythm. Breaking a line in the middle of a thought can create suspense or show emotion.</p>
+    <p><span class="tag">No fixed rules 无固定规则</span> <span class="tag gold">Line breaks 断行</span></p>
+  </div>
+
+  <!-- CONCEPT: Villanelle -->
+  <div class="concept-box">
+    <h3>The Villanelle · <span class="cn">维拉内拉（重复诗）</span></h3>
+    <div class="cn-label cn">维拉内拉是一种19行的诗，有两个反复出现的"折返行"，常用来表达执念或不愿放弃的情感。</div>
+    <p>The <strong>villanelle</strong> is a 19-line poem with a very strict repeating structure. It has:</p>
+    <ul>
+      <li>Five <strong>tercets</strong> (3-line stanzas)</li>
+      <li>One final <strong>quatrain</strong> (4-line stanza)</li>
+      <li>Two <strong>refrains</strong> — line 1 and line 3 repeat throughout the poem</li>
+    </ul>
+    <div class="example-verse">Do not go gentle into that good night,   (A1 — refrain)
+Old age should burn and rave at close of day; (B)
+Rage, rage against the dying of the light.  (A2 — refrain)</div>
+    <p>Because the same lines keep coming back, villanelles feel <strong>obsessive</strong> — like a thought you cannot stop. Dylan Thomas's poem above uses the form to express desperate grief. The <em>repetition</em> is the meaning.</p>
+    <p><span class="tag">19 lines 19行</span> <span class="tag gold">Repetition 重复</span> <span class="tag blue">Refrain 折返行</span></p>
+  </div>
+
+  <!-- CONCEPT: Stanza -->
+  <div class="concept-box">
+    <h3>Stanza · <span class="cn">诗节</span></h3>
+    <div class="cn-label cn">诗节是诗歌中的一组行，类似于文章中的段落。</div>
+    <p>A <strong>stanza</strong> is a group of lines in a poem, like a paragraph in an essay. Each stanza often develops one idea or image. Common stanza types:</p>
+    <ul>
+      <li><strong>Couplet</strong> — 2 lines 两行</li>
+      <li><strong>Tercet</strong> — 3 lines 三行</li>
+      <li><strong>Quatrain</strong> — 4 lines 四行</li>
+      <li><strong>Sestet</strong> — 6 lines 六行</li>
+      <li><strong>Octave</strong> — 8 lines 八行</li>
+    </ul>
+  </div>
+
+  <!-- CONCEPT: Drama Forms -->
+  <div class="concept-box">
+    <h3>Drama: Soliloquy, Monologue, Prologue, Epilogue · <span class="cn">戏剧：独白、旁白、序言、尾声</span></h3>
+    <div class="cn-label cn">这些是戏剧中常见的结构元素，它们的形式影响观众如何理解角色和故事。</div>
+    <ul>
+      <li><strong>Soliloquy</strong> — A character speaks alone on stage, revealing private thoughts. The audience hears what other characters cannot. (<span class="cn">独白：角色独自在台上说话，透露内心想法</span>)</li>
+      <li><strong>Monologue</strong> — A long speech by one character, spoken to other characters on stage. (<span class="cn">长篇台词：一个角色对其他角色说的长篇讲话</span>)</li>
+      <li><strong>Prologue</strong> — An introduction before the main action begins. It sets the scene or explains background. (<span class="cn">序言：正式情节开始前的介绍</span>)</li>
+      <li><strong>Epilogue</strong> — A closing section after the main action ends. It wraps up loose ends or comments on the story. (<span class="cn">尾声：故事结束后的总结部分</span>)</li>
+    </ul>
+    <p>Each of these forms shapes how the audience receives information — and whether they have <em>more</em> or <em>less</em> knowledge than the characters on stage.</p>
+  </div>
+
+  <!-- ── TUESDAY PRACTICES ── -->
+  <div class="practice-section-label">📖 Practice Questions — Poetry Forms · <span class="cn">练习题 — 诗歌形式</span></div>
+  <div id="tuePracticeContainer"></div>
+
+  <!-- EXIT TICKET -->
+  <hr class="divider">
+  <div class="exit-section">
+    <h3>🎯 Exit Ticket · <span class="cn">课末测验</span></h3>
+    <p>10 questions. Complete all to unlock your report download. · <span class="cn">共10题，全部完成后可下载报告。</span></p>
+  </div>
+  <div id="tueExitContainer"></div>
+  <div class="score-box" id="tueScoreBox">
+    <div class="big-score" id="tueScoreNum">0/10</div>
+    <div class="score-label cn">课末测验得分</div>
+  </div>
+  <div class="reflection-wrap" id="tueReflection">
+    <div class="reflection-q">1. Choose one poetry form you studied today. Explain how its form (structure, rhyme, repetition) creates or changes its meaning. Use a specific example.</div>
+    <div class="reflection-q-cn cn">选择今天学习的一种诗歌形式，解释其形式（结构、押韵、重复）如何创造或改变含义，请举具体例子。</div>
+    <textarea class="reflection-textarea" id="tueRef1" placeholder="Write your answer here · 在这里写下你的答案..."></textarea>
+    <br><br>
+    <div class="reflection-q">2. If you were writing a poem about something you feel very strongly about and cannot stop thinking about, which form would you choose? Why?</div>
+    <div class="reflection-q-cn cn">如果你要写一首关于你非常在意、无法停止思考的事情的诗，你会选择哪种形式？为什么？</div>
+    <textarea class="reflection-textarea" id="tueRef2" placeholder="Write your answer here · 在这里写下你的答案..."></textarea>
+  </div>
+  <button class="dl-btn" id="tueDlBtn" onclick="downloadReport('tue')">⬇ Download Tuesday Report · 下载周二报告</button>
+</div>
+
+<!-- ══════════════════════════════ WEDNESDAY TAB ══════════════════════════════ -->
+<div class="tab-content" id="tab-wed">
+  <div class="section-header">
+    <h2>🎭 Wednesday: The Elements of Drama · <span class="cn">戏剧的基本要素</span></h2>
+    <p>Understanding how drama works — structure, character, conflict, and technique. · <span class="cn">理解戏剧如何运作——结构、人物、冲突与技巧。</span></p>
+  </div>
+
+  <div class="name-row">
+    <label for="wedName">Student Name · <span class="cn">姓名</span>:</label>
+    <input class="name-input" id="wedName" type="text" placeholder="Your name · 你的名字">
+  </div>
+
+  <!-- CONCEPT: Drama Defined -->
+  <div class="concept-box">
+    <h3>What Is Drama? · <span class="cn">什么是戏剧？</span></h3>
+    <div class="cn-label cn">戏剧是一种通过演员在舞台上表演来讲述故事的文学形式。</div>
+    <p><strong>Drama</strong> is a form of literature written to be <strong>performed</strong> by actors on a stage, in front of an audience. Unlike a novel, drama does not usually have a narrator — the story is told through <strong>dialogue</strong> (what characters say) and <strong>action</strong> (what characters do).</p>
+    <p>Drama is one of the oldest forms of storytelling. Ancient Greeks wrote tragedies and comedies thousands of years ago. Shakespeare wrote drama in the 1500s. Today, drama includes plays, musicals, screenplays, and TV scripts.</p>
+    <p><span class="tag">Performed 表演</span> <span class="tag gold">Dialogue 对话</span> <span class="tag blue">Audience 观众</span></p>
+  </div>
+
+  <!-- CONCEPT: Plot & Dramatic Arc -->
+  <div class="concept-box">
+    <h3>Plot and the Dramatic Arc · <span class="cn">情节与戏剧弧线</span></h3>
+    <div class="cn-label cn">戏剧弧线描述了故事情节从开始到结束的发展曲线，包括五个主要阶段。</div>
+    <p>The <strong>dramatic arc</strong> (also called Freytag's Pyramid) describes the shape of a drama's plot. It has five stages:</p>
+    <ul>
+      <li><strong>Exposition</strong> 开端 — Introduction of setting, characters, and background</li>
+      <li><strong>Rising Action</strong> 发展 — Problems grow; tension builds; characters face obstacles</li>
+      <li><strong>Climax</strong> 高潮 — The turning point; the moment of greatest tension or crisis</li>
+      <li><strong>Falling Action</strong> 下降 — Events after the climax; consequences unfold</li>
+      <li><strong>Resolution (Dénouement)</strong> 结局 — The conflict is resolved; things return to a new normal</li>
+    </ul>
+    <p>Understanding the dramatic arc helps you predict and analyze where a play is going and why certain scenes feel more intense than others.</p>
+    <p><span class="tag">Climax 高潮</span> <span class="tag gold">Rising Action 发展</span> <span class="tag blue">Resolution 结局</span></p>
+  </div>
+
+  <!-- CONCEPT: Types of Characters -->
+  <div class="concept-box">
+    <h3>Types of Characters · <span class="cn">人物类型</span></h3>
+    <div class="cn-label cn">戏剧中有不同类型的人物，每种类型在故事中发挥不同作用。</div>
+    <ul>
+      <li><strong>Protagonist</strong> 主角 — The main character; the one we follow. The story centers on their problem.</li>
+      <li><strong>Antagonist</strong> 反角 — The character (or force) that opposes the protagonist and creates conflict.</li>
+      <li><strong>Round character</strong> 圆形人物 — A complex, realistic character with multiple traits; they change and grow.</li>
+      <li><strong>Flat character</strong> 扁平人物 — A simple character with one or two traits; they do not change much.</li>
+      <li><strong>Dynamic character</strong> 动态人物 — A character who changes significantly during the story.</li>
+      <li><strong>Static character</strong> 静态人物 — A character who stays the same throughout the story.</li>
+      <li><strong>Foil</strong> 对比人物 — A character whose traits contrast with another character's traits to highlight differences.</li>
+    </ul>
+    <p><span class="tag">Protagonist 主角</span> <span class="tag red">Antagonist 反角</span> <span class="tag gold">Foil 对比人物</span></p>
+  </div>
+
+  <!-- CONCEPT: Dialogue & Stage Directions -->
+  <div class="concept-box">
+    <h3>Dialogue and Stage Directions · <span class="cn">对话与舞台指示</span></h3>
+    <div class="cn-label cn">对话是角色说的话；舞台指示告诉演员和导演该怎么做。</div>
+    <p><strong>Dialogue</strong> is what characters say to each other. In a script, dialogue is written after the character's name. Dialogue reveals character, advances the plot, and delivers information to the audience.</p>
+    <p><strong>Stage directions</strong> are instructions written by the playwright (usually in italics or brackets). They tell actors how to move, where to stand, what emotions to show, and describe the setting. Stage directions are <em>not</em> spoken aloud.</p>
+    <div class="example-verse">[ROMEO enters, looking up at the balcony]
+ROMEO: But, soft! What light through yonder window breaks?
+        It is the east, and Juliet is the sun.</div>
+    <p>The stage direction gives context; the dialogue carries the emotion. Together, they create meaning that the audience receives both visually and verbally.</p>
+    <p><span class="tag">Dialogue 对话</span> <span class="tag gold">Stage Directions 舞台指示</span> <span class="tag blue">Playwright 剧作家</span></p>
+  </div>
+
+  <!-- CONCEPT: Setting & Conflict -->
+  <div class="concept-box">
+    <h3>Setting and Conflict · <span class="cn">场景与冲突</span></h3>
+    <div class="cn-label cn">场景是故事发生的地点和时间；冲突是推动情节发展的核心矛盾。</div>
+    <p><strong>Setting</strong> in drama includes the time and place of the action. Unlike a novel, the setting in drama must be communicated through <strong>set design, lighting, costumes, and stage directions</strong> — the audience must see it. Setting affects mood and theme.</p>
+    <p><strong>Conflict</strong> is the central struggle that drives the plot. The main types of conflict are:</p>
+    <ul>
+      <li><strong>Character vs. Character</strong> 人物对人物 — Two characters want different things</li>
+      <li><strong>Character vs. Self</strong> 人物对自我 — An internal struggle (fear, guilt, decision)</li>
+      <li><strong>Character vs. Society</strong> 人物对社会 — A character fights rules, expectations, or injustice</li>
+      <li><strong>Character vs. Nature</strong> 人物对自然 — A character faces natural forces (storm, illness)</li>
+      <li><strong>Character vs. Fate</strong> 人物对命运 — A character struggles against destiny or forces beyond control</li>
+    </ul>
+    <p><span class="tag">Setting 场景</span> <span class="tag red">Conflict 冲突</span> <span class="tag blue">Mood 氛围</span></p>
+  </div>
+
+  <!-- CONCEPT: Theme -->
+  <div class="concept-box">
+    <h3>Theme in Drama · <span class="cn">戏剧中的主题</span></h3>
+    <div class="cn-label cn">主题是戏剧传达的关于生活或人性的深层信息，不是单个词，而是完整的思想。</div>
+    <p>The <strong>theme</strong> of a drama is the central message or insight about human life that the playwright wants to communicate. A theme is <em>not</em> just a topic (like "love" or "war") — it is a complete idea: <em>Love can lead people to make destructive choices.</em></p>
+    <p>Themes in drama emerge through:</p>
+    <ul>
+      <li>What characters <strong>say</strong> and <strong>do</strong></li>
+      <li>How the conflict is <strong>resolved</strong> (or not)</li>
+      <li>What characters <strong>learn</strong> or fail to learn</li>
+      <li>The <strong>ending</strong> of the play — tragedy or comedy changes the theme</li>
+    </ul>
+    <p><span class="tag">Theme 主题</span> <span class="tag gold">Universal Idea 普遍思想</span></p>
+  </div>
+
+  <!-- CONCEPT: Structure & Techniques -->
+  <div class="concept-box">
+    <h3>Structure and Dramatic Techniques · <span class="cn">结构与戏剧技巧</span></h3>
+    <div class="cn-label cn">剧作家使用各种技巧来控制信息、制造悬念和增强戏剧效果。</div>
+    <p>Playwrights use specific structural tools and techniques to shape how an audience experiences a play:</p>
+    <ul>
+      <li><strong>Acts and Scenes</strong> 幕和场 — Large sections (acts) divided into smaller sections (scenes). Acts usually mark major shifts in time or location.</li>
+      <li><strong>Dramatic Irony</strong> 戏剧性反讽 — The audience knows something the characters do not. This creates tension and suspense.</li>
+      <li><strong>Foreshadowing</strong> 伏笔 — Hints about what will happen later in the play.</li>
+      <li><strong>Aside</strong> 旁白 — A character speaks directly to the audience while other characters cannot hear. It reveals private thoughts without being a full soliloquy.</li>
+      <li><strong>In medias res</strong> 从中间开始 — The play begins in the middle of the action, not at the beginning.</li>
+      <li><strong>Tragic flaw (Hamartia)</strong> 悲剧缺陷 — A character's internal weakness that leads to their downfall (e.g., pride, jealousy, indecision).</li>
+    </ul>
+    <p><span class="tag">Dramatic Irony 戏剧性反讽</span> <span class="tag gold">Foreshadowing 伏笔</span> <span class="tag red">Hamartia 悲剧缺陷</span> <span class="tag blue">Aside 旁白</span></p>
+  </div>
+
+  <!-- ── WEDNESDAY PRACTICES ── -->
+  <div class="practice-section-label">🎭 Practice Questions — Drama Elements · <span class="cn">练习题 — 戏剧要素</span></div>
+  <div id="wedPracticeContainer"></div>
+
+  <!-- EXIT TICKET -->
+  <hr class="divider">
+  <div class="exit-section">
+    <h3>🎯 Exit Ticket · <span class="cn">课末测验</span></h3>
+    <p>10 questions. Complete all to unlock your report download. · <span class="cn">共10题，全部完成后可下载报告。</span></p>
+  </div>
+  <div id="wedExitContainer"></div>
+  <div class="score-box" id="wedScoreBox">
+    <div class="big-score" id="wedScoreNum">0/10</div>
+    <div class="score-label cn">课末测验得分</div>
+  </div>
+  <div class="reflection-wrap" id="wedReflection">
+    <div class="reflection-q">1. Choose one dramatic technique (dramatic irony, soliloquy, foreshadowing, aside, tragic flaw, or foil). Explain how it shapes what the audience knows or feels compared to the characters on stage.</div>
+    <div class="reflection-q-cn cn">选择一种戏剧技巧（戏剧性反讽、独白、伏笔、旁白、悲剧缺陷或对比人物），解释它如何影响观众的认知或感受与台上角色的不同。</div>
+    <textarea class="reflection-textarea" id="wedRef1" placeholder="Write your answer here · 在这里写下你的答案..."></textarea>
+    <br><br>
+    <div class="reflection-q">2. Think about a movie, TV show, or story you know. Identify the protagonist, the main conflict type, and one moment that could be called the climax. Explain your thinking.</div>
+    <div class="reflection-q-cn cn">想想你熟悉的一部电影、电视剧或故事，找出主角、主要冲突类型以及一个可以称为高潮的时刻，解释你的想法。</div>
+    <textarea class="reflection-textarea" id="wedRef2" placeholder="Write your answer here · 在这里写下你的答案..."></textarea>
+  </div>
+  <button class="dl-btn" id="wedDlBtn" onclick="downloadReport('wed')">⬇ Download Wednesday Report · 下载周三报告</button>
+</div>
+
+<!-- TIMER -->
+<div id="timerDisplay">⏱ 00:00</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════
+
+const VOCAB = [
+  { word: "Implicit", pos: "adjective", cn: "隐含的", def: "Suggested or understood without being directly stated.", cn_def: "没有直接表达，但可以理解的意思。", example: "The poem's implicit message is that love is more powerful than death." },
+  { word: "Structure", pos: "noun", cn: "结构", def: "The way something is organized or arranged, including its parts and how they connect.", cn_def: "事物被组织和排列的方式，包括其各部分及其联系。", example: "The structure of a sonnet includes 14 lines and a specific rhyme scheme." },
+  { word: "Persuade", pos: "verb", cn: "说服", def: "To cause someone to believe something or do something through reasoning or argument.", cn_def: "通过推理或论据让某人相信某事或采取某种行动。", example: "The speaker uses emotional language to persuade the audience to support her cause." },
+  { word: "Inform", pos: "verb", cn: "告知；传达信息", def: "To give someone facts or knowledge about something.", cn_def: "向某人提供关于某事的事实或知识。", example: "The prologue informs the audience about the setting and background of the play." },
+  { word: "Entertain", pos: "verb", cn: "娱乐；使高兴", def: "To hold someone's attention and give them pleasure or enjoyment.", cn_def: "吸引某人的注意力，给予其乐趣或享受。", example: "Shakespeare wrote comedies to entertain audiences with humor and clever wordplay." },
+  { word: "Describe", pos: "verb", cn: "描写；描述", def: "To give a detailed picture of something using words.", cn_def: "用文字对某事物进行详细描绘。", example: "The stage directions describe the dark, stormy setting at the beginning of the scene." },
+  { word: "Explain", pos: "verb", cn: "解释", def: "To make something clear or easy to understand by giving details or reasons.", cn_def: "通过提供细节或原因使某事变得清晰易懂。", example: "The chorus explains the events of each act to help the audience follow the story." },
+  { word: "Analyze", pos: "verb", cn: "分析", def: "To examine something carefully by looking at its parts and how they work together.", cn_def: "通过仔细研究事物的各部分及其相互作用来深入理解它。", example: "To analyze a sonnet, you should examine its rhyme scheme, meter, and volta." },
+  { word: "Evaluate", pos: "verb", cn: "评价；评估", def: "To judge the quality, importance, or effectiveness of something.", cn_def: "判断某事物的质量、重要性或有效性。", example: "We will evaluate whether the playwright's use of dramatic irony is effective in creating suspense." },
+  { word: "Compare", pos: "verb", cn: "比较（相似点）", def: "To examine two or more things and find their similarities.", cn_def: "检视两个或多个事物，找出它们的相似之处。", example: "Compare the English sonnet and the Italian sonnet by looking at their rhyme schemes." },
+  { word: "Contrast", pos: "verb", cn: "对比（不同点）", def: "To examine two or more things and find their differences.", cn_def: "检视两个或多个事物，找出它们的不同之处。", example: "Contrast free verse with a villanelle to see how form affects the feeling of each poem." },
+  { word: "Stanza", pos: "noun", cn: "诗节", def: "A group of lines in a poem, separated from other groups by a blank line.", cn_def: "诗歌中的一组行，与其他组之间用空行隔开。", example: "Each stanza in the sonnet develops a different aspect of the poet's argument." },
+  { word: "Rhyme scheme", pos: "noun phrase", cn: "押韵方式", def: "The pattern of rhyming words at the end of lines in a poem, shown by letters like ABAB.", cn_def: "诗歌中每行末尾单词押韵的规律，用字母表示，如ABAB。", example: "The rhyme scheme ABAB CDCD EFEF GG is the pattern of the English sonnet." },
+  { word: "Meter", pos: "noun", cn: "韵律；格律", def: "The rhythmic pattern of stressed and unstressed syllables in a line of poetry.", cn_def: "诗歌每行中重读和非重读音节的规律性节奏。", example: "Iambic pentameter is the most common meter in Shakespeare's plays and sonnets." }
+];
+
+// ── TUESDAY PRACTICE DATA ──
+const TUE_PRACTICES = [
+  {
+    id: 'tue_q1',
+    title: "Passage 1: The English Sonnet",
+    passage: `Read these lines from Shakespeare's Sonnet 18:
+
+"Shall I compare thee to a summer's day? (A)
+Thou art more lovely and more temperate: (B)
+Rough winds do shake the darling buds of May, (A)
+And summer's lease hath all too short a date:" (B)`,
+    q: "What is the rhyme scheme of this quatrain?",
+    q_cn: "这个四行诗节的押韵方式是什么？",
+    hint: "Look at the last word of each line. If two lines rhyme, give them the same letter. · 看每行最后一个单词，如果两行押韵，给它们相同的字母。",
+    options: ["A. AABB|A. AABB押韵方式", "B. ABAB|B. ABAB押韵方式", "C. ABBA|C. ABBA押韵方式", "D. AAAA|D. AAAA押韵方式"],
+    correct: "B",
+    rationale: "Correct! 'day' (A) rhymes with 'May' (A); 'temperate' (B) rhymes with 'date' (B). This creates the ABAB pattern of the English sonnet's quatrain.|正确！'day'和'May'押韵（A），'temperate'和'date'押韵（B），形成ABAB模式。",
+    rationale_wrong: {
+      A: "AABB would mean lines 1 and 2 rhyme, and lines 3 and 4 rhyme. But 'day' and 'temperate' do not rhyme.|AABB表示第1、2行押韵，第3、4行押韵，但'day'和'temperate'不押韵。",
+      C: "ABBA would mean lines 1 and 4 rhyme, and lines 2 and 3 rhyme. But 'day' rhymes with 'May' (line 3), not 'date' (line 4).|ABBA表示第1、4行押韵，第2、3行押韵，但实际是第1和第3行押韵。",
+      D: "AAAA would mean all four lines rhyme with each other. They do not — 'day' and 'temperate' have very different sounds.|AAAA表示四行都互相押韵，但实际上这四行并非全部押韵。"
+    }
+  },
+  {
+    id: 'tue_q2',
+    title: "Passage 2: Understanding Meter",
+    passage: `Read this line and notice the pattern of stressed (DUM) and unstressed (da) syllables:
+
+"Shall I / com-PARE / thee TO / a SUM / mer's DAY"
+
+da-DUM / da-DUM / da-DUM / da-DUM / da-DUM`,
+    q: "This line has 5 pairs of da-DUM. What is the name of this meter?",
+    q_cn: "这行诗有5对 da-DUM 节奏。这种格律叫什么？",
+    hint: "Think about what 'iambic' means (da-DUM = one iamb) and 'penta' means (five in Latin). · 想想'iambic'的意思（da-DUM=一个抑扬格）和'penta'的意思（拉丁语中是五）。",
+    options: ["A. Iambic trimeter|A. 抑扬三步格", "B. Trochaic pentameter|B. 扬抑五步格", "C. Iambic pentameter|C. 抑扬五步格", "D. Iambic hexameter|D. 抑扬六步格"],
+    correct: "C",
+    rationale: "Correct! 'Iambic' = each unit goes da-DUM (unstressed then stressed). 'Pentameter' = five of these units per line. 5 × da-DUM = iambic pentameter.|正确！'Iambic'表示每个单位是da-DUM（非重读后跟重读）。'Pentameter'表示每行有五个这样的单位。",
+    rationale_wrong: {
+      A: "Trimeter means three feet per line, not five. This line has five da-DUM units.|三步格是每行三个音步，不是五个。这行有五个da-DUM单位。",
+      B: "Trochaic means DUM-da (stressed then unstressed), which is the opposite of iambic (da-DUM).|扬抑格是DUM-da（重读后跟非重读），与抑扬格da-DUM相反。",
+      D: "Hexameter means six feet per line. This line only has five da-DUM units.|六步格是每行六个音步，这行只有五个da-DUM单位。"
+    }
+  },
+  {
+    id: 'tue_q3',
+    title: "Passage 3: English vs. Italian Sonnet",
+    passage: `English Sonnet structure:
+• 3 quatrains (ABAB CDCD EFEF) + 1 couplet (GG)
+• Volta usually at the final couplet
+
+Italian Sonnet structure:
+• 1 octave (ABBAABBA) + 1 sestet (CDECDE or similar)
+• Volta at the break between octave and sestet`,
+    q: "A poet wants to write about a difficult question and then offer a deep answer. Which sonnet form is MOST naturally suited to this purpose?",
+    q_cn: "一位诗人想提出一个困难的问题，然后给出深刻的答案。哪种十四行诗形式最适合这个目的？",
+    hint: "Think about which form is divided into two clearly separate parts — one for the question and one for the answer. · 想想哪种形式明确分为两部分——一部分提问，一部分回答。",
+    options: ["A. English sonnet — because the couplet is a surprise ending|A. 英式十四行诗——因为对句是意外结局", "B. Italian sonnet — because the octave presents the problem and the sestet offers the resolution|B. 意式十四行诗——因为八行组提出问题，六行组给出解答", "C. Free verse — because it has no rules|C. 自由诗——因为没有规则", "D. Villanelle — because it repeats lines|D. 维拉内拉——因为它重复诗行"],
+    correct: "B",
+    rationale: "Correct! The Italian sonnet's two-part structure (octave = problem, sestet = answer) makes it naturally suited for question-and-answer or problem-solution poetry.|正确！意式十四行诗的两部分结构（八行组=问题，六行组=解答）天然适合问题—答案或问题—解决方案诗歌。",
+    rationale_wrong: {
+      A: "The English sonnet's couplet is short — only 2 lines — which doesn't give much space to develop a deep answer.|英式十四行诗的对句很短，只有2行，没有足够空间发展深刻的答案。",
+      C: "Free verse has no rules, which means it has no built-in structure for question and answer — the poet would have to create that structure themselves.|自由诗没有固定规则，意味着没有内置的问题—答案结构。",
+      D: "A villanelle's repeating refrains are best for expressing obsessive thoughts, not for question-and-answer structure.|维拉内拉的重复诗行最适合表达执念，而不是问题—答案结构。"
+    }
+  },
+  {
+    id: 'tue_q4',
+    title: "Passage 4: Free Verse",
+    passage: `Read these lines by Walt Whitman:
+
+"I celebrate myself, and sing myself,
+And what I assume you shall assume,
+For every atom belonging to me as good belongs to you."`,
+    q: "Which statement BEST describes why this is free verse?",
+    q_cn: "下列哪句话最能说明这是自由诗？",
+    hint: "Look at the end of each line. Do they rhyme? Count the syllables — are they the same? · 看每行末尾，它们押韵吗？数数音节——是否相同？",
+    options: ["A. It has 14 lines and a volta|A. 它有14行和一个转折", "B. It uses no rhyme scheme or regular meter|B. 它没有押韵方式或规律性韵律", "C. It repeats the same two lines throughout|C. 它反复重复同样的两行", "D. It is divided into an octave and a sestet|D. 它分为八行组和六行组"],
+    correct: "B",
+    rationale: "Correct! Free verse does not follow a fixed rhyme scheme or meter. 'myself' and 'assume' and 'you' do not rhyme, and the lines have different numbers of syllables.|正确！自由诗没有固定的押韵方式或韵律。行末单词不押韵，每行音节数也不同。",
+    rationale_wrong: {
+      A: "14 lines and a volta describe a sonnet, not free verse.|14行和转折是十四行诗的特征，不是自由诗。",
+      C: "Repeating two lines throughout is the defining feature of a villanelle, not free verse.|反复重复两行是维拉内拉的特征，不是自由诗。",
+      D: "Octave and sestet describe the Italian sonnet's structure, not free verse.|八行组和六行组是意式十四行诗的结构，不是自由诗。"
+    }
+  },
+  {
+    id: 'tue_q5',
+    title: "Passage 5: The Villanelle and Repetition",
+    passage: `Dylan Thomas wrote this villanelle about his dying father:
+
+"Do not go gentle into that good night,
+Old age should burn and rave at close of day;
+Rage, rage against the dying of the light."
+
+These same two lines — "Do not go gentle into that good night" and "Rage, rage against the dying of the light" — appear again and again throughout the poem.`,
+    q: "How does the repetition of these two lines affect the meaning of the poem?",
+    q_cn: "这两行的反复出现如何影响这首诗的含义？",
+    hint: "Think about what emotion repetition creates. If you say the same thing over and over, what does that suggest about how you feel? · 想想重复创造了什么情感。如果你一遍遍重复同一件事，这说明你的感受是什么？",
+    options: ["A. It makes the poem easier to memorize|A. 它使诗歌更容易记忆", "B. It shows that the poet cannot think of new ideas|B. 它表明诗人想不出新的想法", "C. It creates a feeling of obsession and desperate urgency, reinforcing the theme of refusing to accept death|C. 它创造了一种执念和迫切感，强化了拒绝接受死亡的主题", "D. It tells the reader that the poem has no structure|D. 它告诉读者这首诗没有结构"],
+    correct: "C",
+    rationale: "Correct! The villanelle's repeated refrains create obsession. When you cannot stop saying the same thing, it shows desperation. Thomas's form IS his message: fight, fight, fight — don't give up.|正确！维拉内拉的重复诗行创造了执念感。不断重复同样的话表达了绝望。托马斯的形式就是他的信息：战斗，战斗，战斗——不要放弃。",
+    rationale_wrong: {
+      A: "While it may be easier to memorize, that is not the artistic purpose of the repetition.|虽然可能更容易记忆，但这不是重复的艺术目的。",
+      B: "The repetition is a deliberate structural choice of the villanelle form, not a lack of ideas.|重复是维拉内拉形式的刻意结构选择，而不是缺乏想法。",
+      D: "The villanelle is actually one of the most strictly structured poem forms. Repetition is its defining rule.|维拉内拉实际上是结构最严格的诗歌形式之一。重复是其核心规则。"
+    }
+  },
+  {
+    id: 'tue_q6',
+    title: "Passage 6: The Soliloquy",
+    passage: `In Shakespeare's Hamlet, Prince Hamlet walks onto the stage alone and speaks:
+
+"To be, or not to be, that is the question:
+Whether 'tis nobler in the mind to suffer
+The slings and arrows of outrageous fortune,
+Or to take arms against a sea of troubles..."
+
+No other characters are on stage. No one responds to Hamlet.`,
+    q: "What dramatic form is this, and what is its main purpose?",
+    q_cn: "这是什么戏剧形式，它的主要目的是什么？",
+    hint: "Is Hamlet speaking to other characters, or is he speaking his private thoughts while alone on stage? · 哈姆雷特是在对其他角色说话，还是独自在台上说出他的内心想法？",
+    options: ["A. Monologue — to give a long speech to other characters|A. 独白（旁白）——向其他角色发表长篇演讲", "B. Prologue — to introduce the play's themes before the action begins|B. 序言——在行动开始前介绍剧的主题", "C. Soliloquy — to reveal Hamlet's private inner thoughts to the audience|C. 内心独白——向观众揭示哈姆雷特的内心私密想法", "D. Epilogue — to wrap up the story after the main action ends|D. 尾声——在主要行动结束后总结故事"],
+    correct: "C",
+    rationale: "Correct! A soliloquy is when a character speaks alone on stage, revealing private thoughts to the audience that other characters cannot hear. This is one of the most famous soliloquies in all of literature.|正确！独白是角色独自在台上说话，向观众揭示其他角色听不到的内心私密想法。这是文学史上最著名的独白之一。",
+    rationale_wrong: {
+      A: "A monologue is spoken to other characters on stage. Hamlet is alone — no other characters are present to hear him.|旁白是向台上其他角色讲话。哈姆雷特是独自一人——没有其他角色在场听他说话。",
+      B: "A prologue comes before the play begins and introduces the setting. This speech happens in the middle of the play.|序言在戏剧开始前出现，介绍背景。这段话出现在戏剧中间。",
+      D: "An epilogue comes after the main story ends. This speech is during the central action of the play.|尾声在主要故事结束后出现。这段话是在戏剧核心行动期间。"
+    }
+  },
+  {
+    id: 'tue_q7',
+    title: "Passage 7: The Volta",
+    passage: `Shakespeare's Sonnet 130 ends with this couplet (the final 2 lines):
+
+"And yet, by heaven, I think my love as rare
+As any she belied with false compare."
+
+For the previous 12 lines, the speaker described his lover's ordinary features (her eyes are not like the sun, her lips are not red as coral, etc.).`,
+    q: "What does the final couplet do in relation to the rest of the sonnet?",
+    q_cn: "最后的对句与十四行诗其余部分的关系是什么？",
+    hint: "The word 'volta' means 'turn' in Italian. Does the ending agree with the beginning, or does it change direction? · 'volta'在意大利语中意为'转折'。结尾与开头一致，还是改变了方向？",
+    options: ["A. It summarizes the descriptions from the previous 12 lines|A. 它总结了前12行的描述", "B. It introduces a new character|B. 它介绍了一个新角色", "C. It turns the poem's direction — reversing the negative descriptions to declare genuine love|C. 它转换了诗歌的方向——将负面描述转变为真爱的宣言", "D. It repeats the first line of the poem|D. 它重复了诗歌的第一行"],
+    correct: "C",
+    rationale: "Correct! The volta is the 'turn.' The sonnet spends 12 lines listing what the lover is NOT — but the couplet turns everything around: 'And yet... I think my love as rare.' The form creates a surprise reveal.|正确！转折是【转弯】。十四行诗用12行描述恋人不具备的特质，但对句转变了一切：然而……我认为我的爱人很珍贵。这种形式创造了惊喜揭示。",
+    rationale_wrong: {
+      A: "The couplet does not simply summarize — it reverses the direction and delivers a new conclusion.|对句不是简单总结，而是逆转方向并给出新结论。",
+      B: "No new character is introduced in the couplet. The 'she' refers to the same lover discussed throughout.|对句没有介绍新角色。'她'指的是贯穿全诗的同一位恋人。",
+      D: "The couplet does not repeat the first line. The English sonnet's couplet always brings a new final thought.|对句不重复第一行。英式十四行诗的对句总是带来新的最终想法。"
+    }
+  },
+  {
+    id: 'tue_q8',
+    title: "Passage 8: Identifying Stanza Types",
+    passage: `Look at these poem excerpts:
+
+Poem A:
+"Roses are red,
+Violets are blue."
+(2 lines)
+
+Poem B:
+"Do not go gentle into that good night,
+Old age should burn and rave at close of day;
+Rage, rage against the dying of the light."
+(3 lines)
+
+Poem C:
+"Shall I compare thee to a summer's day?
+Thou art more lovely and more temperate:
+Rough winds do shake the darling buds of May,
+And summer's lease hath all too short a date:"
+(4 lines)`,
+    q: "Match the stanza types correctly:",
+    q_cn: "正确匹配诗节类型：",
+    hint: "Couplet = 2 lines · Tercet = 3 lines · Quatrain = 4 lines. Count the lines in each poem. · 对句=2行，三行诗=3行，四行诗=4行。数每首诗的行数。",
+    options: ["A. A=couplet, B=tercet, C=quatrain|A. A=对句，B=三行诗，C=四行诗", "B. A=tercet, B=quatrain, C=couplet|A. A=三行诗，B=四行诗，C=对句", "C. A=quatrain, B=couplet, C=tercet|A. A=四行诗，B=对句，C=三行诗", "D. A=couplet, B=quatrain, C=tercet|A. A=对句，B=四行诗，C=三行诗"],
+    correct: "A",
+    rationale: "Correct! Poem A has 2 lines = couplet (对句). Poem B has 3 lines = tercet (三行诗). Poem C has 4 lines = quatrain (四行诗). Counting lines is the most direct way to identify stanza type.|正确！诗A有2行=对句；诗B有3行=三行诗；诗C有4行=四行诗。数行数是识别诗节类型最直接的方法。",
+    rationale_wrong: {
+      B: "This mixes them up. Poem A has 2 lines (couplet), not 3 (tercet). Always count first.|这把它们混淆了。诗A有2行（对句），不是3行（三行诗）。先数行数。",
+      C: "Poem A has only 2 lines — that is a couplet, not a quatrain (4 lines).|诗A只有2行——这是对句，不是四行诗（4行）。",
+      D: "Poem B has 3 lines — that is a tercet, not a quatrain (4 lines).|诗B有3行——这是三行诗，不是四行诗（4行）。"
+    }
+  },
+  {
+    id: 'tue_q9',
+    title: "Passage 9: Form Creates Meaning",
+    passage: `A student wrote two versions of the same idea:
+
+Version 1 (Free verse):
+"My grandmother is gone.
+I keep finding her glasses on the counter
+and forgetting she is not coming back."
+
+Version 2 (Villanelle refrain):
+"My grandmother is gone — she will not return.
+My grandmother is gone — she will not return."
+(repeated 5 times throughout the poem)`,
+    q: "Why might a poet choose the villanelle form (Version 2) instead of free verse (Version 1) for this subject?",
+    q_cn: "为什么诗人可能选择维拉内拉形式（版本2）而不是自由诗（版本1）来表达这个主题？",
+    hint: "What emotion does repeating something create? What does it feel like when you cannot stop thinking about something? · 重复某件事会创造什么情感？无法停止思考某件事是什么感觉？",
+    options: ["A. Because the villanelle is longer and has more space for details|A. 因为维拉内拉更长，有更多空间写细节", "B. Because free verse is only for happy topics|B. 因为自由诗只适合快乐的话题", "C. Because the repeating lines of the villanelle mirror the obsessive thought of grief — the mind keeps returning to the loss|C. 因为维拉内拉重复的诗行反映了悲伤中的执念——思维不断回到失去", "D. Because the villanelle is easier to write than free verse|D. 因为维拉内拉比自由诗更容易写"],
+    correct: "C",
+    rationale: "Correct! When we grieve, our minds repeat the same painful thought. The villanelle's form — with its returning refrains — physically performs that obsession on the page. The form IS the feeling.|正确！当我们悲伤时，脑海中会反复出现同样的痛苦想法。维拉内拉的形式——带有回返诗行——在纸上实际表现了这种执念。形式本身就是情感。",
+    rationale_wrong: {
+      A: "Villanelles are actually quite short (19 lines). Free verse can be any length, including very long.|维拉内拉实际上很短（19行）。自由诗可以是任何长度，包括很长。",
+      B: "Free verse is used for all kinds of topics and emotions, including grief, anger, and love.|自由诗用于各种主题和情感，包括悲伤、愤怒和爱。",
+      D: "Villanelles are actually much harder to write than free verse because of their strict repetition rules.|维拉内拉实际上比自由诗更难写，因为有严格的重复规则。"
+    }
+  },
+  {
+    id: 'tue_q10',
+    title: "Passage 10: Prologue Purpose",
+    passage: `At the beginning of Romeo and Juliet, before any characters appear, a narrator (called the Chorus) speaks directly to the audience:
+
+"Two households, both alike in dignity,
+In fair Verona, where we lay our scene,
+From ancient grudge break to new mutiny,
+Where civil blood makes civil hands unclean..."
+
+The Chorus tells the audience that the two young lovers are "star-crossed" (meaning destined to fail) before the story even begins.`,
+    q: "What is the effect of this prologue on the audience's experience of the play?",
+    q_cn: "这段序言对观众欣赏戏剧有什么影响？",
+    hint: "The audience already knows the ending before the play begins. How does knowing the ending in advance change how you watch a story? · 观众在戏剧开始前就知道了结局。提前知道结局会如何改变你观看故事的方式？",
+    options: ["A. It makes the play less interesting because the audience knows the ending|A. 它使戏剧变得不那么有趣，因为观众知道了结局", "B. It creates dramatic irony — the audience knows the tragic ending, so every happy moment feels fragile and sad|B. 它创造了戏剧性反讽——观众知道悲剧结局，所以每个快乐时刻都感觉脆弱而悲伤", "C. It tells the audience which character is the protagonist|C. 它告诉观众谁是主角", "D. It summarizes the entire plot so the audience does not need to pay attention|D. 它总结了整个情节，所以观众不需要注意"],
+    correct: "B",
+    rationale: "Correct! Knowing the tragic ending from the prologue creates dramatic irony. When Romeo and Juliet fall in love, the audience feels both joy and dread — they know it will end in tragedy. The prologue makes every happy scene emotionally complex.|正确！从序言中知道悲剧结局创造了戏剧性反讽。当罗密欧与朱丽叶相爱时，观众既感到喜悦又感到恐惧——他们知道将以悲剧结束。序言使每个快乐场景在情感上变得复杂。",
+    rationale_wrong: {
+      A: "Knowing the ending can actually make a story MORE powerful — it creates dramatic irony and emotional depth.|知道结局实际上可以使故事更有力量——它创造了戏剧性反讽和情感深度。",
+      C: "The prologue mentions 'two households' and the lovers, but its main purpose is not to identify the protagonist.|序言提到'两个家族'和情人，但其主要目的不是识别主角。",
+      D: "The prologue sets up the context but does not replace the experience of watching the play.|序言建立了背景，但不能替代观看戏剧的体验。"
+    }
+  }
+];
+
+// ── TUESDAY EXIT TICKET DATA ──
+const TUE_EXIT = [
+  {
+    q: "An English sonnet (Shakespearean) has how many lines?",
+    q_cn: "英式十四行诗（莎士比亚式）有多少行？",
+    opts: ["A. 10 lines|A. 10行", "B. 12 lines|B. 12行", "C. 14 lines|C. 14行", "D. 19 lines|D. 19行"],
+    correct: "C",
+    rat: "14 lines — divided into 3 quatrains + 1 couplet, all in iambic pentameter.|14行——分为3个四行组+1个对句，全部使用抑扬五步格。"
+  },
+  {
+    q: "What is the 'volta' in a sonnet?",
+    q_cn: "十四行诗中的'转折'（volta）是什么？",
+    opts: ["A. The first quatrain|A. 第一个四行组", "B. The turn or shift in the poem's argument or perspective|B. 诗歌论点或视角的转变或转折", "C. The rhyme scheme|C. 押韵方式", "D. The number of syllables per line|D. 每行的音节数"],
+    correct: "B",
+    rat: "The volta is the 'turn' — a shift in the poem's argument, emotion, or perspective. In English sonnets it usually comes at the couplet.|转折是'转弯'——诗歌论点、情感或视角的转变。在英式十四行诗中，它通常出现在对句处。"
+  },
+  {
+    q: "Which form uses a strict pattern of two repeating lines throughout 19 lines?",
+    q_cn: "哪种形式在19行中使用两个严格重复的诗行？",
+    opts: ["A. English sonnet|A. 英式十四行诗", "B. Italian sonnet|B. 意式十四行诗", "C. Free verse|C. 自由诗", "D. Villanelle|D. 维拉内拉"],
+    correct: "D",
+    rat: "The villanelle has 19 lines with two refrains that repeat throughout. Dylan Thomas's 'Do Not Go Gentle into That Good Night' is the most famous example.|维拉内拉有19行，有两个贯穿全诗的折返行。狄兰·托马斯的《不要温顺地走进那个良夜》是最著名的例子。"
+  },
+  {
+    q: "A character is alone on stage revealing private thoughts. This is called a:",
+    q_cn: "一个角色独自在台上揭示内心私密想法。这被称为：",
+    opts: ["A. Monologue|A. 独白（旁白）", "B. Prologue|B. 序言", "C. Soliloquy|C. 内心独白", "D. Epilogue|D. 尾声"],
+    correct: "C",
+    rat: "A soliloquy = character alone on stage, speaking private thoughts to the audience. A monologue is spoken TO other characters.|内心独白=角色独自在台上，向观众说出内心私密想法。旁白是对其他角色说的。"
+  },
+  {
+    q: "The Italian sonnet's volta (turn) occurs:",
+    q_cn: "意式十四行诗的转折出现在：",
+    opts: ["A. At the final couplet|A. 最后的对句处", "B. Between the octave and the sestet|B. 八行组和六行组之间", "C. At the middle of the first quatrain|C. 第一个四行组的中间", "D. In the last line only|D. 仅在最后一行"],
+    correct: "B",
+    rat: "In an Italian sonnet, the volta comes between the octave (8 lines = problem) and the sestet (6 lines = resolution). This is different from the English sonnet, where the volta comes at the couplet.|在意式十四行诗中，转折出现在八行组（问题）和六行组（解答）之间。这与英式十四行诗不同，后者的转折出现在对句处。"
+  },
+  {
+    q: "Which is the correct definition of 'rhyme scheme'?",
+    q_cn: "'押韵方式'的正确定义是哪个？",
+    opts: ["A. The number of syllables in each line|A. 每行的音节数", "B. The pattern of stressed and unstressed syllables|B. 重读和非重读音节的规律", "C. The pattern of rhyming words at the end of each line, shown by letters|C. 每行末尾押韵单词的规律，用字母表示", "D. The number of stanzas in a poem|D. 诗歌中的诗节数"],
+    correct: "C",
+    rat: "Rhyme scheme is the pattern of rhyming end-words, labeled with letters (A, B, C...). For example: ABAB or ABBAABBA.|押韵方式是押韵行末词的规律，用字母标注（A、B、C……）。例如：ABAB或ABBAABBA。"
+  },
+  {
+    q: "Which statement BEST explains what free verse is?",
+    q_cn: "下列哪句话最能解释什么是自由诗？",
+    opts: ["A. Poetry with exactly 14 lines|A. 恰好14行的诗歌", "B. Poetry that must have a rhyme scheme|B. 必须有押韵方式的诗歌", "C. Poetry with no fixed rhyme scheme or meter|C. 没有固定押韵方式或韵律的诗歌", "D. Poetry written in iambic pentameter|D. 用抑扬五步格写成的诗歌"],
+    correct: "C",
+    rat: "Free verse has no fixed rhyme scheme and no fixed meter. The poet freely chooses line length and rhythm. This freedom is used deliberately to create meaning.|自由诗没有固定的押韵方式和韵律。诗人自由选择行长和节奏。这种自由是有意使用的，以创造含义。"
+  },
+  {
+    q: "A section of 4 lines in a poem is called a:",
+    q_cn: "诗歌中的4行一组称为：",
+    opts: ["A. Couplet|A. 对句", "B. Tercet|B. 三行诗", "C. Quatrain|C. 四行诗", "D. Sestet|D. 六行组"],
+    correct: "C",
+    rat: "Quatrain = 4 lines. Couplet = 2. Tercet = 3. Sestet = 6. Octave = 8. Memorizing these helps you quickly identify poem structure.|四行诗=4行。对句=2行。三行诗=3行。六行组=6行。八行组=8行。记住这些有助于快速识别诗歌结构。"
+  },
+  {
+    q: "How does iambic pentameter sound?",
+    q_cn: "抑扬五步格听起来是什么样的？",
+    opts: ["A. DUM-da DUM-da DUM-da DUM-da DUM-da|A. DUM-da DUM-da DUM-da DUM-da DUM-da", "B. da-DUM da-DUM da-DUM da-DUM da-DUM|B. da-DUM da-DUM da-DUM da-DUM da-DUM", "C. da-da-DUM da-da-DUM da-da-DUM|C. da-da-DUM da-da-DUM da-da-DUM", "D. DUM-DUM-DUM DUM-DUM|D. DUM-DUM-DUM DUM-DUM"],
+    correct: "B",
+    rat: "Iambic = da-DUM (unstressed then stressed). Pentameter = 5 feet. So iambic pentameter = da-DUM da-DUM da-DUM da-DUM da-DUM. Like a heartbeat.|抑扬格=da-DUM（非重读后跟重读）。五步格=5个音步。所以抑扬五步格=da-DUM da-DUM da-DUM da-DUM da-DUM。像心跳一样。"
+  },
+  {
+    q: "A closing section that appears AFTER the main action of a play ends is called a(n):",
+    q_cn: "出现在戏剧主要行动结束之后的结尾部分称为：",
+    opts: ["A. Prologue|A. 序言", "B. Soliloquy|B. 内心独白", "C. Aside|C. 旁白", "D. Epilogue|D. 尾声"],
+    correct: "D",
+    rat: "Epilogue = after the story. Prologue = before the story. Soliloquy = character alone on stage. Aside = character speaks to audience while other characters cannot hear.|尾声=故事结束后。序言=故事开始前。内心独白=角色独自在台上。旁白=角色对观众说话而其他角色听不到。"
+  }
+];
+
+// ══════════════════════════════════════════════════
+// WEDNESDAY DATA
+// ══════════════════════════════════════════════════
+
+const WED_PRACTICES = [
+  {
+    id: 'wed_q1',
+    title: "Passage 1: What Is Drama?",
+    passage: `Drama is a form of literature written to be performed by actors on a stage in front of an audience. Unlike a novel, drama does not usually have a narrator. The story is told through dialogue (what characters say) and action (what characters do). In Greek theatre, plays were divided into tragedy (sad endings) and comedy (happy endings). Today, we use the word 'drama' for any story written to be performed.`,
+    q: "What is the MAIN difference between drama and a novel?",
+    q_cn: "戏剧与小说的主要区别是什么？",
+    hint: "Think about who tells the story in a novel vs. who tells the story in a drama. · 想想小说中谁讲故事，戏剧中谁讲故事。",
+    options: ["A. Drama is always funnier than a novel|A. 戏剧总是比小说更有趣", "B. Drama is written to be performed, and the story is told through dialogue and action rather than a narrator|B. 戏剧是为了表演而写的，故事通过对话和动作讲述，而不是通过叙述者", "C. Drama does not have characters|C. 戏剧没有人物", "D. Drama is always shorter than a novel|D. 戏剧总是比小说短"],
+    correct: "B",
+    rationale: "Correct! Drama is written to be performed. Instead of a narrator telling us what characters think and feel, we learn through their dialogue and actions. The audience must interpret what they see and hear.|正确！戏剧是为了表演而写的。不是通过叙述者告诉我们角色的想法和感受，而是通过对话和动作了解。观众必须解读他们所看到和听到的内容。",
+    rationale_wrong: {
+      A: "Drama includes tragedies, which are very serious and sad. It is not always funnier than a novel.|戏剧包括悲剧，非常严肃和悲伤。它不总是比小说更有趣。",
+      C: "Drama absolutely has characters — in fact, characters are its most important element.|戏剧绝对有人物——事实上，人物是其最重要的元素。",
+      D: "Some plays are very long. Shakespeare's Hamlet has over 4,000 lines.|有些戏剧非常长。莎士比亚的《哈姆雷特》有超过4000行。"
+    }
+  },
+  {
+    id: 'wed_q2',
+    title: "Passage 2: The Dramatic Arc",
+    passage: `A drama teacher shows her class this diagram of the dramatic arc:
+
+EXPOSITION → RISING ACTION → CLIMAX → FALLING ACTION → RESOLUTION
+
+She says: "In Romeo and Juliet, the exposition shows us two families in Verona. The rising action includes Romeo and Juliet falling in love and secretly marrying. The climax is when Romeo kills Tybalt. The falling action includes misunderstandings and bad plans. The resolution is the deaths of both Romeo and Juliet."`,
+    q: "According to the dramatic arc, at which stage does the conflict reach its highest point of tension?",
+    q_cn: "根据戏剧弧线，冲突在哪个阶段达到最高紧张点？",
+    hint: "Think about which word in the arc means 'the top' or 'the peak.' · 想想弧线中哪个词意味着'顶点'或'高峰'。",
+    options: ["A. Exposition|A. 开端", "B. Rising Action|B. 发展", "C. Climax|C. 高潮", "D. Resolution|D. 结局"],
+    correct: "C",
+    rationale: "Correct! The climax is the turning point — the moment of greatest tension or crisis. In Romeo and Juliet, Romeo killing Tybalt is the point of no return. Everything changes after the climax.|正确！高潮是转折点——最大紧张或危机的时刻。在《罗密欧与朱丽叶》中，罗密欧杀死提伯特是无法挽回的时刻。高潮之后一切都改变了。",
+    rationale_wrong: {
+      A: "The exposition is the beginning — it introduces the setting and characters. Tension has not yet built.|开端是故事的开始——介绍场景和人物。紧张感尚未建立。",
+      B: "Rising action builds tension toward the climax, but it is not the highest point.|发展阶段逐渐建立紧张感，但不是最高点。",
+      D: "The resolution comes after the climax. It wraps up the story, so tension is usually decreasing.|结局出现在高潮之后。它结束故事，所以紧张感通常在减弱。"
+    }
+  },
+  {
+    id: 'wed_q3',
+    title: "Passage 3: Types of Characters",
+    passage: `In a play, a student identifies these two characters:
+
+Character X: The hero. He is brave, kind, determined, and sometimes too trusting. Over the course of the play, he learns to question authority after being betrayed.
+
+Character Y: The villain. He is cruel. Every scene, he does something mean. He does not change or grow.`,
+    q: "Character X is BEST described as a _____ character, and Character Y is BEST described as a _____ character.",
+    q_cn: "角色X最好被描述为_____人物，角色Y最好被描述为_____人物。",
+    hint: "Think about how many traits each character has and whether they change during the story. · 想想每个角色有多少特质，以及他们在故事中是否发生变化。",
+    options: ["A. X = flat / static; Y = round / dynamic|A. X = 扁平/静态; Y = 圆形/动态", "B. X = round / dynamic; Y = flat / static|B. X = 圆形/动态; Y = 扁平/静态", "C. X = static / flat; Y = round / dynamic|C. X = 静态/扁平; Y = 圆形/动态", "D. X = antagonist; Y = protagonist|D. X = 反角; Y = 主角"],
+    correct: "B",
+    rationale: "Correct! Character X has multiple traits and changes — round (复杂) and dynamic (发展变化). Character Y has only one trait (cruel) and never changes — flat (简单) and static (不变).|正确！角色X有多种特质且发生变化——圆形（复杂）和动态（发展变化）。角色Y只有一个特质（残忍）且从不改变——扁平（简单）和静态（不变）。",
+    rationale_wrong: {
+      A: "This is reversed. Character X has multiple traits and changes (round/dynamic). Character Y has one trait and doesn't change (flat/static).|这是颠倒的。角色X有多种特质且发生变化（圆形/动态）。角色Y只有一个特质且不改变（扁平/静态）。",
+      C: "Same reversal as option A. Pay attention to who changes and who has complexity.|与选项A相同的颠倒。注意谁改变，谁有复杂性。",
+      D: "The protagonist is the main character (likely X), but the question asks about flat/round and static/dynamic — not protagonist/antagonist.|主角是主要人物（可能是X），但问题询问的是扁平/圆形和静态/动态——而不是主角/反角。"
+    }
+  },
+  {
+    id: 'wed_q4',
+    title: "Passage 4: Dialogue and Stage Directions",
+    passage: `Read this excerpt from a play:
+
+[ELENA enters slowly from stage left, clutching a letter. Her hands are shaking.]
+
+ELENA: (quietly, to herself) He's gone. After everything... he's gone.
+
+[She sits on the bench and stares at the floor.]
+
+MARCUS: (entering from the right, cheerfully) Elena! I've been looking everywhere for — (he stops when he sees her face) — What happened?`,
+    q: "What information do the stage directions give that the dialogue alone cannot?",
+    q_cn: "舞台指示提供了哪些单靠对话无法传达的信息？",
+    hint: "Read the stage directions in brackets carefully. What do you learn about how Elena is feeling and what she is doing? · 仔细阅读括号中的舞台指示。你了解到了什么关于艾伦娜的感受和行动的信息？",
+    options: ["A. The names of the characters|A. 角色的名字", "B. What the characters are saying|B. 角色在说什么", "C. The physical actions, emotions, and setting that the audience sees but the words don't describe|C. 观众看到但台词无法描述的肢体动作、情感和场景", "D. The theme of the play|D. 戏剧的主题"],
+    correct: "C",
+    rationale: "Correct! Stage directions tell us Elena enters slowly (speed/energy), her hands are shaking (emotion/fear), and she sits and stares at the floor (body language). This physical information shapes how the audience understands the emotional meaning.|正确！舞台指示告诉我们艾伦娜缓慢进入（速度/能量），她的手在抖（情感/恐惧），她坐下来盯着地板（肢体语言）。这些身体信息塑造了观众对情感含义的理解。",
+    rationale_wrong: {
+      A: "Character names appear in the dialogue format (before the colon) — they are not unique to stage directions.|人物名字出现在对话格式中（冒号前）——它们不是舞台指示独有的。",
+      B: "What characters say is the dialogue, not the stage directions.|角色说的话是对话，不是舞台指示。",
+      D: "Stage directions rarely state the theme directly. Theme emerges from the whole play.|舞台指示很少直接陈述主题。主题从整个戏剧中浮现。"
+    }
+  },
+  {
+    id: 'wed_q5',
+    title: "Passage 5: Types of Conflict",
+    passage: `A drama student is analyzing three different plays:
+
+Play 1: A young woman must choose between her dream career and her family's expectation that she will stay home. She struggles with guilt and desire.
+
+Play 2: Two brothers argue over who will inherit their father's land and business, and their argument turns violent.
+
+Play 3: A soldier discovers that the government he has been fighting for is actually corrupt and unjust. He must decide whether to continue serving or to rebel.`,
+    q: "Match each play to its main type of conflict:",
+    q_cn: "将每部戏剧与其主要冲突类型匹配：",
+    hint: "Character vs. Self = internal struggle. Character vs. Character = two people fighting. Character vs. Society = person vs. a system, rules, or power. · 人物对自我=内部斗争。人物对人物=两个人的争斗。人物对社会=人物对抗体制、规则或权力。",
+    options: ["A. Play 1 = vs. Character; Play 2 = vs. Self; Play 3 = vs. Society|A. 剧1=对人物; 剧2=对自我; 剧3=对社会", "B. Play 1 = vs. Self; Play 2 = vs. Character; Play 3 = vs. Society|B. 剧1=对自我; 剧2=对人物; 剧3=对社会", "C. Play 1 = vs. Society; Play 2 = vs. Nature; Play 3 = vs. Self|C. 剧1=对社会; 剧2=对自然; 剧3=对自我", "D. All three plays have the same conflict type|D. 三部戏剧具有相同的冲突类型"],
+    correct: "B",
+    rationale: "Correct! Play 1 = vs. Self (internal guilt/desire). Play 2 = vs. Character (brother vs. brother). Play 3 = vs. Society (soldier vs. corrupt government system).|正确！剧1=对自我（内心的愧疚/欲望）。剧2=对人物（兄弟之争）。剧3=对社会（士兵对抗腐败政府体制）。",
+    rationale_wrong: {
+      A: "Play 1 is an internal struggle (vs. Self), not between two people (vs. Character). The woman is fighting her own emotions, not another person.|剧1是内部斗争（对自我），不是两人之间的冲突（对人物）。这位女性在与自己的情感斗争，而不是与另一个人。",
+      C: "None of these plays feature nature as the conflict. Play 1 is vs. Self, not vs. Society.|这些戏剧都没有将自然作为冲突。剧1是对自我，不是对社会。",
+      D: "Each play has a clearly different conflict type. Identifying the correct type helps you analyze how the plot works.|每部戏剧都有明显不同的冲突类型。识别正确的类型有助于分析情节如何运作。"
+    }
+  },
+  {
+    id: 'wed_q6',
+    title: "Passage 6: Theme vs. Topic",
+    passage: `A teacher explains: "In drama, topic and theme are NOT the same thing. 'Love' is a topic — it is just one word. A theme is a complete idea or insight about life that the whole play explores. For example: 'Love can lead people to make choices that destroy them.' That is a theme."
+
+She asks students to look at Romeo and Juliet. The topic is love. The theme is more specific and complete.`,
+    q: "Which of the following is a THEME (not just a topic) from Romeo and Juliet?",
+    q_cn: "下列哪项是《罗密欧与朱丽叶》的主题（不仅仅是话题）？",
+    hint: "A theme is a complete sentence that says something about life or human nature. A topic is just one word or a short phrase. · 主题是关于生活或人性的完整句子。话题只是一个词或短语。",
+    options: ["A. Love|A. 爱情", "B. Hatred|B. 仇恨", "C. When family hatred prevents young love, the result is tragedy for everyone|C. 当家族仇恨阻止年轻爱情时，结果对所有人来说都是悲剧", "D. Romeo and Juliet|D. 罗密欧与朱丽叶"],
+    correct: "C",
+    rationale: "Correct! A theme is a complete idea. 'When family hatred prevents young love, the result is tragedy for everyone' is a full statement about human experience. 'Love' and 'Hatred' are just topics — single words.|正确！主题是完整的思想。'当家族仇恨阻止年轻爱情时，结果对所有人来说都是悲剧'是关于人类经验的完整陈述。'爱情'和'仇恨'只是话题——单个词。",
+    rationale_wrong: {
+      A: "'Love' is a topic — one word. A theme must make a claim or observation about love, not just name it.|'爱情'是话题——一个词。主题必须对爱情做出主张或观察，而不仅仅是命名。",
+      B: "'Hatred' is a topic — one word. Same problem as 'love.'|'仇恨'是话题——一个词。与'爱情'有同样的问题。",
+      D: "The title of the play is not a theme. It is a name.|戏剧的标题不是主题。它是一个名字。"
+    }
+  },
+  {
+    id: 'wed_q7',
+    title: "Passage 7: Dramatic Irony",
+    passage: `In Romeo and Juliet Act 5, the audience has already been told that Juliet is not really dead — she has taken a sleeping potion and will wake up. Romeo has not received this message. He finds Juliet's body, believes she is dead, and says:
+
+"Here's to my love! (He drinks poison.) O true apothecary! Thy drugs are quick. Thus with a kiss I die."
+
+Romeo drinks poison and dies. Minutes later, Juliet wakes up.`,
+    q: "What type of dramatic technique is shown here, and WHY does it create a powerful emotional effect?",
+    q_cn: "这里展示了什么类型的戏剧技巧，为什么它会产生强烈的情感效果？",
+    hint: "Think about what the AUDIENCE knows that ROMEO does not know. When one side knows more than the other, what is that called? · 想想观众知道什么而罗密欧不知道。当一方比另一方知道更多时，这叫什么？",
+    options: ["A. Foreshadowing — because we can predict Romeo will die later|A. 伏笔——因为我们可以预测罗密欧以后会死", "B. Dramatic irony — because the audience knows Juliet is alive but Romeo does not, making his death feel tragic and preventable|B. 戏剧性反讽——因为观众知道朱丽叶还活着但罗密欧不知道，使他的死感觉既悲伤又本可避免", "C. A soliloquy — because Romeo is alone speaking his thoughts|C. 内心独白——因为罗密欧独自说出他的想法", "D. An aside — because Romeo is speaking quietly so Juliet cannot hear|D. 旁白——因为罗密欧轻声说话所以朱丽叶听不到"],
+    correct: "B",
+    rationale: "Correct! Dramatic irony = audience knows more than the character. We know Juliet is alive. Romeo doesn't. Watching him die for a mistake he could not know about is heartbreaking — and that is why dramatic irony is so powerful.|正确！戏剧性反讽=观众比角色知道得更多。我们知道朱丽叶还活着。罗密欧不知道。看着他为一个他无法知道的错误而死是令人心碎的——这就是为什么戏剧性反讽如此有力量。",
+    rationale_wrong: {
+      A: "Foreshadowing hints at future events. This scene IS the event — it is not a hint. The technique used here reveals information the character lacks, not information about the future.|伏笔暗示未来事件。这个场景就是事件本身——不是暗示。这里使用的技巧揭示了角色缺乏的信息，而不是关于未来的信息。",
+      C: "Romeo is speaking, but Juliet is technically present (asleep). A true soliloquy requires the character to be completely alone.|罗密欧在说话，但朱丽叶技术上是在场的（睡着）。真正的内心独白需要角色完全独自一人。",
+      D: "An aside is when a character speaks to the audience while other characters cannot hear. Romeo is not speaking to the audience here.|旁白是角色对观众说话而其他角色听不到。罗密欧在这里并不是在对观众说话。"
+    }
+  },
+  {
+    id: 'wed_q8',
+    title: "Passage 8: The Foil",
+    passage: `In Hamlet, Prince Hamlet spends most of the play thinking, doubting, and delaying his revenge. He gives long speeches about whether it is right to act.
+
+Laertes is Hamlet's contemporary. When Laertes learns that Hamlet killed his father, he does not think or hesitate. He immediately raises an army and storms the castle to get revenge.
+
+Shakespeare placed these two characters side by side in the same play.`,
+    q: "What dramatic purpose does Laertes serve in relation to Hamlet?",
+    q_cn: "在与哈姆雷特的关系中，雷欧提斯有什么戏剧性目的？",
+    hint: "A foil is a character whose traits CONTRAST with another character's traits, making the other character's qualities stand out more clearly. · 对比人物是其特质与另一个角色特质形成对比的人物，使另一个角色的特质更加突出。",
+    options: ["A. Laertes is the protagonist of the play|A. 雷欧提斯是戏剧的主角", "B. Laertes is a foil for Hamlet — his immediate action contrasts with Hamlet's delay, making Hamlet's indecision more visible and meaningful|B. 雷欧提斯是哈姆雷特的对比人物——他的立即行动与哈姆雷特的拖延形成对比，使哈姆雷特的优柔寡断更加明显和有意义", "C. Laertes is a static character who never appears on stage|C. 雷欧提斯是一个从不出现在舞台上的静态人物", "D. Laertes is a round character because he changes more than Hamlet|D. 雷欧提斯是一个比哈姆雷特变化更多的圆形人物"],
+    correct: "B",
+    rationale: "Correct! A foil highlights another character's traits through contrast. Because Laertes acts immediately, Hamlet's constant delay becomes more obvious and raises the question: Why won't Hamlet just act? That question IS the play's central theme.|正确！对比人物通过对比突出另一个角色的特质。因为雷欧提斯立即行动，哈姆雷特的不断拖延变得更加明显，并提出了问题：为什么哈姆雷特不行动？这个问题就是戏剧的核心主题。",
+    rationale_wrong: {
+      A: "Hamlet is the protagonist. Laertes is a significant secondary character, not the main one.|哈姆雷特是主角。雷欧提斯是重要的次要角色，而不是主角。",
+      C: "Laertes has multiple scenes on stage and his own dramatic arc.|雷欧提斯有多个舞台场景和他自己的戏剧弧线。",
+      D: "Whether Laertes is round or flat is a separate question from whether he serves as a foil. His role as a foil is defined by how he contrasts with Hamlet.|雷欧提斯是否是圆形人物是一个独立的问题，与他是否是对比人物无关。他作为对比人物的角色是通过他与哈姆雷特的对比来定义的。"
+    }
+  },
+  {
+    id: 'wed_q9',
+    title: "Passage 9: Tragic Flaw",
+    passage: `In Shakespeare's Othello, the main character Othello is a great general — brave, respected, and powerful. However, he is deeply jealous and easily manipulated by his servant Iago. When Iago plants false evidence that Othello's wife is unfaithful, Othello believes it without question. His jealousy grows until he kills the woman he loves.
+
+At the end of the play, Othello learns the truth and is filled with shame and regret. He says: "Then must you speak of one that loved not wisely but too well."`,
+    q: "What is Othello's tragic flaw (hamartia), and how does it cause his downfall?",
+    q_cn: "奥赛罗的悲剧缺陷（悲剧错误）是什么，它如何导致了他的毁灭？",
+    hint: "A tragic flaw is an internal weakness in the character's personality that leads to their destruction. Look for the character trait that is described as both great and dangerous. · 悲剧缺陷是角色性格中的内在弱点，导致了他的毁灭。寻找被描述为既伟大又危险的性格特质。",
+    options: ["A. His bravery — because brave people make dangerous decisions|A. 他的勇敢——因为勇敢的人会做出危险的决定", "B. His position as a general — because powerful people always fall|B. 他作为将军的地位——因为有权力的人总是会失败", "C. His jealousy — it makes him too easily manipulated, and leads him to destroy the love he most valued|C. 他的嫉妒——它使他太容易被操控，导致他摧毁了他最珍视的爱", "D. His servant Iago — because Iago is the real cause|D. 他的仆人伊阿古——因为伊阿古才是真正的原因"],
+    correct: "C",
+    rationale: "Correct! The tragic flaw (hamartia) is the internal weakness that causes a character's downfall. Othello's jealousy is his hamartia — it is part of his personality, not an external force. Iago exploits it, but the vulnerability was always there.|正确！悲剧缺陷（悲剧错误）是导致角色毁灭的内在弱点。奥赛罗的嫉妒是他的悲剧缺陷——它是他性格的一部分，而不是外部力量。伊阿古利用了它，但这种脆弱性一直存在。",
+    rationale_wrong: {
+      A: "Othello's bravery is a strength, not a flaw. The tragic flaw must be a weakness.|奥赛罗的勇敢是一种优点，不是缺陷。悲剧缺陷必须是一种弱点。",
+      B: "Being a general is not a personality flaw — it is a position. The hamartia must be an internal character trait.|作为将军不是性格缺陷——这是一个职位。悲剧缺陷必须是内在的性格特质。",
+      D: "Iago is the antagonist, but he is an external force. The tragic flaw must come from WITHIN the protagonist's character.|伊阿古是反角，但他是外部力量。悲剧缺陷必须来自主角性格的内部。"
+    }
+  },
+  {
+    id: 'wed_q10',
+    title: "Passage 10: Setting and Mood",
+    passage: `A playwright writes these stage directions for the opening of a play:
+
+[The stage is dark. A single dim light shines on a bare wooden chair in the center. Wind sounds play softly. The walls are bare concrete. A clock ticks loudly. PRISONER sits with hands tied.]`,
+    q: "How do these stage directions use setting to create mood?",
+    q_cn: "这些舞台指示如何通过场景创造氛围？",
+    hint: "Mood is the feeling or atmosphere the setting creates. Look at each detail in the stage directions — what emotion does each one suggest? · 氛围是场景创造的感觉或气氛。看看舞台指示中的每个细节——每个细节暗示什么情感？",
+    options: ["A. The setting creates a cheerful and hopeful mood because there is light|A. 场景创造了欢快和充满希望的氛围，因为有光", "B. The setting creates a tense, isolated, and hopeless mood through darkness, bare walls, and the prisoner's bound hands|B. 场景通过黑暗、光秃秃的墙壁和囚犯被绑的双手，创造了紧张、孤立和绝望的氛围", "C. The setting has no effect on mood — only dialogue creates mood|C. 场景对氛围没有影响——只有对话才能创造氛围", "D. The clock sound creates a happy feeling because it means time is passing|D. 时钟声音创造了快乐的感觉，因为它意味着时间在流逝"],
+    correct: "B",
+    rationale: "Correct! Every detail in the setting works together to create a mood: darkness = despair and fear; bare walls = isolation; the ticking clock = slow, trapped time; bound hands = powerlessness. Setting creates emotion before a single word is spoken.|正确！场景中的每个细节共同创造了一种氛围：黑暗=绝望和恐惧；光秃秃的墙壁=孤立；滴答作响的时钟=缓慢、被困的时间；被绑的双手=无力感。在说一句话之前，场景就已经创造了情感。",
+    rationale_wrong: {
+      A: "The single dim light is described as dim — it is not cheerful. Combined with the bare walls and prisoner, it adds to isolation, not hope.|那一盏昏暗的灯被描述为昏暗的——它不是欢快的。结合光秃秃的墙壁和囚犯，它增加了孤立感，而不是希望。",
+      C: "Setting is one of the most powerful mood-creating tools in drama. Stage directions describing setting communicate emotion visually to the audience.|场景是戏剧中最有力的氛围创造工具之一。描述场景的舞台指示通过视觉向观众传达情感。",
+      D: "In this context, the ticking clock creates anxiety and dread — the slow passage of time while imprisoned increases suffering.|在这种情况下，滴答作响的时钟创造了焦虑和恐惧——被囚禁时时间的缓慢流逝增加了痛苦。"
+    }
+  }
+];
+
+// ── WEDNESDAY EXIT TICKET DATA ──
+const WED_EXIT = [
+  {
+    q: "What are the five stages of the dramatic arc in the correct order?",
+    q_cn: "戏剧弧线的五个阶段的正确顺序是什么？",
+    opts: ["A. Climax → Rising Action → Exposition → Falling Action → Resolution|A. 高潮→发展→开端→下降→结局", "B. Exposition → Rising Action → Climax → Falling Action → Resolution|B. 开端→发展→高潮→下降→结局", "C. Exposition → Climax → Rising Action → Falling Action → Resolution|C. 开端→高潮→发展→下降→结局", "D. Resolution → Falling Action → Climax → Rising Action → Exposition|D. 结局→下降→高潮→发展→开端"],
+    correct: "B",
+    rat: "The dramatic arc goes: Exposition (introduce) → Rising Action (build tension) → Climax (peak) → Falling Action (consequences) → Resolution (end). This is Freytag's Pyramid.|戏剧弧线：开端（介绍）→发展（建立紧张）→高潮（顶点）→下降（后果）→结局（结束）。这是弗雷塔格的金字塔。"
+  },
+  {
+    q: "A character speaks private thoughts directly to the audience while other characters on stage cannot hear. This is called a(n):",
+    q_cn: "一个角色直接向观众说出内心私密想法，而台上其他角色听不到。这被称为：",
+    opts: ["A. Monologue|A. 长篇独白", "B. Aside|B. 旁白", "C. Prologue|C. 序言", "D. Soliloquy|D. 内心独白"],
+    correct: "D",
+    rat: "Wait — a soliloquy is when the character is ALONE on stage. An aside is when other characters ARE on stage but cannot hear. The question says 'while other characters on stage cannot hear' — so this is an ASIDE.|等等——内心独白是当角色独自在台上时。旁白是当其他角色在台上但听不到时。问题说'台上其他角色听不到'——所以这是旁白。"
+  },
+  {
+    q: "The audience knows Juliet is alive, but Romeo does not — so he kills himself. This is an example of:",
+    q_cn: "观众知道朱丽叶还活着，但罗密欧不知道——所以他自杀了。这是一个例子：",
+    opts: ["A. Foreshadowing|A. 伏笔", "B. Dramatic irony|B. 戏剧性反讽", "C. Tragic flaw|C. 悲剧缺陷", "D. Rising action|D. 发展"],
+    correct: "B",
+    rat: "Dramatic irony = the audience knows something a character does not. This gap in knowledge creates tension, sadness, or horror — depending on what the audience knows.|戏剧性反讽=观众知道某件角色不知道的事。这种知识差距创造了紧张感、悲伤或恐惧——取决于观众知道什么。"
+  },
+  {
+    q: "A character who is simple, has only one or two traits, and never changes is called a _____ character.",
+    q_cn: "一个简单、只有一两个特质、从不改变的角色被称为_____人物。",
+    opts: ["A. Round|A. 圆形", "B. Dynamic|B. 动态", "C. Flat|C. 扁平", "D. Protagonist|D. 主角"],
+    correct: "C",
+    rat: "Flat character = simple, one or two traits, does not change. Round character = complex, multiple traits, realistic. Dynamic = changes. Static = doesn't change.|扁平人物=简单，一两个特质，不改变。圆形人物=复杂，多种特质，真实。动态=改变。静态=不改变。"
+  },
+  {
+    q: "An internal weakness in a character's personality that leads to their downfall is called their:",
+    q_cn: "角色性格中导致其毁灭的内在弱点称为其：",
+    opts: ["A. Foil|A. 对比人物", "B. Tragic flaw (hamartia)|B. 悲剧缺陷（悲剧错误）", "C. Dramatic arc|C. 戏剧弧线", "D. Conflict|D. 冲突"],
+    correct: "B",
+    rat: "The tragic flaw (hamartia) is the hero's internal weakness — pride, jealousy, indecision — that causes their downfall. Famous examples: Othello's jealousy, Hamlet's indecision, Macbeth's ambition.|悲剧缺陷（悲剧错误）是英雄的内在弱点——骄傲、嫉妒、优柔寡断——导致其毁灭。著名例子：奥赛罗的嫉妒、哈姆雷特的优柔寡断、麦克白的野心。"
+  },
+  {
+    q: "Stage directions in a play are:",
+    q_cn: "戏剧中的舞台指示是：",
+    opts: ["A. Words spoken by the main character|A. 主角说的话", "B. The rhyme scheme of the dialogue|B. 对话的押韵方式", "C. Instructions to actors about movement, expression, setting, and action — not spoken aloud|C. 给演员的关于动作、表情、场景和行动的指示——不大声朗读", "D. The lines spoken by the narrator|D. 叙述者说的台词"],
+    correct: "C",
+    rat: "Stage directions are written by the playwright, usually in italics or brackets. They guide actors and set up the visual experience for the audience. They are never spoken aloud.|舞台指示由剧作家写作，通常用斜体或括号表示。它们引导演员并为观众建立视觉体验。它们从不被大声朗读。"
+  },
+  {
+    q: "A character whose traits contrast with the protagonist to highlight the protagonist's qualities is called a:",
+    q_cn: "其特质与主角形成对比以突出主角特质的角色称为：",
+    opts: ["A. Antagonist|A. 反角", "B. Static character|B. 静态人物", "C. Foil|C. 对比人物", "D. Round character|D. 圆形人物"],
+    correct: "C",
+    rat: "A foil highlights another character through contrast. Laertes (acts immediately) makes Hamlet's delay more visible. Foil ≠ antagonist — a foil may actually be on the protagonist's side.|对比人物通过对比突出另一个角色。雷欧提斯（立即行动）使哈姆雷特的拖延更加明显。对比人物≠反角——对比人物实际上可能站在主角一边。"
+  },
+  {
+    q: "Which type of conflict is described here: 'A soldier is afraid to speak up about the unfair treatment of prisoners in his unit, but knows it is wrong.'",
+    q_cn: "这里描述的是哪种类型的冲突：'一名士兵害怕说出他部队对囚犯的不公平待遇，但知道这是错的。'",
+    opts: ["A. Character vs. Nature|A. 人物对自然", "B. Character vs. Character|B. 人物对人物", "C. Character vs. Self|C. 人物对自我", "D. Character vs. Fate|D. 人物对命运"],
+    correct: "C",
+    rat: "The soldier is not fighting another person or an external force — he is fighting his own fear vs. his conscience. Internal struggle = Character vs. Self.|士兵不是在与另一个人或外部力量战斗——他在与自己的恐惧对抗他的良知作斗争。内部斗争=人物对自我。"
+  },
+  {
+    q: "What is a 'theme' in drama?",
+    q_cn: "戏剧中的'主题'是什么？",
+    opts: ["A. The title of the play|A. 戏剧的标题", "B. A complete statement of insight about human life that the whole play explores|B. 整部戏剧探索的关于人类生活的完整见解陈述", "C. The setting and time period of the drama|C. 戏剧的场景和时代背景", "D. The list of characters at the beginning of the script|D. 剧本开头的人物列表"],
+    correct: "B",
+    rat: "Theme is not a topic (one word) — it is a complete idea. 'Revenge destroys the person seeking it' is a theme. 'Revenge' is just a topic.|主题不是话题（一个词）——它是完整的思想。'复仇摧毁了寻求它的人'是主题。'复仇'只是话题。"
+  },
+  {
+    q: "In drama, the EXPOSITION stage of the dramatic arc mainly serves to:",
+    q_cn: "在戏剧中，戏剧弧线的开端阶段主要用于：",
+    opts: ["A. Show the resolution of the main conflict|A. 展示主要冲突的解决", "B. Reach the point of highest tension|B. 达到最高紧张点", "C. Introduce the characters, setting, and background so the audience understands the world of the play|C. 介绍人物、场景和背景，使观众理解戏剧的世界", "D. Deliver the playwright's final message|D. 传达剧作家的最终信息"],
+    correct: "C",
+    rat: "The exposition introduces the world of the play — who the characters are, where and when the story takes place, and what the basic situation is. It is the foundation for everything that follows.|开端介绍了戏剧的世界——人物是谁、故事发生的地点和时间，以及基本情况。它是后续一切的基础。"
+  }
+];
+
+// ══════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════
+
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 65; // 10 prac × 2 tabs + 10 exit × 2 tabs + 5 vocab = 65
+
+const tueAnswers = {};
+const tueExitAnswers = {};
+let tueScore = 0;
+let tueDone = 0;
+
+const wedAnswers = {};
+const wedExitAnswers = {};
+let wedScore = 0;
+let wedDone = 0;
+
+// ══════════════════════════════════════════════════
+// LOOKUP MAPS (populated at build time, used in handlers)
+// ══════════════════════════════════════════════════
+const PRACTICE_MAP = {};
+const EXIT_MAP = {};
+
+// ══════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════
+
+window.onload = () => {
+  // Populate lookup maps
+  TUE_PRACTICES.forEach(p => { PRACTICE_MAP[p.id] = p; });
+  WED_PRACTICES.forEach(p => { PRACTICE_MAP[p.id] = p; });
+  TUE_EXIT.forEach((p, i) => { EXIT_MAP['tue_' + i] = p; });
+  WED_EXIT.forEach((p, i) => { EXIT_MAP['wed_' + i] = p; });
+
+  buildVocab();
+  buildPractices('tue', TUE_PRACTICES, 'tuePracticeContainer');
+  buildExitTicket('tue', TUE_EXIT, 'tueExitContainer');
+  buildPractices('wed', WED_PRACTICES, 'wedPracticeContainer');
+  buildExitTicket('wed', WED_EXIT, 'wedExitContainer');
+  startTimer();
+  trackNavigation();
+};
+
+// ══════════════════════════════════════════════════
+// VOCAB
+// ══════════════════════════════════════════════════
+
+function buildVocab() {
+  const grid = document.getElementById('vocabGrid');
+  VOCAB.forEach((v) => {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    const speakBtn = document.createElement('button');
+    speakBtn.className = 'speak-btn';
+    speakBtn.textContent = '🔊 Pronounce';
+    speakBtn.addEventListener('click', () => {
+      speakWord(v.word);
+      if (!card.dataset.counted) {
+        card.dataset.counted = '1';
+        addProgress(1);
+      }
+    });
+    // Build card content safely
+    const wordEl = el('div', 'vocab-word', v.word);
+    const posEl = el('div', 'vocab-pos', v.pos);
+    const cnEl = el('div', 'vocab-cn cn', v.cn);
+    const defEl = el('div', 'vocab-def', v.def);
+    const cnDefEl = el('div', 'vocab-cn-def cn', v.cn_def);
+    const exEl = el('div', 'vocab-example', '📝 ' + v.example);
+    card.appendChild(wordEl);
+    card.appendChild(posEl);
+    card.appendChild(cnEl);
+    card.appendChild(defEl);
+    card.appendChild(cnDefEl);
+    card.appendChild(exEl);
+    card.appendChild(speakBtn);
+    grid.appendChild(card);
+  });
+}
+
+function speakWord(word) {
+  if ('speechSynthesis' in window) {
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = 'en-US'; u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }
+}
+
+// Helper: create element with class and text
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  e.className = cls;
+  e.textContent = text;
+  return e;
+}
+
+// ══════════════════════════════════════════════════
+// PRACTICES — built with DOM, no inline onclick
+// ══════════════════════════════════════════════════
+
+function buildPractices(tabKey, data, containerId) {
+  const container = document.getElementById(containerId);
+  data.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'practice-card';
+
+    // Header
+    const num = document.createElement('div');
+    num.className = 'practice-q-num';
+    num.textContent = 'Practice ' + (idx + 1) + ' of ' + data.length;
+    card.appendChild(num);
+
+    // Title
+    const title = document.createElement('div');
+    title.style.cssText = 'font-weight:600;font-size:0.92rem;color:var(--cobalt);margin-bottom:8px';
+    title.textContent = item.title;
+    card.appendChild(title);
+
+    // Passage
+    const passage = document.createElement('div');
+    passage.className = 'practice-passage';
+    passage.textContent = item.passage;
+    card.appendChild(passage);
+
+    // Hint
+    if (item.hint) {
+      const hint = document.createElement('div');
+      hint.className = 'hint-box';
+      hint.style.display = 'block';
+      hint.textContent = '💡 ' + item.hint;
+      card.appendChild(hint);
+    }
+
+    // Question
+    const q = document.createElement('div');
+    q.className = 'practice-q';
+    q.textContent = item.q;
+    card.appendChild(q);
+
+    const qcn = document.createElement('div');
+    qcn.className = 'practice-q-cn cn';
+    qcn.textContent = item.q_cn;
+    card.appendChild(qcn);
+
+    // Options
+    const optsWrap = document.createElement('div');
+    optsWrap.className = 'options-wrap';
+    const ratDiv = document.createElement('div');
+    ratDiv.className = 'rationale';
+
+    let answered = false;
+    const answers = tabKey === 'tue' ? tueAnswers : wedAnswers;
+
+    item.options.forEach((opt) => {
+      const letter = opt[0]; // 'A', 'B', 'C', 'D'
+      const parts = opt.slice(3).split('|'); // skip "A. "
+      const enText = parts[0] || '';
+      const cnText = parts[1] || '';
+
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      // Build button content safely
+      const strong = document.createElement('strong');
+      strong.textContent = letter + '. ';
+      const enSpan = document.createElement('span');
+      enSpan.textContent = enText;
+      const br = document.createElement('br');
+      const cnSpan = document.createElement('span');
+      cnSpan.className = 'cn';
+      cnSpan.style.cssText = 'font-size:0.8rem;color:#555';
+      cnSpan.textContent = cnText;
+      btn.appendChild(strong);
+      btn.appendChild(enSpan);
+      btn.appendChild(br);
+      btn.appendChild(cnSpan);
+
+      btn.addEventListener('click', () => {
+        if (answered || answers[item.id]) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        // Disable all options
+        optsWrap.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+
+        // Show correct
+        optsWrap.querySelectorAll('.opt-btn').forEach(b => {
+          if (b.dataset.letter === item.correct) b.classList.add('correct');
+        });
+
+        if (letter === item.correct) {
+          btn.classList.add('correct');
+          const [rEN, rCN] = item.rationale.split('|');
+          ratDiv.innerHTML = '';
+          ratDiv.appendChild(makeRatHtml('✅ ' + rEN, rCN));
+          ratDiv.className = 'rationale show correct-rat';
+          addProgress(1);
+        } else {
+          btn.classList.add('wrong');
+          const wrongRat = item.rationale_wrong[letter] || '';
+          const [wEN, wCN] = wrongRat.split('|');
+          const [rEN, rCN] = item.rationale.split('|');
+          ratDiv.innerHTML = '';
+          ratDiv.appendChild(makeRatHtml('❌ ' + (wEN || ''), wCN || ''));
+          const correctLine = document.createElement('div');
+          correctLine.style.marginTop = '8px';
+          correctLine.appendChild(makeRatHtml('✅ Correct: ' + rEN, rCN));
+          ratDiv.appendChild(correctLine);
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+      });
+
+      btn.dataset.letter = letter;
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+function makeRatHtml(en, cn) {
+  const wrap = document.createElement('div');
+  const enNode = document.createTextNode(en);
+  wrap.appendChild(enNode);
+  if (cn) {
+    const br = document.createElement('br');
+    const cnSpan = document.createElement('span');
+    cnSpan.className = 'cn';
+    cnSpan.textContent = cn;
+    wrap.appendChild(br);
+    wrap.appendChild(cnSpan);
+  }
+  return wrap;
+}
+
+// Stub — real logic is now in the event listener above
+function selectAnswer() {}
+
+// ══════════════════════════════════════════════════
+// EXIT TICKET — built with DOM, no inline onclick
+// ══════════════════════════════════════════════════
+
+function buildExitTicket(tabKey, data, containerId) {
+  const container = document.getElementById(containerId);
+  data.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'exit-card';
+
+    const num = document.createElement('div');
+    num.className = 'practice-q-num';
+    num.textContent = 'Exit Ticket Q' + (idx + 1) + ' of 10';
+    card.appendChild(num);
+
+    const q = document.createElement('div');
+    q.className = 'exit-q';
+    q.textContent = item.q;
+    card.appendChild(q);
+
+    const qcn = document.createElement('div');
+    qcn.className = 'exit-q-cn cn';
+    qcn.textContent = item.q_cn;
+    card.appendChild(qcn);
+
+    const optsWrap = document.createElement('div');
+    optsWrap.className = 'options-wrap';
+    const ratDiv = document.createElement('div');
+    ratDiv.className = 'rationale';
+
+    let answered = false;
+    const exAnswers = tabKey === 'tue' ? tueExitAnswers : wedExitAnswers;
+
+    item.opts.forEach((opt) => {
+      const letter = opt[0];
+      const parts = opt.slice(3).split('|');
+      const enText = parts[0] || '';
+      const cnText = parts[1] || '';
+
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      const strong = document.createElement('strong');
+      strong.textContent = letter + '. ';
+      const enSpan = document.createElement('span');
+      enSpan.textContent = enText;
+      const br = document.createElement('br');
+      const cnSpan = document.createElement('span');
+      cnSpan.className = 'cn';
+      cnSpan.style.cssText = 'font-size:0.79rem;color:#555';
+      cnSpan.textContent = cnText;
+      btn.appendChild(strong);
+      btn.appendChild(enSpan);
+      btn.appendChild(br);
+      btn.appendChild(cnSpan);
+      btn.dataset.letter = letter;
+
+      btn.addEventListener('click', () => {
+        if (answered || exAnswers[idx] !== undefined) return;
+        answered = true;
+        exAnswers[idx] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(b => {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('correct');
+        });
+
+        const [rEN, rCN] = item.rat.split('|');
+
+        if (letter === item.correct) {
+          btn.classList.add('correct');
+          ratDiv.appendChild(makeRatHtml('✅ ' + rEN, rCN));
+          ratDiv.className = 'rationale show correct-rat';
+          if (tabKey === 'tue') tueScore++; else wedScore++;
+          addProgress(1);
+        } else {
+          btn.classList.add('wrong');
+          ratDiv.appendChild(makeRatHtml('❌ ' + rEN, rCN));
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+
+        if (tabKey === 'tue') tueDone++; else wedDone++;
+        const done = tabKey === 'tue' ? tueDone : wedDone;
+
+        if (done === 10) {
+          const score = tabKey === 'tue' ? tueScore : wedScore;
+          document.getElementById(tabKey + 'ScoreNum').textContent = score + '/10';
+          document.getElementById(tabKey + 'ScoreBox').style.display = 'block';
+          document.getElementById(tabKey + 'Reflection').classList.add('show');
+          document.getElementById(tabKey + 'DlBtn').classList.add('show');
+          const pipId = 'pip' + tabKey.charAt(0).toUpperCase() + tabKey.slice(1);
+          document.getElementById(pipId).classList.add('done');
+        }
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+// Stub — real logic now in event listener above
+function selectExit() {}
+
+// ══════════════════════════════════════════════════
+// DOWNLOAD REPORT
+// ══════════════════════════════════════════════════
+
+function downloadReport(tabKey) {
+  const name = document.getElementById(`${tabKey}Name`).value || 'Student';
+  const date = new Date().toLocaleDateString('en-CA');
+  const time = formatTime(secondsElapsed);
+  const score = tabKey === 'tue' ? tueScore : wedScore;
+  const exAnswers = tabKey === 'tue' ? tueExitAnswers : wedExitAnswers;
+  const practiceAnswers = tabKey === 'tue' ? tueAnswers : wedAnswers;
+  const practiceData = tabKey === 'tue' ? TUE_PRACTICES : WED_PRACTICES;
+  const exitData = tabKey === 'tue' ? TUE_EXIT : WED_EXIT;
+  const ref1 = document.getElementById(`${tabKey}Ref1`).value || '(no response)';
+  const ref2 = document.getElementById(`${tabKey}Ref2`).value || '(no response)';
+  const dayLabel = tabKey === 'tue' ? 'Tuesday — Poetry Forms' : 'Wednesday — Drama Elements';
+
+  let lines = [
+    '═══════════════════════════════════════════════════════',
+    `MLWS Grade 11 English | ${dayLabel}`,
+    '═══════════════════════════════════════════════════════',
+    `Student: ${name}`,
+    `Date: ${date}`,
+    `Session Time: ${time}`,
+    `Tab Switches: ${leaveCount}`,
+    `Exit Ticket Score: ${score}/10`,
+    '───────────────────────────────────────────────────────',
+    'PRACTICE QUESTIONS',
+    '───────────────────────────────────────────────────────'
+  ];
+
+  practiceData.forEach((item, idx) => {
+    const sel = practiceAnswers[item.id] || 'Not answered';
+    const isCorrect = sel === item.correct;
+    lines.push(`Q${idx+1}: ${item.title}`);
+    lines.push(`  Selected: ${sel} | Correct: ${item.correct} | ${isCorrect ? 'CORRECT ✓' : 'INCORRECT ✗'}`);
+  });
+
+  lines.push('');
+  lines.push('───────────────────────────────────────────────────────');
+  lines.push('EXIT TICKET');
+  lines.push('───────────────────────────────────────────────────────');
+
+  exitData.forEach((item, idx) => {
+    const sel = exAnswers[idx] !== undefined ? exAnswers[idx] : 'Not answered';
+    const isCorrect = sel === item.correct;
+    lines.push(`Q${idx+1}: ${item.q}`);
+    lines.push(`  Selected: ${sel} | Correct: ${item.correct} | ${isCorrect ? 'CORRECT ✓' : 'INCORRECT ✗'}`);
+  });
+
+  lines.push('');
+  lines.push('───────────────────────────────────────────────────────');
+  lines.push('SELF-REFLECTION');
+  lines.push('───────────────────────────────────────────────────────');
+  lines.push('Reflection 1:');
+  lines.push(ref1);
+  lines.push('');
+  lines.push('Reflection 2:');
+  lines.push(ref2);
+  lines.push('');
+  lines.push('═══════════════════════════════════════════════════════');
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `ESL_Module_${tabKey.toUpperCase()}_${name.replace(/\s+/g,'_')}_${date}.txt`;
+  a.click();
+}
+
+// ══════════════════════════════════════════════════
+// UTILITY
+// ══════════════════════════════════════════════════
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  btn.classList.add('active');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  const pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent =
+    'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(() => {
+    secondsElapsed++;
+    document.getElementById('timerDisplay').textContent = '⏱ ' + formatTime(secondsElapsed);
+  }, 1000);
+}
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return String(m).padStart(2,'0') + ':' + String(sec).padStart(2,'0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      const notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(() => { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+</script>
+</body>
+</html>
