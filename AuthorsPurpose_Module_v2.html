@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Author's Purpose & Literary Techniques | 作者目的与文学手法</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);font-size:16px;line-height:1.65;}
+.cn{font-family:'Noto Sans SC',sans-serif;}
+
+/* HEADER */
+#site-header{background:var(--ml-green-dark);color:#fff;padding:14px 20px 8px;}
+.header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.header-title{font-family:'Literata',serif;font-size:1.12rem;font-weight:600;line-height:1.3;}
+.header-title .cn{font-size:0.9rem;opacity:0.85;display:block;}
+#leaveBadge{background:#7f1d1d;padding:3px 10px;border-radius:20px;font-size:0.78rem;font-weight:700;white-space:nowrap;}
+.progress-wrap{margin-top:8px;}
+.progress-bar-bg{background:rgba(255,255,255,0.2);border-radius:6px;height:8px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:var(--ml-gold);width:0%;transition:width 0.4s ease;border-radius:6px;}
+#progressText{font-size:0.76rem;margin-top:3px;opacity:0.85;}
+.pip-row{display:flex;gap:8px;margin-top:6px;align-items:center;flex-wrap:wrap;}
+.pip{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.25);transition:background 0.4s;}
+.pip.done{background:var(--ml-gold);}
+.pip-label{font-size:0.73rem;opacity:0.8;}
+
+/* TABS */
+.tab-nav{display:flex;background:var(--ml-green);overflow-x:auto;}
+.tab-btn{padding:11px 20px;border:none;background:none;color:rgba(255,255,255,0.7);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;white-space:nowrap;transition:background 0.2s,color 0.2s;border-bottom:3px solid transparent;}
+.tab-btn:hover{background:rgba(255,255,255,0.1);color:#fff;}
+.tab-btn.active{color:#fff;border-bottom-color:var(--ml-gold);background:rgba(255,255,255,0.08);}
+.tab-content{display:none;padding:22px 20px 60px;max-width:860px;margin:0 auto;}
+.tab-content.active{display:block;}
+
+/* SECTION DIVIDERS */
+.section-title{font-family:'Literata',serif;font-size:1.08rem;font-weight:600;color:var(--ml-green-dark);border-left:4px solid var(--ml-gold);padding-left:10px;margin:28px 0 12px;}
+.section-sub{font-size:0.82rem;color:#666;margin:-8px 0 14px 14px;}
+
+/* CONCEPT BLOCKS */
+.concept-intro{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.concept-intro h3{font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:8px;}
+.concept-intro p{font-size:0.9rem;color:var(--ink2);margin-bottom:8px;line-height:1.7;}
+.concept-intro .cn-block{font-family:'Noto Sans SC',sans-serif;font-size:0.82rem;color:#555;background:#f9fbf9;border-left:3px solid var(--ml-green-light);padding:8px 12px;border-radius:0 6px 6px 0;margin-top:6px;}
+.example-box{background:var(--amber-light);border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;font-size:0.87rem;margin:10px 0;}
+.example-box strong{color:var(--amber);display:block;margin-bottom:4px;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.04em;}
+.example-box .ex-text{font-family:'Literata',serif;font-style:italic;color:var(--ink);}
+.example-box .ex-cn{font-family:'Noto Sans SC',sans-serif;font-size:0.79rem;color:#666;margin-top:4px;}
+
+.purpose-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:14px 0 20px;}
+.purpose-card{border-radius:9px;padding:14px;border:1px solid var(--border);}
+.purpose-card.inform{background:#e0f2fe;border-color:#7dd3fc;}
+.purpose-card.persuade{background:#fce7f3;border-color:#f9a8d4;}
+.purpose-card.entertain{background:#d1fae5;border-color:#6ee7b7;}
+.purpose-card.explain{background:#ede9fe;border-color:#c4b5fd;}
+.purpose-card.reveal{background:#fef3c7;border-color:#fcd34d;}
+.purpose-card.convince{background:#fee2e2;border-color:#fca5a5;}
+.purpose-card.criticize{background:#fef9c3;border-color:#fde047;}
+.purpose-card.teach{background:#dcfce7;border-color:#86efac;}
+.purpose-card strong{display:block;font-size:0.95rem;color:var(--ink);margin-bottom:3px;}
+.purpose-card .card-cn{font-family:'Noto Sans SC',sans-serif;font-size:0.78rem;color:#555;margin-bottom:6px;}
+.purpose-card p{font-size:0.82rem;color:var(--ink2);line-height:1.5;}
+
+.technique-table{width:100%;border-collapse:collapse;font-size:0.86rem;margin:14px 0 20px;}
+.technique-table th{background:var(--ml-green-dark);color:#fff;padding:9px 12px;text-align:left;font-weight:600;}
+.technique-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+.technique-table tr:nth-child(even) td{background:#f4f8f5;}
+.technique-table .cn{font-size:0.78rem;color:#666;display:block;}
+
+.callout{background:#e0f2fe;border-left:4px solid #0ea5e9;border-radius:0 8px 8px 0;padding:12px 16px;font-size:0.88rem;color:#0c4a6e;margin:14px 0;}
+.callout .cn{color:#1e40af;font-size:0.81rem;margin-top:4px;}
+.callout strong{display:block;margin-bottom:4px;}
+
+/* NAME INPUT */
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;background:#fff;padding:12px 16px;border-radius:8px;border:1px solid var(--border);}
+.name-row label{font-weight:600;font-size:0.87rem;color:var(--ml-green-dark);}
+.name-row input{border:2px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:0.9rem;width:220px;outline:none;}
+.name-row input:focus{border-color:var(--ml-green);}
+
+/* QUIZ CARDS */
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.quiz-card .q-num{font-size:0.75rem;font-weight:700;color:var(--cobalt);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
+.passage-box{background:#f9fbf9;border:1px solid var(--border);border-left:4px solid var(--ml-green);border-radius:6px;padding:14px;font-family:'Literata',serif;font-size:0.92rem;line-height:1.78;margin-bottom:12px;color:var(--ink);}
+.q-text{font-weight:700;font-size:0.95rem;margin-bottom:3px;}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:0.83rem;color:#555;margin-bottom:10px;}
+.opts-wrap{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{text-align:left;background:#f9fbf9;border:2px solid var(--border);border-radius:8px;padding:10px 14px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.87rem;transition:border-color 0.15s,background 0.15s;}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:var(--ml-green-light);}
+.opt-btn:disabled{cursor:default;opacity:0.85;}
+.opt-btn.selected-correct{border-color:#16a34a;background:#dcfce7;color:#166534;}
+.opt-btn.selected-wrong{border-color:var(--ml-red);background:#fee2e2;color:#991b1b;}
+.opt-btn.show-correct{border-color:#16a34a;background:#f0fdf4;}
+.rationale{display:none;margin-top:10px;padding:10px 14px;border-radius:7px;font-size:0.85rem;line-height:1.6;}
+.rationale.show{display:block;}
+.rationale.correct-rat{background:#dcfce7;border:1px solid #86efac;color:#166534;}
+.rationale.wrong-rat{background:#fee2e2;border:1px solid #fca5a5;color:#991b1b;}
+.rationale .rat-cn{font-family:'Noto Sans SC',sans-serif;font-size:0.8rem;margin-top:4px;display:block;}
+
+/* REFLECTION + GRATITUDE */
+.reflect-section{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-top:20px;}
+.reflect-section h3{font-family:'Literata',serif;font-size:0.98rem;color:var(--ml-green-dark);margin-bottom:14px;}
+.reflect-q{margin-bottom:16px;}
+.reflect-q label{display:block;font-weight:600;font-size:0.88rem;color:var(--cobalt);margin-bottom:4px;}
+.reflect-q label .cn{font-family:'Noto Sans SC',sans-serif;font-weight:400;color:#666;font-size:0.81rem;display:block;margin-top:1px;}
+textarea.r-input{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:0.88rem;min-height:78px;resize:vertical;outline:none;transition:border-color 0.2s;}
+textarea.r-input:focus{border-color:var(--ml-green);}
+textarea.r-input.filled{border-color:#16a34a;background:#f0fdf4;}
+.gratitude-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.gratitude-row .prefix{font-size:0.9rem;color:var(--ink);font-weight:500;}
+.gratitude-row input.g-input{border:2px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:0.9rem;min-width:220px;flex:1;outline:none;transition:border-color 0.2s;}
+.gratitude-row input.g-input:focus{border-color:var(--ml-green);}
+.gratitude-row input.g-input.filled{border-color:#16a34a;background:#f0fdf4;}
+
+/* DOWNLOAD BUTTON */
+.dl-section{margin-top:22px;text-align:center;}
+.dl-btn{display:inline-block;background:var(--ml-green-dark);color:#fff;border:none;border-radius:9px;padding:13px 28px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.95rem;transition:background 0.2s,opacity 0.2s;opacity:0.4;pointer-events:none;}
+.dl-btn.ready{opacity:1;pointer-events:auto;}
+.dl-btn.ready:hover{background:var(--ml-green);}
+.dl-hint{font-size:0.8rem;color:#888;margin-top:8px;}
+.dl-hint.hidden{display:none;}
+
+/* VOCAB CARDS */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,0.05);}
+.vocab-word{font-family:'Literata',serif;font-size:1.08rem;font-weight:600;color:var(--ml-green-dark);}
+.vocab-pos{font-size:0.73rem;color:#888;font-style:italic;margin-left:5px;}
+.vocab-cn-word{font-family:'Noto Sans SC',sans-serif;font-size:0.9rem;color:var(--cobalt);margin:3px 0 6px;}
+.vocab-def{font-size:0.86rem;color:var(--ink2);margin-bottom:4px;}
+.vocab-cn-def{font-family:'Noto Sans SC',sans-serif;font-size:0.8rem;color:#555;margin-bottom:8px;}
+.vocab-example{font-family:'Literata',serif;font-style:italic;font-size:0.82rem;color:#444;border-left:3px solid var(--ml-green-light);padding-left:8px;}
+.vocab-sound-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:0.79rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600;}
+.vocab-sound-btn:hover{background:var(--ml-green);color:#fff;}
+
+/* TIMER */
+#timer-display{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:0.82rem;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.18);z-index:999;}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .vocab-grid{grid-template-columns:1fr;}
+  .purpose-grid{grid-template-columns:1fr;}
+  .tab-btn{padding:10px 13px;font-size:0.81rem;}
+  .technique-table{font-size:0.79rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- PERSISTENT WARNING BANNER -->
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.82rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+
+<!-- LEAVE FLASH ALERT -->
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:0.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  🚨 Tab switch recorded! Your teacher will see this. · <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span>
+</div>
+
+<!-- HEADER -->
+<div id="site-header">
+  <div class="header-top">
+    <div class="header-title">
+      Author's Purpose &amp; Literary Techniques
+      <span class="cn">作者目的与文学手法</span>
+    </div>
+    <div id="leaveBadge">🚪 Leaves: 0</div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div id="progressText">Progress: 0% · 进度：0%</div>
+  </div>
+  <div class="pip-row">
+    <span class="pip-label">Tabs:</span>
+    <div class="pip done" id="pip-vocab" title="Vocab"></div>
+    <div class="pip" id="pip-tue" title="Tuesday"></div>
+    <div class="pip" id="pip-wed" title="Wednesday"></div>
+  </div>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('vocab',this)">📚 Vocab <span class="cn">词汇</span></button>
+  <button class="tab-btn" onclick="switchTab('tue',this)">🗓 Tuesday <span class="cn">周二</span></button>
+  <button class="tab-btn" onclick="switchTab('wed',this)">🗓 Wednesday <span class="cn">周三</span></button>
+</div>
+
+<!-- ══════════════ VOCAB TAB ══════════════ -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="section-title">📖 Vocabulary — Literary Techniques &amp; Craft <span style="font-weight:400;font-size:0.82rem;" class="cn">文学手法词汇</span></div>
+  <p style="font-size:0.88rem;color:#555;margin-bottom:16px;">Study each card. Click 🔊 to hear the word. You will see these terms in your Tuesday and Wednesday lessons. · <span class="cn">学习每个词汇卡片，点击🔊收听读音。周二和周三的课程中你将看到这些词汇。</span></p>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ══════════════ TUESDAY TAB ══════════════ -->
+<div class="tab-content" id="tab-tue">
+
+  <div class="name-row">
+    <label for="tueName">Student Name / 学生姓名:</label>
+    <input type="text" id="tueName" placeholder="Your name / 你的名字">
+  </div>
+
+  <!-- ── CONCEPT: WHY DO AUTHORS WRITE? ── -->
+  <div class="section-title">📘 Part 1 — Why Do Authors Write? <span style="font-weight:400;font-size:0.82rem;" class="cn">作者为什么写作？</span></div>
+
+  <div class="concept-intro">
+    <h3>The Big Idea / 核心概念</h3>
+    <p>Every author writes for a <strong>reason</strong>. This reason is called the <strong>author's purpose</strong>. Before you can analyze a text deeply, you must ask yourself: <em>Why did the author write this? What do they want from me as a reader?</em></p>
+    <div class="cn-block">每位作者写作都有<strong>原因</strong>，这个原因叫做<strong>作者目的</strong>。在深入分析一篇文章之前，你必须问自己：<em>作者为什么要写这个？他们希望读者得到什么？</em></div>
+    <p style="margin-top:10px;">There are three main purposes. Think of them as three doors — every text opens one of these doors (and sometimes more than one).</p>
+    <div class="cn-block">有三个主要目的。把它们想象成三扇门——每篇文章都会打开其中一扇（有时甚至不止一扇）。</div>
+  </div>
+
+  <div class="purpose-grid">
+    <div class="purpose-card inform">
+      <strong>📰 Inform / 告知</strong>
+      <span class="card-cn">给读者新知识</span>
+      <p>The author gives you <strong>facts, data, or explanations</strong>. The goal is to teach you something true about the world — not to convince you of an opinion.</p>
+    </div>
+    <div class="purpose-card persuade">
+      <strong>📢 Persuade / 说服</strong>
+      <span class="card-cn">改变读者的想法或行动</span>
+      <p>The author wants you to <strong>believe something or do something</strong>. They use evidence, emotional language, and strong opinions to push you toward their view.</p>
+    </div>
+    <div class="purpose-card entertain">
+      <strong>🎭 Entertain / 娱乐</strong>
+      <span class="card-cn">让读者享受故事</span>
+      <p>The author creates a world, characters, and events that <strong>engage your imagination and emotions</strong>. Fiction, poetry, and personal essays often entertain.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>💡 Remember / 记住</strong>
+    A text can have more than one purpose. A novel might entertain AND persuade. A science article might inform AND explain. But there is usually one <em>primary</em> purpose that drives the whole text.
+    <div class="cn">一篇文章可以有不止一个目的。小说可能既娱乐又说服。科学文章可能既告知又解释。但通常有一个<em>主要</em>目的驱动整篇文章。</div>
+  </div>
+
+  <!-- ── CONCEPT: HOW DO TECHNIQUES REVEAL PURPOSE? ── -->
+  <div class="section-title">📘 Part 2 — How Techniques Reveal Purpose <span style="font-weight:400;font-size:0.82rem;" class="cn">手法如何揭示目的</span></div>
+
+  <div class="concept-intro">
+    <h3>Techniques are clues / 手法就是线索</h3>
+    <p>Authors <strong>choose their techniques deliberately</strong>. The techniques they use are clues that tell you their purpose. When you identify a technique, you can ask: <em>Why did the author use this here? What effect does it create?</em></p>
+    <div class="cn-block">作者<strong>刻意选择</strong>他们的手法。他们使用的手法是告诉你目的的线索。当你识别出一种手法时，你可以问：<em>作者为什么在这里使用这个？它创造了什么效果？</em></div>
+  </div>
+
+  <table class="technique-table">
+    <thead>
+      <tr><th>Technique / 手法</th><th>What It Does / 作用</th><th>Likely Purpose / 可能目的</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Imagery</strong> <span class="cn">意象</span></td><td>Creates vivid mental pictures using sensory detail <span class="cn">用感官细节创造生动的心理画面</span></td><td>Entertain / Persuade</td></tr>
+      <tr><td><strong>Metaphor</strong> <span class="cn">暗喻</span></td><td>Calls one thing another thing to deepen meaning <span class="cn">将一事物说成另一事物以加深含义</span></td><td>Entertain / Persuade</td></tr>
+      <tr><td><strong>Simile</strong> <span class="cn">明喻</span></td><td>Compares two things using <em>like</em> or <em>as</em> <span class="cn">用"like"或"as"比较两件事物</span></td><td>Entertain / Inform</td></tr>
+      <tr><td><strong>Personification</strong> <span class="cn">拟人</span></td><td>Gives human qualities to non-human things <span class="cn">赋予非人类事物人类特质</span></td><td>Entertain / Persuade</td></tr>
+      <tr><td><strong>Dialogue</strong> <span class="cn">对话</span></td><td>Shows characters speaking; reveals personality and conflict <span class="cn">展示角色说话；揭示个性和冲突</span></td><td>Entertain</td></tr>
+      <tr><td><strong>Monologue</strong> <span class="cn">独白</span></td><td>One character speaks at length; reveals inner thoughts <span class="cn">一个角色长篇独白；揭示内心想法</span></td><td>Entertain / Persuade</td></tr>
+      <tr><td><strong>Stage directions</strong> <span class="cn">舞台指示</span></td><td>Instructions in a play [in brackets] <span class="cn">戏剧中用括号标注的指示</span></td><td>Entertain (drama)</td></tr>
+      <tr><td><strong>Point of view (1st)</strong> <span class="cn">第一人称视角</span></td><td>Uses "I" — reader is inside the narrator's mind <span class="cn">使用"我"——读者进入叙述者的内心</span></td><td>Entertain / Persuade</td></tr>
+      <tr><td><strong>Point of view (3rd)</strong> <span class="cn">第三人称视角</span></td><td>Uses "he/she/they" — narrator is outside the story <span class="cn">使用"他/她/他们"——叙述者在故事之外</span></td><td>Entertain / Inform</td></tr>
+    </tbody>
+  </table>
+
+  <div class="example-box">
+    <strong>📝 Example — Persuasion through Imagery / 例子：通过意象说服</strong>
+    <div class="ex-text">"Every minute, a rainforest the size of a football field disappears — swallowed by machines that leave only silence and ash."</div>
+    <div class="ex-cn">每分钟，一片足球场大小的雨林消失了——被机器吞噬，只留下寂静和灰烬。</div>
+    <div style="margin-top:8px;font-size:0.84rem;color:var(--ink2);">The imagery of "silence and ash" makes you feel the loss — this emotional effect is in service of <strong>persuasion</strong>. The author is not just informing; they want you to act. / "寂静和灰烬"的意象让你感受到失去——这种情感效果服务于<strong>说服</strong>。作者不只是告知，他们希望你采取行动。</div>
+  </div>
+
+  <div class="example-box">
+    <strong>📝 Example — Personification for Entertainment / 例子：用拟人娱乐</strong>
+    <div class="ex-text">"The old clock on the mantle coughed and wheezed, loyal to its slow, grumbling tick."</div>
+    <div class="ex-cn">壁炉台上的旧时钟咳嗽着、喘息着，忠实地保持着它缓慢的、抱怨式的滴答声。</div>
+    <div style="margin-top:8px;font-size:0.84rem;color:var(--ink2);">The clock has human qualities — coughing, grumbling. This is personification used for <strong>entertainment</strong>: it makes the scene come alive and creates character. / 时钟具有人类特质——咳嗽、抱怨。这是用于<strong>娱乐</strong>的拟人：它让场景充满活力并创造个性。</div>
+  </div>
+
+  <!-- ── CONCEPT: HOW TO IDENTIFY PURPOSE ── -->
+  <div class="section-title">📘 Part 3 — A Strategy for Identifying Author's Purpose <span style="font-weight:400;font-size:0.82rem;" class="cn">识别作者目的的策略</span></div>
+
+  <div class="concept-intro">
+    <h3>Use the STOP strategy / 使用STOP策略</h3>
+    <p>When you read a passage, use these four steps:</p>
+    <div style="margin:10px 0;padding-left:16px;">
+      <p style="margin-bottom:8px;"><strong>S — Subject:</strong> What is the text about? <span class="cn">主题：文章关于什么？</span></p>
+      <p style="margin-bottom:8px;"><strong>T — Tone:</strong> Does it feel emotional, neutral, or playful? <span class="cn">语气：感觉是情感化的、中立的还是轻松的？</span></p>
+      <p style="margin-bottom:8px;"><strong>O — Opinion:</strong> Does the author express a personal opinion? <span class="cn">观点：作者是否表达个人意见？</span></p>
+      <p><strong>P — Purpose:</strong> Based on S, T, O — what is the author's purpose? <span class="cn">目的：基于S、T、O——作者的目的是什么？</span></p>
+    </div>
+    <div class="cn-block">当你阅读一段文章时，使用以下四个步骤识别作者目的。</div>
+  </div>
+
+  <div class="callout">
+    <strong>⚠️ Common Mistake / 常见错误</strong>
+    Many students choose "inform" for every passage because it contains facts. But <em>facts can be used to persuade</em>. If the author uses facts to build an argument or tell you what to do, the purpose is <strong>persuade</strong>, not inform.
+    <div class="cn">许多学生对每段文章都选择"告知"，因为其中包含事实。但<em>事实可以用来说服</em>。如果作者使用事实来建立论点或告诉你该做什么，目的是<strong>说服</strong>，而不是告知。</div>
+  </div>
+
+  <div class="section-title">✏️ Tuesday Quiz — Author's Purpose &amp; Techniques <span style="font-weight:400;font-size:0.82rem;" class="cn">周二测验</span></div>
+  <p class="section-sub">Read each passage carefully. Select the best answer. You cannot change your answer after you select it. · 仔细阅读每段文字，选择最佳答案。选择后不能更改。</p>
+  <div id="tuePracticeContainer"></div>
+
+  <!-- REFLECTION + GRATITUDE -->
+  <div class="reflect-section" id="tueReflectSection">
+    <h3>🧠 Reflection &amp; Response <span class="cn" style="font-weight:400;font-size:0.85rem;">反思与回应</span></h3>
+
+    <div class="reflect-q">
+      <label for="tueRef1">1. Choose ONE passage from the quiz. Name the technique the author used and explain how it helped show their purpose. Use evidence from the text.
+        <span class="cn">从测验中选择一段文章，说出作者使用的一种手法，并解释它如何帮助体现作者的目的。使用文章中的证据。</span>
+      </label>
+      <textarea class="r-input" id="tueRef1" placeholder="Write at least 2 sentences / 至少写2句话..."></textarea>
+    </div>
+
+    <div class="reflect-q">
+      <label for="tueRef2">2. Think about your own reading outside of class. When you read a social media post, a news headline, or a advertisement — what is the author's purpose usually? How do you know?
+        <span class="cn">想想你课外的阅读。当你读社交媒体帖子、新闻标题或广告时，作者的目的通常是什么？你怎么知道的？</span>
+      </label>
+      <textarea class="r-input" id="tueRef2" placeholder="Write at least 2 sentences / 至少写2句话..."></textarea>
+    </div>
+
+    <div class="reflect-q">
+      <label>3. Today I am grateful for… <span class="cn">今天我感激……</span></label>
+      <div class="gratitude-row">
+        <span class="prefix">Today I am grateful for</span>
+        <input type="text" class="g-input" id="tueGrat" placeholder="…">
+      </div>
+    </div>
+
+    <div class="dl-section">
+      <button class="dl-btn" id="tueDownloadBtn" onclick="tryDownload('tue')">⬇ Download My Tuesday Work / 下载我的周二作业</button>
+      <div class="dl-hint" id="tueHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思后才能下载。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ WEDNESDAY TAB ══════════════ -->
+<div class="tab-content" id="tab-wed">
+
+  <div class="name-row">
+    <label for="wedName">Student Name / 学生姓名:</label>
+    <input type="text" id="wedName" placeholder="Your name / 你的名字">
+  </div>
+
+  <!-- ── CONCEPT: SPECIFIC PURPOSE VERBS ── -->
+  <div class="section-title">📘 Part 1 — Beyond Inform, Persuade, Entertain: Specific Purpose Verbs <span style="font-weight:400;font-size:0.82rem;" class="cn">更精准的目的动词</span></div>
+
+  <div class="concept-intro">
+    <h3>Why more specific? / 为什么要更精准？</h3>
+    <p>On Tuesday, you learned the three big categories. Today you will go deeper. Strong readers and writers do not just say "the author persuades." They say <strong>"the author convinces," "the author criticizes," or "the author reveals."</strong> These words are more accurate — and they make your analysis much more powerful.</p>
+    <div class="cn-block">周二你学习了三个大类别。今天你将更深入。优秀的读者和作者不只说"作者说服"，他们说<strong>"作者使人信服"、"作者批评"或"作者揭示"</strong>。这些词更准确——让你的分析更有力量。</div>
+  </div>
+
+  <div class="purpose-grid">
+    <div class="purpose-card explain">
+      <strong>🔍 Explain / 解释</strong>
+      <span class="card-cn">使复杂变简单</span>
+      <p>The author makes something <strong>complex easy to understand</strong>. They break it into steps, use examples, and define terms. Textbooks often explain.</p>
+    </div>
+    <div class="purpose-card reveal">
+      <strong>💡 Reveal / 揭示</strong>
+      <span class="card-cn">揭露隐藏的真相</span>
+      <p>The author brings <strong>hidden, surprising, or unknown information</strong> to light. The reader is supposed to feel shocked or newly aware.</p>
+    </div>
+    <div class="purpose-card convince">
+      <strong>🎯 Convince / 使信服</strong>
+      <span class="card-cn">引导你相信某事</span>
+      <p>The author moves you <strong>toward a specific belief or decision</strong> using logic, evidence, or reasoning — like a lawyer making a case.</p>
+    </div>
+    <div class="purpose-card criticize">
+      <strong>🔴 Criticize / 批评</strong>
+      <span class="card-cn">指出缺陷和问题</span>
+      <p>The author <strong>identifies flaws, failures, or problems</strong> in something — a policy, a person, a product — and judges them negatively.</p>
+    </div>
+    <div class="purpose-card teach">
+      <strong>✏️ Teach / 教导</strong>
+      <span class="card-cn">建立技能或能力</span>
+      <p>The author helps you <strong>build a skill or ability</strong>. How-to guides, writing manuals, and instructional passages teach.</p>
+    </div>
+    <div class="purpose-card entertain">
+      <strong>🎭 Entertain / 娱乐</strong>
+      <span class="card-cn">通过故事带来享受</span>
+      <p>The author uses <strong>narrative, emotion, and imagination</strong> to give the reader pleasure. Fiction and personal essays entertain.</p>
+    </div>
+  </div>
+
+  <!-- ── HOW THESE CONNECT ── -->
+  <div class="section-title">📘 Part 2 — How Purpose Verbs Connect to the Big Three <span style="font-weight:400;font-size:0.82rem;" class="cn">目的动词与三大类别的关系</span></div>
+
+  <div class="concept-intro">
+    <h3>A map of purpose / 目的地图</h3>
+    <p>Think of the big three as <em>families</em>. The specific purpose verbs belong to those families — but they tell you exactly what the author is doing inside that family.</p>
+    <div class="cn-block">把三大类别想象成<em>家族</em>。具体的目的动词属于这些家族——但它们告诉你作者在该家族内具体在做什么。</div>
+    <table class="technique-table" style="margin-top:14px;">
+      <thead><tr><th>Big Category / 大类别</th><th>Specific Verbs / 具体动词</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Inform / 告知</strong></td><td>Explain, Reveal, Describe, Summarize <span class="cn">解释、揭示、描述、总结</span></td></tr>
+        <tr><td><strong>Persuade / 说服</strong></td><td>Convince, Criticize, Argue, Challenge, Urge <span class="cn">使信服、批评、论证、挑战、敦促</span></td></tr>
+        <tr><td><strong>Entertain / 娱乐</strong></td><td>Entertain, Engage, Amuse, Move, Inspire <span class="cn">娱乐、吸引、逗乐、感动、激励</span></td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:10px;"><strong>Note:</strong> "Teach" sits between Inform and Persuade — it builds knowledge AND changes behavior. "Reveal" sits between Inform and Persuade — it shares facts AND creates emotional impact.</p>
+    <div class="cn-block">"教导"介于告知和说服之间——它既建立知识又改变行为。"揭示"介于告知和说服之间——它既分享事实又创造情感冲击。</div>
+  </div>
+
+  <!-- ── HOW TO CHOOSE THE RIGHT VERB ── -->
+  <div class="section-title">📘 Part 3 — How to Choose the Right Purpose Verb <span style="font-weight:400;font-size:0.82rem;" class="cn">如何选择正确的目的动词</span></div>
+
+  <div class="concept-intro">
+    <h3>Ask these questions / 问这些问题</h3>
+    <div style="margin:10px 0;padding-left:16px;">
+      <p style="margin-bottom:8px;">1. Does the author <em>step by step</em> make something clear? → <strong>Explain / 解释</strong></p>
+      <p style="margin-bottom:8px;">2. Does the author uncover something <em>hidden or shocking</em>? → <strong>Reveal / 揭示</strong></p>
+      <p style="margin-bottom:8px;">3. Does the author want you to <em>arrive at a conclusion</em> through logic? → <strong>Convince / 使信服</strong></p>
+      <p style="margin-bottom:8px;">4. Does the author point out <em>what is wrong</em> with something? → <strong>Criticize / 批评</strong></p>
+      <p style="margin-bottom:8px;">5. Does the author build a <em>skill or ability</em> in you? → <strong>Teach / 教导</strong></p>
+      <p>6. Does the author tell a story to create <em>emotion and enjoyment</em>? → <strong>Entertain / 娱乐</strong></p>
+    </div>
+  </div>
+
+  <div class="example-box">
+    <strong>📝 Example: Reveal vs. Criticize / 例子：揭示 vs 批评</strong>
+    <div class="ex-text">"Passage A: The company had been hiding pollution data for 30 years. Workers were never told what they were breathing."</div>
+    <div class="ex-cn">段落A：这家公司隐瞒污染数据长达30年，工人从未被告知他们在呼吸什么。</div>
+    <div class="ex-text" style="margin-top:8px;">"Passage B: This company's behavior is morally inexcusable. Their greed destroyed lives and they should be held accountable."</div>
+    <div class="ex-cn">段落B：这家公司的行为在道德上无可辩解，他们的贪婪毁掉了无数生命，应该被追责。</div>
+    <div style="margin-top:8px;font-size:0.84rem;color:var(--ink2);">Passage A <strong>reveals</strong> hidden facts. Passage B <strong>criticizes</strong> by making a moral judgment. Both deal with the same issue, but the author's purpose is different. / 段落A<strong>揭示</strong>隐藏的事实，段落B通过做出道德判断来<strong>批评</strong>。两者涉及同一问题，但作者目的不同。</div>
+  </div>
+
+  <div class="callout">
+    <strong>💡 Pro Tip for Analysis / 分析技巧</strong>
+    In your SE essays, never just say "the author's purpose is to inform." Instead, use a specific verb and explain HOW: <em>"The author's purpose is to <strong>reveal</strong> the hidden dangers of social media by using statistics and shocking examples."</em>
+    <div class="cn">在你的SE作文中，永远不要只说"作者的目的是告知"。而要使用具体动词并解释如何：<em>"作者的目的是通过使用统计数据和令人震惊的例子来<strong>揭示</strong>社交媒体的隐藏危险。"</em></div>
+  </div>
+
+  <div class="example-box">
+    <strong>📝 Example: Weak vs. Strong Analysis / 例子：弱分析 vs 强分析</strong>
+    <div class="ex-text" style="color:#991b1b;">❌ Weak: "The author's purpose is to persuade."</div>
+    <div class="ex-text" style="color:#166534;margin-top:6px;">✅ Strong: "The author's purpose is to <strong>convince</strong> readers that phone bans in schools improve student wellbeing by citing research showing reduced anxiety and higher test scores."</div>
+    <div class="ex-cn">❌ 弱：作者的目的是说服。✅ 强：作者的目的是通过引用显示焦虑减少和考试成绩提高的研究，<strong>使读者信服</strong>学校禁止手机能改善学生的整体状态。</div>
+  </div>
+
+  <div class="section-title">✏️ Wednesday Quiz — Author's Purpose: Specific Verbs <span style="font-weight:400;font-size:0.82rem;" class="cn">周三测验</span></div>
+  <p class="section-sub">Read each passage carefully. Select the best answer. You cannot change your answer after you select it. · 仔细阅读每段文字，选择最佳答案。选择后不能更改。</p>
+  <div id="wedPracticeContainer"></div>
+
+  <!-- REFLECTION + GRATITUDE -->
+  <div class="reflect-section" id="wedReflectSection">
+    <h3>🧠 Reflection &amp; Response <span class="cn" style="font-weight:400;font-size:0.85rem;">反思与回应</span></h3>
+
+    <div class="reflect-q">
+      <label for="wedRef1">1. What is the difference between "convince" and "criticize" as author's purposes? Give an example of a real text (book, article, speech, advertisement) for each.
+        <span class="cn">"使信服"和"批评"作为作者目的有什么不同？各举一个真实文本（书、文章、演讲、广告）的例子。</span>
+      </label>
+      <textarea class="r-input" id="wedRef1" placeholder="Write at least 2 sentences / 至少写2句话..."></textarea>
+    </div>
+
+    <div class="reflect-q">
+      <label for="wedRef2">2. Think about something you might write in the future — a speech, an essay, a social media post, a letter. Which purpose verb fits best? Why would you choose that purpose?
+        <span class="cn">想想你将来可能写的东西——演讲、文章、社交媒体帖子、信件。哪个目的动词最合适？你为什么会选择那个目的？</span>
+      </label>
+      <textarea class="r-input" id="wedRef2" placeholder="Write at least 2 sentences / 至少写2句话..."></textarea>
+    </div>
+
+    <div class="reflect-q">
+      <label>3. Today I am grateful for… <span class="cn">今天我感激……</span></label>
+      <div class="gratitude-row">
+        <span class="prefix">Today I am grateful for</span>
+        <input type="text" class="g-input" id="wedGrat" placeholder="…">
+      </div>
+    </div>
+
+    <div class="dl-section">
+      <button class="dl-btn" id="wedDownloadBtn" onclick="tryDownload('wed')">⬇ Download My Wednesday Work / 下载我的周三作业</button>
+      <div class="dl-hint" id="wedHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思后才能下载。</div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMER -->
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 22; // 10 tue quiz + 10 wed quiz + 1 vocab interaction + 1 spare
+
+const tueAnswers = {}; // id -> letter chosen
+const tueScore = { val: 0 };
+const tueDone = { val: 0 };
+
+const wedAnswers = {};
+const wedScore = { val: 0 };
+const wedDone = { val: 0 };
+
+// ═══════════════════════════════════
+// VOCAB DATA
+// ═══════════════════════════════════
+const VOCAB = [
+  { word: "Imagery", pos: "noun", cn: "意象", def: "Descriptive language that creates vivid pictures in the reader's mind using the five senses.", cn_def: "通过五种感官创造读者心理中生动画面的描述性语言。", example: "The golden sun melted into the horizon like warm honey." },
+  { word: "Metaphor", pos: "noun", cn: "暗喻/隐喻", def: "Stating that one thing IS another thing — no 'like' or 'as' — to create a deeper comparison.", cn_def: "直接将一事物说成另一事物（不用'像'或'如同'）以创造更深层的比较。", example: "Life is a rollercoaster — full of unexpected rises and falls." },
+  { word: "Simile", pos: "noun", cn: "明喻", def: "A comparison of two unlike things using the words 'like' or 'as.'", cn_def: "使用'like'或'as'比较两种不同事物。", example: "Her voice was as soft as falling snow." },
+  { word: "Personification", pos: "noun", cn: "拟人", def: "Giving human characteristics, emotions, or actions to non-human things.", cn_def: "赋予非人类事物人类特征、情感或行为。", example: "The angry storm threw rain against the windows all night." },
+  { word: "Dialogue", pos: "noun", cn: "对话", def: "The spoken words of characters in a text, shown in quotation marks.", cn_def: "文本中人物说的话，用引号标注。", example: "'I cannot leave,' she whispered. 'Not yet.'" },
+  { word: "Stage directions", pos: "noun phrase", cn: "舞台指示", def: "Instructions in a play script, usually in brackets, that tell actors how to move, speak, or behave.", cn_def: "剧本中通常用括号标注的指示，告诉演员如何移动、说话或行动。", example: "[ANNA exits slowly, pausing at the door to look back.]" },
+  { word: "Monologue", pos: "noun", cn: "独白", def: "A long, uninterrupted speech by one character that reveals their inner thoughts or feelings.", cn_def: "一个角色的长篇独白，揭示其内心想法或感受。", example: "In his monologue, the villain explained why he believed he was the true hero." },
+  { word: "Point of view", pos: "noun phrase", cn: "叙事视角", def: "The perspective from which a story is narrated — who is telling it and what they can see or know.", cn_def: "故事被叙述的角度——谁在讲述以及他们能看到或知道什么。", example: "The point of view shifts from the soldier to his mother in Chapter 3." },
+  { word: "First person", pos: "noun phrase", cn: "第一人称", def: "A narrative perspective using 'I' or 'we' — the narrator is a character inside the story.", cn_def: "使用'我'或'我们'的叙述视角——叙述者是故事中的角色。", example: "I watched the city from the bridge and wondered if I would ever return." },
+  { word: "Third person", pos: "noun phrase", cn: "第三人称", def: "A narrative perspective using 'he,' 'she,' or 'they' — the narrator stands outside the story.", cn_def: "使用'他'、'她'或'他们'的叙述视角——叙述者站在故事之外。", example: "She walked through the market without looking at anyone." }
+];
+
+// ═══════════════════════════════════
+// TUESDAY QUIZ DATA
+// ═══════════════════════════════════
+const TUE_Q = [
+  {
+    id:"t1", title:"The Rainforest",
+    passage:"Every year, an area of rainforest the size of a football field is destroyed every single second. Scientists warn that if this continues, over half of all animal species on Earth will disappear within our lifetime. The rainforest is not just a forest — it is the lungs of our planet, producing the oxygen we breathe. We must act now before it is too late.",
+    q:"What is the author's main purpose in this passage?",
+    q_cn:"作者在这段文字中的主要目的是什么？",
+    options:["A. To entertain readers with an exciting rainforest story|A. 以精彩的雨林故事娱乐读者","B. To inform readers about animal species|B. 告知读者关于动物种类的知识","C. To persuade readers to protect the rainforest|C. 说服读者保护雨林","D. To explain how forests produce oxygen|D. 解释森林如何产生氧气"],
+    correct:"C",
+    rat_right:"'We must act now' and 'before it is too late' are calls to action — the author is persuading readers, not just sharing facts.|'我们必须立即行动'和'在为时已晚之前'是行动号召——作者在说服读者，而不仅仅是分享事实。",
+    rat_wrong:{A:"No characters or story exist here. The language is factual and emotional — not fictional.|这里没有人物或故事，语言是事实性的和情感化的，不是虚构的。",B:"Facts appear, but the goal is action, not just knowledge transfer.|事实出现了，但目标是行动，而不仅仅是知识传授。",D:"Oxygen is one supporting detail, but explaining it is not the main goal.|氧气是一个支持性细节，但解释它不是主要目标。"}
+  },
+  {
+    id:"t2", title:"The Old Clock",
+    passage:"The old clock on the mantle coughed and wheezed like a man who had smoked too many cigars. Grandfather wound it every Sunday morning, turning the brass key with the same slow patience he used for everything. The clock, for its part, ticked on — grumbling, perhaps, but loyal.",
+    q:"Which literary technique does the author use MOST in this passage?",
+    q_cn:"作者在这段文字中最主要使用了哪种文学手法？",
+    options:["A. Simile|A. 明喻","B. Dialogue|B. 对话","C. Personification|C. 拟人","D. Stage directions|D. 舞台指示"],
+    correct:"C",
+    rat_right:"The clock 'coughed,' 'wheezed,' and was 'grumbling' — human actions given to a non-human object. That is personification.|时钟'咳嗽'、'喘息'，还在'抱怨'——赋予非人类物体的人类行为，这就是拟人。",
+    rat_wrong:{A:"'Like a man' is a simile — but the MOST used technique throughout is personification (coughed, wheezed, grumbling, loyal).|'像一个人'是明喻——但整段最常用的手法是拟人（咳嗽、喘息、抱怨、忠诚）。",B:"No characters speak to each other. There are no quotation marks showing speech.|没有角色互相说话，没有显示说话的引号。",D:"Stage directions appear in play scripts. This is prose narrative, not a play.|舞台指示出现在剧本中，这是散文叙事，不是戏剧。"}
+  },
+  {
+    id:"t3", title:"Letter to the Editor",
+    passage:"Our school cafeteria serves the same three meals every week. Students are bored, and many are not eating enough. Research shows that students who eat well perform better in class. I urge the school board to invest in better cafeteria options. Our students deserve fuel, not frustration.",
+    q:"The word 'deserve' helps the author to:",
+    q_cn:"'deserve（值得）'这个词帮助作者：",
+    options:["A. Entertain readers with a funny story about food|A. 以关于食物的有趣故事娱乐读者","B. Explain the history of school cafeterias|B. 解释学校食堂的历史","C. Persuade readers by appealing to their emotions|C. 通过情感诉求来说服读者","D. Inform readers about research on nutrition|D. 告知读者有关营养研究的信息"],
+    correct:"C",
+    rat_right:"'Deserve' is an emotional word that implies unfairness. It makes readers feel sympathy — this is persuasion through emotion.|'值得'是一个暗示不公平的情感词，让读者产生同情——这是通过情感进行说服。",
+    rat_wrong:{A:"This is a serious editorial letter, not entertainment. There is no humor or story.|这是一封严肃的社论信，不是娱乐，没有幽默或故事。",B:"No history is provided. The author is arguing for change.|没有提供任何历史，作者在主张变革。",D:"The research mention is a supporting detail — the word 'deserve' specifically targets emotion, not information.|提到研究是支持细节——'值得'这个词专门针对情感，而非信息。"}
+  },
+  {
+    id:"t4", title:"A Dragon's Monologue",
+    passage:"[The dragon turns slowly toward the knight, smoke curling from its nostrils.] 'You think you are a hero. How amusing. Every hundred years a human comes to this mountain with the same sword and the same look in their eyes. And every hundred years I watch them run away.' [Laughs quietly.] 'Heroes are so predictable.'",
+    q:"This passage is BEST described as a:",
+    q_cn:"这段文字最适合描述为：",
+    options:["A. Monologue with stage directions|A. 带有舞台指示的独白","B. Dialogue between two characters|B. 两个角色之间的对话","C. First-person narration|C. 第一人称叙述","D. Informational passage|D. 说明性文段"],
+    correct:"A",
+    rat_right:"Only the dragon speaks — that is a monologue. The brackets [ ] contain stage directions describing movement and action.|只有龙在说话——这是独白。括号[]包含描述动作的舞台指示。",
+    rat_wrong:{B:"Dialogue requires two or more characters to speak. Only the dragon speaks here.|对话需要两个或更多角色说话，这里只有龙在说话。",C:"The dragon uses 'I' in its speech, but the passage as a whole is presented as a dramatic scene, not a first-person narrative.|龙在说话中使用'I'，但整段作为戏剧场景呈现，而不是第一人称叙事。",D:"This is fictional and dramatic — no facts or information are being communicated.|这是虚构的戏剧性内容——没有传达任何事实或信息。"}
+  },
+  {
+    id:"t5", title:"The Photograph",
+    passage:"She held the photograph for a long time. In it, her grandmother stood in front of a house that no longer existed, smiling at a camera that had long since broken, wearing a dress that had turned to dust. Yet here she was — young, bright, and absolutely real — proof that the past does not disappear. It simply waits.",
+    q:"What is the author's purpose in this passage?",
+    q_cn:"作者在这段文字中的目的是什么？",
+    options:["A. To persuade the reader to preserve old photographs|A. 说服读者保存旧照片","B. To inform the reader about photography history|B. 告知读者摄影历史","C. To entertain the reader through emotional storytelling|C. 通过情感叙事娱乐读者","D. To explain how photographs are developed|D. 解释照片是如何冲洗的"],
+    correct:"C",
+    rat_right:"This is literary fiction: a poetic, emotional scene about memory. The purpose is to engage and move the reader — entertainment through beautiful writing.|这是文学小说：关于记忆的诗意、情感场景。目的是吸引和打动读者——通过优美的写作娱乐。",
+    rat_wrong:{A:"The author never tells you to do anything. There is no call to action.|作者从未告诉你要做任何事，没有行动号召。",B:"No facts about photography are given. The photograph is only a symbol.|没有给出关于摄影的事实，照片只是一个象征。",D:"How photographs are developed is never mentioned in this passage.|这段文字中从未提到照片是如何冲洗的。"}
+  },
+  {
+    id:"t6", title:"How Volcanoes Form",
+    passage:"Volcanoes form when heat deep inside the Earth melts rock into liquid, called magma. When pressure builds, magma pushes up through cracks in the Earth's surface. Once it reaches the surface, we call it lava. Over thousands of years, layers of cooled lava build up to form a volcano.",
+    q:"What is the author's primary purpose?",
+    q_cn:"作者的主要目的是什么？",
+    options:["A. To persuade readers that volcanoes are dangerous|A. 说服读者火山是危险的","B. To entertain readers with a volcanic adventure story|B. 以火山冒险故事娱乐读者","C. To inform readers about how volcanoes are formed|C. 告知读者火山是如何形成的","D. To criticize scientists who study volcanoes|D. 批评研究火山的科学家"],
+    correct:"C",
+    rat_right:"This passage explains a process using facts and definitions with no opinions or emotional language — classic informational writing.|这段文字使用事实和定义解释一个过程，没有观点或情感语言——典型的说明性写作。",
+    rat_wrong:{A:"The author never states volcanoes are dangerous or urges readers to be afraid.|作者从未声明火山危险或敦促读者害怕。",B:"There are no characters, no story, and no narrative. This is factual prose.|没有人物、故事或叙事，这是事实性散文。",D:"Scientists are not mentioned, and the author expresses no negative opinion.|没有提到科学家，作者也没有表达负面意见。"}
+  },
+  {
+    id:"t7", title:"The Storm",
+    passage:"The clouds rolled in like an army marching across the sky. Thunder roared and lightning sliced the darkness in two. In the valley below, the river trembled and rose, swallowing the lower fields. By morning, everything the farmers had grown was gone — washed away like a sentence erased from a page.",
+    q:"Which TWO techniques does the author use in this passage?",
+    q_cn:"作者在这段文字中使用了哪两种手法？",
+    options:["A. Monologue and stage directions|A. 独白和舞台指示","B. Simile and imagery|B. 明喻和意象","C. Dialogue and first-person narration|C. 对话和第一人称叙述","D. Point of view and metaphor|D. 叙事视角和暗喻"],
+    correct:"B",
+    rat_right:"'Like an army' and 'like a sentence erased' are similes. The vivid description of thunder, lightning, and flooding water creates strong imagery throughout.|'像军队一样'和'像被擦掉的句子'是明喻，对雷声、闪电和洪水的生动描述在全文创造了强烈的意象。",
+    rat_wrong:{A:"There is no one-character speech (monologue) and no play script instructions (stage directions).|没有一个角色的独白，也没有戏剧脚本指示。",C:"No characters speak. The narrator is outside the story using third person, not first person.|没有角色说话，叙述者在故事之外使用第三人称，不是第一人称。",D:"The comparisons use 'like' — that makes them similes, not metaphors.|比较使用了'like'——这使它们成为明喻，而非暗喻。"}
+  },
+  {
+    id:"t8", title:"I Walked Into the Room",
+    passage:"I walked into the room and immediately felt that something was wrong. The chairs were pushed back at strange angles. A coffee cup sat on the edge of the table, still warm. Whoever had been here had left in a hurry. I picked up the cup and waited.",
+    q:"This passage is written in which point of view?",
+    q_cn:"这段文字采用了哪种叙事视角？",
+    options:["A. Third person — the narrator is outside the story|A. 第三人称——叙述者在故事之外","B. Second person — the narrator talks directly to 'you'|B. 第二人称——叙述者直接对'你'说话","C. First person — the narrator is a character in the story|C. 第一人称——叙述者是故事中的角色","D. Omniscient — the narrator knows all characters' thoughts|D. 全知视角——叙述者了解所有角色的想法"],
+    correct:"C",
+    rat_right:"The narrator uses 'I' throughout and is inside the events. This is first-person narration.|叙述者全程使用'I（我）'并在事件中，这是第一人称叙事。",
+    rat_wrong:{A:"Third person uses 'he,' 'she,' or 'they.' This passage uses 'I.'|第三人称使用'他'、'她'或'他们'，这段文字使用'I'。",B:"Second person would say 'you walked into the room.' This uses 'I.'|第二人称会说'你走进了房间'，这里使用'I'。",D:"An omniscient narrator knows other characters' thoughts. This narrator only knows what they personally observe.|全知叙述者了解其他角色的想法，这位叙述者只知道他们个人观察到的。"}
+  },
+  {
+    id:"t9", title:"The Speech",
+    passage:"'They told me I would never walk again,' the athlete said, standing at the podium. 'They told me my career was over. I believed them — for about a week.' The crowd laughed softly. 'Then I decided that the story wasn't finished. And here I am. We are never really done unless we stop writing.'",
+    q:"What is the author's purpose in this passage?",
+    q_cn:"作者在这段文字中的目的是什么？",
+    options:["A. To inform readers about sports injuries and recovery|A. 告知读者关于运动损伤和康复的知识","B. To entertain readers with a funny speech|B. 以有趣的演讲娱乐读者","C. To persuade readers to never give up on their goals|C. 说服读者永不放弃目标","D. To explain how podiums are used in competitions|D. 解释讲台在比赛中的用途"],
+    correct:"C",
+    rat_right:"The athlete's speech uses personal story and the line 'We are never really done unless we stop writing' to inspire and persuade the audience about perseverance.|运动员的演讲使用个人故事和'我们永远不会真正结束，除非我们停止写作'来激励和说服听众关于坚持的重要性。",
+    rat_wrong:{A:"No medical information about injuries is provided. The injury is only context for the inspirational message.|没有提供关于损伤的医学信息，受伤只是励志信息的背景。",B:"There is one moment of humor, but the overall purpose is serious and inspirational, not entertainment.|有一个幽默时刻，但整体目的是严肃和励志的，不是娱乐。",D:"Podiums are never explained — they are just the setting.|讲台从未被解释，只是场景背景。"}
+  },
+  {
+    id:"t10", title:"The Market",
+    passage:"She moved through the market like water finding its own path — pausing here at a stall of bright red peppers, drifting there toward the smell of warm bread. Around her, vendors called and children ran and dogs slept in patches of sun. She was in no hurry. She had all the time she needed and none of it at all.",
+    q:"The author's PURPOSE in this passage is BEST described as:",
+    q_cn:"作者在这段文字中的目的最适合描述为：",
+    options:["A. To inform readers about markets in other countries|A. 告知读者其他国家的市场情况","B. To persuade readers to visit outdoor markets|B. 说服读者去参观露天市场","C. To entertain readers through vivid, sensory storytelling|C. 通过生动的感官叙事娱乐读者","D. To explain the economics of street markets|D. 解释街头市场的经济学"],
+    correct:"C",
+    rat_right:"Literary fiction uses imagery ('like water'), sensory detail (smell, sight, sound), and emotional reflection to engage the reader. The purpose is entertainment through beautiful writing.|文学小说使用意象（'像水一样'）、感官细节（气味、视觉、声音）和情感反思来吸引读者，目的是通过优美的写作娱乐。",
+    rat_wrong:{A:"No facts about markets are given. The setting is atmosphere, not information.|没有关于市场的事实，场景是氛围，不是信息。",B:"There is no argument or call to action asking the reader to do anything.|没有论点或号召读者做任何事的行动呼吁。",D:"Street market economics is never discussed.|街头市场经济从未被讨论。"}
+  }
+];
+
+// ═══════════════════════════════════
+// WEDNESDAY QUIZ DATA
+// ═══════════════════════════════════
+const WED_Q = [
+  {
+    id:"w1", title:"The Science of Sleep",
+    passage:"Sleep is not simply rest. When you sleep, your brain actively replays the day's events, sorts important memories from unimportant ones, and clears out waste products. Scientists have discovered that people who sleep fewer than six hours per night are more likely to develop serious illness. Understanding sleep can help you make better choices about your own health.",
+    q:"The most specific purpose verb for this passage is:",
+    q_cn:"这段文字最具体的目的动词是：",
+    options:["A. Convince — the author pushes readers toward a decision|A. 使信服——作者推动读者做出决定","B. Explain — the author makes a complex process understandable|B. 解释——作者使复杂过程变得可理解","C. Criticize — the author finds fault with poor sleep habits|C. 批评——作者指出不良睡眠习惯的缺陷","D. Entertain — the author tells a story about dreaming|D. 娱乐——作者讲述了一个关于梦的故事"],
+    correct:"B",
+    rat_right:"The author explains how the brain works during sleep step by step, and connects it to the reader's health choices. This is explanation — making something complex clear.|作者逐步解释大脑在睡眠中如何工作，并将其与读者的健康选择联系起来，这是解释——使复杂的事情变得清晰。",
+    rat_wrong:{A:"There is no strong push or call to action. The tone is informational and calm.|没有强烈的推动或行动号召，语气是信息性和平静的。",C:"The author never judges or blames people for bad sleep habits.|作者从未评判或指责人们不良的睡眠习惯。",D:"There is no story or characters — this is factual prose.|没有故事或人物——这是事实性散文。"}
+  },
+  {
+    id:"w2", title:"Social Media",
+    passage:"Social media companies profit from your attention. Every minute you scroll, they collect data about your habits and sell it. Teenagers who use social media more than three hours a day report higher levels of anxiety and loneliness. These platforms are not designed for your wellbeing — they are designed for your addiction. Delete the apps. Take back your life.",
+    q:"Which TWO purpose verbs BEST describe this passage?",
+    q_cn:"哪两个目的动词最能描述这段文字？",
+    options:["A. Teach and explain|A. 教导和解释","B. Entertain and reveal|B. 娱乐和揭示","C. Reveal and convince|C. 揭示和使信服","D. Criticize only|D. 仅批评"],
+    correct:"C",
+    rat_right:"The passage reveals hidden facts ('designed for your addiction,' 'they collect data') AND convinces readers to act ('Delete the apps. Take back your life.').|文段揭示隐藏事实（'为你的成瘾而设计'，'他们收集数据'）并说服读者采取行动（'删除应用程序，夺回你的生活'）。",
+    rat_wrong:{A:"The passage does not teach a skill step by step, and explanation is not the primary purpose.|文段没有逐步教导技能，解释不是主要目的。",B:"This is not fiction or story. The tone is alarming and argumentative, not entertaining.|这不是小说或故事，语气是令人警觉和论证性的，不是娱乐性的。",D:"Criticism exists, but the passage also reveals facts and convinces — two stronger purpose verbs apply.|批评存在，但文段还揭示事实并说服——两个更强的目的动词适用。"}
+  },
+  {
+    id:"w3", title:"The Restaurant Review",
+    passage:"The new restaurant on Third Street calls itself 'authentic Italian.' Do not be fooled. The pasta was overcooked, the sauce came from a jar, and the bread was clearly from a supermarket. For fifteen dollars, you can do far better at home. This is not a restaurant — it is an apology for a meal.",
+    q:"The MOST accurate purpose verb for this passage is:",
+    q_cn:"这段文字最准确的目的动词是：",
+    options:["A. Inform|A. 告知","B. Teach|B. 教导","C. Criticize|C. 批评","D. Entertain|D. 娱乐"],
+    correct:"C",
+    rat_right:"The author identifies specific flaws (pasta, sauce, bread, price) and makes sharp negative judgments. This is criticism.|作者指出具体缺陷（意面、酱料、面包、价格）并做出尖锐的负面评价，这是批评。",
+    rat_wrong:{A:"Informing means sharing neutral facts. This author judges strongly and negatively.|告知意味着分享中立的事实，而这位作者进行了强烈的负面评价。",B:"The author does not build any skill in the reader — they are judging a restaurant.|作者没有在读者中建立任何技能——他们在评判一家餐厅。",D:"The final line is witty, but the dominant purpose is to warn and judge, not to amuse.|最后一句很机智，但主要目的是警告和评判，而非娱乐。"}
+  },
+  {
+    id:"w4", title:"How to Write a Strong Thesis",
+    passage:"A thesis statement is the most important sentence in your essay. First, identify your topic. Second, decide what you want to argue about that topic. Third, state your argument clearly in one sentence. A weak thesis says: 'This essay is about Shakespeare.' A strong thesis says: 'Shakespeare uses tragedy to reveal that ambition without wisdom destroys even the most powerful leaders.'",
+    q:"The BEST purpose verb for this passage is:",
+    q_cn:"这段文字最好的目的动词是：",
+    options:["A. Criticize students who write bad thesis statements|A. 批评写出糟糕论文陈述的学生","B. Convince readers that Shakespeare is the best writer|B. 使读者信服莎士比亚是最好的作家","C. Teach readers how to write a strong thesis statement|C. 教读者如何写出有力的论文陈述","D. Reveal that most students write poor essays|D. 揭示大多数学生写出糟糕的文章"],
+    correct:"C",
+    rat_right:"The passage provides step-by-step instruction and examples that build a writing skill in the reader. The purpose is to teach.|文段提供了逐步指导和例子，在读者中建立写作技能，目的是教导。",
+    rat_wrong:{A:"Students are never mentioned negatively. The author is supportive, not judgmental.|从未负面提及学生，作者是支持性的，不是评判性的。",B:"Shakespeare is only an example used to illustrate good thesis writing.|莎士比亚只是用来说明好论文写作的例子。",D:"The author does not reveal a shocking truth — they guide readers through a skill.|作者没有揭示令人震惊的真相——他们引导读者掌握一项技能。"}
+  },
+  {
+    id:"w5", title:"The Secret Files",
+    passage:"For thirty years, the documents were classified. Scientists who had studied the effects of the chemical knew what they had found — but they were ordered to stay silent. When the files were finally released, the truth was worse than anyone had imagined. The chemical had been tested not on animals but on factory workers who were never told what they were breathing.",
+    q:"The MOST specific purpose verb for this passage is:",
+    q_cn:"这段文字最具体的目的动词是：",
+    options:["A. Entertain|A. 娱乐","B. Explain|B. 解释","C. Teach|C. 教导","D. Reveal|D. 揭示"],
+    correct:"D",
+    rat_right:"The passage brings hidden, suppressed information to light. The reader is meant to feel shocked and newly aware. This is revelation.|文段将隐藏的、被压制的信息带到光明之下，读者应该感到震惊并有新的认识，这是揭示。",
+    rat_wrong:{A:"This is a disturbing, serious passage about injustice — not entertainment.|这是关于不公正的令人不安的严肃文章——不是娱乐。",B:"Explanation makes complex processes clear. This passage exposes a hidden injustice — that is different.|解释使复杂的过程变得清晰，这段文章揭露了隐藏的不公正——那是不同的。",C:"No skill or ability is being built in the reader.|没有在读者中建立任何技能或能力。"}
+  },
+  {
+    id:"w6", title:"The Museum Visit",
+    passage:"Marcus had never liked museums. They smelled like old carpet and forgotten things. But then the guide stopped in front of a photograph — a boy, maybe ten years old, standing in the ruins of a city. The boy was smiling. Marcus stared at that smile for a long time. On the train home, he could not stop thinking about it.",
+    q:"What is the author's purpose in this passage?",
+    q_cn:"作者在这段文字中的目的是什么？",
+    options:["A. To inform readers about museums and photography|A. 告知读者关于博物馆和摄影的知识","B. To persuade readers to visit museums|B. 说服读者参观博物馆","C. To entertain readers through a character's emotional experience|C. 通过角色的情感体验娱乐读者","D. To explain how museums curate exhibitions|D. 解释博物馆如何策划展览"],
+    correct:"C",
+    rat_right:"This is fiction. A character's experience with a single image shifts his view of the world. The author's purpose is to entertain through emotional, character-driven storytelling.|这是小说。一个角色与单一图像的接触改变了他对世界的看法，作者的目的是通过情感的、以人物为驱动的叙事来娱乐。",
+    rat_wrong:{A:"No facts about museums are provided — the museum is only a setting.|没有提供关于博物馆的事实——博物馆只是一个场景。",B:"The author never argues that readers should visit museums. Marcus did not even want to be there.|作者从未主张读者应该参观博物馆，马库斯甚至不想去那里。",D:"Nothing about how exhibitions are curated is explained.|没有解释展览是如何策划的。"}
+  },
+  {
+    id:"w7", title:"Clean Energy",
+    passage:"Renewable energy now produces electricity at lower costs than coal in most countries. Despite this, governments continue to fund fossil fuel companies with billions in subsidies each year. This is not just bad policy — it is a betrayal of every young person who will inherit this planet. Choose renewable. Choose the future.",
+    q:"Which TWO purpose verbs BEST describe this passage?",
+    q_cn:"哪两个目的动词最能描述这段文字？",
+    options:["A. Teach and explain|A. 教导和解释","B. Entertain and reveal|B. 娱乐和揭示","C. Inform and convince|C. 告知和使信服","D. Criticize only|D. 仅批评"],
+    correct:"C",
+    rat_right:"The author informs with facts (renewable costs less than coal) AND convinces with emotional language and commands ('Choose renewable. Choose the future.').|作者用事实告知（可再生能源成本低于煤炭）并用情感语言和命令说服（'选择可再生能源，选择未来'）。",
+    rat_wrong:{A:"No skill is taught step by step.|没有逐步教授技能。",B:"This is not fiction or narrative. The tone is argumentative, not entertaining.|这不是小说或叙事，语气是论证性的，不是娱乐性的。",D:"Criticism exists (bad policy, betrayal) but inform and convince are the stronger, primary drivers.|批评存在（糟糕的政策，背叛），但告知和使信服是更强的主要驱动力。"}
+  },
+  {
+    id:"w8", title:"Grandmother's Recipe",
+    passage:"My grandmother never used measurements. A handful of this, a pinch of that, a pour of oil that stopped when it felt right. She said recipes were suggestions, not rules. I used to watch her the way you watch a magician — looking for the trick, never finding it. Her food tasted like home. Mine tastes like a recipe.",
+    q:"The final two sentences use which technique?",
+    q_cn:"最后两句使用了哪种手法？",
+    options:["A. Metaphor — states something IS something else without 'like'|A. 暗喻——不用'like'直接说某物是另一物","B. Simile — uses 'like' to compare two things|B. 明喻——使用'like'比较两件事物","C. Personification — gives food human qualities|C. 拟人——赋予食物人类特质","D. Stage directions — tells an actor what to do|D. 舞台指示——告诉演员该做什么"],
+    correct:"B",
+    rat_right:"'Tasted like home' and 'tastes like a recipe' both use 'like' to compare — these are similes.|'尝起来像家'和'尝起来像食谱'都使用'like'进行比较——这些是明喻。",
+    rat_wrong:{A:"A metaphor says X IS Y without 'like.' The word 'like' appears in both sentences.|暗喻说X IS Y，不用'like'，但两个句子中都出现了'like'。",C:"Food is not performing human actions. It is being compared to something — a simile.|食物没有执行人类行为，它被比较为某物——这是明喻。",D:"Stage directions appear in play scripts, not in personal essays.|舞台指示出现在剧本中，不是个人随笔。"}
+  },
+  {
+    id:"w9", title:"The Phone Policy",
+    passage:"Schools that have banned smartphones during the school day report higher test scores and lower student anxiety. Critics say phones are learning tools. But a tool only helps when used wisely — and data consistently shows most students are not using phones wisely in class. The evidence is clear: it is time to put phones away.",
+    q:"The author's primary purpose is to:",
+    q_cn:"作者的主要目的是：",
+    options:["A. Explain the history of smartphones in schools|A. 解释智能手机在学校的历史","B. Convince readers that phone bans in schools are a good idea|B. 使读者信服学校禁止手机是个好主意","C. Entertain readers with a debate about technology|C. 以关于技术的辩论娱乐读者","D. Teach readers how to use phones more wisely|D. 教读者如何更明智地使用手机"],
+    correct:"B",
+    rat_right:"The author uses research evidence and logical reasoning to argue for phone bans, ending with a clear conclusion: 'it is time to put phones away.' The purpose is to convince.|作者使用研究证据和逻辑推理来论证禁止手机，以明确的结论结束：'是时候放下手机了'，目的是使人信服。",
+    rat_wrong:{A:"No history of smartphones is provided. The author focuses on a current policy debate.|没有提供智能手机的历史，作者关注当前的政策辩论。",C:"The tone is argumentative and serious, not entertaining. The author takes a clear side.|语气是论证性和严肃的，不是娱乐性的，作者明确表态。",D:"The passage argues for a ban, not for teaching students to use phones better.|文段主张禁止，而不是教学生更好地使用手机。"}
+  },
+  {
+    id:"w10", title:"The Empty Chair",
+    passage:"Every Thanksgiving, my uncle's chair stays empty. We do not move it. We do not put anything on it. My mother sets a plate in front of it — empty — and for a moment before we eat, everyone looks at it. Some years, someone cries. Most years, nobody speaks. Then my father says, 'Alright. Let's eat.' And we do.",
+    q:"The author's purpose is BEST described as:",
+    q_cn:"作者的目的最适合描述为：",
+    options:["A. To inform readers about Thanksgiving traditions|A. 告知读者感恩节传统","B. To persuade readers to honor family members who have passed|B. 说服读者缅怀已故的家庭成员","C. To entertain readers through a personal, emotionally resonant narrative|C. 通过个人的、情感共鸣的叙事娱乐读者","D. To explain the psychological effects of grief|D. 解释悲伤的心理影响"],
+    correct:"C",
+    rat_right:"This is a personal narrative using specific, precise detail to create emotional resonance. The purpose is to entertain through honest, moving storytelling.|这是一个使用具体、精确细节创造情感共鸣的个人叙事，目的是通过真实感人的叙事来娱乐。",
+    rat_wrong:{A:"No general information about Thanksgiving is given. This is one family's specific ritual.|没有给出关于感恩节的一般信息，这是一个家庭的具体仪式。",B:"The author never tells the reader to do anything. The scene speaks for itself.|作者从未告诉读者做任何事，场景本身说话。",D:"Grief is shown through behavior — it is not analyzed or explained psychologically.|悲伤通过行为展示——它没有被心理分析或解释。"}
+  }
+];
+
+// ═══════════════════════════════════
+// UTILS
+// ═══════════════════════════════════
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  const pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function(){
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s){
+  return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var n = document.getElementById('leaveNotice');
+      n.style.display = 'block';
+      setTimeout(function(){ n.style.display='none'; }, 5000);
+    }
+  });
+}
+
+// ═══════════════════════════════════
+// BUILD VOCAB
+// ═══════════════════════════════════
+function buildVocab() {
+  var grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v){
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+
+    var wl = document.createElement('div');
+    var ws = document.createElement('span'); ws.className='vocab-word'; ws.textContent=v.word;
+    var ps = document.createElement('span'); ps.className='vocab-pos'; ps.textContent=v.pos;
+    wl.appendChild(ws); wl.appendChild(ps);
+
+    var cnW = document.createElement('div'); cnW.className='vocab-cn-word cn'; cnW.textContent=v.cn;
+    var def = document.createElement('div'); def.className='vocab-def'; def.textContent=v.def;
+    var cnD = document.createElement('div'); cnD.className='vocab-cn-def cn'; cnD.textContent=v.cn_def;
+    var ex = document.createElement('div'); ex.className='vocab-example'; ex.textContent=v.example;
+
+    var btn = document.createElement('button');
+    btn.className='vocab-sound-btn';
+    btn.textContent='🔊 '+v.word;
+    btn.addEventListener('click', function(){
+      var u = new SpeechSynthesisUtterance(v.word);
+      u.lang='en-US'; speechSynthesis.speak(u);
+      addProgress(0.1);
+    });
+
+    card.appendChild(wl); card.appendChild(cnW); card.appendChild(def);
+    card.appendChild(cnD); card.appendChild(ex); card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+
+// ═══════════════════════════════════
+// BUILD QUIZ (locked — no change after answer)
+// ═══════════════════════════════════
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+  var letters = ['A','B','C','D'];
+
+  data.forEach(function(item, idx){
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx+1) + ' of ' + data.length;
+    card.appendChild(num);
+
+    if(item.passage){
+      var pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    var qEl = document.createElement('div'); qEl.className='q-text'; qEl.textContent=item.q;
+    var qCn = document.createElement('div'); qCn.className='q-cn cn'; qCn.textContent=item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement('div'); optsWrap.className='opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className='rationale';
+    var answered = false;
+
+    item.options.forEach(function(opt){
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/,'');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/,'') : '';
+
+      var btn = document.createElement('button');
+      btn.className='opt-btn';
+      btn.dataset.letter=letter;
+
+      var strong = document.createElement('strong'); strong.textContent=letter+'. ';
+      var enS = document.createElement('span'); enS.textContent=enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className='cn'; cnS.style.fontSize='0.8rem'; cnS.style.color='#555'; cnS.textContent=cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener('click', function(){
+        if(answered) return; // LOCKED — no change
+        answered = true;
+        answers[item.id] = letter;
+
+        // Disable all buttons
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b){ b.disabled=true; });
+
+        // Highlight correct
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b){
+          if(b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+
+        var ratParts, ratText, ratCn;
+
+        if(letter === item.correct){
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '✅ ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          addProgress(1);
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          var wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = '❌ ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+
+        var rDiv = document.createElement('div'); rDiv.textContent = ratText;
+        if(ratCn){
+          var rBr = document.createElement('br');
+          var rCnS = document.createElement('span'); rCnS.className='rat-cn cn'; rCnS.textContent=ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+
+        doneObj.val++;
+        if(doneObj.val >= data.length) onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+// ═══════════════════════════════════
+// DOWNLOAD READINESS CHECK
+// ═══════════════════════════════════
+function checkReadiness(tabKey) {
+  var doneObj = tabKey === 'tue' ? tueDone : wedDone;
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey+'DownloadBtn');
+  var hint = document.getElementById(tabKey+'Hint');
+  if(ready){
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+  }
+}
+
+function tryDownload(tabKey) {
+  var doneObj = tabKey === 'tue' ? tueDone : wedDone;
+  var scoreObj = tabKey === 'tue' ? tueScore : wedScore;
+  var qData = tabKey === 'tue' ? TUE_Q : WED_Q;
+  var ansData = tabKey === 'tue' ? tueAnswers : wedAnswers;
+
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var name = document.getElementById(tabKey+'Name').value.trim() || 'Unknown';
+  var ready = (doneObj.val >= 10) && ref1 && ref2 && grat;
+  if(!ready) return;
+
+  var dayLabel = tabKey === 'tue' ? 'Tuesday — Authors Purpose and Techniques' : 'Wednesday — Authors Purpose Specific Verbs';
+  var now = new Date().toLocaleString();
+  var txt = '';
+
+  // QUIZ RESULTS FIRST
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Day: ' + dayLabel + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  qData.forEach(function(item, i){
+    var sel = ansData[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  // ALL OTHER WORK
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+
+  if(tabKey === 'tue'){
+    txt += 'REFLECTION QUESTION 1:\n';
+    txt += 'Choose ONE passage from the quiz. Name the technique the author used and explain how it helped show their purpose.\n';
+    txt += 'Response: ' + ref1 + '\n\n';
+    txt += 'REFLECTION QUESTION 2:\n';
+    txt += 'When you read social media, news headlines, or advertisements, what is the author\'s purpose usually? How do you know?\n';
+    txt += 'Response: ' + ref2 + '\n\n';
+  } else {
+    txt += 'REFLECTION QUESTION 1:\n';
+    txt += 'What is the difference between "convince" and "criticize" as author\'s purposes? Give a real text example for each.\n';
+    txt += 'Response: ' + ref1 + '\n\n';
+    txt += 'REFLECTION QUESTION 2:\n';
+    txt += 'Think about something you might write in the future. Which purpose verb fits best? Why?\n';
+    txt += 'Response: ' + ref2 + '\n\n';
+  }
+
+  txt += 'GRATITUDE:\n';
+  txt += 'Today I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\n';
+  txt += 'End of report\n';
+
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  // Mark pip done
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+
+// ═══════════════════════════════════
+// WIRE UP READINESS LISTENERS
+// ═══════════════════════════════════
+function wireListeners(tabKey) {
+  ['Ref1','Ref2'].forEach(function(fld){
+    var el = document.getElementById(tabKey+fld);
+    el.addEventListener('input', function(){
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  var g = document.getElementById(tabKey+'Grat');
+  g.addEventListener('input', function(){
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+document.addEventListener('DOMContentLoaded', function(){
+  buildVocab();
+
+  buildQuiz(TUE_Q, 'tuePracticeContainer', tueAnswers, tueScore, tueDone, function(){
+    checkReadiness('tue');
+  });
+
+  buildQuiz(WED_Q, 'wedPracticeContainer', wedAnswers, wedScore, wedDone, function(){
+    checkReadiness('wed');
+  });
+
+  wireListeners('tue');
+  wireListeners('wed');
+
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
