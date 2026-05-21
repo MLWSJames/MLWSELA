@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSL Word Warmup | 每日词汇练习</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,600;1,400&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:#2d6a4f; --ml-green-dark:#1b4332; --ml-green-light:#d8f3dc;
+  --ml-red:#c1121f; --ml-gold:#e9c46a; --ink:#1a2a1a; --ink2:#2d3748;
+  --mist:#f8faf8; --border:#e2e8e2; --cobalt:#1e3a5f; --amber:#b45309;
+  --correct:#166534; --correct-bg:#dcfce7; --wrong:#991b1b; --wrong-bg:#fee2e2;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh;}
+.cn{font-family:'Noto Sans SC',sans-serif;}
+
+/* ALL screens hidden by default, shown via JS */
+.screen{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
+
+.top-bar{background:var(--ml-green-dark);color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;width:100%;flex-shrink:0;}
+.top-bar-title{font-weight:700;font-size:0.95rem;}
+.top-bar-meta{font-size:0.8rem;opacity:0.8;}
+.band-badge{background:var(--ml-gold);color:var(--ink);font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+
+.card{background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,.08);padding:32px;width:100%;max-width:560px;}
+.card h2{font-family:'Literata',serif;font-size:1.5rem;color:var(--ml-green-dark);margin-bottom:6px;}
+.card .subtitle{color:#666;font-size:.88rem;margin-bottom:24px;line-height:1.5;}
+
+.input-row{margin-bottom:20px;}
+.input-row label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--ink2);}
+.input-row input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;font-family:'DM Sans',sans-serif;transition:border-color .2s;}
+.input-row input:focus{outline:none;border-color:var(--ml-green);}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;border:none;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.btn-primary{background:var(--ml-green);color:#fff;width:100%;margin-top:8px;}
+.btn-primary:hover{background:var(--ml-green-dark);}
+.btn-secondary{background:var(--border);color:var(--ink2);}
+.btn-secondary:hover{background:#d0d8d0;}
+
+/* placement */
+.placement-progress{display:flex;gap:6px;justify-content:center;margin-bottom:20px;}
+.placement-dot{width:10px;height:10px;border-radius:50%;background:var(--border);}
+.placement-dot.done{background:var(--ml-green);}
+.placement-dot.current{background:var(--ml-gold);}
+.placement-word{text-align:center;padding:20px 0 16px;}
+.pw-eng{font-family:'Literata',serif;font-size:2.2rem;font-weight:600;color:var(--ml-green-dark);}
+.pw-pos{font-size:.8rem;color:#888;font-style:italic;margin-top:2px;}
+.pw-cn{font-size:1.1rem;color:var(--cobalt);margin-top:6px;}
+.self-report-btns{display:flex;gap:10px;margin-top:20px;}
+.self-report-btns button{flex:1;padding:14px 8px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;text-align:center;line-height:1.4;}
+.self-report-btns button:hover{border-color:var(--ml-green);background:var(--ml-green-light);}
+.self-report-btns button.know{border-color:#166534;color:#166534;}
+.self-report-btns button.sort-of{border-color:var(--amber);color:var(--amber);}
+.self-report-btns button.no{border-color:var(--ml-red);color:var(--ml-red);}
+
+/* band */
+.band-cards{display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+.band-card{border:2px solid var(--border);border-radius:12px;padding:16px 20px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:16px;}
+.band-card:hover{border-color:var(--ml-green);background:var(--ml-green-light);}
+.band-card.recommended{border-color:var(--ml-green);background:var(--ml-green-light);}
+.band-icon{font-size:1.8rem;}
+.band-info h3{font-size:1rem;font-weight:700;color:var(--ml-green-dark);}
+.band-info p{font-size:.82rem;color:#666;margin-top:2px;}
+.band-info .cn-sub{font-size:.78rem;color:var(--cobalt);}
+.rec-tag{margin-left:auto;background:var(--ml-gold);color:var(--ink);font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+
+/* warmup body */
+.warmup-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:20px 16px 32px;gap:14px;width:100%;}
+
+.streak-bar{background:#fff;border-radius:12px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 6px rgba(0,0,0,.06);width:100%;max-width:560px;}
+.streak-info{font-size:.85rem;color:var(--ink2);}
+.streak-info strong{color:var(--ml-green-dark);}
+.streak-num{font-size:1.5rem;font-weight:700;color:var(--ml-gold);}
+
+.word-card{background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,.08);padding:28px 32px;width:100%;max-width:560px;text-align:center;}
+.word-number{font-size:.75rem;color:#aaa;margin-bottom:8px;font-weight:600;letter-spacing:.05em;}
+.word-english{font-family:'Literata',serif;font-size:2.8rem;font-weight:600;color:var(--ml-green-dark);line-height:1.1;}
+.word-pos{font-size:.82rem;color:#888;font-style:italic;margin-top:4px;}
+.word-chinese{font-size:1.3rem;color:var(--cobalt);margin-top:10px;font-weight:500;}
+.word-def{font-size:.9rem;color:var(--ink2);margin-top:10px;line-height:1.5;padding:10px 14px;background:var(--mist);border-radius:8px;text-align:left;}
+.word-def .cn-def{color:var(--cobalt);font-size:.85rem;margin-top:4px;}
+
+.hear-it-card{background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,.08);padding:20px 32px;width:100%;max-width:560px;text-align:center;}
+.hear-it-label{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:#aaa;text-transform:uppercase;margin-bottom:10px;}
+.hear-it-instruction{font-size:.9rem;color:var(--ink2);margin-bottom:14px;line-height:1.5;}
+.hear-it-instruction .cn{color:var(--cobalt);font-size:.85rem;display:block;margin-top:3px;}
+.btn-speak{background:var(--ml-green);color:#fff;border:none;border-radius:50px;padding:12px 28px;font-size:.95rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.btn-speak:hover{background:var(--ml-green-dark);}
+.speak-done-btn{margin-top:12px;background:none;border:2px solid var(--border);border-radius:8px;padding:9px 20px;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--ink2);font-family:'DM Sans',sans-serif;transition:all .15s;display:none;width:100%;}
+.speak-done-btn:hover{border-color:var(--ml-green);color:var(--ml-green);}
+
+.task-card{background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,.08);padding:24px 28px;width:100%;max-width:560px;display:none;}
+.task-label{font-size:.75rem;font-weight:700;letter-spacing:.08em;color:#aaa;text-transform:uppercase;margin-bottom:12px;}
+.task-question{font-size:1rem;color:var(--ink);line-height:1.6;margin-bottom:6px;}
+.task-question .cn{color:var(--cobalt);font-size:.88rem;display:block;margin-top:4px;}
+.task-options{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+.opt-btn{padding:12px 16px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:.9rem;text-align:left;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink);transition:all .15s;line-height:1.4;}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:var(--ml-green-light);}
+.opt-btn.correct{border-color:var(--correct);background:var(--correct-bg);color:var(--correct);font-weight:600;}
+.opt-btn.wrong{border-color:var(--wrong);background:var(--wrong-bg);color:var(--wrong);}
+.opt-btn:disabled{cursor:default;}
+.fitb-input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;font-family:'DM Sans',sans-serif;margin-top:12px;transition:border-color .2s;}
+.fitb-input:focus{outline:none;border-color:var(--ml-green);}
+.fitb-input.correct{border-color:var(--correct);background:var(--correct-bg);}
+.fitb-input.wrong{border-color:var(--wrong);background:var(--wrong-bg);}
+.fitb-submit{margin-top:10px;background:var(--ml-green);color:#fff;border:none;border-radius:8px;padding:11px 24px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;transition:all .15s;}
+.fitb-submit:hover{background:var(--ml-green-dark);}
+.fitb-submit:disabled{background:#ccc;cursor:not-allowed;}
+.rationale-box{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:.88rem;line-height:1.5;display:none;}
+.rationale-box.show{display:block;}
+.rationale-box.correct-rat{background:var(--correct-bg);border-left:4px solid var(--correct);color:var(--correct);}
+.rationale-box.wrong-rat{background:var(--wrong-bg);border-left:4px solid var(--wrong);color:var(--wrong);}
+.rationale-box .rat-en{font-weight:600;}
+.rationale-box .rat-cn{margin-top:4px;opacity:.85;}
+.next-btn{margin-top:14px;background:var(--ml-green-dark);color:#fff;border:none;border-radius:10px;padding:13px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;display:none;transition:all .15s;}
+.next-btn.show{display:block;}
+.next-btn:hover{background:var(--ml-green);}
+
+.complete-icon{font-size:4rem;margin-bottom:16px;}
+.complete-card{text-align:center;}
+.complete-card h2{font-size:1.6rem;margin-bottom:8px;}
+.complete-card p{color:#666;margin-bottom:20px;line-height:1.6;white-space:pre-line;}
+.stats-row{display:flex;gap:12px;margin:20px 0;}
+.stat-box{flex:1;background:var(--ml-green-light);border-radius:10px;padding:14px;text-align:center;}
+.stat-box .stat-num{font-size:1.8rem;font-weight:700;color:var(--ml-green-dark);}
+.stat-box .stat-label{font-size:.78rem;color:#666;margin-top:2px;}
+.download-btn{background:var(--cobalt);color:#fff;border:none;border-radius:10px;padding:13px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;margin-top:10px;transition:all .15s;}
+.download-btn:hover{background:#162c4a;}
+
+
+/* footer bar */
+.footer-bar{
+  position:sticky;bottom:0;left:0;right:0;
+  background:#fff;border-top:2px solid var(--border);
+  padding:12px 16px 16px;display:flex;flex-direction:column;gap:8px;
+  width:100%;
+  box-shadow:0 -2px 12px rgba(0,0,0,.09);
+  flex-shrink:0;
+}
+.footer-finished-btn{
+  background:var(--ml-green-dark);color:#fff;border:none;border-radius:10px;
+  padding:14px;font-size:.95rem;font-weight:700;cursor:pointer;
+  font-family:'DM Sans',sans-serif;width:100%;transition:all .15s;
+}
+.footer-finished-btn:hover{background:var(--ml-green);}
+.footer-sub-row{display:flex;gap:8px;}
+.footer-sub-btn{
+  flex:1;background:var(--border);color:var(--ink2);border:none;
+  border-radius:8px;padding:9px 8px;font-size:.82rem;font-weight:600;
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;
+}
+.footer-sub-btn:hover{background:#c8d4c8;}
+
+@media(max-width:480px){
+  .card,.word-card,.hear-it-card,.task-card,.streak-bar{padding:20px 16px;}
+  .word-english{font-size:2.2rem;}
+  .self-report-btns{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1: NAME -->
+<div class="screen" id="screen-name">
+  <div class="card">
+    <h2>GSL Word Warmup</h2>
+    <p class="subtitle">每日词汇练习 · Daily Vocabulary Practice<br>Enter your name to begin. 请输入你的名字开始练习。</p>
+    <div class="input-row">
+      <label>Your Name / 你的名字</label>
+      <input type="text" id="name-input" placeholder="e.g. Li Ming" autocomplete="off">
+    </div>
+    <button class="btn btn-primary" id="name-btn">Start → 开始</button>
+  </div>
+</div>
+
+<!-- SCREEN 2: PLACEMENT -->
+<div class="screen" id="screen-placement">
+  <div class="card">
+    <h2>Quick Check / 快速测试</h2>
+    <p class="subtitle">Look at each word. Be honest — do you know it?<br><span class="cn">看每个单词，诚实回答：你认识它吗？</span></p>
+    <div class="placement-progress" id="placement-dots"></div>
+    <div class="placement-word" id="placement-word-display"></div>
+    <div class="self-report-btns">
+      <button class="know" id="pl-know">✓ I know it<br><span class="cn" style="font-size:.78rem">我认识</span></button>
+      <button class="sort-of" id="pl-sort">~ Sort of<br><span class="cn" style="font-size:.78rem">有点印象</span></button>
+      <button class="no" id="pl-no">✗ Don't know<br><span class="cn" style="font-size:.78rem">不认识</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3: BAND -->
+<div class="screen" id="screen-band">
+  <div class="card">
+    <h2>Choose Your Level / 选择你的级别</h2>
+    <p class="subtitle" id="band-rec-text"></p>
+    <div class="band-cards" id="band-cards"></div>
+  </div>
+</div>
+
+<!-- SCREEN 4: WARMUP -->
+<div class="screen" id="screen-warmup" style="padding:0;justify-content:flex-start;align-items:stretch;flex-direction:column;">
+  <div class="top-bar">
+    <div>
+      <div class="top-bar-title">GSL Word Warmup</div>
+      <div class="top-bar-meta" id="top-name"></div>
+    </div>
+    <span class="band-badge" id="top-band"></span>
+  </div>
+  <div class="warmup-body">
+    <div class="streak-bar">
+      <div class="streak-info">Words done: <strong id="words-done">0</strong></div>
+      <div class="streak-info" style="text-align:center;font-size:.8rem;color:#aaa;" id="word-pos-label"></div>
+      <div class="streak-num" id="streak-display">🔥 0</div>
+    </div>
+    <div class="word-card">
+      <div class="word-number" id="w-rank"></div>
+      <div class="word-english" id="w-eng"></div>
+      <div class="word-pos" id="w-pos"></div>
+      <div class="word-chinese cn" id="w-cn"></div>
+      <div class="word-def">
+        <div id="w-def-en"></div>
+        <div class="cn-def cn" id="w-def-cn"></div>
+      </div>
+    </div>
+    <div class="hear-it-card">
+      <div class="hear-it-label">👂 Hear It &amp; Say It / 听一听，说一说</div>
+      <div class="hear-it-instruction">
+        Press play to hear the word. Then say it out loud yourself!
+        <span class="cn">点击播放听这个单词，然后大声说出来！</span>
+      </div>
+      <button class="btn-speak" id="speak-btn">▶ Play Word / 播放</button>
+      <button class="speak-done-btn" id="speak-done-btn">
+        ✓ I said it out loud — show me the practice task<br>
+        <span class="cn" style="font-size:.8rem;">我已经大声说出来了 — 显示练习题</span>
+      </button>
+    </div>
+    <div class="task-card" id="task-card">
+      <div class="task-label">✏️ Do It / 练习</div>
+      <div id="task-content"></div>
+    </div>
+    <div style="height:150px;flex-shrink:0;"></div>
+  </div>
+  <!-- sticky footer -->
+  <div class="footer-bar">
+    <button class="footer-finished-btn" id="finished-btn">✅ I'm finished for today / 我今天完成了</button>
+    <div class="footer-sub-row">
+      <button class="footer-sub-btn" id="another-btn">➕ Practice Another Word</button>
+      <button class="footer-sub-btn" id="change-band-btn">⚙ Change Level</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 5: COMPLETE -->
+<div class="screen" id="screen-complete">
+  <div class="card complete-card">
+    <div class="complete-icon">🎉</div>
+    <h2>Great work today! / 今天做得好！</h2>
+    <p id="complete-msg"></p>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Words total<br>累计单词</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="stat-streak">0</div>
+        <div class="stat-label">Day streak<br>连续天数</div>
+      </div>
+    </div>
+    <button class="download-btn" id="download-btn">📄 Download Today's Work / 下载今日报告</button>
+    <button class="btn btn-primary" id="keep-going-btn" style="margin-top:10px;">Keep Going — Practice Another / 继续练习</button>
+    <button class="btn btn-secondary" id="change-band-btn2" style="width:100%;margin-top:10px;">Change Level / 更换级别</button>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+// Format per entry: [gsl_rank, word, pos, cn, def_en, def_cn, example_sentence]
+var GSL = {
+  A:[
+    [48,"time","noun","时间","a period that can be measured in seconds, minutes, or hours","可以用秒、分钟或小时计量的一段时间","We do not have much time before class starts."],
+    [55,"state","noun/verb","状态/说明","the condition of something, or to say something clearly","某事的情况，或清楚地说出某事","She stated her opinion clearly in front of the class."],
+    [63,"know","verb","知道","to have information about something in your mind","在脑海中拥有关于某事的信息","Do you know the answer to this question?"],
+    [65,"use","verb/noun","使用","to do something with an object or idea for a purpose","为某个目的而使用某物","You can use a dictionary to find word meanings."],
+    [71,"work","verb/noun","工作","to do a job or task, or the job itself","做一份工作或任务，或工作本身","She works hard every day to improve her English."],
+    [75,"give","verb","给予","to hand something to another person","把某物交给另一个人","Can you give me an example sentence for this word?"],
+    [77,"think","verb","思考","to use your mind to consider something","用你的头脑去考虑某件事","Think carefully before you answer the question."],
+    [81,"day","noun","日子","a period of 24 hours","24小时的一段时间","Every day is a new chance to learn something."],
+    [84,"way","noun","方式","a method of doing something","做某事的方法","Is there a better way to remember new words?"],
+    [89,"great","adjective","伟大的","very large, important, or very good","非常大、重要，或非常好的","Reading every day is a great habit."],
+    [99,"own","adjective/verb","自己的/拥有","belonging to yourself, or to possess something","属于你自己，或拥有某物","She has her own dictionary at home."],
+    [102,"good","adjective","好的","of high quality or a positive kind","高质量的或积极的","It is a good idea to review new words each day."],
+    [108,"high","adjective","高的","at a great distance above the ground, or above average","距地面很高，或高于平均水平","She got a high score on her English test."],
+    [112,"world","noun","世界","the planet Earth and everyone on it","地球及其上的所有人","Learning English opens doors around the world."],
+    [115,"nation","noun","国家","a large group of people sharing a government or culture","拥有共同政府或文化的一大群人","China is a nation with a long history."],
+    [118,"life","noun","生活","the time between birth and death, or the way you live","出生到死亡之间的时间，或生活方式","A good education can change your life."],
+    [121,"become","verb","变成","to start to be something different","开始成为不同的东西","She wants to become an English teacher one day."],
+    [127,"need","verb/noun","需要","to require something, or the thing required","需要某物，或所需之物","You need to practice every day to improve."],
+    [130,"develop","verb","发展","to grow or make something grow stronger or more advanced","成长或使某物变得更先进","Reading helps you develop your vocabulary."],
+    [136,"general","adjective","一般的","affecting or including most people or things","影响或包括大多数人或事物","In general, students who read more write better."],
+    [143,"number","noun","数字","a word or symbol representing a quantity","代表数量的词或符号","A large number of students study English in China."],
+    [146,"real","adjective","真实的","actually existing, not imagined","实际存在的，不是想象的","This is a real chance to improve your English."],
+    [153,"child","noun","孩子","a young person, not yet an adult","还不是成年人的年轻人","Every child can learn if they practice enough."],
+    [161,"interest","noun","兴趣","a feeling of wanting to know about something","想了解某事的感觉","She has a strong interest in learning new languages."],
+    [163,"person","noun","人","a human being","人类","Every person in the class has a different learning style."],
+    [164,"end","noun/verb","结束","the final part of something, or to finish","某事的最后部分，或完成","At the end of class, we review new words."],
+    [175,"possible","adjective","可能的","able to happen or be done","能够发生或完成的","It is possible to learn 500 new words this year."],
+    [177,"consider","verb","考虑","to think carefully about something","仔细思考某事","Consider the meaning before you choose your answer."],
+    [182,"lead","verb/noun","领导","to guide others, or to be in front","引导他人，或处于前列","Hard work leads to success in school."],
+    [187,"plan","noun/verb","计划","an idea for how to do something in the future","关于将来如何做某事的想法","What is your plan for improving your vocabulary?"],
+    [191,"fact","noun","事实","something that is true and can be proved","真实且可以被证明的事情","The fact is that practice makes perfect."],
+    [195,"increase","verb","增加","to become larger in number or amount","在数量上变得更大","Reading every day will increase your vocabulary."],
+    [198,"change","verb/noun","改变","to become different, or to make something different","变得不同，或使某物不同","Small changes every day lead to big results."],
+    [199,"help","verb/noun","帮助","to make something easier for someone","使某事对某人更容易","A good dictionary can help you understand new words."],
+    [226,"certain","adjective","确定的","having no doubt, or sure to happen","没有疑问的，或肯定会发生的","I am certain that she studied hard for this test."],
+    [231,"study","verb/noun","学习","to spend time learning, or the act of learning","花时间学习，或学习的行为","You should study new words every day."],
+    [250,"nature","noun","自然","the physical world including plants, animals, and land","包括植物、动物和土地的自然界","She loves spending time in nature on weekends."],
+    [257,"include","verb","包括","to have something as part of a group or whole","将某物作为整体的一部分","The exam will include vocabulary from this list."],
+    [266,"value","noun/verb","价值/重视","how much something is worth, or to think something is important","某物的价值，或认为某事重要","The teacher values effort more than results."],
+    [276,"experience","noun","经验","something that happens to you, or knowledge gained from events","发生在你身上的事，或从中获得的知识","Living in another country is a valuable experience."],
+    [284,"important","adjective","重要的","having a lot of value or effect","具有很大价值或影响的","It is important to review vocabulary regularly."],
+    [296,"reason","noun","原因","the cause of something, or why something happens","某事的原因","The reason she improved was that she practiced daily."],
+    [308,"believe","verb","相信","to feel sure that something is true","相信某事是真的","I believe you can improve your English this year."],
+    [317,"hope","noun/verb","希望","a feeling that something good will happen, or to want that","感觉某件好事会发生","She hopes to get a high score on her English exam."],
+    [318,"example","noun","例子","something that shows what others of the same type are like","显示同类事物的具体案例","Can you give an example sentence using this word?"],
+    [327,"understand","verb","理解","to know the meaning of something","知道某事的含义","Do you understand the definition of this word?"],
+    [342,"teach","verb","教","to give someone knowledge or a skill","给某人知识或技能","A good teacher helps you understand, not just memorize."],
+    [351,"easy","adjective","容易的","not difficult","不困难的","Learning five words a day is easy if you practice."],
+    [368,"grow","verb","成长","to increase in size, number, or strength","在大小或数量上增加","Your vocabulary will grow if you read every day."],
+    [381,"true","adjective","真实的","matching the facts, not false","与事实相符，不是假的","Is it true that the GSL covers 80% of English texts?"],
+    [399,"education","noun","教育","the process of teaching and learning","教学和学习的过程","A good education gives you tools for life."],
+    [425,"able","adjective","能够的","having the power or skill to do something","有能力做某事","She is able to read English texts without a dictionary."],
+    [427,"learn","verb","学习","to gain knowledge or a skill","获得知识或技能","The best way to learn words is to use them."],
+    [454,"purpose","noun","目的","the reason for doing something","做某事的原因","The purpose of this exercise is to build vocabulary."],
+    [461,"difference","noun","差异","the way in which two things are not the same","两件事不同之处","What is the difference between these two words?"],
+    [470,"explain","verb","解释","to make something clear so it is easy to understand","使某事清晰易于理解","Can you explain the meaning of this word?"],
+    [488,"future","noun","将来","the time that will come after now","现在之后的时间","In the future, she wants to study at a university."],
+    [491,"provide","verb","提供","to give something that is needed","给予所需之物","The school provides free dictionaries to all students."],
+    [500,"outside","noun","外面","the area beyond the walls of a building","建筑物外的区域","She studies inside the classroom and reads outside."]
+  ],
+  B:[
+    [523,"story","noun","故事","a description of events, real or imagined","对真实或虚构事件的描述","She wrote a short story using ten new words."],
+    [528,"apply","verb","应用","to use something in a practical situation","在实际情况中使用某物","Try to apply new vocabulary in your own sentences."],
+    [529,"decide","verb","决定","to make a choice about something","对某事做出选择","Decide which words you most want to learn first."],
+    [535,"various","adjective","各种各样的","of many different types","许多不同类型的","There are various ways to practice new vocabulary."],
+    [546,"describe","verb","描述","to say what something or someone is like","说出某物或某人是什么样的","Describe the picture using as many new words as you can."],
+    [550,"exist","verb","存在","to be real or present in the world","在世界中真实存在","Many languages exist in the world today."],
+    [552,"suggest","verb","建议","to mention an idea for someone to think about","提出一个想法供某人思考","I suggest reviewing five words before each class."],
+    [559,"character","noun","性格","the special qualities of a person","一个人的特殊品质","Strong character helps a student keep studying when it is hard."],
+    [565,"respect","noun/verb","尊重","to admire someone for their qualities, or that feeling","因某人的品质而钦佩他","Students who respect the learning process improve fastest."],
+    [572,"basic","adjective","基本的","the most simple and important","最简单和最重要的","These GSL words are the basic building blocks of English."],
+    [581,"origin","noun","起源","the place or situation from which something comes","某物来自的地方","The origin of many English words is Latin or Greek."],
+    [582,"standard","noun","标准","a level of quality that is expected","预期的质量水平","Set a high standard for your vocabulary practice."],
+    [599,"event","noun","事件","something that happens, especially something important","发生的事情，尤其是重要的","Learning 500 new words is a big event in your English journey."],
+    [604,"improve","verb","改善","to get better, or to make something better","变得更好，或使某物更好","She improved her reading score by learning new words."],
+    [613,"attention","noun","注意力","the act of watching or thinking about something carefully","仔细观察或思考某事的行为","Pay attention to words you see more than once."],
+    [624,"choose","verb","选择","to decide which one you want from a set of options","从一组选项中决定你想要哪一个","Choose the definition that best matches the word."],
+    [640,"opportunity","noun","机会","a time when it is possible to do something","可以做某事的时机","Every class is an opportunity to learn new words."],
+    [642,"recognise","verb","认出","to know something because you have seen it before","因为以前见过而认出某物","Can you recognise this word from your reading?"],
+    [644,"serious","adjective","严肃的","important and needing careful thought","重要的，需要仔细思考的","Be serious about your vocabulary study every day."],
+    [651,"lack","verb/noun","缺乏","to not have enough of something","没有足够的某物","A lack of vocabulary makes reading much harder."],
+    [654,"relation","noun","关系","the way two or more things are connected","两件事物联系的方式","There is a relation between reading and writing ability."],
+    [659,"influence","noun/verb","影响","the effect someone or something has on another","某人或某物对另一个人的影响","The books you read influence the words you use."],
+    [662,"compare","verb","比较","to look at similarities and differences between things","观察事物之间的相同和不同","Compare the two definitions and choose the correct one."],
+    [669,"imagine","verb","想象","to form a picture of something in your mind","在脑海中形成某物的图像","Imagine a situation where you would use this word."],
+    [674,"difficult","adjective","困难的","not easy, needing effort or skill","不容易，需要努力","New vocabulary is difficult at first but gets easier with practice."],
+    [683,"quality","noun","质量","how good something is, or a feature of something","某物有多好，或某物的特征","The quality of your writing improves when you know more words."],
+    [688,"argue","verb","争论","to give reasons for or against something","给出支持或反对某事的理由","She argued that learning vocabulary is the key to fluency."],
+    [697,"listen","verb","听","to pay attention to a sound","注意一个声音","Listen carefully to how the word is pronounced."],
+    [698,"main","adjective","主要的","most important or largest","最重要或最大的","The main idea of the passage is stated in the first sentence."],
+    [709,"enjoy","verb","享受","to get pleasure from something","从某事中获得乐趣","Do you enjoy reading English books?"],
+    [713,"health","noun","健康","the condition of the body and mind","身体和心理的状况","Reading is good for the health of your mind."],
+    [717,"language","noun","语言","a system of words used by people of a country","一个国家的人们使用的词语系统","Learning a new language opens many doors."],
+    [727,"fail","verb","失败","to not succeed in doing something","在做某事上没有成功","It is okay to fail — it helps you learn."],
+    [735,"depend","verb","依靠","to need someone or something, or to be decided by something","需要某人或某物","Your score depends on how well you know the vocabulary."],
+    [740,"shape","noun/verb","形状/塑造","the outer form of something, or to influence how something develops","某物的外部形态，或影响某物的发展","Your reading habits shape your English ability."],
+    [760,"progress","noun","进步","forward movement or improvement","向前运动或改善","Track your progress by recording which words you have learned."],
+    [763,"notice","verb","注意","to become aware of something","意识到某事","Notice how the word is used in a real sentence."],
+    [765,"opinion","noun","观点","what you think about something","你对某事的想法","In your opinion, what is the best way to learn vocabulary?"],
+    [787,"literature","noun","文学","written works, especially novels, plays, and poems","书面作品，尤其是小说、戏剧和诗歌","She studies English literature to improve her reading."],
+    [803,"essential","adjective","必不可少的","completely necessary","完全必要的","Regular vocabulary practice is essential for improvement."],
+    [810,"skill","noun","技能","the ability to do something well","做好某事的能力","Vocabulary is a key skill for English success."],
+    [812,"popular","adjective","受欢迎的","liked by many people","被许多人喜欢","English is one of the most popular subjects in China."],
+    [816,"worth","adjective","值得","having value, or deserving something","有价值的","It is worth spending ten minutes a day on vocabulary."],
+    [823,"forget","verb","忘记","to not be able to remember something","无法记住某事","Do not forget to review your words from last week."],
+    [827,"memory","noun","记忆","the ability to remember, or something you remember","记忆的能力，或记住的东西","A strong memory for words helps you read faster."],
+    [839,"extreme","adjective","极端的","very great or severe","非常大或严重的","She works with extreme effort to learn new words."],
+    [846,"discover","verb","发现","to find or learn something for the first time","第一次找到或学到某事","Discover the meaning of unknown words by reading them in context."],
+    [851,"choice","noun","选择","the act of choosing, or the thing chosen","选择的行为，或所选的东西","You have a choice: study now or struggle later."],
+    [876,"encourage","verb","鼓励","to give someone confidence to do something","给某人信心去做某事","I encourage you to try using new words in conversation."],
+    [903,"rapid","adjective","快速的","happening in a short time","在短时间内发生","She made rapid progress after she started reading every day."],
+    [925,"reflect","verb","反思","to think carefully about something","仔细思考某事","Reflect on which words were hardest for you today."],
+    [926,"advantage","noun","优势","something that helps you succeed","帮助你成功的事情","Knowing more words gives you an advantage in reading."],
+    [928,"regular","adjective","规律的","happening at the same time each day or week","每天或每周同一时间发生","Regular practice is the key to building vocabulary."],
+    [935,"tend","verb","倾向于","to usually do something or be a certain way","通常做某事","Students who read widely tend to have larger vocabularies."],
+    [944,"secret","noun","秘密","something known only by a few people","只有少数人知道的事情","The secret to a large vocabulary is reading every day."],
+    [949,"reasonable","adjective","合理的","fair and sensible","公平且明智的","Ten minutes of daily practice is a reasonable goal."],
+    [962,"avoid","verb","避免","to stay away from something","远离某事","Avoid guessing word meanings — always check the definition."],
+    [1009,"struggle","verb/noun","挣扎","to try hard to do something difficult","努力做困难的事情","It is normal to struggle with new vocabulary at first."],
+    [1016,"review","verb/noun","复习","to look at something again to check or learn it","再次查看某事以检查或学习","Review last week's words before starting new ones."],
+    [1037,"solution","noun","解决方案","a way of solving a problem","解决问题的方法","Regular practice is the best solution to vocabulary gaps."],
+    [1038,"aim","noun/verb","目标","what you want to achieve, or to try to achieve it","你想要实现的，或努力去实现它","Her aim is to learn 200 new words this semester."],
+    [1047,"ordinary","adjective","普通的","not special or different, just normal","不特别，只是正常的","On an ordinary day, she studies ten new words."],
+    [1083,"correct","adjective/verb","正确的/纠正","having no mistakes, or to fix a mistake","没有错误，或纠正错误","Always correct your mistakes so you do not repeat them."],
+    [1100,"curious","adjective","好奇的","wanting to know about something","想了解某事","Stay curious about new words when you read."],
+    [1131,"introduce","verb","介绍","to tell people about someone or something for the first time","第一次向人们介绍某人或某事","Let me introduce the word of the day."],
+    [1148,"mystery","noun","谜","something that is difficult to explain or understand","难以解释或理解的事情","The exact origin of some English words is still a mystery."],
+    [1196,"intend","verb","打算","to plan to do something","计划做某事","I intend to learn all the words in Band A this semester."],
+    [1200,"passage","noun","段落","a section of text","一段文字","Read the passage carefully before answering the questions."]
+  ],
+  C:[
+    [1205,"gradual","adjective","逐渐的","happening slowly over a long period of time","在很长时间内缓慢发生","The gradual growth of her vocabulary surprised her teacher."],
+    [1208,"satisfy","verb","满足","to please someone by giving them what they need","通过给予所需之物来取悦某人","A high score will satisfy her hard work."],
+    [1218,"risk","noun/verb","风险","the chance that something bad might happen","某件坏事可能发生的机会","There is a risk of failing if you do not study regularly."],
+    [1238,"explore","verb","探索","to travel through or investigate something new","调查新事物","Explore unknown words by reading them in context."],
+    [1250,"guilt","noun","内疚","the feeling that you have done something wrong","你做错了某事的感觉","She felt guilt for not studying her vocabulary last night."],
+    [1259,"admire","verb","钦佩","to respect and approve of someone or something","尊重并赞同某人或某事","She admires students who work hard to improve themselves."],
+    [1266,"competition","noun","竞争","a situation where people try to win or be better than others","人们试图赢得或比他人更好的情况","The vocabulary competition pushed her to study harder."],
+    [1271,"shock","noun/verb","震惊","a sudden unexpected feeling, or to cause that feeling","突然意外的感觉","It was a shock to discover how many English words there are."],
+    [1272,"conversation","noun","对话","a talk between two or more people","两个或更多人之间的谈话","Use new vocabulary in everyday conversation to remember it."],
+    [1279,"thorough","adjective","彻底的","doing something completely and carefully","完全彻底地做某事","She did a thorough review of all her vocabulary notes."],
+    [1280,"absolute","adjective","绝对的","complete and total, with no exceptions","完全的，没有例外","She had absolute confidence in her ability to improve."],
+    [1283,"proud","adjective","自豪的","feeling pleased about something you or others have done","对你或他人所做的事情感到高兴","She felt proud after using five new words in her essay."],
+    [1301,"honest","adjective","诚实的","telling the truth and not deceiving anyone","说实话且不欺骗任何人","Be honest with yourself about which words you really know."],
+    [1325,"confidence","noun","自信","the belief in yourself and your abilities","对自己和自己能力的信念","Building vocabulary builds confidence in reading and speaking."],
+    [1343,"violent","adjective","暴力的","using physical force to hurt people","用物理力量伤害人们","The novel had some violent scenes that required careful reading."],
+    [1354,"universal","adjective","普遍的","relating to everyone or everything","涉及所有人或所有事物","Reading is a universal skill needed in every subject."],
+    [1355,"accident","noun","事故","something bad that happens unexpectedly","意外发生的坏事","Some of the best vocabulary discoveries happen by accident."],
+    [1359,"wise","adjective","明智的","having or showing good judgement","有或表现出良好判断力","A wise student reviews new words every day."],
+    [1369,"sad","adjective","悲伤的","unhappy, feeling sorrow","不快乐，感到悲伤","The story had a sad ending that stayed with me for days."],
+    [1375,"comparison","noun","比较","the act of considering how things are similar or different","考虑事物相似或不同的行为","A comparison of the two definitions shows they are very similar."],
+    [1376,"possess","verb","拥有","to own or have something","拥有或持有某物","She possesses a large vocabulary from years of reading."],
+    [1388,"angry","adjective","生气的","feeling strong emotion because of something unfair or wrong","因不公平而产生强烈情绪","He felt angry when he could not understand the text."],
+    [1394,"permanent","adjective","永久的","lasting forever or for a very long time","永远或很长时间持续","Building a good vocabulary is a permanent skill."],
+    [1397,"confuse","verb","使困惑","to make someone unable to understand clearly","使某人无法清晰理解","Similar words can confuse readers who do not know them well."],
+    [1407,"virtue","noun","美德","a good and moral quality in a person","一个人身上的良好道德品质","Patience is a virtue when learning a new language."],
+    [1411,"attract","verb","吸引","to cause someone to like or be interested","使某人喜欢或感兴趣","Interesting reading material attracts students to learn more."],
+    [1418,"forgive","verb","原谅","to stop feeling angry at someone for something they did","停止对某人因他们所做的事情而生气","Forgive yourself when you forget a word — just review it again."],
+    [1422,"crime","noun","犯罪","an act that is against the law","违法的行为","She read a crime novel to practise her reading skills."],
+    [1433,"delay","noun/verb","延迟","time lost waiting, or to make something happen later","等待损失的时间","Do not delay your vocabulary review — do it today."],
+    [1455,"efficient","adjective","高效的","doing things well without wasting time or effort","不浪费时间或精力地把事情做好","Flashcard review is an efficient way to learn new words."],
+    [1462,"discipline","noun","纪律","controlled behaviour, or a subject of study","受控制的行为","It takes discipline to study vocabulary every single day."],
+    [1472,"strict","adjective","严格的","demanding that rules are obeyed","要求遵守规则","The teacher is strict about using new vocabulary correctly."],
+    [1484,"valuable","adjective","有价值的","worth a lot, important or useful","价值很高，重要或有用的","Time spent reading is valuable time building vocabulary."],
+    [1498,"habit","noun","习惯","something you do regularly, often without thinking","你经常做的事情","Make vocabulary review a daily habit."],
+    [1501,"persuade","verb","说服","to make someone agree to do something by giving reasons","通过给出理由使某人同意","Can you persuade yourself to study for ten extra minutes?"],
+    [1505,"deserve","verb","值得","to have earned something by your actions","通过你的行动而赢得某事","You deserve success if you work hard every day."],
+    [1516,"anxiety","noun","焦虑","a feeling of worry and fear","担忧和恐惧的感觉","Anxiety about vocabulary tests goes away with regular practice."],
+    [1520,"fortunate","adjective","幸运的","having good luck","有好运气","She was fortunate to have a teacher who explained words clearly."],
+    [1553,"generous","adjective","慷慨的","giving more than expected, kind with time or money","给予比预期更多的","A generous teacher shares many examples to help students understand."],
+    [1563,"courage","noun","勇气","the ability to do something that frightens you","做让你害怕的事情的能力","It takes courage to speak English in front of the class."],
+    [1578,"fault","noun","错误","a mistake, or a bad feature of something","错误，或某物的缺点","Finding a fault in your vocabulary helps you fix it."],
+    [1601,"ocean","noun","海洋","the large area of salt water covering most of the Earth","覆盖地球大部分的大面积咸水","The ocean of English vocabulary can seem overwhelming at first."],
+    [1617,"lonely","adjective","孤独的","unhappy because of being alone","因独处而不快乐","She felt lonely at first in the international school but made friends quickly."],
+    [1624,"resist","verb","抵抗","to stop yourself from doing something, or fight against something","阻止自己做某事，或对抗某事","Resist the temptation to skip your daily vocabulary practice."],
+    [1646,"wealth","noun","财富","a large amount of money or valuable things","大量金钱或有价值的东西","A large vocabulary is a form of wealth you carry everywhere."],
+    [1648,"translate","verb","翻译","to change words from one language to another","将一种语言的单词改变为另一种","She can translate this passage without a dictionary."],
+    [1653,"hesitate","verb","犹豫","to pause before doing or saying something","在做某事之前暂停","Do not hesitate to ask if you do not understand a word."],
+    [1658,"ambition","noun","抱负","a strong desire to achieve something","强烈渴望实现某事","Her ambition is to read an entire English novel this year."],
+    [1678,"brave","adjective","勇敢的","willing to do dangerous or difficult things without fear","无所畏惧地做困难的事情","Be brave enough to use new words even when you are unsure."],
+    [1695,"educate","verb","教育","to teach someone over a period of time","在一段时间内教导某人","Good schools educate students in vocabulary from an early age."],
+    [1719,"grateful","adjective","感激的","feeling thankful for something done for you","对为你做的事情感到感谢","Be grateful for every new word you learn — it adds to your power."],
+    [1730,"wander","verb","漫游","to move without a clear direction, or to lose focus","无明确方向地移动，或失去焦点","Do not let your mind wander during vocabulary practice."],
+    [1782,"regret","verb/noun","后悔","to feel sad about something you did or did not do","对你做过或没做的事情感到悲伤","She regretted not studying her vocabulary before the test."],
+    [1807,"shame","noun","羞耻","the feeling that you have done something wrong or embarrassing","你做了错事的感觉","It would be a shame to stop practising after so much progress."],
+    [1856,"polite","adjective","礼貌的","behaving in a way that is respectful and considerate","以尊重和体贴的方式行事","It is polite to use formal vocabulary when writing to a teacher."],
+    [1907,"cruel","adjective","残忍的","deliberately causing pain or suffering","故意造成痛苦","It would be cruel to judge someone for not knowing a word."],
+    [1928,"obey","verb","服从","to follow the instructions of someone","遵循某人的指示","Obey the rules of good writing by using words precisely."],
+    [2106,"conquer","verb","征服","to take control of something, especially through effort","通过努力控制某事","You can conquer difficult vocabulary with daily practice."]
+  ]
+};
+
+var PLACEMENT_WORDS = [
+  {word:"time",cn:"时间",pos:"noun"},
+  {word:"develop",cn:"发展",pos:"verb"},
+  {word:"passage",cn:"段落",pos:"noun"},
+  {word:"efficient",cn:"高效的",pos:"adjective"},
+  {word:"conquer",cn:"征服",pos:"verb"}
+];
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+var S = {
+  name:"", band:null, idx:0, total:0, streak:0, lastDate:null,
+  plScores:[], plStep:0
+};
+var CW = null; // current word
+var answered = false;
+var sessionLog = []; // for TXT download
+
+// ─── STORAGE ────────────────────────────────────────────────────────────────
+function save() {
+  try {
+    localStorage.setItem('gsl_v2', JSON.stringify({
+      name:S.name, band:S.band, idx:S.idx,
+      total:S.total, streak:S.streak, lastDate:S.lastDate
+    }));
+  } catch(e){}
+}
+function load() {
+  try {
+    var r = localStorage.getItem('gsl_v2');
+    if (!r) return false;
+    var d = JSON.parse(r);
+    S.name=d.name||""; S.band=d.band||null; S.idx=d.idx||0;
+    S.total=d.total||0; S.streak=d.streak||0; S.lastDate=d.lastDate||null;
+    return !!(S.name && S.band);
+  } catch(e){ return false; }
+}
+function tickStreak() {
+  var today = new Date().toDateString();
+  if (S.lastDate === today) return;
+  var yest = new Date(); yest.setDate(yest.getDate()-1);
+  if (S.lastDate === yest.toDateString()) S.streak++;
+  else S.streak = (S.lastDate ? 1 : 1);
+  S.lastDate = today;
+}
+
+// ─── SCREEN ─────────────────────────────────────────────────────────────────
+function show(id) {
+  var all = document.querySelectorAll('.screen');
+  for (var i=0;i<all.length;i++) all[i].style.display='none';
+  document.getElementById(id).style.display='flex';
+}
+
+// ─── INIT ───────────────────────────────────────────────────────────────────
+window.addEventListener('load', function() {
+  // wire up static buttons
+  document.getElementById('name-btn').addEventListener('click', onNameBtn);
+  document.getElementById('name-input').addEventListener('keypress', function(e){
+    if(e.key==='Enter') onNameBtn();
+  });
+  document.getElementById('pl-know').addEventListener('click',function(){plAns(2);});
+  document.getElementById('pl-sort').addEventListener('click',function(){plAns(1);});
+  document.getElementById('pl-no').addEventListener('click',function(){plAns(0);});
+  document.getElementById('speak-btn').addEventListener('click', doSpeak);
+  document.getElementById('speak-done-btn').addEventListener('click', showTask);
+  document.getElementById('finished-btn').addEventListener('click', doFinished);
+  document.getElementById('another-btn').addEventListener('click', doAnother);
+  document.getElementById('change-band-btn').addEventListener('click', doChangeBand);
+  document.getElementById('download-btn').addEventListener('click', doDownload);
+  document.getElementById('keep-going-btn').addEventListener('click', doAnother);
+  document.getElementById('change-band-btn2').addEventListener('click', doChangeBand);
+
+  if (load()) {
+    beginWarmup();
+  } else {
+    show('screen-name');
+  }
+});
+
+// ─── NAME ───────────────────────────────────────────────────────────────────
+function onNameBtn() {
+  var n = document.getElementById('name-input').value.trim();
+  if (!n) { alert('Please enter your name.\n请输入你的名字。'); return; }
+  S.name = n;
+  if (S.band) { beginWarmup(); } else { startPlacement(); }
+}
+
+// ─── PLACEMENT ──────────────────────────────────────────────────────────────
+function startPlacement() {
+  S.plScores=[]; S.plStep=0;
+  show('screen-placement');
+  renderPW();
+}
+function renderPW() {
+  var dots = document.getElementById('placement-dots');
+  dots.innerHTML='';
+  for(var i=0;i<PLACEMENT_WORDS.length;i++){
+    var d=document.createElement('div');
+    d.className='placement-dot'+(i<S.plStep?' done':i===S.plStep?' current':'');
+    dots.appendChild(d);
+  }
+  var w=PLACEMENT_WORDS[S.plStep];
+  var el=document.getElementById('placement-word-display');
+  el.innerHTML='';
+  var eng=document.createElement('div'); eng.className='pw-eng'; eng.textContent=w.word; el.appendChild(eng);
+  var pos=document.createElement('div'); pos.className='pw-pos'; pos.textContent=w.pos; el.appendChild(pos);
+  var cn=document.createElement('div'); cn.className='pw-cn cn'; cn.textContent=w.cn; el.appendChild(cn);
+}
+function plAns(score) {
+  S.plScores.push(score); S.plStep++;
+  if(S.plStep>=PLACEMENT_WORDS.length) finishPl(); else renderPW();
+}
+function finishPl() {
+  var t=0; for(var i=0;i<S.plScores.length;i++) t+=S.plScores[i];
+  var pct=t/10;
+  var rec = pct<0.35?'A':pct<0.7?'B':'C';
+  renderBands(rec);
+  show('screen-band');
+}
+
+// ─── BAND ───────────────────────────────────────────────────────────────────
+function renderBands(rec) {
+  var map={A:'Beginner / 初级',B:'Intermediate / 中级',C:'Advanced / 高级'};
+  document.getElementById('band-rec-text').innerHTML=
+    'Based on your answers, we suggest: <strong>'+map[rec]+'</strong>. You can choose any level.<br>'+
+    '<span class="cn">根据你的回答，我们建议：'+map[rec]+'。你也可以选择任何级别。</span>';
+  var bands=[
+    {k:'A',icon:'🌱',name:'Beginner / 初级',desc:'GSL words 1–500. The most common English words.',cn:'最常用的500个英语单词。'},
+    {k:'B',icon:'📚',name:'Intermediate / 中级',desc:'GSL words 501–1200. Common but more complex words.',cn:'常见但更复杂的单词。'},
+    {k:'C',icon:'🚀',name:'Advanced / 高级',desc:'GSL words 1201–2284. Less common, more academic.',cn:'不太常见，更学术的单词。'}
+  ];
+  var cont=document.getElementById('band-cards'); cont.innerHTML='';
+  bands.forEach(function(b){
+    var card=document.createElement('div');
+    card.className='band-card'+(b.k===rec?' recommended':'');
+    var icon=document.createElement('div'); icon.className='band-icon'; icon.textContent=b.icon;
+    var info=document.createElement('div'); info.className='band-info';
+    var h3=document.createElement('h3'); h3.textContent=b.name;
+    var p=document.createElement('p'); p.textContent=b.desc;
+    var cn=document.createElement('div'); cn.className='cn-sub cn'; cn.textContent=b.cn;
+    info.appendChild(h3); info.appendChild(p); info.appendChild(cn);
+    card.appendChild(icon); card.appendChild(info);
+    if(b.k===rec){var tag=document.createElement('span');tag.className='rec-tag';tag.textContent='Suggested';card.appendChild(tag);}
+    card.addEventListener('click',function(){selectBand(b.k);});
+    cont.appendChild(card);
+  });
+}
+function selectBand(k){ S.band=k; if(!S.idx) S.idx=0; beginWarmup(); }
+function doChangeBand(){ S.band=null; S.idx=0; save(); renderBands('A'); show('screen-band'); }
+
+// ─── WARMUP ──────────────────────────────────────────────────────────────────
+function beginWarmup() {
+  tickStreak(); save();
+  var data=GSL[S.band];
+  if(S.idx>=data.length) S.idx=0;
+  CW=data[S.idx];
+  sessionLog=[];
+  answered=false;
+  renderTopBar();
+  renderWordCard();
+  updateStreakBar();
+  document.getElementById('task-card').style.display='none';
+  document.getElementById('speak-done-btn').style.display='none';
+  show('screen-warmup');
+}
+function renderTopBar(){
+  document.getElementById('top-name').textContent=S.name;
+  var bname={A:'Beginner 初级',B:'Intermediate 中级',C:'Advanced 高级'};
+  document.getElementById('top-band').textContent=bname[S.band];
+}
+function updateStreakBar(){
+  document.getElementById('words-done').textContent=S.total;
+  document.getElementById('streak-display').textContent='🔥 '+S.streak;
+  var data=GSL[S.band];
+  document.getElementById('word-pos-label').textContent=(S.idx+1)+' of '+data.length;
+}
+function renderWordCard(){
+  document.getElementById('w-rank').textContent='GSL #'+CW[0];
+  document.getElementById('w-eng').textContent=CW[1];
+  document.getElementById('w-pos').textContent=CW[2];
+  document.getElementById('w-cn').textContent=CW[3];
+  document.getElementById('w-def-en').textContent=CW[4];
+  document.getElementById('w-def-cn').textContent=CW[5];
+}
+
+// ─── SPEAK ──────────────────────────────────────────────────────────────────
+function doSpeak(){
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(CW[1]);
+    u.lang='en-US'; u.rate=0.85;
+    window.speechSynthesis.speak(u);
+  }
+  document.getElementById('speak-done-btn').style.display='block';
+}
+
+// ─── TASK ────────────────────────────────────────────────────────────────────
+function showTask(){
+  var tc=document.getElementById('task-card');
+  tc.style.display='block';
+  buildTask();
+  tc.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function buildTask(){
+  var cont=document.getElementById('task-content');
+  cont.innerHTML='';
+  answered=false;
+  var type=S.idx%3;
+  if(type===0) buildMC(cont);
+  else if(type===1) buildFITB(cont);
+  else buildCS(cont);
+}
+
+function buildMC(cont){
+  var word=CW[1], def=CW[4], defCn=CW[5];
+  var data=GSL[S.band];
+  var dists=[], used=[S.idx], att=0;
+  while(dists.length<3&&att<80){
+    var ri=Math.floor(Math.random()*data.length);
+    if(used.indexOf(ri)===-1){used.push(ri);dists.push(data[ri][4]);}
+    att++;
+  }
+  var opts=[def].concat(dists); shuffle(opts);
+
+  addQ(cont,'Which definition matches "'+word+'"?','"'+word+'" 是什么意思？选择正确的定义。');
+
+  var od=document.createElement('div'); od.className='task-options';
+  var rat=makeRat(); var nb=makeNext();
+
+  opts.forEach(function(o){
+    var btn=document.createElement('button'); btn.className='opt-btn'; btn.textContent=o;
+    btn.addEventListener('click',function(){
+      if(answered)return; answered=true;
+      disableOpts(od); markCorrect(od,def);
+      if(o!==def) btn.classList.add('wrong');
+      var ok=o===def;
+      showRat(rat,ok,'Correct! '+def,o!==def?'Not quite. The answer is: '+def:null,defCn);
+      logAnswer(word,o===def?'correct':'wrong',o,def);
+      nb.style.display='block';
+    });
+    od.appendChild(btn);
+  });
+  cont.appendChild(od); cont.appendChild(rat); cont.appendChild(nb);
+}
+
+function buildFITB(cont){
+  var word=CW[1], def=CW[4], defCn=CW[5], ex=CW[6];
+  var re=new RegExp('\\b'+word+'\\b','i');
+  var sent=ex.replace(re,'________');
+  if(sent===ex) sent='________ (Hint: '+CW[3]+')';
+
+  addQ(cont,'Fill in the blank with the correct word:','用正确的单词填空：');
+
+  var sentEl=document.createElement('div');
+  sentEl.style.cssText='font-style:italic;color:#555;margin:10px 0 4px;font-size:.95rem;line-height:1.6;';
+  sentEl.textContent=sent; cont.appendChild(sentEl);
+
+  var hint=document.createElement('div');
+  hint.style.cssText='font-size:.78rem;color:#aaa;margin-bottom:4px;';
+  hint.textContent='Chinese hint / 中文提示: '+CW[3]+' ('+CW[2]+')';
+  cont.appendChild(hint);
+
+  var inp=document.createElement('input'); inp.type='text'; inp.className='fitb-input';
+  inp.placeholder='Type the word here / 在此输入单词'; inp.autocomplete='off';
+  cont.appendChild(inp);
+
+  var rat=makeRat(); var nb=makeNext();
+
+  var sub=document.createElement('button'); sub.className='fitb-submit'; sub.textContent='Check / 检查';
+  sub.addEventListener('click',function(){
+    if(answered)return; answered=true;
+    var ans=inp.value.trim().toLowerCase(), tgt=word.toLowerCase();
+    var ok=ans===tgt;
+    inp.disabled=true; sub.disabled=true;
+    inp.className='fitb-input '+(ok?'correct':'wrong');
+    showRat(rat,ok,'Correct! The word is "'+word+'".',ok?null:'Not quite. The answer is "'+word+'". '+def,defCn);
+    logAnswer(word,ok?'correct':'wrong',inp.value.trim(),word);
+    nb.style.display='block';
+  });
+  inp.addEventListener('keypress',function(e){if(e.key==='Enter')sub.click();});
+  cont.appendChild(sub); cont.appendChild(rat); cont.appendChild(nb);
+}
+
+function buildCS(cont){
+  var word=CW[1], def=CW[4], defCn=CW[5], correct=CW[6];
+  var wrongs=[
+    'She '+word+' the table because it was too heavy to lift.',
+    'The teacher '+word+' all the windows and left the room.',
+    'He quickly '+word+' the answer without thinking about it.',
+    'They decided to '+word+' the holiday because it was expensive.'
+  ];
+  var wrong=wrongs[S.idx%wrongs.length];
+  var opts=[correct,wrong]; shuffle(opts);
+
+  addQ(cont,'Which sentence uses "'+word+'" correctly?','哪个句子正确使用了"'+word+'"？');
+
+  var od=document.createElement('div'); od.className='task-options';
+  var rat=makeRat(); var nb=makeNext();
+
+  opts.forEach(function(o){
+    var btn=document.createElement('button'); btn.className='opt-btn'; btn.textContent=o;
+    btn.addEventListener('click',function(){
+      if(answered)return; answered=true;
+      disableOpts(od); markCorrect(od,correct);
+      if(o!==correct) btn.classList.add('wrong');
+      var ok=o===correct;
+      showRat(rat,ok,
+        ok?'Correct! "'+word+'" means: '+def:'Not quite. The correct sentence is the one that matches the meaning: '+def,
+        ok?null:null,
+        '"'+word+'" 的意思是：'+defCn);
+      logAnswer(word,ok?'correct':'wrong',o,correct);
+      nb.style.display='block';
+    });
+    od.appendChild(btn);
+  });
+  cont.appendChild(od); cont.appendChild(rat); cont.appendChild(nb);
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function addQ(cont,en,cn){
+  var q=document.createElement('div'); q.className='task-question'; q.textContent=en;
+  var c=document.createElement('span'); c.className='cn'; c.textContent=cn; q.appendChild(c);
+  cont.appendChild(q);
+}
+function makeRat(){
+  var r=document.createElement('div'); r.className='rationale-box'; return r;
+}
+function makeNext(){
+  var nb=document.createElement('button'); nb.className='next-btn'; nb.style.display='none';
+  nb.textContent='Next → 下一步'; nb.addEventListener('click',advance); return nb;
+}
+function showRat(rat,ok,enRight,enWrong,cn){
+  rat.className='rationale-box show '+(ok?'correct-rat':'wrong-rat');
+  rat.innerHTML='';
+  var en=document.createElement('div'); en.className='rat-en';
+  en.textContent=ok?enRight:enWrong; rat.appendChild(en);
+  var c=document.createElement('div'); c.className='rat-cn cn'; c.textContent=cn; rat.appendChild(c);
+  rat.parentNode && rat.parentNode.appendChild(rat);
+  // re-append to keep order
+  document.getElementById('task-content').appendChild(rat);
+}
+function disableOpts(od){var bs=od.querySelectorAll('.opt-btn');for(var i=0;i<bs.length;i++)bs[i].disabled=true;}
+function markCorrect(od,txt){var bs=od.querySelectorAll('.opt-btn');for(var i=0;i<bs.length;i++)if(bs[i].textContent===txt)bs[i].classList.add('correct');}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}}
+
+function logAnswer(word, result, studentAns, correct){
+  var typeNames=['Multiple Choice Definition','Fill in the Blank','Which Sentence is Correct'];
+  sessionLog.push({
+    word:word, type:typeNames[S.idx%3],
+    result:result, studentAns:studentAns, correct:correct,
+    def:CW[4], defCn:CW[5], cn:CW[3], example:CW[6]
+  });
+}
+
+// ─── ADVANCE ─────────────────────────────────────────────────────────────────
+function advance(){
+  // called by Next button inside a task — load next word in place, no complete screen
+  S.total+=1; S.idx+=1; save();
+  var data=GSL[S.band];
+  if(S.idx>=data.length) S.idx=0;
+  CW=data[S.idx];
+  answered=false;
+  renderWordCard(); updateStreakBar();
+  document.getElementById('task-card').style.display='none';
+  document.getElementById('speak-done-btn').style.display='none';
+  window.scrollTo(0,0);
+}
+function doFinished(){
+  // called by "I'm finished for today" footer button
+  document.getElementById('stat-total').textContent=S.total;
+  document.getElementById('stat-streak').textContent=S.streak+(S.streak===1?' day':' days');
+  var data=GSL[S.band];
+  var wordCount=sessionLog.length;
+  var msg='You practised '+wordCount+' word'+(wordCount===1?'':'s')+' today. See you next class!\n你今天练习了'+wordCount+'个单词。下节课见！';
+  document.getElementById('complete-msg').textContent=msg;
+  show('screen-complete');
+}
+function doAnother(){
+  var data=GSL[S.band];
+  if(S.idx>=data.length) S.idx=0;
+  CW=data[S.idx];
+  answered=false;
+  renderWordCard(); updateStreakBar();
+  document.getElementById('task-card').style.display='none';
+  document.getElementById('speak-done-btn').style.display='none';
+  show('screen-warmup');
+  window.scrollTo(0,0);
+  // sessionLog keeps accumulating so download covers all words in the session
+}
+
+// ─── DOWNLOAD TXT ────────────────────────────────────────────────────────────
+function doDownload(){
+  var today=new Date();
+  var dateStr=today.toLocaleDateString('en-CA'); // YYYY-MM-DD
+  var timeStr=today.toLocaleTimeString();
+  var bnames={A:'Beginner (GSL 1-500)',B:'Intermediate (GSL 501-1200)',C:'Advanced (GSL 1201-2284)'};
+
+  var lines=[];
+  lines.push('================================================================');
+  lines.push('GSL WORD WARMUP — SESSION REPORT');
+  lines.push('================================================================');
+  lines.push('Student Name:  '+S.name);
+  lines.push('Date:          '+dateStr+' at '+timeStr);
+  lines.push('Level:         '+bnames[S.band]);
+  lines.push('Words Done:    '+S.total+' total (lifetime)');
+  lines.push('Streak:        '+S.streak+' day'+(S.streak===1?'':'s'));
+  lines.push('');
+  lines.push('----------------------------------------------------------------');
+  lines.push('TODAY\'S WORD PRACTICE');
+  lines.push('----------------------------------------------------------------');
+
+  if(sessionLog.length===0){
+    lines.push('No task completed in this session.');
+  } else {
+    sessionLog.forEach(function(entry,i){
+      lines.push('');
+      lines.push('Word '+(i+1)+': '+entry.word.toUpperCase());
+      lines.push('Task Type:     '+entry.type);
+      lines.push('Result:        '+entry.result.toUpperCase());
+      lines.push('Student chose: '+entry.studentAns);
+      if(entry.result==='wrong') lines.push('Correct was:   '+entry.correct);
+      lines.push('');
+      lines.push('Word Details:');
+      lines.push('  English:     '+entry.word+' ('+CW[2]+')');
+      lines.push('  Chinese:     '+entry.cn);
+      lines.push('  Definition:  '+entry.def);
+      lines.push('  中文定义:    '+entry.defCn);
+      lines.push('  Example:     '+entry.example);
+    });
+  }
+
+  lines.push('');
+  lines.push('================================================================');
+  lines.push('End of report | 报告结束');
+  lines.push('================================================================');
+
+  var txt=lines.join('\n');
+  var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='GSL_Warmup_'+S.name.replace(/\s+/g,'_')+'_'+dateStr+'.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
