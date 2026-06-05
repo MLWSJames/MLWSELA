@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S2 T2 W6 Study Guide | 期末复习模块</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;--ml-red:#c1121f;--ml-gold:#e9c46a;--ink:#1a2a1a;--ink2:#2d3748;--mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--ink);min-height:100vh;}
+h1,h2,h3,h4{font-family:'Literata',serif;}
+.hdr{background:var(--ml-green-dark);color:#fff;padding:14px 20px 10px;}
+.hdr-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.hdr-title{font-size:1.1rem;font-weight:700;letter-spacing:.02em;}
+.hdr-sub{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;opacity:.8;margin-top:2px;}
+#leaveBadge{font-size:.78rem;background:#7f1d1d;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.tab-nav{display:flex;gap:0;background:var(--ml-green);overflow-x:auto;}
+.tab-btn{background:transparent;border:none;color:rgba(255,255,255,.7);padding:11px 22px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;}
+.tab-btn:hover{background:rgba(255,255,255,.1);color:#fff;}
+.tab-btn.active{color:#fff;border-bottom-color:var(--ml-gold);background:rgba(255,255,255,.12);}
+.tab-content{display:none;padding:22px 18px;max-width:900px;margin:0 auto;}
+.tab-content.active{display:block;}
+.vocab-search{width:100%;padding:9px 14px;border:2px solid var(--border);border-radius:8px;font-size:.95rem;font-family:'DM Sans',sans-serif;margin-bottom:16px;background:#fff;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.vcard{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);transition:box-shadow .2s;}
+.vcard:hover{box-shadow:0 3px 10px rgba(0,0,0,.1);}
+.vcard-top{display:flex;justify-content:space-between;align-items:flex-start;}
+.vcard-word{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);}
+.vcard-pos{font-size:.72rem;color:var(--amber);font-weight:600;background:var(--amber-light);padding:2px 7px;border-radius:10px;margin-top:2px;}
+.speak-btn{background:none;border:none;cursor:pointer;font-size:1.1rem;padding:2px 4px;color:var(--cobalt);flex-shrink:0;}
+.vcard-cn{font-family:'Noto Sans SC',sans-serif;font-size:.88rem;color:var(--cobalt);font-weight:500;margin-top:4px;}
+.vcard-def{font-size:.84rem;color:var(--ink2);margin-top:6px;line-height:1.5;}
+.vcard-cndef{font-family:'Noto Sans SC',sans-serif;font-size:.8rem;color:#555;margin-top:3px;line-height:1.5;}
+.vcard-ex{font-size:.8rem;color:#555;border-left:3px solid var(--ml-green-light);padding-left:8px;margin-top:8px;font-style:italic;line-height:1.5;}
+.practice-intro{background:var(--ml-green-light);border:1px solid #b7e4c7;border-radius:8px;padding:12px 16px;font-size:.87rem;margin-bottom:18px;line-height:1.6;}
+.practice-intro .cn{font-family:'Noto Sans SC',sans-serif;color:var(--cobalt);margin-top:4px;font-size:.83rem;}
+.pword-block{background:#fff;border:1.5px solid var(--border);border-radius:10px;margin-bottom:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.pword-hdr{background:var(--ml-green-dark);color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;}
+.pword-hdr-left{display:flex;align-items:baseline;gap:10px;}
+.pword-name{font-family:'Literata',serif;font-size:1rem;font-weight:600;}
+.pword-pos{font-size:.72rem;opacity:.75;font-style:italic;}
+.pword-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;opacity:.85;}
+.pword-speak{background:none;border:none;cursor:pointer;font-size:1rem;color:#fff;padding:2px 6px;}
+.psentence-row{padding:12px 16px;border-bottom:1px solid var(--border);}
+.psentence-row:last-child{border-bottom:none;}
+.psentence-label{font-size:.7rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.psentence-text{font-family:'Literata',serif;font-size:.92rem;color:var(--ink);line-height:1.65;margin-bottom:8px;}
+.psentence-text .keyword{font-weight:700;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-gold);}
+.reveal-btn{background:none;border:1.5px solid var(--cobalt);color:var(--cobalt);border-radius:6px;padding:4px 12px;font-size:.78rem;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all .2s;}
+.reveal-btn:hover{background:var(--cobalt);color:#fff;}
+.meaning-reveal{display:none;margin-top:8px;background:var(--mist);border-left:3px solid var(--ml-green);padding:7px 11px;border-radius:0 6px 6px 0;font-size:.83rem;line-height:1.55;}
+.meaning-reveal.show{display:block;}
+.meaning-reveal .en{color:var(--ml-green-dark);font-weight:600;margin-bottom:3px;}
+.meaning-reveal .cn{font-family:'Noto Sans SC',sans-serif;color:var(--cobalt);font-size:.8rem;}
+.section-hd{font-family:'Literata',serif;font-size:1.05rem;font-weight:700;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:6px;margin:24px 0 12px;}
+.section-hd:first-child{margin-top:0;}
+.concept-card{background:#fff;border-left:4px solid var(--ml-green);border-radius:0 8px 8px 0;padding:13px 16px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.concept-card .en{font-size:.9rem;color:var(--ink);line-height:1.6;margin-bottom:6px;}
+.concept-card .cn{font-family:'Noto Sans SC',sans-serif;font-size:.84rem;color:var(--cobalt);line-height:1.6;}
+.callout{background:var(--amber-light);border-left:4px solid var(--amber);border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:10px;}
+.callout .en{font-size:.88rem;color:var(--amber);font-weight:600;line-height:1.6;}
+.callout .cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#92400e;line-height:1.6;margin-top:4px;}
+.tip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-bottom:14px;}
+.tip-card{background:#fff;border:1.5px solid var(--border);border-radius:9px;padding:13px 15px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.tip-card-hd{font-size:.8rem;font-weight:700;color:var(--ml-red);text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px;}
+.tip-card ul{padding-left:16px;}
+.tip-card li{font-size:.84rem;color:var(--ink2);line-height:1.6;margin-bottom:4px;}
+.tip-card .cn-tip{font-family:'Noto Sans SC',sans-serif;font-size:.78rem;color:var(--cobalt);margin-top:4px;line-height:1.5;}
+.info-table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:.84rem;}
+.info-table th{background:var(--ml-green-dark);color:#fff;padding:8px 12px;text-align:left;}
+.info-table td{padding:7px 12px;border-bottom:1px solid var(--border);background:#fff;vertical-align:top;}
+.info-table tr:nth-child(even) td{background:var(--mist);}
+.cn-cell{font-family:'Noto Sans SC',sans-serif;}
+.watch-box{background:#fff;border:2px solid var(--ml-red);border-radius:8px;padding:12px 16px;margin-bottom:10px;}
+.watch-box-hd{font-size:.8rem;font-weight:700;color:var(--ml-red);text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px;}
+.watch-box ul{padding-left:16px;}
+.watch-box li{font-size:.85rem;color:var(--ink);line-height:1.65;margin-bottom:5px;}
+.watch-box .cn-note{font-family:'Noto Sans SC',sans-serif;font-size:.79rem;color:#777;margin-top:2px;}
+#timer{position:fixed;bottom:16px;right:16px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:900;}
+@media(max-width:580px){.vocab-grid{grid-template-columns:1fr;}.tip-grid{grid-template-columns:1fr;}.tab-btn{padding:10px 14px;font-size:.82rem;}}
+</style>
+</head>
+<body>
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  &#9888;&#65039; Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. &middot;
+  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  &#128680; Tab switch recorded! Your teacher will see this. &middot; <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span>
+</div>
+<div class="hdr">
+  <div class="hdr-top">
+    <div>
+      <div class="hdr-title">S2 T2 W6 Study Guide &middot; 期末复习模块</div>
+      <div class="hdr-sub">English 11 &middot; Maple Leaf World School &middot; Mr. Alexander</div>
+    </div>
+    <div id="leaveBadge">&#128682; Leaves: 0</div>
+  </div>
+</div>
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('vocab',this)">&#128218; Vocabulary &middot; 词汇</button>
+  <button class="tab-btn" onclick="switchTab('practice',this)">&#9999;&#65039; Practice &middot; 练习</button>
+  <button class="tab-btn" onclick="switchTab('assess',this)">&#127919; Assessment Tips &middot; 考试提示</button>
+</div>
+
+<div id="tab-vocab" class="tab-content active">
+  <h2 style="font-size:1.1rem;color:var(--ml-green-dark);margin-bottom:6px;">Unit Vocabulary &mdash; 50 Terms &middot; 50个重要词汇</h2>
+  <p style="font-size:.85rem;color:#555;margin-bottom:14px;">Search for any word. Click &#128266; to hear pronunciation. &middot; <span style="font-family:'Noto Sans SC',sans-serif;">在搜索框中查找任何单词。点击&#128266;听发音。</span></p>
+  <input class="vocab-search" type="text" placeholder="Search vocabulary&#8230; / 搜索词汇&#8230;" id="vocabSearch">
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<div id="tab-practice" class="tab-content">
+  <h2 style="font-size:1.1rem;color:var(--ml-green-dark);margin-bottom:8px;">Vocabulary in Context &middot; 词汇在语境中的使用</h2>
+  <div class="practice-intro">
+    Each word below has <strong>two sentences</strong> showing how it is used in real context &mdash; just like on the test. Read the sentence. Try to understand the word from the context around it. Then click <strong>Reveal Meaning</strong> to check.
+    <div class="cn">每个词汇下面有<strong>两个句子</strong>，展示该词在真实语境中的使用方式——就像考试中一样。阅读句子，尝试从上下文理解词义，然后点击<strong>显示含义</strong>进行核对。</div>
+  </div>
+  <div id="practiceGrid"></div>
+</div>
+
+<div id="tab-assess" class="tab-content">
+  <h2 style="font-size:1.1rem;color:var(--ml-green-dark);margin-bottom:6px;">Assessment Tips &amp; Reminders &middot; 考试提示与提醒</h2>
+  <p style="font-size:.85rem;color:#555;margin-bottom:18px;">Read every section carefully before your test. &middot; <span style="font-family:'Noto Sans SC',sans-serif;">考试前请仔细阅读每个部分。</span></p>
+
+  <div class="section-hd">&#128221; Part 1: Vocabulary Assessment &mdash; 50 Questions &middot; 词汇测评（50题）</div>
+
+  <div class="callout">
+    <div class="en">&#9888;&#65039; The vocabulary questions test words IN SENTENCES &mdash; not just definitions. Read the entire sentence carefully before choosing your answer. The word's meaning in that specific sentence matters most.</div>
+    <div class="cn">&#9888;&#65039; 词汇题将词汇放在句子中考查——不仅仅是定义。在选择答案之前，请仔细阅读整个句子。该词在特定句子中的含义最重要。</div>
+  </div>
+
+  <div class="concept-card">
+    <div class="en"><strong>How to approach vocabulary-in-sentence questions:</strong><br>
+    1. Read the whole sentence &mdash; not just the underlined word.<br>
+    2. Cover the choices. Think: what does this word probably mean here?<br>
+    3. Substitute each answer choice into the sentence. Which one still makes sense?<br>
+    4. Eliminate choices that are clearly wrong or change the meaning of the sentence.<br>
+    5. If two choices seem similar, look for the one that fits the specific context best.</div>
+    <div class="cn"><strong>如何回答句子中的词汇题：</strong><br>
+    1. 阅读整个句子。2. 遮住选项，思考这个词在这里大概是什么意思。3. 用每个选项替换该词，哪个仍然合理？4. 排除明显错误的选项。5. 如果两个选项相似，找最符合具体语境的那个。</div>
+  </div>
+
+  <div class="section-hd">&#128269; Tricky Word Groups &mdash; Don't Confuse These &middot; 容易混淆的词汇组</div>
+
+  <div class="tip-grid">
+    <div class="tip-card">
+      <div class="tip-card-hd">Metaphor vs. Simile</div>
+      <ul>
+        <li><strong>Simile</strong> uses <em>like</em> or <em>as</em>: "Her voice was <em>like</em> honey."</li>
+        <li><strong>Metaphor</strong> says it IS: "Her voice <em>was</em> honey."</li>
+        <li>No like/as = metaphor. Has like/as = simile. It is that simple.</li>
+      </ul>
+      <div class="cn-tip">明喻用"like/as"。隐喻直接说"是"。没有like/as就是隐喻。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">Connotation vs. Denotation</div>
+      <ul>
+        <li><strong>Denotation</strong> = dictionary definition (the literal meaning only)</li>
+        <li><strong>Connotation</strong> = the emotional feeling the word carries</li>
+        <li>"Serpent" denotation = long, legless reptile. Connotation = evil, danger, threat.</li>
+        <li>The denotation question asks for the LITERAL meaning only.</li>
+      </ul>
+      <div class="cn-tip">外延=字典定义（只是字面含义）。内涵=词语携带的情感联想。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">Implicit vs. Explicit</div>
+      <ul>
+        <li><strong>Explicit</strong> = stated directly, clearly written out</li>
+        <li><strong>Implicit</strong> = suggested, you must infer it from clues</li>
+        <li>If you can point to the exact sentence where it is written = explicit. If you had to figure it out = implicit.</li>
+      </ul>
+      <div class="cn-tip">明确=直接写出来，可以指向原文。隐含=需要从线索推断。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">Narrator Types</div>
+      <ul>
+        <li><strong>Omniscient</strong> = knows ALL characters' inner thoughts</li>
+        <li><strong>Limited</strong> = knows only ONE character's thoughts</li>
+        <li><strong>Objective</strong> = knows NO character's thoughts (like a camera)</li>
+        <li><strong>Subjective</strong> = shares the narrator's own feelings/opinions</li>
+        <li><strong>Unreliable</strong> = cannot be fully trusted</li>
+      </ul>
+      <div class="cn-tip">全知=所有人的想法。有限=一人的想法。客观=无人的想法。主观=分享感情。不可靠=不可信。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">Diction Creates Tone</div>
+      <ul>
+        <li><strong>Diction</strong> = the specific words the author chooses (the cause)</li>
+        <li><strong>Tone</strong> = the emotional mood those words create (the effect)</li>
+        <li>Words like "cold, silent, hollow" (diction) create a sorrowful, bleak tone.</li>
+        <li>Diction is the tool. Tone is the result.</li>
+      </ul>
+      <div class="cn-tip">措辞是作者的词语选择（原因）。语气是这些词语产生的情感效果（结果）。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">Compare vs. Contrast</div>
+      <ul>
+        <li><strong>Compare</strong> = finds similarities (signal words: <em>both, also, similarly</em>)</li>
+        <li><strong>Contrast</strong> = finds differences (signal words: <em>while, but, however, unlike</em>)</li>
+        <li>"Both the wolf and the fox are cunning" = compare.</li>
+        <li>"Wolves live in packs, while foxes hunt alone" = contrast.</li>
+      </ul>
+      <div class="cn-tip">比较=找相同点（both/also）。对比=找不同点（while/but/however）。</div>
+    </div>
+  </div>
+
+  <div class="section-hd">&#10060; Watch Out &mdash; Six Common Wrong Answers &middot; 注意——六个常见错误</div>
+
+  <div class="watch-box">
+    <div class="watch-box-hd">Traps to avoid on the Vocabulary Assessment</div>
+    <ul>
+      <li><strong>conceal</strong> &mdash; hiding means keeping something SECRET. If a sentence shows someone sharing or revealing something openly, that is NOT conceal. <div class="cn-note">隐藏=保密。如果句子说某人公开分享或展示，那就不是conceal。</div></li>
+      <li><strong>furthermore</strong> &mdash; it connects two ideas that AGREE. The second idea must support or add to the first. If the two halves of the sentence contradict each other, furthermore is wrong. <div class="cn-note">furthermore连接两个方向一致的观点。如果两个想法互相矛盾，furthermore就是错的。</div></li>
+      <li><strong>deceive</strong> &mdash; requires deliberate, intentional lying. Simply being wrong or confused is not deceiving. There must be intent. <div class="cn-note">欺骗需要故意撒谎。无意中犯错不是欺骗，必须有意图。</div></li>
+      <li><strong>interpret</strong> &mdash; goes beyond just reading or counting. To interpret means to use evidence to explain meaning. Counting lines, memorizing, or copying = NOT interpreting. <div class="cn-note">解释超出了仅仅阅读或计数。解释意味着用证据解释含义。数行数、背诵、抄写≠解释。</div></li>
+      <li><strong>denotation of "serpent"</strong> &mdash; the denotation is ONLY the literal meaning: a long, legless reptile. Evil, danger, and dark presence are connotations, not the denotation. <div class="cn-note">'serpent'的外延只是字面含义：无腿爬行动物。邪恶和危险是内涵，不是外延。</div></li>
+      <li><strong>signify / symbolize</strong> &mdash; a symbol's meaning is cultural and learned, not random or personal. A black crow does NOT signify friendship or weather. Check what the symbol actually means in its cultural context. <div class="cn-note">符号的含义是文化性和约定俗成的，不是随机或个人的。黑乌鸦不象征友谊或天气变化。</div></li>
+    </ul>
+  </div>
+
+  <div class="section-hd">&#128214; Part 2: Unit Assessment &mdash; 25 Questions &middot; 单元测评（25题）</div>
+
+  <div class="callout">
+    <div class="en">&#128161; General rule: base your answer on what the TEXT says, not what you already know or believe. If a question says "according to the passage" or "according to the infographic" &mdash; find it in the text before choosing.</div>
+    <div class="cn">&#128161; 总原则：根据文章内容作答，不是根据你已知或认为的。如果题目说"根据文章"——先在文章里找到再选。</div>
+  </div>
+
+  <div class="concept-card">
+    <div class="en"><strong>Section A1 &mdash; Slang Passage (Questions 1&ndash;6)</strong><br><br>
+    This passage is about slang words like "bread" (Cockney for money) and how slang travels across cultures.<br><br>
+    <strong>Remember:</strong><br>
+    &bull; "Bread" = money because of Cockney rhyming slang ("bread and honey"), not hip-hop or green color.<br>
+    &bull; "Cabbage" = money because paper money is green, like cabbage leaves &mdash; a visual connection.<br>
+    &bull; Cockney speakers created rhyming slang as a private communication code in public places.<br>
+    &bull; Slang "travels across borders" through media and culture &mdash; not laws or dictionaries.<br>
+    &bull; The author mentions slang can "deceive" outsiders to show that language both connects and divides people.<br>
+    &bull; <em>vague</em> in context = not clear or specific.</div>
+    <div class="cn"><strong>A1部分——俚语文章（1-6题）</strong><br>
+    要记住：bread来自科克尼押韵俚语。cabbage因绿色联想。押韵俚语是私密交流方式。俚语通过媒体传播。作者的目的是语言既联系也分隔人们。vague=不清晰。</div>
+  </div>
+
+  <div class="concept-card">
+    <div class="en"><strong>Section A2 &mdash; Symbols Infographic (Questions 7&ndash;12)</strong><br><br>
+    <strong>Remember:</strong><br>
+    &bull; Hamsa in Arabic literally means FIVE (the number) &mdash; not "protection." Protection is what it symbolizes.<br>
+    &bull; Evil Eye, Hamsa, and Eye of Horus all share one thing: the idea of watching, seeing, and protection from harm.<br>
+    &bull; Gye Nyame is on Ghana's largest banknote because it represents a belief central to Ghanaian cultural identity &mdash; not because of its appearance.<br>
+    &bull; "More Than Meets the Eye" is a play on words: the symbols literally show eyes, AND the phrase means there is deeper meaning. Do NOT choose "the symbols are too difficult to understand."<br>
+    &bull; <em>omniscience</em> = the quality of knowing everything.</div>
+    <div class="cn"><strong>A2部分——符号信息图（7-12题）</strong><br>
+    要记住：Hamsa字面意思是"五"。三个眼睛符号共同点是保护和观察。Gye Nyame在货币上因文化重要性。标题是双关语。omniscience=全知。</div>
+  </div>
+
+  <div class="concept-card">
+    <div class="en"><strong>Section A3 &mdash; Story: Mei and the Number 404 (Questions 13&ndash;18)</strong><br><br>
+    <strong>Remember:</strong><br>
+    &bull; Parents refused the 4th-floor apartment because four (四 s&igrave;) sounds like death (死 s&#301;) in Chinese. Not cost. Not height.<br>
+    &bull; The letter under the door = Mei's new school homeroom assignment (number 404).<br>
+    &bull; Wei shrugs because he does NOT share the same cultural belief. The shrug = indifference, not cruelty.<br>
+    &bull; Mother's line "You are not the number you are assigned" means numbers on paper do not define Mei as a person. She is NOT saying 404 is secretly lucky.<br>
+    &bull; Paragraph 19: "Symbols did not need to be scientifically true to be powerfully real" = THEME STATEMENT. This is the central message. It is NOT personification, foreshadowing, or a simile.<br>
+    &bull; <em>rejected</em> in context = refused to accept or use something.</div>
+    <div class="cn"><strong>A3部分——故事（13-18题）</strong><br>
+    要记住：四楼=四听起来像死。信件=班级号码。Wei耸肩=不持相同信仰。妈妈的话=数字不定义你是谁。第19段=主题陈述。rejected=拒绝接受。</div>
+  </div>
+
+  <div class="concept-card">
+    <div class="en"><strong>Section A4 &mdash; Poem: Inherited Words (Questions 19&ndash;24)</strong><br><br>
+    <strong>Remember:</strong><br>
+    &bull; When someone says "four" &mdash; A MOTHER TURNS AWAY. Not a grandmother smiling. Not a farmer kneeling.<br>
+    &bull; Green = LIFE to a farmer (crops, growth, survival). Not money. Not envy. Not danger. Context changes meaning.<br>
+    &bull; "Worn smooth by other mouths" = language is shaped by all who used it before. This is about INHERITANCE, not about pronunciation or practice.<br>
+    &bull; "I used to think words were mine" = the speaker realized language belongs to EVERYONE, not one person. The tone is reflective, not angry.<br>
+    &bull; "A door into what someone else once felt" = METAPHOR. Language is compared directly to a door (no "like" or "as"). NOT a simile. NOT personification.<br>
+    &bull; <em>elaborate</em> in the final line = DETAILED AND COMPLEX (adjective). Not vague. Not simple. Not old.</div>
+    <div class="cn"><strong>A4部分——诗歌（19-24题）</strong><br>
+    要记住：说"four"时母亲转身。绿色=生命（对农民）。词语被磨平=语言继承。词语属于所有人。"门"=隐喻（无like/as）。elaborate=详细复杂（形容词）。</div>
+  </div>
+
+  <div class="section-hd">&#129504; Test-Taking Strategies &middot; 答题总策略</div>
+
+  <div class="tip-grid">
+    <div class="tip-card">
+      <div class="tip-card-hd">For "According to..." Questions</div>
+      <ul>
+        <li>The answer is IN the text. Find it before you choose.</li>
+        <li>Do not use outside knowledge or personal experience.</li>
+        <li>If an answer sounds plausible but is not in the passage, eliminate it.</li>
+      </ul>
+      <div class="cn-tip">答案在文章里。先找到再选。不要用课外知识。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">For Inference Questions</div>
+      <ul>
+        <li>"What can you INFER?" = the answer is not stated directly.</li>
+        <li>Use clues from the text plus your reasoning.</li>
+        <li>The correct answer fits ALL the evidence &mdash; not just one detail.</li>
+        <li>Avoid answers that go too far beyond what the text supports.</li>
+      </ul>
+      <div class="cn-tip">推断题的答案没有直接写出来。用全部证据，不只是一个细节。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">For "Meaning of Word" Questions</div>
+      <ul>
+        <li>Read the full sentence, not just the target word.</li>
+        <li>Substitute each answer choice into the sentence.</li>
+        <li>Ask: does this word still make the sentence logical and meaningful?</li>
+        <li>The answer fits the specific context &mdash; not just the general definition.</li>
+      </ul>
+      <div class="cn-tip">读完整句子。用每个选项替换，哪个让句子仍然合理？</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">For Literary Device Questions</div>
+      <ul>
+        <li>Simile = like/as present. Metaphor = no like/as, says IS.</li>
+        <li>Personification = non-human thing performs a human action.</li>
+        <li>Theme statement = states the CENTRAL MESSAGE of the whole text.</li>
+        <li>Foreshadowing = hints at a future EVENT in the plot (not a message).</li>
+      </ul>
+      <div class="cn-tip">明喻有like/as。隐喻说"是"。拟人=非人类做人类动作。主题陈述=全文核心信息。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">Eliminate Wrong Answers First</div>
+      <ul>
+        <li>Cross out answers that use extreme language ("always," "never," "only").</li>
+        <li>Cross out answers that directly contradict the text.</li>
+        <li>Cross out answers that are partially true but miss the main point.</li>
+        <li>If two answers are similar, pick the one that is more specific and accurate.</li>
+      </ul>
+      <div class="cn-tip">排除极端语言、与文章矛盾、部分正确但遗漏要点的选项。</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-card-hd">Question 25 &mdash; True / False</div>
+      <ul>
+        <li>This question is about YOUR effort this year, not a right or wrong answer.</li>
+        <li>Think honestly: Did you try? Did you show up and participate?</li>
+        <li>Every small effort, every reading, every attempt counts.</li>
+        <li>You do not need to be perfect &mdash; you need to be honest.</li>
+      </ul>
+      <div class="cn-tip">这道题关于你今年的努力。诚实思考。每一次小小的努力都算数。</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:8px;">
+    <div class="en">&#127775; Final reminder: Read every question twice before selecting your answer. You cannot change your answer once you click &mdash; so slow down, eliminate wrong options, and commit to your best choice.</div>
+    <div class="cn">&#127775; 最后提醒：在选择答案之前，每道题读两遍。点击后不能更改答案——所以放慢速度，排除错误选项，然后做出你的最佳选择。</div>
+  </div>
+
+</div>
+
+<div id="timer"><span id="timer-display">&#9203; 00:00</span></div>
+
+<script>
+const VOCAB = [
+  {word:"conceal",pos:"verb",cn:"隐藏",def:"To hide something or keep it secret.",cn_def:"隐藏某物或对其保密。",example:"He wore a large coat to conceal the stolen necklace."},
+  {word:"convey",pos:"verb",cn:"传达",def:"To communicate or express a meaning, feeling, or idea.",cn_def:"传达或表达一种含义、感情或想法。",example:"The author's dark imagery conveys a feeling of hopelessness."},
+  {word:"correspond",pos:"verb",cn:"通信；对应",def:"To exchange letters or messages regularly; or to match.",cn_def:"定期交换信件或信息；或相符。",example:"Two pen pals correspond every month by exchanging letters."},
+  {word:"deceive",pos:"verb",cn:"欺骗",def:"To make someone believe something that is not true.",cn_def:"让某人相信不真实的事情。",example:"The character deceived his friend by pretending to be loyal."},
+  {word:"elaborate",pos:"verb/adj",cn:"详细说明；详尽的",def:"(v) To add more detail. (adj) Detailed and complex.",cn_def:"（动词）添加更多细节。（形容词）详细复杂的。",example:"The teacher asked the student to elaborate on her answer."},
+  {word:"furthermore",pos:"adverb",cn:"此外；而且",def:"In addition to what has been said; introduces a supporting idea.",cn_def:"除已说过的之外；引入支持性观点。",example:"The essay was well-organized; furthermore, the evidence was strong."},
+  {word:"interpret",pos:"verb",cn:"解释；理解",def:"To make sense of something using evidence and reasoning.",cn_def:"使用证据和推理理解某事物的含义。",example:"When you interpret a poem, you explain its meaning with evidence."},
+  {word:"necessity",pos:"noun",cn:"必需品",def:"Something absolutely needed; not optional.",cn_def:"绝对需要的东西；不是可选的。",example:"Clean drinking water is a necessity, not a luxury."},
+  {word:"persuasive",pos:"adjective",cn:"有说服力的",def:"Designed to convince someone using reasons and evidence.",cn_def:"旨在用理由和证据说服某人。",example:"A persuasive essay uses reasons and evidence to convince the reader."},
+  {word:"signify",pos:"verb",cn:"表示；象征",def:"To be a sign or symbol of something; to mean or represent.",cn_def:"成为某事物的标志或象征。",example:"In many stories, a black crow signifies coming danger."},
+  {word:"symbolize",pos:"verb",cn:"象征",def:"To represent an idea, feeling, or quality through a symbol.",cn_def:"通过符号代表一种想法、感情或品质。",example:"A dove symbolizes peace and hope in many cultures."},
+  {word:"vague",pos:"adjective",cn:"模糊的；不清晰的",def:"Not clear or specific; lacking detail.",cn_def:"不清晰或不具体的；缺乏细节。",example:"Her instructions were so vague that nobody knew what to do."},
+  {word:"tone",pos:"noun",cn:"语气；基调",def:"The emotional attitude or mood created by the author's word choices.",cn_def:"作者用词所创造的情感态度或情绪。",example:"The funeral scene creates a sorrowful, bleak tone."},
+  {word:"diction",pos:"noun",cn:"措辞；用词",def:"The specific words an author chooses and how they affect meaning.",cn_def:"作者选择的具体词汇以及这些词汇如何影响含义。",example:"Choosing 'wept softly' instead of 'cried a little' shows how diction shapes emotional impact."},
+  {word:"connotation",pos:"noun",cn:"内涵；联想",def:"The emotional feeling a word carries beyond its literal meaning.",cn_def:"一个词在字面意义之外所携带的情感感受或联想。",example:"'Home' has a warmer connotation than 'house.'"},
+  {word:"denotation",pos:"noun",cn:"字面含义",def:"The literal, dictionary definition of a word.",cn_def:"一个词的字面、词典定义。",example:"The denotation of 'serpent' is a long, legless reptile."},
+  {word:"context",pos:"noun",cn:"上下文；语境",def:"The surrounding words that help explain the meaning of an unknown word.",cn_def:"帮助解释未知词汇含义的周围词句。",example:"The student used context clues to understand 'reluctant.'"},
+  {word:"infer",pos:"verb",cn:"推断",def:"To reach a conclusion using evidence and reasoning, not stated facts.",cn_def:"使用证据和推理得出结论，而非直接陈述的事实。",example:"The reader can infer the character is upset because she stares at the floor."},
+  {word:"implicit",pos:"adjective",cn:"隐含的；暗示的",def:"Suggested or understood without being directly stated.",cn_def:"被暗示或理解的，而没有直接陈述。",example:"Her shaking hands implied nervousness -- the emotion was implicit."},
+  {word:"explicit",pos:"adjective",cn:"明确的；直接表达的",def:"Stated clearly and directly, leaving no doubt.",cn_def:"清楚、直接地陈述，不留疑问。",example:"The theme is explicit: 'This story teaches us that kindness is powerful.'"},
+  {word:"structure",pos:"noun",cn:"结构",def:"The way a text, poem, or story is organized.",cn_def:"文本、诗歌或故事的组织方式。",example:"A poem with four stanzas, each on a different season, shows clear structure."},
+  {word:"stanza",pos:"noun",cn:"诗节",def:"A grouped set of lines in a poem, like a paragraph in prose.",cn_def:"诗歌中一组成行的诗句，类似散文中的段落。",example:"The poem had four stanzas, each describing a different time of year."},
+  {word:"rhyme scheme",pos:"noun",cn:"押韵格式",def:"The pattern of rhyming words at the end of lines, labeled with letters.",cn_def:"诗歌行末押韵词的模式，用字母标记。",example:"'bright/night/low/glow' follows an AABB rhyme scheme."},
+  {word:"meter",pos:"noun",cn:"韵律；格律",def:"The rhythmic pattern of stressed and unstressed syllables in poetry.",cn_def:"诗歌中重读和非重读音节的节奏模式。",example:"Meter gives poetry a musical quality when read aloud."},
+  {word:"imagery",pos:"noun",cn:"意象；形象描写",def:"Descriptive language that appeals to the senses and creates vivid pictures.",cn_def:"诉诸感官并创造生动图像的描述性语言。",example:"'The salt-tinged breeze stung his cheeks' is powerful imagery."},
+  {word:"metaphor",pos:"noun",cn:"隐喻",def:"A direct comparison saying one thing IS another, without like or as.",cn_def:"直接说一件事是另一件事，不用like或as。",example:"'Her voice was honey' is a metaphor."},
+  {word:"simile",pos:"noun",cn:"明喻",def:"A comparison using 'like' or 'as.'",cn_def:"使用'like'或'as'的比较。",example:"'The students were as noisy as a pack of wild animals' is a simile."},
+  {word:"personification",pos:"noun",cn:"拟人",def:"Giving human qualities, feelings, or actions to non-human things.",cn_def:"赋予非人类事物人类的品质、感情或行为。",example:"'The wind screamed through the streets' uses personification."},
+  {word:"dialogue",pos:"noun",cn:"对话",def:"Conversation between characters that reveals personality and advances plot.",cn_def:"角色之间的对话，揭示个性并推进情节。",example:"Dialogue reveals how characters think and feel through what they say."},
+  {word:"monologue",pos:"noun",cn:"独白",def:"A long speech delivered by a single character.",cn_def:"由单个角色发表的长篇演讲。",example:"A monologue is different from dialogue because only one character speaks."},
+  {word:"stage directions",pos:"noun",cn:"舞台指示",def:"Instructions in a drama script telling actors how to move and behave.",cn_def:"戏剧剧本中告诉演员如何移动和表现的指示。",example:"Stage directions are not spoken aloud -- they guide the actors' actions."},
+  {word:"point of view",pos:"noun",cn:"叙事视角",def:"The perspective from which a story is told.",cn_def:"讲述故事的视角。",example:"First person uses 'I'; third person uses 'he,' 'she,' or 'they.'"},
+  {word:"omniscient narrator",pos:"noun",cn:"全知叙述者",def:"A narrator who knows the thoughts and feelings of every character.",cn_def:"知道每个角色思想和感情的叙述者。",example:"An omniscient narrator can tell us what every character is thinking."},
+  {word:"limited narrator",pos:"noun",cn:"有限视角叙述者",def:"A third-person narrator who reveals the thoughts of only one character.",cn_def:"只揭示一个角色思想的第三人称叙述者。",example:"A limited narrator gives access to only one character's mind."},
+  {word:"objective narrator",pos:"noun",cn:"客观叙述者",def:"A narrator who reports events without revealing any character's thoughts.",cn_def:"报告事件而不揭示任何角色思想的叙述者。",example:"An objective narrator is like a camera -- shows only what can be seen."},
+  {word:"subjective narrator",pos:"noun",cn:"主观叙述者",def:"A narrator who describes events through personal feelings and emotions.",cn_def:"通过个人感情和情绪描述事件的叙述者。",example:"A subjective narrator shares their own opinions and emotional reactions."},
+  {word:"unreliable narrator",pos:"noun",cn:"不可靠叙述者",def:"A narrator whose account cannot be fully trusted.",cn_def:"其叙述不能完全信任的叙述者。",example:"If a narrator lies throughout the story, we call them unreliable."},
+  {word:"rejected",pos:"verb",cn:"拒绝；否决",def:"Refused to accept, use, or believe something.",cn_def:"拒绝接受、使用或相信某事物。",example:"Mei's parents rejected the fourth-floor apartment because of the unlucky number."},
+  {word:"omniscience",pos:"noun",cn:"全知",def:"The quality of knowing everything.",cn_def:"知道一切的品质或状态。",example:"The Eye of Providence is a symbol of divine omniscience."},
+  {word:"slang",pos:"noun",cn:"俚语",def:"Informal, non-standard words used within a specific group or culture.",cn_def:"在特定群体或文化中使用的非正式、非标准词汇。",example:"'Bread' is slang for money in Cockney English."},
+  {word:"symbol",pos:"noun",cn:"符号；象征",def:"An object or word that represents an idea beyond its literal meaning.",cn_def:"代表超出字面含义想法的物体或词语。",example:"A dove is a symbol of peace and hope across many cultures."},
+  {word:"fidelity",pos:"noun",cn:"忠诚；忠实",def:"Faithfulness and loyalty, especially in a relationship.",cn_def:"忠诚和忠实，尤其是在关系中。",example:"The Claddagh ring represents friendship, love, and fidelity."},
+  {word:"inherited",pos:"adjective",cn:"继承的",def:"Received from those who came before; passed down through generations.",cn_def:"从前人那里接受的；通过几代人传递的。",example:"Language is inherited -- we use words that billions of people used before us."},
+  {word:"infographic",pos:"noun",cn:"信息图表",def:"A visual display combining images and text to explain information clearly.",cn_def:"结合图像和文字清晰解释信息的视觉展示。",example:"The infographic used color and icons to explain the meaning of cultural symbols."},
+  {word:"divine",pos:"adjective",cn:"神圣的",def:"Relating to a god or supernatural power.",cn_def:"与神或超自然力量有关的。",example:"The Eye of Providence represents divine protection and all-seeing knowledge."},
+  {word:"currency",pos:"noun",cn:"货币",def:"The system of money used in a country.",cn_def:"一个国家使用的货币体系。",example:"The Gye Nyame symbol appears on Ghana's largest currency note."},
+  {word:"perception",pos:"noun",cn:"认知；感知",def:"The way someone understands something based on their experience.",cn_def:"某人根据自己经验理解某事物的方式。",example:"Different cultures have different perceptions of what numbers are lucky."},
+  {word:"compare",pos:"verb",cn:"比较",def:"To examine two or more things to find their similarities.",cn_def:"检查两个或多个事物以找到相似之处。",example:"'Both the wolf and the fox are cunning hunters' compares the two animals."},
+  {word:"contrast",pos:"verb",cn:"对比",def:"To examine two or more things to find their differences.",cn_def:"检查两个或多个事物以找到差异。",example:"'Romeo acts on emotion, while Juliet thinks carefully' contrasts their personalities."},
+  {word:"cultural belief",pos:"noun",cn:"文化信仰",def:"A shared idea, value, or tradition held by a group of people.",cn_def:"一群人共同持有的想法、价值观或传统。",example:"The belief that four is unlucky is a cultural belief shared by many Chinese families."}
+];
+
+const PRACTICE = [
+  {word:"conceal",cn:"隐藏",s1:"The spy slipped the document into his jacket, careful to |conceal| it from the guards watching the door.",s2:"She tried to |conceal| her disappointment, but her eyes filled with tears the moment she saw the results.",meaning:"To hide something or keep it secret. · 隐藏某物或对其保密。"},
+  {word:"convey",cn:"传达",s1:"The author uses the image of a locked door to |convey| the feeling that the character has no escape.",s2:"Without saying a single word, her silence |conveyed| more anger than any argument could have.",meaning:"To communicate or express a meaning or feeling. · 传达或表达一种含义或感情。"},
+  {word:"correspond",cn:"通信；对应",s1:"The two scientists |corresponded| for years before they finally met in person at the conference.",s2:"The map key shows that each color |corresponds| to a different region of the country.",meaning:"To exchange messages regularly; or to match and agree. · 定期交换信息；或相符一致。"},
+  {word:"deceive",cn:"欺骗",s1:"The villain spent months |deceiving| the townspeople into believing he was a doctor so he could steal their money.",s2:"The author |deceives| the reader in chapter one by making the narrator seem trustworthy -- until the final page.",meaning:"To make someone believe something that is not true. · 让某人相信不真实的事情。"},
+  {word:"elaborate",cn:"详细说明；详尽的",s1:"The teacher asked Mei to |elaborate| on her answer -- one sentence was not enough.",s2:"The palace was decorated with |elaborate| carvings that took dozens of artists more than ten years to complete.",meaning:"(v) To give more detail. (adj) Detailed and complex. · 详细说明；详细复杂的。"},
+  {word:"furthermore",cn:"此外；而且",s1:"The essay presented strong evidence; |furthermore|, the conclusion connected all the ideas clearly.",s2:"The new policy will save the school money; |furthermore|, it will give students more time to study.",meaning:"In addition; introduces a supporting idea that agrees with the first. · 此外；引入与前文一致的支持性观点。"},
+  {word:"interpret",cn:"解释；理解",s1:"Different students |interpreted| the poem differently -- some saw it as hopeful, others as sad.",s2:"When we |interpret| a symbol in a story, we must use evidence from the text, not just our opinion.",meaning:"To explain or find the meaning of something using evidence. · 使用证据解释某事物的含义。"},
+  {word:"necessity",cn:"必需品",s1:"After the earthquake, emergency workers focused on providing the basic |necessities|: water, shelter, and food.",s2:"A phone might feel essential, but it is still a luxury -- clean air and water are true |necessities|.",meaning:"Something that is absolutely needed, not optional. · 绝对需要的东西；不是可选的。"},
+  {word:"persuasive",cn:"有说服力的",s1:"Her argument was so |persuasive| that even the students who disagreed at the start changed their minds.",s2:"A |persuasive| essay does not just state an opinion -- it backs that opinion with evidence and reasoning.",meaning:"Designed to convince someone using reasons and evidence. · 旨在用理由和证据说服某人。"},
+  {word:"signify",cn:"表示；象征",s1:"In the story, the crow's sudden appearance on the windowsill |signifies| that danger is coming.",s2:"Raising a white flag has long |signified| surrender -- armies on both sides understand its meaning without words.",meaning:"To be a sign or symbol of something. · 成为某事物的标志或象征。"},
+  {word:"symbolize",cn:"象征",s1:"The broken mirror in the final scene |symbolizes| the end of the character's illusions about her family.",s2:"In many cultures, the color white |symbolizes| purity and new beginnings, while in others it represents mourning.",meaning:"To represent an idea or quality through a symbol. · 通过符号代表一种想法或品质。"},
+  {word:"vague",cn:"模糊的；不清晰的",s1:"His instructions were so |vague| that half the class did the assignment completely differently.",s2:"She gave a |vague| answer -- 'It was somewhere in the south' -- which told us almost nothing useful.",meaning:"Not clear or specific; lacking detail. · 不清晰或不具体的；缺乏细节。"},
+  {word:"tone",cn:"语气；基调",s1:"The words 'hollow,' 'grey,' and 'silent' give the passage a sorrowful |tone| that matches the character's grief.",s2:"The author shifts the |tone| from playful to serious the moment the letter arrives in chapter three.",meaning:"The emotional attitude or mood created by an author's word choices. · 作者用词所创造的情感态度或情绪。"},
+  {word:"diction",cn:"措辞；用词",s1:"The author's choice of 'crept' instead of 'walked' shows how |diction| creates tension and suspense.",s2:"By choosing the word 'wept' rather than 'cried,' the writer uses careful |diction| to deepen the emotional impact.",meaning:"The specific words an author chooses, and how they shape meaning. · 作者选择的具体词汇以及如何塑造含义。"},
+  {word:"connotation",cn:"内涵；联想",s1:"The word 'home' and the word 'house' have the same definition, but 'home' carries warm |connotations| of safety and love.",s2:"Writers choose words carefully because their |connotations| shape how a reader feels -- 'thin' and 'scrawny' mean similar things but feel very different.",meaning:"The emotional feeling or association a word carries beyond its dictionary meaning. · 词语在字面意义之外携带的情感联想。"},
+  {word:"denotation",cn:"字面含义",s1:"The |denotation| of 'serpent' is simply 'a long, legless reptile' -- but in most stories, it carries much darker feelings.",s2:"Knowing the |denotation| of a word is just the first step -- you also need to understand what it suggests emotionally.",meaning:"The literal, dictionary definition of a word. · 一个词的字面、词典定义。"},
+  {word:"context",cn:"上下文；语境",s1:"Even without knowing the word 'reluctant,' you can understand it from |context|: the character 'did not want to go' and 'dragged his feet.'",s2:"The meaning of a symbol depends on |context| -- a green light might mean permission in one culture and something very different in another.",meaning:"The surrounding words or situation that help explain an unknown word or idea. · 帮助解释未知词汇或想法的周围词句或情境。"},
+  {word:"infer",cn:"推断",s1:"The character never says she is nervous, but we can |infer| it from her shaking hands and long silences.",s2:"From the empty chair at the dinner table and the untouched food, the reader can |infer| that someone important is missing.",meaning:"To reach a conclusion using evidence and reasoning, not stated facts. · 使用证据和推理得出结论，而非直接陈述的事实。"},
+  {word:"implicit",cn:"隐含的；暗示的",s1:"The story never states that the family is poor, but it is |implicit| in the details: one shared coat, meals of plain rice, no new shoes.",s2:"Her |implicit| message in the speech was that she disagreed with the decision -- she never said it directly, but everyone understood.",meaning:"Suggested or understood without being directly stated. · 被暗示或理解的，而没有直接陈述。"},
+  {word:"explicit",cn:"明确的；直接表达的",s1:"The author makes the theme |explicit| in the final paragraph: 'We are shaped by every person who has ever loved us.'",s2:"The contract contained |explicit| instructions -- no guessing required; every rule was written out clearly.",meaning:"Stated clearly and directly, leaving no room for doubt. · 清楚、直接地陈述，不留任何疑问。"},
+  {word:"structure",cn:"结构",s1:"The poem's |structure| -- four stanzas, each named after a season -- mirrors the passage of time in the speaker's life.",s2:"The story's |structure| builds tension slowly: it begins with calm family life and ends with a moment of crisis.",meaning:"The way a text, poem, or story is organized and arranged. · 文本、诗歌或故事的组织和排列方式。"},
+  {word:"stanza",cn:"诗节",s1:"Each |stanza| in the poem introduces a new character with a different relationship to language.",s2:"After the third |stanza|, the tone of the poem shifts from loss to acceptance, marked by a change in rhythm.",meaning:"A grouped set of lines in a poem, similar to a paragraph. · 诗歌中一组成行的诗句，类似段落。"},
+  {word:"rhyme scheme",cn:"押韵格式",s1:"The poem follows an AABB |rhyme scheme|: the first two lines rhyme, and so do the second two.",s2:"Poets sometimes break an established |rhyme scheme| deliberately to signal that something unexpected has happened.",meaning:"The pattern of rhyming words at the end of lines, labeled with letters. · 诗歌行末押韵词的模式，用字母标记。"},
+  {word:"meter",cn:"韵律；格律",s1:"The steady |meter| of the poem -- one stressed syllable, then one unstressed -- gives it the feel of a heartbeat.",s2:"When the |meter| breaks in line nine, the reader feels the disruption before they even understand the words.",meaning:"The rhythmic pattern of stressed and unstressed syllables in poetry. · 诗歌中重读和非重读音节的节奏模式。"},
+  {word:"imagery",cn:"意象；形象描写",s1:"The line 'the salt-tinged breeze stung his cheeks' uses vivid |imagery| to make the reader feel the cold wind.",s2:"The author fills the hospital scene with |imagery| of white walls and the hum of machines to create a feeling of isolation.",meaning:"Descriptive language that appeals to the senses and creates vivid mental pictures. · 诉诸感官并创造生动图像的描述性语言。"},
+  {word:"metaphor",cn:"隐喻",s1:"'Language is a door into what someone else once felt' is a |metaphor| -- language is compared directly to a door, with no 'like' or 'as.'",s2:"'Her voice was honey' is a |metaphor|: it says the voice IS honey, creating a direct comparison without using 'like' or 'as.'",meaning:"A direct comparison where one thing IS said to be another, without like or as. · 直接说一件事是另一件事，不用like或as。"},
+  {word:"simile",cn:"明喻",s1:"'The classroom was as loud as a stadium during a football match' is a |simile| -- the word 'as' signals the comparison.",s2:"'Her hands moved like water' is a |simile| that creates a sense of grace and ease using the word 'like.'",meaning:"A comparison using 'like' or 'as.' · 使用'like'或'as'的比较。"},
+  {word:"personification",cn:"拟人",s1:"'The wind screamed through the empty streets, searching for something to destroy' uses |personification| -- wind cannot scream or search.",s2:"'The old house breathed at night, sighing through its wooden walls' gives the house human qualities through |personification|.",meaning:"Giving human qualities, feelings, or actions to non-human things. · 赋予非人类事物人类的品质、感情或行为。"},
+  {word:"dialogue",cn:"对话",s1:"The |dialogue| between Mei and her mother reveals not just what they are saying, but how much they trust each other.",s2:"The author uses |dialogue| to show the conflict: the characters' words are polite, but their meaning is sharp.",meaning:"Conversation between characters that reveals personality and advances the plot. · 揭示个性并推进情节的角色对话。"},
+  {word:"monologue",cn:"独白",s1:"In the final act, the main character delivers a long |monologue| about guilt -- the audience hears his thoughts directly for the first time.",s2:"A |monologue| differs from dialogue because the speaker is sharing private thoughts alone, not having a conversation.",meaning:"A long speech delivered by a single character. · 由单个角色发表的长篇演讲。"},
+  {word:"stage directions",cn:"舞台指示",s1:"The |stage directions| read '(She does not move; her eyes remain fixed on the door),' telling the actress exactly what the scene requires.",s2:"Without |stage directions|, actors must guess how to deliver the scene; the script provides them as a guide.",meaning:"Instructions in a drama script telling actors how to move and behave. · 戏剧剧本中告诉演员如何移动和表现的指示。"},
+  {word:"point of view",cn:"叙事视角",s1:"The author chooses a first-person |point of view| so readers feel as though they are living inside the character's experience.",s2:"By switching |point of view| halfway through the novel, the author forces readers to question everything they believed about the first narrator.",meaning:"The perspective from which a story is told. · 讲述故事的视角。"},
+  {word:"omniscient narrator",cn:"全知叙述者",s1:"The |omniscient narrator| tells us what every soldier on the battlefield is thinking -- fear, doubt, and determination all at once.",s2:"Because the narrator is |omniscient|, we know from the first chapter that the villain is lying, even though the other characters do not.",meaning:"A narrator who knows the thoughts and feelings of every character. · 知道每个角色思想和感情的叙述者。"},
+  {word:"limited narrator",cn:"有限视角叙述者",s1:"The third-person |limited narrator| shows us only Mei's thoughts -- we never know what her brother is truly feeling.",s2:"A |limited narrator| creates suspense because the reader, like the main character, cannot see the full picture.",meaning:"A third-person narrator who reveals only one character's inner thoughts. · 只揭示一个角色内心想法的第三人称叙述者。"},
+  {word:"objective narrator",cn:"客观叙述者",s1:"The |objective narrator| reports only what can be seen: 'She set down the cup and walked out without speaking.'",s2:"With an |objective narrator|, readers must interpret emotion from actions and words alone -- no inner thoughts are given.",meaning:"A narrator who reports events without revealing any character's thoughts. · 报告事件而不揭示任何角色思想的叙述者。"},
+  {word:"subjective narrator",cn:"主观叙述者",s1:"The |subjective narrator| cannot help interjecting her feelings: 'The decision was wrong -- I knew it even then, watching from the window.'",s2:"A |subjective narrator| colors every event with personal emotion, which makes readers wonder whether they are getting the full truth.",meaning:"A narrator who describes events through personal feelings and opinions. · 通过个人感情和意见描述事件的叙述者。"},
+  {word:"unreliable narrator",cn:"不可靠叙述者",s1:"Halfway through the novel, small details begin to contradict the narrator's story -- we realize we are dealing with an |unreliable narrator|.",s2:"An |unreliable narrator| does not always lie on purpose; sometimes they are confused, biased, or simply wrong about what they remember.",meaning:"A narrator whose account cannot be fully trusted. · 其叙述不能完全信任的叙述者。"},
+  {word:"rejected",cn:"拒绝；否决",s1:"Mei's parents |rejected| the apartment on the fourth floor the moment they heard the number, without even stepping inside.",s2:"The committee |rejected| the proposal because it lacked supporting evidence and a clear plan of action.",meaning:"Refused to accept, use, or believe something. · 拒绝接受、使用或相信某事物。"},
+  {word:"omniscience",cn:"全知",s1:"The Eye of Providence, printed on the American dollar, has long been associated with divine |omniscience| -- the idea that God sees all.",s2:"The narrator's |omniscience| makes readers feel safe at first; we believe we know everything -- until we realize we were deceived.",meaning:"The quality or state of knowing everything. · 知道一切的品质或状态。"},
+  {word:"slang",cn:"俚语",s1:"The word 'bread,' used as |slang| for money, started in East London and spread around the world through music and film.",s2:"Every generation creates its own |slang| -- words that insiders understand immediately but that outsiders find confusing.",meaning:"Informal, non-standard words used within a specific group or culture. · 在特定群体或文化中使用的非正式、非标准词汇。"},
+  {word:"symbol",cn:"符号；象征",s1:"The number four is a powerful |symbol| in Mei's family -- it represents danger, not just a digit on a door.",s2:"Across many cultures, a white dove is used as a |symbol| of peace in art, literature, and public ceremonies.",meaning:"An object or word that represents an idea beyond its literal meaning. · 代表超出字面含义想法的物体或词语。"},
+  {word:"fidelity",cn:"忠诚；忠实",s1:"The Claddagh ring, worn for centuries in Ireland, represents friendship, love, and |fidelity| -- three values of lasting relationships.",s2:"The soldier's |fidelity| to his unit kept him going even when the mission seemed impossible.",meaning:"Faithfulness and loyalty, especially in a relationship. · 忠诚和忠实，尤其是在关系中。"},
+  {word:"inherited",cn:"继承的",s1:"The poem argues that language is |inherited| -- every word we use was shaped by the billions of mouths that spoke before ours.",s2:"Mei's anxiety about the number four was not random; it was an |inherited| belief passed from her grandparents to her parents to her.",meaning:"Received from those who came before; passed down through generations. · 从前人那里接受的；通过几代人传递的。"},
+  {word:"infographic",cn:"信息图表",s1:"The |infographic| used icons of eyes and hands to explain five different cultural symbols in a single page.",s2:"A well-designed |infographic| lets readers understand complex information at a glance, without reading long paragraphs.",meaning:"A visual display combining images and text to explain information clearly. · 结合图像和文字清晰解释信息的视觉展示。"},
+  {word:"divine",cn:"神圣的",s1:"The Eye of Providence is meant to represent |divine| all-seeing power -- a god watching over human actions.",s2:"In many ancient stories, a |divine| figure intervenes to save the hero when human effort alone is not enough.",meaning:"Relating to a god or supernatural power. · 与神或超自然力量有关的。"},
+  {word:"currency",cn:"货币",s1:"The Gye Nyame symbol appears on Ghana's largest |currency| note because it represents a belief central to Ghanaian identity.",s2:"In ancient times, salt, shells, and grain were used as |currency| -- the idea of value has always existed, even without coins.",meaning:"The system of money used in a country. · 一个国家使用的货币体系。"},
+  {word:"perception",cn:"认知；感知",s1:"Our |perception| of numbers is shaped by culture: four is unlucky in Chinese culture but often neutral in Western countries.",s2:"The author changes our |perception| of the villain slowly -- we begin to understand why he made the choices he did.",meaning:"The way someone understands something based on their experience or culture. · 某人根据自己经验或文化理解某事物的方式。"},
+  {word:"compare",cn:"比较",s1:"The infographic |compares| three eye symbols -- Evil Eye, Hamsa, and Eye of Horus -- by showing what they share.",s2:"When you |compare| the poem and the story, you notice both explore how cultural beliefs shape personal identity.",meaning:"To examine two or more things to find their similarities. · 检查两个或多个事物以找到相似之处。"},
+  {word:"contrast",cn:"对比",s1:"The two brothers |contrast| sharply: one acts on impulse, the other plans every move carefully.",s2:"To understand how diction shapes tone, |contrast| 'The child wept softly' with 'The kid cried a little' -- same event, very different feeling.",meaning:"To examine two or more things to find their differences. · 检查两个或多个事物以找到差异。"},
+  {word:"cultural belief",cn:"文化信仰",s1:"The |cultural belief| that four is unlucky is so strong in Mei's family that it shapes where they live and where she goes to school.",s2:"A |cultural belief| does not have to be scientifically proven to be real and powerful in people's daily lives.",meaning:"A shared idea, value, or tradition held by a group of people. · 一群人共同持有的想法、价值观或传统。"}
+];
+
+let leaveCount = 0;
+let secondsElapsed = 0;
+
+function buildVocab() {
+  const grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v) {
+    const card = document.createElement('div');
+    card.className = 'vcard';
+    card.setAttribute('data-word', v.word.toLowerCase());
+    const top = document.createElement('div');
+    top.className = 'vcard-top';
+    const left = document.createElement('div');
+    const wordEl = document.createElement('div');
+    wordEl.className = 'vcard-word';
+    wordEl.textContent = v.word;
+    const posEl = document.createElement('div');
+    posEl.className = 'vcard-pos';
+    posEl.textContent = v.pos;
+    left.appendChild(wordEl);
+    left.appendChild(posEl);
+    const speakBtn = document.createElement('button');
+    speakBtn.className = 'speak-btn';
+    speakBtn.textContent = String.fromCodePoint(0x1F50A);
+    speakBtn.setAttribute('aria-label', 'Pronounce ' + v.word);
+    (function(w){ speakBtn.addEventListener('click', function(){ speak(w); }); })(v.word);
+    top.appendChild(left);
+    top.appendChild(speakBtn);
+    const cn = document.createElement('div');
+    cn.className = 'vcard-cn';
+    cn.textContent = v.cn;
+    const def = document.createElement('div');
+    def.className = 'vcard-def';
+    def.textContent = v.def;
+    const cndef = document.createElement('div');
+    cndef.className = 'vcard-cndef';
+    cndef.textContent = v.cn_def;
+    const ex = document.createElement('div');
+    ex.className = 'vcard-ex';
+    ex.textContent = v.example;
+    card.appendChild(top);
+    card.appendChild(cn);
+    card.appendChild(def);
+    card.appendChild(cndef);
+    card.appendChild(ex);
+    grid.appendChild(card);
+  });
+  document.getElementById('vocabSearch').addEventListener('input', function() {
+    const val = this.value.toLowerCase();
+    document.querySelectorAll('.vcard').forEach(function(c) {
+      c.style.display = c.getAttribute('data-word').includes(val) ? '' : 'none';
+    });
+  });
+}
+
+function buildPractice() {
+  const grid = document.getElementById('practiceGrid');
+  PRACTICE.forEach(function(item) {
+    const block = document.createElement('div');
+    block.className = 'pword-block';
+    const hdr = document.createElement('div');
+    hdr.className = 'pword-hdr';
+    const hdrLeft = document.createElement('div');
+    hdrLeft.className = 'pword-hdr-left';
+    const nameEl = document.createElement('span');
+    nameEl.className = 'pword-name';
+    nameEl.textContent = item.word;
+    const vocabMatch = VOCAB.find(function(v){ return v.word === item.word; });
+    const posEl = document.createElement('span');
+    posEl.className = 'pword-pos';
+    posEl.textContent = vocabMatch ? vocabMatch.pos : '';
+    hdrLeft.appendChild(nameEl);
+    hdrLeft.appendChild(posEl);
+    const cnEl = document.createElement('span');
+    cnEl.className = 'pword-cn';
+    cnEl.textContent = item.cn;
+    const speakBtn = document.createElement('button');
+    speakBtn.className = 'pword-speak';
+    speakBtn.textContent = String.fromCodePoint(0x1F50A);
+    (function(w){ speakBtn.addEventListener('click', function(){ speak(w); }); })(item.word);
+    hdr.appendChild(hdrLeft);
+    hdr.appendChild(cnEl);
+    hdr.appendChild(speakBtn);
+    block.appendChild(hdr);
+
+    [item.s1, item.s2].forEach(function(rawSentence, si) {
+      const row = document.createElement('div');
+      row.className = 'psentence-row';
+      const label = document.createElement('div');
+      label.className = 'psentence-label';
+      label.textContent = 'Sentence ' + (si + 1);
+      row.appendChild(label);
+      const sentEl = document.createElement('div');
+      sentEl.className = 'psentence-text';
+      const parts = rawSentence.split('|');
+      if (parts.length >= 3) {
+        sentEl.appendChild(document.createTextNode(parts[0]));
+        const kw = document.createElement('span');
+        kw.className = 'keyword';
+        kw.textContent = parts[1];
+        sentEl.appendChild(kw);
+        sentEl.appendChild(document.createTextNode(parts[2]));
+      } else {
+        sentEl.textContent = rawSentence;
+      }
+      row.appendChild(sentEl);
+      const revBtn = document.createElement('button');
+      revBtn.className = 'reveal-btn';
+      revBtn.textContent = 'Reveal Meaning';
+      row.appendChild(revBtn);
+      const revDiv = document.createElement('div');
+      revDiv.className = 'meaning-reveal';
+      const mparts = item.meaning.split(' · ');
+      const enDiv = document.createElement('div');
+      enDiv.className = 'en';
+      enDiv.textContent = mparts[0] || item.meaning;
+      const cnDiv = document.createElement('div');
+      cnDiv.className = 'cn';
+      cnDiv.textContent = mparts[1] || '';
+      revDiv.appendChild(enDiv);
+      revDiv.appendChild(cnDiv);
+      row.appendChild(revDiv);
+      (function(btn, div){
+        btn.addEventListener('click', function(){
+          if (div.classList.contains('show')) {
+            div.classList.remove('show');
+            btn.textContent = 'Reveal Meaning';
+          } else {
+            div.classList.add('show');
+            btn.textContent = 'Hide';
+          }
+        });
+      })(revBtn, revDiv);
+      block.appendChild(row);
+    });
+    grid.appendChild(block);
+  });
+}
+
+function speak(word) {
+  if (!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = 'en-US';
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function startTimer() {
+  setInterval(function(){
+    secondsElapsed++;
+    const m = String(Math.floor(secondsElapsed/60)).padStart(2,'0');
+    const s = String(secondsElapsed%60).padStart(2,'0');
+    document.getElementById('timer-display').textContent = String.fromCodePoint(0x23F1) + ' ' + m + ':' + s;
+  }, 1000);
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = String.fromCodePoint(0x1F6AA) + ' Leaves: ' + leaveCount;
+      const notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  buildVocab();
+  buildPractice();
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
