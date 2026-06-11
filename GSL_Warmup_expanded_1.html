@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSL Word Warmup | 每日词汇练习</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,600;1,400&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:#2d6a4f; --ml-green-dark:#1b4332; --ml-green-light:#d8f3dc;
+  --ml-red:#c1121f; --ml-gold:#e9c46a; --ink:#1a2a1a; --ink2:#2d3748;
+  --mist:#f8faf8; --border:#e2e8e2; --cobalt:#1e3a5f; --amber:#b45309;
+  --correct:#166534; --correct-bg:#dcfce7; --wrong:#991b1b; --wrong-bg:#fee2e2;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh;}
+.cn{font-family:'Noto Sans SC',sans-serif;}
+
+/* ALL screens hidden by default, shown via JS */
+.screen{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;padding:24px;}
+
+.top-bar{background:var(--ml-green-dark);color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;width:100%;flex-shrink:0;}
+.top-bar-title{font-weight:700;font-size:0.95rem;}
+.top-bar-meta{font-size:0.8rem;opacity:0.8;}
+.band-badge{background:var(--ml-gold);color:var(--ink);font-size:0.75rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+
+.card{background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,.08);padding:32px;width:100%;max-width:560px;}
+.card h2{font-family:'Literata',serif;font-size:1.5rem;color:var(--ml-green-dark);margin-bottom:6px;}
+.card .subtitle{color:#666;font-size:.88rem;margin-bottom:24px;line-height:1.5;}
+
+.input-row{margin-bottom:20px;}
+.input-row label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--ink2);}
+.input-row input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;font-family:'DM Sans',sans-serif;transition:border-color .2s;}
+.input-row input:focus{outline:none;border-color:var(--ml-green);}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:10px;font-size:.95rem;font-weight:600;cursor:pointer;border:none;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.btn-primary{background:var(--ml-green);color:#fff;width:100%;margin-top:8px;}
+.btn-primary:hover{background:var(--ml-green-dark);}
+.btn-secondary{background:var(--border);color:var(--ink2);}
+.btn-secondary:hover{background:#d0d8d0;}
+
+/* placement */
+.placement-progress{display:flex;gap:6px;justify-content:center;margin-bottom:20px;}
+.placement-dot{width:10px;height:10px;border-radius:50%;background:var(--border);}
+.placement-dot.done{background:var(--ml-green);}
+.placement-dot.current{background:var(--ml-gold);}
+.placement-word{text-align:center;padding:20px 0 16px;}
+.pw-eng{font-family:'Literata',serif;font-size:2.2rem;font-weight:600;color:var(--ml-green-dark);}
+.pw-pos{font-size:.8rem;color:#888;font-style:italic;margin-top:2px;}
+.pw-cn{font-size:1.1rem;color:var(--cobalt);margin-top:6px;}
+.self-report-btns{display:flex;gap:10px;margin-top:20px;}
+.self-report-btns button{flex:1;padding:14px 8px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;text-align:center;line-height:1.4;}
+.self-report-btns button:hover{border-color:var(--ml-green);background:var(--ml-green-light);}
+.self-report-btns button.know{border-color:#166534;color:#166534;}
+.self-report-btns button.sort-of{border-color:var(--amber);color:var(--amber);}
+.self-report-btns button.no{border-color:var(--ml-red);color:var(--ml-red);}
+
+/* band */
+.band-cards{display:flex;flex-direction:column;gap:12px;margin-top:20px;}
+.band-card{border:2px solid var(--border);border-radius:12px;padding:16px 20px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:16px;}
+.band-card:hover{border-color:var(--ml-green);background:var(--ml-green-light);}
+.band-card.recommended{border-color:var(--ml-green);background:var(--ml-green-light);}
+.band-icon{font-size:1.8rem;}
+.band-info h3{font-size:1rem;font-weight:700;color:var(--ml-green-dark);}
+.band-info p{font-size:.82rem;color:#666;margin-top:2px;}
+.band-info .cn-sub{font-size:.78rem;color:var(--cobalt);}
+.rec-tag{margin-left:auto;background:var(--ml-gold);color:var(--ink);font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+
+/* warmup body */
+.warmup-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:20px 16px 32px;gap:14px;width:100%;}
+
+.streak-bar{background:#fff;border-radius:12px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 6px rgba(0,0,0,.06);width:100%;max-width:560px;}
+.streak-info{font-size:.85rem;color:var(--ink2);}
+.streak-info strong{color:var(--ml-green-dark);}
+.streak-num{font-size:1.5rem;font-weight:700;color:var(--ml-gold);}
+
+.word-card{background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,.08);padding:28px 32px;width:100%;max-width:560px;text-align:center;}
+.word-number{font-size:.75rem;color:#aaa;margin-bottom:8px;font-weight:600;letter-spacing:.05em;}
+.word-english{font-family:'Literata',serif;font-size:2.8rem;font-weight:600;color:var(--ml-green-dark);line-height:1.1;}
+.word-pos{font-size:.82rem;color:#888;font-style:italic;margin-top:4px;}
+.word-chinese{font-size:1.3rem;color:var(--cobalt);margin-top:10px;font-weight:500;}
+.word-def{font-size:.9rem;color:var(--ink2);margin-top:10px;line-height:1.5;padding:10px 14px;background:var(--mist);border-radius:8px;text-align:left;}
+.word-def .cn-def{color:var(--cobalt);font-size:.85rem;margin-top:4px;}
+
+.hear-it-card{background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,.08);padding:20px 32px;width:100%;max-width:560px;text-align:center;}
+.hear-it-label{font-size:.78rem;font-weight:700;letter-spacing:.08em;color:#aaa;text-transform:uppercase;margin-bottom:10px;}
+.hear-it-instruction{font-size:.9rem;color:var(--ink2);margin-bottom:14px;line-height:1.5;}
+.hear-it-instruction .cn{color:var(--cobalt);font-size:.85rem;display:block;margin-top:3px;}
+.btn-speak{background:var(--ml-green);color:#fff;border:none;border-radius:50px;padding:12px 28px;font-size:.95rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.btn-speak:hover{background:var(--ml-green-dark);}
+.speak-done-btn{margin-top:12px;background:none;border:2px solid var(--border);border-radius:8px;padding:9px 20px;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--ink2);font-family:'DM Sans',sans-serif;transition:all .15s;display:none;width:100%;}
+.speak-done-btn:hover{border-color:var(--ml-green);color:var(--ml-green);}
+
+.task-card{background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,.08);padding:24px 28px;width:100%;max-width:560px;display:none;}
+.task-label{font-size:.75rem;font-weight:700;letter-spacing:.08em;color:#aaa;text-transform:uppercase;margin-bottom:12px;}
+.task-question{font-size:1rem;color:var(--ink);line-height:1.6;margin-bottom:6px;}
+.task-question .cn{color:var(--cobalt);font-size:.88rem;display:block;margin-top:4px;}
+.task-options{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+.opt-btn{padding:12px 16px;border-radius:10px;border:2px solid var(--border);background:#fff;font-size:.9rem;text-align:left;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--ink);transition:all .15s;line-height:1.4;}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:var(--ml-green-light);}
+.opt-btn.correct{border-color:var(--correct);background:var(--correct-bg);color:var(--correct);font-weight:600;}
+.opt-btn.wrong{border-color:var(--wrong);background:var(--wrong-bg);color:var(--wrong);}
+.opt-btn:disabled{cursor:default;}
+.fitb-input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:10px;font-size:1rem;font-family:'DM Sans',sans-serif;margin-top:12px;transition:border-color .2s;}
+.fitb-input:focus{outline:none;border-color:var(--ml-green);}
+.fitb-input.correct{border-color:var(--correct);background:var(--correct-bg);}
+.fitb-input.wrong{border-color:var(--wrong);background:var(--wrong-bg);}
+.fitb-submit{margin-top:10px;background:var(--ml-green);color:#fff;border:none;border-radius:8px;padding:11px 24px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;transition:all .15s;}
+.fitb-submit:hover{background:var(--ml-green-dark);}
+.fitb-submit:disabled{background:#ccc;cursor:not-allowed;}
+.rationale-box{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:.88rem;line-height:1.5;display:none;}
+.rationale-box.show{display:block;}
+.rationale-box.correct-rat{background:var(--correct-bg);border-left:4px solid var(--correct);color:var(--correct);}
+.rationale-box.wrong-rat{background:var(--wrong-bg);border-left:4px solid var(--wrong);color:var(--wrong);}
+.rationale-box .rat-en{font-weight:600;}
+.rationale-box .rat-cn{margin-top:4px;opacity:.85;}
+.next-btn{margin-top:14px;background:var(--ml-green-dark);color:#fff;border:none;border-radius:10px;padding:13px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;display:none;transition:all .15s;}
+.next-btn.show{display:block;}
+.next-btn:hover{background:var(--ml-green);}
+
+.complete-icon{font-size:4rem;margin-bottom:16px;}
+.complete-card{text-align:center;}
+.complete-card h2{font-size:1.6rem;margin-bottom:8px;}
+.complete-card p{color:#666;margin-bottom:20px;line-height:1.6;white-space:pre-line;}
+.stats-row{display:flex;gap:12px;margin:20px 0;}
+.stat-box{flex:1;background:var(--ml-green-light);border-radius:10px;padding:14px;text-align:center;}
+.stat-box .stat-num{font-size:1.8rem;font-weight:700;color:var(--ml-green-dark);}
+.stat-box .stat-label{font-size:.78rem;color:#666;margin-top:2px;}
+.download-btn{background:var(--cobalt);color:#fff;border:none;border-radius:10px;padding:13px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%;margin-top:10px;transition:all .15s;}
+.download-btn:hover{background:#162c4a;}
+
+
+/* footer bar */
+.footer-bar{
+  position:sticky;bottom:0;left:0;right:0;
+  background:#fff;border-top:2px solid var(--border);
+  padding:12px 16px 16px;display:flex;flex-direction:column;gap:8px;
+  width:100%;
+  box-shadow:0 -2px 12px rgba(0,0,0,.09);
+  flex-shrink:0;
+}
+.footer-finished-btn{
+  background:var(--ml-green-dark);color:#fff;border:none;border-radius:10px;
+  padding:14px;font-size:.95rem;font-weight:700;cursor:pointer;
+  font-family:'DM Sans',sans-serif;width:100%;transition:all .15s;
+}
+.footer-finished-btn:hover{background:var(--ml-green);}
+
+
+@media(max-width:480px){
+  .card,.word-card,.hear-it-card,.task-card,.streak-bar{padding:20px 16px;}
+  .word-english{font-size:2.2rem;}
+  .self-report-btns{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1: NAME -->
+<div class="screen" id="screen-name">
+  <div class="card">
+    <h2>GSL Word Warmup</h2>
+    <p class="subtitle">每日词汇练习 · Daily Vocabulary Practice<br>Enter your name to begin. 请输入你的名字开始练习。</p>
+    <div class="input-row">
+      <label>Your Name / 你的名字</label>
+      <input type="text" id="name-input" placeholder="e.g. Li Ming" autocomplete="off">
+    </div>
+    <button class="btn btn-primary" id="name-btn">Start → 开始</button>
+  </div>
+</div>
+
+<!-- SCREEN 2: PLACEMENT -->
+<div class="screen" id="screen-placement">
+  <div class="card">
+    <h2>Quick Check / 快速测试</h2>
+    <p class="subtitle">Look at each word. Be honest — do you know it?<br><span class="cn">看每个单词，诚实回答：你认识它吗？</span></p>
+    <div class="placement-progress" id="placement-dots"></div>
+    <div class="placement-word" id="placement-word-display"></div>
+    <div class="self-report-btns">
+      <button class="know" id="pl-know">✓ I know it<br><span class="cn" style="font-size:.78rem">我认识</span></button>
+      <button class="sort-of" id="pl-sort">~ Sort of<br><span class="cn" style="font-size:.78rem">有点印象</span></button>
+      <button class="no" id="pl-no">✗ Don't know<br><span class="cn" style="font-size:.78rem">不认识</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3: BAND -->
+<div class="screen" id="screen-band">
+  <div class="card">
+    <h2>Choose Your Level / 选择你的级别</h2>
+    <p class="subtitle" id="band-rec-text"></p>
+    <div class="band-cards" id="band-cards"></div>
+  </div>
+</div>
+
+<!-- SCREEN 4: WARMUP -->
+<div class="screen" id="screen-warmup" style="padding:0;justify-content:flex-start;align-items:stretch;flex-direction:column;">
+  <div class="top-bar">
+    <div>
+      <div class="top-bar-title">GSL Word Warmup</div>
+      <div class="top-bar-meta" id="top-name"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="band-badge" id="top-band"></span>
+      <button id="change-band-btn" style="background:rgba(255,255,255,0.18);color:#fff;border:1.5px solid rgba(255,255,255,0.45);border-radius:8px;padding:5px 12px;font-size:0.78rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;" onmouseover="this.style.background='rgba(255,255,255,0.28)'" onmouseout="this.style.background='rgba(255,255,255,0.18)'">⚙ Change Level</button>
+    </div>
+  </div>
+  <div class="warmup-body">
+    <div class="streak-bar">
+      <div class="streak-info">Words done: <strong id="words-done">0</strong></div>
+      <div class="streak-info" style="text-align:center;font-size:.8rem;color:#aaa;" id="word-pos-label"></div>
+      <div class="streak-num" id="streak-display">🔥 0</div>
+    </div>
+    <div class="word-card">
+      <div class="word-number" id="w-rank"></div>
+      <div class="word-english" id="w-eng"></div>
+      <div class="word-pos" id="w-pos"></div>
+      <div class="word-chinese cn" id="w-cn"></div>
+      <div class="word-def">
+        <div id="w-def-en"></div>
+        <div class="cn-def cn" id="w-def-cn"></div>
+      </div>
+    </div>
+    <div class="hear-it-card">
+      <div class="hear-it-label">👂 Hear It &amp; Say It / 听一听，说一说</div>
+      <div class="hear-it-instruction">
+        Press play to hear the word. Then say it out loud yourself!
+        <span class="cn">点击播放听这个单词，然后大声说出来！</span>
+      </div>
+      <button class="btn-speak" id="speak-btn">▶ Play Word / 播放</button>
+      <button class="speak-done-btn" id="speak-done-btn">
+        ✓ I said it out loud — show me the practice task<br>
+        <span class="cn" style="font-size:.8rem;">我已经大声说出来了 — 显示练习题</span>
+      </button>
+    </div>
+    <div class="task-card" id="task-card">
+      <div class="task-label">✏️ Do It / 练习</div>
+      <div id="task-content"></div>
+    </div>
+    <div style="height:80px;flex-shrink:0;"></div>
+  </div>
+  <!-- sticky footer -->
+  <div class="footer-bar">
+    <button class="footer-finished-btn" id="finished-btn">✅ I'm finished for today / 我今天完成了</button>
+  </div>
+</div>
+
+<!-- SCREEN 5: COMPLETE -->
+<div class="screen" id="screen-complete">
+  <div class="card complete-card">
+    <div class="complete-icon">🎉</div>
+    <h2>Great work today! / 今天做得好！</h2>
+    <p id="complete-msg"></p>
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Words total<br>累计单词</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" id="stat-streak">0</div>
+        <div class="stat-label">Day streak<br>连续天数</div>
+      </div>
+    </div>
+    <button class="download-btn" id="download-btn">📄 Download Today's Work / 下载今日报告</button>
+    <button class="btn btn-primary" id="keep-going-btn" style="margin-top:10px;">Keep Going — Practice Another / 继续练习</button>
+    <button class="btn btn-secondary" id="change-band-btn2" style="width:100%;margin-top:10px;">Change Level / 更换级别</button>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+// Format per entry: [gsl_rank, word, pos, cn, def_en, def_cn, example_sentence]
+var GSL = {
+  A:[
+    [48,"time","noun","时间","a period that can be measured in seconds, minutes, or hours","可以用秒、分钟或小时计量的一段时间","We do not have much time before class starts."],
+    [55,"state","noun/verb","状态/说明","the condition of something, or to say something clearly","某事的情况，或清楚地说出某事","She stated her opinion clearly in front of the class."],
+    [63,"know","verb","知道","to have information about something in your mind","在脑海中拥有关于某事的信息","Do you know the answer to this question?"],
+    [65,"use","verb/noun","使用","to do something with an object or idea for a purpose","为某个目的而使用某物","You can use a dictionary to find word meanings."],
+    [71,"work","verb/noun","工作","to do a job or task, or the job itself","做一份工作或任务，或工作本身","She works hard every day to improve her English."],
+    [75,"give","verb","给予","to hand something to another person","把某物交给另一个人","Can you give me an example sentence for this word?"],
+    [77,"think","verb","思考","to use your mind to consider something","用你的头脑去考虑某件事","Think carefully before you answer the question."],
+    [81,"day","noun","日子","a period of 24 hours","24小时的一段时间","Every day is a new chance to learn something."],
+    [84,"way","noun","方式","a method of doing something","做某事的方法","Is there a better way to remember new words?"],
+    [89,"great","adjective","伟大的","very large, important, or very good","非常大、重要，或非常好的","Reading every day is a great habit."],
+    [99,"own","adjective/verb","自己的/拥有","belonging to yourself, or to possess something","属于你自己，或拥有某物","She has her own dictionary at home."],
+    [102,"good","adjective","好的","of high quality or a positive kind","高质量的或积极的","It is a good idea to review new words each day."],
+    [108,"high","adjective","高的","at a great distance above the ground, or above average","距地面很高，或高于平均水平","She got a high score on her English test."],
+    [112,"world","noun","世界","the planet Earth and everyone on it","地球及其上的所有人","Learning English opens doors around the world."],
+    [115,"nation","noun","国家","a large group of people sharing a government or culture","拥有共同政府或文化的一大群人","China is a nation with a long history."],
+    [118,"life","noun","生活","the time between birth and death, or the way you live","出生到死亡之间的时间，或生活方式","A good education can change your life."],
+    [121,"become","verb","变成","to start to be something different","开始成为不同的东西","She wants to become an English teacher one day."],
+    [127,"need","verb/noun","需要","to require something, or the thing required","需要某物，或所需之物","You need to practice every day to improve."],
+    [130,"develop","verb","发展","to grow or make something grow stronger or more advanced","成长或使某物变得更先进","Reading helps you develop your vocabulary."],
+    [136,"general","adjective","一般的","affecting or including most people or things","影响或包括大多数人或事物","In general, students who read more write better."],
+    [143,"number","noun","数字","a word or symbol representing a quantity","代表数量的词或符号","A large number of students study English in China."],
+    [146,"real","adjective","真实的","actually existing, not imagined","实际存在的，不是想象的","This is a real chance to improve your English."],
+    [153,"child","noun","孩子","a young person, not yet an adult","还不是成年人的年轻人","Every child can learn if they practice enough."],
+    [161,"interest","noun","兴趣","a feeling of wanting to know about something","想了解某事的感觉","She has a strong interest in learning new languages."],
+    [163,"person","noun","人","a human being","人类","Every person in the class has a different learning style."],
+    [164,"end","noun/verb","结束","the final part of something, or to finish","某事的最后部分，或完成","At the end of class, we review new words."],
+    [175,"possible","adjective","可能的","able to happen or be done","能够发生或完成的","It is possible to learn 500 new words this year."],
+    [177,"consider","verb","考虑","to think carefully about something","仔细思考某事","Consider the meaning before you choose your answer."],
+    [182,"lead","verb/noun","领导","to guide others, or to be in front","引导他人，或处于前列","Hard work leads to success in school."],
+    [187,"plan","noun/verb","计划","an idea for how to do something in the future","关于将来如何做某事的想法","What is your plan for improving your vocabulary?"],
+    [191,"fact","noun","事实","something that is true and can be proved","真实且可以被证明的事情","The fact is that practice makes perfect."],
+    [195,"increase","verb","增加","to become larger in number or amount","在数量上变得更大","Reading every day will increase your vocabulary."],
+    [198,"change","verb/noun","改变","to become different, or to make something different","变得不同，或使某物不同","Small changes every day lead to big results."],
+    [199,"help","verb/noun","帮助","to make something easier for someone","使某事对某人更容易","A good dictionary can help you understand new words."],
+    [226,"certain","adjective","确定的","having no doubt, or sure to happen","没有疑问的，或肯定会发生的","I am certain that she studied hard for this test."],
+    [231,"study","verb/noun","学习","to spend time learning, or the act of learning","花时间学习，或学习的行为","You should study new words every day."],
+    [250,"nature","noun","自然","the physical world including plants, animals, and land","包括植物、动物和土地的自然界","She loves spending time in nature on weekends."],
+    [257,"include","verb","包括","to have something as part of a group or whole","将某物作为整体的一部分","The exam will include vocabulary from this list."],
+    [266,"value","noun/verb","价值/重视","how much something is worth, or to think something is important","某物的价值，或认为某事重要","The teacher values effort more than results."],
+    [276,"experience","noun","经验","something that happens to you, or knowledge gained from events","发生在你身上的事，或从中获得的知识","Living in another country is a valuable experience."],
+    [284,"important","adjective","重要的","having a lot of value or effect","具有很大价值或影响的","It is important to review vocabulary regularly."],
+    [296,"reason","noun","原因","the cause of something, or why something happens","某事的原因","The reason she improved was that she practiced daily."],
+    [308,"believe","verb","相信","to feel sure that something is true","相信某事是真的","I believe you can improve your English this year."],
+    [317,"hope","noun/verb","希望","a feeling that something good will happen, or to want that","感觉某件好事会发生","She hopes to get a high score on her English exam."],
+    [318,"example","noun","例子","something that shows what others of the same type are like","显示同类事物的具体案例","Can you give an example sentence using this word?"],
+    [327,"understand","verb","理解","to know the meaning of something","知道某事的含义","Do you understand the definition of this word?"],
+    [342,"teach","verb","教","to give someone knowledge or a skill","给某人知识或技能","A good teacher helps you understand, not just memorize."],
+    [351,"easy","adjective","容易的","not difficult","不困难的","Learning five words a day is easy if you practice."],
+    [368,"grow","verb","成长","to increase in size, number, or strength","在大小或数量上增加","Your vocabulary will grow if you read every day."],
+    [381,"true","adjective","真实的","matching the facts, not false","与事实相符，不是假的","Is it true that the GSL covers 80% of English texts?"],
+    [399,"education","noun","教育","the process of teaching and learning","教学和学习的过程","A good education gives you tools for life."],
+    [425,"able","adjective","能够的","having the power or skill to do something","有能力做某事","She is able to read English texts without a dictionary."],
+    [427,"learn","verb","学习","to gain knowledge or a skill","获得知识或技能","The best way to learn words is to use them."],
+    [454,"purpose","noun","目的","the reason for doing something","做某事的原因","The purpose of this exercise is to build vocabulary."],
+    [461,"difference","noun","差异","the way in which two things are not the same","两件事不同之处","What is the difference between these two words?"],
+    [470,"explain","verb","解释","to make something clear so it is easy to understand","使某事清晰易于理解","Can you explain the meaning of this word?"],
+    [488,"future","noun","将来","the time that will come after now","现在之后的时间","In the future, she wants to study at a university."],
+    [491,"provide","verb","提供","to give something that is needed","给予所需之物","The school provides free dictionaries to all students."],
+    [500,"outside","noun","外面","the area beyond the walls of a building","建筑物外的区域","She studies inside the classroom and reads outside."]
+  ,
+    [1,"the","det","这/那","used before a noun to refer to a specific thing","用于名词前指特定事物","The teacher asked students to open the book."],
+    [2,"be","verb","是","to exist or have a quality","存在或具有某种特质","She wants to be a doctor when she grows up."],
+    [3,"of","prep","的","used to show a relationship between things","表示关系","She is the captain of the team."],
+    [4,"and","conj","和","used to connect words or ideas","连接词语或想法","He studies English and mathematics every morning."],
+    [5,"a","det","一个","used before a noun to refer to one thing","名词前表示一个","I saw a bird sitting on the window."],
+    [6,"in","prep","在...里","inside a place or within a time","在某地点或时间内","She lives in a small city near the school."],
+    [7,"to","prep","到","showing direction or purpose","表示方向或目的","He walked to the library to find a book."],
+    [8,"have","verb","有","to own or possess something","拥有某物","They have a new computer in the classroom."],
+    [9,"it","pron","它","used to refer to a thing already mentioned","指代已提到的事物","The cat lost its toy, and it looked sad."],
+    [10,"I","pron","我","the person who is speaking","说话的人自己","I finished my homework before dinner."],
+    [13,"on","prep","在...上","touching the surface of something","在某物表面上","The book is on the desk next to the window."],
+    [14,"with","prep","和...一起","in the company of someone","与某人在一起","She went to the park with her sister."],
+    [15,"he","pron","他","used to refer to a male person","指代男性","He always arrives early to help set up class."],
+    [17,"you","pron","你","the person being spoken to","被说话的那个人","You need to submit your essay by Friday."],
+    [18,"do","verb","做","to perform an action","执行某个动作","Please do your best on every assignment."],
+    [19,"at","prep","在","used to show a specific place or time","表示具体地点或时间","Meet me at the school gate at three."],
+    [20,"this","det","这","used to refer to something nearby","指代附近的事物","This chapter explains how to write a paragraph."],
+    [21,"but","conj","但是","used to introduce a contrast","引出对比","She studied hard, but the test was still difficult."],
+    [22,"his","det","他的","belonging to a male person","属于某男性","His score on the quiz was the highest in class."],
+    [23,"by","prep","通过","done through a method, or near","通过某方式或靠近","She learned English by reading books every day."],
+    [24,"from","prep","从","showing where something started","表示起点来源","He received a letter from his friend in Canada."],
+    [25,"they","pron","他们","used to refer to a group","指代一群人","They practiced the dialogue three times before performing."],
+    [26,"we","pron","我们","the speaker and others together","说话者和其他人","We need to finish the project before the deadline."],
+    [27,"say","verb","说","to speak words out loud","说出话语","Please say the answer clearly so everyone can hear."],
+    [28,"her","det","她的","belonging to a female person","属于某女性","Her presentation about the topic was very impressive."],
+    [29,"she","pron","她","used to refer to a female person","指代女性","She read the entire novel in just three days."],
+    [30,"or","conj","或者","used to show a choice","表示选择","You can write your essay by hand or on a computer."],
+    [31,"an","det","一个","used before a vowel sound","用于元音音素前","She ate an apple and an orange for lunch."],
+    [32,"will","verb","将会","used to talk about the future","用于谈论将来","I will finish reading the chapter tonight."],
+    [33,"my","det","我的","belonging to the speaker","属于说话者","My favorite subject at school is English."],
+    [34,"one","num","一","the number 1, or a single thing","数字1或单个事物","Only one student got a perfect score on the test."],
+    [35,"all","det","所有","every person or thing in a group","一组中的每个人或物","All students must submit their homework by Monday."],
+    [36,"would","verb","会","used to talk about possible situations","谈论可能的情况","I would love to visit Japan during the festival."],
+    [37,"there","adv","那里","in or at that place","在那个地方","There are twenty students in the English class."],
+    [38,"their","det","他们的","belonging to a group","属于一群人","Their team won the competition last semester."],
+    [39,"what","pron","什么","used to ask for information","用于询问信息","What did the teacher say about the exam?"],
+    [40,"so","adv","所以","as a result, or very much","结果或程度很高","She studied every night, so she passed the exam."],
+    [41,"up","adv","向上","toward a higher place or level","朝更高的地方","She looked up the word in the dictionary."],
+    [42,"out","adv","出去","away from the inside of a place","从某处内部离开","He went out to buy stationery after school."],
+    [43,"if","conj","如果","used to talk about a possible situation","用于谈论可能的情况","If you practice every day, your English will improve."],
+    [44,"about","prep","关于","on the subject of something","关于某个话题","She wrote a report about the history of her city."],
+    [45,"who","pron","谁","used to ask about a person","用于询问某人","Who is responsible for collecting the homework today?"],
+    [46,"get","verb","得到","to receive or obtain something","接收或获得某物","She worked hard to get a good grade in class."],
+    [47,"which","pron","哪个","used to ask about a choice","用于询问选择","Which chapter should we read for tomorrow?"],
+    [48,"go","verb","去","to move from one place to another","从一处移动到另一处","I go to the library every Tuesday after school."],
+    [49,"me","pron","我","the object form of I","I的宾格形式","She passed the textbook to me at the start of class."],
+    [50,"when","conj","当...时","at the time that something happens","某事发生的时间","I always review my notes when I get home."],
+    [51,"make","verb","制作","to create or produce something","创造或制作某物","We need to make a poster for the school project."],
+    [52,"can","verb","能够","to be able to do something","有能力做某事","She can read English fast after months of practice."],
+    [53,"like","verb","喜欢","to find something pleasant","觉得某事愉快","I like reading novels because they improve vocabulary."],
+    [55,"no","det","没有","not any, or used to refuse","没有或拒绝","There is no homework tonight, so you can rest."],
+    [56,"just","adv","刚刚","a very short time ago, or simply","很短时间前或仅仅","I just finished reading the chapter you assigned."],
+    [57,"him","pron","他","the object form of he","he的宾格形式","The teacher praised him for his excellent essay."],
+    [59,"take","verb","拿","to carry something from one place to another","将某物从一处带到另一处","Please take your notebook out before the lesson."],
+    [60,"people","noun","人们","a group of human beings","一群人类","Many people believe that reading improves thinking."],
+    [61,"into","prep","进入","to the inside of a place","到某处的内部","She walked into the classroom and sat in the front."],
+    [62,"year","noun","年","a period of twelve months","十二个月的时间段","This year, our class will study two novels."],
+    [63,"your","det","你的","belonging to the person spoken to","属于被说话的人","Your essay needs a stronger conclusion to be complete."],
+    [65,"some","det","一些","an amount that is not exact","不确定的数量","Some students prefer group work over individual study."],
+    [66,"could","verb","能够","was able to, or might be possible","能够或可能","She could understand the text after reading it twice."],
+    [67,"them","pron","他们","the object form of they","they的宾格形式","The teacher gave them extra time to finish writing."],
+    [68,"see","verb","看见","to notice with your eyes","用眼睛注意到","I can see the main idea clearly in this paragraph."],
+    [69,"other","adj","其他的","different from the one already mentioned","与已提到的不同","Other students had different opinions about the story."],
+    [70,"than","conj","比","used to compare two things","用于比较两事物","This essay is much better organized than the previous one."],
+    [71,"then","adv","然后","at that time, or after that","那时或之后","Read the passage first, then answer the questions."],
+    [72,"now","adv","现在","at this present moment","在此刻","Now is a good time to review vocabulary before the quiz."],
+    [73,"look","verb","看","to turn your eyes toward something","将眼睛转向某处","Look at the diagram carefully before answering."],
+    [74,"only","adv","只有","no more than, or just one","不超过或仅仅","Only three students got full marks on the grammar test."],
+    [75,"come","verb","来","to move toward the speaker","向说话者移动","Please come to the front to read your essay."],
+    [76,"its","det","它的","belonging to a thing or animal","属于某物或动物","The article lost its main point in the second paragraph."],
+    [77,"over","prep","超过","more than, or above something","多于或在...上方","She has read over fifty English novels this year."],
+    [79,"also","adv","也","in addition to something else","除...之外还有","She also completed the extra reading assignment."],
+    [80,"back","adv","回","to a previous place or position","回到之前的地方","Please go back and revise the introduction of your essay."],
+    [81,"after","prep","在...之后","later in time than something else","比某事时间更晚","We will discuss the chapter after everyone has read it."],
+    [83,"two","num","两个","the number 2","数字2","There are two main arguments in this persuasive essay."],
+    [84,"how","adv","如何","in what way or manner","以什么方式","How did the author develop the main character?"],
+    [85,"our","det","我们的","belonging to the speaker and others","属于说话者和其他人","Our class will present our projects next Friday."],
+    [87,"first","adj","第一","coming before all others","在所有其他之前","The first paragraph should clearly state your argument."],
+    [88,"well","adv","好地","in a good or satisfactory way","以好的或令人满意的方式","She speaks English very well after years of practice."],
+    [90,"even","adv","甚至","used for emphasis or contrast","用于强调或对比","Even the most difficult vocabulary gets easier with review."],
+    [91,"new","adj","新的","recently made or not used before","最近制作的或从未使用过","She bought a new notebook to organize her notes."],
+    [92,"want","verb","想要","to have a desire for something","渴望某物","I want to improve my reading speed before the exam."],
+    [93,"because","conj","因为","for the reason that","由于某个原因","She chose this book because it relates to her topic."],
+    [94,"any","det","任何","used in questions and negatives","用于疑问和否定句","Do you have any questions about the homework?"],
+    [95,"these","det","这些","plural form of this","this的复数形式","These vocabulary words will appear on the unit quiz."],
+    [98,"most","det","最多","the greatest amount or number","最大数量","Most students found the passage about space interesting."],
+    [99,"us","pron","我们","the object form of we","we的宾格形式","The teacher told us to write a paragraph about our hometown."],
+    [101,"between","prep","在...之间","in the space separating two things","在两者中间","There is a clear difference between a theme and a topic."],
+    [103,"large","adj","大的","big in size or amount","体积或数量大的","The library has a large collection of English novels."],
+    [104,"often","adv","经常","happening many times or regularly","多次发生或有规律地","She often reads for thirty minutes before sleeping."],
+    [105,"hand","noun","手","the part of the body at the end of the arm","手臂末端","She raised her hand to answer the teacher's question."],
+    [107,"place","noun","地方","a specific area or location","特定区域或位置","The library is a quiet place to study."],
+    [108,"hold","verb","握住","to keep something in your hand","用手握住某物","Please hold your question until I finish explaining."],
+    [111,"few","adj","少数","a small number of things","少量的事物","Only a few students remembered to bring their dictionaries."],
+    [112,"open","verb","打开","to move something so it is not closed","使某物不关闭","Please open your textbooks to page forty-three."],
+    [113,"seem","verb","似乎","to appear to be a certain way","看起来是某种样子","The grammar rule seems difficult but gets easier with practice."],
+    [114,"together","adv","一起","with another person or in a group","与另一人或小组一起","Let's work together to analyze the main idea."],
+    [115,"next","adj","下一个","coming immediately after the present one","紧接在后的","Please read the next chapter before Tuesday's class."],
+    [116,"begin","verb","开始","to start doing something","开始做某事","We will begin the new unit on persuasive writing next Monday."],
+    [117,"walk","verb","走路","to move on foot at a normal speed","以正常速度用脚移动","She likes to walk while listening to English podcasts."],
+    [118,"group","noun","小组","a number of people or things together","在一起的一些人或事物","Our group decided to write about climate change."],
+    [119,"always","adv","总是","at all times or without exception","在任何时候都","She always reviews her notes after each English lesson."],
+    [120,"both","det","两者都","referring to two people or things","指两个人或事物","Both essays were well-written, but one had a stronger conclusion."],
+    [121,"book","noun","书","a set of printed pages bound together","装订在一起的印刷页","I recommend this book because it has clear language."],
+    [122,"letter","noun","字母","a written symbol that represents a sound","代表声音的书写符号","Each letter of the alphabet has uppercase and lowercase forms."],
+    [123,"until","conj","直到","up to a certain time","到某个时间为止","Please wait until everyone is ready before starting."],
+    [124,"care","verb","关心","to feel concern about something","对某事感到关心","Good writers care about their audience and choose words carefully."],
+    [125,"second","adj","第二","coming after the first","在第一之后","The second paragraph should support the first idea."],
+    [126,"enough","det","足够","as much as needed","所需的数量","She did not study enough, so the exam was very difficult."],
+    [127,"young","adj","年轻的","having lived for only a short time","只活了短时间的","Young readers often connect easily with teenage characters."],
+    [128,"ready","adj","准备好的","prepared and able to do something","有准备并能够做某事","Are you ready to present your findings to the class?"],
+    [129,"above","prep","在...上面","at a higher level or position","在更高的水平或位置","Write your name above the title on the front page."],
+    [130,"ever","adv","曾经","at any time","在任何时候","This is the best essay she has ever written."],
+    [131,"list","noun","清单","a number of items written one after another","依次写下的一系列项目","Make a list of the main ideas from each paragraph."],
+    [132,"though","conj","虽然","even if or despite the fact that","即使或尽管","The passage is long, though it gets easier after page one."],
+    [133,"feel","verb","感觉","to experience an emotion or sensation","体验情感或感觉","She began to feel more confident after practicing her speech."],
+    [134,"talk","verb","说话","to say words to communicate","说话以与人沟通","Please talk to your partner about the main idea of the text."],
+    [135,"soon","adv","很快","in a short time from now","从现在起很短的时间","The exam results will be posted soon on the website."],
+    [136,"body","noun","身体","all the physical parts of a person","一个人的所有身体部位","The essay body should contain at least three paragraphs."],
+    [137,"family","noun","家庭","a group of people related to each other","相互有亲缘关系的一群人","Her family encouraged her to practice English every day."],
+    [138,"leave","verb","离开","to go away from a place","从某地离开","Please do not leave the classroom before submitting your quiz."],
+    [139,"door","noun","门","a panel you open to enter a room","进入房间的板门","She knocked on the classroom door before entering."],
+    [140,"short","adj","短的","small in length or not lasting long","长度小或持续时间不长","Please write a short summary of the article in your own words."],
+    [141,"question","noun","问题","something you ask to get information","你提问以获取信息","The teacher asked a difficult question about the novel's theme."],
+    [142,"happen","verb","发生","to take place without being planned","在没有计划的情况下发生","What happened at the end of the story surprised everyone."],
+    [143,"area","noun","区域","a part of a place or subject","某地或学科的一部分","The introduction should give background about the topic area."],
+    [144,"half","det","一半","one of two equal parts","两个相等部分中的一个","She spent half the class writing and half revising."],
+    [145,"order","noun","顺序","the way things are arranged or organized","事物排列或组织的方式","Make sure your ideas are presented in a logical order."],
+    [146,"problem","noun","问题","a situation that is difficult to deal with","难以处理的情况","The main problem in the story is the conflict between two friends."],
+    [147,"piece","noun","片段","a part of something larger","较大事物的一部分","Each piece of evidence should be explained in your own words."],
+    [148,"since","prep","自从","from a time in the past until now","从过去某时到现在","Since she started reading daily, her vocabulary has improved."],
+    [149,"top","noun","顶部","the highest part of something","某物的最高部分","Write your student number at the top of every page."],
+    [150,"whole","adj","整个的","all of something without leaving any out","某事物的全部","Please read the whole passage before answering the questions."],
+    [151,"best","adj","最好的","of the highest quality","最高质量的","Her best essay this semester was about personal identity."],
+    [152,"hour","noun","小时","a period of 60 minutes","60分钟的时间段","She spent three hours reviewing vocabulary before the exam."],
+    [153,"better","adj","更好的","of higher quality than something else","比某物质量更高","Your second draft is much better than the first one."],
+    [155,"during","prep","在...期间","at some point within a period of time","在一段时间内的某个点","She took careful notes during the entire lecture."],
+    [156,"hundred","num","百","the number 100","数字100","The library has over five hundred English novels to borrow."],
+    [157,"remember","verb","记得","to keep something in your memory","在记忆中保留某事","Remember to bring your essay draft to class for peer review."],
+    [158,"step","noun","步骤","one part of a process or action","过程或行动的一个部分","Follow each step carefully to structure your essay correctly."],
+    [159,"early","adj","早的","before the usual or expected time","比通常或预期时间早","She arrived early to practice her speech in the empty classroom."],
+    [160,"reach","verb","到达","to arrive at a place or level","到达某地或某水平","I hope to reach a B2 level of English by year's end."],
+    [161,"simple","adj","简单的","easy to understand and not complicated","容易理解且不复杂","Please use simple and clear language when writing."],
+    [162,"several","det","几个","more than two but not a large number","超过两个但不是很多","She made several mistakes in grammar, but her ideas were excellent."],
+    [163,"toward","prep","朝向","in the direction of something","朝某物的方向","She worked toward her goal of reading one book each month."],
+    [164,"slow","adj","慢的","not moving or happening quickly","不快速移动或发生的","Read slowly and carefully to understand every detail."],
+    [165,"center","noun","中心","the middle point of something","某事物的中间点","The learning center has computers and resources for students."],
+    [166,"love","verb","爱","to feel very strong positive feelings","对某人感到非常强烈的积极感情","She loves reading because it lets her explore new worlds."],
+    [168,"money","noun","钱","the coins or notes used to pay for things","用于支付物品的硬币或纸币","The theme of money and greed runs through the entire novel."],
+    [169,"appear","verb","出现","to become visible or start to exist","变得可见或开始存在","New vocabulary words will appear on each quiz throughout the term."],
+    [170,"road","noun","道路","a path for vehicles and people to travel","车辆和人行走的路径","In the story, the road symbolizes the character's life journey."],
+    [171,"rule","noun","规则","a statement of what you must or must not do","关于必须或不得做什么的陈述","The most important rule for essays is to always cite sources."],
+    [172,"cold","adj","冷的","having a low temperature","温度低的","The setting of the poem is a cold winter morning."],
+    [173,"voice","noun","声音","the sound a person makes when speaking","一个人说话时发出的声音","The author's voice in this essay is formal and persuasive."],
+    [174,"pick","verb","选择","to choose one thing from a group","从一组中选择一个","Please pick the most important idea from each paragraph."],
+    [175,"count","verb","数","to find the total number of things","找出事物的总数","Count the number of supporting details in each paragraph."],
+    [176,"length","noun","长度","how long something is","某物有多长","The required length of the final essay is five hundred words."],
+    [177,"subject","noun","主题","what you are talking or writing about","你谈论或写作的内容","The subject of the essay should be stated in the introduction."],
+    [178,"size","noun","大小","how big or small something is","某物大或小的程度","The size of your vocabulary affects how well you express ideas."],
+    [179,"speak","verb","说话","to talk using words","用话语交谈","She practiced speaking English for thirty minutes every day."],
+    [180,"matter","verb","重要","to be important or significant","重要或有意义","Strong evidence matters most when writing a persuasive essay."],
+    [182,"divide","verb","分开","to separate into parts","分成几个部分","Divide your essay into three parts: introduction, body, and conclusion."],
+    [183,"present","adj","当前的","existing or happening now","现在存在或发生的","The essay should be written in the present tense for literary analysis."],
+    [184,"heavy","adj","重的","having great weight or intensity","有很大重量或强度的","She carried a heavy bag filled with textbooks and notebooks."],
+    [185,"wide","adj","宽的","measuring a large distance from side to side","从一侧到另一侧距离大的","The passage covers a wide range of ideas about the environment."],
+    [186,"age","noun","年龄","how old a person or thing is","一个人或事物有多老","Students of all age groups can benefit from daily vocabulary practice."],
+    [187,"section","noun","部分","a separate part of something larger","较大事物的一个独立部分","Please complete section B of the worksheet before tomorrow's class."],
+    [188,"quiet","adj","安静的","making little or no noise","发出很少或没有噪音的","Please stay quiet in the library so everyone can concentrate."],
+    [189,"design","noun","设计","a plan for how something will look","某事物如何看起来的计划","The design of your essay should be logical and easy to follow."],
+    [190,"key","adj","关键的","most important or necessary","最重要或必要的","Thesis, evidence, and analysis are the key components of a good essay."],
+    [191,"single","adj","单一的","only one, not more","只有一个","Each paragraph should focus on a single idea with clear evidence."],
+    [192,"receive","verb","收到","to get something sent or given","得到被发送或给予的东西","She was happy to receive positive feedback on her essay draft."],
+    [193,"symbol","noun","符号","something that represents something else","代表其他事物的东西","The dove in the poem is a symbol of peace and new beginning."],
+    [194,"join","verb","加入","to become part of a group","成为一组的一部分","She decided to join the English reading club to improve her vocabulary."],
+    [195,"suggest","verb","建议","to put forward an idea","提出一个想法","I suggest revising your conclusion to make your argument feel complete."],
+    [196,"rise","verb","升起","to move upward or increase","向上移动或增加","Her confidence began to rise as she received better grades."],
+    [197,"team","noun","团队","a group of people working together","一组合作的人","Our class team was selected to present at the speech competition."],
+    [198,"equal","adj","平等的","the same in amount, value, or rights","数量、价值或权利相同的","All students receive equal opportunity to show their knowledge."],
+    [199,"choose","verb","选择","to pick one thing from a group","从一组中挑选一个","Choose your evidence carefully to build a logical argument."],
+    [200,"practice","noun","练习","doing something repeatedly to improve","重复做某事以提高","Daily writing practice is essential for developing a strong voice."],
+    [201,"character","noun","性格","the qualities that make a person who they are","使一个人成为自己的品质","Her essay analyzed the character development of the protagonist."],
+    [202,"period","noun","时期","a length of time, or the full stop mark","一段时间或句号","The Victorian period is one of the most studied eras in English literature."],
+    [203,"history","noun","历史","the study of past events","过去事件的研究","Her essay traces the history of environmental activism in China."],
+    [204,"effect","noun","影响","a change caused by something","由某事引起的变化","The effect of daily reading on vocabulary growth is well-documented."],
+    [205,"modern","adj","现代的","relating to the present time","与当今时代相关的","Modern English writing values clarity, concision, and strong evidence."],
+    [206,"element","noun","元素","an important part of something","某事物的重要部分","Evidence is the most essential element of a convincing argument."],
+    [207,"imagine","verb","想象","to form a picture in your mind","在脑海中形成图像","It helps to imagine the scene vividly when reading descriptive passages."],
+    [208,"agree","verb","同意","to have the same opinion as someone","与某人有相同意见","I agree with the author's argument that education is the key to success."],
+    [210,"notice","verb","注意到","to see or become aware of something","看到或意识到某事","Notice how the author uses repetition to build emotional intensity."],
+    [211,"flow","noun","流动","movement in one direction","向一个方向移动","Good essays have a natural flow that guides the reader through the ideas."],
+    [212,"check","verb","检查","to look at something to make sure it is correct","看某事以确保它是正确的","Always check your grammar and spelling before submitting written work."],
+    [213,"weight","noun","重量","how heavy something is","某物有多重","Give equal weight to each argument in a balanced analysis."],
+    [214,"connect","verb","联系","to join things together","将事物联系在一起","She connected the poem's imagery to its historical context."],
+    [215,"collect","verb","收集","to gather things together","从不同地方聚集事物","She was asked to collect quotes from the text to support her argument."],
+    [216,"save","verb","保存","to keep something for use later","将某物保留以后使用","Remember to save your essay document every few minutes."],
+    [217,"surprise","noun","惊喜","something that you did not expect","你没有预料到的事情","The surprise ending of the short story changed the meaning of everything."],
+    [218,"climb","verb","爬","to go up something using hands and feet","用手和脚向上爬","She had to climb through difficult chapters to understand the novel."],
+    [219,"trade","noun","贸易","the buying and selling of goods","商品的买卖","The story is set during a period of active trade between Asia and Europe."],
+    [220,"tone","noun","语气","the attitude expressed in writing or speech","写作或演讲中表达的态度","The author uses a serious and formal tone throughout the entire essay."],
+    [221,"fair","adj","公平的","treating everyone equally and with justice","平等且公正地对待每个人","The teacher uses a fair grading rubric that all students receive in advance."],
+    [222,"explore","verb","探索","to look into something carefully","仔细研究某事","Use your essay to explore the deeper meaning behind the author's word choices."],
+    [223,"whether","conj","是否","used to introduce two possible situations","用于引入两种可能情况","She was unsure whether to start with a quote or a question."],
+    [224,"iron","noun","铁","a hard strong metal","坚硬的金属","His argument had an iron logic that was difficult to challenge."],
+    [225,"supply","verb","提供","to give or provide what is needed","给予或提供所需的东西","The teacher will supply all the reading materials for this unit."],
+    [226,"obvious","adj","明显的","easy to see or understand","容易看到或理解的","It is obvious from the first line that the author disagrees with the idea."],
+    [227,"main","adj","主要的","most important or largest","最重要或最大的","The main idea of each paragraph should appear in the topic sentence."],
+    [228,"follow","verb","遵循","to come after, or to obey","在后面或遵守","Follow the instructions carefully before starting your written response."],
+    [229,"ask","verb","问","to put a question to someone","向某人提出问题","Ask yourself what the author's purpose is before you begin writing."],
+    [230,"idea","noun","想法","a thought or suggestion about something","关于某事的想法或建议","Every idea in the essay must be supported by evidence from the text."],
+    [231,"write","verb","写","to put words onto paper or a screen","将词语写在纸上或屏幕上","She learned to write more clearly after studying essay structure."],
+    [232,"read","verb","读","to look at written words and understand them","看文字并理解","Read the passage at least twice before answering the questions."],
+    [233,"find","verb","找到","to discover or locate something","发现或找到某物","Students should find evidence in the text to support each claim."],
+    [234,"show","verb","展示","to make something visible","使某事可见","The paragraph should show how the evidence relates to your thesis."],
+    [235,"keep","verb","保持","to continue having or doing something","继续拥有或做某事","Keep a vocabulary journal and add five new words every week."],
+    [236,"tell","verb","告诉","to communicate information to someone","向某人传达信息","The first sentence should tell the reader what the paragraph is about."],
+    [237,"start","verb","开始","to begin doing or being something","开始做某事","Start each essay with a clear and engaging introduction."],
+    [238,"try","verb","尝试","to make an effort to do something","努力做某事","Try to use at least three new vocabulary words in every writing task."],
+    [239,"build","verb","建立","to create something piece by piece","一点一点地创造某事","Build your argument carefully by adding evidence and analysis."],
+    [240,"mean","verb","意味着","to have a particular meaning or intention","具有特定意义或意图","What does the author mean when she says the character was lost?"],
+    [241,"point","noun","观点","an idea or argument in a discussion","讨论中的一个想法或论点","Every point in your essay needs to be supported with evidence."],
+    [242,"small","adj","小的","little in size or amount","体积或数量小的","Even small vocabulary improvements add up over time."],
+    [243,"long","adj","长的","measuring a large distance or lasting a long time","距离大的或持续很长时间的","She wrote a long and detailed analysis of the novel's themes."],
+    [244,"run","verb","跑","to move quickly, or to manage something","快速移动或管理某事","He runs the school English club every Tuesday evening."],
+    [245,"live","verb","生活","to have your home somewhere","在某处有家","She lives near the school so she can study in the library often."],
+    [246,"bring","verb","带来","to carry something with you to a place","携带某物到某处","Please bring your vocabulary notebook to every English class."],
+    [247,"put","verb","放","to move something to a position","将某物移动到某位置","Put your strongest argument in the final body paragraph."],
+    [248,"let","verb","让","to allow someone to do something","允许某人做某事","Let the evidence speak for itself in your analytical paragraph."],
+    [249,"turn","verb","转变","to change direction or become something","改变方向或变成某事","The story turns dark in chapter four when the secret is revealed."],
+    [250,"mind","noun","思维","the part that thinks and remembers","思考和记忆的部分","Keep an open mind when you encounter new ideas in a text."]
+  ],
+  B:[
+    [523,"story","noun","故事","a description of events, real or imagined","对真实或虚构事件的描述","She wrote a short story using ten new words."],
+    [528,"apply","verb","应用","to use something in a practical situation","在实际情况中使用某物","Try to apply new vocabulary in your own sentences."],
+    [529,"decide","verb","决定","to make a choice about something","对某事做出选择","Decide which words you most want to learn first."],
+    [535,"various","adjective","各种各样的","of many different types","许多不同类型的","There are various ways to practice new vocabulary."],
+    [546,"describe","verb","描述","to say what something or someone is like","说出某物或某人是什么样的","Describe the picture using as many new words as you can."],
+    [550,"exist","verb","存在","to be real or present in the world","在世界中真实存在","Many languages exist in the world today."],
+    [552,"suggest","verb","建议","to mention an idea for someone to think about","提出一个想法供某人思考","I suggest reviewing five words before each class."],
+    [559,"character","noun","性格","the special qualities of a person","一个人的特殊品质","Strong character helps a student keep studying when it is hard."],
+    [565,"respect","noun/verb","尊重","to admire someone for their qualities, or that feeling","因某人的品质而钦佩他","Students who respect the learning process improve fastest."],
+    [572,"basic","adjective","基本的","the most simple and important","最简单和最重要的","These GSL words are the basic building blocks of English."],
+    [581,"origin","noun","起源","the place or situation from which something comes","某物来自的地方","The origin of many English words is Latin or Greek."],
+    [582,"standard","noun","标准","a level of quality that is expected","预期的质量水平","Set a high standard for your vocabulary practice."],
+    [599,"event","noun","事件","something that happens, especially something important","发生的事情，尤其是重要的","Learning 500 new words is a big event in your English journey."],
+    [604,"improve","verb","改善","to get better, or to make something better","变得更好，或使某物更好","She improved her reading score by learning new words."],
+    [613,"attention","noun","注意力","the act of watching or thinking about something carefully","仔细观察或思考某事的行为","Pay attention to words you see more than once."],
+    [624,"choose","verb","选择","to decide which one you want from a set of options","从一组选项中决定你想要哪一个","Choose the definition that best matches the word."],
+    [640,"opportunity","noun","机会","a time when it is possible to do something","可以做某事的时机","Every class is an opportunity to learn new words."],
+    [642,"recognise","verb","认出","to know something because you have seen it before","因为以前见过而认出某物","Can you recognise this word from your reading?"],
+    [644,"serious","adjective","严肃的","important and needing careful thought","重要的，需要仔细思考的","Be serious about your vocabulary study every day."],
+    [651,"lack","verb/noun","缺乏","to not have enough of something","没有足够的某物","A lack of vocabulary makes reading much harder."],
+    [654,"relation","noun","关系","the way two or more things are connected","两件事物联系的方式","There is a relation between reading and writing ability."],
+    [659,"influence","noun/verb","影响","the effect someone or something has on another","某人或某物对另一个人的影响","The books you read influence the words you use."],
+    [662,"compare","verb","比较","to look at similarities and differences between things","观察事物之间的相同和不同","Compare the two definitions and choose the correct one."],
+    [669,"imagine","verb","想象","to form a picture of something in your mind","在脑海中形成某物的图像","Imagine a situation where you would use this word."],
+    [674,"difficult","adjective","困难的","not easy, needing effort or skill","不容易，需要努力","New vocabulary is difficult at first but gets easier with practice."],
+    [683,"quality","noun","质量","how good something is, or a feature of something","某物有多好，或某物的特征","The quality of your writing improves when you know more words."],
+    [688,"argue","verb","争论","to give reasons for or against something","给出支持或反对某事的理由","She argued that learning vocabulary is the key to fluency."],
+    [697,"listen","verb","听","to pay attention to a sound","注意一个声音","Listen carefully to how the word is pronounced."],
+    [698,"main","adjective","主要的","most important or largest","最重要或最大的","The main idea of the passage is stated in the first sentence."],
+    [709,"enjoy","verb","享受","to get pleasure from something","从某事中获得乐趣","Do you enjoy reading English books?"],
+    [713,"health","noun","健康","the condition of the body and mind","身体和心理的状况","Reading is good for the health of your mind."],
+    [717,"language","noun","语言","a system of words used by people of a country","一个国家的人们使用的词语系统","Learning a new language opens many doors."],
+    [727,"fail","verb","失败","to not succeed in doing something","在做某事上没有成功","It is okay to fail — it helps you learn."],
+    [735,"depend","verb","依靠","to need someone or something, or to be decided by something","需要某人或某物","Your score depends on how well you know the vocabulary."],
+    [740,"shape","noun/verb","形状/塑造","the outer form of something, or to influence how something develops","某物的外部形态，或影响某物的发展","Your reading habits shape your English ability."],
+    [760,"progress","noun","进步","forward movement or improvement","向前运动或改善","Track your progress by recording which words you have learned."],
+    [763,"notice","verb","注意","to become aware of something","意识到某事","Notice how the word is used in a real sentence."],
+    [765,"opinion","noun","观点","what you think about something","你对某事的想法","In your opinion, what is the best way to learn vocabulary?"],
+    [787,"literature","noun","文学","written works, especially novels, plays, and poems","书面作品，尤其是小说、戏剧和诗歌","She studies English literature to improve her reading."],
+    [803,"essential","adjective","必不可少的","completely necessary","完全必要的","Regular vocabulary practice is essential for improvement."],
+    [810,"skill","noun","技能","the ability to do something well","做好某事的能力","Vocabulary is a key skill for English success."],
+    [812,"popular","adjective","受欢迎的","liked by many people","被许多人喜欢","English is one of the most popular subjects in China."],
+    [816,"worth","adjective","值得","having value, or deserving something","有价值的","It is worth spending ten minutes a day on vocabulary."],
+    [823,"forget","verb","忘记","to not be able to remember something","无法记住某事","Do not forget to review your words from last week."],
+    [827,"memory","noun","记忆","the ability to remember, or something you remember","记忆的能力，或记住的东西","A strong memory for words helps you read faster."],
+    [839,"extreme","adjective","极端的","very great or severe","非常大或严重的","She works with extreme effort to learn new words."],
+    [846,"discover","verb","发现","to find or learn something for the first time","第一次找到或学到某事","Discover the meaning of unknown words by reading them in context."],
+    [851,"choice","noun","选择","the act of choosing, or the thing chosen","选择的行为，或所选的东西","You have a choice: study now or struggle later."],
+    [876,"encourage","verb","鼓励","to give someone confidence to do something","给某人信心去做某事","I encourage you to try using new words in conversation."],
+    [903,"rapid","adjective","快速的","happening in a short time","在短时间内发生","She made rapid progress after she started reading every day."],
+    [925,"reflect","verb","反思","to think carefully about something","仔细思考某事","Reflect on which words were hardest for you today."],
+    [926,"advantage","noun","优势","something that helps you succeed","帮助你成功的事情","Knowing more words gives you an advantage in reading."],
+    [928,"regular","adjective","规律的","happening at the same time each day or week","每天或每周同一时间发生","Regular practice is the key to building vocabulary."],
+    [935,"tend","verb","倾向于","to usually do something or be a certain way","通常做某事","Students who read widely tend to have larger vocabularies."],
+    [944,"secret","noun","秘密","something known only by a few people","只有少数人知道的事情","The secret to a large vocabulary is reading every day."],
+    [949,"reasonable","adjective","合理的","fair and sensible","公平且明智的","Ten minutes of daily practice is a reasonable goal."],
+    [962,"avoid","verb","避免","to stay away from something","远离某事","Avoid guessing word meanings — always check the definition."],
+    [1009,"struggle","verb/noun","挣扎","to try hard to do something difficult","努力做困难的事情","It is normal to struggle with new vocabulary at first."],
+    [1016,"review","verb/noun","复习","to look at something again to check or learn it","再次查看某事以检查或学习","Review last week's words before starting new ones."],
+    [1037,"solution","noun","解决方案","a way of solving a problem","解决问题的方法","Regular practice is the best solution to vocabulary gaps."],
+    [1038,"aim","noun/verb","目标","what you want to achieve, or to try to achieve it","你想要实现的，或努力去实现它","Her aim is to learn 200 new words this semester."],
+    [1047,"ordinary","adjective","普通的","not special or different, just normal","不特别，只是正常的","On an ordinary day, she studies ten new words."],
+    [1083,"correct","adjective/verb","正确的/纠正","having no mistakes, or to fix a mistake","没有错误，或纠正错误","Always correct your mistakes so you do not repeat them."],
+    [1100,"curious","adjective","好奇的","wanting to know about something","想了解某事","Stay curious about new words when you read."],
+    [1131,"introduce","verb","介绍","to tell people about someone or something for the first time","第一次向人们介绍某人或某事","Let me introduce the word of the day."],
+    [1148,"mystery","noun","谜","something that is difficult to explain or understand","难以解释或理解的事情","The exact origin of some English words is still a mystery."],
+    [1196,"intend","verb","打算","to plan to do something","计划做某事","I intend to learn all the words in Band A this semester."],
+    [1200,"passage","noun","段落","a section of text","一段文字","Read the passage carefully before answering the questions."]
+  ,
+    [501,"accept","verb","接受","to agree to take or receive something","同意接受某物","She accepted the teacher's feedback and revised her introduction."],
+    [502,"access","noun","获取途径","a way of getting something","获得某事物的方式","Students have access to over five hundred English novels in the library."],
+    [503,"achieve","verb","实现","to succeed in doing something difficult","成功做到困难的事情","She worked hard to achieve a top score on her English exam."],
+    [504,"acknowledge","verb","承认","to accept that something is true","接受某事是真实的","She acknowledged the weakness in her argument and revised the paragraph."],
+    [505,"acquire","verb","获得","to gain knowledge or skill over time","随时间获得知识或技能","Students can acquire strong vocabulary through consistent daily reading."],
+    [506,"adapt","verb","适应","to change to suit a new situation","改变以适应新情况","Good writers adapt their style depending on the audience and purpose."],
+    [507,"adequate","adj","充足的","enough for what is needed","足够满足需要的","Her essay had adequate evidence but needed stronger analysis."],
+    [508,"adjust","verb","调整","to make small changes to improve something","做出小改变以改进","She adjusted her thesis after realizing her original claim was too broad."],
+    [509,"advance","verb","前进","to move forward or make progress","向前移动或取得进展","She advanced her argument by adding a second layer of analysis."],
+    [511,"affect","verb","影响","to have an impact on something","对某事物产生影响","A limited vocabulary can negatively affect the quality of academic writing."],
+    [512,"agency","noun","能动性","the ability to make your own choices","做出自己选择的能力","The protagonist's agency is limited by the society she lives in."],
+    [513,"aid","verb","帮助","to give help or support to someone","向某人提供帮助或支持","Detailed feedback aids students in developing stronger writing skills."],
+    [515,"alarm","noun","警报","a feeling of fear or concern","恐惧或担忧的感觉","The alarm in the character's voice reveals the story's growing tension."],
+    [516,"alternative","noun","替代方案","a different option you can choose","你可以选择的不同选项","She explored an alternative interpretation of the poem's ambiguous ending."],
+    [517,"amuse","verb","娱乐","to make someone laugh or feel entertained","使某人发笑或感到娱乐","The author amuses the reader with humor while delivering a serious message."],
+    [518,"analyze","verb","分析","to examine carefully to understand something","仔细检查以理解某事","Students must analyze the author's tone, word choice, and use of imagery."],
+    [519,"ancient","adj","古老的","very old, from long ago in history","历史上很久以前的","The poem draws on ancient myths to explore modern themes of identity."],
+    [520,"announce","verb","宣布","to make something publicly known","公开宣布某事","The teacher announced that the final essay counts as thirty percent."],
+    [521,"anxiety","noun","焦虑","a feeling of worry about what might happen","对可能发生的事情的担忧","She overcame her writing anxiety by breaking the essay into smaller tasks."],
+    [522,"apparent","adj","明显的","easy to see or understand","容易看到或理解的","The author's opinion is apparent from the very first line of the essay."],
+    [524,"appreciate","verb","欣赏","to recognize the value of something","认识到某事物的价值","She began to appreciate the power of figurative language through poetry."],
+    [525,"appropriate","adj","合适的","right for a particular situation","适合特定情况的","Use appropriate academic vocabulary when writing a formal analytical essay."],
+    [526,"approve","verb","批准","to officially agree that something is acceptable","正式同意某事是可接受的","The teacher approved her revised outline before she began writing."],
+    [528,"arrest","verb","吸引","to suddenly stop or capture attention","突然停止或吸引注意力","The powerful opening line arrests the reader's attention immediately."],
+    [529,"assign","verb","布置","to give someone a task to complete","给某人布置要完成的任务","The teacher assigned a five-paragraph essay analyzing the short story."],
+    [530,"assist","verb","协助","to help someone do something","帮助某人做某事","Peer review sessions assist students in identifying weaknesses in their writing."],
+    [531,"assume","verb","假设","to think something is true without proof","没有证据认为某事是真实的","Never assume the reader understands your point without clear explanation."],
+    [532,"attitude","noun","态度","the way you think or feel about something","你对某事的思考或感受方式","The narrator's attitude toward wealth changes significantly across the novel."],
+    [533,"attract","verb","吸引","to make someone interested in something","使某人对某事感兴趣","Strong vocabulary and vivid imagery attract readers to an essay immediately."],
+    [535,"aware","adj","意识到的","knowing about something","了解某事物","She became more aware of her recurring grammar mistakes after peer review."],
+    [536,"balance","noun","平衡","giving equal importance to different things","给予不同事物同等重要性","A balanced essay considers multiple perspectives before reaching a conclusion."],
+    [537,"barrier","noun","障碍","something that stops progress","阻止进步的事物","Limited vocabulary can be a major barrier to effective academic writing."],
+    [538,"behavior","noun","行为","the way a person acts","一个人行动的方式","The character's behavior in chapter four reveals her inner conflict clearly."],
+    [539,"benefit","noun","好处","something that is helpful or useful","有帮助或有用的事物","The benefit of reading daily is a rapid expansion of vocabulary and fluency."],
+    [540,"blame","verb","责怪","to say someone is responsible for a problem","说某人对问题负有责任","In the novel, the community unfairly blames the protagonist for a tragedy."],
+    [541,"brief","adj","简短的","lasting for a short time or using few words","持续很短时间或使用很少词语的","Write a brief summary of the passage in no more than fifty words."],
+    [542,"calculate","verb","计算","to find an answer using numbers or logic","使用数字或逻辑找到答案","She calculated that she needed a score of eighty to pass the course."],
+    [543,"campaign","noun","运动","an organized effort to achieve a goal","为实现目标而组织的努力","The character leads a campaign for social justice in the final chapters."],
+    [544,"capable","adj","有能力的","having the ability to do something","有能力做某事的","Every student is capable of writing an excellent essay with enough practice."],
+    [545,"category","noun","类别","a group of things that share similar features","具有相似特征的一组事物","Sort the vocabulary words into categories based on their part of speech."],
+    [546,"cause","noun","原因","the reason why something happens","某事发生的原因","The essay identifies poverty as the main cause of the character's poor choices."],
+    [547,"challenge","verb","挑战","to test someone's ability or strength","测试某人的能力或力量","Good literature always challenges readers to reconsider their assumptions."],
+    [548,"channel","noun","渠道","a way of communicating or doing something","沟通或做某事的方式","Writing is her main channel for expressing complex emotions and ideas."],
+    [549,"circumstance","noun","情况","the conditions that affect a situation","影响情况的条件","In difficult circumstances, the protagonist demonstrates remarkable courage."],
+    [550,"citizen","noun","公民","a person who belongs to a country","属于某国的人","The novel explores the responsibilities of every citizen in a just society."],
+    [551,"claim","verb","声称","to state that something is true","陈述某事是真实的","Her essay claims that the novel is a critique of modern capitalist society."],
+    [552,"combine","verb","结合","to bring two things together","将两件事物结合在一起","She combined personal experience with textual evidence to strengthen her argument."],
+    [553,"comment","noun","评论","an opinion or observation about something","对某事的意见或观察","The teacher's comment on her essay was that she needed stronger analysis."],
+    [554,"commit","verb","致力于","to dedicate yourself to something","将自己献身于某事","She committed herself to writing one academic paragraph every single day."],
+    [555,"communicate","verb","沟通","to share information or feelings","分享信息或感受","Good writing communicates ideas clearly to a wide and diverse audience."],
+    [556,"community","noun","社区","a group of people living together","一起生活的一群人","The novel shows how community can both support and restrict individuals."],
+    [557,"compete","verb","竞争","to try to win against someone else","试图胜过别人","Students compete for the highest marks in the school essay competition."],
+    [558,"complex","adj","复杂的","having many connected parts or ideas","有许多相关部分或想法的","The novel's complex themes reward patient and careful reading."],
+    [559,"concentrate","verb","专注","to focus all your attention on something","将所有注意力集中在某事上","Please concentrate on reading the passage carefully before answering."],
+    [560,"concern","noun","担忧","a feeling of worry about something","对某事的担忧感","The author's central concern is the effect of poverty on human dignity."],
+    [561,"conclude","verb","得出结论","to reach a decision after thinking carefully","经过仔细思考后做出决定","She concluded that the author uses irony to challenge the reader's assumptions."],
+    [562,"conduct","verb","进行","to organize and carry out an activity","组织并进行某项活动","She conducted thorough research before beginning to write her analytical essay."],
+    [563,"confidence","noun","自信","a belief in your own abilities","对自己能力的信念","Her confidence as a writer grew with every piece of feedback she received."],
+    [564,"conflict","noun","冲突","a serious disagreement or struggle","严重的分歧或斗争","The central conflict in the novel is between individual freedom and social duty."],
+    [565,"confuse","verb","使困惑","to make someone unable to understand","使某人无法理解","Overly complex sentences can confuse the reader and weaken your argument."],
+    [566,"conscious","adj","有意识的","aware of and able to think about something","意识到并能思考某事的","She became conscious of her overuse of passive voice in academic writing."],
+    [567,"consequence","noun","后果","a result that follows from an action","行动引发的结果","The consequences of the character's decision are explored in the final chapters."],
+    [568,"consider","verb","考虑","to think carefully about something","仔细思考某事","Always consider both sides of an argument before forming your own opinion."],
+    [569,"consist","verb","由...组成","to be made up of particular parts","由特定部分构成","A well-structured essay consists of an introduction, body paragraphs, and conclusion."],
+    [570,"content","noun","内容","the topics or ideas contained in something","某事物中包含的主题或想法","The content of her essay was strong, but her grammar needed improvement."],
+    [571,"context","noun","背景","the situation that helps explain something","帮助解释某事的周围情况","Understanding the historical context of a poem is essential for analysis."],
+    [572,"contrast","verb","对比","to compare two things to show differences","比较两件事物以显示差异","She contrasted the protagonist's values with those of the antagonist effectively."],
+    [573,"contribute","verb","贡献","to give something that helps others","给予帮助他人的东西","Each student was asked to contribute one idea to the class discussion."],
+    [574,"convince","verb","说服","to make someone believe or agree with you","使某人相信或同意你","Her strong evidence and analysis convinced the reader of her interpretation."],
+    [575,"create","verb","创造","to make something new","制造新的事物","Good writers create meaning through their careful selection of words and details."],
+    [576,"crisis","noun","危机","a time of great danger or difficulty","极度危险或困难的时期","The crisis in chapter six marks the turning point of the entire novel."],
+    [577,"culture","noun","文化","the beliefs and customs of a group","一个群体的信仰和习俗","The novel explores how culture shapes identity and individual decision-making."],
+    [578,"current","adj","当前的","happening or existing now","现在正在发生或存在的","The essay addresses current social issues through a literary perspective."],
+    [579,"decline","verb","下降","to become smaller or weaker over time","随时间变得更小或更弱","Her anxiety about writing declined as she developed stronger essay skills."],
+    [580,"define","verb","定义","to explain clearly what something means","清楚地解释某事物的含义","Always define key terms in your introduction to clarify your argument."],
+    [581,"demand","noun","需求","a strong request for something","对某事的强烈要求","The novel reflects the demand for social change during the historical period."],
+    [584,"detail","noun","细节","a small but important fact or feature","小但重要的事实或特征","Pay attention to every detail in the text, as authors choose words with purpose."],
+    [585,"determine","verb","决定","to find out or decide something","找出或决定某事","Careful analysis of the evidence will help determine the author's true purpose."],
+    [586,"develop","verb","发展","to grow or make something grow over time","随时间成长或使某事成长","She developed her writing skills through daily practice and targeted feedback."],
+    [587,"differ","verb","不同","to be unlike something else","与其他事物不同","The two critics differ in their interpretation of the poem's central metaphor."],
+    [588,"discuss","verb","讨论","to talk about something with others","与他人讨论某事","Please discuss the main theme of the novel in your first body paragraph."],
+    [589,"display","verb","展示","to show something for others to see","向他人展示某事","She displayed her growth as a writer through her carefully revised final essay."],
+    [590,"document","verb","记录","to write down information for reference","为参考目的写下信息","She documented all the evidence she found before organizing her essay outline."],
+    [591,"domestic","adj","国内的","relating to the home or one's own country","与家庭或本国相关的","The novel explores domestic life and the challenges of family relationships."],
+    [592,"economy","noun","经济","the system of money in a country","一个国家的货币系统","The essay examines how the economy affects educational opportunities."],
+    [593,"educate","verb","教育","to teach someone knowledge and skills","教某人知识和技能","The goal of literature is to educate readers about the human experience."],
+    [594,"effective","adj","有效的","producing the desired result","产生期望结果的","Her most effective strategy was to outline her essay before writing anything."],
+    [595,"emerge","verb","出现","to come out or become known","出来或变得为人所知","New themes emerge in the final chapters that recontextualize the entire story."],
+    [596,"emotion","noun","情感","a strong feeling such as joy or fear","喜悦或恐惧等强烈感受","The author conveys emotion through carefully chosen imagery and word choice."],
+    [597,"emphasis","noun","强调","special importance given to something","给予某事物特别的重要性","She placed emphasis on analysis rather than plot summary in her essay."],
+    [599,"establish","verb","建立","to set up or create something firmly","牢固地建立或创造某事物","Her introduction effectively establishes the context and direction of the essay."],
+    [600,"evaluate","verb","评估","to judge the quality of something","判断某事物的质量","Students should evaluate the strength of each piece of evidence they use."],
+    [601,"evidence","noun","证据","information that shows something is true","显示某事是真实的信息","Strong textual evidence is the foundation of every good analytical essay."],
+    [602,"examine","verb","检查","to look at something carefully","仔细查看某事物","Please examine the author's use of language before drawing any conclusions."],
+    [604,"expand","verb","扩大","to make something larger or more detailed","使某事物更大或更详细","She expanded her vocabulary by reading one new English article every morning."],
+    [605,"express","verb","表达","to show your feelings through words","通过词语表达你的感受","Academic writing requires you to express your ideas clearly and logically."],
+    [606,"extend","verb","延伸","to make something longer or reach further","使某事物更长或延伸更远","She extended her analysis by connecting the text to its broader social context."],
+    [608,"factor","noun","因素","something that affects a situation","影响情况的事物","Vocabulary strength is an important factor in determining essay quality."],
+    [609,"feature","noun","特征","an important part or aspect of something","某事物的重要部分或方面","A key feature of academic writing is the use of evidence to support claims."],
+    [610,"focus","verb","集中","to give all attention to one thing","将所有注意力集中在一件事上","Focus each paragraph on a single idea to maintain clarity in your argument."],
+    [611,"force","noun","力量","a power that causes movement or change","导致运动或变化的力量","The force of the author's argument comes from her use of personal experience."],
+    [612,"foreign","adj","外来的","from or in another country","来自或在另一个国家的","The foreign setting of the novel allows readers to explore different perspectives."],
+    [613,"formal","adj","正式的","following official rules and serious in tone","遵循官方规则且语气严肃的","Academic essays require formal language and a serious, objective tone."],
+    [614,"function","noun","功能","the purpose or role of something","某事物的目的或角色","The function of the introduction is to clearly state your essay's main argument."],
+    [615,"generate","verb","产生","to create or produce something","创造或产生某事物","Daily reading and writing will generate significant growth in language ability."],
+    [616,"identify","verb","识别","to recognize and name something","认识并命名某事物","Readers should identify the main argument in the opening paragraph."],
+    [617,"ignore","verb","忽视","to deliberately not pay attention to something","故意不注意某事物","Never ignore evidence that contradicts your argument; address it directly."],
+    [618,"impact","noun","影响","the powerful effect that something has","某事物产生的强大影响","The novel's impact comes from its honest portrayal of social inequality."],
+    [620,"individual","adj","个人的","relating to one specific person","与某一特定人相关的","Every individual student brings a unique perspective to literary analysis."],
+    [622,"inform","verb","告知","to give someone information about something","向某人提供关于某事的信息","Use specific textual details to inform and support each analytical claim."],
+    [623,"initiative","noun","主动性","the ability to take action without being told","无需被告知便采取行动的能力","She took the initiative to revise her essay three times before submission."],
+    [624,"interpret","verb","诠释","to explain the meaning of something","解释某事物的含义","Different readers can legitimately interpret the same text in different ways."],
+    [625,"investigate","verb","调查","to examine carefully to find out the truth","仔细检查以找出真相","She investigated the historical context to deepen her analysis of the poem."],
+    [626,"involve","verb","涉及","to include as part of an activity","作为活动的一部分包括","Good essay writing involves planning, drafting, revising, and careful proofreading."],
+    [627,"issue","noun","问题","an important topic being discussed","正在讨论的重要话题","Social inequality is the central issue examined throughout the entire novel."],
+    [628,"justify","verb","证明合理","to give a reason to show something is right","给出理由表明某事是正确的","She was able to justify every claim she made with strong textual evidence."],
+    [629,"maintain","verb","保持","to keep something in the same condition","保持某事物在相同状态","She worked hard to maintain her high grade throughout the entire semester."],
+    [630,"manage","verb","管理","to control or organize something successfully","成功控制或组织某事物","She learned to manage her time efficiently to complete all reading assignments."],
+    [631,"minimize","verb","减少","to make something as small as possible","使某事物尽可能小","She tried to minimize errors by proofreading her essay at least twice."],
+    [632,"monitor","verb","监控","to watch and check something regularly","定期观察和检查某事物","She monitored her vocabulary growth by tracking new words in her notebook."],
+    [633,"motivate","verb","激励","to make someone want to do something","使某人想做某事","The teacher's positive feedback motivated her to keep improving her writing."],
+    [634,"obtain","verb","获得","to get something, especially with effort","得到某事物，尤其通过努力","She worked hard to obtain a distinction on her final essay assignment."],
+    [635,"occur","verb","发生","to happen at a particular time","在特定时间发生","The climax of the story occurs when the protagonist makes an impossible choice."],
+    [636,"organize","verb","组织","to arrange things in a logical order","以逻辑顺序排列事物","Please organize your essay outline before you begin writing the first draft."],
+    [637,"particular","adj","特别的","specific, not general","特定的，非一般的","Pay particular attention to how the author develops the story's central symbol."],
+    [638,"perform","verb","表现","to do an action or show something","执行某个动作或展示某事","She performed exceptionally well on the final essay and earned highest marks."],
+    [639,"policy","noun","政策","a set of rules made by an authority","由权威机构制定的一套规则","The school's policy is that all essays must be submitted by the deadline."],
+    [640,"potential","noun","潜力","the ability to develop and improve","发展和改进的能力","Every student in this class has the potential to become an excellent writer."],
+    [641,"predict","verb","预测","to say what will happen in the future","说出未来会发生什么","Readers can predict the ending because the author uses foreshadowing effectively."],
+    [642,"prepare","verb","准备","to make yourself ready for something","使自己为某事做好准备","She prepared carefully for the essay exam by reviewing all unit vocabulary."],
+    [643,"primary","adj","主要的","most important or first in order","最重要的或首要的","The primary purpose of the conclusion is to synthesize and reinforce your argument."],
+    [644,"principle","noun","原则","a basic rule or belief","基本规则或信念","The principle of intellectual honesty requires students to cite their sources."],
+    [645,"process","noun","过程","a series of steps that lead to a result","导致结果的一系列步骤","The writing process includes brainstorming, drafting, revising, and proofreading."],
+    [646,"propose","verb","建议","to suggest an idea for others to consider","提出一个想法供他人考虑","She proposed a new interpretation of the poem that surprised her teacher."],
+    [647,"publish","verb","出版","to make something available to the public","使某事物可供公众使用","Her essay was selected to be published in the school's annual literary magazine."],
+    [648,"purpose","noun","目的","the reason for doing something","做某事的原因","The purpose of the conclusion is to leave the reader with a lasting impression."],
+    [649,"qualify","verb","限制","to add conditions or limits to a statement","为陈述添加条件或限制","She qualified her thesis to make it more arguable and academically precise."],
+    [650,"react","verb","反应","to respond to something that has happened","对发生的事情做出回应","She reacted positively to the teacher's critical feedback and began revising."],
+    [651,"recognize","verb","认识到","to identify and understand something","识别并理解某事物","She learned to recognize strong thesis statements after reading many examples."],
+    [652,"refer","verb","参考","to look at a source for information","查看来源以获取信息","Always refer to the text when making a claim in your analytical essay."],
+    [654,"reject","verb","拒绝","to refuse to accept something","拒绝接受某事物","Good critical thinkers reject oversimplified interpretations of complex literary texts."],
+    [655,"relate","verb","联系","to find a connection between things","找到事物之间的联系","She worked to relate the poem's imagery directly to its historical context."],
+    [656,"release","verb","释放","to free something that was held back","释放被阻止的东西","The novel's ending releases the tension that has built up across all chapters."],
+    [657,"rely","verb","依赖","to need something and trust it","需要某事物并信任它","Do not rely only on one source; use multiple texts to support your argument."],
+    [658,"remove","verb","删除","to take something away","将某事物移走","She removed three weak paragraphs and replaced them with stronger analysis."],
+    [659,"require","verb","要求","to need something as necessary","需要某事物作为必要条件","Academic writing requires clear thesis statements and well-developed body paragraphs."],
+    [660,"research","verb","研究","to carefully study a topic to learn more","仔细研究某个话题","She researched the historical background before analyzing the novel's themes."],
+    [661,"resolve","verb","解决","to find a solution to a problem","找到问题的解决方案","The conflict is resolved in the final chapter, but the resolution feels ambiguous."],
+    [662,"respond","verb","回应","to say or do something in reply","以回复的方式说或做某事","She responded thoughtfully to the teacher's feedback during the revision conference."],
+    [663,"restrict","verb","限制","to keep something within certain limits","将某事物保持在一定范围内","Try not to restrict your ideas; explore every possible angle in your planning."],
+    [664,"retain","verb","保留","to keep something in your memory","将某事物保留在记忆中","She retained new vocabulary better when she used it in sentences immediately."],
+    [665,"reveal","verb","揭示","to show something that was hidden before","展示以前隐藏的事物","The story's final twist reveals the true nature of the seemingly kind character."],
+    [666,"secure","adj","安全的","free from danger or uncertainty","没有危险或不确定性的","She felt secure in her argument after finding three strong pieces of evidence."],
+    [667,"seek","verb","寻求","to try to find or obtain something","试图找到或获得某事物","Always seek feedback on your writing from multiple readers before submitting."],
+    [668,"select","verb","选择","to pick the best option from a group","从一组中挑选最佳选项","She selected the most relevant quotation from each paragraph to support her claim."],
+    [669,"significant","adj","重要的","having great meaning or importance","具有重大意义或重要性","The most significant theme in the novel is the conflict between duty and desire."],
+    [670,"source","noun","来源","where something originally comes from","某事物最初来自的地方","She cited four reliable sources to support the argument in her research essay."],
+    [671,"specify","verb","明确说明","to describe something in detail","详细描述某事物","Please specify which scene you are analyzing and quote from it directly."],
+    [672,"stable","adj","稳定的","not likely to change or fall","不可能改变或倒下的","A stable argument is built on consistent logic and well-chosen evidence."],
+    [673,"strategy","noun","策略","a plan for achieving a specific goal","实现特定目标的计划","Her most effective strategy was to write a detailed outline before drafting."],
+    [674,"stress","verb","强调","to give special importance to something","给予某事物特别的重要性","She stressed the importance of revision in developing a well-argued essay."],
+    [675,"structure","noun","结构","the way parts of something are organized","某事物各部分的组织方式","The structure of her essay was clear and logical from introduction to conclusion."],
+    [676,"submit","verb","提交","to hand in work for assessment","将工作交给他人评估","Please submit your final essay through the online platform before midnight."],
+    [677,"sufficient","adj","足够的","enough for what is needed","足够满足需要的","She gathered sufficient evidence to make her argument convincing and complete."],
+    [678,"summary","noun","摘要","a short statement of the main points","主要观点的简短陈述","Write a summary of each chapter to help you remember the key plot points."],
+    [679,"support","verb","支持","to help something succeed or be true","帮助某事成功或是真实的","Use specific evidence from the text to support every claim in your essay."],
+    [680,"survive","verb","幸存","to continue to exist after a difficulty","在困难后继续存在","The protagonist must survive against enormous social and economic pressure."],
+    [681,"target","noun","目标","the thing you are trying to achieve","你试图实现的事物","Her target was to improve her analytical writing score by fifteen percent."],
+    [682,"transfer","verb","转移","to move something from one place to another","将某事物从一个地方移到另一个地方","She transferred her ideas from her outline directly into her essay draft."],
+    [683,"transform","verb","转变","to completely change something","完全改变某事物","Careful revision can transform a weak essay into an excellent piece of writing."],
+    [684,"trend","noun","趋势","a general direction of change","变化的总体方向","There is a clear trend toward more analytical and less descriptive essay writing."],
+    [685,"unique","adj","独特的","unlike anything else","与任何其他事物都不同的","Her unique perspective on the novel's ending impressed her teacher greatly."],
+    [686,"vehicle","noun","载体","something used to express or communicate","用于表达或沟通的工具","Literature is a powerful vehicle for exploring universal human experiences."],
+    [687,"version","noun","版本","one form of something that can have many forms","可以有多种形式的事物的一种","She submitted the third version of her essay after two rounds of revision."],
+    [688,"volume","noun","量","the amount or level of something","某事物的数量或水平","The volume of reading required this semester will significantly expand her vocabulary."],
+    [689,"willing","adj","愿意的","happy and ready to do something","乐意并准备好做某事的","She was willing to revise her essay as many times as necessary to improve."],
+    [690,"approach","noun","方法","a way of doing or thinking about something","做某事或思考某事的方式","Her analytical approach to the text revealed meanings that others had missed."],
+    [691,"assess","verb","评估","to judge the quality or value of something","判断某事物的质量或价值","The teacher will assess each essay using a detailed four-category rubric."],
+    [693,"cite","verb","引用","to mention a source of information","提及信息来源","Always cite your sources at the end of your academic essay."],
+    [694,"coherent","adj","连贯的","logical and consistent in argument","论点逻辑且一致的","A coherent essay moves smoothly from one idea to the next without confusion."],
+    [696,"craft","verb","精心制作","to make something with great skill and care","用极大的技巧和关心制作某事","She spent three hours crafting the perfect opening paragraph for her essay."],
+    [697,"critique","noun","批评","a detailed analysis of something","某事物的详细分析","The teacher's critique helped her identify the weakest part of her argument."],
+    [698,"debate","noun","辩论","a formal discussion with opposing views","有对立观点的正式讨论","The class held a debate about whether technology improves or harms learning."],
+    [699,"draft","noun","草稿","an early version of a piece of writing","一篇写作的早期版本","Submit your draft to the teacher for feedback before writing the final version."],
+    [700,"framework","noun","框架","a basic structure for understanding something","理解某事物的基本结构","Use the thesis-evidence-analysis framework to structure every body paragraph."]
+  ],
+  C:[
+    [1205,"gradual","adjective","逐渐的","happening slowly over a long period of time","在很长时间内缓慢发生","The gradual growth of her vocabulary surprised her teacher."],
+    [1208,"satisfy","verb","满足","to please someone by giving them what they need","通过给予所需之物来取悦某人","A high score will satisfy her hard work."],
+    [1218,"risk","noun/verb","风险","the chance that something bad might happen","某件坏事可能发生的机会","There is a risk of failing if you do not study regularly."],
+    [1238,"explore","verb","探索","to travel through or investigate something new","调查新事物","Explore unknown words by reading them in context."],
+    [1250,"guilt","noun","内疚","the feeling that you have done something wrong","你做错了某事的感觉","She felt guilt for not studying her vocabulary last night."],
+    [1259,"admire","verb","钦佩","to respect and approve of someone or something","尊重并赞同某人或某事","She admires students who work hard to improve themselves."],
+    [1266,"competition","noun","竞争","a situation where people try to win or be better than others","人们试图赢得或比他人更好的情况","The vocabulary competition pushed her to study harder."],
+    [1271,"shock","noun/verb","震惊","a sudden unexpected feeling, or to cause that feeling","突然意外的感觉","It was a shock to discover how many English words there are."],
+    [1272,"conversation","noun","对话","a talk between two or more people","两个或更多人之间的谈话","Use new vocabulary in everyday conversation to remember it."],
+    [1279,"thorough","adjective","彻底的","doing something completely and carefully","完全彻底地做某事","She did a thorough review of all her vocabulary notes."],
+    [1280,"absolute","adjective","绝对的","complete and total, with no exceptions","完全的，没有例外","She had absolute confidence in her ability to improve."],
+    [1283,"proud","adjective","自豪的","feeling pleased about something you or others have done","对你或他人所做的事情感到高兴","She felt proud after using five new words in her essay."],
+    [1301,"honest","adjective","诚实的","telling the truth and not deceiving anyone","说实话且不欺骗任何人","Be honest with yourself about which words you really know."],
+    [1325,"confidence","noun","自信","the belief in yourself and your abilities","对自己和自己能力的信念","Building vocabulary builds confidence in reading and speaking."],
+    [1343,"violent","adjective","暴力的","using physical force to hurt people","用物理力量伤害人们","The novel had some violent scenes that required careful reading."],
+    [1354,"universal","adjective","普遍的","relating to everyone or everything","涉及所有人或所有事物","Reading is a universal skill needed in every subject."],
+    [1355,"accident","noun","事故","something bad that happens unexpectedly","意外发生的坏事","Some of the best vocabulary discoveries happen by accident."],
+    [1359,"wise","adjective","明智的","having or showing good judgement","有或表现出良好判断力","A wise student reviews new words every day."],
+    [1369,"sad","adjective","悲伤的","unhappy, feeling sorrow","不快乐，感到悲伤","The story had a sad ending that stayed with me for days."],
+    [1375,"comparison","noun","比较","the act of considering how things are similar or different","考虑事物相似或不同的行为","A comparison of the two definitions shows they are very similar."],
+    [1376,"possess","verb","拥有","to own or have something","拥有或持有某物","She possesses a large vocabulary from years of reading."],
+    [1388,"angry","adjective","生气的","feeling strong emotion because of something unfair or wrong","因不公平而产生强烈情绪","He felt angry when he could not understand the text."],
+    [1394,"permanent","adjective","永久的","lasting forever or for a very long time","永远或很长时间持续","Building a good vocabulary is a permanent skill."],
+    [1397,"confuse","verb","使困惑","to make someone unable to understand clearly","使某人无法清晰理解","Similar words can confuse readers who do not know them well."],
+    [1407,"virtue","noun","美德","a good and moral quality in a person","一个人身上的良好道德品质","Patience is a virtue when learning a new language."],
+    [1411,"attract","verb","吸引","to cause someone to like or be interested","使某人喜欢或感兴趣","Interesting reading material attracts students to learn more."],
+    [1418,"forgive","verb","原谅","to stop feeling angry at someone for something they did","停止对某人因他们所做的事情而生气","Forgive yourself when you forget a word — just review it again."],
+    [1422,"crime","noun","犯罪","an act that is against the law","违法的行为","She read a crime novel to practise her reading skills."],
+    [1433,"delay","noun/verb","延迟","time lost waiting, or to make something happen later","等待损失的时间","Do not delay your vocabulary review — do it today."],
+    [1455,"efficient","adjective","高效的","doing things well without wasting time or effort","不浪费时间或精力地把事情做好","Flashcard review is an efficient way to learn new words."],
+    [1462,"discipline","noun","纪律","controlled behaviour, or a subject of study","受控制的行为","It takes discipline to study vocabulary every single day."],
+    [1472,"strict","adjective","严格的","demanding that rules are obeyed","要求遵守规则","The teacher is strict about using new vocabulary correctly."],
+    [1484,"valuable","adjective","有价值的","worth a lot, important or useful","价值很高，重要或有用的","Time spent reading is valuable time building vocabulary."],
+    [1498,"habit","noun","习惯","something you do regularly, often without thinking","你经常做的事情","Make vocabulary review a daily habit."],
+    [1501,"persuade","verb","说服","to make someone agree to do something by giving reasons","通过给出理由使某人同意","Can you persuade yourself to study for ten extra minutes?"],
+    [1505,"deserve","verb","值得","to have earned something by your actions","通过你的行动而赢得某事","You deserve success if you work hard every day."],
+    [1516,"anxiety","noun","焦虑","a feeling of worry and fear","担忧和恐惧的感觉","Anxiety about vocabulary tests goes away with regular practice."],
+    [1520,"fortunate","adjective","幸运的","having good luck","有好运气","She was fortunate to have a teacher who explained words clearly."],
+    [1553,"generous","adjective","慷慨的","giving more than expected, kind with time or money","给予比预期更多的","A generous teacher shares many examples to help students understand."],
+    [1563,"courage","noun","勇气","the ability to do something that frightens you","做让你害怕的事情的能力","It takes courage to speak English in front of the class."],
+    [1578,"fault","noun","错误","a mistake, or a bad feature of something","错误，或某物的缺点","Finding a fault in your vocabulary helps you fix it."],
+    [1601,"ocean","noun","海洋","the large area of salt water covering most of the Earth","覆盖地球大部分的大面积咸水","The ocean of English vocabulary can seem overwhelming at first."],
+    [1617,"lonely","adjective","孤独的","unhappy because of being alone","因独处而不快乐","She felt lonely at first in the international school but made friends quickly."],
+    [1624,"resist","verb","抵抗","to stop yourself from doing something, or fight against something","阻止自己做某事，或对抗某事","Resist the temptation to skip your daily vocabulary practice."],
+    [1646,"wealth","noun","财富","a large amount of money or valuable things","大量金钱或有价值的东西","A large vocabulary is a form of wealth you carry everywhere."],
+    [1648,"translate","verb","翻译","to change words from one language to another","将一种语言的单词改变为另一种","She can translate this passage without a dictionary."],
+    [1653,"hesitate","verb","犹豫","to pause before doing or saying something","在做某事之前暂停","Do not hesitate to ask if you do not understand a word."],
+    [1658,"ambition","noun","抱负","a strong desire to achieve something","强烈渴望实现某事","Her ambition is to read an entire English novel this year."],
+    [1678,"brave","adjective","勇敢的","willing to do dangerous or difficult things without fear","无所畏惧地做困难的事情","Be brave enough to use new words even when you are unsure."],
+    [1695,"educate","verb","教育","to teach someone over a period of time","在一段时间内教导某人","Good schools educate students in vocabulary from an early age."],
+    [1719,"grateful","adjective","感激的","feeling thankful for something done for you","对为你做的事情感到感谢","Be grateful for every new word you learn — it adds to your power."],
+    [1730,"wander","verb","漫游","to move without a clear direction, or to lose focus","无明确方向地移动，或失去焦点","Do not let your mind wander during vocabulary practice."],
+    [1782,"regret","verb/noun","后悔","to feel sad about something you did or did not do","对你做过或没做的事情感到悲伤","She regretted not studying her vocabulary before the test."],
+    [1807,"shame","noun","羞耻","the feeling that you have done something wrong or embarrassing","你做了错事的感觉","It would be a shame to stop practising after so much progress."],
+    [1856,"polite","adjective","礼貌的","behaving in a way that is respectful and considerate","以尊重和体贴的方式行事","It is polite to use formal vocabulary when writing to a teacher."],
+    [1907,"cruel","adjective","残忍的","deliberately causing pain or suffering","故意造成痛苦","It would be cruel to judge someone for not knowing a word."],
+    [1928,"obey","verb","服从","to follow the instructions of someone","遵循某人的指示","Obey the rules of good writing by using words precisely."],
+    [2106,"conquer","verb","征服","to take control of something, especially through effort","通过努力控制某事","You can conquer difficult vocabulary with daily practice."]
+  ,
+    [1201,"abstract","adj","抽象的","existing as an idea rather than a thing","作为想法而非具体事物存在的","The essay explores abstract concepts like freedom and justice in literature."],
+    [1202,"acknowledge","verb","承认","to accept that something is true","接受某事是真实的","The author acknowledges that his argument has weaknesses but proceeds anyway."],
+    [1203,"adequate","adj","充足的","enough for what is needed","足够满足需要的","Her essay had adequate evidence but needed stronger analysis to succeed."],
+    [1204,"ambiguous","adj","含糊的","having more than one possible meaning","有多种可能意义的","The poem's ending is deliberately ambiguous, inviting multiple interpretations."],
+    [1205,"analyze","verb","分析","to examine carefully to understand something","仔细检查以理解某事","Students must analyze the author's tone, word choice, and use of imagery."],
+    [1206,"anticipate","verb","预期","to expect something and prepare for it","预期某事并为之做准备","A skilled reader anticipates the theme before reaching the final chapter."],
+    [1207,"apparent","adj","明显的","easy to see or understand","容易看到或理解的","The author's opinion is apparent from the very first line of the essay."],
+    [1208,"articulate","verb","清晰表达","to express ideas clearly and effectively","清晰有效地表达想法","She worked hard to articulate her argument in precise academic language."],
+    [1209,"assertion","noun","断言","a confident statement of something as fact","对某事作为事实的自信陈述","Every assertion in the essay must be supported by evidence from the text."],
+    [1210,"assumption","noun","假设","something you believe without proof","你没有证据相信的事物","The essay challenges the common assumption that happiness requires wealth."],
+    [1211,"authentic","adj","真实的","real and genuine, not fake","真实的，非假的","Her essay felt authentic because she drew on her own experience as a reader."],
+    [1212,"bias","noun","偏见","an unfair preference for one thing over another","对某事物不公平的偏好","Every reader brings their own bias to a text, which shapes their interpretation."],
+    [1213,"capacity","noun","能力","the ability or power to do something","做某事的能力或力量","Students have the capacity to master academic writing with the right guidance."],
+    [1214,"challenge","noun","挑战","something difficult that tests your ability","测试你能力的困难事物","The greatest challenge in analytical writing is moving beyond plot summary."],
+    [1215,"coherence","noun","连贯性","the quality of being logical and consistent","逻辑且一致的品质","Coherence is achieved when every paragraph clearly connects to the thesis."],
+    [1216,"complexity","noun","复杂性","the quality of having many connected parts","有许多相关部分的品质","The complexity of the novel rewards careful and repeated reading."],
+    [1217,"concise","adj","简洁的","using few words to express something clearly","用少量词语清晰表达某事","Academic writing should be concise and avoid unnecessary repetition."],
+    [1218,"credibility","noun","可信度","the quality of being trusted and believed","被信任和相信的品质","Use credible sources to build the credibility of your academic argument."],
+    [1219,"critical","adj","批判性的","carefully examining something to judge its worth","仔细检查某事物以判断其价值","Critical thinking is the most important skill in literary analysis."],
+    [1220,"crucial","adj","关键的","extremely important or necessary","极其重要或必要的","It is crucial to state your thesis clearly in the opening paragraph."],
+    [1221,"deduce","verb","推断","to reach a conclusion by reasoning","通过推理得出结论","From the evidence in the text, readers can deduce the author's true opinion."],
+    [1222,"demonstrate","verb","证明","to show clearly that something is true","清楚地表明某事是真实的","Her essay demonstrates a sophisticated understanding of the novel's themes."],
+    [1223,"derive","verb","得出","to get or develop something from a source","从来源获得或发展某事物","She derived her interpretation from a close reading of three key passages."],
+    [1224,"distinct","adj","明显的","clearly different from something else","与其他事物明显不同的","The two characters have distinct personalities that create the story's conflict."],
+    [1225,"dominant","adj","占主导地位的","most important or having the most power","最重要或拥有最多力量的","The dominant theme of the novel is the struggle between freedom and duty."],
+    [1226,"elaborate","verb","详细说明","to give more details about something","给出关于某事的更多细节","Please elaborate on your analysis with a specific quotation from the text."],
+    [1227,"eloquent","adj","流利的","expressing ideas clearly and beautifully","清晰而优美地表达想法的","Her eloquent conclusion left a strong impression on every reader."],
+    [1228,"emphasize","verb","强调","to give special importance to something","给予某事物特别的重要性","The author emphasizes the theme of sacrifice through repeated imagery."],
+    [1229,"enable","verb","使能够","to make something possible for someone","使某人能够做某事","Strong vocabulary skills enable students to express complex ideas precisely."],
+    [1230,"encounter","verb","遇到","to experience something, often unexpectedly","体验某事，通常是意外地","When you encounter an unfamiliar word, look it up immediately."],
+    [1231,"enhance","verb","提高","to improve the quality of something","提高某事物的质量","Specific examples enhance the persuasiveness of an academic argument."],
+    [1232,"establish","verb","建立","to set up or create something firmly","牢固地建立或创造某事物","Her introduction effectively establishes the context and direction of the essay."],
+    [1233,"ethical","adj","道德的","relating to what is morally right and wrong","与道德正确和错误相关的","The novel raises ethical questions about justice and personal responsibility."],
+    [1234,"evidence","noun","证据","information that shows something is true","显示某事是真实的信息","Strong textual evidence is the foundation of every good analytical essay."],
+    [1235,"evolve","verb","发展","to gradually develop and change over time","随时间逐渐发展和变化","The protagonist's character evolves dramatically across the three chapters."],
+    [1236,"explicit","adj","明确的","stated clearly and directly","清楚直接地陈述的","The author's criticism of poverty is explicit and does not require interpretation."],
+    [1237,"framework","noun","框架","a basic structure for understanding something","理解某事物的基本结构","The thesis-evidence-analysis framework helps students organize their ideas."],
+    [1238,"fundamental","adj","基本的","forming the most important part of something","构成某事物最重要部分的","The most fundamental skill in English is the ability to express clear ideas."],
+    [1239,"generate","verb","产生","to create or produce something","创造或产生某事物","Daily reading will generate significant growth in vocabulary and fluency."],
+    [1240,"hypothesis","noun","假设","an idea that needs to be tested or proved","需要被测试或证明的想法","Her essay tests the hypothesis that the author intended an ironic reading."],
+    [1241,"ideology","noun","意识形态","a set of beliefs shared by a group","一群人共同持有的信念","The novel critiques the dominant ideology of the society it portrays."],
+    [1242,"implicit","adj","隐含的","suggested but not directly stated","暗示但未直接陈述的","The author's criticism of injustice is implicit rather than openly stated."],
+    [1243,"imply","verb","暗示","to suggest something without saying it directly","不直接说出某事但暗示","The author implies that wealth is no substitute for genuine human connection."],
+    [1244,"insightful","adj","有见地的","showing a deep understanding of something","显示对某事物有深刻理解的","Her most insightful essay was the one analyzing the novel's use of silence."],
+    [1245,"integrate","verb","整合","to combine parts into a whole","将部分结合成一个整体","She learned to integrate quotations smoothly into her analytical sentences."],
+    [1246,"interpret","verb","诠释","to explain the meaning of something","解释某事物的含义","Different readers can legitimately interpret the same text in different ways."],
+    [1247,"irony","noun","讽刺","a contrast between what is said and what is meant","所说与所指之间的对比","The author uses irony to highlight the gap between appearance and reality."],
+    [1248,"justify","verb","证明合理","to give a reason to show something is right","给出理由表明某事是正确的","She was able to justify every claim she made with strong textual evidence."],
+    [1249,"logical","adj","逻辑的","following clear reasoning and making sense","遵循清晰推理的","Her argument was so logical that even her opponents struggled to disagree."],
+    [1250,"metaphor","noun","比喻","a comparison that says one thing is another","将一件事说成另一件事的比较","The author uses the broken mirror as a metaphor for the character's shattered identity."],
+    [1251,"methodology","noun","方法论","a system of methods used in a subject","某学科中使用的方法体系","Her essay's methodology involved close reading and historical context analysis."],
+    [1252,"motive","noun","动机","the reason behind someone's actions","某人行动背后的原因","Understanding the character's motive makes the story's ending much more powerful."],
+    [1253,"narrative","noun","叙述","a story or account of events","事件的故事或叙述","The narrative shifts perspective in chapter five, surprising the reader."],
+    [1254,"nuance","noun","细微差别","a very slight difference in meaning","意义上非常细微的差别","The nuance of the author's language shows her sophisticated writing ability."],
+    [1255,"objective","adj","客观的","not influenced by personal feelings","不受个人感受影响的","Academic writing must be objective and based on evidence rather than emotion."],
+    [1256,"observation","noun","观察","something you notice by watching carefully","通过仔细观察注意到的事情","Her observation about the author's use of color revealed a deeper theme."],
+    [1257,"paradox","noun","矛盾","something that seems impossible but is true","看起来不可能但是真实的事情","The paradox of the novel is that the most selfish character sacrifices everything."],
+    [1258,"paraphrase","verb","转述","to restate something in different words","用不同的词语重新陈述某事","Always paraphrase quotations in your own words to show your understanding."],
+    [1259,"perceive","verb","感知","to understand or think of something in a way","以某种方式理解或思考某事","How we perceive a character changes as we learn more about their backstory."],
+    [1260,"perspective","noun","观点","a particular way of thinking about something","思考某事的特定方式","The novel offers multiple perspectives on the same historical events."],
+    [1261,"persuasive","adj","有说服力的","able to make people believe something","能够使人相信某事的","A persuasive essay uses logic, evidence, and emotional appeal effectively."],
+    [1262,"phenomenon","noun","现象","something that exists or happens in the world","世界上存在或发生的事情","The novel explores the phenomenon of social conformity and its effect on identity."],
+    [1263,"precise","adj","精确的","exact and accurate","精确且准确的","Use precise language to ensure your analysis is clear and unambiguous."],
+    [1264,"predominant","adj","主要的","most common or having the greatest power","最常见或拥有最大力量的","The predominant theme of the collection is the tension between love and duty."],
+    [1265,"premise","noun","前提","an assumption that forms the basis of an argument","构成论点基础的假设","Her essay challenges the premise that economic growth benefits everyone equally."],
+    [1266,"profound","adj","深刻的","showing great understanding or having great effect","显示深刻理解或产生深远影响的","The novel's most profound moment is the protagonist's act of forgiveness."],
+    [1267,"rationale","noun","理由","the reasons and logical basis for something","某事的理由和逻辑基础","She provided a clear rationale for choosing her analytical approach."],
+    [1268,"relevant","adj","相关的","directly connected to what is being discussed","直接与正在讨论的事物相关的","Only include evidence that is directly relevant to your thesis statement."],
+    [1269,"rhetoric","noun","修辞","the art of using language persuasively","使用语言进行说服的艺术","The author's rhetoric is designed to make readers feel both informed and moved."],
+    [1270,"rigorous","adj","严格的","very thorough and careful","非常彻底和仔细的","She applied rigorous analysis to every word the author chose in the poem."],
+    [1271,"seminal","adj","重要的","strongly influencing later developments","强烈影响后续发展的","This novel is seminal in the history of Chinese-English translated literature."],
+    [1272,"stance","noun","立场","a position or opinion on an issue","对某问题的立场或意见","Her essay's stance on the theme was clearly stated in the opening paragraph."],
+    [1273,"subjective","adj","主观的","based on personal feelings rather than facts","基于个人感受而非事实的","Literary interpretation is partly subjective, but it must still be text-based."],
+    [1274,"subtle","adj","微妙的","not obvious or easy to notice","不明显或不容易注意到的","The most subtle symbol in the novel is the recurring image of broken glass."],
+    [1275,"synthesize","verb","综合","to combine ideas from different sources","从不同来源结合想法","Her conclusion synthesizes the essay's three main arguments into one statement."],
+    [1276,"thesis","noun","论点","the main argument of an essay","文章的主要论点","A strong thesis states a specific, arguable claim about the text."],
+    [1277,"tone","noun","语气","the attitude expressed in writing or speech","写作或演讲中表达的态度","The author's tone shifts from hopeful to resigned in the final chapter."],
+    [1278,"transition","noun","过渡","a change from one state or idea to another","从一种状态或想法到另一种的变化","Use transition words to guide the reader smoothly between paragraphs."],
+    [1279,"underlying","adj","潜在的","present but not obvious or directly stated","存在但不明显或直接陈述的","The underlying message of the story is that courage matters more than success."],
+    [1281,"validate","verb","证实","to confirm that something is correct","确认某事是正确的","Strong evidence from the text validates every claim in her analytical essay."],
+    [1282,"vivid","adj","生动的","producing strong, clear images in the mind","在脑海中产生强烈清晰图像的","The author's vivid imagery places the reader directly in the scene."],
+    [1283,"abstain","verb","克制","to stop yourself from doing something","阻止自己做某事","A good academic writer abstains from using casual language in formal essays."],
+    [1284,"accumulate","verb","积累","to gradually collect or gather something","逐渐收集或聚集某物","She accumulated a wealth of textual evidence before writing her analysis."],
+    [1285,"advocate","verb","倡导","to publicly support or recommend something","公开支持或推荐某事","The essay advocates for greater attention to student wellbeing in schools."],
+    [1286,"aesthetic","adj","美学的","relating to beauty and the appreciation of art","与美和艺术欣赏相关的","The author makes deliberate aesthetic choices in the structure of each chapter."],
+    [1287,"ambivalent","adj","矛盾的","having mixed feelings about something","对某事有复杂感情的","The protagonist is ambivalent about leaving her hometown, which drives the plot."],
+    [1288,"analogy","noun","类比","a comparison used to explain something","用于解释某事的比较","She used an analogy between building a house and writing an essay."],
+    [1289,"anticipation","noun","期待","excitement about something that is going to happen","对即将发生的事情的兴奋","The author builds anticipation through foreshadowing in the opening chapter."],
+    [1290,"archetype","noun","原型","a typical example of something","某事物的典型示例","The wise mentor is a common archetype found in many classic stories."],
+    [1291,"categorical","adj","明确的","without any doubt or qualification","没有任何疑问或限定的","She avoided categorical statements and instead used careful qualifications."],
+    [1292,"chronological","adj","按时间顺序的","arranged in the order events happened","按事件发生顺序排列的","The essay uses a chronological structure to trace the character's development."],
+    [1293,"circumvent","verb","绕过","to find a way around something","找到绕过某事物的方法","She circumvented the problem by restructuring her entire argument."],
+    [1294,"collectively","adv","集体地","as a group, together","作为一组，一起","The three body paragraphs collectively build toward the essay's final argument."],
+    [1295,"commentary","noun","评论","an explanation or analysis of something","对某事物的解释或分析","Her textual commentary showed a deep understanding of the author's technique."],
+    [1296,"compound","verb","加剧","to make something worse by adding to it","通过添加使某事更糟","Poor organization compounded by weak evidence makes an essay very hard to read."],
+    [1297,"conceive","verb","构思","to form an idea or plan in your mind","在脑海中形成想法或计划","She conceived a powerful thesis during her brainstorming session."],
+    [1298,"contradict","verb","矛盾","to say the opposite of something","说某事的对立面","The evidence in chapter five seems to contradict the author's earlier claims."],
+    [1299,"conviction","noun","信念","a strong belief or opinion","强烈的信念或意见","She wrote with such conviction that her teacher was immediately persuaded."],
+    [1300,"cumulative","adj","累积的","increasing by adding things together","通过相加而增加的","The cumulative effect of the repeated symbol creates a powerful emotional impact."]
+  ]
+};
+
+var PLACEMENT_WORDS = [
+  {word:"time",cn:"时间",pos:"noun"},
+  {word:"develop",cn:"发展",pos:"verb"},
+  {word:"passage",cn:"段落",pos:"noun"},
+  {word:"efficient",cn:"高效的",pos:"adjective"},
+  {word:"conquer",cn:"征服",pos:"verb"}
+];
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+var S = {
+  name:"", band:null, idx:0, total:0, streak:0, lastDate:null,
+  plScores:[], plStep:0
+};
+var CW = null; // current word
+var answered = false;
+var sessionLog = []; // for TXT download
+
+// ─── STORAGE ────────────────────────────────────────────────────────────────
+function save() {
+  try {
+    localStorage.setItem('gsl_v2', JSON.stringify({
+      name:S.name, band:S.band, idx:S.idx,
+      total:S.total, streak:S.streak, lastDate:S.lastDate
+    }));
+  } catch(e){}
+}
+function load() {
+  try {
+    var r = localStorage.getItem('gsl_v2');
+    if (!r) return false;
+    var d = JSON.parse(r);
+    S.name=d.name||""; S.band=d.band||null; S.idx=d.idx||0;
+    S.total=d.total||0; S.streak=d.streak||0; S.lastDate=d.lastDate||null;
+    return !!(S.name && S.band);
+  } catch(e){ return false; }
+}
+function tickStreak() {
+  var today = new Date().toDateString();
+  if (S.lastDate === today) return;
+  var yest = new Date(); yest.setDate(yest.getDate()-1);
+  if (S.lastDate === yest.toDateString()) S.streak++;
+  else S.streak = (S.lastDate ? 1 : 1);
+  S.lastDate = today;
+}
+
+// ─── SCREEN ─────────────────────────────────────────────────────────────────
+function show(id) {
+  var all = document.querySelectorAll('.screen');
+  for (var i=0;i<all.length;i++) all[i].style.display='none';
+  document.getElementById(id).style.display='flex';
+}
+
+// ─── INIT ───────────────────────────────────────────────────────────────────
+window.addEventListener('load', function() {
+  // wire up static buttons
+  document.getElementById('name-btn').addEventListener('click', onNameBtn);
+  document.getElementById('name-input').addEventListener('keypress', function(e){
+    if(e.key==='Enter') onNameBtn();
+  });
+  document.getElementById('pl-know').addEventListener('click',function(){plAns(2);});
+  document.getElementById('pl-sort').addEventListener('click',function(){plAns(1);});
+  document.getElementById('pl-no').addEventListener('click',function(){plAns(0);});
+  document.getElementById('speak-btn').addEventListener('click', doSpeak);
+  document.getElementById('speak-done-btn').addEventListener('click', showTask);
+  document.getElementById('finished-btn').addEventListener('click', doFinished);
+  document.getElementById('change-band-btn').addEventListener('click', doChangeBand);
+  document.getElementById('download-btn').addEventListener('click', doDownload);
+  document.getElementById('keep-going-btn').addEventListener('click', doAnother);
+  document.getElementById('change-band-btn2').addEventListener('click', doChangeBand);
+
+  if (load()) {
+    beginWarmup();
+  } else {
+    show('screen-name');
+  }
+});
+
+// ─── NAME ───────────────────────────────────────────────────────────────────
+function onNameBtn() {
+  var n = document.getElementById('name-input').value.trim();
+  if (!n) { alert('Please enter your name.\n请输入你的名字。'); return; }
+  S.name = n;
+  if (S.band) { beginWarmup(); } else { startPlacement(); }
+}
+
+// ─── PLACEMENT ──────────────────────────────────────────────────────────────
+function startPlacement() {
+  S.plScores=[]; S.plStep=0;
+  show('screen-placement');
+  renderPW();
+}
+function renderPW() {
+  var dots = document.getElementById('placement-dots');
+  dots.innerHTML='';
+  for(var i=0;i<PLACEMENT_WORDS.length;i++){
+    var d=document.createElement('div');
+    d.className='placement-dot'+(i<S.plStep?' done':i===S.plStep?' current':'');
+    dots.appendChild(d);
+  }
+  var w=PLACEMENT_WORDS[S.plStep];
+  var el=document.getElementById('placement-word-display');
+  el.innerHTML='';
+  var eng=document.createElement('div'); eng.className='pw-eng'; eng.textContent=w.word; el.appendChild(eng);
+  var pos=document.createElement('div'); pos.className='pw-pos'; pos.textContent=w.pos; el.appendChild(pos);
+  var cn=document.createElement('div'); cn.className='pw-cn cn'; cn.textContent=w.cn; el.appendChild(cn);
+}
+function plAns(score) {
+  S.plScores.push(score); S.plStep++;
+  if(S.plStep>=PLACEMENT_WORDS.length) finishPl(); else renderPW();
+}
+function finishPl() {
+  var t=0; for(var i=0;i<S.plScores.length;i++) t+=S.plScores[i];
+  var pct=t/10;
+  var rec = pct<0.35?'A':pct<0.7?'B':'C';
+  renderBands(rec);
+  show('screen-band');
+}
+
+// ─── BAND ───────────────────────────────────────────────────────────────────
+function renderBands(rec) {
+  var map={A:'Beginner / 初级',B:'Intermediate / 中级',C:'Advanced / 高级'};
+  document.getElementById('band-rec-text').innerHTML=
+    'Based on your answers, we suggest: <strong>'+map[rec]+'</strong>. You can choose any level.<br>'+
+    '<span class="cn">根据你的回答，我们建议：'+map[rec]+'。你也可以选择任何级别。</span>';
+  var bands=[
+    {k:'A',icon:'🌱',name:'Beginner / 初级',desc:'GSL words 1–500. The most common English words.',cn:'最常用的500个英语单词。'},
+    {k:'B',icon:'📚',name:'Intermediate / 中级',desc:'GSL words 501–1200. Common but more complex words.',cn:'常见但更复杂的单词。'},
+    {k:'C',icon:'🚀',name:'Advanced / 高级',desc:'GSL words 1201–2284. Less common, more academic.',cn:'不太常见，更学术的单词。'}
+  ];
+  var cont=document.getElementById('band-cards'); cont.innerHTML='';
+  bands.forEach(function(b){
+    var card=document.createElement('div');
+    card.className='band-card'+(b.k===rec?' recommended':'');
+    var icon=document.createElement('div'); icon.className='band-icon'; icon.textContent=b.icon;
+    var info=document.createElement('div'); info.className='band-info';
+    var h3=document.createElement('h3'); h3.textContent=b.name;
+    var p=document.createElement('p'); p.textContent=b.desc;
+    var cn=document.createElement('div'); cn.className='cn-sub cn'; cn.textContent=b.cn;
+    info.appendChild(h3); info.appendChild(p); info.appendChild(cn);
+    card.appendChild(icon); card.appendChild(info);
+    if(b.k===rec){var tag=document.createElement('span');tag.className='rec-tag';tag.textContent='Suggested';card.appendChild(tag);}
+    card.addEventListener('click',function(){selectBand(b.k);});
+    cont.appendChild(card);
+  });
+}
+function selectBand(k){ S.band=k; if(!S.idx) S.idx=0; beginWarmup(); }
+function doChangeBand(){ S.band=null; S.idx=0; save(); renderBands('A'); show('screen-band'); }
+
+// ─── WARMUP ──────────────────────────────────────────────────────────────────
+function beginWarmup() {
+  tickStreak(); save();
+  var data=GSL[S.band];
+  if(S.idx>=data.length) S.idx=0;
+  CW=data[S.idx];
+  sessionLog=[];
+  answered=false;
+  renderTopBar();
+  renderWordCard();
+  updateStreakBar();
+  document.getElementById('task-card').style.display='none';
+  document.getElementById('speak-done-btn').style.display='none';
+  show('screen-warmup');
+}
+function renderTopBar(){
+  document.getElementById('top-name').textContent=S.name;
+  var bname={A:'Beginner 初级',B:'Intermediate 中级',C:'Advanced 高级'};
+  document.getElementById('top-band').textContent=bname[S.band];
+}
+function updateStreakBar(){
+  document.getElementById('words-done').textContent=S.total;
+  document.getElementById('streak-display').textContent='🔥 '+S.streak;
+  var data=GSL[S.band];
+  document.getElementById('word-pos-label').textContent=(S.idx+1)+' of '+data.length;
+}
+function renderWordCard(){
+  document.getElementById('w-rank').textContent='GSL #'+CW[0];
+  document.getElementById('w-eng').textContent=CW[1];
+  document.getElementById('w-pos').textContent=CW[2];
+  document.getElementById('w-cn').textContent=CW[3];
+  document.getElementById('w-def-en').textContent=CW[4];
+  document.getElementById('w-def-cn').textContent=CW[5];
+}
+
+// ─── SPEAK ──────────────────────────────────────────────────────────────────
+function doSpeak(){
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(CW[1]);
+    u.lang='en-US'; u.rate=0.85;
+    window.speechSynthesis.speak(u);
+  }
+  document.getElementById('speak-done-btn').style.display='block';
+}
+
+// ─── TASK ────────────────────────────────────────────────────────────────────
+function showTask(){
+  var tc=document.getElementById('task-card');
+  tc.style.display='block';
+  buildTask();
+  tc.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function buildTask(){
+  var cont=document.getElementById('task-content');
+  cont.innerHTML='';
+  answered=false;
+  var type=S.idx%3;
+  if(type===0) buildMC(cont);
+  else if(type===1) buildFITB(cont);
+  else buildCS(cont);
+}
+
+function buildMC(cont){
+  var word=CW[1], def=CW[4], defCn=CW[5];
+  var data=GSL[S.band];
+  var dists=[], used=[S.idx], att=0;
+  while(dists.length<3&&att<80){
+    var ri=Math.floor(Math.random()*data.length);
+    if(used.indexOf(ri)===-1){used.push(ri);dists.push(data[ri][4]);}
+    att++;
+  }
+  var opts=[def].concat(dists); shuffle(opts);
+
+  addQ(cont,'Which definition matches "'+word+'"?','"'+word+'" 是什么意思？选择正确的定义。');
+
+  var od=document.createElement('div'); od.className='task-options';
+  var rat=makeRat(); var nb=makeNext();
+
+  opts.forEach(function(o){
+    var btn=document.createElement('button'); btn.className='opt-btn'; btn.textContent=o;
+    btn.addEventListener('click',function(){
+      if(answered)return; answered=true;
+      disableOpts(od); markCorrect(od,def);
+      if(o!==def) btn.classList.add('wrong');
+      var ok=o===def;
+      showRat(rat,ok,'Correct! '+def,o!==def?'Not quite. The answer is: '+def:null,defCn);
+      logAnswer(word,o===def?'correct':'wrong',o,def);
+      nb.style.display='block';
+    });
+    od.appendChild(btn);
+  });
+  cont.appendChild(od); cont.appendChild(rat); cont.appendChild(nb);
+}
+
+function buildFITB(cont){
+  var word=CW[1], def=CW[4], defCn=CW[5], ex=CW[6];
+  var re=new RegExp('\\b'+word+'\\b','i');
+  var sent=ex.replace(re,'________');
+  if(sent===ex) sent='________ (Hint: '+CW[3]+')';
+
+  addQ(cont,'Fill in the blank with the correct word:','用正确的单词填空：');
+
+  var sentEl=document.createElement('div');
+  sentEl.style.cssText='font-style:italic;color:#555;margin:10px 0 4px;font-size:.95rem;line-height:1.6;';
+  sentEl.textContent=sent; cont.appendChild(sentEl);
+
+  var hint=document.createElement('div');
+  hint.style.cssText='font-size:.78rem;color:#aaa;margin-bottom:4px;';
+  hint.textContent='Chinese hint / 中文提示: '+CW[3]+' ('+CW[2]+')';
+  cont.appendChild(hint);
+
+  var inp=document.createElement('input'); inp.type='text'; inp.className='fitb-input';
+  inp.placeholder='Type the word here / 在此输入单词'; inp.autocomplete='off';
+  cont.appendChild(inp);
+
+  var rat=makeRat(); var nb=makeNext();
+
+  var sub=document.createElement('button'); sub.className='fitb-submit'; sub.textContent='Check / 检查';
+  sub.addEventListener('click',function(){
+    if(answered)return; answered=true;
+    var ans=inp.value.trim().toLowerCase(), tgt=word.toLowerCase();
+    var ok=ans===tgt;
+    inp.disabled=true; sub.disabled=true;
+    inp.className='fitb-input '+(ok?'correct':'wrong');
+    showRat(rat,ok,'Correct! The word is "'+word+'".',ok?null:'Not quite. The answer is "'+word+'". '+def,defCn);
+    logAnswer(word,ok?'correct':'wrong',inp.value.trim(),word);
+    nb.style.display='block';
+  });
+  inp.addEventListener('keypress',function(e){if(e.key==='Enter')sub.click();});
+  cont.appendChild(sub); cont.appendChild(rat); cont.appendChild(nb);
+}
+
+function buildCS(cont){
+  var word=CW[1], def=CW[4], defCn=CW[5], correct=CW[6];
+  var wrongs=[
+    'She '+word+' the table because it was too heavy to lift.',
+    'The teacher '+word+' all the windows and left the room.',
+    'He quickly '+word+' the answer without thinking about it.',
+    'They decided to '+word+' the holiday because it was expensive.'
+  ];
+  var wrong=wrongs[S.idx%wrongs.length];
+  var opts=[correct,wrong]; shuffle(opts);
+
+  addQ(cont,'Which sentence uses "'+word+'" correctly?','哪个句子正确使用了"'+word+'"？');
+
+  var od=document.createElement('div'); od.className='task-options';
+  var rat=makeRat(); var nb=makeNext();
+
+  opts.forEach(function(o){
+    var btn=document.createElement('button'); btn.className='opt-btn'; btn.textContent=o;
+    btn.addEventListener('click',function(){
+      if(answered)return; answered=true;
+      disableOpts(od); markCorrect(od,correct);
+      if(o!==correct) btn.classList.add('wrong');
+      var ok=o===correct;
+      showRat(rat,ok,
+        ok?'Correct! "'+word+'" means: '+def:'Not quite. The correct sentence is the one that matches the meaning: '+def,
+        ok?null:null,
+        '"'+word+'" 的意思是：'+defCn);
+      logAnswer(word,ok?'correct':'wrong',o,correct);
+      nb.style.display='block';
+    });
+    od.appendChild(btn);
+  });
+  cont.appendChild(od); cont.appendChild(rat); cont.appendChild(nb);
+}
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function addQ(cont,en,cn){
+  var q=document.createElement('div'); q.className='task-question'; q.textContent=en;
+  var c=document.createElement('span'); c.className='cn'; c.textContent=cn; q.appendChild(c);
+  cont.appendChild(q);
+}
+function makeRat(){
+  var r=document.createElement('div'); r.className='rationale-box'; return r;
+}
+function makeNext(){
+  var nb=document.createElement('button'); nb.className='next-btn'; nb.style.display='none';
+  nb.textContent='Next → 下一步'; nb.addEventListener('click',advance); return nb;
+}
+function showRat(rat,ok,enRight,enWrong,cn){
+  rat.className='rationale-box show '+(ok?'correct-rat':'wrong-rat');
+  rat.innerHTML='';
+  var en=document.createElement('div'); en.className='rat-en';
+  en.textContent=ok?enRight:enWrong; rat.appendChild(en);
+  var c=document.createElement('div'); c.className='rat-cn cn'; c.textContent=cn; rat.appendChild(c);
+  rat.parentNode && rat.parentNode.appendChild(rat);
+  // re-append to keep order
+  document.getElementById('task-content').appendChild(rat);
+}
+function disableOpts(od){var bs=od.querySelectorAll('.opt-btn');for(var i=0;i<bs.length;i++)bs[i].disabled=true;}
+function markCorrect(od,txt){var bs=od.querySelectorAll('.opt-btn');for(var i=0;i<bs.length;i++)if(bs[i].textContent===txt)bs[i].classList.add('correct');}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}}
+
+function logAnswer(word, result, studentAns, correct){
+  var typeNames=['Multiple Choice Definition','Fill in the Blank','Which Sentence is Correct'];
+  sessionLog.push({
+    word:word, type:typeNames[S.idx%3],
+    result:result, studentAns:studentAns, correct:correct,
+    def:CW[4], defCn:CW[5], cn:CW[3], example:CW[6]
+  });
+}
+
+// ─── ADVANCE ─────────────────────────────────────────────────────────────────
+function advance(){
+  // called by Next button inside a task — load next word in place, no complete screen
+  S.total+=1; S.idx+=1; save();
+  var data=GSL[S.band];
+  if(S.idx>=data.length) S.idx=0;
+  CW=data[S.idx];
+  answered=false;
+  renderWordCard(); updateStreakBar();
+  document.getElementById('task-card').style.display='none';
+  document.getElementById('speak-done-btn').style.display='none';
+  window.scrollTo(0,0);
+}
+function doFinished(){
+  // called by "I'm finished for today" footer button
+  document.getElementById('stat-total').textContent=S.total;
+  document.getElementById('stat-streak').textContent=S.streak+(S.streak===1?' day':' days');
+  var data=GSL[S.band];
+  var wordCount=sessionLog.length;
+  var msg='You practised '+wordCount+' word'+(wordCount===1?'':'s')+' today. See you next class!\n你今天练习了'+wordCount+'个单词。下节课见！';
+  document.getElementById('complete-msg').textContent=msg;
+  show('screen-complete');
+}
+function doAnother(){
+  var data=GSL[S.band];
+  if(S.idx>=data.length) S.idx=0;
+  CW=data[S.idx];
+  answered=false;
+  renderWordCard(); updateStreakBar();
+  document.getElementById('task-card').style.display='none';
+  document.getElementById('speak-done-btn').style.display='none';
+  show('screen-warmup');
+  window.scrollTo(0,0);
+  // sessionLog keeps accumulating so download covers all words in the session
+}
+
+// ─── DOWNLOAD TXT ────────────────────────────────────────────────────────────
+function doDownload(){
+  var today=new Date();
+  var dateStr=today.toLocaleDateString('en-CA'); // YYYY-MM-DD
+  var timeStr=today.toLocaleTimeString();
+  var bnames={A:'Beginner (GSL 1-500)',B:'Intermediate (GSL 501-1200)',C:'Advanced (GSL 1201-2284)'};
+
+  var lines=[];
+  lines.push('================================================================');
+  lines.push('GSL WORD WARMUP — SESSION REPORT');
+  lines.push('================================================================');
+  lines.push('Student Name:  '+S.name);
+  lines.push('Date:          '+dateStr+' at '+timeStr);
+  lines.push('Level:         '+bnames[S.band]);
+  lines.push('Words Done:    '+S.total+' total (lifetime)');
+  lines.push('Streak:        '+S.streak+' day'+(S.streak===1?'':'s'));
+  lines.push('');
+  lines.push('----------------------------------------------------------------');
+  lines.push('TODAY\'S WORD PRACTICE');
+  lines.push('----------------------------------------------------------------');
+
+  if(sessionLog.length===0){
+    lines.push('No task completed in this session.');
+  } else {
+    sessionLog.forEach(function(entry,i){
+      lines.push('');
+      lines.push('Word '+(i+1)+': '+entry.word.toUpperCase());
+      lines.push('Task Type:     '+entry.type);
+      lines.push('Result:        '+entry.result.toUpperCase());
+      lines.push('Student chose: '+entry.studentAns);
+      if(entry.result==='wrong') lines.push('Correct was:   '+entry.correct);
+      lines.push('');
+      lines.push('Word Details:');
+      lines.push('  English:     '+entry.word+' ('+CW[2]+')');
+      lines.push('  Chinese:     '+entry.cn);
+      lines.push('  Definition:  '+entry.def);
+      lines.push('  中文定义:    '+entry.defCn);
+      lines.push('  Example:     '+entry.example);
+    });
+  }
+
+  lines.push('');
+  lines.push('================================================================');
+  lines.push('End of report | 报告结束');
+  lines.push('================================================================');
+
+  var txt=lines.join('\n');
+  var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='GSL_Warmup_'+S.name.replace(/\s+/g,'_')+'_'+dateStr+'.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
