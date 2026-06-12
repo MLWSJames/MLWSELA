@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adaptive Math Check (AMC)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f2f8f5; --panel:#ffffff; --ink:#16271f; --muted:#5f7a6e;
+    --brand:#16a06a; --brand-dark:#0f7d52; --good:#16a06a; --bad:#d6543a;
+    --soft:#e6f4ee; --line:#d3e6dc; --warn:#b9770f; --warnbg:#fdf3e2;
+    --shadow:0 10px 30px rgba(22,39,31,.10);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'Nunito','Noto Sans SC',system-ui,sans-serif;background:var(--bg);color:var(--ink);
+    -webkit-font-smoothing:antialiased;line-height:1.5;padding:18px}
+  .wrap{max-width:760px;margin:0 auto}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:26px}
+  h1{font-size:1.55rem;margin:0 0 4px;font-weight:800;letter-spacing:-.3px}
+  h2{font-size:1.2rem;margin:0 0 10px;font-weight:800}
+  .sub{color:var(--muted);font-weight:600;margin:0 0 18px}
+  .zh{font-family:'Noto Sans SC',sans-serif;color:var(--muted);font-weight:600}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  label{display:block;font-weight:700;margin:14px 0 6px;font-size:.95rem}
+  input[type=text],input[type=number],select{width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:#fff;color:var(--ink)}
+  input:focus,select:focus{outline:none;border-color:var(--brand)}
+  .field{flex:1;min-width:160px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:none;border-radius:14px;
+    padding:14px 22px;font:inherit;font-weight:800;cursor:pointer;font-size:1.05rem;transition:transform .05s ease,background .15s ease;width:100%}
+  .btn:hover{background:var(--brand-dark)}
+  .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:var(--soft);color:var(--brand-dark)}
+  .btn.ghost:hover{background:#d8efe4}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .note{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.9rem;color:var(--muted);font-weight:600;margin-top:14px}
+  .warnbox{background:var(--warnbg);border:1px solid #f0d9a8;color:var(--warn);border-radius:12px;padding:12px 14px;font-weight:700;font-size:.92rem;margin-top:14px}
+  .pill{display:inline-block;background:var(--soft);color:var(--brand-dark);border-radius:999px;padding:4px 12px;font-weight:800;font-size:.78rem;letter-spacing:.4px}
+  .toggle{display:flex;align-items:center;gap:10px;margin-top:8px;font-weight:700;color:var(--muted)}
+  .switch{position:relative;width:48px;height:28px;background:var(--line);border-radius:999px;cursor:pointer;transition:.2s;flex:0 0 auto}
+  .switch.on{background:var(--brand)}
+  .switch .dot{position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:.2s}
+  .switch.on .dot{left:23px}
+  .progwrap{margin:6px 0 20px}
+  .progbar{height:10px;background:var(--soft);border-radius:999px;overflow:hidden}
+  .progfill{height:100%;background:var(--brand);width:0%;transition:width .3s ease}
+  .progmeta{display:flex;justify-content:space-between;color:var(--muted);font-weight:700;font-size:.85rem;margin-top:6px}
+  .qinstr{color:var(--muted);font-weight:700;font-size:.95rem;margin-bottom:12px}
+  .stem{font-size:1.5rem;font-weight:800;margin:0 0 18px;line-height:1.4;letter-spacing:.2px}
+  .opts{display:flex;flex-direction:column;gap:12px}
+  .opt{text-align:left;background:#fff;border:1.6px solid var(--line);border-radius:14px;padding:15px 18px;font:inherit;font-size:1.2rem;font-weight:700;
+    cursor:pointer;display:flex;gap:12px;align-items:center;transition:border-color .12s ease,background .12s ease}
+  .opt:hover{border-color:var(--brand);background:var(--soft)}
+  .opt .lt{font-weight:800;color:var(--brand-dark);flex:0 0 auto;font-size:1.05rem}
+  .opt.sel{border-color:var(--brand);background:var(--soft)}
+  .noselect{user-select:none;-webkit-user-select:none;-moz-user-select:none}
+  .score{font-size:3.4rem;font-weight:800;color:var(--brand-dark);line-height:1;margin:6px 0}
+  .bandtag{font-size:1.2rem;font-weight:800;margin:6px 0 2px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+  .stat{background:#fbfdfc;border:1px solid var(--line);border-radius:14px;padding:14px}
+  .stat .k{color:var(--muted);font-weight:700;font-size:.82rem}
+  .stat .v{font-weight:800;font-size:1.25rem;margin-top:2px}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:.95rem}
+  th{color:var(--muted);font-size:.8rem;letter-spacing:.3px;text-transform:uppercase}
+  .dombar{height:8px;background:var(--soft);border-radius:999px;overflow:hidden;margin-top:5px;min-width:90px}
+  .dombar > span{display:block;height:100%;background:var(--good)}
+  .hidden{display:none}
+  .tiny{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:14px;line-height:1.5}
+  .brandline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+  @media(max-width:520px){.grid{grid-template-columns:1fr}.card{padding:20px}.stem{font-size:1.3rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ SCREEN 1: TEACHER SETUP ============ -->
+  <div id="screen-setup" class="card">
+    <div class="brandline"><span class="pill">TEACHER SETUP · 教师设置</span></div>
+    <h1>Adaptive Math Check <span style="font-weight:700;color:var(--muted)">(AMC)</span></h1>
+    <p class="sub">A computer-adaptive math placement for ESL learners.<br><span class="zh">为英语学习者设计的自适应数学测评。</span></p>
+
+    <label>Student name / 学生姓名</label>
+    <input id="in-name" type="text" placeholder="e.g. Li Wei" autocomplete="off">
+
+    <div class="row">
+      <div class="field"><label>Class / 班级</label><input id="in-class" type="text" placeholder="e.g. Math 11-2" autocomplete="off"></div>
+      <div class="field"><label>Student ID (optional)</label><input id="in-id" type="text" placeholder="optional" autocomplete="off"></div>
+    </div>
+
+    <div class="row">
+      <div class="field"><label>Max items / 最多题数</label>
+        <select id="in-max">
+          <option value="12">12 (short)</option>
+          <option value="16" selected>16 (standard)</option>
+          <option value="20">20 (full)</option>
+          <option value="25">25 (extended)</option>
+        </select>
+      </div>
+      <div class="field"><label>Start level / 起始难度</label>
+        <select id="in-start">
+          <option value="-1.2">Below grade (default for early ESL)</option>
+          <option value="0">On grade / middle</option>
+          <option value="1.2">Above grade</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="toggle"><div id="sw-zh" class="switch on"><div class="dot"></div></div>
+      <span>Show Chinese task instructions / 显示中文题目说明</span></div>
+    <div class="toggle"><div id="sw-lock" class="switch on"><div class="dot"></div></div>
+      <span>Integrity mode (block copy, log tab-switches) / 诚信模式</span></div>
+
+    <div style="height:18px"></div>
+    <button class="btn" onclick="AMC.beginInstructions()">Start &nbsp;→ &nbsp;开始</button>
+
+    <div class="note">
+      <b>Original</b> classroom tool, built on the public-domain <b>Rasch adaptive model</b>. The 77-item pool spans
+      number sense through early high-school algebra and geometry. No proprietary questions, scales, or norms from any commercial product.
+      The <b>Math Power Score (MPS)</b> is calibrated to this item pool — useful for placement, grouping, and growth across re-tests, not a nationally-normed grade.
+    </div>
+  </div>
+
+  <!-- ============ SCREEN 2: STUDENT INSTRUCTIONS ============ -->
+  <div id="screen-instr" class="card hidden">
+    <span class="pill">DIRECTIONS · 说明</span>
+    <h2 style="margin-top:14px">How this works / 测试说明</h2>
+    <div class="note" style="border-left:4px solid var(--good);font-size:1rem;color:var(--ink)">
+      <p style="margin:0 0 10px"><b>1.</b> Solve each problem and choose the best answer.<br><span class="zh">解答每道题，选择最佳答案。</span></p>
+      <p style="margin:0 0 10px"><b>2.</b> The test gets <b>harder or easier</b> based on your answers. Some problems will feel hard — that's normal.<br><span class="zh">题目会根据你的回答变难或变易。有些题感觉难是正常的。</span></p>
+      <p style="margin:0 0 10px"><b>3.</b> You <b>cannot go back</b>. You may use scratch paper, but no calculator unless your teacher allows it.<br><span class="zh">不能返回上一题。可以用草稿纸；除非老师允许，否则不要用计算器。</span></p>
+      <p style="margin:0"><b>4.</b> There is no time limit. Do your best!<br><span class="zh">没有时间限制，尽力而为！</span></p>
+    </div>
+    <div id="integrity-warn" class="warnbox">Integrity mode is ON. Please stay on this tab until you finish.
+      <span class="zh">诚信模式已开启，请勿切换页面，直到完成测试。</span></div>
+    <div style="height:8px"></div>
+    <button class="btn" onclick="AMC.beginTest()">I'm ready &nbsp;→ &nbsp;我准备好了</button>
+  </div>
+
+  <!-- ============ SCREEN 3: TEST ============ -->
+  <div id="screen-test" class="card hidden noselect">
+    <div class="progwrap">
+      <div class="progbar"><div id="progfill" class="progfill"></div></div>
+      <div class="progmeta"><span id="prog-count">Question 1</span><span id="prog-conf">Estimating…</span></div>
+    </div>
+    <div id="q-instr" class="qinstr"></div>
+    <div id="q-stem" class="stem"></div>
+    <div id="q-opts" class="opts"></div>
+    <div style="height:18px"></div>
+    <button id="btn-next" class="btn" disabled onclick="AMC.submitAnswer()">Submit &nbsp;提交</button>
+  </div>
+
+  <!-- ============ SCREEN 4: RESULTS ============ -->
+  <div id="screen-results" class="card hidden">
+    <span class="pill">RESULTS · 结果</span>
+    <h2 style="margin-top:14px" id="res-name">Results</h2>
+    <div class="brandline"><div>
+      <div style="color:var(--muted);font-weight:700;font-size:.85rem">MATH POWER SCORE (MPS)</div>
+      <div class="score" id="res-rps">—</div>
+      <div class="bandtag" id="res-band">—</div>
+    </div></div>
+
+    <div class="grid">
+      <div class="stat"><div class="k">Confidence range / 置信区间</div><div class="v" id="res-range">—</div></div>
+      <div class="stat"><div class="k">Items given / 题目数</div><div class="v" id="res-items">—</div></div>
+      <div class="stat"><div class="k">Overall correct / 总正确率</div><div class="v" id="res-correct">—</div></div>
+      <div class="stat"><div class="k">Precision (SE) / 精度</div><div class="v" id="res-se">—</div></div>
+    </div>
+
+    <h2 style="font-size:1.05rem;margin-top:8px">Strand breakdown / 知识点分析</h2>
+    <table id="res-domains"><thead><tr><th>Strand</th><th>Correct</th><th style="width:34%"></th></tr></thead><tbody></tbody></table>
+
+    <div id="res-instr-band" class="note" style="margin-top:18px"></div>
+
+    <div style="height:16px"></div>
+    <button class="btn" onclick="AMC.downloadReport()">⬇ Download report (.txt) for Schoology</button>
+    <div style="height:10px"></div>
+    <button class="btn ghost" onclick="AMC.restart()">New student / 新学生</button>
+
+    <div class="tiny" id="integrity-log"></div>
+    <div class="tiny">
+      <b>For the teacher:</b> MPS is an original vertical scale (400–800) calibrated to this item pool.
+      Use it for placement, flexible grouping, and measuring growth across re-tests — not as a nationally-normed math grade.
+      Independent tool, not affiliated with any commercial assessment.
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* =========================================================================
+   ADAPTIVE MATH CHECK (AMC) — original classroom adaptive math placement.
+   Engine: Rasch (1PL) model — public-domain psychometrics.
+     P(correct) = 1 / (1 + e^-(theta - b))
+   Theta estimated by MLE with a weak Normal prior (stable on streaks).
+   Item selection: maximum Fisher information at theta, balanced across strands.
+   Scale: Math Power Score (MPS) = 600 + 40*theta, clamped [400,800].
+   Answer options are SHUFFLED per item (correct choice is not fixed in place).
+   ========================================================================= */
+
+/* domain: NUMBER | ALGEBRA | GEOMETRY | DATA ; b = difficulty (logits);
+   options[]; answer = index of correct option in original order */
+const POOL = [
+  /* NUMBER & OPERATIONS (20) */
+  {domain:"NUMBER",b:-2.6,stem:"2 + 3 = ?",options:["5","4","6","7"],answer:0},
+  {domain:"NUMBER",b:-2.4,stem:"10 + 10 = ?",options:["20","11","100","12"],answer:0},
+  {domain:"NUMBER",b:-2.2,stem:"7 \u2212 4 = ?",options:["3","2","4","5"],answer:0},
+  {domain:"NUMBER",b:-1.9,stem:"6 \u00D7 3 = ?",options:["18","15","21","9"],answer:0},
+  {domain:"NUMBER",b:-1.6,stem:"20 \u00F7 4 = ?",options:["5","4","6","8"],answer:0},
+  {domain:"NUMBER",b:-1.5,stem:"45 + 38 = ?",options:["83","73","82","93"],answer:0},
+  {domain:"NUMBER",b:-1.3,stem:"9 \u00D7 7 = ?",options:["63","56","72","49"],answer:0},
+  {domain:"NUMBER",b:-1.0,stem:"1/2 + 1/4 = ?",options:["3/4","1/2","2/6","1/8"],answer:0},
+  {domain:"NUMBER",b:-0.7,stem:"0.5 + 0.25 = ?",options:["0.75","0.7","0.30","0.55"],answer:0},
+  {domain:"NUMBER",b:-0.4,stem:"What is 25% of 80?",options:["20","25","16","40"],answer:0},
+  {domain:"NUMBER",b:-0.1,stem:"\u22125 + 8 = ?",options:["3","\u22123","13","\u221213"],answer:0},
+  {domain:"NUMBER",b:0.2,stem:"3/4 of 60 = ?",options:["45","40","30","48"],answer:0},
+  {domain:"NUMBER",b:0.5,stem:"\u22126 \u00D7 \u22124 = ?",options:["24","\u221224","10","\u221210"],answer:0},
+  {domain:"NUMBER",b:0.8,stem:"2/3 \u00F7 4 = ?",options:["1/6","1/3","8/3","2/7"],answer:0},
+  {domain:"NUMBER",b:1.0,stem:"What is 15% of 240?",options:["36","30","45","24"],answer:0},
+  {domain:"NUMBER",b:1.3,stem:"3\u2074 = ?",options:["81","64","12","27"],answer:0},
+  {domain:"NUMBER",b:1.6,stem:"\u221A144 = ?",options:["12","14","72","24"],answer:0},
+  {domain:"NUMBER",b:1.9,stem:"2\u2075 \u00D7 2\u00B3 = ?",options:["256","64","128","512"],answer:0},
+  {domain:"NUMBER",b:2.2,stem:"What is 5! (5 factorial)?",options:["120","25","20","60"],answer:0},
+  {domain:"NUMBER",b:2.5,stem:"Simplify \u221A50.",options:["5\u221A2","25\u221A2","10\u221A5","2\u221A5"],answer:0},
+  /* ALGEBRA (19) */
+  {domain:"ALGEBRA",b:-1.5,stem:"If a + 2 = 5, then a = ?",options:["3","7","2","4"],answer:0},
+  {domain:"ALGEBRA",b:-1.2,stem:"If x + 3 = 7, then x = ?",options:["4","10","3","5"],answer:0},
+  {domain:"ALGEBRA",b:-0.9,stem:"If x \u2212 5 = 2, then x = ?",options:["7","3","\u22123","10"],answer:0},
+  {domain:"ALGEBRA",b:-0.6,stem:"If 2x = 10, then x = ?",options:["5","8","20","12"],answer:0},
+  {domain:"ALGEBRA",b:-0.3,stem:"If x / 3 = 4, then x = ?",options:["12","7","1","9"],answer:0},
+  {domain:"ALGEBRA",b:0.0,stem:"Simplify:  3x + 2x",options:["5x","6x","5","x\u00B2"],answer:0},
+  {domain:"ALGEBRA",b:0.3,stem:"If 2x + 1 = 9, then x = ?",options:["4","5","3","8"],answer:0},
+  {domain:"ALGEBRA",b:0.5,stem:"Evaluate 4x \u2212 1 when x = 3.",options:["11","12","7","13"],answer:0},
+  {domain:"ALGEBRA",b:0.6,stem:"Simplify:  6x \u2212 2x + x",options:["5x","4x","7x","5"],answer:0},
+  {domain:"ALGEBRA",b:0.8,stem:"If 3x \u2212 4 = 11, then x = ?",options:["5","7","3","9"],answer:0},
+  {domain:"ALGEBRA",b:1.0,stem:"Simplify:  2(x + 3)",options:["2x + 6","2x + 3","x + 6","2x + 5"],answer:0},
+  {domain:"ALGEBRA",b:1.1,stem:"If 4(x \u2212 1) = 12, then x = ?",options:["4","3","2","5"],answer:0},
+  {domain:"ALGEBRA",b:1.2,stem:"Solve:  5x + 2 = 3x + 10",options:["x = 4","x = 6","x = 2","x = 3"],answer:0},
+  {domain:"ALGEBRA",b:1.4,stem:"If y = 2x + 1 and x = 4, then y = ?",options:["9","8","11","7"],answer:0},
+  {domain:"ALGEBRA",b:1.6,stem:"Factor:  x\u00B2 + 5x + 6",options:["(x + 2)(x + 3)","(x + 1)(x + 6)","(x + 5)(x + 1)","(x + 2)(x + 4)"],answer:0},
+  {domain:"ALGEBRA",b:1.8,stem:"Solve:  x\u00B2 = 49",options:["x = \u00B17","x = 7","x = 49","x = \u00B124.5"],answer:0},
+  {domain:"ALGEBRA",b:2.0,stem:"Slope of the line through (1, 2) and (3, 8)?",options:["3","2","6","1/3"],answer:0},
+  {domain:"ALGEBRA",b:2.2,stem:"Solve:  x\u00B2 \u2212 5x + 6 = 0",options:["x = 2 or 3","x = \u22122 or \u22123","x = 1 or 6","x = 2 or \u22123"],answer:0},
+  {domain:"ALGEBRA",b:2.4,stem:"Expand:  (x + 4)\u00B2",options:["x\u00B2 + 8x + 16","x\u00B2 + 16","x\u00B2 + 4x + 16","x\u00B2 + 8x + 8"],answer:0},
+  /* GEOMETRY & MEASUREMENT (19) */
+  {domain:"GEOMETRY",b:-1.6,stem:"A square has 4 equal sides. If one side is 7, what is the perimeter?",options:["28","14","49","21"],answer:0},
+  {domain:"GEOMETRY",b:-1.4,stem:"A square has sides of 5. What is its perimeter?",options:["20","25","10","15"],answer:0},
+  {domain:"GEOMETRY",b:-1.0,stem:"A rectangle is 4 by 6. What is its area?",options:["24","20","10","12"],answer:0},
+  {domain:"GEOMETRY",b:-0.6,stem:"How many sides does a triangle have?",options:["3","4","5","2"],answer:0},
+  {domain:"GEOMETRY",b:-0.5,stem:"A right angle measures how many degrees?",options:["90\u00B0","45\u00B0","180\u00B0","60\u00B0"],answer:0},
+  {domain:"GEOMETRY",b:-0.3,stem:"A square has an area of 36. What is the length of one side?",options:["6","9","18","12"],answer:0},
+  {domain:"GEOMETRY",b:0.0,stem:"The angles of a triangle add up to how many degrees?",options:["180\u00B0","360\u00B0","90\u00B0","270\u00B0"],answer:0},
+  {domain:"GEOMETRY",b:0.3,stem:"A circle has a radius of 5. What is its diameter?",options:["10","25","5","15"],answer:0},
+  {domain:"GEOMETRY",b:0.5,stem:"Area of a triangle with base 8 and height 5?",options:["20","40","13","30"],answer:0},
+  {domain:"GEOMETRY",b:0.6,stem:"Perimeter of a rectangle that is 5 by 9?",options:["28","45","14","23"],answer:0},
+  {domain:"GEOMETRY",b:0.8,stem:"Area of a circle with radius 3?  (use \u03C0 \u2248 3.14)",options:["28.3","18.8","9.4","9"],answer:0},
+  {domain:"GEOMETRY",b:1.0,stem:"A cube has a side of 3. What is its volume?",options:["27","9","18","12"],answer:0},
+  {domain:"GEOMETRY",b:1.2,stem:"Two angles of a triangle are 50\u00B0 and 60\u00B0. The third angle?",options:["70\u00B0","80\u00B0","60\u00B0","110\u00B0"],answer:0},
+  {domain:"GEOMETRY",b:1.4,stem:"Circumference of a circle with radius 7?  (use \u03C0 \u2248 22/7)",options:["44","22","154","14"],answer:0},
+  {domain:"GEOMETRY",b:1.6,stem:"A right triangle has legs 3 and 4. The hypotenuse?",options:["5","7","6","12"],answer:0},
+  {domain:"GEOMETRY",b:1.8,stem:"Volume of a cylinder, radius 2 and height 5?  (use \u03C0 \u2248 3.14)",options:["62.8","31.4","20","40"],answer:0},
+  {domain:"GEOMETRY",b:2.0,stem:"A right triangle has legs 5 and 12. The hypotenuse?",options:["13","17","14","15"],answer:0},
+  {domain:"GEOMETRY",b:2.2,stem:"Surface area of a cube with side 4?",options:["96","64","16","48"],answer:0},
+  {domain:"GEOMETRY",b:2.4,stem:"In a 30-60-90 triangle, the side opposite 30\u00B0 is 4. The hypotenuse?",options:["8","4\u221A3","8\u221A3","16"],answer:0},
+  /* DATA & PROBABILITY (19) */
+  {domain:"DATA",b:-1.3,stem:"What is the mean (average) of 2, 4, and 6?",options:["4","6","3","12"],answer:0},
+  {domain:"DATA",b:-1.0,stem:"Which is the smallest number:  8, 2, 5, 9?",options:["2","5","8","9"],answer:0},
+  {domain:"DATA",b:-0.9,stem:"Which is the largest number:  3, 9, 5, 1?",options:["9","5","3","1"],answer:0},
+  {domain:"DATA",b:-0.5,stem:"What is the mean of 10 and 20?",options:["15","30","10","20"],answer:0},
+  {domain:"DATA",b:-0.2,stem:"What is the median of 1, 3, and 5?",options:["3","1","5","9"],answer:0},
+  {domain:"DATA",b:0.1,stem:"What is the mode of 2, 3, 3, 4, 5?",options:["3","4","5","2"],answer:0},
+  {domain:"DATA",b:0.2,stem:"What is the mean of 6, 6, and 6?",options:["6","18","3","12"],answer:0},
+  {domain:"DATA",b:0.4,stem:"What is the mean of 4, 8, 12, and 16?",options:["10","12","8","40"],answer:0},
+  {domain:"DATA",b:0.6,stem:"A coin is flipped. What is the probability of heads?",options:["1/2","1","1/4","1/3"],answer:0},
+  {domain:"DATA",b:0.9,stem:"What is the median of 2, 7, 4, 9, 5?",options:["5","4","7","9"],answer:0},
+  {domain:"DATA",b:1.0,stem:"What is the median of 10, 20, 30, and 40?",options:["25","30","20","35"],answer:0},
+  {domain:"DATA",b:1.1,stem:"A die is rolled. Probability of rolling a 4?",options:["1/6","1/4","1/2","4/6"],answer:0},
+  {domain:"DATA",b:1.3,stem:"What is the mean of 5, 10, 15, 20, and 25?",options:["15","12","18","75"],answer:0},
+  {domain:"DATA",b:1.5,stem:"What is the range of 3, 8, 2, 10, and 5?",options:["8","10","2","5"],answer:0},
+  {domain:"DATA",b:1.7,stem:"A bag has 3 red and 2 blue balls. P(red)?",options:["3/5","2/5","3/2","1/3"],answer:0},
+  {domain:"DATA",b:1.9,stem:"The mean of 4 numbers is 10. What is their sum?",options:["40","10","14","2.5"],answer:0},
+  {domain:"DATA",b:2.1,stem:"A die is rolled. Probability of an even number?",options:["1/2","1/3","1/6","2/3"],answer:0},
+  {domain:"DATA",b:2.3,stem:"Two coins are flipped. Probability of both heads?",options:["1/4","1/2","1/3","3/4"],answer:0},
+  {domain:"DATA",b:2.5,stem:"A spinner has 8 equal parts; 3 are green. P(green)?",options:["3/8","5/8","3/5","1/8"],answer:0}
+];
+
+const INSTR = {
+  NUMBER:  {en:"Solve. Choose the correct answer.", zh:"\u8BA1\u7B97\uFF0C\u9009\u62E9\u6B63\u786E\u7B54\u6848\u3002"},
+  ALGEBRA: {en:"Solve for the unknown. Choose the correct answer.", zh:"\u6C42\u672A\u77E5\u6570\uFF0C\u9009\u62E9\u6B63\u786E\u7B54\u6848\u3002"},
+  GEOMETRY:{en:"Find the measure. Choose the correct answer.", zh:"\u6C42\u51FA\u7B54\u6848\uFF0C\u9009\u62E9\u6B63\u786E\u9009\u9879\u3002"},
+  DATA:    {en:"Read the data. Choose the correct answer.", zh:"\u770B\u6570\u636E\uFF0C\u9009\u62E9\u6B63\u786E\u7B54\u6848\u3002"}
+};
+const DOMAIN_LABEL = {
+  NUMBER:"Number & operations / \u6570\u4E0E\u8FD0\u7B97",
+  ALGEBRA:"Algebra / \u4EE3\u6570",
+  GEOMETRY:"Geometry & measurement / \u51E0\u4F55\u4E0E\u6D4B\u91CF",
+  DATA:"Data & probability / \u6570\u636E\u4E0E\u6982\u7387"
+};
+
+const AMC = (function(){
+  const PRIOR_MU=0.0, PRIOR_SD=2.0, THETA_MIN=-3.5, THETA_MAX=3.5, SE_STOP=0.33, MIN_ITEMS=8;
+  let cfg={}, theta=0, used=[], responses=[], domainCount={}, order=0;
+  let current=null, selected=-1, tabSwitches=0;
+
+  function P(th,b){ return 1/(1+Math.exp(-(th-b))); }
+  function estimateTheta(){
+    let th=theta;
+    for(let it=0; it<25; it++){
+      let g=-(th-PRIOR_MU)/(PRIOR_SD*PRIOR_SD), h=-1/(PRIOR_SD*PRIOR_SD);
+      for(const r of responses){ const p=P(th,r.b); g+=(r.x-p); h+=-p*(1-p); }
+      if(Math.abs(h)<1e-9) break;
+      let step=g/h; if(step>1)step=1; if(step<-1)step=-1;
+      th-=step; if(th>THETA_MAX)th=THETA_MAX; if(th<THETA_MIN)th=THETA_MIN;
+      if(Math.abs(step)<1e-4) break;
+    }
+    return th;
+  }
+  function infoSum(th){ let I=1/(PRIOR_SD*PRIOR_SD); for(const r of responses){ const p=P(th,r.b); I+=p*(1-p);} return I; }
+  function standardError(th){ return 1/Math.sqrt(infoSum(th)); }
+
+  function pickItem(){
+    const domains=Object.keys(DOMAIN_LABEL);
+    const counts=domains.map(d=>({d,n:domainCount[d]||0}));
+    const minN=Math.min(...counts.map(c=>c.n));
+    const elig=counts.filter(c=>c.n<=minN).map(c=>c.d);
+    let cands=POOL.map((it,i)=>({it,i})).filter(o=>!used.includes(o.i)&&elig.includes(o.it.domain));
+    if(cands.length===0) cands=POOL.map((it,i)=>({it,i})).filter(o=>!used.includes(o.i));
+    if(cands.length===0) return null;
+    cands.sort((a,b)=>Math.abs(a.it.b-theta)-Math.abs(b.it.b-theta));
+    return cands[0];
+  }
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+  function showScreen(id){
+    ["setup","instr","test","results"].forEach(s=>document.getElementById("screen-"+s).classList.toggle("hidden", s!==id));
+    window.scrollTo(0,0);
+  }
+
+  function beginInstructions(){
+    const name=document.getElementById("in-name").value.trim();
+    if(!name){ alert("Please enter a student name. / 请输入学生姓名。"); return; }
+    cfg={ name, cls:document.getElementById("in-class").value.trim(), id:document.getElementById("in-id").value.trim(),
+      max:parseInt(document.getElementById("in-max").value,10), start:parseFloat(document.getElementById("in-start").value),
+      showZh:document.getElementById("sw-zh").classList.contains("on"), lock:document.getElementById("sw-lock").classList.contains("on") };
+    theta=cfg.start; used=[]; responses=[]; domainCount={}; order=0; tabSwitches=0;
+    document.getElementById("integrity-warn").style.display=cfg.lock?"block":"none";
+    showScreen("instr");
+  }
+  function beginTest(){
+    if(cfg.lock){
+      tryFullscreen();
+      document.addEventListener("visibilitychange", onVisChange);
+      document.addEventListener("contextmenu", blockEvt);
+      document.addEventListener("copy", blockEvt);
+      document.addEventListener("cut", blockEvt);
+      document.addEventListener("keydown", blockKeys);
+    }
+    showScreen("test"); nextQuestion();
+  }
+  function nextQuestion(){
+    if(order>=cfg.max || used.length>=POOL.length || (order>=MIN_ITEMS && standardError(theta)<SE_STOP)) return finish();
+    const pick=pickItem(); if(!pick) return finish();
+    current=pick; selected=-1;
+    // shuffle option display order; remember which display index is correct
+    current.display = shuffle([0,1,2,3]);
+    used.push(pick.i); domainCount[pick.it.domain]=(domainCount[pick.it.domain]||0)+1; order++;
+    render();
+  }
+  function render(){
+    const it=current.it;
+    const pct=Math.round((order/cfg.max)*100);
+    document.getElementById("progfill").style.width=pct+"%";
+    document.getElementById("prog-count").textContent="Question "+order;
+    const se=standardError(theta);
+    document.getElementById("prog-conf").textContent = se<SE_STOP?"High confidence":se<0.55?"Building estimate…":"Estimating…";
+    const ins=INSTR[it.domain];
+    document.getElementById("q-instr").innerHTML = ins.en + (cfg.showZh?' <span class="zh">'+ins.zh+'</span>':'');
+    document.getElementById("q-stem").textContent = it.stem;
+    const letters=["A","B","C","D"];
+    const box=document.getElementById("q-opts"); box.innerHTML="";
+    current.display.forEach((origIdx,pos)=>{
+      const el=document.createElement("button"); el.className="opt"; el.type="button";
+      el.innerHTML='<span class="lt">'+letters[pos]+'</span><span>'+escapeHtml(it.options[origIdx])+'</span>';
+      el.onclick=()=>selectOpt(origIdx,el);
+      box.appendChild(el);
+    });
+    document.getElementById("btn-next").disabled=true;
+  }
+  function selectOpt(origIdx,el){
+    selected=origIdx;
+    document.querySelectorAll("#q-opts .opt").forEach(o=>o.classList.remove("sel"));
+    el.classList.add("sel");
+    document.getElementById("btn-next").disabled=false;
+  }
+  function submitAnswer(){
+    if(selected<0) return;
+    const it=current.it;
+    const correct=(selected===it.answer)?1:0;
+    responses.push({b:it.b, x:correct, domain:it.domain, correct});
+    theta=estimateTheta(); nextQuestion();
+  }
+
+  function finish(){
+    if(cfg.lock){
+      document.removeEventListener("visibilitychange", onVisChange);
+      document.removeEventListener("contextmenu", blockEvt);
+      document.removeEventListener("copy", blockEvt);
+      document.removeEventListener("cut", blockEvt);
+      document.removeEventListener("keydown", blockKeys);
+      if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    }
+    theta=estimateTheta();
+    const se=standardError(theta);
+    const rps=clampRps(Math.round(600+40*theta));
+    const seRps=Math.round(40*se);
+    const lo=clampRps(rps-seRps), hi=clampRps(rps+seRps);
+    const band=bandFor(rps);
+    const nCorrect=responses.filter(r=>r.correct).length;
+
+    document.getElementById("res-name").textContent=cfg.name+(cfg.cls?" · "+cfg.cls:"");
+    document.getElementById("res-rps").textContent=rps;
+    document.getElementById("res-band").innerHTML=band.tag;
+    document.getElementById("res-band").style.color=band.color;
+    document.getElementById("res-range").textContent=lo+"–"+hi;
+    document.getElementById("res-items").textContent=responses.length;
+    document.getElementById("res-correct").textContent=nCorrect+" / "+responses.length;
+    document.getElementById("res-se").textContent="±"+seRps+" MPS";
+
+    const tb=document.querySelector("#res-domains tbody"); tb.innerHTML="";
+    const dstats=domainStats();
+    Object.keys(DOMAIN_LABEL).forEach(d=>{
+      const s=dstats[d]; const tr=document.createElement("tr");
+      const pctv=s.n?Math.round(100*s.c/s.n):0;
+      tr.innerHTML='<td>'+DOMAIN_LABEL[d]+'</td><td>'+(s.n?s.c+"/"+s.n:"—")+
+        '</td><td>'+(s.n?'<div class="dombar"><span style="width:'+pctv+'%"></span></div>':'')+'</td>';
+      tb.appendChild(tr);
+    });
+    document.getElementById("res-instr-band").innerHTML="<b>Instructional placement:</b> "+band.tag+" — "+band.desc+
+      '<br><span class="zh">'+band.zh+'</span>';
+    const log=document.getElementById("integrity-log");
+    log.innerHTML=cfg.lock?("<b>Integrity log:</b> tab/window switches during test: "+tabSwitches+(tabSwitches===0?" (clean).":" — review recommended.")):"";
+    showScreen("results");
+  }
+  function domainStats(){ const s={}; Object.keys(DOMAIN_LABEL).forEach(d=>s[d]={n:0,c:0}); responses.forEach(r=>{ s[r.domain].n++; if(r.correct)s[r.domain].c++; }); return s; }
+  function clampRps(v){ return Math.max(400, Math.min(800, v)); }
+  function bandFor(rps){
+    if(rps<460) return {tag:"Foundational",color:"#b9770f",
+      desc:"Building number sense and single-step operations. Use concrete models, number lines, and lots of practice with whole numbers.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u57FA\u7840\u7EA7\u3002\u4F7F\u7528\u5177\u4F53\u6A21\u578B\u4E0E\u6570\u8F74\uFF0C\u591A\u7EC3\u6574\u6570\u8FD0\u7B97\u3002"};
+    if(rps<540) return {tag:"Developing",color:"#16a06a",
+      desc:"Multi-step arithmetic, fractions, decimals, and percents. Ready to begin simple equations.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u53D1\u5C55\u7EA7\u3002\u638C\u63E1\u591A\u6B65\u8FD0\u7B97\u3001\u5206\u6570\u4E0E\u767E\u5206\u6BD4\uFF0C\u53EF\u5F00\u59CB\u7B80\u5355\u65B9\u7A0B\u3002"};
+    if(rps<620) return {tag:"Proficient",color:"#0f7d52",
+      desc:"Pre-algebra and basic geometry. Target one- and two-step equations and area/perimeter reasoning.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u719F\u7EC3\u7EA7\u3002\u91CD\u70B9\u4E00\u3001\u4E24\u6B65\u65B9\u7A0B\u4E0E\u9762\u79EF\u5468\u957F\u3002"};
+    if(rps<700) return {tag:"Advancing",color:"#1f50c2",
+      desc:"Multi-step algebra and geometry. Push toward factoring, slope, and the Pythagorean theorem.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u8FDB\u9636\u7EA7\u3002\u63A8\u5411\u56E0\u5F0F\u5206\u89E3\u3001\u659C\u7387\u4E0E\u52FE\u80A1\u5B9A\u7406\u3002"};
+    return {tag:"Extending",color:"#16271f",
+      desc:"Strong algebra and geometry control. Extend with quadratics, advanced reasoning, and multi-concept problems.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u62D3\u5C55\u7EA7\u3002\u62D3\u5C55\u81F3\u4E8C\u6B21\u65B9\u7A0B\u4E0E\u7EFC\u5408\u63A8\u7406\u3002"};
+  }
+
+  function downloadReport(){
+    const se=standardError(theta);
+    const rps=clampRps(Math.round(600+40*theta)), seRps=Math.round(40*se), band=bandFor(rps);
+    const dstats=domainStats(), nCorrect=responses.filter(r=>r.correct).length;
+    const now=new Date(), stamp=now.getFullYear()+"-"+pad(now.getMonth()+1)+"-"+pad(now.getDate());
+    let t="";
+    t+="ADAPTIVE MATH CHECK (AMC) — STUDENT REPORT\n";
+    t+="================================================\n";
+    t+="Student      : "+cfg.name+"\n";
+    t+="Class        : "+(cfg.cls||"-")+"\n";
+    t+="Student ID   : "+(cfg.id||"-")+"\n";
+    t+="Date         : "+stamp+"\n";
+    t+="------------------------------------------------\n";
+    t+="MATH POWER SCORE (MPS): "+rps+"  (range "+clampRps(rps-seRps)+"-"+clampRps(rps+seRps)+")\n";
+    t+="Precision (SE)        : +/- "+seRps+" MPS\n";
+    t+="Instructional band    : "+band.tag+"\n";
+    t+="Items administered    : "+responses.length+"\n";
+    t+="Overall correct       : "+nCorrect+" / "+responses.length+"\n";
+    t+="------------------------------------------------\n";
+    t+="STRAND BREAKDOWN\n";
+    Object.keys(DOMAIN_LABEL).forEach(d=>{ const s=dstats[d]; const lbl=DOMAIN_LABEL[d].split(" / ")[0];
+      t+="  "+padR(lbl,24)+": "+(s.n?s.c+"/"+s.n+" ("+Math.round(100*s.c/(s.n||1))+"%)":"not tested")+"\n"; });
+    t+="------------------------------------------------\n";
+    t+="TEACHER NOTE\n  "+wrap(band.desc,60,"  ")+"\n";
+    t+="------------------------------------------------\n";
+    if(cfg.lock){ t+="INTEGRITY: tab/window switches = "+tabSwitches+(tabSwitches===0?" (clean)":" (review)")+"\n";
+      t+="------------------------------------------------\n"; }
+    t+="ITEM LOG (difficulty b, result)\n";
+    responses.forEach((r,i)=>{ t+="  "+padR("Q"+(i+1),5)+padR(r.domain,9)+" b="+padR(r.b.toFixed(1),6)+(r.correct?"correct":"incorrect")+"\n"; });
+    t+="================================================\n";
+    t+="MPS is an original vertical scale (400-800) calibrated to this\n";
+    t+="item pool. Use for placement, grouping, and growth across re-tests.\n";
+    t+="Not a nationally-normed math grade. Independent classroom tool.\n";
+    const safe=(cfg.name||"student").replace(/[^a-z0-9]+/gi,"_");
+    const blob=new Blob([t],{type:"text/plain;charset=utf-8"});
+    const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="AMC_"+safe+"_"+stamp+".txt";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+  }
+
+  function onVisChange(){ if(document.hidden) tabSwitches++; }
+  function blockEvt(e){ e.preventDefault(); return false; }
+  function blockKeys(e){
+    const k=e.key.toLowerCase();
+    if(k==="f12"){ e.preventDefault(); return false; }
+    if((e.ctrlKey||e.metaKey)&&["c","x","u","s","p"].includes(k)){ e.preventDefault(); return false; }
+    if((e.ctrlKey||e.metaKey)&&e.shiftKey&&["i","j","c"].includes(k)){ e.preventDefault(); return false; }
+  }
+  function tryFullscreen(){ const el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen().catch(()=>{}); }
+
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function pad(n){return String(n).padStart(2,"0");}
+  function padR(s,n){s=String(s);return s.length>=n?s:s+" ".repeat(n-s.length);}
+  function wrap(s,w,ind){const words=s.split(" ");let line="",out=[];words.forEach(wd=>{if((line+wd).length>w){out.push(line.trim());line=ind+wd+" ";}else line+=wd+" ";});if(line.trim())out.push(line.trim());return out.join("\n");}
+  function restart(){ showScreen("setup"); document.getElementById("in-name").value=""; document.getElementById("in-id").value=""; }
+
+  return { beginInstructions, beginTest, submitAnswer, downloadReport, restart };
+})();
+
+document.getElementById("sw-zh").addEventListener("click",function(){this.classList.toggle("on");});
+document.getElementById("sw-lock").addEventListener("click",function(){this.classList.toggle("on");});
+document.addEventListener("keydown",e=>{
+  if(document.getElementById("screen-test").classList.contains("hidden")) return;
+  if(["1","2","3","4"].includes(e.key)){ const opts=document.querySelectorAll("#q-opts .opt"); const idx=parseInt(e.key,10)-1; if(opts[idx]) opts[idx].click(); }
+  if(e.key==="Enter"){ const b=document.getElementById("btn-next"); if(!b.disabled) b.click(); }
+});
+</script>
+</body>
+</html>
