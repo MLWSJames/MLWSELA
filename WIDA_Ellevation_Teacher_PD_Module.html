@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WIDA &amp; Ellevation Strategies | Teacher PD Module | MLWS 教师专业发展模块</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@500;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--mist); color:var(--ink); line-height:1.6; }
+.cn { font-family:'Noto Sans SC',sans-serif; }
+h1,h2,h3 { font-family:'Literata',serif; color:var(--ml-green-dark); }
+
+/* ===== Professional notice bar ===== */
+.pd-notice {
+  background:var(--cobalt); color:#fff; padding:8px 18px; font-size:0.8rem;
+  font-weight:500; text-align:center; position:sticky; top:0; z-index:1000;
+}
+
+/* ===== Header ===== */
+header {
+  background:linear-gradient(135deg, var(--ml-green-dark), var(--ml-green));
+  color:#fff; padding:26px 22px 18px;
+}
+header h1 { color:#fff; font-size:1.45rem; margin-bottom:4px; }
+header .sub { font-size:0.92rem; opacity:0.92; }
+.header-row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; max-width:1100px; margin:0 auto; }
+.badges { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.badge { background:rgba(255,255,255,0.15); border-radius:20px; padding:4px 12px; font-size:0.78rem; font-weight:600; }
+.pips { display:flex; gap:7px; align-items:center; }
+.pip { width:13px; height:13px; border-radius:50%; background:rgba(255,255,255,0.25); border:2px solid rgba(255,255,255,0.5); transition:all .3s; }
+.pip.done { background:var(--ml-gold); border-color:var(--ml-gold); box-shadow:0 0 6px var(--ml-gold); }
+.pip-label { font-size:0.72rem; opacity:0.85; margin-right:3px; }
+.progress-wrap { max-width:1100px; margin:12px auto 0; }
+.progress-track { background:rgba(255,255,255,0.2); border-radius:10px; height:10px; overflow:hidden; }
+.progress-fill { background:var(--ml-gold); height:100%; width:0%; border-radius:10px; transition:width .4s; }
+#progressText { font-size:0.78rem; margin-top:5px; opacity:0.95; }
+
+/* ===== Tabs ===== */
+nav.tabs {
+  display:flex; flex-wrap:wrap; gap:0; background:#fff; border-bottom:2px solid var(--border);
+  position:sticky; top:34px; z-index:900; max-width:100%; overflow-x:auto;
+}
+.tab-btn {
+  flex:1 1 auto; min-width:110px; padding:13px 10px; background:none; border:none;
+  border-bottom:3px solid transparent; font-family:'DM Sans',sans-serif; font-size:0.86rem;
+  font-weight:600; color:var(--ink2); cursor:pointer; transition:all .2s; text-align:center;
+}
+.tab-btn:hover { background:var(--ml-green-light); }
+.tab-btn.active { color:var(--ml-green-dark); border-bottom-color:var(--ml-green); background:var(--ml-green-light); }
+.tab-btn .cn { display:block; font-size:0.7rem; font-weight:400; color:#5a6b5a; }
+.tab-btn .check { color:var(--ml-green); font-weight:700; }
+
+.tab-content { display:none; max-width:1000px; margin:0 auto; padding:30px 20px 80px; }
+.tab-content.active { display:block; }
+
+/* ===== Landing page cards ===== */
+.hero { text-align:center; margin-bottom:30px; }
+.hero h2 { font-size:1.7rem; margin-bottom:8px; }
+.hero p { max-width:720px; margin:0 auto 6px; color:var(--ink2); }
+.land-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px; margin-top:24px; }
+.land-card {
+  background:#fff; border:2px solid var(--border); border-radius:14px; padding:22px;
+  cursor:pointer; transition:all .2s; position:relative; text-align:left;
+  box-shadow:0 1px 3px rgba(0,0,0,0.05); font-family:'DM Sans',sans-serif;
+}
+.land-card:hover { border-color:var(--ml-green); transform:translateY(-3px); box-shadow:0 6px 16px rgba(45,106,79,0.15); }
+.land-card .icon { font-size:2rem; margin-bottom:10px; }
+.land-card h3 { font-size:1.08rem; margin-bottom:6px; }
+.land-card p { font-size:0.86rem; color:var(--ink2); }
+.land-card .num { position:absolute; top:14px; right:16px; background:var(--ml-green-light); color:var(--ml-green-dark); font-weight:700; font-size:0.75rem; border-radius:14px; padding:3px 10px; }
+.land-card .viewed-flag { position:absolute; bottom:12px; right:16px; font-size:0.75rem; font-weight:700; color:var(--ml-green); display:none; }
+.land-card.viewed { border-color:var(--ml-gold); }
+.land-card.viewed .viewed-flag { display:block; }
+.how-box { background:var(--amber-light); border-left:5px solid var(--amber); border-radius:0 10px 10px 0; padding:16px 20px; margin-top:26px; font-size:0.9rem; }
+.how-box strong { color:var(--amber); }
+
+/* ===== Concept blocks ===== */
+.concept-block { background:#fff; border:1px solid var(--border); border-radius:14px; padding:24px 26px; margin-bottom:22px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+.concept-block h2 { font-size:1.35rem; margin-bottom:4px; }
+.concept-block h3 { font-size:1.05rem; margin:18px 0 6px; color:var(--ml-green); }
+.concept-block p { margin-bottom:10px; font-size:0.94rem; }
+.cn-sub { font-size:0.84rem; color:#5a6b5a; margin-bottom:14px; }
+.callout { border-radius:10px; padding:14px 18px; margin:14px 0; font-size:0.9rem; }
+.callout.green { background:var(--ml-green-light); border-left:5px solid var(--ml-green); }
+.callout.blue { background:#e3ecf5; border-left:5px solid var(--cobalt); }
+.callout.gold { background:var(--amber-light); border-left:5px solid var(--ml-gold); }
+.callout.red { background:#fde8ea; border-left:5px solid var(--ml-red); }
+table.info { width:100%; border-collapse:collapse; margin:14px 0; font-size:0.87rem; }
+table.info th { background:var(--ml-green-dark); color:#fff; padding:9px 12px; text-align:left; }
+table.info td { border:1px solid var(--border); padding:9px 12px; vertical-align:top; background:#fff; }
+table.info tr:nth-child(even) td { background:var(--mist); }
+.chip-row { display:flex; flex-wrap:wrap; gap:10px; margin:12px 0; }
+.chip { background:var(--ml-green-light); color:var(--ml-green-dark); border-radius:20px; padding:6px 16px; font-weight:600; font-size:0.85rem; }
+.chip.blue { background:#e3ecf5; color:var(--cobalt); }
+.chip.gold { background:var(--amber-light); color:var(--amber); }
+.kicker { text-transform:uppercase; letter-spacing:1.5px; font-size:0.72rem; font-weight:700; color:var(--ml-green); margin-bottom:2px; }
+
+/* ===== Strategy accordion ===== */
+.strat-card { background:#fff; border:2px solid var(--border); border-radius:12px; margin-bottom:14px; overflow:hidden; transition:border-color .2s; }
+.strat-card.opened { border-color:var(--ml-gold); }
+.strat-head {
+  width:100%; display:flex; justify-content:space-between; align-items:center; gap:10px;
+  padding:16px 20px; background:none; border:none; cursor:pointer; text-align:left;
+  font-family:'DM Sans',sans-serif;
+}
+.strat-head:hover { background:var(--ml-green-light); }
+.strat-head .t { font-weight:700; font-size:1rem; color:var(--ml-green-dark); }
+.strat-head .tags { font-size:0.72rem; color:var(--cobalt); font-weight:600; }
+.strat-head .arrow { font-size:1rem; color:var(--ml-green); transition:transform .25s; flex-shrink:0; }
+.strat-card.open .arrow { transform:rotate(90deg); }
+.strat-body { display:none; padding:0 22px 20px; font-size:0.9rem; border-top:1px dashed var(--border); }
+.strat-card.open .strat-body { display:block; }
+.strat-body h4 { color:var(--ml-green); margin:14px 0 4px; font-size:0.88rem; text-transform:uppercase; letter-spacing:0.8px; }
+.strat-body ul { margin:4px 0 8px 20px; }
+.strat-body li { margin-bottom:4px; }
+.level-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin:8px 0; }
+.level-box { border-radius:8px; padding:10px 12px; font-size:0.82rem; }
+.level-box.l12 { background:#fde8ea; border:1px solid #f5c2c7; }
+.level-box.l34 { background:var(--amber-light); border:1px solid #f0d896; }
+.level-box.l56 { background:var(--ml-green-light); border:1px solid #b7dfc2; }
+.level-box strong { display:block; margin-bottom:3px; }
+.strat-counter { text-align:center; font-weight:600; color:var(--ml-green-dark); background:var(--ml-green-light); border-radius:10px; padding:10px; margin-bottom:18px; }
+
+/* ===== Quiz ===== */
+.name-row { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin-bottom:20px; }
+.name-row label { font-weight:700; display:block; margin-bottom:6px; }
+.name-row input { width:100%; max-width:420px; padding:10px 14px; border:2px solid var(--border); border-radius:8px; font-size:0.95rem; font-family:'DM Sans',sans-serif; }
+.name-row input:focus { outline:none; border-color:var(--ml-green); }
+.quiz-card { background:#fff; border:1px solid var(--border); border-radius:14px; padding:22px 24px; margin-bottom:20px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+.q-num { font-size:0.74rem; font-weight:700; text-transform:uppercase; letter-spacing:1.2px; color:var(--ml-green); margin-bottom:8px; }
+.q-text { font-weight:700; font-size:1rem; margin-bottom:2px; }
+.q-cn { font-size:0.85rem; color:#5a6b5a; margin-bottom:12px; }
+.opts-wrap { display:grid; gap:9px; }
+.opt-btn {
+  text-align:left; padding:12px 16px; border:2px solid var(--border); border-radius:10px;
+  background:#fff; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.9rem;
+  transition:all .15s; line-height:1.45;
+}
+.opt-btn:hover:not(:disabled) { border-color:var(--ml-green); background:var(--ml-green-light); }
+.opt-btn:disabled { cursor:default; opacity:0.85; }
+.opt-btn.selected-correct { border-color:var(--ml-green); background:var(--ml-green-light); }
+.opt-btn.selected-wrong { border-color:var(--ml-red); background:#fde8ea; }
+.opt-btn.show-correct { border-color:var(--ml-green); box-shadow:0 0 0 2px var(--ml-green-light); }
+.opt-btn .cn { font-size:0.8rem; color:#5a6b5a; }
+.rationale { display:none; margin-top:12px; padding:12px 16px; border-radius:10px; font-size:0.87rem; }
+.rationale.show { display:block; }
+.rationale.correct-rat { background:var(--ml-green-light); border-left:4px solid var(--ml-green); }
+.rationale.wrong-rat { background:#fde8ea; border-left:4px solid var(--ml-red); }
+
+/* ===== Reflection + certificate ===== */
+.reflect-box { background:#fff; border:1px solid var(--border); border-radius:14px; padding:24px; margin-top:26px; }
+.reflect-box h3 { margin-bottom:4px; }
+.reflect-box textarea {
+  width:100%; min-height:90px; padding:12px 14px; border:2px solid var(--border); border-radius:10px;
+  font-family:'DM Sans',sans-serif; font-size:0.92rem; margin:8px 0 18px; resize:vertical;
+}
+.reflect-box textarea:focus { outline:none; border-color:var(--ml-green); }
+.reflect-box textarea.filled { border-color:var(--ml-green); background:#fbfffb; }
+.commit-row { display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:0.95rem; font-weight:600; margin-bottom:20px; }
+.commit-row input {
+  flex:1; min-width:240px; padding:9px 12px; border:0; border-bottom:2px solid var(--border);
+  font-family:'DM Sans',sans-serif; font-size:0.93rem; background:transparent;
+}
+.commit-row input:focus { outline:none; border-bottom-color:var(--ml-green); }
+.commit-row input.filled { border-bottom-color:var(--ml-green); }
+.cert-btn {
+  display:block; width:100%; padding:16px; border:none; border-radius:12px; font-size:1.05rem;
+  font-weight:700; font-family:'DM Sans',sans-serif; background:#cbd5cb; color:#7a8a7a;
+  cursor:not-allowed; pointer-events:none; opacity:0.7; transition:all .3s;
+}
+.cert-btn.ready {
+  background:linear-gradient(135deg, var(--ml-green), var(--ml-green-dark)); color:#fff;
+  cursor:pointer; pointer-events:auto; opacity:1; box-shadow:0 4px 14px rgba(45,106,79,0.35);
+}
+.cert-btn.ready:hover { transform:translateY(-2px); }
+.hint { text-align:center; font-size:0.82rem; color:var(--ml-red); margin-top:10px; }
+.hint.hidden { display:none; }
+.checklist { list-style:none; margin:14px 0; }
+.checklist li { padding:5px 0; font-size:0.88rem; color:var(--ink2); }
+.checklist li.done { color:var(--ml-green-dark); font-weight:600; }
+
+/* ===== Timer ===== */
+#timer { position:fixed; bottom:16px; right:16px; background:var(--ml-green-dark); color:#fff; border-radius:24px; padding:8px 18px; font-weight:700; font-size:0.88rem; box-shadow:0 3px 10px rgba(0,0,0,0.25); z-index:1100; }
+
+@media (max-width:640px) {
+  header h1 { font-size:1.15rem; }
+  .tab-btn { min-width:88px; font-size:0.76rem; padding:11px 6px; }
+  nav.tabs { top:48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Professional progress notice -->
+<div class="pd-notice">
+  📋 MLWS Professional Learning · Your section progress, session time, and quiz results are recorded on your Certificate of Completion. ·
+  <span class="cn">枫叶世界学校教师专业发展 · 您的学习进度、时长和测验结果将记录在结业证书上。</span>
+</div>
+
+<header>
+  <div class="header-row">
+    <div>
+      <h1>🍁 Supporting Multilingual Learners: WIDA &amp; Ellevation Strategies</h1>
+      <div class="sub">MLWS Teacher Professional Development Module · <span class="cn">支持多语言学习者：WIDA 与 Ellevation 教学策略</span></div>
+    </div>
+    <div class="badges">
+      <div class="badge" id="leaveBadge" style="display:none;">🚪 Leaves: 0</div>
+      <div class="pips">
+        <span class="pip-label">Sections:</span>
+        <div class="pip" id="pip-wida" title="WIDA Foundations"></div>
+        <div class="pip" id="pip-levels" title="Proficiency Levels"></div>
+        <div class="pip" id="pip-ellev" title="Ellevation Framework"></div>
+        <div class="pip" id="pip-library" title="Strategy Library"></div>
+        <div class="pip" id="pip-quiz" title="Quiz & Certificate"></div>
+      </div>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <div id="progressText">Progress: 0% · 进度：0%</div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" id="btn-home">🏠 Home<span class="cn">主页</span></button>
+  <button class="tab-btn" id="btn-wida"><span id="chk-wida" class="check"></span>1 · WIDA Foundations<span class="cn">WIDA 基础</span></button>
+  <button class="tab-btn" id="btn-levels"><span id="chk-levels" class="check"></span>2 · Proficiency Levels<span class="cn">语言水平等级</span></button>
+  <button class="tab-btn" id="btn-ellev"><span id="chk-ellev" class="check"></span>3 · Ellevation Framework<span class="cn">Ellevation 框架</span></button>
+  <button class="tab-btn" id="btn-library"><span id="chk-library" class="check"></span>4 · Strategy Library<span class="cn">策略库</span></button>
+  <button class="tab-btn" id="btn-quiz"><span id="chk-quiz" class="check"></span>5 · Quiz &amp; Certificate<span class="cn">测验与证书</span></button>
+</nav>
+
+<!-- ================= TAB: HOME / LANDING ================= -->
+<div class="tab-content active" id="tab-home">
+  <div class="hero">
+    <h2>Every Teacher Is a Language Teacher</h2>
+    <p class="cn">每位教师都是语言教师</p>
+    <p>Welcome! This self-paced module gives every MLWS teacher — in any subject — a working knowledge of the <strong>WIDA English Language Development framework</strong> and the <strong>Ellevation Strategies</strong> approach to classroom activities. Click any topic card below to begin. Visit all four sections, open every strategy card, then complete the quiz and reflection to download your <strong>Certificate of Completion</strong>.</p>
+  </div>
+
+  <div class="land-grid">
+    <div class="land-card" id="land-wida">
+      <div class="num">Section 1</div>
+      <div class="icon">🌍</div>
+      <h3>WIDA Foundations</h3>
+      <p>The Can Do Philosophy, the four Big Ideas, the five Standards Statements, four language domains, and the four Key Language Uses that organize academic language across all subjects.</p>
+      <p class="cn" style="font-size:0.78rem;margin-top:6px;">WIDA 基础：理念、标准与关键语言运用</p>
+      <div class="viewed-flag">✔ Viewed</div>
+    </div>
+    <div class="land-card" id="land-levels">
+      <div class="num">Section 2</div>
+      <div class="icon">📈</div>
+      <h3>Proficiency Levels in Practice</h3>
+      <p>The six WIDA proficiency levels, Proficiency Level Descriptors, Can Do Descriptors, and how to match expectations and scaffolds to where your students actually are.</p>
+      <p class="cn" style="font-size:0.78rem;margin-top:6px;">六级语言水平与课堂应用</p>
+      <div class="viewed-flag">✔ Viewed</div>
+    </div>
+    <div class="land-card" id="land-ellev">
+      <div class="num">Section 3</div>
+      <div class="icon">🧭</div>
+      <h3>The Ellevation Framework</h3>
+      <p>How Ellevation organizes research-based teaching into Practices and Strategies: comprehensible input, structured oral output, academic vocabulary, and background knowledge.</p>
+      <p class="cn" style="font-size:0.78rem;margin-top:6px;">Ellevation 实践与策略框架</p>
+      <div class="viewed-flag">✔ Viewed</div>
+    </div>
+    <div class="land-card" id="land-library">
+      <div class="num">Section 4</div>
+      <div class="icon">🧰</div>
+      <h3>Strategy Library</h3>
+      <p>Thirteen ready-to-use classroom strategies. Each card explains what it is, why it works, how to run it, and how to adapt it for WIDA Levels 1–6 — with an MLWS example.</p>
+      <p class="cn" style="font-size:0.78rem;margin-top:6px;">十三个即用型课堂策略</p>
+      <div class="viewed-flag">✔ Viewed</div>
+    </div>
+    <div class="land-card" id="land-quiz">
+      <div class="num">Section 5</div>
+      <div class="icon">🎓</div>
+      <h3>Quiz &amp; Certificate</h3>
+      <p>A short 10-question check for understanding, two reflection questions, and one strategy commitment. Unlock and download your TXT Certificate of Completion.</p>
+      <p class="cn" style="font-size:0.78rem;margin-top:6px;">测验、反思与结业证书</p>
+      <div class="viewed-flag">✔ Viewed</div>
+    </div>
+  </div>
+
+  <div class="how-box">
+    <strong>How to earn your certificate · 如何获得证书:</strong>
+    <ol style="margin:8px 0 0 20px;">
+      <li>Read Sections 1–3 (each counts toward your progress when you open it).</li>
+      <li>Open all 13 strategy cards in the Strategy Library.</li>
+      <li>Answer all 10 quiz questions — answers lock after one click, so read carefully.</li>
+      <li>Complete both reflection questions and your strategy commitment.</li>
+      <li>The certificate button unlocks automatically. Download your TXT certificate and submit it to your department head.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ================= TAB: WIDA FOUNDATIONS ================= -->
+<div class="tab-content" id="tab-wida">
+  <div class="concept-block">
+    <div class="kicker">Section 1</div>
+    <h2>WIDA Foundations 🌍</h2>
+    <div class="cn-sub">WIDA 基础：每位教师需要了解的语言发展框架</div>
+    <p><strong>WIDA</strong> is a research consortium housed at the University of Wisconsin–Madison. It produces the most widely used English Language Development (ELD) standards and assessments in the world — used by U.S. states and by over 500 international schools, including schools across Asia. When educators talk about a student being a "Level 2" or "Level 4," they are usually speaking WIDA.</p>
+    <p>The current framework is the <strong>WIDA ELD Standards Framework, 2020 Edition</strong>. Its core message for content teachers is simple: <em>language and content are taught together, not separately.</em> A science teacher teaching plate tectonics is also teaching the language of explanation. An English teacher teaching theme is also teaching the language of argument.</p>
+
+    <h3>The Can Do Philosophy</h3>
+    <p>WIDA's foundation is <strong>asset-based</strong> thinking. Multilingual learners are not "students who can't speak English" — they are students who bring linguistic and cultural resources and who <em>can do</em> meaningful academic work at every level of English proficiency. Our job is to find what they can do today and build the next step.</p>
+    <div class="callout green">
+      <strong>MLWS connection:</strong> Our students read English at roughly Grades 3–9 but think at a true high-school level. The Can Do Philosophy says: never lower the <em>thinking</em>; scaffold the <em>language</em>. 我们的学生阅读水平有限，但思维能力是高中水平——降低语言难度，不降低思维要求。
+    </div>
+
+    <h3>The Four Big Ideas (2020 Edition)</h3>
+    <table class="info">
+      <tr><th>Big Idea</th><th>What it means for your classroom</th></tr>
+      <tr><td><strong>Equity of opportunity and access</strong> 机会公平</td><td>Multilingual learners get full access to grade-level content — scaffolded, never watered down.</td></tr>
+      <tr><td><strong>Integration of content and language</strong> 内容与语言融合</td><td>Language is taught <em>through</em> subject content, not as a separate grammar class.</td></tr>
+      <tr><td><strong>Collaboration among stakeholders</strong> 协作</td><td>Content teachers, ESL specialists, and families plan together. Language is everyone's job.</td></tr>
+      <tr><td><strong>A functional approach to language</strong> 功能性语言观</td><td>We teach what language <em>does</em> (explain, argue, narrate, inform), not just vocabulary lists and grammar rules.</td></tr>
+    </table>
+
+    <h3>The Five ELD Standards Statements</h3>
+    <p>These have stayed the same since the original framework. Standard 1 belongs to <em>every</em> adult in the building; Standards 2–5 connect language to the content areas.</p>
+    <div class="chip-row">
+      <span class="chip">1 · Social &amp; Instructional Language 社交与课堂语言</span>
+      <span class="chip blue">2 · Language for Language Arts 语文学科语言</span>
+      <span class="chip blue">3 · Language for Mathematics 数学学科语言</span>
+      <span class="chip blue">4 · Language for Science 科学学科语言</span>
+      <span class="chip blue">5 · Language for Social Studies 社会学科语言</span>
+    </div>
+
+    <h3>The Four Language Domains</h3>
+    <p>Every WIDA level is measured across four domains. A student is rarely at the same level in all four — many MLWS students are stronger in reading than speaking.</p>
+    <div class="chip-row">
+      <span class="chip gold">👂 Listening 听</span>
+      <span class="chip gold">🗣 Speaking 说</span>
+      <span class="chip gold">📖 Reading 读</span>
+      <span class="chip gold">✍️ Writing 写</span>
+    </div>
+    <div class="callout blue">
+      <strong>Receptive vs. expressive:</strong> Listening and reading are <em>interpretive</em> (taking language in). Speaking and writing are <em>expressive</em> (producing language). Students' interpretive skills usually run ahead of their expressive skills — they understand more than they can produce. Plan output supports accordingly.
+    </div>
+
+    <h3>The Four Key Language Uses (KLUs)</h3>
+    <p>The 2020 Edition organizes academic language across all disciplines into four high-frequency "genre families." If you know which KLU your lesson demands, you know which language to scaffold.</p>
+    <table class="info">
+      <tr><th>KLU</th><th>Students use language to…</th><th>Classroom example</th></tr>
+      <tr><td><strong>Narrate</strong> 叙述</td><td>share and order experiences or stories, real or imagined</td><td>Retell the plot of <em>Holes</em>; describe a lab procedure step by step</td></tr>
+      <tr><td><strong>Inform</strong> 说明</td><td>define, describe, classify, and report factual information</td><td>Report features of a biome; define a vocabulary term in a Frayer Model</td></tr>
+      <tr><td><strong>Explain</strong> 解释</td><td>account for how things work or why things happen</td><td>Explain why the central idea is supported by a detail; explain a math solution</td></tr>
+      <tr><td><strong>Argue</strong> 论证</td><td>justify claims with evidence and reasoning</td><td>Argue which character changed most, citing the text</td></tr>
+    </table>
+
+    <h3>The Four Framework Components (broad → narrow)</h3>
+    <table class="info">
+      <tr><th>Component</th><th>Scope</th><th>Plain-language version</th></tr>
+      <tr><td><strong>ELD Standards Statements</strong></td><td>Broadest</td><td>The big connection between language and each content area</td></tr>
+      <tr><td><strong>Key Language Uses</strong></td><td>↓</td><td>The four jobs language does across disciplines: narrate, inform, explain, argue</td></tr>
+      <tr><td><strong>Language Expectations</strong></td><td>↓</td><td>Unit-level language goals — what students do with language to meet content standards</td></tr>
+      <tr><td><strong>Proficiency Level Descriptors</strong></td><td>Narrowest</td><td>The continuum describing language growth across six levels (Section 2)</td></tr>
+    </table>
+    <div class="callout gold">
+      <strong>One-sentence takeaway:</strong> WIDA gives every teacher a shared map — five standards, four domains, four Key Language Uses, six levels — so that language goals can ride alongside content goals in every lesson. ✅ <em>You have completed Section 1. Continue to Section 2: Proficiency Levels.</em>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TAB: PROFICIENCY LEVELS ================= -->
+<div class="tab-content" id="tab-levels">
+  <div class="concept-block">
+    <div class="kicker">Section 2</div>
+    <h2>Proficiency Levels in Practice 📈</h2>
+    <div class="cn-sub">六级语言水平：了解学生的现状，规划下一步</div>
+    <p>WIDA describes English development as a <strong>continuum of six levels</strong>. These levels align to the ACCESS for ELLs assessment, and the 2020 Edition's <strong>Proficiency Level Descriptors (PLDs)</strong> describe what student language looks like at each level across three dimensions: <strong>discourse</strong> (whole text), <strong>sentence</strong>, and <strong>word/phrase</strong>.</p>
+
+    <h3>The Six Levels</h3>
+    <table class="info">
+      <tr><th>Level</th><th>Name</th><th>What you'll typically see</th><th>What helps most</th></tr>
+      <tr><td>1</td><td><strong>Entering</strong> 入门</td><td>Single words, short memorized phrases; relies heavily on visuals and first language (L1)</td><td>Visuals, realia, gestures, word banks, L1 support, yes/no and pointing responses</td></tr>
+      <tr><td>2</td><td><strong>Emerging</strong> 萌芽</td><td>Short phrases and simple sentences on familiar topics; emerging academic vocabulary</td><td>Sentence frames, matching tasks, labeled diagrams, partner support</td></tr>
+      <tr><td>3</td><td><strong>Developing</strong> 发展</td><td>Connected simple sentences; expanding vocabulary; errors common but meaning clear</td><td>Sentence starters, graphic organizers, modeled paragraphs, word walls</td></tr>
+      <tr><td>4</td><td><strong>Expanding</strong> 扩展</td><td>Multi-sentence connected discourse; uses some specific academic language</td><td>Paragraph frames, academic discussion protocols, targeted feedback on form</td></tr>
+      <tr><td>5</td><td><strong>Bridging</strong> 衔接</td><td>Extended, organized discourse approaching grade-level peers; technical language emerging</td><td>Complex text work with annotation, register and genre coaching</td></tr>
+      <tr><td>6</td><td><strong>Reaching</strong> 达标</td><td>Language comparable to proficient English-speaking peers for grade level</td><td>Grade-level rigor with normal monitoring</td></tr>
+    </table>
+
+    <div class="callout red">
+      <strong>Common mistake:</strong> Treating a level as a label for the <em>student</em> instead of a description of their <em>current language</em>. Levels change. A student can be Level 4 in reading and Level 2 in speaking at the same time. Always think domain by domain. 等级描述的是语言现状，不是学生能力的标签。
+    </div>
+
+    <h3>Can Do Descriptors</h3>
+    <p>The <strong>Can Do Descriptors</strong> are WIDA's most teacher-friendly tool: grade-cluster charts listing what learners <em>can</em> do at each level in each domain. They were built for the earlier framework but remain officially relevant and in use alongside the 2020 Edition. Use them to:</p>
+    <ul style="margin:6px 0 12px 22px; font-size:0.92rem;">
+      <li>Set realistic <strong>output expectations</strong> for a task ("At Level 2, a compare/contrast answer might be a completed Venn diagram with word-bank words — not a paragraph.")</li>
+      <li>Choose <strong>scaffolds that target the next level up</strong>, not the current one</li>
+      <li>Write <strong>differentiated success criteria</strong> for the same lesson objective</li>
+    </ul>
+
+    <h3>Same Objective, Different Language Expectations — a worked example</h3>
+    <div class="callout blue">
+      <strong>Objective (Grade 11 English):</strong> SWBAT identify the central idea of a non-fiction passage IOT evaluate how supporting details develop it.
+      <div class="level-grid" style="margin-top:10px;">
+        <div class="level-box l12"><strong>Levels 1–2</strong>Choose the central idea from 3 picture-supported options; sort 4 details as "supports / does not support" using a word bank.</div>
+        <div class="level-box l34"><strong>Levels 3–4</strong>State the central idea using a sentence frame ("The central idea is ___ because ___") and explain two supporting details with a starter.</div>
+        <div class="level-box l56"><strong>Levels 5–6</strong>Write a short paragraph evaluating which detail develops the idea most effectively, citing the text.</div>
+      </div>
+      <em>Note the thinking — identify and evaluate — is identical in all three columns. Only the language demand changes.</em>
+    </div>
+
+    <h3>Scaffold Up, Not Down</h3>
+    <p>The PLD continuum is a planning tool: look at what the student does now, then provide supports that pull language toward the <em>next</em> level. Supports are temporary by design — as proficiency grows, scaffolds fade. A Level 3 student given Level 1 supports forever will stay comfortable and stuck; a Level 3 student given Level 4-targeted frames will grow.</p>
+    <div class="callout gold">
+      <strong>One-sentence takeaway:</strong> Know each student's level by domain, hold the cognitive bar steady, and aim every scaffold one level above where the student is now. ✅ <em>You have completed Section 2. Continue to Section 3: The Ellevation Framework.</em>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TAB: ELLEVATION FRAMEWORK ================= -->
+<div class="tab-content" id="tab-ellev">
+  <div class="concept-block">
+    <div class="kicker">Section 3</div>
+    <h2>The Ellevation Framework 🧭</h2>
+    <div class="cn-sub">Ellevation：将研究转化为可直接使用的课堂策略</div>
+    <p><strong>Ellevation</strong> is a U.S. English Learner platform serving districts that educate over half of America's EL students. Its <strong>Ellevation Strategies</strong> product packages research-based instruction into a clear hierarchy that any teacher — not just ESL specialists — can pick up and use. Its motto matches WIDA's: <em>all teachers are teachers of language.</em></p>
+
+    <h3>The Hierarchy: Practices → Strategies → Activities</h3>
+    <table class="info">
+      <tr><th>Layer</th><th>What it is</th><th>Example</th></tr>
+      <tr><td><strong>Practice</strong> 实践</td><td>A broad, research-backed principle of language teaching</td><td>"Promote structured oral output"</td></tr>
+      <tr><td><strong>Strategy</strong> 策略</td><td>A repeatable approach inside a practice</td><td>"Use academic conversation protocols"</td></tr>
+      <tr><td><strong>Activity</strong> 活动</td><td>A concrete, classroom-ready routine with materials, steps, and level adaptations</td><td><em>Which Corner?</em>, <em>Directed Discourse</em></td></tr>
+    </table>
+    <p>Every Ellevation activity ships with content-area examples (ELA, math, science, social studies), downloadable materials such as graphic organizers, posters, and sentence starters, and <strong>tips for adapting to different proficiency levels</strong> — which is exactly the structure our Strategy Library in Section 4 follows.</p>
+
+    <h3>The Core Practices Every MLWS Teacher Should Know</h3>
+
+    <h3 style="font-size:0.95rem;">1 · Make Input Comprehensible 让输入可理解</h3>
+    <p>Based on Stephen Krashen's theory of second language acquisition: students acquire language when they understand <em>most but not all</em> of what they hear and read — input pitched just beyond their current level (think Vygotsky's zone of proximal development). Practical moves: <strong>adapted speech</strong> (slower rate, clear enunciation, fewer idioms and run-ons), <strong>visuals and realia</strong>, <strong>modeling and demonstrations</strong>, and <strong>chunked text</strong>.</p>
+
+    <h3 style="font-size:0.95rem;">2 · Structure Oral Output 构建口语输出</h3>
+    <p>Students don't acquire academic English by listening alone — they must produce it. But "discuss with your partner" fails ELs without structure. Effective oral output is <strong>planned, supported, and accountable</strong>: assigned partners, sentence frames, roles, and protocols like <em>Directed Discourse</em> in which students hold authentic academic conversations with peers, or <em>Which Corner?</em> where students physically move to a category corner and justify their choice.</p>
+
+    <h3 style="font-size:0.95rem;">3 · Teach Academic Vocabulary Deliberately 系统教学术语</h3>
+    <p>Academic words don't stick from one exposure. High-impact vocabulary teaching uses <strong>multiple encounters in multiple modes</strong>: student-friendly definitions, visuals, examples and non-examples (the Frayer Model), word walls students actually use, and structured chances to say and write the word the same day they learn it.</p>
+
+    <h3 style="font-size:0.95rem;">4 · Activate and Build Background Knowledge 激活并建立背景知识</h3>
+    <p>Comprehension rides on what the reader already knows. Many ELs have the knowledge but in their first language; others are missing culturally specific context (a Thanksgiving reference, a baseball metaphor). Anticipation guides, picture previews, brief videos, and L1 brainstorming connect new learning to what students bring.</p>
+
+    <h3 style="font-size:0.95rem;">5 · Scaffold Reading and Writing 搭建读写支架</h3>
+    <p>Grade-level text stays; the route into it changes. Graphic organizers, cloze passages, paragraph frames, annotation routines, and guided notes give ELs a path through complex text and a structure for producing academic writing.</p>
+
+    <div class="callout green">
+      <strong>How Ellevation + WIDA fit together:</strong> WIDA tells you <em>where the student is</em> (level, domain) and <em>what the language goal is</em> (Key Language Use, Language Expectation). Ellevation-style strategies tell you <em>what to do Monday morning</em> — the concrete activity, adapted to the student's level. Data → goal → strategy. WIDA 提供定位与目标，策略提供具体做法。
+    </div>
+    <div class="callout gold">
+      <strong>One-sentence takeaway:</strong> Pick the practice that matches your lesson's weak point — input, output, vocabulary, background, or literacy — then choose one concrete activity and adapt it by level. ✅ <em>You have completed Section 3. Continue to Section 4: the Strategy Library.</em>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TAB: STRATEGY LIBRARY ================= -->
+<div class="tab-content" id="tab-library">
+  <div class="concept-block" style="margin-bottom:18px;">
+    <div class="kicker">Section 4</div>
+    <h2>Strategy Library 🧰</h2>
+    <div class="cn-sub">十三个即用型策略 · 点击每张卡片展开学习（全部打开才计入完成）</div>
+    <p>Click each card to expand it. Every card follows the same structure: <strong>What it is → Why it works → How to run it → Adapt by level → MLWS example</strong>. You must open all 13 cards for this section to count as complete.</p>
+  </div>
+  <div class="strat-counter" id="stratCounter">Strategies explored: 0 / 13 · 已学习策略：0 / 13</div>
+  <div id="stratContainer"></div>
+</div>
+
+<!-- ================= TAB: QUIZ & CERTIFICATE ================= -->
+<div class="tab-content" id="tab-quiz">
+  <div class="concept-block" style="margin-bottom:18px;">
+    <div class="kicker">Section 5</div>
+    <h2>Quiz &amp; Certificate 🎓</h2>
+    <div class="cn-sub">完成测验与反思，下载结业证书</div>
+    <p>Answer all 10 questions. <strong>Select carefully — once you click an answer, it locks and cannot be changed.</strong> A short explanation appears after each answer. Then complete the two reflection questions and your strategy commitment to unlock your certificate.</p>
+  </div>
+
+  <div class="name-row">
+    <label for="teacherName">Your full name (as it should appear on the certificate) · 姓名：</label>
+    <input type="text" id="teacherName" placeholder="e.g., Wang Li / James Alexander">
+    <label for="teacherDept" style="margin-top:14px;">Department / Subject · 学科：</label>
+    <input type="text" id="teacherDept" placeholder="e.g., English, Mathematics, Science">
+  </div>
+
+  <div id="quizContainer"></div>
+
+  <div class="reflect-box">
+    <h3>Reflection · 反思</h3>
+    <p style="font-size:0.88rem; color:var(--ink2); margin-bottom:14px;">Your reflections are included on your certificate so department heads can see your thinking.</p>
+
+    <label style="font-weight:700;">1. Think about one class you teach. Which WIDA proficiency level (or range) best describes most of your students, what evidence tells you that, and how will it change one upcoming lesson?</label>
+    <div class="cn" style="font-size:0.82rem; color:#5a6b5a;">思考您所教的一个班级：学生大致处于哪个 WIDA 等级？有何依据？将如何调整即将进行的一节课？</div>
+    <textarea id="quizRef1" placeholder="Type your reflection here..."></textarea>
+
+    <label style="font-weight:700;">2. Choose ONE strategy from the Strategy Library. Describe exactly how you will adapt it for your subject and your students' proficiency levels.</label>
+    <div class="cn" style="font-size:0.82rem; color:#5a6b5a;">从策略库中选择一个策略，具体说明您将如何在自己的学科中根据学生水平进行调整。</div>
+    <textarea id="quizRef2" placeholder="Type your plan here..."></textarea>
+
+    <div class="commit-row">
+      <span>📌 One strategy I commit to trying in my classroom this week is</span>
+      <input type="text" id="quizCommit" placeholder="strategy name + class">
+    </div>
+
+    <ul class="checklist" id="certChecklist">
+      <li id="ck-sections">☐ View Sections 1, 2, and 3</li>
+      <li id="ck-strats">☐ Open all 13 strategy cards (0/13)</li>
+      <li id="ck-quiz">☐ Answer all 10 quiz questions (0/10)</li>
+      <li id="ck-fields">☐ Complete both reflections and the commitment</li>
+      <li id="ck-name">☐ Enter your name</li>
+    </ul>
+
+    <button class="cert-btn" id="certBtn">⬇️ Download Certificate of Completion · 下载结业证书 (TXT)</button>
+    <div class="hint" id="certHint">Complete every item on the checklist above to unlock your certificate. · 完成上方清单后即可解锁证书。</div>
+  </div>
+</div>
+
+<div id="timer">⏱ 00:00</div>
+
+<script>
+/* ================= STATE ================= */
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 27; /* 4 section views + 13 strategy cards + 10 quiz */
+
+const sectionViewed = { wida:false, levels:false, ellev:false, library:false };
+const stratOpened = {};
+let stratOpenCount = 0;
+const quizAnswers = {};
+const quizScore = { val: 0 };
+const quizDone = { val: 0 };
+
+/* ================= DATA: STRATEGIES ================= */
+const STRATS = [
+  {
+    id:"frames", name:"Sentence Frames & Starters", cn:"句型框架与句子起头", tag:"Practice: Structured Oral Output / Writing",
+    what:"Pre-built sentence skeletons that students complete with their own ideas. A frame fixes most of the sentence (The central idea is ___ because ___); a starter gives only the opening (One detail that supports this is...).",
+    why:"They lower the language load so students can spend their thinking on content. They also model the exact academic register we want students to internalize — students rehearse grammatical academic English every time they use one.",
+    how:["Write 2-3 frames that match the lesson's Key Language Use (explain, argue, etc.)","Post them visibly and model using one aloud","Require the frame in partner talk first, then in writing","Fade frames to starters, then remove them, as proficiency grows"],
+    levels:{ l12:"Provide the full frame plus a word bank for the blanks; accept single-word completions.", l34:"Offer starters instead of full frames; require complete sentences.", l56:"Offer optional academic phrase lists (moreover, in contrast); require varied sentence openings." },
+    mlws:"In a Theme lesson: 'The theme of the story is ___. The author shows this when ___.' Students use it aloud in pairs before writing it in their journals."
+  },
+  {
+    id:"wordwall", name:"Interactive Word Walls", cn:"互动词汇墙", tag:"Practice: Academic Vocabulary",
+    what:"A displayed, organized collection of the unit's key terms — with visuals, student-friendly definitions, and translations — that students actively use, not just look at.",
+    why:"Vocabulary needs many encounters to stick. A wall that students touch, sort, and cite in answers turns one exposure into dozens.",
+    how:["Add 8-14 unit terms with a picture and a 中文 translation each","Reference the wall during instruction (point to the word every time you say it)","Run quick games: I'm thinking of a word that...; sort words into categories","Require wall words in exit answers: Use two wall words in your response"],
+    levels:{ l12:"Include first-language translations and images for every word; practice pointing and matching.", l34:"Add example sentences under each word; students generate their own sentences.", l56:"Add word families and collocations (analyze, analysis, analytical); students teach a word to the class." },
+    mlws:"The Central Idea/Theme unit wall holds all 10 terms (Infer, Implicit, Explicit, Parallel, Universal...) with Chinese translations — referenced every quiz day."
+  },
+  {
+    id:"frayer", name:"Frayer Model", cn:"弗雷尔模型（四象限词汇图）", tag:"Practice: Academic Vocabulary",
+    what:"A four-quadrant graphic organizer for one term: Definition, Characteristics, Examples, Non-Examples, with the word in the center.",
+    why:"Non-examples are the secret weapon — defining what a word is NOT forces deeper processing than a definition alone. The model works in every subject for any concept.",
+    how:["Model one Frayer completely as a think-aloud","Assign terms to pairs; each pair completes one model","Pairs present their model in 60 seconds","Display completed models as a class-made word wall"],
+    levels:{ l12:"Provide the definition and characteristics pre-filled; students supply examples through pictures or L1.", l34:"Provide sentence frames inside each quadrant; students complete all four.", l56:"Students complete all quadrants independently and add a 'use it in a sentence' extension." },
+    mlws:"Frayer models are an MLWS Communication-category staple — students build one per vocab term in their notebooks, graded weekly."
+  },
+  {
+    id:"tps", name:"Think-Pair-Share (Structured)", cn:"思考-配对-分享（结构化）", tag:"Practice: Structured Oral Output",
+    what:"Students think silently, rehearse an answer with a partner, then share with the class — with each phase timed and supported.",
+    why:"It gives ELs the two things cold-calling denies them: rehearsal time and a low-risk first audience. Output doubles because everyone talks during the pair phase.",
+    how:["Pose ONE clear question and display it in writing","Think: 30-60 seconds of silence (no hands up)","Pair: assigned partners, each speaks using the posted frame","Share: call on pairs; students may report their partner's idea"],
+    levels:{ l12:"Allow think-phase notes in L1; partner may be a same-L1 peer; sharing can be one word or a pointed answer.", l34:"Require the sentence frame during pair talk; share phase uses the frame aloud.", l56:"Add a justify round: pairs must agree or respectfully disagree with another pair's idea." },
+    mlws:"Before a quiz on supporting details: 'Which detail is strongest and why?' Think 45s → pairs use the frame → 3 pairs share."
+  },
+  {
+    id:"corner", name:"Which Corner? (Four Corners)", cn:"四角选择活动", tag:"Practice: Structured Oral Output",
+    what:"An Ellevation activity: each corner of the room is labeled with a category or position. Students move to a corner and justify their choice to the group gathered there.",
+    why:"Movement plus choice plus talk. Physically committing to an answer is low-language but high-engagement, and the justification step converts movement into academic output.",
+    how:["Post 3-4 categories or opinion positions in the corners","Pose the prompt; students think, then walk to their corner","In-corner: students tell their corner-mates why, using a frame","Spokesperson from each corner reports to the class"],
+    levels:{ l12:"Choosing a corner IS the answer; justification can be a word bank word or L1-to-partner.", l34:"Require one frame-supported justification sentence per student in the corner huddle.", l56:"Corners debate each other; students may switch corners if persuaded — and must explain what changed their mind." },
+    mlws:"English 11: corners labeled Narrate / Inform / Explain / Argue — read a short passage aloud, students move to the Key Language Use it represents and defend their choice."
+  },
+  {
+    id:"discourse", name:"Directed Discourse (Academic Conversation Protocols)", cn:"定向学术对话", tag:"Practice: Structured Oral Output",
+    what:"An Ellevation activity family: students hold authentic academic conversations with peers using assigned roles, turn rules, and conversation moves (clarify, build, challenge).",
+    why:"Academic conversation skills don't emerge from free discussion — districts using these protocols found they had to be explicitly taught. Roles and moves make every student accountable for academic talk.",
+    how:["Teach 3 conversation moves with frames: Can you say more about ___? / I want to add ___ / I see it differently because ___","Assign A/B partners and a speaking order","Give a text-based prompt; partners alternate moves for 3-4 minutes","Close with a written one-sentence summary of the partner's best idea"],
+    levels:{ l12:"Reduce to two moves; allow rehearsal reading of frames; partner with a patient Level 3-4 peer.", l34:"All three moves required; teacher circulates with a frame card to prompt.", l56:"Add the challenge move and require textual evidence in every turn." },
+    mlws:"Post-ReadTheory Mondays: partners discuss 'What is the central idea and which detail proves it?' using the three moves before the whole-class debrief."
+  },
+  {
+    id:"visuals", name:"Visuals, Realia & Gesture", cn:"图像、实物与手势", tag:"Practice: Comprehensible Input",
+    what:"Systematically pairing every key concept with something students can see or touch: photos, diagrams, physical objects (realia), acted-out gestures, and quick board sketches.",
+    why:"This is the most direct route to comprehensible input — meaning arrives through the eyes while language arrives through the ears, so students can map new words onto understood concepts.",
+    how:["Audit your next lesson: every key term needs a visual partner","Build a consistent gesture for recurring abstract terms (infer = pointing to head then to clues)","Use real objects when possible — a real map, a real measuring cup","Have students create the visual: sketch the concept in 60 seconds"],
+    levels:{ l12:"Visuals are the primary meaning carrier; students respond by pointing, sorting, or drawing.", l34:"Visuals accompany text; students label diagrams with academic terms.", l56:"Students generate their own visual representations and explain them in academic language." },
+    mlws:"Teaching Implicit vs. Explicit: hold a sign saying I AM HAPPY (explicit) vs. acting out a smile and thumbs-up (implicit) — the gesture pair returns all unit long."
+  },
+  {
+    id:"speech", name:"Adapted Speech & Wait Time", cn:"调整语速与等待时间", tag:"Practice: Comprehensible Input",
+    what:"Deliberately modifying your own talk: slower rate, clear enunciation, simpler vocabulary where possible, few idioms, short sentences — plus 5+ seconds of silence after every question.",
+    why:"Teacher talk is the largest input source students get. ELs are translating, processing, and formulating simultaneously; idioms and rapid-fire speech lock them out, and short wait times guarantee only proficient speakers answer.",
+    how:["Slow down about 20% and enunciate — it helps everyone, not just ELs","Replace idioms in instructions (hit the books → start studying)","Chunk directions: one step per sentence, numbered, also written on the board","Ask, then silently count to 7 before taking any answer"],
+    levels:{ l12:"Pair every spoken direction with a gesture and a written/visual version.", l34:"Normal academic vocabulary, but define new terms in the same breath (the protagonist — the main character —).", l56:"Approach natural speed but keep wait time; introduce idioms explicitly as vocabulary." },
+    mlws:"Quiz-day directions become three numbered sentences on the board, read aloud slowly, with a 7-second pause before 'Any questions?'"
+  },
+  {
+    id:"chunk", name:"Chunk & Chew", cn:"分段消化法", tag:"Practice: Comprehensible Input / Literacy",
+    what:"Breaking input — lecture or text — into short chunks (5-8 minutes or one paragraph), each followed by a brief processing task ('chew'): summarize to a partner, write one sentence, answer one question.",
+    why:"Working memory in a second language fills fast. Processing pauses move information into long-term memory before the next load arrives — mirroring the 5-10 minute segment rule in good ESL module design.",
+    how:["Divide your content into chunks of one concept each","Plan a 1-2 minute chew after each chunk: tell your partner the most important word and why","Vary the chew: write, draw, sort, vote, frame-talk","Use the chews as live formative assessment — reteach before moving on"],
+    levels:{ l12:"Chews are nonverbal or single-word: draw it, circle it, thumbs up/down.", l34:"Chews use sentence frames: The most important idea in this part is ___.", l56:"Chews demand synthesis: How does this chunk connect to the previous one?" },
+    mlws:"The interactive HTML modules already do this — one concept per screen, then a check. Replicate it live: teach one slide, partners summarize, continue."
+  },
+  {
+    id:"graphic", name:"Graphic Organizers", cn:"图形组织工具", tag:"Practice: Literacy Scaffolds",
+    what:"Visual structures — Venn diagrams, T-charts, flow maps, story mountains, cause/effect chains — that make the invisible organization of a text or task visible.",
+    why:"They separate the thinking from the prose. A student who cannot yet write a comparison paragraph can absolutely complete a Venn diagram — capturing the analysis now, and providing the skeleton for the paragraph later.",
+    how:["Match the organizer to the text structure or Key Language Use (sequence → flow map; argue → claim-evidence chart)","Model filling in the first cell aloud","Students complete it during reading, not after","Convert: each completed organizer section becomes one sentence with a frame"],
+    levels:{ l12:"Pre-fill half the organizer; students complete with word-bank words or pictures.", l34:"Blank organizer plus sentence frames for converting it to writing.", l56:"Students choose the appropriate organizer themselves and justify the choice." },
+    mlws:"Central idea lessons use a one-box-three-legs organizer: central idea on top, three supporting details below — then frames convert it into the quiz constructed response."
+  },
+  {
+    id:"anticipation", name:"Anticipation Guides", cn:"预测导读单", tag:"Practice: Background Knowledge",
+    what:"A short list of provocative agree/disagree statements about the big ideas of an upcoming text, answered before reading and revisited after.",
+    why:"It activates what students already know, plants purpose for reading (Was I right?), and surfaces missing cultural background before it derails comprehension.",
+    how:["Write 4-6 statements targeting the text's big ideas and any cultural assumptions (People who break rules deserve second chances — before Holes)","Students mark agree/disagree and tell a partner why (frame-supported)","Read the text","Revisit: did your thinking change? Cite the line that changed it"],
+    levels:{ l12:"Statements simplified and translated; respond with agree/disagree cards.", l34:"Original statements; one frame-supported reason per statement.", l56:"Add a find the line that confirms or challenges each statement evidence hunt." },
+    mlws:"Before the Grit research unit: 'Talent matters more than effort — agree or disagree?' sparks the partner debate that the article then complicates."
+  },
+  {
+    id:"cloze", name:"Cloze Passages & Guided Notes", cn:"完形填空与引导式笔记", tag:"Practice: Literacy Scaffolds",
+    what:"Teacher-prepared text or notes with strategic blanks. Cloze passages remove key vocabulary from a paragraph; guided notes remove key terms from the lesson's notes so students listen and read for them.",
+    why:"Blanks convert passive reading/listening into an active hunt. Students attend precisely to the academic vocabulary and core concepts you choose, and finish with a correct, complete study document.",
+    how:["Take the lesson's core paragraph or notes; blank out only high-value academic terms (not random words)","Provide a word bank below (remove it for higher levels)","Students complete during the lesson, checking with partners","Completed page becomes the legal study sheet for the quiz"],
+    levels:{ l12:"Word bank with translations; one blank per sentence maximum.", l34:"Word bank without translations; some blanks require two-word phrases.", l56:"No word bank; add margin questions requiring inference beyond the blanks." },
+    mlws:"The Guided Notes Builder handouts already follow this design — front/back Cornell-style sheets with strategic blanks keyed to each module."
+  },
+  {
+    id:"numbered", name:"Numbered Heads Together", cn:"编号合作竞答", tag:"Practice: Structured Oral Output",
+    what:"Teams of four number off 1-4. The teacher poses a question; teams huddle to make sure EVERY member can answer; then the teacher calls a number, and that member answers for the team.",
+    why:"It makes peer teaching rational — the team's success depends on its least confident member being ready. ELs get a rehearsal huddle and peer support before any public answer, and no one can hide.",
+    how:["Form mixed-proficiency teams of four; students number off","Pose a question worth discussing (not simple recall)","Huddle 2-3 minutes: make sure everyone on your team can answer","Roll or call a number; that student answers — teammates may not help"],
+    levels:{ l12:"Their answer may use a frame card, a single word, or pointing to evidence; teams know to prep them with exactly that.", l34:"Answers must be a complete frame-supported sentence.", l56:"Follow-up probe goes to the same student: What evidence supports that?" },
+    mlws:"Thursday quiz review: teams huddle over 'Why is option C wrong for question 4?' — number called, student explains using the rationale language from the module."
+  }
+];
+
+/* ================= DATA: QUIZ ================= */
+const QUIZ_Q = [
+  {
+    id:"q1", title:"The Can Do Philosophy",
+    q:"What is the core message of WIDA's Can Do Philosophy?",
+    q_cn:"WIDA 的 Can Do 理念的核心是什么？",
+    options:[
+      "A. Students should not study grade-level content until they reach Level 4|A. 学生达到4级前不应学习年级内容",
+      "B. Multilingual learners bring assets and can do meaningful academic work at every proficiency level|B. 多语言学习者具备优势，在任何语言水平都能进行有意义的学术学习",
+      "C. Teachers should focus on what students cannot yet do in English|C. 教师应关注学生英语方面的不足",
+      "D. Language classes should be separated from content classes|D. 语言课应与学科课分开"
+    ],
+    correct:"B",
+    rat_right:"Exactly — WIDA is asset-based: find what students CAN do now and build the next step, keeping thinking high while scaffolding language.|正确——WIDA 以优势为本：发现学生现在能做什么，保持思维难度，搭建语言支架。",
+    rat_wrong:{
+      A:"This contradicts WIDA's Big Idea of equity — students access grade-level content at every level, with scaffolds.|这违背了 WIDA 的公平理念——学生在任何水平都应接触年级内容。",
+      C:"That is deficit-based thinking — the opposite of the Can Do Philosophy.|这是缺陷视角，与 Can Do 理念正好相反。",
+      D:"WIDA's framework integrates language and content; they are taught together.|WIDA 框架强调语言与内容融合教学。"
+    }
+  },
+  {
+    id:"q2", title:"Proficiency Levels",
+    q:"How many English language proficiency levels does the WIDA framework describe, and what are the first and last called?",
+    q_cn:"WIDA 框架共描述几个语言水平等级？第一级和最后一级分别叫什么？",
+    options:[
+      "A. Four levels: Beginning to Advanced|A. 四级：从初级到高级",
+      "B. Five levels: Entering to Bridging|B. 五级：从入门到衔接",
+      "C. Six levels: Entering to Reaching|C. 六级：从入门（Entering）到达标（Reaching）",
+      "D. Three levels: Low, Mid, High|D. 三级：低、中、高"
+    ],
+    correct:"C",
+    rat_right:"Correct — six levels: Entering, Emerging, Developing, Expanding, Bridging, Reaching, aligned to the ACCESS assessment.|正确——六级：入门、萌芽、发展、扩展、衔接、达标，与 ACCESS 测评对应。",
+    rat_wrong:{
+      A:"WIDA uses six named levels, not four generic bands.|WIDA 使用六个命名等级，不是四个。",
+      B:"Close — Bridging is Level 5, but there is a sixth level, Reaching.|接近了——衔接是第5级，但还有第6级：达标。",
+      D:"WIDA's continuum is far more specific: six named levels measured across four domains.|WIDA 的等级体系更具体：六级，四个语言领域。"
+    }
+  },
+  {
+    id:"q3", title:"Key Language Uses",
+    q:"Which of the following is NOT one of WIDA's four Key Language Uses?",
+    q_cn:"以下哪一项不属于 WIDA 的四个关键语言运用？",
+    options:[
+      "A. Narrate|A. 叙述",
+      "B. Summarize|B. 概括",
+      "C. Explain|C. 解释",
+      "D. Argue|D. 论证"
+    ],
+    correct:"B",
+    rat_right:"Right — the four KLUs are Narrate, Inform, Explain, and Argue. Summarizing is a skill that lives inside several of them.|正确——四个关键语言运用是叙述、说明、解释、论证。概括是其中包含的技能，不是独立类别。",
+    rat_wrong:{
+      A:"Narrate IS one of the four KLUs — sharing and ordering experiences or stories.|叙述是四个关键语言运用之一。",
+      C:"Explain IS one of the four KLUs — accounting for how or why things happen.|解释是四个关键语言运用之一。",
+      D:"Argue IS one of the four KLUs — justifying claims with evidence.|论证是四个关键语言运用之一。"
+    }
+  },
+  {
+    id:"q4", title:"Language Domains",
+    q:"A student scores Level 4 in reading but Level 2 in speaking. What is the best conclusion?",
+    q_cn:"一名学生阅读为4级，口语为2级。最合理的结论是什么？",
+    options:[
+      "A. The scores must be a mistake — students are one level in all skills|A. 分数有误——学生所有技能应为同一等级",
+      "B. This is normal: proficiency varies by domain, so plan strong supports for spoken output|B. 这很正常：各语言领域水平不同，应为口语输出提供更多支持",
+      "C. The student should be treated as Level 2 in everything to be safe|C. 为保险起见，所有方面都按2级对待",
+      "D. The student no longer needs reading scaffolds of any kind|D. 该学生不再需要任何阅读支架"
+    ],
+    correct:"B",
+    rat_right:"Correct — WIDA measures four domains (listening, speaking, reading, writing) separately, and uneven profiles are the norm. Match supports to each domain.|正确——WIDA 分别评估听、说、读、写四个领域，水平不均很常见，应分领域提供支持。",
+    rat_wrong:{
+      A:"Uneven domain profiles are extremely common — many students read above their speaking level.|各领域水平不一致非常普遍。",
+      C:"Treating the student as Level 2 everywhere lowers the bar in reading where they are capable of much more.|全部按2级会在阅读上不必要地降低要求。",
+      D:"Level 4 still benefits from scaffolds targeted at Level 5 — supports fade gradually, not suddenly.|4级仍需面向5级的支架，支持应逐步撤除。"
+    }
+  },
+  {
+    id:"q5", title:"Comprehensible Input",
+    q:"According to the comprehensible input principle (Krashen), instruction is pitched correctly when students…",
+    q_cn:"根据可理解性输入原则，教学语言的难度应使学生……",
+    options:[
+      "A. understand every single word the teacher says|A. 听懂教师说的每一个词",
+      "B. understand most, but not all, of the language — just beyond their current level|B. 理解大部分但非全部语言——略高于现有水平",
+      "C. are challenged with language far above their level to accelerate growth|C. 接触远超其水平的语言以加速成长",
+      "D. only receive input in their first language|D. 只接受母语输入"
+    ],
+    correct:"B",
+    rat_right:"Correct — input just beyond current proficiency (think zone of proximal development) is where acquisition happens.|正确——略高于现有水平的输入（最近发展区）才能促进语言习得。",
+    rat_wrong:{
+      A:"If students understand 100%, there is no new language to acquire.|若全部听懂，则没有新语言可习得。",
+      C:"Input far beyond the level becomes noise — students cannot map meaning onto it.|远超水平的输入会变成噪音，无法建立意义联系。",
+      D:"L1 support is a valuable scaffold, but acquisition of English requires comprehensible English input.|母语支持有价值，但习得英语需要可理解的英语输入。"
+    }
+  },
+  {
+    id:"q6", title:"The Ellevation Framework",
+    q:"How does Ellevation Strategies organize its instructional content?",
+    q_cn:"Ellevation Strategies 如何组织其教学内容？",
+    options:[
+      "A. By textbook chapter and page number|A. 按教材章节和页码",
+      "B. As a framework of Practices and Strategies containing classroom-ready activities with proficiency-level adaptations|B. 以实践与策略框架组织，包含可直接使用的活动及按水平调整的建议",
+      "C. As grammar rules ordered from easiest to hardest|C. 按语法规则由易到难排列",
+      "D. As a list of tests for measuring English proficiency|D. 作为一系列英语水平测试"
+    ],
+    correct:"B",
+    rat_right:"Correct — Practices (research-backed principles) contain Strategies, which contain concrete activities with content-area examples, downloadable materials, and level adaptation tips.|正确——实践（研究支持的原则）包含策略，策略包含具体活动，并附学科示例、可下载材料和分级调整建议。",
+    rat_wrong:{
+      A:"Ellevation activities are designed to plug into ANY curriculum, organized by language practice rather than textbook.|Ellevation 活动可融入任何课程，以语言实践组织而非教材。",
+      C:"The framework is functional — organized around what language does in classrooms, not grammar sequences.|该框架以语言功能为核心，而非语法序列。",
+      D:"Ellevation includes data tools, but Strategies is an instructional library, not an assessment battery.|Ellevation 有数据工具，但 Strategies 是教学策略库，不是测试。"
+    }
+  },
+  {
+    id:"q7", title:"Supporting Level 1 Students",
+    q:"A new Level 1 (Entering) student joins your class. Which combination of supports fits their level best?",
+    q_cn:"一名1级（入门）新生加入您的班级。哪组支持最适合？",
+    options:[
+      "A. Visuals, gestures, word banks, first-language support, and pointing or single-word responses|A. 图像、手势、词汇库、母语支持，以及指认或单词回答",
+      "B. A five-paragraph essay with a rubric|B. 五段式作文加评分标准",
+      "C. Independent silent reading of the grade-level novel|C. 独立默读年级小说",
+      "D. The same tasks as everyone, since supports create dependence|D. 与所有人相同的任务，以免产生依赖"
+    ],
+    correct:"A",
+    rat_right:"Correct — Entering students communicate through visuals, movement, memorized phrases, and L1; these supports give them access while English develops.|正确——入门级学生通过图像、动作、固定短语和母语进行交流，这些支持使其在英语发展期间也能参与学习。",
+    rat_wrong:{
+      B:"A full essay is several levels beyond Entering output — capture their thinking through lower-language formats first.|完整作文远超入门级输出能力，应先用低语言负荷的方式呈现思维。",
+      C:"Unsupported grade-level text is incomprehensible input at Level 1 — the route in must be scaffolded.|无支持的年级文本对1级学生是不可理解的输入。",
+      D:"Scaffolds are temporary by design; withholding them denies access, it does not build independence.|支架本就是暂时的；不提供支持只会剥夺学习机会。"
+    }
+  },
+  {
+    id:"q8", title:"Sentence Frames",
+    q:"What is the primary purpose of sentence frames and starters?",
+    q_cn:"句型框架与句子起头的主要作用是什么？",
+    options:[
+      "A. To test whether students memorized the textbook|A. 检测学生是否背诵了课本",
+      "B. To lower the language load so students can focus thinking on content while rehearsing academic English|B. 降低语言负担，让学生专注于内容思考，同时练习学术英语",
+      "C. To keep all student answers identical for easier grading|C. 让所有学生答案一致，便于评分",
+      "D. To replace the need for students to ever write independently|D. 取代学生独立写作的需要"
+    ],
+    correct:"B",
+    rat_right:"Correct — frames carry the grammar so students can carry the ideas, while internalizing academic register. They fade as proficiency grows.|正确——框架承担语法负荷，学生专注于思想表达，同时内化学术语体。随着水平提高逐步撤除。",
+    rat_wrong:{
+      A:"Frames support production of original ideas — they are scaffolds, not memory tests.|框架支持学生表达原创想法，不是记忆测试。",
+      C:"The frame is shared; the ideas inside it are each student's own.|框架相同，但其中的想法是每个学生自己的。",
+      D:"Frames are temporary — the goal is always independent production, reached by fading the support.|框架是暂时的，最终目标是独立表达。"
+    }
+  },
+  {
+    id:"q9", title:"Which Corner?",
+    q:"Which scenario shows the Ellevation activity Which Corner? used correctly?",
+    q_cn:"哪个场景正确使用了 Which Corner?（四角）活动？",
+    options:[
+      "A. Students sit silently while the teacher explains four categories|A. 学生安静听教师讲解四个类别",
+      "B. Categories are posted in the corners; students move to one and justify their choice to corner-mates using a frame|B. 四角张贴类别；学生走到所选角落，用句型向同伴说明理由",
+      "C. Students stand in corners as a punishment for incomplete homework|C. 学生因未完成作业被罚站角落",
+      "D. The teacher assigns corners randomly and no one speaks|D. 教师随机分配角落，无人发言"
+    ],
+    correct:"B",
+    rat_right:"Correct — choice, movement, and justified talk are the three ingredients. A science class might label corners Igneous, Sedimentary, Metamorphic for rock classification.|正确——选择、移动、说明理由是三要素。例如科学课四角标注三种岩石类型进行分类。",
+    rat_wrong:{
+      A:"Without student movement and talk, it is not the activity — just teacher presentation.|没有学生移动和发言，就只是教师讲授。",
+      C:"Which Corner? is an academic output activity, never a punishment.|这是学术输出活动，绝不是惩罚。",
+      D:"Random assignment removes the choice, and silence removes the output — both defeat the purpose.|随机分配取消了选择，沉默取消了输出，均违背活动目的。"
+    }
+  },
+  {
+    id:"q10", title:"The 2020 Framework Components",
+    q:"Which component of the WIDA ELD Standards Framework, 2020 Edition describes the continuum of language development across the six levels?",
+    q_cn:"WIDA 2020版框架中，哪个组成部分描述了六级语言发展连续体？",
+    options:[
+      "A. ELD Standards Statements|A. 英语语言发展标准声明",
+      "B. Key Language Uses|B. 关键语言运用",
+      "C. Language Expectations|C. 语言期望",
+      "D. Proficiency Level Descriptors|D. 语言水平描述（PLD）"
+    ],
+    correct:"D",
+    rat_right:"Correct — the PLDs are the narrowest component, describing language growth across six levels at the discourse, sentence, and word/phrase dimensions.|正确——PLD 是最具体的组成部分，从语篇、句子、词汇三个维度描述六级语言发展。",
+    rat_wrong:{
+      A:"The Standards Statements are the broadest component — the conceptual link between language and content areas.|标准声明是最宏观的部分，连接语言与学科。",
+      B:"KLUs identify the four prominent uses of language across disciplines: narrate, inform, explain, argue.|关键语言运用指四种跨学科语言功能。",
+      C:"Language Expectations are unit-level goals for content-driven language learning — not the level continuum.|语言期望是单元层面的语言目标，不是等级连续体。"
+    }
+  }
+];
+
+/* ================= BUILD: STRATEGY LIBRARY ================= */
+function buildStrats() {
+  var container = document.getElementById('stratContainer');
+  STRATS.forEach(function(s, idx) {
+    var card = document.createElement('div');
+    card.className = 'strat-card';
+    card.id = 'strat-' + s.id;
+
+    var head = document.createElement('button');
+    head.className = 'strat-head';
+    var left = document.createElement('div');
+    var t = document.createElement('div'); t.className = 't';
+    t.textContent = (idx+1) + '. ' + s.name + ' · ';
+    var tcn = document.createElement('span'); tcn.className = 'cn'; tcn.style.fontWeight = '400'; tcn.textContent = s.cn;
+    t.appendChild(tcn);
+    var tags = document.createElement('div'); tags.className = 'tags'; tags.textContent = s.tag;
+    left.appendChild(t); left.appendChild(tags);
+    var arrow = document.createElement('div'); arrow.className = 'arrow'; arrow.textContent = '▶';
+    head.appendChild(left); head.appendChild(arrow);
+
+    var body = document.createElement('div');
+    body.className = 'strat-body';
+
+    function addSec(title, text) {
+      var h = document.createElement('h4'); h.textContent = title;
+      var p = document.createElement('p'); p.textContent = text;
+      body.appendChild(h); body.appendChild(p);
+    }
+    addSec('What it is', s.what);
+    addSec('Why it works', s.why);
+
+    var hHow = document.createElement('h4'); hHow.textContent = 'How to run it';
+    body.appendChild(hHow);
+    var ul = document.createElement('ul');
+    s.how.forEach(function(step) {
+      var li = document.createElement('li'); li.textContent = step; ul.appendChild(li);
+    });
+    body.appendChild(ul);
+
+    var hLev = document.createElement('h4'); hLev.textContent = 'Adapt by WIDA level';
+    body.appendChild(hLev);
+    var grid = document.createElement('div'); grid.className = 'level-grid';
+    [['l12','Levels 1–2 (Entering–Emerging)'],['l34','Levels 3–4 (Developing–Expanding)'],['l56','Levels 5–6 (Bridging–Reaching)']].forEach(function(pair) {
+      var box = document.createElement('div'); box.className = 'level-box ' + pair[0];
+      var st = document.createElement('strong'); st.textContent = pair[1];
+      box.appendChild(st);
+      box.appendChild(document.createTextNode(s.levels[pair[0]]));
+      grid.appendChild(box);
+    });
+    body.appendChild(grid);
+
+    addSec('MLWS example', s.mlws);
+
+    head.addEventListener('click', function() {
+      card.classList.toggle('open');
+      if (!stratOpened[s.id]) {
+        stratOpened[s.id] = true;
+        stratOpenCount++;
+        card.classList.add('opened');
+        document.getElementById('stratCounter').textContent =
+          'Strategies explored: ' + stratOpenCount + ' / ' + STRATS.length + ' · 已学习策略：' + stratOpenCount + ' / ' + STRATS.length;
+        addProgress(1);
+        if (stratOpenCount >= STRATS.length) {
+          markSection('library');
+        }
+        updateChecklist();
+      }
+    });
+
+    card.appendChild(head);
+    card.appendChild(body);
+    container.appendChild(card);
+  });
+}
+
+/* ================= BUILD: QUIZ ================= */
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx+1) + ' of ' + data.length + ' · ' + item.title;
+    card.appendChild(num);
+
+    var qEl = document.createElement('div'); qEl.className = 'q-text'; qEl.textContent = item.q;
+    var qCn = document.createElement('div'); qCn.className = 'q-cn cn'; qCn.textContent = item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement('div'); optsWrap.className = 'opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className = 'rationale';
+    var answered = false;
+
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/, '');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/, '') : '';
+
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.dataset.letter = letter;
+
+      var strong = document.createElement('strong'); strong.textContent = letter + '. ';
+      var enS = document.createElement('span'); enS.textContent = enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className = 'cn'; cnS.textContent = cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+
+        var ratText, ratCn, ratParts;
+        if (letter === item.correct) {
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '✅ ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          var wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = '❌ ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+        addProgress(1);
+
+        var rDiv = document.createElement('div'); rDiv.textContent = ratText;
+        if (ratCn) {
+          var rBr = document.createElement('br');
+          var rCnS = document.createElement('span'); rCnS.className = 'cn'; rCnS.textContent = ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+
+        doneObj.val++;
+        updateChecklist();
+        if (doneObj.val >= data.length) onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+/* ================= SECTION TRACKING ================= */
+function markSection(key) {
+  if (sectionViewed[key]) return;
+  /* library only marks complete when all 12 strategies are opened — guard handled by caller */
+  sectionViewed[key] = true;
+  document.getElementById('pip-' + key).classList.add('done');
+  var chk = document.getElementById('chk-' + key);
+  if (chk) chk.textContent = '✔ ';
+  var land = document.getElementById('land-' + key);
+  if (land) land.classList.add('viewed');
+  if (key !== 'library') addProgress(1);
+  updateChecklist();
+}
+
+/* ================= READINESS / CHECKLIST ================= */
+function updateChecklist() {
+  var sectionsDone = sectionViewed.wida && sectionViewed.levels && sectionViewed.ellev;
+  var stratsDone = stratOpenCount >= STRATS.length;
+  var quizFinished = quizDone.val >= QUIZ_Q.length;
+  var ref1 = document.getElementById('quizRef1').value.trim();
+  var ref2 = document.getElementById('quizRef2').value.trim();
+  var commit = document.getElementById('quizCommit').value.trim();
+  var fieldsDone = ref1.length > 0 && ref2.length > 0 && commit.length > 0;
+  var name = document.getElementById('teacherName').value.trim();
+  var nameDone = name.length > 0;
+
+  setCheck('ck-sections', sectionsDone, 'View Sections 1, 2, and 3');
+  setCheck('ck-strats', stratsDone, 'Open all 13 strategy cards (' + stratOpenCount + '/' + STRATS.length + ')');
+  setCheck('ck-quiz', quizFinished, 'Answer all 10 quiz questions (' + quizDone.val + '/10)');
+  setCheck('ck-fields', fieldsDone, 'Complete both reflections and the commitment');
+  setCheck('ck-name', nameDone, 'Enter your name');
+
+  var ready = sectionsDone && stratsDone && quizFinished && fieldsDone && nameDone;
+  var btn = document.getElementById('certBtn');
+  var hint = document.getElementById('certHint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+  }
+}
+
+function setCheck(id, done, label) {
+  var li = document.getElementById(id);
+  li.textContent = (done ? '✅ ' : '☐ ') + label;
+  li.classList.toggle('done', done);
+}
+
+/* ================= CERTIFICATE ================= */
+function downloadCertificate() {
+  var ref1 = document.getElementById('quizRef1').value.trim();
+  var ref2 = document.getElementById('quizRef2').value.trim();
+  var commit = document.getElementById('quizCommit').value.trim();
+  var name = document.getElementById('teacherName').value.trim();
+  var sectionsDone = sectionViewed.wida && sectionViewed.levels && sectionViewed.ellev;
+  if (!sectionsDone || stratOpenCount < STRATS.length || quizDone.val < QUIZ_Q.length || !ref1 || !ref2 || !commit || !name) return;
+
+  var dept = document.getElementById('teacherDept').value.trim() || 'Not specified';
+  var now = new Date().toLocaleString();
+  var txt = '';
+
+  txt += '================================================================\n';
+  txt += '          CERTIFICATE OF COMPLETION  ·  结业证书\n';
+  txt += '================================================================\n';
+  txt += 'MAPLE LEAF WORLD SCHOOL — PROFESSIONAL DEVELOPMENT\n';
+  txt += 'Module: Supporting Multilingual Learners:\n';
+  txt += '        WIDA & Ellevation Strategies for ESL Learners\n';
+  txt += '----------------------------------------------------------------\n';
+  txt += 'This certifies that\n\n';
+  txt += '    ' + name.toUpperCase() + '\n\n';
+  txt += 'has completed all sections, the strategy library, the quiz,\n';
+  txt += 'and the professional reflection for this module.\n';
+  txt += '----------------------------------------------------------------\n';
+  txt += 'Teacher: ' + name + '\n';
+  txt += 'Department / Subject: ' + dept + '\n';
+  txt += 'Date/Time Completed: ' + now + '\n';
+  txt += 'Total Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches During Session: ' + leaveCount + '\n';
+  txt += '\n';
+  txt += 'COMPLETION RECORD\n';
+  txt += '  [X] Section 1 — WIDA Foundations\n';
+  txt += '  [X] Section 2 — Proficiency Levels in Practice\n';
+  txt += '  [X] Section 3 — The Ellevation Framework\n';
+  txt += '  [X] Section 4 — Strategy Library (' + stratOpenCount + '/' + STRATS.length + ' strategies explored)\n';
+  txt += '  [X] Section 5 — Quiz (' + quizScore.val + ' / 10)\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  QUIZ_Q.forEach(function(item, i) {
+    var sel = quizAnswers[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  txt += '================================================================\n';
+  txt += 'PROFESSIONAL REFLECTION\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION 1 (My students and WIDA levels):\n' + ref1 + '\n\n';
+  txt += 'REFLECTION 2 (Strategy adaptation plan):\n' + ref2 + '\n\n';
+  txt += 'STRATEGY COMMITMENT:\nOne strategy I commit to trying in my classroom this week is ' + commit + '\n\n';
+  txt += '================================================================\n';
+  txt += 'Submit this certificate to your Department Head.\n';
+  txt += 'MLWS Professional Learning · 枫叶世界学校教师专业发展\n';
+  txt += 'End of certificate\n';
+
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_PD_Certificate_WIDA_Ellevation_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  markSection('quiz');
+  document.getElementById('pip-quiz').classList.add('done');
+}
+
+/* ================= UTILITY ================= */
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  document.getElementById('btn-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+  if (name === 'wida' || name === 'levels' || name === 'ellev') {
+    markSection(name);
+  }
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      var badge = document.getElementById('leaveBadge');
+      badge.style.display = 'inline-block';
+      badge.textContent = '🚪 Leaves: ' + leaveCount;
+    }
+  });
+}
+
+/* ================= INIT ================= */
+document.addEventListener('DOMContentLoaded', function() {
+  buildStrats();
+  buildQuiz(QUIZ_Q, 'quizContainer', quizAnswers, quizScore, quizDone, function() {
+    updateChecklist();
+  });
+
+  /* Tab buttons */
+  ['home','wida','levels','ellev','library','quiz'].forEach(function(key) {
+    document.getElementById('btn-' + key).addEventListener('click', function() { switchTab(key); });
+  });
+
+  /* Landing cards */
+  [['land-wida','wida'],['land-levels','levels'],['land-ellev','ellev'],['land-library','library'],['land-quiz','quiz']].forEach(function(pair) {
+    document.getElementById(pair[0]).addEventListener('click', function() { switchTab(pair[1]); });
+  });
+
+  /* Reflection + commitment + name listeners */
+  ['quizRef1','quizRef2'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      updateChecklist();
+    });
+  });
+  document.getElementById('quizCommit').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    updateChecklist();
+  });
+  document.getElementById('teacherName').addEventListener('input', updateChecklist);
+
+  document.getElementById('certBtn').addEventListener('click', downloadCertificate);
+
+  startTimer();
+  trackNavigation();
+  updateChecklist();
+});
+</script>
+</body>
+</html>
