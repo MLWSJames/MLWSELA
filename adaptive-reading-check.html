@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adaptive Reading Check (ARC)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f6fb; --panel:#ffffff; --ink:#1f2a44; --muted:#6b7794;
+    --brand:#2f6fed; --brand-dark:#1f50c2; --good:#1f9d6b; --bad:#d6543a;
+    --soft:#eaf0fb; --line:#dce4f2; --warn:#b9770f; --warnbg:#fdf3e2;
+    --shadow:0 10px 30px rgba(31,42,68,.10);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Nunito','Noto Sans SC',system-ui,sans-serif;
+    background:var(--bg); color:var(--ink);
+    -webkit-font-smoothing:antialiased; line-height:1.5;
+    padding:18px;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  .card{
+    background:var(--panel); border:1px solid var(--line);
+    border-radius:18px; box-shadow:var(--shadow); padding:26px;
+  }
+  h1{font-size:1.55rem;margin:0 0 4px;font-weight:800;letter-spacing:-.3px}
+  h2{font-size:1.2rem;margin:0 0 10px;font-weight:800}
+  .sub{color:var(--muted);font-weight:600;margin:0 0 18px}
+  .zh{font-family:'Noto Sans SC',sans-serif;color:var(--muted);font-weight:600}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  label{display:block;font-weight:700;margin:14px 0 6px;font-size:.95rem}
+  input[type=text],input[type=number],select{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;
+    font:inherit;background:#fff;color:var(--ink)
+  }
+  input:focus,select:focus{outline:none;border-color:var(--brand)}
+  .field{flex:1;min-width:160px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--brand);color:#fff;border:none;border-radius:14px;
+    padding:14px 22px;font:inherit;font-weight:800;cursor:pointer;font-size:1.05rem;
+    transition:transform .05s ease, background .15s ease; width:100%;
+  }
+  .btn:hover{background:var(--brand-dark)}
+  .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:var(--soft);color:var(--brand-dark)}
+  .btn.ghost:hover{background:#dfe8fb}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .note{
+    background:var(--soft);border:1px solid var(--line);border-radius:12px;
+    padding:12px 14px;font-size:.9rem;color:var(--muted);font-weight:600;margin-top:14px
+  }
+  .warnbox{background:var(--warnbg);border:1px solid #f0d9a8;color:var(--warn);
+    border-radius:12px;padding:12px 14px;font-weight:700;font-size:.92rem;margin-top:14px}
+  .pill{display:inline-block;background:var(--soft);color:var(--brand-dark);
+    border-radius:999px;padding:4px 12px;font-weight:800;font-size:.78rem;letter-spacing:.4px}
+  .toggle{display:flex;align-items:center;gap:10px;margin-top:8px;font-weight:700;color:var(--muted)}
+  .switch{position:relative;width:48px;height:28px;background:var(--line);border-radius:999px;cursor:pointer;transition:.2s;flex:0 0 auto}
+  .switch.on{background:var(--brand)}
+  .switch .dot{position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:.2s}
+  .switch.on .dot{left:23px}
+  /* progress */
+  .progwrap{margin:6px 0 20px}
+  .progbar{height:10px;background:var(--soft);border-radius:999px;overflow:hidden}
+  .progfill{height:100%;background:var(--brand);width:0%;transition:width .3s ease}
+  .progmeta{display:flex;justify-content:space-between;color:var(--muted);font-weight:700;font-size:.85rem;margin-top:6px}
+  /* item */
+  .qinstr{color:var(--muted);font-weight:700;font-size:.95rem;margin-bottom:12px}
+  .passage{background:#fbfcff;border:1px solid var(--line);border-left:4px solid var(--brand);
+    border-radius:12px;padding:16px 18px;margin:0 0 16px;font-size:1.12rem;line-height:1.65}
+  .stem{font-size:1.18rem;font-weight:700;margin:0 0 16px;line-height:1.5}
+  .opts{display:flex;flex-direction:column;gap:12px}
+  .opt{
+    text-align:left;background:#fff;border:1.6px solid var(--line);border-radius:14px;
+    padding:15px 18px;font:inherit;font-size:1.08rem;cursor:pointer;display:flex;gap:12px;align-items:flex-start;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .opt:hover{border-color:var(--brand);background:var(--soft)}
+  .opt .lt{font-weight:800;color:var(--brand-dark);flex:0 0 auto}
+  .opt.sel{border-color:var(--brand);background:var(--soft)}
+  .noselect{user-select:none;-webkit-user-select:none;-moz-user-select:none}
+  /* results */
+  .score{font-size:3.4rem;font-weight:800;color:var(--brand-dark);line-height:1;margin:6px 0}
+  .bandtag{font-size:1.2rem;font-weight:800;margin:6px 0 2px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+  .stat{background:#fbfcff;border:1px solid var(--line);border-radius:14px;padding:14px}
+  .stat .k{color:var(--muted);font-weight:700;font-size:.82rem}
+  .stat .v{font-weight:800;font-size:1.25rem;margin-top:2px}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);font-size:.95rem}
+  th{color:var(--muted);font-size:.8rem;letter-spacing:.3px;text-transform:uppercase}
+  .dombar{height:8px;background:var(--soft);border-radius:999px;overflow:hidden;margin-top:5px;min-width:90px}
+  .dombar > span{display:block;height:100%;background:var(--good)}
+  .hidden{display:none}
+  .tiny{font-size:.78rem;color:var(--muted);font-weight:600;margin-top:14px;line-height:1.5}
+  .brandline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+  @media(max-width:520px){.grid{grid-template-columns:1fr}.card{padding:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ SCREEN 1: TEACHER SETUP ============ -->
+  <div id="screen-setup" class="card">
+    <div class="brandline">
+      <span class="pill">TEACHER SETUP · 教师设置</span>
+    </div>
+    <h1>Adaptive Reading Check <span style="font-weight:700;color:var(--muted)">(ARC)</span></h1>
+    <p class="sub">A computer-adaptive reading placement for ESL learners.<br><span class="zh">为英语学习者设计的自适应阅读测评。</span></p>
+
+    <label>Student name / 学生姓名</label>
+    <input id="in-name" type="text" placeholder="e.g. Li Wei" autocomplete="off">
+
+    <div class="row">
+      <div class="field">
+        <label>Class / 班级</label>
+        <input id="in-class" type="text" placeholder="e.g. English 11-2" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Student ID (optional)</label>
+        <input id="in-id" type="text" placeholder="optional" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Max items / 最多题数</label>
+        <select id="in-max">
+          <option value="12">12 (short)</option>
+          <option value="16" selected>16 (standard)</option>
+          <option value="20">20 (full)</option>
+          <option value="24">24 (extended)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Start level / 起始难度</label>
+        <select id="in-start">
+          <option value="-1.2">Below grade (default for early ESL)</option>
+          <option value="0" >On grade / middle</option>
+          <option value="1.2">Above grade</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="toggle">
+      <div id="sw-zh" class="switch on"><div class="dot"></div></div>
+      <span>Show Chinese task instructions to student / 向学生显示中文题目说明</span>
+    </div>
+    <div class="toggle">
+      <div id="sw-lock" class="switch on"><div class="dot"></div></div>
+      <span>Integrity mode (block copy, log tab-switches) / 诚信模式</span>
+    </div>
+
+    <div style="height:18px"></div>
+    <button class="btn" onclick="ARC.beginInstructions()">Start &nbsp;→ &nbsp;开始</button>
+
+    <div class="note">
+      This is an <b>original</b> classroom tool. It uses the public-domain <b>Rasch adaptive model</b> —
+      the same science behind well-known adaptive tests — but contains <b>no proprietary questions, scales, or norms</b>
+      from any commercial product. Scores are calibrated to <i>this</i> item pool, useful for grouping and for tracking growth
+      when re-administered. They are not nationally normed grade levels.
+    </div>
+  </div>
+
+  <!-- ============ SCREEN 2: STUDENT INSTRUCTIONS ============ -->
+  <div id="screen-instr" class="card hidden">
+    <span class="pill">DIRECTIONS · 说明</span>
+    <h2 style="margin-top:14px">How this works / 测试说明</h2>
+    <div class="passage" style="border-left-color:var(--good)">
+      <p style="margin:0 0 10px"><b>1.</b> Read each question and choose the best answer.<br>
+        <span class="zh">阅读每道题，选择最佳答案。</span></p>
+      <p style="margin:0 0 10px"><b>2.</b> The test gets <b>harder or easier</b> based on your answers. This is normal — some questions will feel hard.<br>
+        <span class="zh">题目会根据你的回答变难或变易。有些题感觉难是正常的。</span></p>
+      <p style="margin:0 0 10px"><b>3.</b> You <b>cannot go back</b>. Take your time and pick carefully.<br>
+        <span class="zh">不能返回上一题。请认真作答。</span></p>
+      <p style="margin:0"><b>4.</b> There is no time limit. Try your best!<br>
+        <span class="zh">没有时间限制，尽力而为！</span></p>
+    </div>
+    <div id="integrity-warn" class="warnbox">
+      Integrity mode is ON. Please stay on this tab until you finish.
+      <span class="zh">诚信模式已开启，请勿切换页面，直到完成测试。</span>
+    </div>
+    <div style="height:8px"></div>
+    <button class="btn" onclick="ARC.beginTest()">I'm ready &nbsp;→ &nbsp;我准备好了</button>
+  </div>
+
+  <!-- ============ SCREEN 3: TEST ============ -->
+  <div id="screen-test" class="card hidden noselect">
+    <div class="progwrap">
+      <div class="progbar"><div id="progfill" class="progfill"></div></div>
+      <div class="progmeta"><span id="prog-count">Question 1</span><span id="prog-conf">Estimating…</span></div>
+    </div>
+    <div id="q-instr" class="qinstr"></div>
+    <div id="q-passage" class="passage hidden"></div>
+    <div id="q-stem" class="stem"></div>
+    <div id="q-opts" class="opts"></div>
+    <div style="height:18px"></div>
+    <button id="btn-next" class="btn" disabled onclick="ARC.submitAnswer()">Submit &nbsp;提交</button>
+  </div>
+
+  <!-- ============ SCREEN 4: RESULTS ============ -->
+  <div id="screen-results" class="card hidden">
+    <span class="pill">RESULTS · 结果</span>
+    <h2 style="margin-top:14px" id="res-name">Results</h2>
+    <div class="brandline">
+      <div>
+        <div style="color:var(--muted);font-weight:700;font-size:.85rem">READING POWER SCORE (RPS)</div>
+        <div class="score" id="res-rps">—</div>
+        <div class="bandtag" id="res-band">—</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="stat"><div class="k">Confidence range / 置信区间</div><div class="v" id="res-range">—</div></div>
+      <div class="stat"><div class="k">Items given / 题目数</div><div class="v" id="res-items">—</div></div>
+      <div class="stat"><div class="k">Overall correct / 总正确率</div><div class="v" id="res-correct">—</div></div>
+      <div class="stat"><div class="k">Precision (SE) / 精度</div><div class="v" id="res-se">—</div></div>
+    </div>
+
+    <h2 style="font-size:1.05rem;margin-top:8px">Skill breakdown / 技能分析</h2>
+    <table id="res-domains"><thead><tr><th>Skill</th><th>Correct</th><th style="width:34%"></th></tr></thead><tbody></tbody></table>
+
+    <div id="res-instr-band" class="note" style="margin-top:18px"></div>
+
+    <div style="height:16px"></div>
+    <button class="btn" onclick="ARC.downloadReport()">⬇ Download report (.txt) for Schoology</button>
+    <div style="height:10px"></div>
+    <button class="btn ghost" onclick="ARC.restart()">New student / 新学生</button>
+
+    <div class="tiny" id="integrity-log"></div>
+    <div class="tiny">
+      <b>For the teacher:</b> RPS is an original vertical scale (400–800) calibrated to this item pool.
+      It is meant for placement, flexible grouping, and measuring growth across re-tests — not as a nationally-normed reading grade.
+      This tool is independent and not affiliated with any commercial assessment.
+    </div>
+  </div>
+
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================================
+   ADAPTIVE READING CHECK (ARC)
+   Original classroom adaptive reading placement.
+   Engine: Rasch (1PL) model — public-domain psychometrics.
+     P(correct) = 1 / (1 + e^-(theta - b))
+   Ability theta estimated by MLE with a weak Normal prior (stable on streaks).
+   Item selection: maximum Fisher information at current theta,
+     balanced across skill domains.
+   Scale: Reading Power Score (RPS) = 600 + 40*theta, clamped [400,800].
+   No proprietary items, scales, or norms from any commercial product.
+   ========================================================================= */
+
+/* ---------- ITEM POOL (original content) ----------
+   domain: VOCAB | LITERAL | INFER | USAGE
+   b: difficulty in logits (~ -2.5 easy ... +2.5 hard)
+   passage: optional short text shown above the stem
+   stem: the question
+   options: 4 choices ; answer: index of correct option
+------------------------------------------------------ */
+const POOL = [
+  /* ---------------- VOCABULARY ---------------- */
+  {domain:"VOCAB",b:-2.3,stem:'The dog was very BIG. Which word means the same as BIG?',options:["large","small","fast","old"],answer:0},
+  {domain:"VOCAB",b:-1.8,stem:'She felt HAPPY at the party. HAPPY means —',options:["glad","tired","angry","hungry"],answer:0},
+  {domain:"VOCAB",b:-1.3,stem:'The room was QUIET. QUIET means —',options:["silent","dirty","bright","warm"],answer:0},
+  {domain:"VOCAB",b:-0.8,stem:'He gave a QUICK reply. QUICK means —',options:["fast","kind","long","late"],answer:0},
+  {domain:"VOCAB",b:-0.4,stem:'The old map was USELESS. USELESS means —',options:["not helpful","very old","very large","very clean"],answer:0},
+  {domain:"VOCAB",b:0.0,stem:'Her plan was CLEVER. CLEVER means —',options:["smart","honest","quiet","brave"],answer:0},
+  {domain:"VOCAB",b:0.4,stem:'The witness gave a RELIABLE account. RELIABLE means —',options:["trustworthy","exciting","confusing","brief"],answer:0},
+  {domain:"VOCAB",b:0.8,stem:'The new rule was BENEFICIAL to workers. BENEFICIAL means —',options:["helpful","harmful","optional","costly"],answer:0},
+  {domain:"VOCAB",b:1.2,stem:'The scientist remained SKEPTICAL of the claim. SKEPTICAL means —',options:["doubtful","excited","certain","bored"],answer:0},
+  {domain:"VOCAB",b:1.6,stem:'His tone was CONDESCENDING. CONDESCENDING means —',options:["looking down on others","very friendly","very loud","very quiet"],answer:0},
+  {domain:"VOCAB",b:2.0,stem:'The committee reached a TENTATIVE agreement. TENTATIVE means —',options:["not yet final","completely final","very old","against the law"],answer:0},
+  {domain:"VOCAB",b:2.4,stem:'Her remarks were INNOCUOUS. INNOCUOUS means —',options:["harmless","dangerous","dishonest","brilliant"],answer:0},
+
+  /* ---------------- LITERAL COMPREHENSION ---------------- */
+  {domain:"LITERAL",b:-2.4,passage:"Tom has a red ball. He plays with it in the park.",stem:"What color is Tom's ball?",options:["red","blue","green","black"],answer:0},
+  {domain:"LITERAL",b:-1.9,passage:"Mia woke up early. She ate eggs for breakfast.",stem:"What did Mia eat?",options:["eggs","toast","rice","fruit"],answer:0},
+  {domain:"LITERAL",b:-1.4,passage:"The store opens at 9 a.m. and closes at 6 p.m.",stem:"When does the store close?",options:["6 p.m.","9 a.m.","noon","midnight"],answer:0},
+  {domain:"LITERAL",b:-0.9,passage:"Ben missed the bus because he woke up late. He walked to school instead.",stem:"How did Ben get to school?",options:["He walked.","He took the bus.","He drove.","He rode a bike."],answer:0},
+  {domain:"LITERAL",b:-0.5,passage:"The festival lasts three days. On the last day there are fireworks.",stem:"When are the fireworks?",options:["the last day","the first day","every day","never"],answer:0},
+  {domain:"LITERAL",b:-0.1,passage:"Lin saved her money for a whole year. Finally, she had enough to buy a bike.",stem:"What did Lin save money for?",options:["a bike","a car","a phone","a trip"],answer:0},
+  {domain:"LITERAL",b:0.3,passage:"The recipe needs two cups of flour, one egg, and a pinch of salt. It does not use sugar.",stem:"Which item is NOT in the recipe?",options:["sugar","flour","egg","salt"],answer:0},
+  {domain:"LITERAL",b:0.7,passage:"The museum is free on Mondays. On all other days, tickets cost five dollars.",stem:"How much is a ticket on Tuesday?",options:["five dollars","free","two dollars","ten dollars"],answer:0},
+  {domain:"LITERAL",b:1.1,passage:"Although the team practiced hard all season, they lost the final match by a single point.",stem:"By how much did the team lose?",options:["one point","two points","they won","ten points"],answer:0},
+  {domain:"LITERAL",b:1.5,passage:"The report stated that sales rose in spring, fell in summer, and stayed flat in autumn.",stem:"What happened to sales in summer?",options:["They fell.","They rose.","They stayed flat.","They doubled."],answer:0},
+  {domain:"LITERAL",b:1.9,passage:"According to the notice, the library will close for repairs in July and reopen to the public in September.",stem:"In which month does the library reopen?",options:["September","July","August","June"],answer:0},
+  {domain:"LITERAL",b:2.3,passage:"The article noted that while the first experiment failed, the second one succeeded — but only after the temperature was lowered.",stem:"What change finally led to success?",options:["lowering the temperature","raising the temperature","adding water","waiting longer"],answer:0},
+
+  /* ---------------- INFERENTIAL COMPREHENSION ---------------- */
+  {domain:"INFER",b:-2.2,passage:"Sam put on his coat, his hat, and his gloves before going outside.",stem:"What is the weather probably like?",options:["cold","hot","sunny","calm"],answer:0},
+  {domain:"INFER",b:-1.7,passage:"The plants were brown and dry. No one had watered them for weeks.",stem:"Why were the plants dying?",options:["They had no water.","They had too much sun.","They were too cold.","They were too new."],answer:0},
+  {domain:"INFER",b:-1.2,passage:"Maria smiled and hugged her friend the moment she saw her test score.",stem:"How did Maria feel about her score?",options:["happy","sad","angry","bored"],answer:0},
+  {domain:"INFER",b:-0.7,passage:"The streets were empty and every shop was closed, even though it was the middle of the day.",stem:"What can you best infer?",options:["It was a holiday.","It was midnight.","The town was busy.","It was raining hard."],answer:0},
+  {domain:"INFER",b:-0.3,passage:"During the whole meeting, Jake kept looking at the clock and tapping his foot.",stem:"How does Jake most likely feel?",options:["impatient","relaxed","sleepy","proud"],answer:0},
+  {domain:"INFER",b:0.1,passage:"The kitchen filled with smoke, and the bread in the oven had turned black.",stem:"What probably happened?",options:["The bread burned.","The bread was fresh.","The oven was off.","The bread was raw."],answer:0},
+  {domain:"INFER",b:0.5,passage:"She practiced the speech every single night, yet her hands still shook when she stood up to talk.",stem:"What can you infer about her?",options:["She was nervous.","She was lazy.","She was bored.","She was angry."],answer:0},
+  {domain:"INFER",b:0.9,passage:"Despite the storm warnings, the hikers kept climbing as dark clouds gathered over the peak.",stem:"What does this suggest about the hikers?",options:["They were taking a risk.","They were well prepared.","They turned back early.","They were not tired."],answer:0},
+  {domain:"INFER",b:1.3,passage:"The manager praised everyone in the meeting, but afterward quietly asked one worker to stay behind.",stem:"What can you best infer?",options:["That worker may be in trouble.","That worker got a raise.","The meeting was canceled.","Everyone left together."],answer:0},
+  {domain:"INFER",b:1.7,passage:"The author describes the old house using words like \u201Ccrumbling,\u201D \u201Csilent,\u201D and \u201Cforgotten.\u201D",stem:"What mood does the author create?",options:["gloomy","cheerful","exciting","peaceful"],answer:0},
+  {domain:"INFER",b:2.1,passage:"Though the politician promised real change, voters noticed she repeated the exact same plans from ten years ago.",stem:"What is the writer suggesting about the politician?",options:["She may not be sincere.","She is very honest.","She is new to politics.","She has many fresh ideas."],answer:0},
+  {domain:"INFER",b:2.5,passage:"The narrator insists he is \u201Cperfectly calm,\u201D yet in the same breath he describes his racing heart and trembling hands.",stem:"What does this contrast suggest?",options:["He is not as calm as he claims.","He is truly calm.","He has fallen asleep.","He is lying about his hands."],answer:0},
+
+  /* ---------------- LANGUAGE USAGE ---------------- */
+  {domain:"USAGE",b:-2.3,stem:"She ____ to school every day.",options:["goes","go","going","gone"],answer:0},
+  {domain:"USAGE",b:-1.8,stem:"There ____ three cats on the wall.",options:["are","is","am","be"],answer:0},
+  {domain:"USAGE",b:-1.3,stem:"Yesterday we ____ a movie together.",options:["watched","watch","watches","watching"],answer:0},
+  {domain:"USAGE",b:-0.8,stem:"He is taller ____ his brother.",options:["than","then","that","them"],answer:0},
+  {domain:"USAGE",b:-0.4,stem:"I have lived in this city ____ 2019.",options:["since","for","from","at"],answer:0},
+  {domain:"USAGE",b:0.0,stem:"Neither the teacher nor the students ____ ready to begin.",options:["were","was","is","be"],answer:0},
+  {domain:"USAGE",b:0.4,stem:"If it rains tomorrow, we ____ stay home.",options:["will","would","were","are"],answer:0},
+  {domain:"USAGE",b:0.8,stem:"The book, ____ was on the table, is mine.",options:["which","who","whom","whose"],answer:0},
+  {domain:"USAGE",b:1.2,stem:"By the time we arrived, the show ____ already started.",options:["had","has","have","having"],answer:0},
+  {domain:"USAGE",b:1.6,stem:"The teacher suggested that he ____ early to avoid the traffic.",options:["leave","leaves","left","leaving"],answer:0},
+  {domain:"USAGE",b:2.0,stem:"Hardly ____ he sat down when the phone began to ring.",options:["had","did","has","was"],answer:0},
+  {domain:"USAGE",b:2.4,stem:"It is essential that every student ____ the form before Friday.",options:["submit","submits","submitted","submitting"],answer:0}
+];
+
+/* instruction text per domain (EN + ZH) */
+const INSTR = {
+  VOCAB:  {en:"Choose the word closest in meaning to the word in CAPITALS.", zh:"\u9009\u62E9\u4E0E\u5927\u5199\u8BCD\u610F\u601D\u6700\u63A5\u8FD1\u7684\u8BCD\u3002"},
+  LITERAL:{en:"Read the text. Choose the best answer.", zh:"\u9605\u8BFB\u77ED\u6587\uFF0C\u9009\u62E9\u6700\u4F73\u7B54\u6848\u3002"},
+  INFER:  {en:"Read the text. Choose what you can best infer.", zh:"\u9605\u8BFB\u77ED\u6587\uFF0C\u9009\u62E9\u6700\u5408\u7406\u7684\u63A8\u65AD\u3002"},
+  USAGE:  {en:"Choose the word that best completes the sentence.", zh:"\u9009\u62E9\u6700\u80FD\u5B8C\u6210\u53E5\u5B50\u7684\u8BCD\u3002"}
+};
+const DOMAIN_LABEL = {
+  VOCAB:"Vocabulary / \u8BCD\u6C47",
+  LITERAL:"Literal comprehension / \u7406\u89E3",
+  INFER:"Inference / \u63A8\u65AD",
+  USAGE:"Language usage / \u8BED\u6CD5"
+};
+
+/* ----------------- ENGINE ----------------- */
+const ARC = (function(){
+  const PRIOR_MU = 0.0, PRIOR_SD = 2.0;     // weak Normal prior on ability
+  const THETA_MIN = -3.5, THETA_MAX = 3.5;
+  const SE_STOP = 0.33;                      // stop when SE (logits) below this
+  const MIN_ITEMS = 8;
+
+  let cfg = {};
+  let theta = 0, used = [], responses = [], domainCount={}, order=0;
+  let current = null, selected = -1, tabSwitches = 0;
+
+  function P(th,b){ return 1/(1+Math.exp(-(th-b))); }
+
+  // MLE of theta with Normal prior, given current responses
+  function estimateTheta(){
+    let th = theta;
+    for(let it=0; it<25; it++){
+      let g = -(th-PRIOR_MU)/(PRIOR_SD*PRIOR_SD); // prior gradient
+      let h = -1/(PRIOR_SD*PRIOR_SD);             // prior hessian
+      for(const r of responses){
+        const p = P(th, r.b);
+        g += (r.x - p);
+        h += -p*(1-p);
+      }
+      if(Math.abs(h) < 1e-9) break;
+      let step = g/h;
+      if(step > 1) step = 1; if(step < -1) step = -1; // damp
+      th -= step;
+      if(th>THETA_MAX) th=THETA_MAX; if(th<THETA_MIN) th=THETA_MIN;
+      if(Math.abs(step) < 1e-4) break;
+    }
+    return th;
+  }
+  function infoSum(th){
+    let I = 1/(PRIOR_SD*PRIOR_SD);
+    for(const r of responses){ const p=P(th,r.b); I += p*(1-p); }
+    return I;
+  }
+  function standardError(th){ return 1/Math.sqrt(infoSum(th)); }
+
+  // choose next item: balance domains, then max information (b nearest theta)
+  function pickItem(){
+    const domains = Object.keys(DOMAIN_LABEL);
+    const counts = domains.map(d=>({d, n: domainCount[d]||0}));
+    const minN = Math.min(...counts.map(c=>c.n));
+    const eligibleDomains = counts.filter(c=>c.n<=minN+0).map(c=>c.d);
+    // candidate items = unused items in least-covered domains
+    let cands = POOL.map((it,i)=>({it,i}))
+                    .filter(o=>!used.includes(o.i) && eligibleDomains.includes(o.it.domain));
+    if(cands.length===0){ // fall back: any unused
+      cands = POOL.map((it,i)=>({it,i})).filter(o=>!used.includes(o.i));
+    }
+    if(cands.length===0) return null;
+    cands.sort((a,b)=> Math.abs(a.it.b-theta) - Math.abs(b.it.b-theta));
+    return cands[0];
+  }
+
+  function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+  function showScreen(id){
+    ["setup","instr","test","results"].forEach(s=>{
+      document.getElementById("screen-"+s).classList.toggle("hidden", s!==id);
+    });
+    window.scrollTo(0,0);
+  }
+
+  /* ---- flow ---- */
+  function beginInstructions(){
+    const name = document.getElementById("in-name").value.trim();
+    if(!name){ alert("Please enter a student name. / 请输入学生姓名。"); return; }
+    cfg = {
+      name,
+      cls: document.getElementById("in-class").value.trim(),
+      id: document.getElementById("in-id").value.trim(),
+      max: parseInt(document.getElementById("in-max").value,10),
+      start: parseFloat(document.getElementById("in-start").value),
+      showZh: document.getElementById("sw-zh").classList.contains("on"),
+      lock: document.getElementById("sw-lock").classList.contains("on")
+    };
+    theta = cfg.start; used=[]; responses=[]; domainCount={}; order=0; tabSwitches=0;
+    document.getElementById("integrity-warn").style.display = cfg.lock ? "block":"none";
+    showScreen("instr");
+  }
+
+  function beginTest(){
+    if(cfg.lock){
+      tryFullscreen();
+      document.addEventListener("visibilitychange", onVisChange);
+      document.addEventListener("contextmenu", blockEvt);
+      document.addEventListener("copy", blockEvt);
+      document.addEventListener("cut", blockEvt);
+      document.addEventListener("keydown", blockKeys);
+    }
+    showScreen("test");
+    nextQuestion();
+  }
+
+  function nextQuestion(){
+    if(order >= cfg.max || used.length >= POOL.length || (order>=MIN_ITEMS && standardError(theta) < SE_STOP)){
+      return finish();
+    }
+    const pick = pickItem();
+    if(!pick) return finish();
+    current = pick; selected = -1;
+    current.display = shuffle([0,1,2,3]);
+    used.push(pick.i);
+    domainCount[pick.it.domain] = (domainCount[pick.it.domain]||0)+1;
+    order++;
+    render();
+  }
+
+  function render(){
+    const it = current.it;
+    const pct = Math.round((order/cfg.max)*100);
+    document.getElementById("progfill").style.width = pct+"%";
+    document.getElementById("prog-count").textContent = "Question "+order;
+    const se = standardError(theta);
+    const conf = se<SE_STOP ? "High confidence" : se<0.55 ? "Building estimate…" : "Estimating…";
+    document.getElementById("prog-conf").textContent = conf;
+
+    const ins = INSTR[it.domain];
+    document.getElementById("q-instr").innerHTML =
+      ins.en + (cfg.showZh ? ' <span class="zh">'+ins.zh+'</span>' : '');
+
+    const pass = document.getElementById("q-passage");
+    if(it.passage){ pass.textContent = it.passage; pass.classList.remove("hidden"); }
+    else { pass.classList.add("hidden"); }
+
+    document.getElementById("q-stem").textContent = it.stem;
+
+    const letters=["A","B","C","D"];
+    const box = document.getElementById("q-opts"); box.innerHTML="";
+    current.display.forEach((origIdx,pos)=>{
+      const el=document.createElement("button");
+      el.className="opt"; el.type="button";
+      el.innerHTML='<span class="lt">'+letters[pos]+'</span><span>'+escapeHtml(it.options[origIdx])+'</span>';
+      el.onclick=()=>selectOpt(origIdx,el);
+      box.appendChild(el);
+    });
+    document.getElementById("btn-next").disabled=true;
+  }
+
+  function selectOpt(idx,el){
+    selected=idx;
+    document.querySelectorAll("#q-opts .opt").forEach(o=>o.classList.remove("sel"));
+    el.classList.add("sel");
+    document.getElementById("btn-next").disabled=false;
+  }
+
+  function submitAnswer(){
+    if(selected<0) return;
+    const it=current.it;
+    const correct = (selected===it.answer)?1:0;
+    responses.push({b:it.b, x:correct, domain:it.domain, correct:correct});
+    theta = estimateTheta();
+    nextQuestion();
+  }
+
+  /* ---- results ---- */
+  function finish(){
+    if(cfg.lock){
+      document.removeEventListener("visibilitychange", onVisChange);
+      document.removeEventListener("contextmenu", blockEvt);
+      document.removeEventListener("copy", blockEvt);
+      document.removeEventListener("cut", blockEvt);
+      document.removeEventListener("keydown", blockKeys);
+      if(document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+    }
+    theta = estimateTheta();
+    const se = standardError(theta);
+    const rps = clampRps(Math.round(600 + 40*theta));
+    const seRps = Math.round(40*se);
+    const lo = clampRps(rps-seRps), hi = clampRps(rps+seRps);
+    const band = bandFor(rps);
+    const nCorrect = responses.filter(r=>r.correct).length;
+
+    document.getElementById("res-name").textContent = cfg.name + (cfg.cls? " · "+cfg.cls : "");
+    document.getElementById("res-rps").textContent = rps;
+    document.getElementById("res-band").innerHTML = band.tag;
+    document.getElementById("res-band").style.color = band.color;
+    document.getElementById("res-range").textContent = lo+"–"+hi;
+    document.getElementById("res-items").textContent = responses.length;
+    document.getElementById("res-correct").textContent = nCorrect+" / "+responses.length;
+    document.getElementById("res-se").textContent = "±"+seRps+" RPS";
+
+    // domain table
+    const tb = document.querySelector("#res-domains tbody"); tb.innerHTML="";
+    const dstats = domainStats();
+    Object.keys(DOMAIN_LABEL).forEach(d=>{
+      const s=dstats[d];
+      const tr=document.createElement("tr");
+      const pctv = s.n? Math.round(100*s.c/s.n):0;
+      tr.innerHTML='<td>'+DOMAIN_LABEL[d]+'</td><td>'+(s.n? s.c+"/"+s.n : "—")+
+        '</td><td>'+(s.n?'<div class="dombar"><span style="width:'+pctv+'%"></span></div>':'')+'</td>';
+      tb.appendChild(tr);
+    });
+
+    document.getElementById("res-instr-band").innerHTML =
+      "<b>Instructional placement:</b> "+band.tag+" — "+band.desc+
+      '<br><span class="zh">'+band.zh+'</span>';
+
+    // integrity
+    const log=document.getElementById("integrity-log");
+    if(cfg.lock){
+      log.innerHTML = "<b>Integrity log:</b> tab/window switches during test: "+tabSwitches+
+        (tabSwitches===0? " (clean).":" — review recommended.");
+    } else { log.innerHTML=""; }
+
+    showScreen("results");
+  }
+
+  function domainStats(){
+    const s={}; Object.keys(DOMAIN_LABEL).forEach(d=>s[d]={n:0,c:0});
+    responses.forEach(r=>{ s[r.domain].n++; if(r.correct) s[r.domain].c++; });
+    return s;
+  }
+
+  function clampRps(v){ return Math.max(400, Math.min(800, v)); }
+  function bandFor(rps){
+    if(rps<460) return {tag:"Foundational",color:"#b9770f",
+      desc:"Building core decoding and basic sentence meaning. Use highly scaffolded, high-support texts.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u57FA\u7840\u7EA7\u3002\u4F7F\u7528\u9AD8\u652F\u6301\u3001\u5F3A\u811A\u624B\u67B6\u7684\u6587\u672C\u3002"};
+    if(rps<540) return {tag:"Developing",color:"#2f6fed",
+      desc:"Handles literal meaning in short texts; growing vocabulary. Pair texts with visuals and sentence frames.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u53D1\u5C55\u7EA7\u3002\u914D\u5408\u56FE\u7247\u4E0E\u53E5\u5F0F\u6846\u67B6\u3002"};
+    if(rps<620) return {tag:"Proficient",color:"#1f9d6b",
+      desc:"Reads grade-adjacent texts with support; beginning inference. Target inference and academic vocabulary.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u719F\u7EC3\u7EA7\u3002\u91CD\u70B9\u8BAD\u7EC3\u63A8\u65AD\u4E0E\u5B66\u672F\u8BCD\u6C47\u3002"};
+    if(rps<700) return {tag:"Advancing",color:"#1f50c2",
+      desc:"Comfortable with inference and varied syntax. Push toward analysis, tone, and author's craft.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u8FDB\u9636\u7EA7\u3002\u63A8\u5411\u5206\u6790\u3001\u8BED\u6C14\u4E0E\u5199\u4F5C\u624B\u6CD5\u3002"};
+    return {tag:"Extending",color:"#1f2a44",
+      desc:"Strong inference and usage control. Extend with nuance, argument, and independent analysis.",
+      zh:"\u6559\u5B66\u5B9A\u4F4D\uFF1A\u62D3\u5C55\u7EA7\u3002\u62D3\u5C55\u81F3\u8BBA\u8BC1\u4E0E\u72EC\u7ACB\u5206\u6790\u3002"};
+  }
+
+  /* ---- report download ---- */
+  function downloadReport(){
+    const se = standardError(theta);
+    const rps = clampRps(Math.round(600+40*theta));
+    const seRps = Math.round(40*se);
+    const band = bandFor(rps);
+    const dstats = domainStats();
+    const nCorrect = responses.filter(r=>r.correct).length;
+    const now = new Date();
+    const stamp = now.getFullYear()+"-"+pad(now.getMonth()+1)+"-"+pad(now.getDate());
+
+    let t="";
+    t+="ADAPTIVE READING CHECK (ARC) — STUDENT REPORT\n";
+    t+="================================================\n";
+    t+="Student      : "+cfg.name+"\n";
+    t+="Class        : "+(cfg.cls||"-")+"\n";
+    t+="Student ID   : "+(cfg.id||"-")+"\n";
+    t+="Date         : "+stamp+"\n";
+    t+="------------------------------------------------\n";
+    t+="READING POWER SCORE (RPS): "+rps+"  (range "+clampRps(rps-seRps)+"-"+clampRps(rps+seRps)+")\n";
+    t+="Precision (SE)           : +/- "+seRps+" RPS\n";
+    t+="Instructional band       : "+band.tag+"\n";
+    t+="Items administered       : "+responses.length+"\n";
+    t+="Overall correct          : "+nCorrect+" / "+responses.length+"\n";
+    t+="------------------------------------------------\n";
+    t+="SKILL BREAKDOWN\n";
+    Object.keys(DOMAIN_LABEL).forEach(d=>{
+      const s=dstats[d];
+      const lbl=DOMAIN_LABEL[d].split(" / ")[0];
+      t+="  "+padR(lbl,22)+": "+(s.n? s.c+"/"+s.n+" ("+Math.round(100*s.c/(s.n||1))+"%)":"not tested")+"\n";
+    });
+    t+="------------------------------------------------\n";
+    t+="TEACHER NOTE\n";
+    t+="  "+wrap(band.desc,60,"  ")+"\n";
+    t+="------------------------------------------------\n";
+    if(cfg.lock){
+      t+="INTEGRITY: tab/window switches = "+tabSwitches+(tabSwitches===0?" (clean)":" (review)")+"\n";
+      t+="------------------------------------------------\n";
+    }
+    t+="ITEM LOG (difficulty b, result)\n";
+    responses.forEach((r,i)=>{
+      t+="  "+padR("Q"+(i+1),5)+padR(r.domain,9)+" b="+padR(r.b.toFixed(1),6)+(r.correct?"correct":"incorrect")+"\n";
+    });
+    t+="================================================\n";
+    t+="RPS is an original vertical scale (400-800) calibrated to this\n";
+    t+="item pool. Use for placement, grouping, and growth across re-tests.\n";
+    t+="Not a nationally-normed reading grade. Independent classroom tool.\n";
+
+    const safe = (cfg.name||"student").replace(/[^a-z0-9]+/gi,"_");
+    const blob=new Blob([t],{type:"text/plain;charset=utf-8"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="ARC_"+safe+"_"+stamp+".txt";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+  }
+
+  /* ---- anti-cheat helpers ---- */
+  function onVisChange(){ if(document.hidden){ tabSwitches++; } }
+  function blockEvt(e){ e.preventDefault(); return false; }
+  function blockKeys(e){
+    const k=e.key.toLowerCase();
+    if(k==="f12") { e.preventDefault(); return false; }
+    if((e.ctrlKey||e.metaKey)&&["c","x","u","s","p"].includes(k)){ e.preventDefault(); return false; }
+    if((e.ctrlKey||e.metaKey)&&e.shiftKey&&["i","j","c"].includes(k)){ e.preventDefault(); return false; }
+  }
+  function tryFullscreen(){
+    const el=document.documentElement;
+    if(el.requestFullscreen){ el.requestFullscreen().catch(()=>{}); }
+  }
+
+  /* ---- utils ---- */
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  function pad(n){return String(n).padStart(2,"0");}
+  function padR(s,n){s=String(s);return s.length>=n?s:s+" ".repeat(n-s.length);}
+  function wrap(s,w,ind){
+    const words=s.split(" ");let line="",out=[];
+    words.forEach(wd=>{ if((line+wd).length>w){out.push(line.trim());line=ind+wd+" ";} else line+=wd+" ";});
+    if(line.trim())out.push(line.trim());
+    return out.join("\n");
+  }
+  function restart(){ showScreen("setup"); document.getElementById("in-name").value=""; document.getElementById("in-id").value=""; }
+
+  return { beginInstructions, beginTest, submitAnswer, downloadReport, restart };
+})();
+
+/* ----- switch toggles ----- */
+document.getElementById("sw-zh").addEventListener("click",function(){this.classList.toggle("on");});
+document.getElementById("sw-lock").addEventListener("click",function(){this.classList.toggle("on");});
+
+/* keyboard: 1-4 select, Enter submit (convenience on test screen) */
+document.addEventListener("keydown",e=>{
+  if(document.getElementById("screen-test").classList.contains("hidden")) return;
+  if(["1","2","3","4"].includes(e.key)){
+    const opts=document.querySelectorAll("#q-opts .opt");
+    const idx=parseInt(e.key,10)-1;
+    if(opts[idx]) opts[idx].click();
+  }
+  if(e.key==="Enter"){ const b=document.getElementById("btn-next"); if(!b.disabled) b.click(); }
+});
+</script>
+</body>
+</html>
