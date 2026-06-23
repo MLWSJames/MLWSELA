@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Am I Feeling?</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #141820;
+    --surface: #1e2433;
+    --surface2: #252d3d;
+    --border: #2e3a50;
+    --text: #dde2ee;
+    --text-dim: #7a8aaa;
+    --accent: #5b9e9a;
+    --accent-glow: rgba(91,158,154,0.15);
+    --amber: #c9956a;
+    --amber-glow: rgba(201,149,106,0.15);
+    --green: #6aab7a;
+    --green-glow: rgba(106,171,122,0.15);
+    --purple: #9a7ec9;
+    --purple-glow: rgba(154,126,201,0.15);
+    --radius: 12px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 60px;
+  }
+
+  header { text-align: center; margin-bottom: 32px; padding-top: 16px; }
+  header h1 {
+    font-size: 1.3rem; font-weight: 500; letter-spacing: 0.04em;
+    color: var(--text-dim); text-transform: uppercase;
+  }
+  header p { margin-top: 6px; font-size: 0.85rem; color: var(--text-dim); opacity: 0.6; }
+
+  .container { width: 100%; max-width: 640px; }
+
+  .step { display: none; animation: fadeIn 0.35s ease; }
+  .step.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .step { animation: none; } }
+
+  .step-label {
+    font-size: 0.72rem; font-family: 'DM Mono', monospace;
+    color: var(--accent); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .step-question { font-size: 1.45rem; font-weight: 500; line-height: 1.4; margin-bottom: 24px; }
+
+  .options { display: grid; gap: 10px; }
+  .options.cols-2 { grid-template-columns: 1fr 1fr; }
+
+  .opt {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 16px 14px; cursor: pointer;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+    text-align: left; color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 400;
+  }
+  .opt:hover { border-color: var(--accent); background: var(--accent-glow); transform: translateY(-1px); }
+  .opt.opt-mad:hover  { border-color: #c97a5b; background: rgba(201,122,91,0.12); }
+  .opt.opt-sad:hover  { border-color: #5b7ec9; background: rgba(91,126,201,0.12); }
+  .opt.opt-ok:hover   { border-color: var(--green); background: var(--green-glow); }
+  .opt.opt-unsure:hover { border-color: var(--purple); background: var(--purple-glow); }
+  .opt .opt-icon { font-size: 1.5rem; margin-bottom: 6px; display: block; }
+  .opt .opt-label { display: block; font-weight: 500; }
+  .opt .opt-sub { display: block; font-size: 0.78rem; color: var(--text-dim); margin-top: 3px; line-height: 1.4; }
+
+  /* BODY MAP */
+  .body-map-wrap { display: flex; gap: 20px; align-items: flex-start; }
+  .body-svg-col { flex-shrink: 0; }
+  .body-zones-col { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: start; }
+  .body-opt {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; text-align: left;
+  }
+  .body-opt:hover, .body-opt.selected { border-color: var(--amber); background: var(--amber-glow); }
+  .body-opt .zone-name { font-weight: 500; display: block; }
+  .body-opt .zone-hint { font-size: 0.74rem; color: var(--text-dim); margin-top: 2px; display: block; }
+
+  #body-figure { width: 110px; }
+  .body-zone-svg {
+    fill: var(--surface2); stroke: var(--border); stroke-width: 1.5;
+    cursor: pointer; transition: fill 0.2s;
+  }
+  .body-zone-svg.lit { fill: var(--amber); stroke: var(--amber); opacity: 0.85; }
+
+  /* CHIPS */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: 999px; padding: 7px 14px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--text);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .chip:hover, .chip.selected { border-color: var(--accent); background: var(--accent-glow); color: var(--accent); }
+
+  /* INTENSITY */
+  .intensity-wrap { margin: 12px 0 24px; }
+  .intensity-track { display: flex; gap: 6px; }
+  .intensity-btn {
+    flex: 1; height: 44px; border-radius: 8px; border: 1.5px solid var(--border);
+    background: var(--surface); cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+    font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--text-dim);
+  }
+  .intensity-btn:hover, .intensity-btn.selected {
+    border-color: var(--accent); background: var(--accent); color: var(--bg); font-weight: 600;
+  }
+  .intensity-labels { display: flex; justify-content: space-between; margin-top: 6px; font-size: 0.72rem; color: var(--text-dim); }
+
+  /* RESULT */
+  #result-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; padding: 28px 24px; }
+
+  .result-emotion-name {
+    font-family: 'DM Mono', monospace; font-size: 2rem; font-weight: 500;
+    color: var(--accent); letter-spacing: 0.02em; margin-bottom: 6px;
+  }
+  .result-emotion-name.cat-mad      { color: #c97a5b; }
+  .result-emotion-name.cat-sad      { color: #7a9ec9; }
+  .result-emotion-name.cat-positive { color: var(--green); }
+  .result-emotion-name.cat-mixed    { color: var(--purple); }
+
+  .result-category { font-size: 0.75rem; font-family: 'DM Mono', monospace; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
+  .result-definition { font-size: 1rem; line-height: 1.65; color: var(--text); margin-bottom: 20px; }
+  .result-body-note { font-size: 0.85rem; line-height: 1.6; color: var(--text-dim); background: var(--surface2); border-radius: 8px; padding: 12px 14px; margin-bottom: 20px; }
+  .result-body-note strong { color: var(--amber); }
+
+  /* WHAT MIGHT HELP */
+  .help-section { margin-top: 20px; }
+  .help-label { font-size: 0.72rem; font-family: 'DM Mono', monospace; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .help-items { display: grid; gap: 8px; }
+  .help-item {
+    background: var(--surface2); border-radius: 8px; padding: 11px 14px;
+    font-size: 0.88rem; line-height: 1.5; color: var(--text);
+    border-left: 3px solid var(--accent);
+  }
+  .help-item.physical { border-color: var(--amber); }
+  .help-item.cognitive { border-color: var(--purple); }
+  .help-item.social    { border-color: var(--green); }
+
+  /* RELATED */
+  .related-wrap { margin-top: 20px; }
+  .related-label { font-size: 0.72rem; font-family: 'DM Mono', monospace; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .related-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .related-chip { background: var(--surface2); border-radius: 999px; padding: 4px 12px; font-size: 0.8rem; color: var(--text-dim); border: 1px solid var(--border); }
+
+  /* NAV */
+  .nav { margin-top: 24px; display: flex; gap: 10px; }
+  .btn-primary {
+    background: var(--accent); color: var(--bg); border: none; border-radius: 8px;
+    padding: 12px 24px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    font-weight: 600; cursor: pointer; transition: opacity 0.15s, transform 0.1s;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+  .btn-ghost {
+    background: transparent; color: var(--text-dim); border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 12px 18px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; cursor: pointer; transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--text-dim); color: var(--text); }
+
+  /* PROGRESS */
+  .progress-bar { width: 100%; height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 28px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.35s ease; }
+
+  .skip-note { font-size: 0.78rem; color: var(--text-dim); margin-top: 10px; opacity: 0.7; }
+  .hint-text { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 16px; }
+
+  @media (max-width: 520px) {
+    .body-map-wrap { flex-direction: column; }
+    .body-svg-col { display: none; }
+    .body-zones-col { grid-template-columns: 1fr; }
+    .options.cols-2 { grid-template-columns: 1fr; }
+    .result-emotion-name { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>What Am I Feeling?</h1>
+  <p>Answer step by step. No wrong answers.</p>
+</header>
+
+<div class="container">
+  <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+
+  <!-- STEP 1: Base state -->
+  <div class="step active" id="step-1">
+    <div class="step-label">Step 1 of 5 · Starting point</div>
+    <div class="step-question">Right now, which word fits best?</div>
+    <div class="options">
+      <button class="opt opt-mad" onclick="selectBase('mad')">
+        <span class="opt-icon">⚡</span>
+        <span class="opt-label">Mad</span>
+        <span class="opt-sub">Something feels wrong, blocked, or unfair</span>
+      </button>
+      <button class="opt opt-sad" onclick="selectBase('sad')">
+        <span class="opt-icon">🌧</span>
+        <span class="opt-label">Sad</span>
+        <span class="opt-sub">Something hurts, is missing, or feels heavy</span>
+      </button>
+      <button class="opt opt-ok" onclick="selectBase('ok')">
+        <span class="opt-icon">☀️</span>
+        <span class="opt-label">Good / Okay</span>
+        <span class="opt-sub">Something feels okay, light, or pleasant</span>
+      </button>
+      <button class="opt opt-unsure" onclick="selectBase('neutral')">
+        <span class="opt-icon">〰</span>
+        <span class="opt-label">Not sure / Flat</span>
+        <span class="opt-sub">Can't tell, or nothing really fits</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Body map -->
+  <div class="step" id="step-2">
+    <div class="step-label">Step 2 of 5 · Body check</div>
+    <div class="step-question">Where do you notice something in your body?</div>
+    <p class="hint-text">Pick all that apply. It might be subtle — tightness, warmth, lightness. "Nothing" is a real answer.</p>
+    <div class="body-map-wrap">
+      <div class="body-svg-col">
+        <svg id="body-figure" viewBox="0 0 110 280" xmlns="http://www.w3.org/2000/svg">
+          <ellipse class="body-zone-svg" id="svg-head"      cx="55" cy="28" rx="22" ry="24" onclick="toggleBodySVG('head')" />
+          <rect    class="body-zone-svg" id="svg-throat"    x="45" y="52" width="20" height="16" rx="4" onclick="toggleBodySVG('throat')" />
+          <rect    class="body-zone-svg" id="svg-chest"     x="30" y="68" width="50" height="44" rx="6" onclick="toggleBodySVG('chest')" />
+          <rect    class="body-zone-svg" id="svg-stomach"   x="33" y="114" width="44" height="30" rx="5" onclick="toggleBodySVG('stomach')" />
+          <rect    class="body-zone-svg" id="svg-gut"       x="35" y="146" width="40" height="22" rx="5" onclick="toggleBodySVG('gut')" />
+          <rect    class="body-zone-svg" id="svg-shoulders" x="8"  y="68"  width="22" height="50" rx="8" onclick="toggleBodySVG('shoulders')" />
+          <rect    class="body-zone-svg"                    x="80" y="68"  width="22" height="50" rx="8" onclick="toggleBodySVG('shoulders')" />
+          <rect    class="body-zone-svg" id="svg-legs"      x="33" y="170" width="18" height="80" rx="6" onclick="toggleBodySVG('legs')" />
+          <rect    class="body-zone-svg"                    x="59" y="170" width="18" height="80" rx="6" onclick="toggleBodySVG('legs')" />
+        </svg>
+      </div>
+      <div class="body-zones-col" id="body-zones-list"></div>
+    </div>
+    <p class="skip-note">Not sure? That's fine — you can skip.</p>
+    <div class="nav">
+      <button class="btn-primary" onclick="goStep(3)">Next</button>
+      <button class="btn-ghost"   onclick="goStep(3)">Skip</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: Sensations -->
+  <div class="step" id="step-3">
+    <div class="step-label">Step 3 of 5 · Sensations</div>
+    <div class="step-question">What does it feel like physically?</div>
+    <p class="hint-text">Pick any that fit — these are body words, not feeling words.</p>
+    <div class="chips" id="sensation-chips"></div>
+    <p class="skip-note">None fit? That's okay — skip.</p>
+    <div class="nav">
+      <button class="btn-primary" onclick="goStep(4)">Next</button>
+      <button class="btn-ghost"   onclick="goStep(4)">Skip</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Intensity -->
+  <div class="step" id="step-4">
+    <div class="step-label">Step 4 of 5 · How much</div>
+    <div class="step-question">How strong is it?</div>
+    <div class="intensity-wrap">
+      <div class="intensity-track" id="intensity-track"></div>
+      <div class="intensity-labels"><span>Barely there</span><span>Overwhelming</span></div>
+    </div>
+    <div class="nav">
+      <button class="btn-primary" id="btn-decode" onclick="decode()" disabled>See my emotion</button>
+    </div>
+  </div>
+
+  <!-- STEP 5: Result -->
+  <div class="step" id="step-5">
+    <div class="step-label">Step 5 of 5 · Decoded</div>
+    <div id="result-card">
+      <div class="result-emotion-name" id="res-name">—</div>
+      <div class="result-category"     id="res-cat">—</div>
+      <div class="result-definition"   id="res-def">—</div>
+      <div class="result-body-note"    id="res-body">—</div>
+
+      <div class="help-section">
+        <div class="help-label">What might help right now</div>
+        <div class="help-items" id="res-help"></div>
+      </div>
+
+      <div class="related-wrap">
+        <div class="related-label">Similar feelings</div>
+        <div class="related-chips" id="res-related"></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-primary" onclick="restart()">Start over</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── State ────────────────────────────────────────────────────────────────────
+const state = { base: null, bodyZones: new Set(), sensations: new Set(), intensity: null };
+
+// ─── Body zones ───────────────────────────────────────────────────────────────
+const BODY_ZONES = [
+  { id:'head',      name:'Head / Face',      hint:'pressure, flushing, fog' },
+  { id:'throat',    name:'Throat / Neck',    hint:'tight, lump, dry' },
+  { id:'chest',     name:'Chest / Heart',    hint:'tight, fast, warm, open' },
+  { id:'stomach',   name:'Stomach',          hint:'knot, nausea, hollow, fluttery' },
+  { id:'gut',       name:'Gut / Lower belly',hint:'drop, flutter, clench' },
+  { id:'shoulders', name:'Shoulders / Arms', hint:'tight, heavy, shaky, warm' },
+  { id:'legs',      name:'Legs / Feet',      hint:'restless, heavy, weak, tingly' },
+  { id:'none',      name:'Nothing / Numb',   hint:"can't feel anything specific" },
+];
+
+// ─── Sensations ───────────────────────────────────────────────────────────────
+const SENSATIONS = [
+  'Tight','Heavy','Shaky','Warm','Cold','Hollow','Buzzing','Numb',
+  'Restless','Sinking','Racing heart','Shallow breath','Knot','Floaty',
+  'Frozen','Hot face','Fizzy / Light','Expanded','Tingly','Aching','Dry mouth','Slow'
+];
+
+// ─── Emotion database ─────────────────────────────────────────────────────────
+// help: array of { text, type } — type: physical | cognitive | social
+const EMOTIONS = {
+
+  // ── MAD family ────────────────────────────────────────────────────────────
+  frustrated: {
+    name:'Frustrated', category:'Mad family', colorClass:'cat-mad',
+    def:"You want something to happen or stop, and it isn't. The block could be a person, a situation, or your own mind. Frustration is mad without an explosion yet.",
+    body:'Common signals: tight shoulders or jaw, warmth in the chest, shallow breath. The body is gearing up to push through something.',
+    related:['Annoyed','Irritated','Impatient','Overwhelmed'],
+    help:[
+      { text:"Take a slow breath out — longer than the breath in. This tells your nervous system you're not in danger.", type:'physical' },
+      { text:"Name what's being blocked. Write it down in one sentence. Naming the specific block shrinks it.", type:'cognitive' },
+      { text:"Give yourself permission to step away for 5 minutes before trying again.", type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='mad'?4:0)+(z.has('shoulders')?2:0)+(z.has('chest')?1:0)+(s.sensations.has('Tight')?2:0)+(i<=3?2:0)
+  },
+  angry: {
+    name:'Angry', category:'Mad family', colorClass:'cat-mad',
+    def:'Something feels wrong, unfair, or threatening — and your system is mobilising to do something about it. Anger is a signal, not a flaw.',
+    body:'Common signals: heat in the face or chest, muscle tension, faster heartbeat. The body is ready to act.',
+    related:['Furious','Resentful','Hostile','Indignant'],
+    help:[
+      { text:'Move your body — walk fast, shake your hands, do 10 push-ups. Anger generates physical energy that needs somewhere to go.', type:'physical' },
+      { text:"Write or say what you'd want to say even if you'd never actually say it. Getting it out of your head reduces the pressure.", type:'cognitive' },
+      { text:'Wait 20 minutes before responding to the person or situation that triggered this. Your thinking will be clearer.', type:'cognitive' },
+    ],
+    score:(s,z,i)=>(s.base==='mad'?4:0)+(z.has('chest')?2:0)+(z.has('head')?2:0)+(s.sensations.has('Hot face')?2:0)+(s.sensations.has('Racing heart')?2:0)+(i>=4?3:0)
+  },
+  irritated: {
+    name:'Irritated', category:'Mad family', colorClass:'cat-mad',
+    def:"Low-level friction. Something small — noise, a comment, a sensation — is rubbing you the wrong way. It hasn't built into full anger, but it's there.",
+    body:'Common signals: tension around eyes or jaw, slight warmth, a wish for everything to just stop.',
+    related:['Annoyed','Agitated','Touchy','Frustrated'],
+    help:[
+      { text:"Reduce input if you can — quieter room, lower lights, headphones. Irritation often has a sensory component.", type:'physical' },
+      { text:"Check: are you hungry, tired, or overstimulated? Irritation is often a secondary signal for those.", type:'cognitive' },
+      { text:'Give yourself permission to say nothing for a while. You don\'t have to engage.', type:'social' },
+    ],
+    score:(s,z,i)=>(s.base==='mad'?3:0)+(z.has('head')?2:0)+(s.sensations.has('Tight')?1:0)+(i<=2?3:0)
+  },
+  resentful: {
+    name:'Resentful', category:'Mad family', colorClass:'cat-mad',
+    def:"Anger that has been sitting for a while. Something felt unfair, you didn't (or couldn't) say it, and it settled in.",
+    body:"Common signals: heaviness in the chest, a background tension that's hard to locate, low energy.",
+    related:['Bitter','Angry','Hurt','Frustrated'],
+    help:[
+      { text:'Write about what originally happened — not to forgive, just to process. Putting it in words can reduce its weight.', type:'cognitive' },
+      { text:'Ask: is this still happening, or am I carrying something old? Naming that distinction helps.', type:'cognitive' },
+      { text:'Physical movement — especially walking — can unstick resentment that has settled in the chest and shoulders.', type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='mad'?2:0)+(z.has('chest')?2:0)+(s.sensations.has('Heavy')?3:0)+(s.sensations.has('Tight')?1:0)+(i>=3?1:0)
+  },
+
+  // ── SAD family ────────────────────────────────────────────────────────────
+  disappointed: {
+    name:'Disappointed', category:'Sad family', colorClass:'cat-sad',
+    def:"You expected something — a person, a result, a version of yourself — and it didn't arrive. The gap between expectation and reality is the feeling.",
+    body:'Common signals: a slight sinking in the chest or stomach, heaviness, quietness in the body.',
+    related:['Let down','Sad','Deflated','Resigned'],
+    help:[
+      { text:"Name what you expected. Disappointment lives in the gap between expectation and reality — seeing that gap clearly helps.", type:'cognitive' },
+      { text:"Give yourself time to feel it before problem-solving. Jumping to 'what now' too fast skips the processing step.", type:'cognitive' },
+      { text:'A small comfort — a familiar drink, a blanket, a show you know — is a legitimate and useful response right now.', type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='sad'?4:0)+(z.has('chest')?1:0)+(z.has('stomach')?2:0)+(s.sensations.has('Sinking')?3:0)+(s.sensations.has('Heavy')?1:0)+(i<=3?2:0)
+  },
+  grieving: {
+    name:'Grief', category:'Sad family', colorClass:'cat-sad',
+    def:"Loss — of a person, a place, a version of your life, an expectation. Grief doesn't have to be about death. It's what happens when something that mattered is gone.",
+    body:'Common signals: heaviness in the chest, aching, a hollow feeling, sometimes crying with no clear trigger.',
+    related:['Sad','Heartbroken','Lonely','Numb'],
+    help:[
+      { text:"You don't have to do anything with grief right now. Sit with it if you can. Fighting it usually makes it heavier.", type:'cognitive' },
+      { text:'Gentle physical contact — a weighted blanket, your own hand on your chest — can help regulate the body during grief.', type:'physical' },
+      { text:'If there\'s someone safe to be near (not necessarily talking), being with them can help. Grief is hard to carry alone.', type:'social' },
+    ],
+    score:(s,z,i)=>(s.base==='sad'?3:0)+(z.has('chest')?3:0)+(s.sensations.has('Hollow')?3:0)+(s.sensations.has('Heavy')?2:0)+(i>=3?2:0)
+  },
+  lonely: {
+    name:'Lonely', category:'Sad family', colorClass:'cat-sad',
+    def:"A sense of disconnection — from people, from understanding, from belonging. You can be lonely in a crowd.",
+    body:'Common signals: hollowness in the chest, a quiet ache, sometimes numbness or flatness.',
+    related:['Isolated','Sad','Misunderstood','Empty'],
+    help:[
+      { text:'Low-demand connection can help — a text, being in a public space, a video call. You don\'t have to talk much.', type:'social' },
+      { text:"Write or type to yourself about what you wish someone understood about you right now. It's a form of being heard.", type:'cognitive' },
+      { text:'Being near pets, animals, or familiar comforting things can reduce the physical sensation of loneliness.', type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='sad'?2:0)+(z.has('chest')?2:0)+(s.sensations.has('Hollow')?3:0)+(s.sensations.has('Numb')?2:0)+(i<=3?1:0)
+  },
+  sad: {
+    name:'Sad', category:'Sad family', colorClass:'cat-sad',
+    def:"Plain sadness. Something is wrong, or missing, or hard. It doesn't need a specific cause. It's okay to just be sad.",
+    body:'Common signals: heaviness throughout the body, slower movements, eyes that feel heavy or wet.',
+    related:['Unhappy','Melancholy','Down','Dejected'],
+    help:[
+      { text:"You're allowed to be sad without fixing it immediately. Let yourself feel it rather than talking yourself out of it.", type:'cognitive' },
+      { text:'Low-energy comfort: a familiar show, music, something soft to hold. Sadness needs rest, not stimulation.', type:'physical' },
+      { text:"If you can tell someone you're having a hard day without needing to explain it, that can help. You don't owe a reason.", type:'social' },
+    ],
+    score:(s,z,i)=>(s.base==='sad'?4:0)+(s.sensations.has('Heavy')?2:0)+(i>=2&&i<=4?2:0)
+  },
+  guilt: {
+    name:'Guilt', category:'Sad family', colorClass:'cat-sad',
+    def:"You believe you did something wrong, or failed to do something you should have. Unlike shame, guilt is about the action — not about being a bad person overall.",
+    body:'Common signals: tight or heavy feeling in the stomach or chest, a kind of pulling sensation, difficulty concentrating on other things.',
+    related:['Remorse','Regret','Shame','Sorry'],
+    help:[
+      { text:"Ask: is this guilt about something real, or am I taking responsibility for something that wasn't actually mine?", type:'cognitive' },
+      { text:'If it is real, name what you\'d do differently. A plan reduces guilt more than ruminating does.', type:'cognitive' },
+      { text:'If you can repair it — apologise, correct it, acknowledge it — doing that tends to lift guilt faster than sitting with it.', type:'social' },
+    ],
+    score:(s,z,i)=>(s.base==='sad'?2:0)+(s.base==='neutral'?1:0)+(z.has('stomach')?3:0)+(z.has('chest')?1:0)+(s.sensations.has('Knot')?3:0)+(s.sensations.has('Sinking')?1:0)+(i>=2?1:0)
+  },
+
+  // ── POSITIVE family ───────────────────────────────────────────────────────
+  relief: {
+    name:'Relief', category:'Positive family', colorClass:'cat-positive',
+    def:"Something that was a threat or a burden has passed or been resolved. The body is exhaling. Relief is what it feels like when bracing stops.",
+    body:'Common signals: a release of tension, especially in shoulders and chest. Slower breath. Sometimes tiredness — the body was holding a lot.',
+    related:['Calm','Safe','Grateful','Settled'],
+    help:[
+      { text:"Let yourself actually feel the relief — don't immediately move to the next thing. Your nervous system needs time to come down.", type:'physical' },
+      { text:'Take a few slow, full breaths to signal to your body that the coast is clear.', type:'physical' },
+      { text:'Rest if you can. Relief often reveals how much energy you were using to cope with the thing that just resolved.', type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='ok'?3:0)+(s.base==='neutral'?1:0)+(z.has('chest')?1:0)+(z.has('shoulders')?1:0)+(s.sensations.has('Warm')?2:0)+(s.sensations.has('Slow')?2:0)+(i<=2?2:0)
+  },
+  content: {
+    name:'Content', category:'Positive family', colorClass:'cat-positive',
+    def:"Quiet okayness. Not excitement — just a stable sense that things are alright right now. Content is easy to miss because it doesn't demand attention.",
+    body:'Common signals: soft, open feeling in the chest. Relaxed muscles. No urgency. Breath is easy.',
+    related:['Peaceful','Settled','Comfortable','At ease'],
+    help:[
+      { text:"Notice it. Content is easy to overlook — naming it helps you recognise what it feels like so you can seek it again.", type:'cognitive' },
+      { text:"Stay with whatever you're doing. You don't need to do anything special with contentment.", type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='ok'?4:0)+(s.sensations.has('Warm')?2:0)+(s.sensations.has('Expanded')?1:0)+(i<=2?3:0)+(i===1?2:0)
+  },
+  excited: {
+    name:'Excited', category:'Positive family', colorClass:'cat-positive',
+    def:"Anticipation of something good, or energy around something that interests you. Can feel similar to anxiety in the body — the difference is whether the anticipation feels wanted or not.",
+    body:'Common signals: energy in the chest, fizzy or buzzing feeling, faster heartbeat, restlessness. The body wants to move.',
+    related:['Enthusiastic','Eager','Anticipating','Energised'],
+    help:[
+      { text:"If it's tipping into too much, do something with the energy — move around, talk about the thing, write about it.", type:'physical' },
+      { text:"If it feels hard to tell if this is excitement or anxiety: ask yourself whether the anticipation is something you want. Excitement = yes. Anxiety = no or unsure.", type:'cognitive' },
+    ],
+    score:(s,z,i)=>(s.base==='ok'?3:0)+(z.has('chest')?2:0)+(s.sensations.has('Fizzy / Light')?3:0)+(s.sensations.has('Racing heart')?1:0)+(s.sensations.has('Restless')?2:0)+(i>=3?2:0)
+  },
+  proud: {
+    name:'Proud', category:'Positive family', colorClass:'cat-positive',
+    def:"You did something that meets your own standard, or someone you care about did. Pride is a signal that something mattered and went well.",
+    body:'Common signals: warmth or lightness in the chest, head naturally lifts, slight energy boost.',
+    related:['Accomplished','Satisfied','Confident','Pleased'],
+    help:[
+      { text:"Let yourself have it. Autistic people and people with alexithymia often dismiss or minimise positive states. This one is valid.", type:'cognitive' },
+      { text:"Tell someone — even briefly. Saying it aloud makes it more real.", type:'social' },
+    ],
+    score:(s,z,i)=>(s.base==='ok'?3:0)+(z.has('chest')?2:0)+(s.sensations.has('Warm')?2:0)+(s.sensations.has('Expanded')?2:0)+(i>=2?1:0)
+  },
+
+  // ── NEUTRAL / MIXED family ────────────────────────────────────────────────
+  anxious: {
+    name:'Anxious', category:'Neutral / Mixed', colorClass:'cat-mixed',
+    def:"Your brain is scanning for threat — real or imagined, near or far. Anxiety is your nervous system trying to protect you from something it thinks might happen.",
+    body:'Common signals: tight chest, stomach knot, racing heart, shallow breath, restlessness. Often feels like too much energy with nowhere to go.',
+    related:['Worried','Nervous','Dread','On edge'],
+    help:[
+      { text:"Slow your exhale — breathe in for 4 counts, out for 6-8. The long exhale activates the brake on your nervous system.", type:'physical' },
+      { text:"Name what you're anxious about in one specific sentence. Vague anxiety is harder to manage than named anxiety.", type:'cognitive' },
+      { text:"Grounding: name 5 things you can see right now. This pulls attention back to the present moment.", type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='neutral'?2:0)+(z.has('chest')?2:0)+(z.has('stomach')?2:0)+(s.sensations.has('Knot')?3:0)+(s.sensations.has('Racing heart')?2:0)+(s.sensations.has('Shallow breath')?2:0)+(s.sensations.has('Restless')?2:0)+(i>=3?2:0)
+  },
+  dread: {
+    name:'Dread', category:'Neutral / Mixed', colorClass:'cat-mixed',
+    def:"Anticipatory fear of something specific. Unlike general anxiety, dread has a target — something that's coming that you don't want. The event doesn't have to be dangerous to trigger it.",
+    body:'Common signals: heaviness in the stomach or chest, slow energy, a pulling-down sensation. Sometimes a background hum of wrongness you can\'t shake.',
+    related:['Anxious','Apprehensive','Worried','Foreboding'],
+    help:[
+      { text:"Identify exactly what you're dreading. Dread grows in vagueness — naming the specific thing usually makes it more manageable.", type:'cognitive' },
+      { text:"Break the feared thing into the smallest possible pieces. Which part is actually the worst part? Start only there.", type:'cognitive' },
+      { text:"If the dreaded thing is unavoidable, give yourself something to look forward to directly after it — a plan, a reward, a rest.", type:'cognitive' },
+    ],
+    score:(s,z,i)=>(s.base==='neutral'?2:0)+(s.base==='sad'?1:0)+(z.has('stomach')?3:0)+(z.has('chest')?2:0)+(s.sensations.has('Heavy')?2:0)+(s.sensations.has('Sinking')?2:0)+(i>=3?2:0)
+  },
+  overwhelmed: {
+    name:'Overwhelmed', category:'Neutral / Mixed', colorClass:'cat-mixed',
+    def:"Too much — too much input, too many demands, too much to process. The system hits capacity. Especially common after social or sensory load.",
+    body:'Common signals: pressure in the head, buzzing or ringing, frozen feeling, heaviness, wanting to shut everything out.',
+    related:['Stressed','Overstimulated','Anxious','Exhausted'],
+    help:[
+      { text:"Reduce input first: quieter space, lower lights, fewer people. This isn't avoidance — it's triage.", type:'physical' },
+      { text:"You do not have to process everything right now. Pick only the one most urgent thing, if any, and leave the rest.", type:'cognitive' },
+      { text:"If you can, lie down, apply gentle pressure (weighted blanket, pillow on chest), and just breathe for 10 minutes.", type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='neutral'?2:0)+(s.base==='mad'?1:0)+(z.has('head')?3:0)+(s.sensations.has('Buzzing')?3:0)+(s.sensations.has('Frozen')?2:0)+(s.sensations.has('Tight')?1:0)+(i>=4?3:0)
+  },
+  sensory_overload: {
+    name:'Sensory Overload', category:'Neutral / Mixed', colorClass:'cat-mixed',
+    def:"The environment is giving you too much physical input — light, sound, texture, smell, movement. Your nervous system is receiving more than it can filter. This is distinct from emotional overwhelm, though they often overlap.",
+    body:'Common signals: buzzing or ringing in ears, skin sensitivity, headache or eye pain, nausea, urgent need to remove yourself from the space.',
+    related:['Overwhelmed','Overstimulated','Flooded','Anxious'],
+    help:[
+      { text:"Leave or reduce the sensory environment as fast as you safely can. This is a physical need, not a preference.", type:'physical' },
+      { text:"Headphones, sunglasses, or a quiet dim room — sensory reduction first, everything else later.", type:'physical' },
+      { text:"After reducing input, you may need 20–40 minutes of quiet recovery before you can think clearly again. That's normal.", type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='neutral'?1:0)+(s.base==='mad'?1:0)+(z.has('head')?2:0)+(s.sensations.has('Buzzing')?4:0)+(s.sensations.has('Tingly')?2:0)+(s.sensations.has('Frozen')?1:0)+(s.sensations.has('Numb')?1:0)+(i>=4?4:0)
+  },
+  numb: {
+    name:'Numb', category:'Neutral / Mixed', colorClass:'cat-mixed',
+    def:"A shutdown state — the nervous system has turned down the volume on everything. Often comes after too much feeling, or as a protection against it.",
+    body:"Common signals: can't feel much anywhere, flat energy, disconnected from your own body, going through motions.",
+    related:['Disconnected','Flat','Empty','Dissociated'],
+    help:[
+      { text:"Numbness is often the nervous system's protection after too much. Try not to force feeling — rest is usually what's needed.", type:'cognitive' },
+      { text:"Gentle sensation can help reconnect: warm water on your hands, holding something textured, a cold drink.", type:'physical' },
+      { text:"Check basics: sleep, food, water. Numbness frequently accompanies physical depletion.", type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='neutral'?3:0)+(z.has('none')?4:0)+(s.sensations.has('Numb')?4:0)+(s.sensations.has('Floaty')?2:0)+(i<=2?2:0)
+  },
+  flat: {
+    name:'Flat / Anhedonic', category:'Neutral / Mixed', colorClass:'cat-mixed',
+    def:"Things that normally have some appeal don't. Not sadness exactly — more like the signal that makes things feel worthwhile has gone quiet. You're functioning, but nothing pulls you forward.",
+    body:'Common signals: low energy without heaviness, no urgency, things feel like going through motions, colours seem dull.',
+    related:['Joyless','Blah','Empty','Disconnected'],
+    help:[
+      { text:"Do the smallest possible version of something you usually like — even 5 minutes. You're not trying to feel it, just going through the motion.", type:'physical' },
+      { text:"Flatness often lifts slightly with movement. A short walk — even 10 minutes — can shift the baseline.", type:'physical' },
+      { text:"Check in on sleep and whether you've been socially or cognitively overloaded recently. Flat often follows a period of too much.", type:'cognitive' },
+    ],
+    score:(s,z,i)=>(s.base==='neutral'?3:0)+(s.base==='sad'?1:0)+(z.has('none')?2:0)+(s.sensations.has('Slow')?3:0)+(s.sensations.has('Numb')?1:0)+(i<=2?3:0)
+  },
+  shame: {
+    name:'Shame', category:'Neutral / Mixed', colorClass:'cat-mixed',
+    def:"A feeling that something is wrong with you — not just what you did, but who you are. Shame makes you want to hide or disappear.",
+    body:'Common signals: hot face, wanting to collapse inward, tight chest, avoiding eye contact, hollowness.',
+    related:['Embarrassed','Guilt','Humiliated','Inadequate'],
+    help:[
+      { text:"Shame grows in silence and isolation. Even telling one safe person is clinically shown to reduce its intensity.", type:'social' },
+      { text:"Notice whether this is shame (I am bad) or guilt (I did something bad). They need different responses.", type:'cognitive' },
+      { text:"Physiologically: shame makes us want to collapse. Counter it slightly — sit or stand a bit more upright, take a breath.", type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='sad'?1:0)+(s.base==='neutral'?1:0)+(z.has('head')?2:0)+(z.has('chest')?1:0)+(s.sensations.has('Hot face')?3:0)+(s.sensations.has('Sinking')?2:0)+(s.sensations.has('Hollow')?1:0)
+  },
+  exhausted: {
+    name:'Exhausted', category:'Neutral / Mixed', colorClass:'cat-mixed',
+    def:"Depleted — physically, mentally, or emotionally. Sometimes all three. Exhaustion after social or sensory overload is real and valid, even if you weren't doing anything 'hard'.",
+    body:'Common signals: heavy limbs, low energy, slow thoughts, nothing has appeal, eyes feel tired.',
+    related:['Drained','Fatigued','Burnout','Flat'],
+    help:[
+      { text:"Rest is the answer. Not a short break — actual rest. Whatever that means for you (quiet, dark, alone, no demands).", type:'physical' },
+      { text:"If you can't fully rest right now, reduce demand. Cancel what can be cancelled. Postpone what can be postponed.", type:'cognitive' },
+      { text:"Eat and drink something if you haven't. Depletion makes everything worse.", type:'physical' },
+    ],
+    score:(s,z,i)=>(s.base==='neutral'?2:0)+(s.base==='sad'?1:0)+(z.has('legs')?2:0)+(s.sensations.has('Heavy')?3:0)+(s.sensations.has('Slow')?2:0)+(s.sensations.has('Numb')?1:0)+(i<=2?2:0)
+  },
+  confused: {
+    name:'Confused / Unsure', category:'Neutral / Mixed', colorClass:'cat-mixed',
+    def:"You know something is happening inside, but you can't name it or locate it. This is very common with alexithymia, and it's a real feeling in itself — not a failure.",
+    body:'Common signals: vague tension without a clear location, a kind of fog, difficulty thinking clearly.',
+    related:['Lost','Uncertain','Stuck','Mixed up'],
+    help:[
+      { text:"That's what this tool is for. Try again later, or try describing it as a physical sensation first — skip the emotion words.", type:'cognitive' },
+      { text:"Write 'I don't know what I'm feeling but my body feels like ___.' Fill in only the physical part. That's enough.", type:'cognitive' },
+      { text:"Sometimes you can't decode it and that's okay. The not-knowing is information too.", type:'cognitive' },
+    ],
+    score:(s,z,i)=>(s.base==='neutral'?4:0)+(z.size===0?2:0)+(s.sensations.size===0?2:0)+(i===null?3:0)
+  },
+};
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+function init() {
+  const zonesList = document.getElementById('body-zones-list');
+  BODY_ZONES.forEach(z => {
+    const btn = document.createElement('button');
+    btn.className = 'body-opt';
+    btn.dataset.zone = z.id;
+    const name = document.createElement('span');
+    name.className = 'zone-name';
+    name.textContent = z.name;
+    const hint = document.createElement('span');
+    hint.className = 'zone-hint';
+    hint.textContent = z.hint;
+    btn.appendChild(name);
+    btn.appendChild(hint);
+    btn.addEventListener('click', () => toggleZone(z.id, btn));
+    zonesList.appendChild(btn);
+  });
+
+  const chipsEl = document.getElementById('sensation-chips');
+  SENSATIONS.forEach(s => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = s;
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('selected');
+      if (chip.classList.contains('selected')) state.sensations.add(s);
+      else state.sensations.delete(s);
+    });
+    chipsEl.appendChild(chip);
+  });
+
+  const track = document.getElementById('intensity-track');
+  [1,2,3,4,5].forEach(n => {
+    const btn = document.createElement('button');
+    btn.className = 'intensity-btn';
+    btn.textContent = n;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.intensity-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      state.intensity = n;
+      document.getElementById('btn-decode').disabled = false;
+    });
+    track.appendChild(btn);
+  });
+}
+
+// ─── Navigation ───────────────────────────────────────────────────────────────
+const PROGRESS = {1:0, 2:25, 3:50, 4:75, 5:100};
+let currentStep = 1;
+
+function goStep(n) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('step-' + n).classList.add('active');
+  currentStep = n;
+  document.getElementById('progress').style.width = PROGRESS[n] + '%';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function selectBase(base) {
+  state.base = base;
+  goStep(2);
+}
+
+function toggleZone(id, btn) {
+  if (state.bodyZones.has(id)) {
+    state.bodyZones.delete(id);
+    btn.classList.remove('selected');
+  } else {
+    state.bodyZones.add(id);
+    btn.classList.add('selected');
+  }
+  const svgEl = document.getElementById('svg-' + id);
+  if (svgEl) svgEl.classList.toggle('lit', state.bodyZones.has(id));
+}
+
+function toggleBodySVG(id) {
+  const btn = document.querySelector('.body-opt[data-zone="' + id + '"]');
+  if (btn) toggleZone(id, btn);
+}
+
+// ─── Decode ───────────────────────────────────────────────────────────────────
+function decode() {
+  let best = null, bestScore = -1;
+  Object.entries(EMOTIONS).forEach(([key, em]) => {
+    const score = em.score(state, state.bodyZones, state.intensity);
+    if (score > bestScore) { bestScore = score; best = key; }
+  });
+  const em = EMOTIONS[best];
+
+  const nameEl = document.getElementById('res-name');
+  nameEl.textContent = em.name;
+  nameEl.className = 'result-emotion-name ' + (em.colorClass || '');
+
+  document.getElementById('res-cat').textContent = em.category;
+  document.getElementById('res-def').textContent = em.def;
+
+  const zones = [...state.bodyZones].filter(z => z !== 'none');
+  let bodyNote = em.body;
+  if (zones.length > 0) {
+    const zoneNames = zones.map(z => BODY_ZONES.find(b => b.id === z)?.name || z).join(', ');
+    const strong = document.createElement('strong');
+    strong.textContent = zoneNames;
+    const bodyEl = document.getElementById('res-body');
+    bodyEl.innerHTML = '';
+    bodyEl.appendChild(document.createTextNode('You noticed something in: '));
+    bodyEl.appendChild(strong);
+    bodyEl.appendChild(document.createTextNode('. ' + em.body));
+  } else {
+    document.getElementById('res-body').textContent = em.body;
+  }
+
+  // Help items
+  const helpWrap = document.getElementById('res-help');
+  helpWrap.innerHTML = '';
+  em.help.forEach(h => {
+    const div = document.createElement('div');
+    div.className = 'help-item ' + h.type;
+    div.textContent = h.text;
+    helpWrap.appendChild(div);
+  });
+
+  // Related
+  const relWrap = document.getElementById('res-related');
+  relWrap.innerHTML = '';
+  em.related.forEach(r => {
+    const span = document.createElement('span');
+    span.className = 'related-chip';
+    span.textContent = r;
+    relWrap.appendChild(span);
+  });
+
+  goStep(5);
+}
+
+function restart() {
+  state.base = null;
+  state.bodyZones.clear();
+  state.sensations.clear();
+  state.intensity = null;
+  document.querySelectorAll('.body-opt').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.intensity-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.body-zone-svg').forEach(s => s.classList.remove('lit'));
+  document.getElementById('btn-decode').disabled = true;
+  goStep(1);
+}
+
+init();
+</script>
+</body>
+</html>
