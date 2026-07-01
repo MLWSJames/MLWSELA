@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World History & Geography 10 — Syllabus | 世界历史与地理10 — 课程说明</title>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ml-green:       #2d6a4f;
+      --ml-green-dark:  #1b4332;
+      --ml-green-light: #d8f3dc;
+      --ml-red:         #c1121f;
+      --ml-gold:        #e9c46a;
+      --ink:            #1a2a1a;
+      --ink2:           #2d3748;
+      --mist:           #f8faf8;
+      --border:         #e2e8e2;
+      --cobalt:         #1e3a5f;
+      --amber:          #b45309;
+      --amber-light:    #fef3c7;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--mist);
+      color: var(--ink);
+      font-size: 1rem;
+      line-height: 1.65;
+      padding-bottom: 80px;
+    }
+    .cn { font-family: 'Noto Sans SC', sans-serif; }
+
+    /* HEADER */
+    .site-header {
+      background: linear-gradient(135deg, var(--ml-green-dark) 0%, var(--ml-green) 100%);
+      color: #fff;
+      padding: 18px 24px 14px;
+    }
+    .site-header h1 {
+      font-family: 'Literata', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+    .site-header .sub {
+      font-size: 0.82rem;
+      opacity: 0.85;
+      margin-top: 3px;
+    }
+    .header-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    #leaveBadge {
+      background: rgba(255,255,255,0.15);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .pip { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.3); display: inline-block; transition: background 0.3s; }
+    .pip.done { background: var(--ml-gold); }
+
+    /* PROGRESS */
+    .progress-wrap { background: rgba(0,0,0,0.25); border-radius: 4px; height: 6px; margin-top: 10px; overflow: hidden; }
+    .progress-bar-inner { height: 100%; background: var(--ml-gold); border-radius: 4px; transition: width 0.4s; width: 0%; }
+    #progressText { font-size: 0.75rem; opacity: 0.9; margin-top: 4px; }
+
+    /* TABS */
+    .tab-nav { display: flex; background: var(--ml-green-dark); border-bottom: 3px solid var(--ml-gold); overflow-x: auto; }
+    .tab-btn {
+      padding: 11px 20px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      border: none;
+      background: none;
+      white-space: nowrap;
+      transition: all 0.2s;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -3px;
+    }
+    .tab-btn:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .tab-btn.active { color: #fff; border-bottom-color: var(--ml-gold); background: rgba(255,255,255,0.1); }
+    .tab-content { display: none; padding: 24px 20px; max-width: 860px; margin: 0 auto; }
+    .tab-content.active { display: block; }
+
+    /* LEAVE NOTICE */
+    #leaveNotice {
+      display: none;
+      background: #fee2e2;
+      border-left: 4px solid var(--ml-red);
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      color: #7f1d1d;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* CARDS & BLOCKS */
+    .concept-section { margin-bottom: 28px; }
+    .concept-section h2 {
+      font-family: 'Literata', serif;
+      font-size: 1.18rem;
+      color: var(--ml-green-dark);
+      border-left: 4px solid var(--ml-gold);
+      padding-left: 10px;
+      margin-bottom: 10px;
+    }
+    .concept-section p { margin-bottom: 8px; font-size: 0.95rem; }
+    .cn-note { color: var(--ml-green); font-size: 0.88rem; font-family: 'Noto Sans SC', sans-serif; margin-top: 2px; }
+
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 14px 0; }
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      border-top: 4px solid var(--ml-green);
+    }
+    .info-card .label { font-size: 0.75rem; font-weight: 700; color: var(--ml-green); text-transform: uppercase; letter-spacing: 0.05em; }
+    .info-card .value { font-size: 1rem; font-weight: 600; color: var(--ink); margin-top: 3px; }
+    .info-card .cn-val { font-size: 0.82rem; color: var(--ink2); font-family: 'Noto Sans SC', sans-serif; margin-top: 2px; }
+
+    .grade-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 14px 0; }
+    .grade-table th { background: var(--ml-green-dark); color: #fff; padding: 9px 12px; text-align: left; }
+    .grade-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); background: #fff; }
+    .grade-table tr:hover td { background: var(--ml-green-light); }
+    .grade-table .weight { font-weight: 700; color: var(--ml-green-dark); }
+
+    .schedule-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; margin: 14px 0; }
+    .schedule-table th { background: var(--cobalt); color: #fff; padding: 8px 10px; text-align: left; }
+    .schedule-table td { padding: 8px 10px; border-bottom: 1px solid var(--border); background: #fff; vertical-align: top; }
+    .schedule-table tr:hover td { background: #eff6ff; }
+    .schedule-table .week-row td { background: var(--ml-green-light); font-weight: 700; color: var(--ml-green-dark); }
+    .day-num { font-weight: 700; color: var(--cobalt); }
+
+    .callout {
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin: 14px 0;
+      border-left: 5px solid;
+    }
+    .callout.info { background: #eff6ff; border-color: #3b82f6; }
+    .callout.warn { background: var(--amber-light); border-color: var(--amber); }
+    .callout.green { background: var(--ml-green-light); border-color: var(--ml-green); }
+    .callout strong { display: block; margin-bottom: 4px; font-size: 0.9rem; }
+
+    .obj-list { list-style: none; padding: 0; }
+    .obj-list li { padding: 7px 0 7px 28px; border-bottom: 1px solid var(--border); position: relative; font-size: 0.92rem; }
+    .obj-list li::before { content: "✓"; position: absolute; left: 6px; color: var(--ml-green); font-weight: 700; }
+    .obj-list .cn-note { padding-left: 0; border: none; font-size: 0.8rem; }
+
+    /* NAME INPUT */
+    .name-row { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; background: #fff; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); }
+    .name-row label { font-weight: 600; font-size: 0.9rem; white-space: nowrap; }
+    .name-row input { flex: 1; border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; }
+    .name-row input:focus { border-color: var(--ml-green); }
+
+    /* VOCAB */
+    .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+    .vocab-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      border-top: 4px solid var(--ml-green);
+    }
+    .vocab-word { font-family: 'Literata', serif; font-size: 1.1rem; font-weight: 600; color: var(--ml-green-dark); }
+    .vocab-pos { font-size: 0.75rem; color: var(--amber); font-weight: 600; text-transform: uppercase; margin-left: 6px; }
+    .vocab-cn { font-family: 'Noto Sans SC', sans-serif; font-size: 0.95rem; color: var(--cobalt); margin-top: 3px; }
+    .vocab-def { font-size: 0.88rem; color: var(--ink2); margin-top: 5px; }
+    .vocab-cn-def { font-family: 'Noto Sans SC', sans-serif; font-size: 0.82rem; color: #555; margin-top: 3px; }
+    .vocab-ex { font-size: 0.82rem; color: var(--amber); font-style: italic; margin-top: 6px; border-top: 1px solid var(--border); padding-top: 6px; }
+    .speak-btn { background: var(--ml-green-light); border: 1px solid var(--ml-green); border-radius: 5px; padding: 3px 8px; font-size: 0.78rem; cursor: pointer; color: var(--ml-green-dark); margin-top: 5px; }
+    .speak-btn:hover { background: var(--ml-green); color: #fff; }
+
+    /* QUIZ */
+    .quiz-heading { font-family: 'Literata', serif; font-size: 1.1rem; color: var(--cobalt); margin: 28px 0 4px; border-bottom: 2px solid var(--border); padding-bottom: 6px; }
+    .quiz-inst { font-size: 0.84rem; color: #666; margin-bottom: 16px; }
+    .question-block { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; }
+    .q-num { font-size: 0.75rem; font-weight: 700; color: var(--ml-red); text-transform: uppercase; letter-spacing: 0.06em; }
+    .q-text { font-weight: 600; font-size: 0.97rem; margin: 6px 0 4px; color: var(--ink); }
+    .q-cn { font-family: 'Noto Sans SC', sans-serif; font-size: 0.85rem; color: var(--cobalt); margin-bottom: 12px; }
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 9px 13px;
+      margin-bottom: 7px;
+      border: 1.5px solid var(--border);
+      border-radius: 7px;
+      background: #fafafa;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      transition: all 0.15s;
+    }
+    .option-btn:hover:not(:disabled) { border-color: var(--ml-green); background: var(--ml-green-light); }
+    .option-btn.correct { background: #d1fae5; border-color: #059669; color: #065f46; font-weight: 600; }
+    .option-btn.wrong { background: #fee2e2; border-color: var(--ml-red); color: #7f1d1d; }
+    .option-btn:disabled { cursor: default; }
+    .rationale-box { margin-top: 10px; padding: 10px 13px; border-radius: 6px; font-size: 0.85rem; border-left: 4px solid; display: none; }
+    .rationale-box.show { display: block; }
+    .rationale-box.right { background: #ecfdf5; border-color: #059669; color: #065f46; }
+    .rationale-box.wrong-r { background: #fff7ed; border-color: var(--amber); color: #78350f; }
+    .rat-cn { font-family: 'Noto Sans SC', sans-serif; font-size: 0.8rem; margin-top: 4px; color: #555; }
+
+    /* REFLECT */
+    .reflect-section { margin-top: 30px; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+    .reflect-section h3 { font-family: 'Literata', serif; font-size: 1.05rem; color: var(--ml-green-dark); margin-bottom: 14px; }
+    .reflect-label { font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; }
+    .reflect-label .cn-note { font-weight: 400; }
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      resize: vertical;
+      min-height: 72px;
+      outline: none;
+      margin-bottom: 14px;
+    }
+    textarea:focus { border-color: var(--ml-green); }
+    .grat-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .grat-row label { font-weight: 600; font-size: 0.9rem; }
+    .grat-row input { flex: 1; min-width: 180px; border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; }
+    .grat-row input:focus { border-color: var(--ml-gold); }
+    .hint-text { font-size: 0.8rem; color: #888; margin-bottom: 8px; font-style: italic; }
+    .dl-btn {
+      display: inline-block;
+      background: var(--ml-green-dark);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      opacity: 0.35;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .dl-btn.ready { opacity: 1; pointer-events: auto; }
+    .dl-btn.ready:hover { background: var(--ml-green); }
+
+    /* TIMER */
+    #timer-display {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: var(--ml-green-dark);
+      color: #fff;
+      padding: 7px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 999;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    @media (max-width: 600px) {
+      .tab-content { padding: 16px 12px; }
+      .info-grid { grid-template-columns: 1fr 1fr; }
+      .vocab-grid { grid-template-columns: 1fr; }
+      .site-header h1 { font-size: 1.15rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ANTI-CHEAT: Always-visible banner -->
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+
+<!-- ANTI-CHEAT: Flash notice -->
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:0.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span>
+</div>
+
+<!-- HEADER -->
+<div class="site-header">
+  <h1>🌍 World History &amp; Geography 10 &nbsp;·&nbsp; <span class="cn" style="font-weight:400;font-size:1.1rem;">世界历史与地理 10</span></h1>
+  <div class="sub">Maple Leaf World School · Xiangyang · July 2026 &nbsp;|&nbsp; <span class="cn">2026年7月</span></div>
+  <div class="header-meta">
+    <span id="leaveBadge">🚪 Leaves: 0</span>
+    <span class="pip" id="pip-syllabus"></span>
+    <span style="font-size:0.75rem;opacity:0.7;">● = download complete</span>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar-inner" id="progressBar"></div></div>
+  <div id="progressText" style="font-size:0.75rem;opacity:0.9;margin-top:4px;">Progress: 0% · 进度：0%</div>
+</div>
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">📖 Vocabulary / 词汇</button>
+  <button class="tab-btn" onclick="switchTab('syllabus', this)">📋 Syllabus Quiz / 课程说明</button>
+</div>
+
+<!-- ========================= TAB: VOCAB ========================= -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="concept-section">
+    <h2>Key Course Vocabulary / 核心课程词汇</h2>
+    <p>These words will appear throughout World History &amp; Geography 10. Learn them well — you will see them in readings, quizzes, and assignments every week.</p>
+    <p class="cn-note">这些词汇将贯穿整个《世界历史与地理10》课程。请认真学习——它们将出现在每周的阅读、测验和作业中。</p>
+  </div>
+  <div class="vocab-grid" id="vocabContainer"></div>
+</div>
+
+<!-- ========================= TAB: SYLLABUS ========================= -->
+<div class="tab-content" id="tab-syllabus">
+
+  <!-- Name input -->
+  <div class="name-row">
+    <label>Student Name / 学生姓名：</label>
+    <input type="text" id="syllabusName" placeholder="Type your full name here · 请在此输入你的全名" oninput="checkReadiness('syllabus')">
+  </div>
+
+  <!-- SECTION 1: Overview -->
+  <div class="concept-section">
+    <h2>Course Overview / 课程概述</h2>
+    <p>Welcome to <strong>World History &amp; Geography 10</strong>! This is a <strong>three-week intensive</strong> summer course. We will travel through all of human history — from the first humans in Africa all the way to the 20th century.</p>
+    <p class="cn-note">欢迎来到《世界历史与地理10》！这是一门为期三周的暑期强化课程。我们将纵览整个人类历史——从非洲最早的人类一直到20世纪。</p>
+
+    <div class="info-grid" style="margin-top:14px;">
+      <div class="info-card">
+        <div class="label">Format / 形式</div>
+        <div class="value">Daily Lectures + Modules</div>
+        <div class="cn-val">每日讲课 + 互动学习模块</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Language / 语言</div>
+        <div class="value">English + Chinese Support</div>
+        <div class="cn-val">英语教学，全程中文辅助</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Platform / 平台</div>
+        <div class="value">Schoology (browser-based)</div>
+        <div class="cn-val">Schoology 平台（无需安装）</div>
+      </div>
+      <div class="info-card">
+        <div class="label">Timeline / 时间</div>
+        <div class="value">July 5 – July 24</div>
+        <div class="cn-val">7月5日 至 7月24日</div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <strong>📅 Weekly Rhythm / 每周节奏</strong>
+      This course runs for <strong>3 weeks</strong>. Each week ends with a test over everything covered that week, and the course ends with a <strong>Final Assessment on the last day</strong>.
+      <ul style="margin-top:8px;padding-left:20px;font-size:0.9rem;line-height:2.1;">
+        <li><strong>Week 1</strong> — The Ancient World / 古代世界</li>
+        <li><strong>Week 2</strong> — Medieval World to Early Modernity / 中世纪至早期现代</li>
+        <li><strong>Week 3</strong> — Revolutions &amp; the Modern World / 革命与现代世界</li>
+      </ul>
+      <div class="cn-note" style="margin-top:6px;">本课程共3周。每周结束时进行一次周测，考查该周所学全部内容；课程最后一天进行期末评估。</div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Grading -->
+  <div class="concept-section">
+    <h2>Grading Breakdown / 评分说明</h2>
+    <p>Your grade is divided into <strong>5 categories</strong>. Each category tests a different skill. Study the table below carefully — it tells you what your teachers value most.</p>
+    <p class="cn-note">你的成绩分为5个类别，每个类别考查不同的能力。请仔细阅读下表——它告诉你老师最看重什么。</p>
+
+    <table class="grade-table">
+      <thead>
+        <tr>
+          <th>Category / 类别</th>
+          <th>Weight / 比重</th>
+          <th>How it is assessed / 评估方式</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Knowledge &amp; Understanding<br><span class="cn-note">知识与理解</span></td>
+          <td class="weight">25%</td>
+          <td>Quizzes, Projects, Assessments</td>
+        </tr>
+        <tr>
+          <td>Problem Solving<br><span class="cn-note">问题解决</span></td>
+          <td class="weight">20%</td>
+          <td>Quizzes, Projects, Assessments</td>
+        </tr>
+        <tr>
+          <td>Communication<br><span class="cn-note">沟通</span></td>
+          <td class="weight">25%</td>
+          <td>Vocabulary Notebook<br><span class="cn-note">词汇笔记本</span></td>
+        </tr>
+        <tr>
+          <td>Application<br><span class="cn-note">应用</span></td>
+          <td class="weight">20%</td>
+          <td>Quizzes, Projects, Assessments</td>
+        </tr>
+        <tr style="background:var(--amber-light);">
+          <td><strong>Final Assessment<br><span class="cn-note">期末评估</span></strong></td>
+          <td class="weight">10%</td>
+          <td>Final exam on Day 18</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <strong>💡 Important! / 重要！</strong>
+      Communication (25%) is the <strong>Vocabulary Notebook only</strong>. This means keeping up with your vocab each week is one of the most important habits in this course.
+      <div class="cn-note" style="margin-top:5px;">沟通类别（25%）仅指词汇笔记本。这意味着每周坚持整理词汇是本课程中最重要的习惯之一。</div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Learning Objectives -->
+  <div class="concept-section">
+    <h2>Learning Objectives / 学习目标</h2>
+    <p>By the end of the course, you will be able to do all of the following:</p>
+    <p class="cn-note">课程结束时，你将能够完成以下所有目标：</p>
+    <ul class="obj-list" style="margin-top:10px;">
+      <li>Trace major patterns of political, economic, and social change across history<div class="cn-note">梳理人类历史中政治、经济与社会变革的主要模式</div></li>
+      <li>Compare civilizations, empires, and ideologies across time and geography<div class="cn-note">跨越时间与地域比较不同文明、帝国与意识形态</div></li>
+      <li>Analyze cause-and-effect relationships in historical events<div class="cn-note">分析历史事件中的因果关系</div></li>
+      <li>Read and interpret historical texts, maps, and primary sources in English<div class="cn-note">以英语阅读和解读历史文本、地图与原始史料</div></li>
+      <li>Write structured analytical responses using evidence from lesson content<div class="cn-note">运用课堂内容中的证据撰写结构清晰的分析性文章</div></li>
+      <li>Demonstrate metacognitive awareness of personal learning and growth<div class="cn-note">展现对个人学习与成长的元认知意识</div></li>
+    </ul>
+  </div>
+
+  <!-- SECTION 4: Course Schedule -->
+  <div class="concept-section">
+    <h2>Course Schedule / 课程安排</h2>
+    <p>18 class days. 3 weeks. 3 weekly tests. 1 final. Here is what you will study:</p>
+    <p class="cn-note">共18个上课日，3周，3次周测，1次期末考试。以下是你将要学习的内容：</p>
+
+    <table class="schedule-table">
+      <thead>
+        <tr><th>Day / 天</th><th>Lesson Title / 课程名称</th></tr>
+      </thead>
+      <tbody>
+        <tr class="week-row"><td colspan="2">📅 WEEK 1 · Prehistory Through the Ancient World · 史前至古代世界</td></tr>
+        <tr><td class="day-num">1</td><td>Origins of Humanity / 人类起源</td></tr>
+        <tr><td class="day-num">2</td><td>Mesopotamia, Egypt &amp; the Hittites / 美索不达米亚、埃及与赫梯</td></tr>
+        <tr><td class="day-num">3</td><td>India, China, the Americas &amp; Synthesis / 印度、中国、美洲与综合</td></tr>
+        <tr><td class="day-num">4</td><td>Persia, Greece &amp; Alexander / 波斯、希腊与亚历山大</td></tr>
+        <tr><td class="day-num">5</td><td>Rome: Republic, Empire &amp; Collapse / 罗马：共和国、帝国与衰亡</td></tr>
+        <tr><td class="day-num">6</td><td>Chinese Dynasties, World Religions &amp; the Silk Road / 中国王朝、世界宗教与丝绸之路</td></tr>
+        <tr><td class="day-num" style="color:var(--ml-red);">7 ✏️</td><td><strong>Week 1 Test Day</strong> — Lesson: Byzantium, Feudal Europe &amp; Birth of Islam (morning) → <strong>Week 1 Test</strong> (afternoon) / 第7天：上午讲授拜占庭、封建欧洲与伊斯兰教诞生，下午进行周测1</td></tr>
+
+        <tr class="week-row"><td colspan="2">📅 WEEK 2 · Medieval World to Early Modernity · 中世纪至早期现代</td></tr>
+        <tr><td class="day-num">8</td><td>Islamic Empires, Golden Age &amp; Religious Schisms / 伊斯兰帝国、黄金时代与宗教分裂</td></tr>
+        <tr><td class="day-num">9</td><td>Crusades, Mongols, Song China &amp; Medieval Japan / 十字军东征、蒙古帝国、宋朝与中世纪日本</td></tr>
+        <tr><td class="day-num">10</td><td>The Americas, Black Death &amp; African Empires / 美洲、黑死病与非洲帝国</td></tr>
+        <tr><td class="day-num">11</td><td>Age of Exploration, Columbian Exchange &amp; Indigenous Impact / 大航海时代与哥伦布大交换</td></tr>
+        <tr><td class="day-num">12</td><td>Atlantic Slave Trade, Scientific Revolution &amp; Reformation / 大西洋奴隶贸易、科学革命与宗教改革</td></tr>
+        <tr><td class="day-num" style="color:var(--ml-red);">13 ✏️</td><td><strong>Week 2 Test Day</strong> — Lesson: Mughal India, Islamic Empires Compared, Origins of Russia &amp; Gender in History (morning) → <strong>Week 2 Test</strong> (afternoon) / 第13天：上午讲授莫卧儿印度、伊斯兰帝国比较、俄罗斯起源与历史中的性别，下午进行周测2</td></tr>
+
+        <tr class="week-row"><td colspan="2">📅 WEEK 3 · Revolutions &amp; the Modern World · 革命与现代世界</td></tr>
+        <tr><td class="day-num">14</td><td>Atlantic Revolutions / 大西洋革命</td></tr>
+        <tr><td class="day-num">15</td><td>Napoleon, Latin America &amp; the Industrial Age / 拿破仑、拉丁美洲与工业时代</td></tr>
+        <tr><td class="day-num">16</td><td>WWI, WWII &amp; the Age of Ideology / 一战、二战与意识形态时代</td></tr>
+        <tr><td class="day-num" style="color:var(--ml-red);">17 ✏️</td><td><strong>Week 3 Test</strong> — over all Week 3 content / 周测3（考查第三周全部内容）</td></tr>
+        <tr><td class="day-num" style="color:var(--ml-red);">18 🏁</td><td><strong>Final Assessment / 期末评估</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 5: Expectations -->
+  <div class="concept-section">
+    <h2>Classroom Expectations / 课堂行为规范</h2>
+    <div class="callout green">
+      <strong>✅ What is expected / 行为要求</strong>
+      <ul style="margin-top:6px;padding-left:20px;font-size:0.9rem;line-height:2;">
+        <li>Stay in the learning module at all times during independent work sessions<br><span class="cn-note">独立学习期间请始终停留在学习模块中</span></li>
+        <li>Complete all module quiz questions before attempting to download your work report<br><span class="cn-note">下载报告前须完成所有测验题目</span></li>
+        <li>Submit reflection responses in complete English sentences<br><span class="cn-note">尽量以完整的英语句子提交反思回答</span></li>
+        <li>Academic integrity is expected in all work and assessments<br><span class="cn-note">所有书面作业与评估均须遵守学术诚信规范</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== QUIZ SECTION ===== -->
+  <div class="quiz-heading">📝 Syllabus Check / 课程说明测验</div>
+  <p class="quiz-inst">Answer all 5 questions below. Click your answer — you cannot change it after. · 回答以下5道题。点击你的答案后不可更改。</p>
+  <div id="syllabusQuizContainer"></div>
+
+  <!-- ===== REFLECT SECTION ===== -->
+  <div class="reflect-section">
+    <h3>🪞 Reflection &amp; Download / 反思与下载</h3>
+
+    <div class="reflect-label">1. Which part of the course schedule are you most curious about and why? Write 2–3 sentences.<br>
+      <span class="cn-note">你对课程安排中的哪个部分最感兴趣，为什么？请写2–3句话。</span>
+    </div>
+    <textarea id="syllabusRef1" placeholder="Write your answer in English here... / 请在此用英语作答..." oninput="checkReadiness('syllabus')"></textarea>
+
+    <div class="reflect-label">2. What is one habit you will practice to succeed in this course? Explain your thinking.<br>
+      <span class="cn-note">为了在这门课中取得成功，你打算养成哪个学习习惯？请说明你的想法。</span>
+    </div>
+    <textarea id="syllabusRef2" placeholder="Write your answer in English here... / 请在此用英语作答..." oninput="checkReadiness('syllabus')"></textarea>
+
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="syllabusGrat" placeholder="..." oninput="checkReadiness('syllabus')">
+    </div>
+
+    <p class="hint-text" id="syllabusHint">Complete all 5 quiz questions and both reflection fields to unlock your download. · 完成所有5道测验题和两项反思后，下载按钮将自动解锁。</p>
+    <button class="dl-btn" id="syllabusDownloadBtn" onclick="tryDownload('syllabus')">⬇ Download My Report / 下载我的报告</button>
+  </div>
+
+</div><!-- end tab-syllabus -->
+
+<!-- TIMER -->
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+// ===== STATE =====
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 10; // 5 quiz + 2 reflect + 1 grat + 1 name + 1 complete = 10 units
+var syllabusAnswered = 0;
+var syllabusTotal = 5;
+
+// ===== VOCAB DATA =====
+var VOCAB = [
+  {
+    word: "civilization",
+    pos: "noun",
+    cn: "文明",
+    def: "A society that has developed organized government, writing, and culture.",
+    cn_def: "拥有有组织的政府、文字和文化的社会。",
+    example: "Ancient Egypt was one of the earliest civilizations in the world."
+  },
+  {
+    word: "dynasty",
+    pos: "noun",
+    cn: "朝代",
+    def: "A series of rulers from the same family, one after another.",
+    cn_def: "由同一家族成员相继统治的一系列君主。",
+    example: "The Han Dynasty ruled China for over 400 years."
+  },
+  {
+    word: "empire",
+    pos: "noun",
+    cn: "帝国",
+    def: "A large group of countries or regions under one ruler or government.",
+    cn_def: "由一位统治者或政府管辖的一大片国家或地区。",
+    example: "The Roman Empire stretched across Europe, Africa, and Asia."
+  },
+  {
+    word: "ideology",
+    pos: "noun",
+    cn: "意识形态",
+    def: "A set of ideas and beliefs that guide how a government or group thinks.",
+    cn_def: "指导政府或群体思想的一套理念和信仰。",
+    example: "Communism is an ideology that believes all property should be shared equally."
+  },
+  {
+    word: "primary source",
+    pos: "noun",
+    cn: "原始史料",
+    def: "A document or object created at the time of an event — like a letter, law, or map.",
+    cn_def: "在事件发生时创作的文件或实物，例如信件、法律文本或地图。",
+    example: "The Declaration of Independence is a primary source about the American Revolution."
+  },
+  {
+    word: "revolution",
+    pos: "noun",
+    cn: "革命",
+    def: "A sudden and major change — in government, society, or technology.",
+    cn_def: "政府、社会或技术领域发生的突然而重大的变化。",
+    example: "The French Revolution changed the political system of France."
+  },
+  {
+    word: "trade network",
+    pos: "noun",
+    cn: "贸易网络",
+    def: "Connected routes that allow people to exchange goods across long distances.",
+    cn_def: "连接各地、使人们能够进行长途商品交换的路线网络。",
+    example: "The Silk Road was an important trade network connecting Asia and Europe."
+  },
+  {
+    word: "feudalism",
+    pos: "noun",
+    cn: "封建制度",
+    def: "A system where land is exchanged for military service and loyalty.",
+    cn_def: "以土地换取军事服务和效忠的社会制度。",
+    example: "In medieval Europe, knights served their lord under a feudal system."
+  },
+  {
+    word: "metacognition",
+    pos: "noun",
+    cn: "元认知",
+    def: "Thinking about how you think and learn — awareness of your own learning process.",
+    cn_def: "对自己如何思考和学习的反思——对自身学习过程的自我意识。",
+    example: "Using metacognition, she realized she learned better by teaching others."
+  },
+  {
+    word: "academic integrity",
+    pos: "noun",
+    cn: "学术诚信",
+    def: "Being honest in all schoolwork — not cheating or copying another person's work.",
+    cn_def: "在所有学业中保持诚实——不作弊，不抄袭他人作品。",
+    example: "Academic integrity means writing your own answers on every assignment."
+  }
+];
+
+// ===== SYLLABUS QUIZ DATA (5 questions) =====
+var SYLLABUS_Q = [
+  {
+    id: "s1",
+    q: "How long is the World History & Geography 10 summer course?",
+    q_cn: "《世界历史与地理10》暑期课程共有多长时间？",
+    options: [
+      "A. Two weeks / 两周|A. 两周",
+      "B. Three weeks / 三周|B. 三周",
+      "C. Four weeks / 四周|C. 四周",
+      "D. One month / 一个月|D. 一个月"
+    ],
+    correct: "B",
+    rat_right: "The syllabus states the course runs July 5 through July 24 — exactly three weeks.|课程说明指出课程从7月5日持续到7月24日，共三周。",
+    rat_wrong: {
+      A: "Two weeks would end around July 19. The course actually runs through July 24.|两周约在7月19日结束，而课程实际持续到7月24日。",
+      C: "Four weeks would take the course into early August. The timeline is July 5–24 only.|四周会延伸到8月初，而课程时间仅为7月5日至24日。",
+      D: "One month is longer than the actual three-week schedule.|一个月比实际的三周课程更长。"
+    }
+  },
+  {
+    id: "s2",
+    q: "Which grading category is worth the MOST points — tied for first?",
+    q_cn: "哪些评分类别并列占比最高？",
+    options: [
+      "A. Problem Solving and Application / 问题解决与应用|A. 问题解决与应用",
+      "B. Knowledge & Understanding and Communication / 知识与理解，以及沟通|B. 知识与理解和沟通",
+      "C. Communication and Application / 沟通与应用|C. 沟通与应用",
+      "D. Final Assessment and Communication / 期末评估与沟通|D. 期末评估与沟通"
+    ],
+    correct: "B",
+    rat_right: "Both Knowledge & Understanding and Communication are worth 25% each — the highest of all categories.|知识与理解和沟通各占25%，并列最高比重。",
+    rat_wrong: {
+      A: "Problem Solving is 20% and Application is also 20% — neither is the highest.|问题解决占20%，应用也占20%，都不是最高的。",
+      C: "Communication is 25% but Application is only 20%.|沟通占25%，但应用只占20%，两者并不相同。",
+      D: "Final Assessment is only 10% — the lowest category.|期末评估仅占10%，是所有类别中最低的。"
+    }
+  },
+  {
+    id: "s3",
+    q: "How is the Communication category assessed in this course?",
+    q_cn: "本课程中，'沟通'类别通过什么方式评估？",
+    options: [
+      "A. Weekly essays / 每周作文|A. 每周作文",
+      "B. Group presentations / 小组展示|B. 小组展示",
+      "C. Vocabulary Notebook / 词汇笔记本|C. 词汇笔记本",
+      "D. Reading quizzes / 阅读小测|D. 阅读小测"
+    ],
+    correct: "C",
+    rat_right: "The grading table shows the Vocabulary Notebook is the only assessment for the Communication category.|评分表显示，词汇笔记本是沟通类别的唯一评估方式。",
+    rat_wrong: {
+      A: "The syllabus does not list weekly essays as a Communication assessment.|课程说明中没有将每周作文列为沟通类别的评估方式。",
+      B: "Group presentations are not mentioned in the grading breakdown.|评分说明中没有提到小组展示。",
+      D: "Reading quizzes fall under Knowledge & Understanding, not Communication.|阅读小测属于知识与理解类别，而非沟通类别。"
+    }
+  },
+  {
+    id: "s4",
+    q: "On which day does the Final Assessment take place?",
+    q_cn: "期末评估在第几天进行？",
+    options: [
+      "A. Day 16|A. 第16天",
+      "B. Day 17|B. 第17天",
+      "C. Day 18|C. 第18天",
+      "D. Day 13|D. 第13天"
+    ],
+    correct: "C",
+    rat_right: "The course schedule shows the Final Assessment is on Day 18, the last day of the course.|课程安排显示期末评估在第18天，也就是课程的最后一天。",
+    rat_wrong: {
+      A: "Day 16 covers WWI, WWII, and the Age of Ideology — not the final exam.|第16天的内容是一战、二战与意识形态时代，并非期末考试。",
+      B: "Day 17 is for makeup work and exam review, not the final assessment.|第17天用于补交作业和考前复习，不是期末评估。",
+      D: "Day 13 is the Week 2 Test, not the Final Assessment.|第13天是第二周的周测，而非期末评估。"
+    }
+  },
+  {
+    id: "s5",
+    q: "According to classroom expectations, what happens when you switch tabs during a learning module?",
+    q_cn: "根据课堂行为规范，在使用学习模块期间切换标签页会发生什么？",
+    options: [
+      "A. Nothing — it does not matter / 没什么，无所谓|A. 没什么影响",
+      "B. The module automatically closes / 模块会自动关闭|B. 模块会自动关闭",
+      "C. It is recorded and your teacher can see it / 会被记录，老师可以看到|C. 会被记录，老师可以看到",
+      "D. You lose all your quiz answers / 你的所有测验答案将丢失|D. 你的所有测验答案将丢失"
+    ],
+    correct: "C",
+    rat_right: "The syllabus states: tab switches are recorded and your teacher can see them. This module tracks them too.|课程说明指出：切换标签页会被记录，老师可以看到。本模块也会追踪此行为。",
+    rat_wrong: {
+      A: "Tab switches do matter — they are tracked and visible to the teacher.|切换标签页会产生影响，它们会被追踪并对老师可见。",
+      B: "The module does not automatically close, but it does record the switch.|模块不会自动关闭，但会记录切换行为。",
+      D: "Your quiz answers are saved — but the switch is still recorded.|你的测验答案会被保存，但切换行为仍会被记录。"
+    }
+  }
+];
+
+// ===== BUILD VOCAB =====
+function buildVocab() {
+  var container = document.getElementById("vocabContainer");
+  VOCAB.forEach(function(v) {
+    var card = document.createElement("div");
+    card.className = "vocab-card";
+
+    var top = document.createElement("div");
+    var wordSpan = document.createElement("span");
+    wordSpan.className = "vocab-word";
+    wordSpan.textContent = v.word;
+    var posSpan = document.createElement("span");
+    posSpan.className = "vocab-pos";
+    posSpan.textContent = v.pos;
+    top.appendChild(wordSpan);
+    top.appendChild(posSpan);
+
+    var cnDiv = document.createElement("div");
+    cnDiv.className = "vocab-cn";
+    cnDiv.textContent = v.cn;
+
+    var defDiv = document.createElement("div");
+    defDiv.className = "vocab-def";
+    defDiv.textContent = v.def;
+
+    var cnDefDiv = document.createElement("div");
+    cnDefDiv.className = "vocab-cn-def";
+    cnDefDiv.textContent = v.cn_def;
+
+    var exDiv = document.createElement("div");
+    exDiv.className = "vocab-ex";
+    exDiv.textContent = "Example: " + v.example;
+
+    var speakBtn = document.createElement("button");
+    speakBtn.className = "speak-btn";
+    speakBtn.textContent = "🔊 Pronounce";
+    speakBtn.addEventListener("click", function() {
+      var utter = new SpeechSynthesisUtterance(v.word + ". " + v.def);
+      utter.lang = "en-US";
+      speechSynthesis.speak(utter);
+    });
+
+    card.appendChild(top);
+    card.appendChild(cnDiv);
+    card.appendChild(defDiv);
+    card.appendChild(cnDefDiv);
+    card.appendChild(exDiv);
+    card.appendChild(speakBtn);
+    container.appendChild(card);
+  });
+}
+
+// ===== BUILD QUIZ =====
+function buildQuiz(questions, containerId, tabKey) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(item, idx) {
+    var block = document.createElement("div");
+    block.className = "question-block";
+
+    var qNum = document.createElement("div");
+    qNum.className = "q-num";
+    qNum.textContent = "Question " + (idx + 1) + " of " + questions.length + " · 第" + (idx + 1) + "题";
+
+    var qText = document.createElement("div");
+    qText.className = "q-text";
+    qText.textContent = item.q;
+
+    var qCn = document.createElement("div");
+    qCn.className = "q-cn";
+    qCn.textContent = item.q_cn;
+
+    block.appendChild(qNum);
+    block.appendChild(qText);
+    block.appendChild(qCn);
+
+    var answered = false;
+    var allBtns = [];
+
+    var ratBox = document.createElement("div");
+    ratBox.className = "rationale-box";
+
+    item.options.forEach(function(opt) {
+      var parts = opt.split("|");
+      var enText = parts[0];
+      var cnText = parts[1] || "";
+      var letter = enText.trim().charAt(0);
+
+      var btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.textContent = enText + (cnText ? "  ·  " + cnText : "");
+      allBtns.push(btn);
+
+      btn.addEventListener("click", function() {
+        if (answered) return;
+        answered = true;
+        allBtns.forEach(function(b) { b.disabled = true; });
+
+        if (letter === item.correct) {
+          btn.classList.add("correct");
+          var rp = item.rat_right.split("|");
+          ratBox.className = "rationale-box right show";
+          ratBox.innerHTML = "";
+          var enP = document.createElement("div");
+          enP.textContent = "✅ " + (rp[0] || "");
+          var cnP = document.createElement("div");
+          cnP.className = "rat-cn";
+          cnP.textContent = rp[1] || "";
+          ratBox.appendChild(enP);
+          ratBox.appendChild(cnP);
+        } else {
+          btn.classList.add("wrong");
+          // highlight correct
+          allBtns.forEach(function(b2) {
+            if (b2.textContent.trim().charAt(0) === item.correct) {
+              b2.classList.add("correct");
+            }
+          });
+          var rw = (item.rat_wrong[letter] || "").split("|");
+          ratBox.className = "rationale-box wrong-r show";
+          ratBox.innerHTML = "";
+          var enP2 = document.createElement("div");
+          enP2.textContent = "❌ " + (rw[0] || "");
+          var cnP2 = document.createElement("div");
+          cnP2.className = "rat-cn";
+          cnP2.textContent = rw[1] || "";
+          ratBox.appendChild(enP2);
+          ratBox.appendChild(cnP2);
+        }
+
+        syllabusAnswered++;
+        addProgress(1);
+        checkReadiness("syllabus");
+      });
+
+      block.appendChild(btn);
+    });
+
+    block.appendChild(ratBox);
+    container.appendChild(block);
+  });
+}
+
+// ===== READINESS CHECK =====
+function checkReadiness(tabKey) {
+  var name = (document.getElementById(tabKey + "Name") || {}).value || "";
+  var ref1 = (document.getElementById(tabKey + "Ref1") || {}).value || "";
+  var ref2 = (document.getElementById(tabKey + "Ref2") || {}).value || "";
+  var grat = (document.getElementById(tabKey + "Grat") || {}).value || "";
+  var allAnswered = syllabusAnswered >= syllabusTotal;
+  var btn = document.getElementById(tabKey + "DownloadBtn");
+  if (name.trim() && ref1.trim() && ref2.trim() && grat.trim() && allAnswered) {
+    btn.classList.add("ready");
+  } else {
+    btn.classList.remove("ready");
+  }
+}
+
+// ===== DOWNLOAD =====
+function tryDownload(tabKey) {
+  var btn = document.getElementById(tabKey + "DownloadBtn");
+  if (!btn.classList.contains("ready")) return;
+
+  var name = document.getElementById(tabKey + "Name").value.trim();
+  var ref1 = document.getElementById(tabKey + "Ref1").value.trim();
+  var ref2 = document.getElementById(tabKey + "Ref2").value.trim();
+  var grat = document.getElementById(tabKey + "Grat").value.trim();
+  var now = new Date();
+  var dateStr = now.toLocaleDateString();
+  var elapsed = fmt(secondsElapsed);
+
+  // Score quiz
+  var score = 0;
+  var breakdown = "";
+  SYLLABUS_Q.forEach(function(item, idx) {
+    var block = document.getElementById("syllabusQuizContainer").children[idx];
+    var btns = block.querySelectorAll(".option-btn");
+    var chosen = "";
+    btns.forEach(function(b) {
+      if (b.classList.contains("correct") || b.classList.contains("wrong")) {
+        if (b.classList.contains("wrong")) chosen = b.textContent.trim().charAt(0);
+        if (b.classList.contains("correct") && !b.classList.contains("wrong")) {
+          // check if this was the user's pick
+          chosen = b.textContent.trim().charAt(0);
+        }
+      }
+    });
+    // more reliable: check wrong first
+    var pickedWrong = false;
+    btns.forEach(function(b) {
+      if (b.classList.contains("wrong")) { chosen = b.textContent.trim().charAt(0); pickedWrong = true; }
+    });
+    if (!pickedWrong) chosen = item.correct;
+    var correct = chosen === item.correct;
+    if (correct) score++;
+    breakdown += "Q" + (idx + 1) + ": " + item.q + "\n";
+    breakdown += "   Your answer: " + chosen + " · Correct: " + item.correct + " · " + (correct ? "CORRECT" : "INCORRECT") + "\n\n";
+  });
+
+  var txt = "================================================================\n";
+  txt += "MLWS WORLD HISTORY & GEOGRAPHY 10 — SYLLABUS MODULE\n";
+  txt += "Maple Leaf World School · Xiangyang · July 2026\n";
+  txt += "================================================================\n\n";
+  txt += "STUDENT REPORT\n";
+  txt += "Name: " + name + "\n";
+  txt += "Date: " + dateStr + "\n";
+  txt += "Session Time: " + elapsed + "\n";
+  txt += "Tab Switches (Leaves): " + leaveCount + "\n\n";
+  txt += "----------------------------------------------------------------\n";
+  txt += "QUIZ RESULTS (Teacher Use Only)\n";
+  txt += "Score: " + score + " / " + syllabusTotal + "\n\n";
+  txt += breakdown;
+  txt += "----------------------------------------------------------------\n";
+  txt += "STUDENT REFLECTION\n\n";
+  txt += "Q1: Which part of the course schedule are you most curious about and why?\n";
+  txt += ref1 + "\n\n";
+  txt += "Q2: What is one habit you will practice to succeed in this course?\n";
+  txt += ref2 + "\n\n";
+  txt += "GRATITUDE:\nToday I am grateful for " + grat + "\n\n";
+  txt += "================================================================\nEnd of report\n";
+
+  var blob = new Blob([txt], {type: "text/plain"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "MLWS_Syllabus_" + name.replace(/\s+/g, "_") + "_" + dateStr.replace(/\//g, "-") + ".txt";
+  a.click();
+  URL.revokeObjectURL(url);
+
+  document.getElementById("pip-syllabus").classList.add("done");
+}
+
+// ===== PROGRESS =====
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("progressText").textContent = "Progress: " + pct + "% · 进度：" + pct + "%";
+}
+
+// ===== TAB SWITCH =====
+function switchTab(name, btn) {
+  document.querySelectorAll(".tab-content").forEach(function(t) { t.classList.remove("active"); });
+  document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
+  document.getElementById("tab-" + name).classList.add("active");
+  btn.classList.add("active");
+}
+
+// ===== TIMER =====
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById("timer-display").textContent = "⏱ " + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+}
+
+// ===== ANTI-CHEAT =====
+function trackNavigation() {
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById("leaveBadge").textContent = "🚪 Leaves: " + leaveCount;
+      var notice = document.getElementById("leaveNotice");
+      notice.style.display = "block";
+      setTimeout(function() { notice.style.display = "none"; }, 5000);
+    }
+  });
+}
+
+// ===== INIT =====
+document.addEventListener("DOMContentLoaded", function() {
+  buildVocab();
+  buildQuiz(SYLLABUS_Q, "syllabusQuizContainer", "syllabus");
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
