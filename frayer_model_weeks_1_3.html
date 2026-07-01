@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World History Frayer Model Study Cards - Weeks 1-3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-active {
+            background: #ffd700;
+            color: #333;
+        }
+
+        .week-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .week-tab {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .week-tab:hover {
+            background: rgba(255,255,255,0.35);
+            transform: translateY(-2px);
+        }
+
+        .week-tab.active {
+            background: white;
+            color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .week-section {
+            display: none;
+        }
+
+        .week-section.active {
+            display: block;
+        }
+
+        .week-title {
+            text-align: center;
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .term-en {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .term-cn {
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.95);
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 0;
+        }
+
+        .frayer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 2px;
+            background: #f0f0f0;
+        }
+
+        .frayer-box {
+            background: white;
+            padding: 20px;
+            min-height: 120px;
+        }
+
+        .frayer-box h3 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: #888;
+            font-weight: 700;
+        }
+
+        .frayer-box p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .frayer-box .cn-text {
+            font-size: 0.95rem;
+            color: #666;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .definition-box { border-left: 4px solid #667eea; }
+        .characteristics-box { border-left: 4px solid #f093fb; }
+        .examples-box { border-left: 4px solid #4facfe; }
+        .non-examples-box { border-left: 4px solid #fa709a; }
+
+        .definition-box h3 { color: #667eea; }
+        .characteristics-box h3 { color: #f093fb; }
+        .examples-box h3 { color: #4facfe; }
+        .non-examples-box h3 { color: #fa709a; }
+
+        .fill-blank {
+            display: inline-block;
+            min-width: 80px;
+            border-bottom: 2px solid #667eea;
+            padding: 0 5px;
+            color: #667eea;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .fill-blank:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .fill-blank.revealed {
+            border-bottom-color: #28a745;
+            color: #28a745;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .badge-new { background: #ffd700; color: #333; }
+        .badge-review { background: #ff6b6b; color: white; }
+
+        .color-1 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .color-2 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .color-3 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .color-4 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .color-5 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .color-6 { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        .color-7 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .color-7 .term-en { color: #333; text-shadow: none; }
+        .color-7 .term-cn { color: #555; }
+        .color-8 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+        .color-8 .term-en { color: #333; text-shadow: none; }
+        .color-8 .term-cn { color: #555; }
+        .color-9 { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        .color-10 { background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%); }
+        .color-10 .term-en { color: #333; text-shadow: none; }
+        .color-10 .term-cn { color: #555; }
+        .color-11 { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); }
+        .color-11 .term-en { color: #333; text-shadow: none; }
+        .color-11 .term-cn { color: #555; }
+        .color-12 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+        .color-13 { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
+        .color-13 .term-en { color: #333; text-shadow: none; }
+        .color-13 .term-cn { color: #555; }
+        .color-14 { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .color-15 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .color-15 .term-en { color: #333; text-shadow: none; }
+        .color-15 .term-cn { color: #555; }
+        .color-16 { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .color-17 { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .color-17 .term-en { color: #333; text-shadow: none; }
+        .color-17 .term-cn { color: #555; }
+        .color-18 { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .color-18 .term-en { color: #333; text-shadow: none; }
+        .color-18 .term-cn { color: #555; }
+        .color-19 { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        .color-20 { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .color-20 .term-en { color: #333; text-shadow: none; }
+        .color-20 .term-cn { color: #555; }
+        .color-21 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+        .color-21 .term-en { color: #333; text-shadow: none; }
+        .color-21 .term-cn { color: #555; }
+
+        .mode-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+
+        .mode-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: #667eea;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mode-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .study-mode .frayer-box p {
+            filter: blur(5px);
+            user-select: none;
+            transition: filter 0.3s;
+        }
+
+        .study-mode .frayer-box:hover p,
+        .study-mode .frayer-box.revealed p {
+            filter: blur(0);
+        }
+
+        .study-mode .frayer-box {
+            cursor: pointer;
+        }
+
+        .study-mode .frayer-box::before {
+            content: 'Click to reveal';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.9rem;
+            color: #999;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .study-mode .frayer-box.revealed::before {
+            opacity: 0;
+        }
+
+        .frayer-box {
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .week-tab {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+        }
+
+        .progress-bar {
+            max-width: 1400px;
+            margin: 0 auto 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 3px;
+        }
+
+        .progress-fill {
+            height: 8px;
+            background: #ffd700;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .week-summary {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto 25px;
+            color: white;
+            text-align: center;
+        }
+
+        .week-summary h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .week-summary p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>World History Frayer Models</h1>
+        <p>Click cards to study - English & Chinese - Fill in the blanks - Weeks 1-3</p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-primary" onclick="toggleStudyMode()" id="studyBtn">Study Mode</button>
+        <button class="btn btn-primary" onclick="revealAll()">Reveal All</button>
+        <button class="btn btn-primary" onclick="hideAll()">Reset All</button>
+        <button class="btn btn-primary" onclick="toggleLanguage()">EN/CN</button>
+    </div>
+
+    <div class="week-tabs">
+        <button class="week-tab active" onclick="switchWeek(1)" id="tab1">Week 1 (7 cards)</button>
+        <button class="week-tab" onclick="switchWeek(2)" id="tab2">Week 2 (6 cards)</button>
+        <button class="week-tab" onclick="switchWeek(3)" id="tab3">Week 3 (7 cards)</button>
+    </div>
+
+    <!-- WEEK 1 -->
+    <div class="week-section active" id="week1">
+        <div class="week-title">Week 1: Foundations of Civilization</div>
+        <div class="week-summary">
+            <h3>Learning Focus</h3>
+            <p>Human origins, agricultural revolution, classical empires, trade networks, and religious divisions</p>
+        </div>
+        <div class="grid">
+
+            <!-- Card 1: Homo sapiens -->
+            <div class="card" data-term="homo-sapiens">
+                <div class="card-header color-1">
+                    <div class="term-en">Homo sapiens</div>
+                    <div class="term-cn">智人</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>Modern humans belong to the species called <span class="fill-blank" onclick="revealAnswer(this)">Homo sapiens</span>.</p>
+                            <p class="cn-text">现代人类属于称为<span class="fill-blank" onclick="revealAnswer(this)">智人</span>的物种。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Large brain capacity, complex language, tool making, abstract thinking</p>
+                            <p class="cn-text">大脑容量大, 复杂语言, 制造工具, 抽象思维</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>All humans alive today, Cro-Magnon people, early cave artists</p>
+                            <p class="cn-text">当今所有人类, 克罗马农人, 早期洞穴艺术家</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Neanderthals, Homo erectus, Australopithecus</p>
+                            <p class="cn-text">尼安德特人, 直立人, 南方古猿</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Neolithic Revolution -->
+            <div class="card" data-term="neolithic">
+                <div class="card-header color-2">
+                    <div class="term-en">Neolithic Revolution</div>
+                    <div class="term-cn">新石器时代革命</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Neolithic Revolution</span> was when humans changed from hunting and gathering to settled farming.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">新石器时代革命</span>是人类从狩猎采集转变为定居农业的时期。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Agriculture and farming, permanent settlements, domestication of animals, food surplus</p>
+                            <p class="cn-text">农业与耕作, 永久定居点, 动物驯化, 粮食剩余</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Fertile Crescent farming, rice cultivation in China, first villages like Jericho</p>
+                            <p class="cn-text">新月沃土农耕, 中国水稻种植, 杰里科等首批村庄</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Paleolithic hunting bands, nomadic herding without farming, modern industrial farming</p>
+                            <p class="cn-text">旧石器时代狩猎群体, 无农业的游牧放牧, 现代工业化农业</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Hellenism -->
+            <div class="card" data-term="hellenism">
+                <div class="card-header color-3">
+                    <div class="term-en">Hellenism</div>
+                    <div class="term-cn">希腊化</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p><span class="fill-blank" onclick="revealAnswer(this)">Hellenism</span> refers to the spread of Greek culture after Alexander the Great's conquests.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">希腊化</span>指亚历山大大帝征服后希腊文化的传播。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Greek language spread, Greek art and architecture, philosophy and science, blended cultures</p>
+                            <p class="cn-text">希腊语传播, 希腊艺术与建筑, 哲学与科学, 文化融合</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Alexandria Egypt, Greek-style temples in Asia, Koine Greek language, Hellenistic art</p>
+                            <p class="cn-text">埃及亚历山大, 亚洲希腊式神庙, 通用希腊语, 希腊化艺术</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Classical Athens before Alexander, pure Roman culture, pre-conquest Persian culture</p>
+                            <p class="cn-text">古典雅典（亚历山大之前）, 纯罗马文化, 征服前波斯文化</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Pax Romana -->
+            <div class="card" data-term="pax-romana">
+                <div class="card-header color-4">
+                    <div class="term-en">Pax Romana</div>
+                    <div class="term-cn">罗马和平</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Pax Romana</span> was approximately 200 years of peace and prosperity in the Roman Empire.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">罗马和平</span>是罗马帝国约200年的和平与繁荣时期。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>27 BCE to 180 CE, stable government, trade networks expanded, Roman law unified</p>
+                            <p class="cn-text">公元前27年至公元180年, 稳定的政府, 贸易网络扩展, 罗马法统一</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Augustus Caesar's rule, construction of roads, Roman aqueducts built, spread of Christianity</p>
+                            <p class="cn-text">奥古斯都凯撒统治, 道路建设, 罗马水渠建造, 基督教传播</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Civil wars of the late Republic, barbarian invasions later, any period of Roman civil war</p>
+                            <p class="cn-text">共和国晚期内战, 蛮族入侵（后期）, 任何罗马内战时期</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Silk Road -->
+            <div class="card" data-term="silk-road">
+                <div class="card-header color-5">
+                    <div class="term-en">Silk Road</div>
+                    <div class="term-cn">丝绸之路</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Silk Road</span> was a network of trade routes connecting China, Central Asia, and Europe.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">丝绸之路</span>是连接中国、中亚和欧洲贸易路线的网络。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Overland and maritime routes, goods ideas diseases spread, no single road, active for centuries</p>
+                            <p class="cn-text">陆路与海路, 商品思想疾病传播, 非单一道路, 活跃数世纪</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Silk from China, spices from India, Buddhism spread to China, paper-making westward</p>
+                            <p class="cn-text">中国丝绸, 印度香料, 佛教传入中国, 造纸术西传</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Atlantic trade routes, modern shipping lanes, only silk was traded</p>
+                            <p class="cn-text">大西洋贸易路线, 现代航运通道, 仅交易丝绸</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Sunni-Shia Split -->
+            <div class="card" data-term="sunni-shia">
+                <div class="card-header color-6">
+                    <div class="term-en">Sunni-Shia Split</div>
+                    <div class="term-cn">逊尼-什叶分裂</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Sunni-Shia split</span> originated from a dispute over who should lead the Muslim community after the Prophet died.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">逊尼-什叶分裂</span>起源于关于先知去世后谁应领导穆斯林社区的争议。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Began 632 CE, Sunni elected leaders, Shia Ali's descendants, different religious practices</p>
+                            <p class="cn-text">始于公元632年, 逊尼选举领袖, 什叶阿里后裔, 不同宗教习俗</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Sunni majority worldwide, Shia in Iran Iraq, different hadith collections, Ashura commemorations</p>
+                            <p class="cn-text">全球逊尼派多数, 伊朗伊拉克什叶派, 不同圣训集, 阿舒拉纪念</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Christian denominations, Hindu castes, before Prophet Muhammad's death</p>
+                            <p class="cn-text">基督教教派, 印度种姓, 先知穆罕默德去世前</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7: Great Schism -->
+            <div class="card" data-term="great-schism">
+                <div class="card-header color-7">
+                    <div class="term-en">Great Schism <span class="badge badge-new">1054</span></div>
+                    <div class="term-cn">大分裂</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Great Schism</span> (1054) divided Christianity into Roman Catholicism and Eastern Orthodox Christianity.</p>
+                            <p class="cn-text">公元1054年的<span class="fill-blank" onclick="revealAnswer(this)">大分裂</span>将基督教分为罗马天主教和东正教。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Authority dispute Pope vs Patriarch, language Latin vs Greek, Filioque controversy, mutual excommunication</p>
+                            <p class="cn-text">权威争议教皇 vs 牧首, 语言拉丁语 vs 希腊语, 和子句争议, 互相绝罚</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Roman Catholic Church, Eastern Orthodox Church, Byzantine Empire church, modern Greece Russia Orthodox</p>
+                            <p class="cn-text">罗马天主教会, 东正教会, 拜占庭帝国教会, 现代希腊俄罗斯东正教</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Protestant Reformation 1517, before 1054 unified church, non-Christian religions</p>
+                            <p class="cn-text">宗教改革（1517年）, 1054年前统一教会, 非基督教宗教</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="week-section" id="week2">
+        <div class="week-title">Week 2: Islamic Golden Age, Mongol Empire and Americas</div>
+        <div class="week-summary">
+            <h3>Learning Focus</h3>
+            <p>Islamic caliphates, the Golden Age of science, Mongol stability, Aztec agriculture, and the devastating plague</p>
+        </div>
+        <div class="grid">
+
+            <!-- Card 8: Rashidun / Umayyad / Abbasid -->
+            <div class="card" data-term="caliphates">
+                <div class="card-header color-8">
+                    <div class="term-en">Rashidun / Umayyad / Abbasid</div>
+                    <div class="term-cn">正统/倭马亚/阿拔斯</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The three early Islamic <span class="fill-blank" onclick="revealAnswer(this)">caliphates</span> that expanded Muslim rule from Arabia across the Middle East, Africa, and Spain.</p>
+                            <p class="cn-text">三个早期伊斯兰<span class="fill-blank" onclick="revealAnswer(this)">哈里发国</span>，将穆斯林统治从阿拉伯扩展到中东、非洲和西班牙。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Rashidun 632-661 first 4 caliphs, Umayyad 661-750 Damascus capital, Abbasid 750-1258 Baghdad capital, rapid military expansion</p>
+                            <p class="cn-text">正统632-661前四位哈里发, 倭马亚661-750大马士革首都, 阿拔斯750-1258巴格达首都, 快速军事扩张</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Rashidun Abu Bakr Umar Uthman Ali, Umayyad Dome of the Rock built, Abbasid House of Wisdom, Al-Andalus Spain</p>
+                            <p class="cn-text">正统阿布巴克尔欧麦尔奥斯曼阿里, 倭马亚圆顶清真寺建造, 阿拔斯智慧宫, 安达卢斯西班牙</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Ottoman Empire later, Mughal Empire India, pre-Islamic Arabian tribes</p>
+                            <p class="cn-text">奥斯曼帝国（后期）, 莫卧儿帝国（印度）, 伊斯兰前阿拉伯部落</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 9: Islamic Golden Age -->
+            <div class="card" data-term="islamic-golden-age">
+                <div class="card-header color-9">
+                    <div class="term-en">Islamic Golden Age</div>
+                    <div class="term-cn">伊斯兰黄金时代</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Islamic Golden Age</span> was a period when Baghdad became a global center of science, math, medicine, and philosophy.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">伊斯兰黄金时代</span>是巴格达成为科学、数学、医学和哲学全球中心的时期。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>8th to 13th centuries, translation movement, algebra astronomy optics, preservation of Greek texts</p>
+                            <p class="cn-text">8至13世纪, 翻译运动, 代数天文学光学, 保存希腊文献</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Al-Khwarizmi algebra, Ibn Sina Avicenna medicine, House of Wisdom library, advances in astronomy</p>
+                            <p class="cn-text">花拉子米代数, 伊本西那阿维森纳医学, 智慧宫图书馆, 天文学进步</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>European Dark Ages decline, modern scientific method, pre-Islamic Arabian science</p>
+                            <p class="cn-text">欧洲黑暗时代衰落, 现代科学方法, 伊斯兰前阿拉伯科学</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 10: Pax Mongolica -->
+            <div class="card" data-term="pax-mongolica">
+                <div class="card-header color-10">
+                    <div class="term-en">Pax Mongolica</div>
+                    <div class="term-cn">蒙古和平</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Pax Mongolica</span> was a period of stability and safe trade across the Mongol Empire.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">蒙古和平</span>是蒙古帝国境内稳定与安全贸易的时期。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>13th to 14th centuries, Silk Road protection, postal relay system, religious tolerance</p>
+                            <p class="cn-text">13至14世纪, 丝绸之路保护, 驿站系统, 宗教宽容</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Marco Polo's travels, spread of gunpowder, trade from China to Europe, Mongol postal stations</p>
+                            <p class="cn-text">马可波罗旅行, 火药传播, 从中国到欧洲的贸易, 蒙古驿站</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Mongol conquest wars, fragmented Europe trade, after Mongol Empire collapse</p>
+                            <p class="cn-text">蒙古征服战争, 分裂的欧洲贸易, 蒙古帝国崩溃后</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 11: Chinampas -->
+            <div class="card" data-term="chinampas">
+                <div class="card-header color-11">
+                    <div class="term-en">Chinampas</div>
+                    <div class="term-cn">浮岛农业</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p><span class="fill-blank" onclick="revealAnswer(this)">Chinampas</span> were the Aztec's floating garden agricultural system that supported the dense population of Tenochtitlan.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">浮岛农业</span>是阿兹特克人的浮动花园农业系统，支持了特诺奇蒂特兰密集的人口。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Rectangular plots on lake, mud and vegetation layers, willow trees for anchors, highly productive</p>
+                            <p class="cn-text">湖上矩形地块, 泥土与植被层, 柳树作为锚定, 极高生产力</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Lake Texcoco gardens, modern Xochimilco canals, 7-10 harvests per year, supported 200000 plus people</p>
+                            <p class="cn-text">特斯科科湖花园, 现代霍奇米尔科运河, 每年7-10次收获, 支持20万+人口</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>European plow farming, terrace farming Andes, slash-and-burn agriculture</p>
+                            <p class="cn-text">欧洲犁耕, 梯田农业（安第斯）, 刀耕火种农业</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 12: Black Death -->
+            <div class="card" data-term="black-death">
+                <div class="card-header color-12">
+                    <div class="term-en">Black Death</div>
+                    <div class="term-cn">黑死病</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Black Death</span> was a bubonic plague that killed 1/3 to 1/2 of Europe's population in the 14th century.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">黑死病</span>是14世纪导致欧洲三分之一至一半人口死亡的腺鼠疫。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>1347-1351 peak, Yersinia pestis bacteria, fleas on rats spread it, social and economic collapse</p>
+                            <p class="cn-text">1347-1351年高峰, 鼠疫耶尔森菌, 老鼠身上的跳蚤传播, 社会与经济崩溃</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>75-200 million deaths globally, end of feudalism, labor shortages, flagellant movements</p>
+                            <p class="cn-text">全球7500万至2亿人死亡, 封建制度终结, 劳动力短缺, 鞭笞派运动</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Smallpox different disease, 1918 Spanish Flu, COVID-19 pandemic</p>
+                            <p class="cn-text">天花（不同疾病）, 1918年西班牙流感, 新冠疫情</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 13: Mansa Musa -->
+            <div class="card" data-term="mansa-musa">
+                <div class="card-header color-13">
+                    <div class="term-en">Mansa Musa</div>
+                    <div class="term-cn">曼萨·穆萨</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p><span class="fill-blank" onclick="revealAnswer(this)">Mansa Musa</span> was the Mali emperor whose 1324 pilgrimage to Mecca displayed extraordinary wealth and put Mali on the world map.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">曼萨·穆萨</span>是马里帝国的皇帝，他1324年的麦加朝圣展示了非凡的财富，使马里登上了世界地图。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Ruled c. 1312-1337, richest person in history, gave away gold in Cairo, built Timbuktu universities</p>
+                            <p class="cn-text">统治约1312-1337年, 历史上最富有的人, 在开罗分发黄金, 建造廷巴克图大学</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>60000-person caravan, 12000 slaves with gold, Sankore University, Catalan Atlas depiction</p>
+                            <p class="cn-text">6万人商队, 1.2万名携带黄金的奴隶, 桑科雷大学, 加泰罗尼亚地图集描绘</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>European kings of same era, Songhai Empire rulers, modern wealthy businessmen</p>
+                            <p class="cn-text">同时代的欧洲国王, 桑海帝国统治者, 现代富商</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="week-section" id="week3">
+        <div class="week-title">Week 3: Enlightenment, Revolutions and Imperialism</div>
+        <div class="week-summary">
+            <h3>Learning Focus</h3>
+            <p>Natural rights philosophy, the French Revolution's dark turn, the Haitian slave revolution, Latin American independence, industrial imperialism, and China's Century of Humiliation</p>
+        </div>
+        <div class="grid">
+
+            <!-- Card 14: Natural Rights -->
+            <div class="card" data-term="natural-rights">
+                <div class="card-header color-14">
+                    <div class="term-en">Natural Rights</div>
+                    <div class="term-cn">天赋权利</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>Enlightenment idea: all people are born with <span class="fill-blank" onclick="revealAnswer(this)">natural rights</span> (life, liberty, property) that no government can take away.</p>
+                            <p class="cn-text">启蒙思想：所有人天生拥有<span class="fill-blank" onclick="revealAnswer(this)">天赋权利</span>（生命、自由、财产），政府无权剥夺。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>John Locke's philosophy, self-evident truths, universal to all humans, government protects them</p>
+                            <p class="cn-text">约翰·洛克哲学, 不言而喻的真理, 全人类普遍拥有, 政府保护这些权利</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>US Declaration of Independence, French Declaration of Rights, UN Universal Declaration, life liberty pursuit of happiness</p>
+                            <p class="cn-text">美国独立宣言, 法国人权宣言, 联合国世界人权宣言, 生命自由追求幸福</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Rights granted by kings, divine right of monarchs, feudal obligations</p>
+                            <p class="cn-text">国王授予的权利, 君权神授, 封建义务</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 15: Reign of Terror -->
+            <div class="card" data-term="reign-of-terror">
+                <div class="card-header color-15">
+                    <div class="term-en">Reign of Terror</div>
+                    <div class="term-cn">恐怖统治</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Reign of Terror</span> was when Robespierre executed thousands of enemies of the revolution during the French Revolution.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">恐怖统治</span>是罗伯斯庇尔在法国大革命期间处决数千名革命敌人的时期。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>1793-1794, Committee of Public Safety, guillotine executions, 17000 plus officially executed</p>
+                            <p class="cn-text">1793-1794年, 公共安全委员会, 断头台处决, 1.7万+官方处决</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Maximilien Robespierre, Marie Antoinette executed, revolutionary tribunals, Liberty Equality Fraternity twisted</p>
+                            <p class="cn-text">马克西米利安·罗伯斯庇尔, 玛丽·安托瓦内特被处决, 革命法庭, 自由平等博爱被扭曲</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Initial 1789 revolution, Napoleon's rule, peaceful constitutional monarchy</p>
+                            <p class="cn-text">1789年最初革命, 拿破仑统治, 和平君主立宪制</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 16: Haitian Revolution -->
+            <div class="card" data-term="haitian-revolution">
+                <div class="card-header color-16">
+                    <div class="term-en">Haitian Revolution</div>
+                    <div class="term-cn">海地革命</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The <span class="fill-blank" onclick="revealAnswer(this)">Haitian Revolution</span> (1791-1804) was the only successful slave revolution in history, creating the first Black republic.</p>
+                            <p class="cn-text"><span class="fill-blank" onclick="revealAnswer(this)">海地革命</span>（1791-1804年）是历史上唯一成功的奴隶革命，建立了第一个黑人共和国。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Toussaint Louverture leader, defeated French British Spanish, inspired by French Revolution, abolished slavery permanently</p>
+                            <p class="cn-text">杜桑·卢维杜尔领导, 击败法国英国西班牙, 受法国大革命启发, 永久废除奴隶制</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Saint-Domingue colony, Vodou ceremony start Bois Caiman, 1804 independence declaration, Napoleon's failed invasion</p>
+                            <p class="cn-text">圣多明各殖民地, 巫毒仪式开端布瓦凯曼, 1804年独立宣言, 拿破仑失败入侵</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>American Revolution not slave-led, failed slave revolts before 1791, Latin American independence wars</p>
+                            <p class="cn-text">美国革命（非奴隶领导）, 1791年前失败的奴隶起义, 拉丁美洲独立战争</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 17: El Libertador -->
+            <div class="card" data-term="el-libertador">
+                <div class="card-header color-17">
+                    <div class="term-en">El Libertador</div>
+                    <div class="term-cn">解放者</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>Simon Bolivar earned the title '<span class="fill-blank" onclick="revealAnswer(this)">El Libertador</span>' by leading independence movements across five South American nations.</p>
+                            <p class="cn-text">西蒙·玻利瓦尔通过领导五个南美国家的独立运动，赢得了"<span class="fill-blank" onclick="revealAnswer(this)">解放者</span>"的称号。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>1783-1830, Gran Colombia vision, military genius, inspired by Enlightenment</p>
+                            <p class="cn-text">1783-1830年, 大哥伦比亚愿景, 军事天才, 受启蒙运动启发</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Venezuela liberated 1813, Colombia Ecuador Peru Bolivia, Battle of Ayacucho, Bolivia named after him</p>
+                            <p class="cn-text">委内瑞拉解放（1813年）, 哥伦比亚厄瓜多尔秘鲁玻利维亚, 阿亚库乔战役, 玻利维亚以他命名</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>George Washington North America, Jose de San Martin southern cone, European monarchs</p>
+                            <p class="cn-text">乔治·华盛顿（北美）, 何塞·德·圣马丁（南部锥体）, 欧洲君主</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 18: 19th-century imperialism -->
+            <div class="card" data-term="imperialism">
+                <div class="card-header color-18">
+                    <div class="term-en">19th-century Imperialism</div>
+                    <div class="term-cn">19世纪帝国主义</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>Unlike earlier colonialism, <span class="fill-blank" onclick="revealAnswer(this)">19th-century imperialism</span> was driven by industrialization's need for raw materials and new markets.</p>
+                            <p class="cn-text">与早期殖民主义不同，<span class="fill-blank" onclick="revealAnswer(this)">19世纪帝国主义</span>是由工业化对原材料和新市场的需求驱动的。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>New Imperialism 1870-1914, Scramble for Africa, technology gap guns ships, economic exploitation</p>
+                            <p class="cn-text">新帝国主义（1870-1914）, 瓜分非洲, 技术差距（枪炮、舰船）, 经济剥削</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>British Raj in India, Belgian Congo, French Indochina, Berlin Conference 1884</p>
+                            <p class="cn-text">英国在印度的统治, 比利时刚果, 法属印度支那, 柏林会议（1884年）</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>16th-17th century colonies, ancient Roman expansion, modern globalization</p>
+                            <p class="cn-text">16-17世纪殖民地, 古罗马扩张, 现代全球化</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 19: Unequal Treaties -->
+            <div class="card" data-term="unequal-treaties">
+                <div class="card-header color-19">
+                    <div class="term-en">Unequal Treaties</div>
+                    <div class="term-cn">不平等条约</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>The Opium Wars forced China to sign <span class="fill-blank" onclick="revealAnswer(this)">unequal treaties</span> that opened ports, ceded Hong Kong, and granted Western powers special privileges.</p>
+                            <p class="cn-text">鸦片战争迫使中国签订<span class="fill-blank" onclick="revealAnswer(this)">不平等条约</span>，开放港口，割让香港，并给予西方列强特殊特权。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>Treaty of Nanking 1842, extraterritoriality, treaty ports, forced by military defeat</p>
+                            <p class="cn-text">南京条约（1842年）, 领事裁判权, 通商口岸, 军事战败强迫签订</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>Treaty of Nanking Hong Kong, Treaty of Tientsin, Treaty of Shimonoseki, Boxer Protocol 1901</p>
+                            <p class="cn-text">南京条约（香港）, 天津条约, 马关条约, 辛丑条约（1901年）</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Equal diplomatic agreements, modern WTO negotiations, pre-Opium War trade</p>
+                            <p class="cn-text">平等外交协议, 现代WTO谈判, 鸦片战争前贸易</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 20: Century of Humiliation -->
+            <div class="card" data-term="century-of-humiliation">
+                <div class="card-header color-20">
+                    <div class="term-en">Century of Humiliation</div>
+                    <div class="term-cn">百年屈辱</div>
+                </div>
+                <div class="card-body">
+                    <div class="frayer-grid">
+                        <div class="frayer-box definition-box">
+                            <h3>Definition / 定义</h3>
+                            <p>China's <span class="fill-blank" onclick="revealAnswer(this)">Century of Humiliation</span> began with the Opium Wars - a period when China faced foreign intervention, territorial concessions, and loss of sovereignty.</p>
+                            <p class="cn-text">中国的<span class="fill-blank" onclick="revealAnswer(this)">百年屈辱</span>始于鸦片战争——这一时期中国面临外国干预、领土割让和主权丧失。</p>
+                        </div>
+                        <div class="frayer-box characteristics-box">
+                            <h3>Characteristics / 特征</h3>
+                            <p>c. 1839-1949, unequal treaties, foreign spheres of influence, nationalist trauma narrative</p>
+                            <p class="cn-text">约1839-1949年, 不平等条约, 外国势力范围, 民族主义创伤叙事</p>
+                        </div>
+                        <div class="frayer-box examples-box">
+                            <h3>Examples / 例子</h3>
+                            <p>First Opium War 1839-42, Treaty of Nanking, Sino-Japanese Wars, Boxer Rebellion, ended with PRC founding 1949</p>
+                            <p class="cn-text">第一次鸦片战争（1839-42）, 南京条约, 中日战争, 义和团运动, 随中华人民共和国成立结束（1949年）</p>
+                        </div>
+                        <div class="frayer-box non-examples-box">
+                            <h3>Non-Examples / 非例子</h3>
+                            <p>Ming Dynasty height, post-1949 PRC period, ancient Chinese empires</p>
+                            <p class="cn-text">明朝鼎盛时期, 1949年后中华人民共和国时期, 古代中华帝国</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mode-toggle">
+        <button class="mode-btn" onclick="scrollToTop()" title="Back to top">Up</button>
+    </div>
+
+    <script>
+        let studyMode = false;
+        let cnVisible = true;
+        let currentWeek = 1;
+
+        function revealAnswer(element) {
+            element.classList.toggle('revealed');
+            updateProgress();
+        }
+
+        function toggleStudyMode() {
+            studyMode = !studyMode;
+            document.body.classList.toggle('study-mode', studyMode);
+            const btn = document.getElementById('studyBtn');
+            btn.textContent = studyMode ? 'Exit Study Mode' : 'Study Mode';
+            btn.classList.toggle('btn-active', studyMode);
+
+            if (studyMode) {
+                document.querySelectorAll('.frayer-box').forEach(box => {
+                    box.addEventListener('click', function(e) {
+                        if (e.target.classList.contains('fill-blank')) return;
+                        this.classList.toggle('revealed');
+                        updateProgress();
+                    });
+                });
+            }
+        }
+
+        function revealAll() {
+            document.querySelectorAll('.fill-blank').forEach(el => el.classList.add('revealed'));
+            document.querySelectorAll('.frayer-box').forEach(el => el.classList.add('revealed'));
+            updateProgress();
+        }
+
+        function hideAll() {
+            document.querySelectorAll('.fill-blank').forEach(el => el.classList.remove('revealed'));
+            document.querySelectorAll('.frayer-box').forEach(el => el.classList.remove('revealed'));
+            updateProgress();
+        }
+
+        function toggleLanguage() {
+            cnVisible = !cnVisible;
+            document.querySelectorAll('.cn-text').forEach(el => {
+                el.style.display = cnVisible ? 'block' : 'none';
+            });
+            document.querySelectorAll('.term-cn').forEach(el => {
+                el.style.display = cnVisible ? 'block' : 'none';
+            });
+        }
+
+        function updateProgress() {
+            const total = document.querySelectorAll('.fill-blank').length;
+            const revealed = document.querySelectorAll('.fill-blank.revealed').length;
+            const percent = (revealed / total) * 100;
+            document.getElementById('progressFill').style.width = percent + '%';
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchWeek(week) {
+            currentWeek = week;
+            document.querySelectorAll('.week-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.week-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('week' + week).classList.add('active');
+            document.getElementById('tab' + week).classList.add('active');
+            hideAll();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
