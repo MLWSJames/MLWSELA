@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLWS PD | Structured Literacy for Older Struggling Readers · 结构化读写教学</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--mist); color:var(--ink); line-height:1.6; }
+.cn { font-family:'Noto Sans SC',sans-serif; }
+h1,h2,h3 { font-family:'Literata',serif; color:var(--ml-green-dark); }
+
+/* ============ HEADER ============ */
+header {
+  background:linear-gradient(135deg, var(--ml-green-dark) 0%, var(--ml-green) 100%);
+  color:#fff; padding:26px 22px 18px; text-align:center;
+}
+header .leaf { font-size:1.6rem; }
+header h1 { color:#fff; font-size:1.45rem; margin:4px 0 2px; }
+header .sub { font-size:0.92rem; opacity:0.92; }
+header .cn-sub { font-size:0.85rem; opacity:0.85; margin-top:2px; }
+.meta-strip {
+  display:flex; justify-content:center; gap:18px; flex-wrap:wrap;
+  margin-top:12px; font-size:0.78rem; opacity:0.95;
+}
+.meta-strip span { background:rgba(255,255,255,0.14); padding:3px 12px; border-radius:20px; }
+
+/* progress */
+.progress-wrap { max-width:520px; margin:14px auto 0; }
+.progress-track { background:rgba(255,255,255,0.25); border-radius:20px; height:9px; overflow:hidden; }
+.progress-fill { background:var(--ml-gold); height:100%; width:0%; border-radius:20px; transition:width .4s ease; }
+.progress-label { font-size:0.75rem; margin-top:5px; opacity:0.9; }
+
+/* ============ STEPPER ============ */
+nav.stepper {
+  display:flex; justify-content:center; gap:6px; flex-wrap:wrap;
+  background:#fff; padding:12px 10px; border-bottom:2px solid var(--border);
+  position:sticky; top:0; z-index:900;
+}
+.step-btn {
+  border:2px solid var(--border); background:#fff; color:var(--ink2);
+  padding:7px 13px; border-radius:22px; font-family:'DM Sans',sans-serif;
+  font-size:0.8rem; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px;
+  transition:all .2s;
+}
+.step-btn:hover { border-color:var(--ml-green); }
+.step-btn.active { background:var(--ml-green); color:#fff; border-color:var(--ml-green); }
+.step-btn .pip {
+  width:10px; height:10px; border-radius:50%; background:var(--border); display:inline-block;
+}
+.step-btn .pip.done { background:var(--ml-gold); box-shadow:0 0 0 2px rgba(233,196,106,0.4); }
+
+/* ============ SECTIONS ============ */
+main { max-width:880px; margin:0 auto; padding:26px 18px 80px; }
+section.mod-section { display:none; animation:fadein .35s ease; }
+section.mod-section.active { display:block; }
+@keyframes fadein { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none;} }
+
+.section-kicker {
+  font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--ml-green); font-weight:700; margin-bottom:4px;
+}
+section.mod-section > h2 { font-size:1.5rem; margin-bottom:2px; }
+.h2-cn { font-family:'Noto Sans SC',sans-serif; color:var(--ink2); font-size:0.95rem; margin-bottom:18px; }
+
+.card {
+  background:#fff; border:1px solid var(--border); border-radius:14px;
+  padding:20px 22px; margin-bottom:18px; box-shadow:0 1px 4px rgba(27,67,50,0.05);
+}
+.card h3 { font-size:1.08rem; margin-bottom:8px; }
+.card p { margin-bottom:10px; font-size:0.94rem; color:var(--ink2); }
+.card p:last-child { margin-bottom:0; }
+
+.callout {
+  border-left:5px solid var(--ml-gold); background:var(--amber-light);
+  border-radius:0 10px 10px 0; padding:14px 18px; margin:14px 0; font-size:0.92rem;
+}
+.callout.green { border-left-color:var(--ml-green); background:var(--ml-green-light); }
+.callout.blue { border-left-color:var(--cobalt); background:#e8eef5; }
+.callout strong { color:var(--ml-green-dark); }
+
+.quotebox {
+  font-family:'Literata',serif; font-style:italic; background:var(--mist);
+  border:1px dashed var(--ml-green); border-radius:10px; padding:14px 18px;
+  margin:12px 0; font-size:0.95rem; color:var(--ink2);
+}
+
+table.info { width:100%; border-collapse:collapse; margin:12px 0; font-size:0.88rem; }
+table.info th { background:var(--ml-green-dark); color:#fff; text-align:left; padding:9px 12px; }
+table.info td { border:1px solid var(--border); padding:9px 12px; vertical-align:top; background:#fff; }
+table.info tr:nth-child(even) td { background:var(--mist); }
+
+.badge-row { display:flex; gap:10px; flex-wrap:wrap; margin:12px 0; }
+.principle {
+  flex:1 1 230px; background:#fff; border:1px solid var(--border); border-top:4px solid var(--ml-green);
+  border-radius:10px; padding:13px 15px; font-size:0.85rem;
+}
+.principle b { display:block; color:var(--ml-green-dark); margin-bottom:3px; font-size:0.9rem; }
+
+/* inputs */
+.field-row { margin:14px 0; }
+.field-row label { display:block; font-weight:600; font-size:0.9rem; margin-bottom:5px; color:var(--ml-green-dark); }
+.field-row .lbl-cn { font-weight:400; color:var(--ink2); font-size:0.82rem; }
+input[type=text], textarea, select {
+  width:100%; border:2px solid var(--border); border-radius:10px; padding:10px 13px;
+  font-family:'DM Sans',sans-serif; font-size:0.92rem; color:var(--ink); background:#fff;
+  transition:border-color .2s;
+}
+textarea { min-height:90px; resize:vertical; }
+input:focus, textarea:focus, select:focus { outline:none; border-color:var(--ml-green); }
+input.filled, textarea.filled { border-color:var(--ml-green); background:#fbfffb; }
+.hint-sm { font-size:0.78rem; color:var(--ink2); margin-top:4px; }
+
+/* knowledge check */
+.quiz-card { background:#fff; border:1px solid var(--border); border-radius:14px; padding:18px 20px; margin-bottom:16px; }
+.q-num { font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--ml-green); margin-bottom:6px; }
+.q-scenario { background:var(--mist); border-radius:8px; padding:10px 14px; font-size:0.88rem; font-style:italic; margin-bottom:10px; color:var(--ink2); }
+.q-text { font-weight:600; font-size:0.95rem; margin-bottom:10px; }
+.opts-wrap { display:flex; flex-direction:column; gap:8px; }
+.opt-btn {
+  text-align:left; border:2px solid var(--border); background:#fff; border-radius:10px;
+  padding:10px 14px; font-family:'DM Sans',sans-serif; font-size:0.88rem; color:var(--ink);
+  cursor:pointer; transition:all .15s;
+}
+.opt-btn:hover:not(:disabled) { border-color:var(--ml-green); background:var(--mist); }
+.opt-btn:disabled { cursor:default; opacity:0.85; }
+.opt-btn.show-correct { border-color:var(--ml-green); background:var(--ml-green-light); opacity:1; }
+.opt-btn.selected-wrong { border-color:var(--ml-red); background:#fde8e8; opacity:1; }
+.rationale { display:none; margin-top:12px; border-radius:10px; padding:12px 15px; font-size:0.87rem; }
+.rationale.show { display:block; }
+.rationale.correct-rat { background:var(--ml-green-light); border-left:4px solid var(--ml-green); }
+.rationale.wrong-rat { background:#fde8e8; border-left:4px solid var(--ml-red); }
+
+/* sequence activity */
+.seq-wrap { display:flex; flex-direction:column; gap:9px; margin:12px 0; }
+.seq-item {
+  border:2px solid var(--border); background:#fff; border-radius:10px; padding:12px 15px;
+  cursor:pointer; font-size:0.9rem; display:flex; align-items:center; gap:12px; transition:all .15s;
+  font-family:'DM Sans',sans-serif; text-align:left; width:100%;
+}
+.seq-item:hover:not(:disabled) { border-color:var(--ml-green); }
+.seq-item .seq-slot {
+  min-width:30px; height:30px; border-radius:50%; border:2px dashed var(--ml-green);
+  display:flex; align-items:center; justify-content:center; font-weight:700; color:var(--ml-green);
+  font-size:0.9rem;
+}
+.seq-item.picked { border-color:var(--ml-green); background:var(--mist); }
+.seq-item.seq-correct { border-color:var(--ml-green); background:var(--ml-green-light); }
+.seq-item.seq-wrong { border-color:var(--ml-red); background:#fde8e8; }
+.seq-controls { display:flex; gap:10px; margin-top:8px; }
+
+/* prompt meter */
+.meter-wrap { margin-top:12px; }
+.meter-item {
+  display:flex; align-items:center; gap:10px; padding:7px 12px; border-radius:8px;
+  font-size:0.85rem; margin-bottom:6px; background:var(--mist); border:1px solid var(--border);
+  transition:all .25s;
+}
+.meter-item .dot { width:14px; height:14px; border-radius:50%; background:#cbd5cb; flex-shrink:0; transition:all .25s; }
+.meter-item.hit { background:var(--ml-green-light); border-color:var(--ml-green); }
+.meter-item.hit .dot { background:var(--ml-green); }
+.meter-score { font-weight:700; margin-top:6px; font-size:0.9rem; color:var(--ml-green-dark); }
+
+/* interactive checklist */
+.check-item {
+  display:flex; gap:12px; align-items:flex-start; background:#fff; border:1px solid var(--border);
+  border-radius:10px; padding:12px 15px; margin-bottom:9px; cursor:pointer; transition:all .15s;
+}
+.check-item:hover { border-color:var(--ml-green); }
+.check-item.ticked { border-color:var(--ml-green); background:var(--ml-green-light); }
+.check-item .box {
+  min-width:22px; height:22px; border:2px solid var(--ml-green); border-radius:6px;
+  display:flex; align-items:center; justify-content:center; font-size:0.85rem; color:#fff;
+  background:#fff; margin-top:2px;
+}
+.check-item.ticked .box { background:var(--ml-green); }
+.check-item .ct { font-size:0.88rem; }
+.check-item .ct b { color:var(--ml-green-dark); }
+
+/* buttons */
+.btn {
+  display:inline-block; border:none; border-radius:26px; padding:12px 26px;
+  font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.92rem; cursor:pointer; transition:all .2s;
+}
+.btn-primary { background:var(--ml-green); color:#fff; }
+.btn-primary:hover { background:var(--ml-green-dark); }
+.btn-ghost { background:#fff; color:var(--ml-green-dark); border:2px solid var(--ml-green); }
+.btn-ghost:hover { background:var(--ml-green-light); }
+.btn-gold { background:var(--ml-gold); color:var(--ml-green-dark); }
+.nav-row { display:flex; justify-content:space-between; margin-top:26px; gap:12px; }
+
+#deliverableBtn {
+  width:100%; background:#cbd5cb; color:#6b7a6b; border:none; border-radius:12px;
+  padding:16px; font-size:1rem; font-weight:700; cursor:not-allowed; font-family:'DM Sans',sans-serif;
+  pointer-events:none; transition:all .3s;
+}
+#deliverableBtn.ready {
+  background:var(--ml-green); color:#fff; cursor:pointer; pointer-events:auto;
+  box-shadow:0 4px 14px rgba(45,106,79,0.35);
+}
+#deliverableBtn.ready:hover { background:var(--ml-green-dark); }
+.gate-hint { text-align:center; font-size:0.82rem; color:var(--amber); margin-top:8px; }
+.gate-hint.hidden { display:none; }
+
+/* certificate */
+#certLocked { text-align:center; }
+#certLocked ul { list-style:none; margin:14px auto; max-width:480px; text-align:left; }
+#certLocked li { padding:6px 0 6px 30px; position:relative; font-size:0.9rem; color:var(--ink2); }
+#certLocked li::before { content:'○'; position:absolute; left:6px; color:var(--amber); font-weight:700; }
+#certLocked li.met::before { content:'●'; color:var(--ml-green); }
+#certLocked li.met { color:var(--ml-green-dark); font-weight:600; }
+
+#certificate {
+  display:none; background:#fff; border:14px double var(--ml-green-dark); border-radius:6px;
+  padding:46px 40px; text-align:center; margin:20px auto; max-width:760px;
+  box-shadow:0 8px 30px rgba(27,67,50,0.18); position:relative;
+}
+#certificate.unlocked { display:block; }
+#certificate .cert-leaf { font-size:2.2rem; }
+#certificate .cert-org { font-family:'Literata',serif; font-size:1.05rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--ml-green-dark); font-weight:700; margin-top:6px; }
+#certificate .cert-title { font-family:'Literata',serif; font-size:2rem; color:var(--ml-green-dark); margin:16px 0 4px; }
+#certificate .cert-sub { font-size:0.9rem; color:var(--ink2); letter-spacing:0.08em; text-transform:uppercase; }
+#certificate .cert-name {
+  font-family:'Literata',serif; font-size:2.1rem; color:var(--ink); margin:22px 0 4px;
+  border-bottom:2px solid var(--ml-gold); display:inline-block; padding:0 34px 6px;
+}
+#certificate .cert-body { font-size:0.95rem; color:var(--ink2); max-width:540px; margin:14px auto; }
+#certificate .cert-module { font-family:'Literata',serif; font-weight:700; color:var(--ml-green-dark); font-size:1.1rem; }
+.cert-meta { display:flex; justify-content:center; gap:34px; flex-wrap:wrap; margin:20px 0 8px; font-size:0.85rem; }
+.cert-meta div b { display:block; color:var(--ml-green-dark); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; }
+.cert-sigs { display:flex; justify-content:space-around; margin-top:38px; flex-wrap:wrap; gap:24px; }
+.cert-sigs .sig { min-width:220px; }
+.cert-sigs .sig-line { border-top:2px solid var(--ink); padding-top:6px; font-size:0.82rem; color:var(--ink2); }
+.cert-sigs .sig-name { font-family:'Literata',serif; font-size:1rem; color:var(--ink); }
+.cert-verify { margin-top:24px; font-size:0.72rem; color:var(--ink2); letter-spacing:0.05em; }
+#printRow { text-align:center; margin-top:18px; }
+
+/* timer */
+#timerBox {
+  position:fixed; bottom:16px; right:16px; background:var(--ml-green-dark); color:#fff;
+  padding:8px 15px; border-radius:24px; font-size:0.82rem; font-weight:600; z-index:950;
+  box-shadow:0 3px 10px rgba(0,0,0,0.25);
+}
+
+/* footer / reference */
+footer {
+  background:var(--ml-green-dark); color:#dfe9df; padding:26px 20px; font-size:0.82rem;
+  margin-top:20px;
+}
+footer .foot-inner { max-width:880px; margin:0 auto; }
+footer h4 { color:#fff; font-family:'Literata',serif; margin-bottom:8px; font-size:0.95rem; }
+footer .apa { padding-left:2.2em; text-indent:-2.2em; line-height:1.7; }
+footer a { color:var(--ml-gold); }
+footer .foot-note { margin-top:14px; opacity:0.75; font-size:0.75rem; }
+
+/* print: certificate only */
+@media print {
+  body * { visibility:hidden; }
+  #certificate, #certificate * { visibility:visible; }
+  #certificate { position:absolute; left:0; top:0; width:100%; border-width:10px; box-shadow:none; margin:0; }
+  #timerBox, nav.stepper, header, footer, #printRow { display:none; }
+}
+
+@media (max-width:640px) {
+  header h1 { font-size:1.15rem; }
+  section.mod-section > h2 { font-size:1.25rem; }
+  #certificate { padding:30px 16px; }
+  #certificate .cert-name { font-size:1.5rem; }
+  .cert-sigs { gap:30px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="leaf">🍁</div>
+  <h1>Structured Literacy for Older Struggling Readers</h1>
+  <div class="sub">An AI-Supported Approach — Professional Development Module</div>
+  <div class="cn-sub cn">面向大龄读写困难学生的结构化读写教学 · 教师专业发展模块</div>
+  <div class="meta-strip">
+    <span>MLWS Professional Development</span>
+    <span>⏱ Est. 45–60 minutes</span>
+    <span>🎓 1.0 PD Hour</span>
+    <span>Module Code: PD-SL-26</span>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <div class="progress-label" id="progressText">Progress: 0% · 进度：0%</div>
+  </div>
+</header>
+
+<nav class="stepper" id="stepper">
+  <button class="step-btn active" data-step="s1"><span class="pip" id="pip-s1"></span>1 · Welcome</button>
+  <button class="step-btn" data-step="s2"><span class="pip" id="pip-s2"></span>2 · Assessment First</button>
+  <button class="step-btn" data-step="s3"><span class="pip" id="pip-s3"></span>3 · The Four-Step Lesson</button>
+  <button class="step-btn" data-step="s4"><span class="pip" id="pip-s4"></span>4 · AI-Leveled Texts</button>
+  <button class="step-btn" data-step="s5"><span class="pip" id="pip-s5"></span>5 · Deliverable</button>
+  <button class="step-btn" data-step="s6"><span class="pip" id="pip-s6"></span>6 · Certificate</button>
+</nav>
+
+<main>
+
+<!-- ================= SECTION 1: WELCOME ================= -->
+<section class="mod-section active" id="tab-s1">
+  <div class="section-kicker">Section 1 of 6</div>
+  <h2>Welcome: When Words Are the Barrier</h2>
+  <div class="h2-cn cn">欢迎：当词汇成为障碍</div>
+
+  <div class="card">
+    <p>Picture a Grade 11 student at MLWS. She can analyze a plot twist in Chinese with the sophistication of any high schooler — but hand her an English passage and she stalls on the second sentence, decoding word by word while her classmates move on to discussion. Her thinking is not the problem. <strong>The words are the barrier.</strong></p>
+    <p>This is the exact gap Catherine Gibbons describes in her 2026 Edutopia article on structured literacy for older struggling readers: by secondary school, instruction assumes students have finished <em>learning to read</em> and are now <em>reading to learn</em> — yet many still need targeted phonics, word-pattern, and morphology instruction. The materials that teach those skills are almost always written for young children, and older students find them tedious or insulting.</p>
+    <p>Our MLWS learners live in this gap every day: <strong>high analytical capability, emerging English decoding.</strong> This module gives you a practical, research-informed approach — and shows you how to use AI to build age-respectful, level-appropriate texts in minutes instead of hours.</p>
+  </div>
+
+  <div class="card">
+    <h3>Learning Outcomes · 学习目标</h3>
+    <p>By the end of this module, you will be able to:</p>
+    <table class="info">
+      <tr><th>#</th><th>Outcome</th></tr>
+      <tr><td>1</td><td>Explain why assessment data must come first — and why comprehension stays at the heart of instruction even during foundational skills work.</td></tr>
+      <tr><td>2</td><td>Sequence and describe the four-step targeted word-pattern lesson (explicit instruction → guided practice → application → contextual reading).</td></tr>
+      <tr><td>3</td><td>Write a high-quality AI prompt that generates a leveled, decodable, age-appropriate passage — and professionally review the output before it reaches students.</td></tr>
+      <tr><td>4</td><td>Produce a ready-to-teach mini-lesson plan for your own class as your submitted deliverable.</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>How This Module Respects Your Time as a Professional</h3>
+    <p>This module was designed around adult learning principles (Knowles' andragogy). You will see them in action, not just named:</p>
+    <div class="badge-row">
+      <div class="principle"><b>Relevance & Immediacy</b>Everything targets a problem you already face at MLWS. You leave with a lesson you can teach next week.</div>
+      <div class="principle"><b>Experience as a Resource</b>Activities ask you to connect new ideas to students you actually teach — your expertise is the raw material.</div>
+      <div class="principle"><b>Self-Direction</b>Navigate freely between sections. Checks give instant feedback with rationale — no waiting, no gotchas.</div>
+      <div class="principle"><b>Problem-Centered</b>The deliverable is a real artifact for a real class, not a compliance worksheet.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Before You Begin · 开始之前</h3>
+    <div class="field-row">
+      <label>Your full name (as it should appear on your certificate) <span class="lbl-cn cn">· 您的姓名（将显示在证书上）</span></label>
+      <input type="text" id="teacherName" placeholder="e.g., Zhang Wei / Sarah Thompson">
+    </div>
+    <div class="field-row">
+      <label>Your campus &amp; subject <span class="lbl-cn cn">· 校区与科目</span></label>
+      <input type="text" id="teacherCampus" placeholder="e.g., MLWS Dalian — Grade 11 English">
+    </div>
+    <div class="field-row">
+      <label>Self-assessment: How familiar are you with using AI to create leveled reading materials?</label>
+      <select id="selfAssess">
+        <option value="">— Select one —</option>
+        <option>New to me — I have not tried this yet</option>
+        <option>Exploring — I have experimented a little</option>
+        <option>Practicing — I use AI materials sometimes</option>
+        <option>Confident — I do this regularly and want to refine it</option>
+      </select>
+      <div class="hint-sm">There is no wrong answer. This helps you (and us) see your own growth — it appears in your deliverable so you can revisit it later.</div>
+    </div>
+  </div>
+
+  <div class="nav-row">
+    <span></span>
+    <button class="btn btn-primary" data-goto="s2">Continue to Section 2 →</button>
+  </div>
+</section>
+
+<!-- ================= SECTION 2: ASSESSMENT FIRST ================= -->
+<section class="mod-section" id="tab-s2">
+  <div class="section-kicker">Section 2 of 6</div>
+  <h2>Assessment First, Comprehension Always</h2>
+  <div class="h2-cn cn">先评估，始终以理解为核心</div>
+
+  <div class="card">
+    <h3>Data Drives Instruction</h3>
+    <p>The approach begins with assessment — not to label students, but to find the <em>specific</em> gap. Gibbons recommends combining an <strong>informal reading inventory</strong> with a <strong>spelling inventory</strong> to gather evidence across four areas:</p>
+    <table class="info">
+      <tr><th>Area</th><th>What it tells you</th><th>MLWS example</th></tr>
+      <tr><td><b>Decoding</b></td><td>Can the student turn letters into sounds accurately?</td><td>Student reads "grew" as "grow" — vowel team confusion</td></tr>
+      <tr><td><b>Fluency</b></td><td>Is reading smooth enough to leave brainpower for meaning?</td><td>Word-by-word reading in Grade 11 texts</td></tr>
+      <tr><td><b>Comprehension</b></td><td>Does the student understand what was read?</td><td>Can retell in Chinese but not locate evidence in English</td></tr>
+      <tr><td><b>Spelling</b></td><td>Which patterns are mapped, which are guessed?</td><td>Writes "moon" correctly but "floo" for "flew"</td></tr>
+    </table>
+    <p>A finding like <em>"this student struggles with vowel teams and has no solid grasp of morphology"</em> is actionable. "This student is a weak reader" is not.</p>
+    <div class="callout blue"><strong>MLWS connection:</strong> Our ARC placement data plays exactly this role — it tells us the band, but the informal inventories tell us the <em>pattern</em> to target within that band.</div>
+  </div>
+
+  <div class="card">
+    <h3>The Non-Negotiable: Comprehension Stays at the Heart</h3>
+    <p>Here is the part that separates this approach from drill-and-kill phonics packets: <strong>even when foundational skills are the target, comprehension remains the center of instruction.</strong> Older students must spend time engaging meaningfully with text — making connections, forming opinions, thinking critically — or the word work becomes purposeless in their eyes and ours.</p>
+    <div class="callout green"><strong>Rule of thumb:</strong> Word patterns are taught <em>in service of</em> meaning-making, never instead of it. The pattern gets students into the text; the thinking is why they stay.</div>
+  </div>
+
+  <h3 style="margin:20px 0 10px;">Check Your Understanding · 检验理解</h3>
+  <p style="font-size:0.85rem;color:var(--ink2);margin-bottom:12px;">Scenario-based, one attempt each, instant rationale. These are for your own calibration.</p>
+  <div id="s2QuizContainer"></div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" data-goto="s1">← Back</button>
+    <button class="btn btn-primary" data-goto="s3">Continue to Section 3 →</button>
+  </div>
+</section>
+
+<!-- ================= SECTION 3: FOUR-STEP LESSON ================= -->
+<section class="mod-section" id="tab-s3">
+  <div class="section-kicker">Section 3 of 6</div>
+  <h2>The Four-Step Targeted Lesson</h2>
+  <div class="h2-cn cn">四步定向词汇模式教学</div>
+
+  <div class="card">
+    <p>Once assessment identifies a target pattern (for example, the long /u/ spellings <b>ue, ew, ou, oo</b>), the lesson follows a gradual-release arc. Notice how responsibility shifts from teacher to student across the four steps — and how the lesson <em>ends in real reading</em>, not in a worksheet.</p>
+    <table class="info">
+      <tr><th>Step</th><th>What happens</th><th>Who is doing the thinking</th></tr>
+      <tr><td><b>1 · Explicit Instruction</b></td><td>Teacher names the pattern directly and anchors it in known words: "Think about words you have seen, like <i>blue, grew, group, moon</i>. What do these patterns have in common?"</td><td>Teacher models; students notice</td></tr>
+      <tr><td><b>2 · Guided Practice</b></td><td>Students sort words (<i>true, few, soup, school</i>) into pattern categories — and must <b>explain why</b> each spelling is used. The justification is the learning.</td><td>Shared</td></tr>
+      <tr><td><b>3 · Application</b></td><td>Students complete sentences with the target pattern: "The flowers began to bl__m in the spring." Then they justify: "I chose <i>oo</i> because I have seen it in <i>moon</i> and <i>food</i>."</td><td>Mostly student</td></tr>
+      <tr><td><b>4 · Contextual Reading</b></td><td>Students read a short, high-interest passage where the pattern appears naturally. Comprehension comes first (main idea, agree/disagree with the author) — <b>then</b> students return to highlight and code the pattern words.</td><td>Student</td></tr>
+    </table>
+    <div class="callout"><strong>Why the order inside Step 4 matters:</strong> Meaning first, pattern-hunting second. Reversing it turns reading into a scavenger hunt and kills comprehension. Doing it in this order builds <strong>orthographic mapping</strong> — the brain's permanent link between spelling, sound, and meaning — which is what ultimately improves both fluency and spelling.</div>
+    <div class="callout blue"><strong>Measuring growth:</strong> Use formative checks in targeted groups plus quick biweekly teacher-made pattern assessments. Watch student <em>writing</em> too — when a student who used to confuse <i>ew</i> and <i>oo</i> starts spelling them correctly in a journal, transfer has happened.</div>
+  </div>
+
+  <div class="card">
+    <h3>Activity: Rebuild the Lesson Arc</h3>
+    <p>Click the steps in the correct teaching order (1 → 4). Then check your sequence.</p>
+    <div class="seq-wrap" id="seqWrap"></div>
+    <div class="seq-controls">
+      <button class="btn btn-ghost" id="seqReset">Reset</button>
+      <button class="btn btn-primary" id="seqCheck">Check My Sequence</button>
+    </div>
+    <div class="rationale" id="seqFeedback"></div>
+  </div>
+
+  <h3 style="margin:20px 0 10px;">Check Your Understanding · 检验理解</h3>
+  <div id="s3QuizContainer"></div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" data-goto="s2">← Back</button>
+    <button class="btn btn-primary" data-goto="s4">Continue to Section 4 →</button>
+  </div>
+</section>
+
+<!-- ================= SECTION 4: AI LEVELED TEXTS ================= -->
+<section class="mod-section" id="tab-s4">
+  <div class="section-kicker">Section 4 of 6</div>
+  <h2>Leveraging AI for Leveled, Decodable, Age-Respectful Texts</h2>
+  <div class="h2-cn cn">用人工智能生成分级文本</div>
+
+  <div class="card">
+    <h3>The Problem AI Actually Solves</h3>
+    <p>The hardest part of Step 4 has always been the text itself: it must be decodable at the student's level, rich in the target pattern, <em>and</em> interesting to a teenager. Commercially, such texts barely exist. Writing them by hand takes hours. AI closes this gap: you can request a passage with a specific reading level, spelling pattern, topic, word count, and question set — tailored to your exact group. Gibbons reports the full cycle (prompt → review → revise) takes about <strong>20–30 minutes</strong>, depending on prompt quality.</p>
+  </div>
+
+  <div class="card">
+    <h3>Anatomy of a Strong Prompt</h3>
+    <p>Gibbons' sample prompt asks for a highly engaging passage of about 650 words targeting the long <i>o</i> pattern, written at a third-grade reading level, appealing to middle/high school struggling readers, with three inferential questions at the end. Break that down and you find five load-bearing components:</p>
+    <table class="info">
+      <tr><th>Component</th><th>Why it matters</th></tr>
+      <tr><td><b>1 · Target pattern</b> ("the long o pattern")</td><td>Guarantees the passage is decodable practice, not just easy reading</td></tr>
+      <tr><td><b>2 · Reading level</b> ("third-grade reading level")</td><td>Matches assessed decoding ability — the whole point of leveling</td></tr>
+      <tr><td><b>3 · Audience</b> ("middle/high school struggling readers")</td><td>Keeps content age-respectful — a Grade 3 level does NOT mean Grade 3 topics</td></tr>
+      <tr><td><b>4 · Length</b> ("about 650 words")</td><td>Controls cognitive load and lesson timing</td></tr>
+      <tr><td><b>5 · Comprehension task</b> ("three inferential thinking questions")</td><td>Keeps comprehension at the heart — the text arrives ready for meaning-making</td></tr>
+    </table>
+    <div class="callout"><strong>Re-prompting is normal.</strong> If the output misses the mark ("This passage is actually higher than third-grade level — please lower it"), say exactly what is wrong and what you want changed. Precision in, precision out.</div>
+    <div class="callout blue"><strong>MLWS bonus move:</strong> For our learners, you can add a component Gibbons doesn't need: "Include a short English–Chinese glossary of 5 key words." Leveled decoding practice plus L1 support in one prompt.</div>
+  </div>
+
+  <div class="card">
+    <h3>Professional Judgment: The Review Checklist</h3>
+    <p><strong>AI output is a draft, never a handout.</strong> Gibbons is emphatic: generated material must be reviewed and edited — checked for spelling, readability, appropriate content, and clarity — before any student sees it. Teacher integrity is what makes the tool safe. Tap each item below to confirm you've internalized it:</p>
+    <div id="checklistWrap"></div>
+    <div class="hint-sm" id="checklistHint">Tap all 5 items to mark this practice as reviewed.</div>
+    <div class="callout green" style="margin-top:14px;"><strong>Verification tip:</strong> After your own read-through, run the passage through a readability checker (e.g., Microsoft Word's built-in statistics) to confirm the grade level objectively — then re-prompt if needed.</div>
+  </div>
+
+  <div class="card">
+    <h3>Why This Is Worth It: Automaticity → Higher-Order Thinking</h3>
+    <p>Every word a student decodes automatically is cognitive capacity freed for analysis, inference, and argument — the things our students are already capable of in Chinese. When words stop being the barrier, older struggling readers approach texts with confidence, and reflection on their own growth turns them from <strong>passive readers into active readers</strong>. That confidence transfers across content areas and beyond school.</p>
+  </div>
+
+  <h3 style="margin:20px 0 10px;">Check Your Understanding · 检验理解</h3>
+  <div id="s4QuizContainer"></div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" data-goto="s3">← Back</button>
+    <button class="btn btn-primary" data-goto="s5">Continue to the Deliverable →</button>
+  </div>
+</section>
+
+<!-- ================= SECTION 5: DELIVERABLE ================= -->
+<section class="mod-section" id="tab-s5">
+  <div class="section-kicker">Section 5 of 6 · Required Deliverable</div>
+  <h2>Deliverable Workshop: Build Your Own Targeted Mini-Lesson</h2>
+  <div class="h2-cn cn">可交付成果：设计您自己的定向微型课</div>
+
+  <div class="callout blue" style="margin-bottom:18px;"><strong>What you will submit:</strong> Completing all fields below unlocks a download button. It generates a formatted <b>.txt report</b> of your work. <strong>Upload that file to the Schoology assignment for this module.</strong> This deliverable is designed to be genuinely usable — teach it, don't shelve it.</div>
+
+  <div class="card">
+    <h3>Part 1 · Your Learner &amp; Target Pattern</h3>
+    <div class="field-row">
+      <label>Describe a real student or small group you teach and the specific word pattern or morphology target you would address. What evidence tells you this is the gap?</label>
+      <textarea id="dProfile" placeholder="e.g., Three Grade 11 students who consistently confuse ew/oo/ue in spelling and misread these vowel teams aloud. Evidence: journal spelling errors + ARC decoding items..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Part 2 · Write Your AI Prompt</h3>
+    <p>Draft the actual prompt you would give an AI tool to generate your Step 4 passage. The quality meter below checks for the five load-bearing components in real time. <strong>At least 4 of 5 must light up</strong> to unlock your download.</p>
+    <div class="field-row">
+      <textarea id="dPrompt" style="min-height:110px;" placeholder="e.g., Please write a highly engaging 400-word passage about esports at a third-grade reading level, using many words with the ew/oo/ue long-u patterns, that would appeal to Grade 11 ESL students. Include three inferential questions and a 5-word English-Chinese glossary."></textarea>
+    </div>
+    <div class="meter-wrap">
+      <div class="meter-item" id="m1"><span class="dot"></span>Target word pattern named (e.g., long u, vowel team, ew/oo)</div>
+      <div class="meter-item" id="m2"><span class="dot"></span>Reading level specified (e.g., third-grade level)</div>
+      <div class="meter-item" id="m3"><span class="dot"></span>Audience / age-appropriateness stated (e.g., appeals to Grade 11 / teen readers)</div>
+      <div class="meter-item" id="m4"><span class="dot"></span>Length or word count given</div>
+      <div class="meter-item" id="m5"><span class="dot"></span>Comprehension questions requested</div>
+      <div class="meter-score" id="meterScore">Prompt strength: 0 / 5</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Part 3 · Sketch the Four Steps</h3>
+    <div class="field-row">
+      <label>Step 1 — Explicit Instruction: How will you introduce the pattern? Which anchor words?</label>
+      <textarea id="dStep1" placeholder="Anchor words, the question you'll pose, what you'll model..."></textarea>
+    </div>
+    <div class="field-row">
+      <label>Step 2 — Guided Practice: What will students sort or manipulate, and how will they justify their choices?</label>
+      <textarea id="dStep2" placeholder="Word list for sorting, categories, the 'explain why' routine..."></textarea>
+    </div>
+    <div class="field-row">
+      <label>Step 3 — Application: What sentence-completion or usage task will students do?</label>
+      <textarea id="dStep3" placeholder="Sample fill-in sentences + the justification you're listening for..."></textarea>
+    </div>
+    <div class="field-row">
+      <label>Step 4 — Contextual Reading: What comprehension questions come first, and how will students code the pattern afterward?</label>
+      <textarea id="dStep4" placeholder="Comprehension questions (main idea, agree/disagree...), then the highlight/code routine..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Part 4 · Your Review Commitment</h3>
+    <div class="field-row">
+      <label>Before this AI-generated passage reaches students, how exactly will you review and verify it? (Reference the checklist + a readability verification step.)</label>
+      <textarea id="dReview" placeholder="e.g., Read aloud for pattern accuracy, check topic appropriateness, run Word readability statistics, re-prompt if above Grade 3..."></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Part 5 · Reflection &amp; Action Step</h3>
+    <div class="field-row">
+      <label>Reflection: What is the biggest shift this approach asks of you (or affirms in your current practice), given our MLWS learners' profile of high analytical ability + emerging English decoding?</label>
+      <textarea id="dReflect"></textarea>
+    </div>
+    <div class="field-row">
+      <label>Action step: Name the class, the week you will teach this mini-lesson, and one way you will measure whether it worked.</label>
+      <textarea id="dAction" placeholder="e.g., Grade 11 Block B, week of Sept 14; success = fewer ew/oo confusions on the biweekly pattern check + journal writing..."></textarea>
+    </div>
+  </div>
+
+  <button id="deliverableBtn">⬇ Download My Deliverable (.txt) — then submit on Schoology</button>
+  <div class="gate-hint" id="deliverableHint">Complete all fields above (and reach 4/5 on the prompt meter) to unlock your download. · 完成上方所有内容后即可下载。</div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" data-goto="s4">← Back</button>
+    <button class="btn btn-primary" data-goto="s6">Continue to Certificate →</button>
+  </div>
+</section>
+
+<!-- ================= SECTION 6: CERTIFICATE ================= -->
+<section class="mod-section" id="tab-s6">
+  <div class="section-kicker">Section 6 of 6</div>
+  <h2>Certificate of Completion</h2>
+  <div class="h2-cn cn">结业证书</div>
+
+  <div class="card" id="certLocked">
+    <h3>Almost there · 即将完成</h3>
+    <p>Your certificate unlocks automatically when all requirements below are met:</p>
+    <ul>
+      <li id="req-name">Name entered in Section 1</li>
+      <li id="req-checks">All 9 knowledge-check questions answered (Sections 2–4)</li>
+      <li id="req-seq">Lesson-arc sequence activity completed (Section 3)</li>
+      <li id="req-checklist">Review checklist confirmed — all 5 items (Section 4)</li>
+      <li id="req-deliv">Deliverable downloaded (Section 5)</li>
+    </ul>
+    <p style="font-size:0.85rem;color:var(--ink2);">Remember: the certificate confirms module completion. Your PD credit is recorded when your <b>deliverable .txt is submitted on Schoology</b>.</p>
+  </div>
+
+  <div id="certificate">
+    <div class="cert-leaf">🍁</div>
+    <div class="cert-org">Maple Leaf World School</div>
+    <div style="font-size:0.78rem;color:var(--ink2);letter-spacing:0.15em;text-transform:uppercase;">Professional Development</div>
+    <div class="cert-title">Certificate of Completion</div>
+    <div class="cert-sub">This certifies that</div>
+    <div class="cert-name" id="certName">—</div>
+    <div class="cert-body">has successfully completed the professional development module<br>
+      <span class="cert-module">Structured Literacy for Older Struggling Readers:<br>An AI-Supported Approach</span><br>
+      including all knowledge checks and the applied mini-lesson deliverable.
+    </div>
+    <div class="cert-meta">
+      <div><b>Date</b><span id="certDate">—</span></div>
+      <div><b>PD Credit</b><span>1.0 Hour</span></div>
+      <div><b>Module Code</b><span>PD-SL-26</span></div>
+      <div><b>Time in Module</b><span id="certTime">—</span></div>
+    </div>
+    <div class="cert-sigs">
+      <div class="sig">
+        <div class="sig-name">James Alexander, MAT, MBA, Ed.S.</div>
+        <div class="sig-line">PD Coordinator · MLWS Dalian</div>
+      </div>
+      <div class="sig">
+        <div class="sig-name">&nbsp;</div>
+        <div class="sig-line">School Administrator</div>
+      </div>
+    </div>
+    <div class="cert-verify">Verification Code: <span id="certCode">—</span> · Based on Gibbons (2026), Edutopia · Certificate is valid alongside the deliverable submitted on Schoology</div>
+  </div>
+
+  <div id="printRow" style="display:none;">
+    <button class="btn btn-gold" id="printCertBtn">🖨 Print / Save Certificate as PDF</button>
+  </div>
+
+  <div class="nav-row">
+    <button class="btn btn-ghost" data-goto="s5">← Back</button>
+    <span></span>
+  </div>
+</section>
+
+</main>
+
+<div id="timerBox">⏱ 00:00</div>
+
+<footer>
+  <div class="foot-inner">
+    <h4>Reference</h4>
+    <p class="apa">Gibbons, C. (2026, June 26). <i>An approach to structured literacy for older struggling readers.</i> Edutopia. <a href="https://www.edutopia.org/article/how-support-older-struggling-readers/">https://www.edutopia.org/article/how-support-older-struggling-readers/</a></p>
+    <h4 style="margin-top:16px;">Module Design</h4>
+    <p>Instructional design informed by Knowles' principles of adult learning (andragogy): learner self-direction, experience as a resource, relevance, and problem-centered application.</p>
+    <p class="foot-note">© Maple Leaf World School · Professional Development Module PD-SL-26 · Built by the MLWS PD Office. Content summarized and adapted for professional development purposes with full attribution; not a reproduction of the source article.</p>
+  </div>
+</footer>
+
+<script>
+/* ============ STATE ============ */
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 21; /* 9 checks + 1 sequence + 1 checklist + 8 deliverable fields + 1 download + 1 name */
+var nameCounted = false;
+var checksDone = { val: 0 };   /* out of 9 */
+var checksScore = { val: 0 };
+var seqComplete = false;
+var checklistTicked = 0;
+var deliverableDownloaded = false;
+var deliverableFieldsCounted = {};
+var s2Answers = {}, s3Answers = {}, s4Answers = {};
+
+/* ============ KNOWLEDGE CHECK DATA ============ */
+var S2_Q = [
+  {
+    id: "a1",
+    scenario: "A colleague says: 'My Grade 11 students are weak readers, so I just give everyone the same phonics worksheets from a Grade 2 workbook.'",
+    q: "Based on this approach, what is the FIRST problem with this plan?",
+    options: [
+      "A. Instruction is not driven by assessment data — no one has identified each student's specific gap",
+      "B. Phonics should never be taught to students older than Grade 5",
+      "C. Worksheets are always ineffective regardless of content",
+      "D. Grade 11 students should only read grade-level texts"
+    ],
+    correct: "A",
+    rat_right: "Exactly. The approach starts with informal reading and spelling inventories to find the specific gap (e.g., vowel teams, morphology). Whole-class generic phonics skips the diagnosis — and Grade 2 materials disrespect older learners on top of it.",
+    rat_wrong: {
+      B: "Older students often DO still need phonics and morphology instruction — the article's whole premise. The problem is the missing diagnosis, not the phonics.",
+      C: "Tools aren't the issue; targeting is. A well-chosen sort or sentence task is effective when it matches an assessed gap.",
+      D: "Leveled texts below grade level are a core part of this approach — when matched to assessed decoding ability and paired with age-appropriate content."
+    }
+  },
+  {
+    id: "a2",
+    scenario: "",
+    q: "Even when a student clearly needs foundational skills work, what must remain at the heart of instruction?",
+    options: [
+      "A. Speed drills to maximize words-per-minute",
+      "B. Comprehension — meaningful engagement with text, connections, and critical thinking",
+      "C. Weekly standardized testing",
+      "D. Memorizing spelling lists out of context"
+    ],
+    correct: "B",
+    rat_right: "Right. Foundational skills are taught in service of meaning-making, never instead of it. Students need time to engage meaningfully with text even while pattern work is happening.",
+    rat_wrong: {
+      A: "Fluency matters, but as a bridge to comprehension — speed for its own sake produces fast word-callers who understand nothing.",
+      C: "Assessment informs instruction, but frequent standardized testing is not the heart of learning — comprehension is.",
+      D: "Decontextualized memorization is the opposite of this approach; patterns are always anchored in known words and real reading."
+    }
+  },
+  {
+    id: "a3",
+    scenario: "Your spelling inventory shows a student writes 'moon' and 'school' correctly but produces 'floo' for 'flew' and 'noo' for 'new'.",
+    q: "What is the most precise instructional takeaway?",
+    options: [
+      "A. The student cannot hear the long /u/ sound and needs auditory training",
+      "B. The student is careless and needs to slow down",
+      "C. The student has mapped the 'oo' spelling but over-applies it — targeted work on when 'ew' is used is needed",
+      "D. The student should move down a full reading level in all materials"
+    ],
+    correct: "C",
+    rat_right: "Precisely the kind of finding this approach is built for: the sound is heard fine (the vowel is right every time), but one spelling pattern is over-generalized. That's a targeted 'ew vs. oo' sort-and-justify lesson, not a global intervention.",
+    rat_wrong: {
+      A: "The student consistently represents the correct sound — the gap is orthographic (which letters), not phonological (which sound).",
+      B: "The errors are systematic, not random — a pattern gap, not carelessness. Diagnosis beats blame.",
+      D: "Global leveling-down ignores the precision of the data. The gap is one pattern; target that pattern."
+    }
+  }
+];
+
+var S3_Q = [
+  {
+    id: "b1",
+    scenario: "During a word sort, a student places 'soup' in the correct column but cannot say why.",
+    q: "According to the guided practice step, what should the teacher do?",
+    options: [
+      "A. Accept it — the sort is correct, so the learning happened",
+      "B. Require the explanation — justifying WHY a spelling pattern is used is the actual learning goal",
+      "C. Move the student immediately to independent reading",
+      "D. Re-teach the entire lesson from Step 1"
+    ],
+    correct: "B",
+    rat_right: "Yes. In guided practice, students must explain why a spelling pattern is used. A correct sort without reasoning may be luck or copying; the justification builds the orthographic knowledge we're after.",
+    rat_wrong: {
+      A: "A correct placement without reasoning is fragile — it won't transfer to new words or to writing.",
+      C: "Skipping ahead removes the scaffold exactly when the student showed they still need it.",
+      D: "A full re-teach overcorrects; a prompt ('Where have you seen ou make this sound?') keeps the gradual release on track."
+    }
+  },
+  {
+    id: "b2",
+    scenario: "",
+    q: "In Step 4 (contextual reading), why do comprehension questions come BEFORE hunting for pattern words?",
+    options: [
+      "A. It doesn't matter — the order is interchangeable",
+      "B. Pattern-hunting first would be too difficult",
+      "C. Reading for meaning first keeps comprehension at the heart; returning to code patterns afterward reinforces orthographic mapping without reducing reading to a scavenger hunt",
+      "D. Comprehension questions are only included to fill lesson time"
+    ],
+    correct: "C",
+    rat_right: "Exactly. Students read a high-interest passage for meaning (main idea, agree/disagree), THEN return to highlight and code the target pattern. Meaning first, mapping second — this repeated cycle is what strengthens both fluency and spelling over time.",
+    rat_wrong: {
+      A: "The order is deliberate — reversing it signals that word-spotting matters more than understanding, undermining the entire comprehension-centered stance.",
+      B: "Difficulty isn't the issue; purpose is. Pattern-hunting first turns the text into a worksheet.",
+      D: "The comprehension check is the point of reading — the pattern work exists to make that comprehension more fluent."
+    }
+  },
+  {
+    id: "b3",
+    scenario: "You want evidence that your pattern instruction is transferring beyond the lesson.",
+    q: "Which observation is the strongest evidence of transfer?",
+    options: [
+      "A. The student answers pattern questions correctly during the lesson itself",
+      "B. The student's unprompted journal writing shows 'ew' and 'oo' now used correctly, where they were confused before",
+      "C. The student says they enjoyed the lesson",
+      "D. The student finishes the word sort faster than classmates"
+    ],
+    correct: "B",
+    rat_right: "Correct — spontaneous, correct use in independent writing is the gold standard the article names: knowledge has transferred out of the practice context into real language use. Dry-erase checks and biweekly pattern assessments track progress; writing shows transfer.",
+    rat_wrong: {
+      A: "In-lesson accuracy is necessary but weak evidence — it's supported performance inside the practice context.",
+      C: "Enjoyment matters for engagement but tells us nothing about orthographic learning.",
+      D: "Speed on a sort can reflect memorized positions rather than mapped patterns."
+    }
+  }
+];
+
+var S4_Q = [
+  {
+    id: "c1",
+    scenario: "You prompt an AI for a third-grade-level passage on esports. The output reads closer to a sixth-grade level.",
+    q: "What is the recommended professional move?",
+    options: [
+      "A. Use it anyway — students should be challenged",
+      "B. Give up on AI and write the passage by hand",
+      "C. Re-prompt with a specific correction ('This is above third-grade level — please lower the reading level'), then verify with a readability check",
+      "D. Give the passage only to your strongest students"
+    ],
+    correct: "C",
+    rat_right: "Yes — re-prompting is a normal, expected part of the workflow. Name what's wrong, state what you want, then verify objectively (e.g., Word's readability statistics) before it goes anywhere near students.",
+    rat_wrong: {
+      A: "A passage above the assessed decoding level defeats the purpose — the words become the barrier again, and pattern practice is lost in frustration.",
+      B: "Hand-writing is the hours-long problem AI solves; the fix is a better prompt, not abandoning the tool.",
+      D: "Redirecting a mis-leveled text doesn't serve the students the lesson was diagnosed for."
+    }
+  },
+  {
+    id: "c2",
+    scenario: "",
+    q: "Which statement best captures the article's stance on AI-generated classroom materials?",
+    options: [
+      "A. AI output can be used as-is once you find a good prompt",
+      "B. AI is only helpful when combined with professional judgment — every passage is reviewed and edited before students see it",
+      "C. AI should replace teacher-made assessments entirely",
+      "D. AI materials are appropriate for adult review but never for students"
+    ],
+    correct: "B",
+    rat_right: "Exactly. 'Teacher integrity matters' — the review checklist (patterns correct? right level? appropriate topic? engaging? supports the comprehension skill?) is non-negotiable. AI drafts; the professional decides.",
+    rat_wrong: {
+      A: "Even good prompts produce drafts. Gibbons is explicit that generated text 'will still need to be edited.'",
+      C: "The article keeps teacher-made formative and biweekly assessments — AI generates texts; it doesn't replace professional assessment.",
+      D: "AI-generated leveled passages ARE for students — after professional review. That review is what makes them classroom-ready."
+    }
+  },
+  {
+    id: "c3",
+    scenario: "",
+    q: "Why does building word automaticity matter so much for older struggling readers specifically?",
+    options: [
+      "A. It raises standardized test scores directly",
+      "B. Automatic word recognition frees cognitive capacity for the higher-level thinking these students are already capable of — words stop being the barrier",
+      "C. It allows students to read aloud faster in class",
+      "D. It eliminates the need for comprehension instruction"
+    ],
+    correct: "B",
+    rat_right: "Right — and this is exactly the MLWS profile: strong analytical minds bottlenecked by decoding. Automaticity releases that thinking, builds confidence, and (with reflection on their own growth) turns passive readers into active ones — in school and beyond it.",
+    rat_wrong: {
+      A: "Score gains may follow, but they're a byproduct — the mechanism is freed cognition for thinking.",
+      C: "Oral speed is surface-level; the payoff is cognitive capacity for inference and analysis.",
+      D: "Nothing eliminates comprehension instruction — automaticity is what finally lets comprehension instruction land."
+    }
+  }
+];
+
+/* ============ SEQUENCE ACTIVITY DATA ============ */
+var SEQ_STEPS = [
+  { key: 1, label: "Explicit Instruction — teacher names the pattern and anchors it in known words (blue, grew, group, moon)" },
+  { key: 2, label: "Guided Practice — students sort words into pattern categories and explain WHY each spelling is used" },
+  { key: 3, label: "Application — students complete sentences (bl__m) and justify their choice" },
+  { key: 4, label: "Contextual Reading — read a high-interest passage for meaning, then return to highlight the pattern" }
+];
+var seqOrder = [];   /* user's chosen order of keys */
+var seqDisplay = [3, 1, 4, 2]; /* shuffled display order */
+
+/* ============ CHECKLIST DATA ============ */
+var CHECKLIST = [
+  { b: "Spelling patterns", t: "Are the target patterns present, correct, and frequent enough to practice?" },
+  { b: "Reading level", t: "Is this verifiably at the student's assessed level — not just 'feels easy'?" },
+  { b: "Topic appropriateness", t: "Is the content suitable for school and for these specific students?" },
+  { b: "Engagement", t: "Would THIS group of older learners actually find it interesting?" },
+  { b: "Comprehension alignment", t: "Does the text support the comprehension skill being addressed (if applicable)?" }
+];
+
+/* ============ BUILD KNOWLEDGE CHECKS ============ */
+function buildCheck(data, containerId, answers) {
+  var container = document.getElementById(containerId);
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Check ' + (idx + 1) + ' of ' + data.length;
+    card.appendChild(num);
+
+    if (item.scenario) {
+      var sc = document.createElement('div');
+      sc.className = 'q-scenario';
+      sc.textContent = 'Scenario: ' + item.scenario;
+      card.appendChild(sc);
+    }
+
+    var qEl = document.createElement('div');
+    qEl.className = 'q-text';
+    qEl.textContent = item.q;
+    card.appendChild(qEl);
+
+    var optsWrap = document.createElement('div');
+    optsWrap.className = 'opts-wrap';
+    var ratDiv = document.createElement('div');
+    ratDiv.className = 'rationale';
+    var answered = false;
+
+    item.options.forEach(function(opt) {
+      var letter = opt.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.dataset.letter = letter;
+      btn.textContent = opt;
+
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+
+        var msg;
+        if (letter === item.correct) {
+          checksScore.val++;
+          msg = '✅ ' + item.rat_right;
+          ratDiv.className = 'rationale show correct-rat';
+        } else {
+          btn.classList.add('selected-wrong');
+          msg = '❌ ' + (item.rat_wrong[letter] || '') + ' (Best answer: ' + item.correct + ' — ' + item.rat_right + ')';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+        var rDiv = document.createElement('div');
+        rDiv.textContent = msg;
+        ratDiv.appendChild(rDiv);
+
+        checksDone.val++;
+        addProgress(1);
+        updateGates();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+/* ============ SEQUENCE ACTIVITY ============ */
+function buildSequence() {
+  var wrap = document.getElementById('seqWrap');
+  wrap.textContent = '';
+  seqOrder = [];
+  seqDisplay.forEach(function(key) {
+    var step = null;
+    SEQ_STEPS.forEach(function(s) { if (s.key === key) step = s; });
+    var btn = document.createElement('button');
+    btn.className = 'seq-item';
+    btn.dataset.key = String(step.key);
+
+    var slot = document.createElement('span');
+    slot.className = 'seq-slot';
+    slot.textContent = '?';
+    var lbl = document.createElement('span');
+    lbl.textContent = step.label;
+
+    btn.appendChild(slot);
+    btn.appendChild(lbl);
+
+    btn.addEventListener('click', function() {
+      if (seqComplete) return;
+      var k = parseInt(btn.dataset.key, 10);
+      var pos = seqOrder.indexOf(k);
+      if (pos !== -1) {
+        /* unpick */
+        seqOrder.splice(pos, 1);
+        btn.classList.remove('picked');
+        slot.textContent = '?';
+        renumberSeq();
+      } else {
+        seqOrder.push(k);
+        btn.classList.add('picked');
+        slot.textContent = String(seqOrder.length);
+      }
+    });
+
+    wrap.appendChild(btn);
+  });
+}
+
+function renumberSeq() {
+  document.querySelectorAll('.seq-item').forEach(function(btn) {
+    var k = parseInt(btn.dataset.key, 10);
+    var pos = seqOrder.indexOf(k);
+    var slot = btn.querySelector('.seq-slot');
+    if (pos === -1) { slot.textContent = '?'; btn.classList.remove('picked'); }
+    else { slot.textContent = String(pos + 1); }
+  });
+}
+
+function checkSequence() {
+  if (seqComplete) return;
+  var fb = document.getElementById('seqFeedback');
+  fb.textContent = '';
+  if (seqOrder.length < 4) {
+    fb.className = 'rationale show wrong-rat';
+    var d0 = document.createElement('div');
+    d0.textContent = 'Select all four steps in order before checking.';
+    fb.appendChild(d0);
+    return;
+  }
+  var correct = seqOrder[0] === 1 && seqOrder[1] === 2 && seqOrder[2] === 3 && seqOrder[3] === 4;
+  document.querySelectorAll('.seq-item').forEach(function(btn) {
+    var k = parseInt(btn.dataset.key, 10);
+    var pos = seqOrder.indexOf(k);
+    btn.classList.remove('seq-correct', 'seq-wrong');
+    if (pos === k - 1) btn.classList.add('seq-correct');
+    else btn.classList.add('seq-wrong');
+  });
+  var d = document.createElement('div');
+  if (correct) {
+    seqComplete = true;
+    document.querySelectorAll('.seq-item').forEach(function(b) { b.disabled = true; });
+    fb.className = 'rationale show correct-rat';
+    d.textContent = '✅ Correct: Explicit Instruction → Guided Practice → Application → Contextual Reading. Notice the gradual release — responsibility shifts to the student, and the lesson ends inside real, meaningful reading.';
+    addProgress(1);
+    updateGates();
+  } else {
+    fb.className = 'rationale show wrong-rat';
+    d.textContent = '❌ Not yet — green items are in the right slot, red ones are not. Hint: the teacher does the most thinking at the start, and the lesson must END in real reading. Reset and try again.';
+  }
+  fb.appendChild(d);
+}
+
+/* ============ CHECKLIST ============ */
+function buildChecklist() {
+  var wrap = document.getElementById('checklistWrap');
+  CHECKLIST.forEach(function(item) {
+    var row = document.createElement('div');
+    row.className = 'check-item';
+
+    var box = document.createElement('span');
+    box.className = 'box';
+
+    var txt = document.createElement('span');
+    txt.className = 'ct';
+    var b = document.createElement('b');
+    b.textContent = item.b + ': ';
+    txt.appendChild(b);
+    txt.appendChild(document.createTextNode(item.t));
+
+    row.appendChild(box);
+    row.appendChild(txt);
+
+    var ticked = false;
+    row.addEventListener('click', function() {
+      if (ticked) return;
+      ticked = true;
+      row.classList.add('ticked');
+      box.textContent = '✓';
+      checklistTicked++;
+      if (checklistTicked === CHECKLIST.length) {
+        document.getElementById('checklistHint').textContent = '✓ All five review questions confirmed — this is your pre-flight check every time AI drafts for your classroom.';
+        addProgress(1);
+        updateGates();
+      }
+    });
+
+    wrap.appendChild(row);
+  });
+}
+
+/* ============ PROMPT QUALITY METER ============ */
+var METER_TESTS = [
+  { id: 'm1', re: /(pattern|phonic|vowel|morpholog|long\s+[aeiou]|ew|oo|ue|ou\b|digraph|blend|suffix|prefix)/i },
+  { id: 'm2', re: /(grade|level|lexile|年级)/i },
+  { id: 'm3', re: /(appeal|engag|interest|audience|teen|older|age|grade\s*1[0-2]|high school|middle school|secondary|esl|adolescent)/i },
+  { id: 'm4', re: /(\d+\s*[-–]?\s*word|word count|words long|length|paragraph)/i },
+  { id: 'm5', re: /(question|comprehension|inferential|quiz)/i }
+];
+var meterScore = 0;
+
+function runMeter() {
+  var text = document.getElementById('dPrompt').value;
+  meterScore = 0;
+  METER_TESTS.forEach(function(t) {
+    var el = document.getElementById(t.id);
+    if (t.re.test(text)) { el.classList.add('hit'); meterScore++; }
+    else { el.classList.remove('hit'); }
+  });
+  document.getElementById('meterScore').textContent = 'Prompt strength: ' + meterScore + ' / 5' + (meterScore >= 4 ? ' ✓ Strong prompt' : ' — aim for at least 4');
+  checkDeliverableReady();
+}
+
+/* ============ DELIVERABLE GATING ============ */
+var DELIV_FIELDS = ['dProfile', 'dPrompt', 'dStep1', 'dStep2', 'dStep3', 'dStep4', 'dReview', 'dReflect', 'dAction'];
+
+function checkDeliverableReady() {
+  var allFilled = true;
+  DELIV_FIELDS.forEach(function(id) {
+    var el = document.getElementById(id);
+    var filled = el.value.trim().length > 0;
+    el.classList.toggle('filled', filled);
+    if (!filled) allFilled = false;
+    /* progress credit per field, once (dPrompt excluded — counted via meter reaching 4) */
+    if (filled && !deliverableFieldsCounted[id] && id !== 'dPrompt') {
+      deliverableFieldsCounted[id] = true;
+      addProgress(1);
+    }
+  });
+  var ready = allFilled && meterScore >= 4;
+  var btn = document.getElementById('deliverableBtn');
+  var hint = document.getElementById('deliverableHint');
+  if (ready) { btn.classList.add('ready'); hint.classList.add('hidden'); }
+  else { btn.classList.remove('ready'); hint.classList.remove('hidden'); }
+}
+
+function downloadDeliverable() {
+  /* guard */
+  var allFilled = true;
+  DELIV_FIELDS.forEach(function(id) {
+    if (document.getElementById(id).value.trim().length === 0) allFilled = false;
+  });
+  if (!allFilled || meterScore < 4) return;
+
+  var name = document.getElementById('teacherName').value.trim() || 'Unknown';
+  var campus = document.getElementById('teacherCampus').value.trim() || 'Not provided';
+  var selfA = document.getElementById('selfAssess').value || 'Not selected';
+  var now = new Date().toLocaleString();
+
+  var v = function(id) { return document.getElementById(id).value.trim(); };
+
+  var txt = '';
+  txt += '================================================================\n';
+  txt += 'MLWS PROFESSIONAL DEVELOPMENT — DELIVERABLE REPORT\n';
+  txt += 'Module: Structured Literacy for Older Struggling Readers:\n';
+  txt += '        An AI-Supported Approach (Module Code PD-SL-26)\n';
+  txt += '================================================================\n';
+  txt += 'Teacher: ' + name + '\n';
+  txt += 'Campus / Subject: ' + campus + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Time in Module: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Starting Self-Assessment: ' + selfA + '\n';
+  txt += 'Knowledge Checks: ' + checksScore.val + ' / 9 correct on first attempt (' + checksDone.val + ' / 9 answered)\n';
+  txt += 'Lesson-Arc Sequence Activity: ' + (seqComplete ? 'Completed correctly' : 'Not completed') + '\n';
+  txt += 'AI Review Checklist Confirmed: ' + checklistTicked + ' / 5 items\n';
+  txt += 'Prompt Quality Meter: ' + meterScore + ' / 5 components present\n';
+  txt += '\n';
+  txt += '================================================================\n';
+  txt += 'PART 1 — LEARNER PROFILE & TARGET PATTERN\n';
+  txt += '================================================================\n';
+  txt += v('dProfile') + '\n\n';
+  txt += '================================================================\n';
+  txt += 'PART 2 — AI PROMPT (as drafted by the teacher)\n';
+  txt += '================================================================\n';
+  txt += v('dPrompt') + '\n\n';
+  txt += '================================================================\n';
+  txt += 'PART 3 — FOUR-STEP MINI-LESSON PLAN\n';
+  txt += '================================================================\n';
+  txt += 'STEP 1 — EXPLICIT INSTRUCTION:\n' + v('dStep1') + '\n\n';
+  txt += 'STEP 2 — GUIDED PRACTICE:\n' + v('dStep2') + '\n\n';
+  txt += 'STEP 3 — APPLICATION:\n' + v('dStep3') + '\n\n';
+  txt += 'STEP 4 — CONTEXTUAL READING:\n' + v('dStep4') + '\n\n';
+  txt += '================================================================\n';
+  txt += 'PART 4 — AI OUTPUT REVIEW COMMITMENT\n';
+  txt += '================================================================\n';
+  txt += v('dReview') + '\n\n';
+  txt += '================================================================\n';
+  txt += 'PART 5 — REFLECTION & ACTION STEP\n';
+  txt += '================================================================\n';
+  txt += 'REFLECTION:\n' + v('dReflect') + '\n\n';
+  txt += 'ACTION STEP:\n' + v('dAction') + '\n\n';
+  txt += '================================================================\n';
+  txt += 'REFERENCE\n';
+  txt += '================================================================\n';
+  txt += 'Gibbons, C. (2026, June 26). An approach to structured literacy\n';
+  txt += 'for older struggling readers. Edutopia.\n';
+  txt += 'https://www.edutopia.org/article/how-support-older-struggling-readers/\n';
+  txt += '\nSubmit this file to the Schoology assignment for Module PD-SL-26.\n';
+  txt += '================================================================\nEnd of report\n';
+
+  var blob = new Blob([txt], { type: 'text/plain' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_PD_SL26_' + name.replace(/\s+/g, '_') + '_' + new Date().toLocaleDateString().replace(/\//g, '-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  if (!deliverableDownloaded) {
+    deliverableDownloaded = true;
+    addProgress(1);
+    document.getElementById('pip-s5').classList.add('done');
+  }
+  updateGates();
+}
+
+/* ============ CERTIFICATE ============ */
+function makeVerifyCode(name) {
+  var sum = 0;
+  var s = name + '|PD-SL-26|' + new Date().toLocaleDateString();
+  for (var i = 0; i < s.length; i++) { sum = (sum * 31 + s.charCodeAt(i)) % 2176782336; }
+  return 'MLWS-SL26-' + sum.toString(36).toUpperCase();
+}
+
+function updateGates() {
+  var name = document.getElementById('teacherName').value.trim();
+  var reqName = name.length > 1;
+  var reqChecks = checksDone.val >= 9;
+  var reqSeq = seqComplete;
+  var reqChecklist = checklistTicked >= 5;
+  var reqDeliv = deliverableDownloaded;
+
+  toggleReq('req-name', reqName);
+  toggleReq('req-checks', reqChecks);
+  toggleReq('req-seq', reqSeq);
+  toggleReq('req-checklist', reqChecklist);
+  toggleReq('req-deliv', reqDeliv);
+
+  /* section pips */
+  var selfOk = document.getElementById('selfAssess').value !== '';
+  if (reqName && selfOk) document.getElementById('pip-s1').classList.add('done');
+  var s2done = s2AnsweredCount() >= 3;
+  var s3done = s3AnsweredCount() >= 3 && seqComplete;
+  var s4done = s4AnsweredCount() >= 3 && reqChecklist;
+  if (s2done) document.getElementById('pip-s2').classList.add('done');
+  if (s3done) document.getElementById('pip-s3').classList.add('done');
+  if (s4done) document.getElementById('pip-s4').classList.add('done');
+
+  var all = reqName && reqChecks && reqSeq && reqChecklist && reqDeliv;
+  var cert = document.getElementById('certificate');
+  var locked = document.getElementById('certLocked');
+  var printRow = document.getElementById('printRow');
+  if (all) {
+    cert.classList.add('unlocked');
+    locked.style.display = 'none';
+    printRow.style.display = 'block';
+    document.getElementById('pip-s6').classList.add('done');
+    document.getElementById('certName').textContent = name;
+    document.getElementById('certDate').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('certTime').textContent = fmt(secondsElapsed);
+    document.getElementById('certCode').textContent = makeVerifyCode(name);
+  } else {
+    cert.classList.remove('unlocked');
+    locked.style.display = 'block';
+    printRow.style.display = 'none';
+  }
+}
+
+function toggleReq(id, met) {
+  var el = document.getElementById(id);
+  if (met) el.classList.add('met'); else el.classList.remove('met');
+}
+
+function s2AnsweredCount() { return Object.keys(s2Answers).length; }
+function s3AnsweredCount() { return Object.keys(s3Answers).length; }
+function s4AnsweredCount() { return Object.keys(s4Answers).length; }
+
+/* ============ NAVIGATION ============ */
+function goTo(step) {
+  document.querySelectorAll('.mod-section').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.step-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + step).classList.add('active');
+  document.querySelectorAll('.step-btn').forEach(function(b) {
+    if (b.dataset.step === step) b.classList.add('active');
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============ PROGRESS / TIMER ============ */
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timerBox').textContent = '⏱ ' + fmt(secondsElapsed);
+    if (secondsElapsed % 30 === 0) updateGates(); /* keep cert time fresh */
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+
+/* ============ INIT ============ */
+document.addEventListener('DOMContentLoaded', function() {
+  buildCheck(S2_Q, 's2QuizContainer', s2Answers);
+  buildCheck(S3_Q, 's3QuizContainer', s3Answers);
+  buildCheck(S4_Q, 's4QuizContainer', s4Answers);
+  buildSequence();
+  buildChecklist();
+
+  document.getElementById('seqCheck').addEventListener('click', checkSequence);
+  document.getElementById('seqReset').addEventListener('click', function() {
+    if (seqComplete) return;
+    buildSequence();
+    var fb = document.getElementById('seqFeedback');
+    fb.className = 'rationale';
+    fb.textContent = '';
+  });
+
+  /* stepper + nav buttons */
+  document.querySelectorAll('.step-btn').forEach(function(b) {
+    b.addEventListener('click', function() { goTo(b.dataset.step); });
+  });
+  document.querySelectorAll('[data-goto]').forEach(function(b) {
+    b.addEventListener('click', function() { goTo(b.dataset.goto); });
+  });
+
+  /* name / campus / self-assessment */
+  document.getElementById('teacherName').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    if (!nameCounted && this.value.trim().length > 1) { nameCounted = true; addProgress(1); }
+    updateGates();
+  });
+  document.getElementById('teacherCampus').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+  });
+  document.getElementById('selfAssess').addEventListener('change', updateGates);
+
+  /* deliverable fields */
+  DELIV_FIELDS.forEach(function(id) {
+    document.getElementById(id).addEventListener('input', function() {
+      if (id === 'dPrompt') runMeter();
+      checkDeliverableReady();
+    });
+  });
+  document.getElementById('deliverableBtn').addEventListener('click', downloadDeliverable);
+  document.getElementById('printCertBtn').addEventListener('click', function() { window.print(); });
+
+  startTimer();
+  updateGates();
+});
+</script>
+</body>
+</html>
