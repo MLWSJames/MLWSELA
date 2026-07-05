@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Different Operating Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EEEAE1;
+    --card: #F7F4EE;
+    --ink: #23201C;
+    --ink-soft: #55504A;
+    --steady: #3E5A6E;   /* ASD partner accent — slate blue, "structure" */
+    --steady-tint: #E3E9EC;
+    --spark: #9C6B25;    /* ADHD partner accent — ochre, "current" */
+    --spark-tint: #F0E6D3;
+    --shared: #4F6B52;   /* shared / protective-factor accent — sage */
+    --shared-tint: #E7EDE4;
+    --line: rgba(35,32,28,0.14);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Public Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 24px 100px;
+  }
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    padding:72px 0 40px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:44px;
+  }
+  .eyebrow{
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--steady);}
+  .eyebrow .dot.b{background:var(--spark);}
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-optical-sizing:auto;
+    font-weight:500;
+    font-size:clamp(34px, 5.6vw, 52px);
+    line-height:1.08;
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+  h1 em{
+    font-style:italic;
+    font-weight:300;
+    background:linear-gradient(90deg, var(--steady), var(--spark));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .lede{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin:0 0 20px;
+  }
+
+  .disclaimer{
+    font-size:14px;
+    color:var(--ink-soft);
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:3px solid var(--shared);
+    padding:14px 16px;
+    border-radius:4px;
+    max-width:56ch;
+  }
+
+  /* ---------- Section intro ---------- */
+  .section-label{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    font-weight:500;
+    margin:0 0 8px;
+  }
+  .section-sub{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin:0 0 24px;
+    max-width:60ch;
+  }
+
+  /* ---------- Accordion ---------- */
+  details.card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    margin-bottom:14px;
+    overflow:hidden;
+    transition:border-color .2s ease;
+  }
+  details.card[open]{
+    border-color:rgba(35,32,28,0.28);
+  }
+  details.card summary{
+    list-style:none;
+    cursor:pointer;
+    padding:20px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  details.card summary::-webkit-details-marker{display:none;}
+
+  summary .s-left{display:flex; align-items:baseline; gap:12px;}
+  summary .num{
+    font-family:'Fraunces', serif;
+    font-size:14px;
+    color:var(--ink-soft);
+    opacity:.6;
+    min-width:20px;
+  }
+  summary h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:19px;
+    margin:0;
+  }
+  summary .hint{
+    display:block;
+    font-family:'Public Sans', sans-serif;
+    font-weight:400;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:3px;
+  }
+
+  .arrow{
+    flex:none;
+    width:22px;height:22px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .25s ease, background .2s ease;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  details[open] .arrow{transform:rotate(45deg); background:var(--paper);}
+
+  .card-body{
+    padding:0 22px 24px;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+  }
+
+  .cols{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-bottom:18px;
+  }
+  @media (max-width:600px){
+    .cols{grid-template-columns:1fr;}
+  }
+  .col{
+    padding:16px;
+    border-radius:8px;
+  }
+  .col.asd{background:var(--steady-tint);}
+  .col.adhd{background:var(--spark-tint);}
+  .col-label{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .col.asd .col-label{color:var(--steady);}
+  .col.adhd .col-label{color:var(--spark);}
+  .col ul{margin:0;padding-left:18px;}
+  .col li{margin-bottom:7px;font-size:14.5px;}
+
+  .pattern{
+    background:transparent;
+    border-left:2px solid var(--line);
+    padding:2px 0 2px 14px;
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  .pattern strong{color:var(--ink);}
+
+  /* ---------- Helps section (open by default, distinct styling) ---------- */
+  .helps{
+    background:var(--shared-tint);
+    border:1px solid rgba(79,107,82,0.3);
+    border-radius:10px;
+    padding:26px 24px 8px;
+    margin:36px 0;
+  }
+  .helps .section-label{color:var(--shared);}
+  .helps ol{
+    margin:0;
+    padding-left:20px;
+  }
+  .helps li{
+    margin-bottom:16px;
+    font-size:15px;
+    padding-left:2px;
+  }
+  .helps li strong{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-size:16px;
+    font-weight:500;
+    color:var(--ink);
+    margin-bottom:3px;
+  }
+
+  /* ---------- Aside note ---------- */
+  .aside{
+    margin:36px 0;
+    padding:18px 20px;
+    border:1px dashed var(--line);
+    border-radius:8px;
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  .aside strong{color:var(--ink);}
+
+  /* ---------- Closing ---------- */
+  .closing{
+    margin-top:56px;
+    padding-top:36px;
+    border-top:1px solid var(--line);
+  }
+  .closing p{
+    font-family:'Fraunces', serif;
+    font-size:21px;
+    font-weight:500;
+    line-height:1.45;
+    max-width:32ch;
+  }
+  .closing .fine{
+    font-family:'Public Sans', sans-serif;
+    font-size:14px;
+    color:var(--ink-soft);
+    max-width:56ch;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span><span class="dot b"></span>A note on neurodivergent pairings</div>
+    <h1>Two different<br><em>operating systems,</em><br>one relationship.</h1>
+    <p class="lede">When one partner is autistic and the other has ADHD (inattentive type), a lot of ordinary friction stops being ordinary — it starts to look like a pattern. This page maps that pattern, one piece at a time.</p>
+    <div class="disclaimer">This isn't a diagnosis of your relationship, and it isn't a prediction of how things turn out. Plenty of couples with this exact combination build something steady and good. It's a set of tendencies worth recognizing — nothing here is fixed or guaranteed.</div>
+  </header>
+
+  <p class="section-label">Where the friction tends to show up</p>
+  <p class="section-sub">Tap any section to open it. Each one shows how the two nervous systems tend to approach the same situation differently.</p>
+
+  <details class="card">
+    <summary>
+      <div class="s-left">
+        <span class="num">01</span>
+        <div>
+          <h3>Communication</h3>
+          <span class="hint">Same conversation, two very different processing styles</span>
+        </div>
+      </div>
+      <div class="arrow">＋</div>
+    </summary>
+    <div class="card-body">
+      <div class="cols">
+        <div class="col asd">
+          <p class="col-label">ASD partner</p>
+          <ul>
+            <li>Tends to take language literally</li>
+            <li>Can hyperfocus deeply on one topic</li>
+            <li>Often misses sarcasm or non-verbal cues</li>
+            <li>Wants precise, structured exchanges</li>
+          </ul>
+        </div>
+        <div class="col adhd">
+          <p class="col-label">ADHD partner</p>
+          <ul>
+            <li>Attention can drift mid-conversation</li>
+            <li>May lose track of details discussed earlier</li>
+            <li>Can look disengaged even when they care</li>
+            <li>Wants novelty and dynamic back-and-forth</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pattern"><strong>The pattern:</strong> both partners can end up feeling unheard — just for opposite reasons. One delivers detail the other can't hold onto; the other's scattered style can overwhelm someone who needs things structured.</p>
+    </div>
+  </details>
+
+  <details class="card">
+    <summary>
+      <div class="s-left">
+        <span class="num">02</span>
+        <div>
+          <h3>Emotional weather</h3>
+          <span class="hint">One shuts down, one turns up the volume</span>
+        </div>
+      </div>
+      <div class="arrow">＋</div>
+    </summary>
+    <div class="card-body">
+      <div class="cols">
+        <div class="col asd">
+          <p class="col-label">ASD partner</p>
+          <ul>
+            <li>May struggle to name what they're feeling</li>
+            <li>Sensory overload can trigger shutdown</li>
+            <li>Can misread the emotional temperature of a moment</li>
+          </ul>
+        </div>
+        <div class="col adhd">
+          <p class="col-label">ADHD partner</p>
+          <ul>
+            <li>Emotions can swing quickly and intensely</li>
+            <li>Reactions can be impulsive in the moment</li>
+            <li>Environmental stress tends to amplify feelings</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pattern"><strong>The pattern:</strong> withdrawal meets escalation. The ASD partner retreats to regulate; the ADHD partner can read that retreat as abandonment, which raises the emotional temperature further.</p>
+    </div>
+  </details>
+
+  <details class="card">
+    <summary>
+      <div class="s-left">
+        <span class="num">03</span>
+        <div>
+          <h3>"Who's holding this together?"</h3>
+          <span class="hint">Both partners can feel like the responsible one</span>
+        </div>
+      </div>
+      <div class="arrow">＋</div>
+    </summary>
+    <div class="card-body">
+      <div class="cols">
+        <div class="col asd">
+          <p class="col-label">ASD partner may compensate for</p>
+          <ul>
+            <li>Missed appointments and unfinished tasks</li>
+            <li>Disorganization in shared systems</li>
+          </ul>
+        </div>
+        <div class="col adhd">
+          <p class="col-label">ADHD partner may compensate for</p>
+          <ul>
+            <li>Social navigation and reading a room</li>
+            <li>Emotional labor and rigid routines</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pattern"><strong>The pattern:</strong> unlike a lot of relationships where one person is clearly "the organized one," here both partners can genuinely feel like they're the one carrying the load — just in different domains. That mutual invisibility is what tends to breed resentment, more than either partner's actual effort.</p>
+    </div>
+  </details>
+
+  <details class="card">
+    <summary>
+      <div class="s-left">
+        <span class="num">04</span>
+        <div>
+          <h3>Daily life &amp; follow-through</h3>
+          <span class="hint">Different gaps in the same to-do list</span>
+        </div>
+      </div>
+      <div class="arrow">＋</div>
+    </summary>
+    <div class="card-body">
+      <div class="cols">
+        <div class="col asd">
+          <p class="col-label">ASD partner</p>
+          <ul>
+            <li>Needs predictable routines</li>
+            <li>Transitions and last-minute change are hard</li>
+            <li>May hyperfocus on interests, missing shared duties</li>
+          </ul>
+        </div>
+        <div class="col adhd">
+          <p class="col-label">ADHD partner</p>
+          <ul>
+            <li>Time can feel abstract ("time blindness")</li>
+            <li>Starting and finishing tasks is genuinely hard</li>
+            <li>Easily distracted mid-task</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pattern"><strong>The pattern:</strong> instead of one partner naturally covering for the other's gaps, both can struggle with different pieces of the same puzzle — planning ahead versus getting started. Without an external system, daily logistics can become a shared blind spot rather than something either partner "owns."</p>
+    </div>
+  </details>
+
+  <details class="card">
+    <summary>
+      <div class="s-left">
+        <span class="num">05</span>
+        <div>
+          <h3>Closeness &amp; intimacy</h3>
+          <span class="hint">Explicit vs. spontaneous — and both are valid needs</span>
+        </div>
+      </div>
+      <div class="arrow">＋</div>
+    </summary>
+    <div class="card-body">
+      <div class="cols">
+        <div class="col asd">
+          <p class="col-label">ASD partner</p>
+          <ul>
+            <li>Sensory sensitivities can affect physical closeness</li>
+            <li>May not pick up on subtle emotional or physical cues</li>
+            <li>Tends to do best with explicit, agreed-on communication</li>
+          </ul>
+        </div>
+        <div class="col adhd">
+          <p class="col-label">ADHD partner</p>
+          <ul>
+            <li>May feel rejected when a partner needs space</li>
+            <li>Impulsivity can create mismatched timing</li>
+            <li>Wants spontaneity and emotional connection</li>
+          </ul>
+        </div>
+      </div>
+      <p class="pattern"><strong>The pattern:</strong> neither "explicit and structured" nor "spontaneous and emotionally led" is the wrong way to want intimacy — they're just different operating systems, and left unspoken, both partners can end up feeling undesired.</p>
+    </div>
+  </details>
+
+  <div class="aside">
+    <strong>An interesting wrinkle:</strong> some research suggests neurodivergent partners can experience unusually intense early attraction — the same traits that spark that pull (novelty, focus, intensity) often become the very things that cause friction later. It may help explain why these pairings form in the first place: energy meets stability, and each finds the other's difference appealing before it becomes a source of tension.
+  </div>
+
+  <div class="helps">
+    <p class="section-label">What actually tends to help</p>
+    <ol>
+      <li><strong>Naming it out loud</strong>Understanding why a partner acts a certain way shifts the story from "they don't care" to "their brain works differently" — which changes almost everything downstream.</li>
+      <li><strong>Structured communication rituals</strong>Scheduled check-ins, written follow-ups, and clear expectations give both nervous systems something predictable to hold onto.</li>
+      <li><strong>External scaffolding</strong>Shared calendars, reminders, and visual systems compensate for executive-function gaps on both sides — without either partner having to be the "manager."</li>
+      <li><strong>Treating sensory and emotional needs as legitimate</strong>Not favors one partner grants the other, but real needs that both partners are allowed to have.</li>
+      <li><strong>Neurodivergent-informed support</strong>Couples therapy that assumes one "normal" communication style tends to miss the point. Support that starts from "two different wirings" works better.</li>
+    </ol>
+  </div>
+
+  <div class="closing">
+    <p>None of this is a verdict.</p>
+    <p class="fine">It's a translation guide — something two people can use to stop mistaking a different kind of wiring for not caring. The friction described here is real, but so is the version of this relationship where both partners feel seen for what they're actually carrying.</p>
+  </div>
+
+</div>
+</body>
+</html>
