@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 1 - Sunday July 5th | 第一天 - 七月五日星期日</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,700;1,7..72,400&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;--ml-red:#c1121f;--ml-gold:#e9c46a;--ink:#1a2a1a;--ink2:#2d3748;--mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);line-height:1.6}
+.cn{font-family:'Noto Sans SC',sans-serif}
+h1,h2,h3,h4{font-family:'Literata',serif}
+.header{background:var(--ml-green-dark);color:#fff;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem}
+.header-title{font-size:1.1rem;font-weight:700}
+.header-sub{font-size:0.8rem;opacity:0.85;font-family:'Noto Sans SC',sans-serif}
+.progress-wrap{flex:1;min-width:200px;max-width:400px;margin:0 1rem}
+.progress-bar-outer{background:rgba(255,255,255,0.2);border-radius:10px;height:10px}
+.progress-bar-inner{background:var(--ml-gold);height:100%;border-radius:10px;width:0%;transition:width 0.4s}
+.progress-text{font-size:0.75rem;text-align:center;margin-top:3px;opacity:0.9}
+.leave-badge{font-size:0.75rem;background:rgba(255,255,255,0.15);padding:4px 10px;border-radius:12px}
+.pips{display:flex;align-items:center;gap:4px}
+.pip{width:10px;height:10px;border-radius:50%;background:#cbd5e0;border:1px solid #a0aec0;display:inline-block;transition:background 0.3s,border-color 0.3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;background:#fff;border-bottom:2px solid var(--border);overflow-x:auto;position:sticky;top:40px;z-index:100}
+.tab-btn{padding:0.85rem 1.2rem;border:none;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;color:var(--ink2);white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.2s}
+.tab-btn:hover{background:var(--ml-green-light);color:var(--ml-green-dark)}
+.tab-btn.active{color:var(--ml-green-dark);border-bottom-color:var(--ml-green)}
+.tab-content{display:none;padding:1.5rem;max-width:900px;margin:0 auto}
+.tab-content.active{display:block}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin:1rem 0}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1rem;position:relative}
+.vocab-word{font-family:'Literata',serif;font-size:1.25rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:0.8rem;color:var(--ink2);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;color:var(--ink2)}
+.vocab-def{margin:0.5rem 0;line-height:1.5}
+.vocab-example{font-style:italic;color:var(--ink2);margin-top:0.5rem;padding-top:0.5rem;border-top:1px dashed var(--border)}
+.speak-btn{position:absolute;top:1rem;right:1rem;background:var(--ml-green-light);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+.speak-btn:hover{background:var(--ml-green);color:#fff}
+.concept-block{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0}
+.concept-block h3{color:var(--ml-green-dark);margin-bottom:0.75rem;font-size:1.1rem}
+.concept-block h4{color:var(--cobalt);margin:1rem 0 0.5rem;font-size:1rem}
+.concept-block p{margin-bottom:0.75rem}
+.callout{background:var(--ml-green-light);border-left:4px solid var(--ml-green);padding:1rem;margin:1rem 0;border-radius:0 6px 6px 0}
+.callout-amber{background:var(--amber-light);border-left:4px solid var(--amber)}
+.callout-cobalt{background:#e8f0fe;border-left:4px solid var(--cobalt)}
+.example-box{background:var(--mist);border:1px dashed var(--border);padding:0.75rem;border-radius:6px;margin:0.5rem 0}
+table{width:100%;border-collapse:collapse;margin:1rem 0}
+th,td{border:1px solid var(--border);padding:0.6rem;text-align:left}
+th{background:var(--ml-green-light);color:var(--ml-green-dark);font-weight:600}
+td{background:#fff}
+.quiz-section{margin-top:2rem}
+.quiz-section h2{color:var(--ml-green-dark);margin-bottom:0.5rem}
+.quiz-instruction{color:var(--ink2);font-size:0.9rem;margin-bottom:1rem;font-style:italic}
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin:1rem 0}
+.q-num{font-size:0.8rem;color:var(--ml-green);font-weight:700;margin-bottom:0.5rem;text-transform:uppercase;letter-spacing:0.05em}
+.passage-box{background:var(--mist);border-left:3px solid var(--ml-green);padding:1rem;margin-bottom:1rem;font-family:'Literata',serif;line-height:1.7}
+.q-text{font-weight:600;margin-bottom:0.3rem}
+.q-cn{color:var(--ink2);margin-bottom:1rem;font-size:0.95rem}
+.opts-wrap{margin-top:0.5rem}
+.opt-btn{display:block;width:100%;text-align:left;padding:0.75rem 1rem;margin:0.4rem 0;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-family:inherit}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light)}
+.opt-btn:disabled{cursor:not-allowed;opacity:0.9}
+.opt-btn.show-correct{background:#dcfce7;border-color:#16a34a;color:#14532d;font-weight:600}
+.opt-btn.selected-correct{background:#dcfce7;border-color:#16a34a}
+.opt-btn.selected-wrong{background:#fee2e2;border-color:#dc2626}
+.rationale{display:none;margin-top:0.75rem;padding:0.75rem 1rem;border-radius:6px;font-size:0.95rem;line-height:1.5}
+.rationale.show{display:block}
+.rationale.correct-rat{background:#f0fdf4;border-left:4px solid #16a34a}
+.rationale.wrong-rat{background:#fef2f2;border-left:4px solid #dc2626}
+.reflect-section{background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-top:2rem}
+.reflect-section h3{color:var(--ml-green-dark);margin-bottom:1rem}
+.reflect-field{margin-bottom:1rem}
+.reflect-field label{display:block;font-weight:600;margin-bottom:0.4rem;color:var(--ink2)}
+.reflect-field textarea{width:100%;padding:0.75rem;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:0.95rem;resize:vertical;min-height:80px}
+.reflect-field textarea.filled{border-left:4px solid var(--ml-green)}
+.grat-field{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.grat-field label{font-weight:600;color:var(--ink2)}
+.grat-field input{flex:1;min-width:200px;padding:0.6rem;border:1px solid var(--border);border-radius:6px;font-family:inherit}
+.grat-field input.filled{border-left:4px solid var(--ml-green)}
+.download-btn{display:inline-block;padding:0.75rem 1.5rem;background:var(--ml-green);color:#fff;border:none;border-radius:6px;font-family:inherit;font-weight:600;cursor:pointer;opacity:0.4;pointer-events:none;transition:opacity 0.3s}
+.download-btn.ready{opacity:1;pointer-events:auto}
+.hint-text{font-size:0.85rem;color:var(--amber);margin-top:0.5rem}
+.hint-text.hidden{display:none}
+.timer{position:fixed;bottom:1rem;right:1rem;background:var(--ml-green-dark);color:#fff;padding:0.5rem 1rem;border-radius:20px;font-size:0.85rem;font-weight:600;z-index:200}
+.name-row{margin-bottom:1.5rem}
+.name-row label{font-weight:600;margin-right:0.5rem}
+.name-row input{padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:6px;font-family:inherit;width:250px}
+.hidden{display:none}
+.section-title{font-size:1.4rem;color:var(--ml-green-dark);margin:1.5rem 0 0.5rem;border-bottom:2px solid var(--ml-green-light);padding-bottom:0.5rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:700px){.two-col{grid-template-columns:1fr}.tab-btn{padding:0.7rem 0.8rem;font-size:0.78rem}.header{flex-direction:column;align-items:flex-start}.progress-wrap{max-width:100%;width:100%;margin:0.5rem 0}}
+</style>
+</head>
+<body>
+
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. 
+  <span class="cn" style="font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:0.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  Tab switch recorded! Your teacher will see this. 
+  <span class="cn">标签页切换已记录！</span>
+</div>
+
+<div class="header">
+  <div class="header-left">
+    <div>
+      <div class="header-title">Day 1 - Sunday July 5th</div>
+      <div class="header-sub">第一天 - 七月五日星期日</div>
+    </div>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-bar-outer"><div class="progress-bar-inner" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">Progress: 0% · 进度：0%</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <div class="pips">
+      <span class="pip" id="pip-tab1"></span>
+      <span class="pip" id="pip-tab2"></span>
+      <span class="pip" id="pip-tab3"></span>
+      <span class="pip" id="pip-tab4"></span>
+      <span class="pip" id="pip-tab5"></span>
+    </div>
+    <div class="leave-badge" id="leaveBadge">Leaves: 0</div>
+  </div>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" data-tab="vocab">Vocab · 词汇</button>
+  <button class="tab-btn" data-tab="tab1">Lesson 1 · 历史与史前</button>
+  <button class="tab-btn" data-tab="tab2">Lesson 2 · 智人与迁徙</button>
+  <button class="tab-btn" data-tab="tab3">Lesson 3 · 旧石器技术艺术</button>
+  <button class="tab-btn" data-tab="tab4">Lesson 4 · 新石器革命</button>
+  <button class="tab-btn" data-tab="tab5">Lesson 5 · 农业曙光</button>
+</div>
+
+<div class="tab-content active" id="tab-vocab">
+  <h2 class="section-title">Vocabulary · 词汇</h2>
+  <p style="margin-bottom:1rem;color:var(--ink2);">Click the speaker button to hear pronunciation. Each word you listen to adds to your progress.</p>
+  <div class="vocab-grid" id="vocab-grid"></div>
+</div>
+
+<div class="tab-content" id="tab-tab1">
+  <div class="name-row">
+    <label for="tab1Name">Name:</label>
+    <input type="text" id="tab1Name" placeholder="Enter your name">
+  </div>
+  <h2 class="section-title">Lesson 1: History and Prehistory</h2>
+  <div class="concept-block">
+    <h3>What is History?</h3>
+    <p><strong>History</strong> is the study of the past using written records. When humans invented writing about 5,000 years ago, they created a new way to remember events, laws, trade, and stories. Any period before writing is called <strong>prehistory</strong>.</p>
+    <div class="callout"><strong>Key Idea:</strong> The dividing line between history and prehistory is the invention of writing. People in prehistory were just as intelligent as people today.</div>
+  </div>
+  <div class="concept-block">
+    <h3>Sources of Evidence</h3>
+    <p>Historians use <strong>primary sources</strong> (documents from the time) and <strong>secondary sources</strong> (later interpretations). Archaeologists study prehistory using <strong>artifacts</strong> (objects made by humans), <strong>fossils</strong> (remains of living things), and <strong>features</strong> (non-movable structures).</p>
+  </div>
+  <div class="quiz-section">
+    <h2>Quiz</h2>
+    <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it.</p>
+    <div id="tab1QuizContainer"></div>
+  </div>
+  <div class="reflect-section">
+    <h3>Reflect and Respond</h3>
+    <div class="reflect-field">
+      <label for="tab1Ref1">Q1: Why is writing such an important dividing line between prehistory and history?</label>
+      <textarea id="tab1Ref1" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="reflect-field">
+      <label for="tab1Ref2">Q2: Archaeologists say 'absence of evidence is not evidence of absence.' What does this mean?</label>
+      <textarea id="tab1Ref2" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="grat-field">
+      <label for="tab1Grat">Today I am grateful for:</label>
+      <input type="text" id="tab1Grat" placeholder="something in your life...">
+    </div>
+    <button class="download-btn" id="tab1DownloadBtn">Download Report</button>
+    <p class="hint-text" id="tab1Hint">Complete all questions and reflection fields to unlock download.</p>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-tab2">
+  <div class="name-row">
+    <label for="tab2Name">Name:</label>
+    <input type="text" id="tab2Name" placeholder="Enter your name">
+  </div>
+  <h2 class="section-title">Lesson 2: Homo Sapiens and Early Migration</h2>
+  <div class="concept-block">
+    <h3>The Emergence of Homo Sapiens</h3>
+    <p><strong>Homo sapiens</strong> (modern humans) emerged in Africa around <strong>300,000 years ago</strong>. The oldest known fossils were found at Jebel Irhoud, Morocco, dated to about 315,000 years ago.</p>
+    <div class="callout"><strong>Key Idea:</strong> Homo sapiens did not replace other species through conquest. They likely out-reproduced earlier hominins through social and technological advantages.</div>
+  </div>
+  <div class="concept-block">
+    <h3>Out of Africa</h3>
+    <p>Between <strong>120,000 and 50,000 years ago</strong>, Homo sapiens began leaving Africa. They reached the Near East by 60,000 years ago, Europe by 45,000 years ago, and Australia by 50,000 years ago.</p>
+  </div>
+  <div class="quiz-section">
+    <h2>Quiz</h2>
+    <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it.</p>
+    <div id="tab2QuizContainer"></div>
+  </div>
+  <div class="reflect-section">
+    <h3>Reflect and Respond</h3>
+    <div class="reflect-field">
+      <label for="tab2Ref1">Q1: Scientists once believed Homo sapiens replaced all other species. How does new evidence change this view?</label>
+      <textarea id="tab2Ref1" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="reflect-field">
+      <label for="tab2Ref2">Q2: What modern skills help humans live in extreme environments? Connect early adaptations to modern solutions.</label>
+      <textarea id="tab2Ref2" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="grat-field">
+      <label for="tab2Grat">Today I am grateful for:</label>
+      <input type="text" id="tab2Grat" placeholder="something in your life...">
+    </div>
+    <button class="download-btn" id="tab2DownloadBtn">Download Report</button>
+    <p class="hint-text" id="tab2Hint">Complete all questions and reflection fields to unlock download.</p>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-tab3">
+  <div class="name-row">
+    <label for="tab3Name">Name:</label>
+    <input type="text" id="tab3Name" placeholder="Enter your name">
+  </div>
+  <h2 class="section-title">Lesson 3: Paleolithic Technology, Culture and Art</h2>
+  <div class="concept-block">
+    <h3>The Paleolithic Era</h3>
+    <p>The <strong>Paleolithic</strong> (Old Stone Age) spans from about 2.6 million years ago to roughly 10,000 BCE. Humans lived as <strong>hunter-gatherers</strong>, moving from place to place to find food.</p>
+    <div class="callout"><strong>Key Idea:</strong> The Paleolithic is divided into Lower, Middle, and Upper periods. Each shows advances in tool technology and social complexity.</div>
+  </div>
+  <div class="concept-block">
+    <h3>Stone Tool Technology</h3>
+    <p><strong>Oldowan</strong> tools (2.6 mya) were simple choppers. <strong>Acheulean</strong> tools (1.7 mya) included hand axes. <strong>Mousterian</strong> tools (300,000 ya) used prepared cores. <strong>Upper Paleolithic</strong> tools included blades and bone needles.</p>
+  </div>
+  <div class="quiz-section">
+    <h2>Quiz</h2>
+    <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it.</p>
+    <div id="tab3QuizContainer"></div>
+  </div>
+  <div class="reflect-section">
+    <h3>Reflect and Respond</h3>
+    <div class="reflect-field">
+      <label for="tab3Ref1">Q1: Paleolithic people created complex art without writing. What does this tell us about language, art, and consciousness?</label>
+      <textarea id="tab3Ref1" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="reflect-field">
+      <label for="tab3Ref2">Q2: Compare making a Mousterian tool to learning a modern skill like coding. What similarities exist?</label>
+      <textarea id="tab3Ref2" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="grat-field">
+      <label for="tab3Grat">Today I am grateful for:</label>
+      <input type="text" id="tab3Grat" placeholder="something in your life...">
+    </div>
+    <button class="download-btn" id="tab3DownloadBtn">Download Report</button>
+    <p class="hint-text" id="tab3Hint">Complete all questions and reflection fields to unlock download.</p>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-tab4">
+  <div class="name-row">
+    <label for="tab4Name">Name:</label>
+    <input type="text" id="tab4Name" placeholder="Enter your name">
+  </div>
+  <h2 class="section-title">Lesson 4: The Neolithic Revolution and Early Agriculture</h2>
+  <div class="concept-block">
+    <h3>What Was the Neolithic Revolution?</h3>
+    <p>The <strong>Neolithic Revolution</strong> (about 10,000 BCE) marks the shift from hunting and gathering to farming and herding. It changed where people lived, what they ate, and how they organized society.</p>
+    <div class="callout"><strong>Key Idea:</strong> The revolution was not a single event. It happened independently in the Fertile Crescent, China, Mesoamerica, the Andes, and sub-Saharan Africa.</div>
+  </div>
+  <div class="concept-block">
+    <h3>Causes of the Revolution</h3>
+    <p>The end of the Ice Age brought warmer weather. Growing populations needed more reliable food. The extinction of large game reduced hunting success. Humans gradually began planting useful wild species.</p>
+  </div>
+  <div class="quiz-section">
+    <h2>Quiz</h2>
+    <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it.</p>
+    <div id="tab4QuizContainer"></div>
+  </div>
+  <div class="reflect-section">
+    <h3>Reflect and Respond</h3>
+    <div class="reflect-field">
+      <label for="tab4Ref1">Q1: The Neolithic Revolution took thousands of years. Is it fair to call it a revolution?</label>
+      <textarea id="tab4Ref1" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="reflect-field">
+      <label for="tab4Ref2">Q2: How does abundance of one resource create both opportunity and inequality? Give a modern example.</label>
+      <textarea id="tab4Ref2" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="grat-field">
+      <label for="tab4Grat">Today I am grateful for:</label>
+      <input type="text" id="tab4Grat" placeholder="something in your life...">
+    </div>
+    <button class="download-btn" id="tab4DownloadBtn">Download Report</button>
+    <p class="hint-text" id="tab4Hint">Complete all questions and reflection fields to unlock download.</p>
+  </div>
+</div>
+
+<div class="tab-content" id="tab-tab5">
+  <div class="name-row">
+    <label for="tab5Name">Name:</label>
+    <input type="text" id="tab5Name" placeholder="Enter your name">
+  </div>
+  <h2 class="section-title">Lesson 5: The Dawn of Agriculture</h2>
+  <div class="concept-block">
+    <h3>Domestication</h3>
+    <p><strong>Domestication</strong> is the process of changing wild plants and animals to make them more useful to humans. Over generations, farmers selected plants with larger seeds and stronger stalks.</p>
+    <div class="callout"><strong>Key Idea:</strong> Domestication was a mutual relationship. Plants and animals gained protection. Humans gained food and labor.</div>
+  </div>
+  <div class="concept-block">
+    <h3>First Domesticated Species</h3>
+    <p>In the Fertile Crescent: wheat, barley, peas, goats, sheep, pigs, cattle. In East Asia: rice, millet. In Mesoamerica: maize (corn) from teosinte.</p>
+  </div>
+  <div class="quiz-section">
+    <h2>Quiz</h2>
+    <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it.</p>
+    <div id="tab5QuizContainer"></div>
+  </div>
+  <div class="reflect-section">
+    <h3>Reflect and Respond</h3>
+    <div class="reflect-field">
+      <label for="tab5Ref1">Q1: Early farmers were less healthy than hunter-gatherers, yet farming spread everywhere. Why?</label>
+      <textarea id="tab5Ref1" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="reflect-field">
+      <label for="tab5Ref2">Q2: Was the Neolithic Revolution positive or negative overall? Support with evidence.</label>
+      <textarea id="tab5Ref2" placeholder="Type your answer here..."></textarea>
+    </div>
+    <div class="grat-field">
+      <label for="tab5Grat">Today I am grateful for:</label>
+      <input type="text" id="tab5Grat" placeholder="something in your life...">
+    </div>
+    <button class="download-btn" id="tab5DownloadBtn">Download Report</button>
+    <p class="hint-text" id="tab5Hint">Complete all questions and reflection fields to unlock download.</p>
+  </div>
+</div>
+
+<div class="timer" id="timer-display">00:00</div>
+
+<script>
+console.log("SCRIPT STARTED");
+
+const VOCAB = [
+  { word: "Prehistory", pos: "noun", cn: "史前时期", def: "The period of human history before written records were invented.", cn_def: "文字记录发明之前的人类历史时期。", example: "Stone tools from prehistory tell us how early humans lived." },
+  { word: "Archaeology", pos: "noun", cn: "考古学", def: "The scientific study of past human life through material remains.", cn_def: "通过物质遗存对过去人类生活进行科学研究的学科。", example: "Archaeology helps us understand cultures that left no written records." },
+  { word: "Artifact", pos: "noun", cn: "人工制品", def: "An object made or used by humans in the past.", cn_def: "人类在过去制造或使用的物品。", example: "The stone axe is an artifact from the Paleolithic era." },
+  { word: "Hominin", pos: "noun", cn: "人族", def: "A member of the human family tree.", cn_def: "人类家族树的成员。", example: "Homo sapiens is the only surviving hominin species today." },
+  { word: "Migration", pos: "noun", cn: "迁徙", def: "The movement of a large group of people from one region to another.", cn_def: "一大群人从一个地区移动到另一个地区。", example: "The migration of Homo sapiens out of Africa took thousands of years." },
+  { word: "Paleolithic", pos: "adjective", cn: "旧石器时代的", def: "Relating to the early phase of the Stone Age.", cn_def: "与石器时代的早期阶段有关。", example: "Paleolithic people hunted mammoths and gathered wild berries." },
+  { word: "Nomadic", pos: "adjective", cn: "游牧的", def: "Moving from place to place rather than living in one permanent location.", cn_def: "从一个地方移动到另一个地方。", example: "Nomadic groups followed animal herds to find food." },
+  { word: "Hunter-gatherer", pos: "noun", cn: "狩猎采集者", def: "A person who obtains food by hunting animals and gathering wild plants.", cn_def: "通过狩猎动物和采集野生植物获取食物的人。", example: "Hunter-gatherers moved with the seasons to find resources." },
+  { word: "Neolithic", pos: "adjective", cn: "新石器时代的", def: "Relating to the later phase of the Stone Age when farming began.", cn_def: "与石器时代的后期阶段有关，当时农耕开始。", example: "Neolithic villages had permanent houses and stored grain." },
+  { word: "Domestication", pos: "noun", cn: "驯化", def: "The process of changing wild plants or animals to make them useful to humans.", cn_def: "改变野生植物或动物使其对人类有用的过程。", example: "The domestication of wheat changed human society forever." },
+  { word: "Agriculture", pos: "noun", cn: "农业", def: "The practice of growing crops and raising animals for food.", cn_def: "种植作物和饲养动物以获取食物的实践。", example: "Agriculture allowed humans to settle in one place year-round." },
+  { word: "Civilization", pos: "noun", cn: "文明", def: "An advanced stage of human society with cities, writing, and government.", cn_def: "人类社会的高级阶段，拥有城市、文字和政府。", example: "The first civilizations grew in river valleys where farming was possible." }
+];
+
+const TAB1_Q = [
+  {
+    id: "t1q1", title: "History vs Prehistory",
+    q: "What is the main difference between history and prehistory?",
+    q_cn: "历史和史前时期的主要区别是什么？",
+    options: [
+      "A. History is about wars, prehistory is about peace|A. 历史是关于战争的，史前是关于和平的",
+      "B. History has written records, prehistory does not|B. 历史有文字记录，史前没有",
+      "C. History is older than prehistory|C. 历史比史前更古老",
+      "D. History studies only one country|D. 历史只研究一个国家"
+    ],
+    correct: "B",
+    rat_right: "Correct. History is defined by the presence of written records. Prehistory covers all human life before writing was invented.|正确。历史的定义是有文字记录的存在。史前涵盖文字发明之前的所有人类生活。",
+    rat_wrong: {
+      A: "Incorrect. Both periods included conflict and cooperation. The difference is written records, not war.|不对。两个时期都包含冲突与合作。区别在于文字记录，而不是战争。",
+      C: "Incorrect. Prehistory is much older than history. History begins only about 5,000 years ago with writing.|不对。史前比历史古老得多。历史仅在约五千年前随着文字发明才开始。",
+      D: "Incorrect. History studies all societies with written records, not just one country.|不对。历史研究所有有文字记录的社会，不仅仅是一个国家。"
+    }
+  },
+  {
+    id: "t1q2", title: "Sources of Evidence",
+    passage: "Archaeologists study prehistory using objects left behind by ancient people. These objects include stone tools, pottery, bones, and building remains.",
+    q: "Which of the following is an artifact?",
+    q_cn: "以下哪项是人工制品？",
+    options: [
+      "A. A river that ancient people drank from|A. 古人饮用的河流",
+      "B. A stone axe made by a Paleolithic person|B. 旧石器时代人制作的石斧",
+      "C. A modern book about ancient Egypt|C. 一本关于古埃及的现代书籍",
+      "D. A footprint in mud that washed away|D. 泥中被冲走的脚印"
+    ],
+    correct: "B",
+    rat_right: "Correct. An artifact is an object made or used by humans in the past. A stone axe fits this definition perfectly.|正确。人工制品是人类在过去制造或使用的物品。石斧完全符合这一定义。",
+    rat_wrong: {
+      A: "Incorrect. A river is a natural feature, not made by humans.|不对。河流是自然特征，不是人类制造的。",
+      C: "Incorrect. A modern book is a secondary source, not an ancient artifact.|不对。现代书籍是二手资料，不是古代人工制品。",
+      D: "Incorrect. A footprint that washed away was not preserved and is not a material object studied by archaeologists.|不对。被冲走的脚印没有被保存下来，也不是考古学家研究的物质对象。"
+    }
+  },
+  {
+    id: "t1q3", title: "Time and Chronology",
+    q: "Which date is the oldest?",
+    q_cn: "哪个日期最古老？",
+    options: [
+      "A. 500 BCE|A. 公元前500年",
+      "B. 3000 BCE|B. 公元前3000年",
+      "C. 10,000 BCE|C. 公元前10000年",
+      "D. 1500 BCE|D. 公元前1500年"
+    ],
+    correct: "C",
+    rat_right: "Correct. In BCE, larger numbers are older because they count backward from year 1. 10,000 BCE is the oldest date.|正确。在公元前，数字越大越古老，因为它们从公元1年倒着数。公元前10000年是最古老的日期。",
+    rat_wrong: {
+      A: "Incorrect. 500 BCE is only 500 years before year 1, making it the most recent of the choices.|不对。公元前500年只是公元1年前的500年，是选项中最接近现代的。",
+      B: "Incorrect. 3000 BCE is older than 500 BCE but much more recent than 10,000 BCE.|不对。公元前3000年比公元前500年古老，但比公元前10000年接近现代得多。",
+      D: "Incorrect. 1500 BCE is between 500 and 3000 BCE in age.|不对。公元前1500年的年代介于公元前500年和公元前3000年之间。"
+    }
+  },
+  {
+    id: "t1q4", title: "Archaeological Methods",
+    q: "What does stratigraphy help archaeologists do?",
+    q_cn: "地层学帮助考古学家做什么？",
+    options: [
+      "A. Read ancient languages|A. 阅读古代语言",
+      "B. Determine the age of layers at a dig site|B. 确定挖掘现场土层的年代",
+      "C. Measure the weight of artifacts|C. 测量人工制品的重量",
+      "D. Find hidden gold treasure|D. 寻找隐藏的黄金宝藏"
+    ],
+    correct: "B",
+    rat_right: "Correct. Stratigraphy is the study of rock and soil layers. Older layers are deeper, so archaeologists can understand the sequence of time at a site.|正确。地层学是研究岩层和土层的学科。较古老的层更深，因此考古学家可以了解遗址的时间顺序。",
+    rat_wrong: {
+      A: "Incorrect. Reading ancient languages is done by linguists and epigraphists, not stratigraphy.|不对。阅读古代语言由语言学家和铭文学家完成，不是地层学。",
+      C: "Incorrect. Stratigraphy does not measure weight; it studies the position and order of layers.|不对。地层学不测量重量；它研究层的位置和顺序。",
+      D: "Incorrect. Archaeologists study all artifacts, not just gold treasure. Stratigraphy is about layers, not treasure hunting.|不对。考古学家研究所有人工制品，不仅仅是黄金宝藏。地层学是关于土层的，不是寻宝。"
+    }
+  },
+  {
+    id: "t1q5", title: "Primary and Secondary Sources",
+    q: "A diary written by a farmer in ancient Sumer is an example of what kind of source?",
+    q_cn: "古代苏美尔一位农民写的日记是什么类型的资料例子？",
+    options: [
+      "A. Secondary source|A. 二手资料",
+      "B. Primary source|B. 原始资料",
+      "C. Archaeological feature|C. 考古遗迹",
+      "D. Fossil record|D. 化石记录"
+    ],
+    correct: "B",
+    rat_right: "Correct. A primary source is a document or object created during the time being studied. A diary written at that time is a primary source.|正确。原始资料是在所研究时期创建的文献或物品。当时写的日记是原始资料。",
+    rat_wrong: {
+      A: "Incorrect. A secondary source is created later by someone analyzing the past, like a modern textbook.|不对。二手资料是由后来分析过去的人创建的，如现代教科书。",
+      C: "Incorrect. An archaeological feature is a non-movable structure like a wall or hearth, not a written document.|不对。考古遗迹是不可移动的结构，如墙或壁炉，不是书面文件。",
+      D: "Incorrect. A fossil record refers to preserved biological remains, not written texts.|不对。化石记录指的是保存下来的生物遗骸，不是书面文本。"
+    }
+  },
+  {
+    id: "t1q6", title: "Carbon Dating",
+    q: "Radiocarbon dating is used to find the age of which type of material?",
+    q_cn: "放射性碳定年法用于确定哪种材料的年代？",
+    options: [
+      "A. Metal swords|A. 金属剑",
+      "B. Organic material like wood or bone|B. 木头或骨头等有机材料",
+      "C. Stone buildings|C. 石头建筑",
+      "D. Pottery with no food residue|D. 没有食物残留的陶器"
+    ],
+    correct: "B",
+    rat_right: "Correct. Radiocarbon dating measures the decay of carbon-14 in organic material. It works on things that were once alive, like wood, bone, or seeds.|正确。放射性碳定年法测量有机物质中碳14的衰变。它适用于曾经有生命的东西，如木头、骨头或种子。",
+    rat_wrong: {
+      A: "Incorrect. Metal cannot be dated with radiocarbon because it contains no carbon from living organisms.|不对。金属不能用放射性碳定年，因为它不含来自生物体的碳。",
+      C: "Incorrect. Stone is inorganic and contains no carbon-14. Other methods are used for stone.|不对。石头是无机的，不含碳14。石头使用其他方法测定年代。",
+      D: "Incorrect. Pottery alone has no organic carbon. However, if it has food residue or was fired with organic temper, those parts can be dated.|不对。陶器本身没有有机碳。但如果它有食物残留或用有机材料烧制，那些部分可以测定年代。"
+    }
+  },
+  {
+    id: "t1q7", title: "Limitations of Evidence",
+    q: "Why is the archaeological record incomplete?",
+    q_cn: "为什么考古记录是不完整的？",
+    options: [
+      "A. Because archaeologists refuse to study certain cultures|A. 因为考古学家拒绝研究某些文化",
+      "B. Because many materials decay over time and are never found|B. 因为许多材料随时间腐烂且从未被发现",
+      "C. Because governments hide all ancient objects|C. 因为政府隐藏所有古代物品",
+      "D. Because ancient people did not make any objects|D. 因为古人没有制造任何物品"
+    ],
+    correct: "B",
+    rat_right: "Correct. Wood, cloth, and food decay quickly. Only durable materials like stone, pottery, and bone usually survive. Many sites are also buried under modern cities or eroded by nature.|正确。木头、布料和食物腐烂得很快。只有耐用的材料如石头、陶器和骨头通常能保存下来。许多遗址也被埋在现代城市下或被自然侵蚀。",
+    rat_wrong: {
+      A: "Incorrect. Archaeologists study all cultures they can find evidence for. The problem is preservation, not refusal.|不对。考古学家研究所有能找到证据的文化。问题是保存，不是拒绝。",
+      C: "Incorrect. While some governments restrict access, most archaeological work happens openly. The main problem is natural decay.|不对。虽然有些政府限制访问，但大多数考古工作是公开进行的。主要问题是自然腐烂。",
+      D: "Incorrect. Ancient people made millions of objects. Most simply did not survive thousands of years.|不对。古人制造了数百万件物品。大多数只是没有经历数千年保存下来。"
+    }
+  },
+  {
+    id: "t1q8", title: "BCE and CE",
+    q: "What does BCE stand for?",
+    q_cn: "BCE代表什么？",
+    options: [
+      "A. Before Christian Era|A. 基督纪元前",
+      "B. Before Common Era|B. 公元前",
+      "C. British Colonial Empire|C. 英殖民帝国",
+      "D. Bronze Age End|D. 青铜时代结束"
+    ],
+    correct: "B",
+    rat_right: "Correct. BCE means Before Common Era. It is the secular equivalent of BC and counts backward from year 1.|正确。BCE代表公元前。它是BC的世俗等价说法，从公元1年倒着数。",
+    rat_wrong: {
+      A: "Incorrect. While related to BC, the standard academic term is Before Common Era.|不对。虽然与BC相关，但标准学术术语是Before Common Era（公元前）。",
+      C: "Incorrect. BCE has nothing to do with the British Empire.|不对。BCE与英国帝国无关。",
+      D: "Incorrect. The Bronze Age ended at different times in different places and is not what BCE means.|不对。青铜时代在不同地方结束的时间不同，这不是BCE的意思。"
+    }
+  },
+  {
+    id: "t1q9", title: "Oral Tradition",
+    passage: "Before writing, people passed down stories, laws, and family histories by speaking them from generation to generation.",
+    q: "What is a major weakness of oral tradition as a historical source?",
+    q_cn: "作为历史来源，口头传统的主要弱点是什么？",
+    options: [
+      "A. It can only be told in summer|A. 它只能在夏天讲述",
+      "B. Stories may change each time they are told|B. 故事每次讲述时都可能改变",
+      "C. It requires expensive paper|C. 它需要昂贵的纸张",
+      "D. Only children are allowed to tell stories|D. 只有孩子才被允许讲故事"
+    ],
+    correct: "B",
+    rat_right: "Correct. Oral tradition relies on human memory. Each teller may forget details, add new ones, or change the story to fit their audience. This makes oral tradition less reliable than written records.|正确。口头传统依赖人类记忆。每个讲述者可能忘记细节、添加新内容或改变故事以适应听众。这使口头传统不如书面记录可靠。",
+    rat_wrong: {
+      A: "Incorrect. Oral tradition can be told at any time of year.|不对。口头传统可以在一年中的任何时间讲述。",
+      C: "Incorrect. Oral tradition requires no paper at all. That is actually its advantage.|不对。口头传统根本不需要纸张。这实际上是它的优势。",
+      D: "Incorrect. In most cultures, elders and specialists were the ones who preserved oral traditions.|不对。在大多数文化中，长者和专家才是保存口头传统的人。"
+    }
+  },
+  {
+    id: "t1q10", title: "Archaeology Definition",
+    q: "Which statement best describes archaeology?",
+    q_cn: "哪句话最能描述考古学？",
+    options: [
+      "A. The study of ancient writing systems|A. 古代文字系统的研究",
+      "B. The scientific study of past humans through material remains|B. 通过物质遗存对过去人类进行科学研究",
+      "C. The search for buried treasure|C. 寻找埋藏宝藏",
+      "D. The study of dinosaur bones|D. 恐龙骨骼的研究"
+    ],
+    correct: "B",
+    rat_right: "Correct. Archaeology is the scientific study of past human life through material remains like tools, buildings, and bones. It is not treasure hunting or dinosaur study.|正确。考古学是通过工具、建筑和骨骼等物质遗存对过去人类生活进行科学研究。它不是寻宝或恐龙研究。",
+    rat_wrong: {
+      A: "Incorrect. The study of writing systems is called epigraphy or paleography, not archaeology.|不对。文字系统的研究称为铭文学或古文书学，不是考古学。",
+      C: "Incorrect. While some discoveries are valuable, archaeology is a science focused on understanding human behavior, not finding treasure.|不对。虽然有些发现很有价值，但考古学是专注于理解人类行为的科学，不是寻找宝藏。",
+      D: "Incorrect. Dinosaurs are studied by paleontologists. Archaeologists study humans.|不对。恐龙由古生物学家研究。考古学家研究人类。"
+    }
+  }
+];
+
+const TAB2_Q = [
+  {
+    id: "t2q1", title: "Origin of Homo Sapiens",
+    q: "Where did Homo sapiens first emerge?",
+    q_cn: "智人最早出现在哪里？",
+    options: [
+      "A. Europe|A. 欧洲",
+      "B. Asia|B. 亚洲",
+      "C. Africa|C. 非洲",
+      "D. Australia|D. 澳大利亚"
+    ],
+    correct: "C",
+    rat_right: "Correct. Homo sapiens emerged in Africa around 300,000 years ago. The oldest known fossils were found in Morocco.|正确。智人大约在30万年前在非洲出现。已知最古老的化石发现于摩洛哥。",
+    rat_wrong: {
+      A: "Incorrect. Europe was settled by Homo sapiens much later, around 45,000 years ago.|不对。智人在约4.5万年前才定居欧洲，要晚得多。",
+      B: "Incorrect. Asia was reached after Africa, around 60,000 years ago in the Near East.|不对。亚洲在非洲之后才被到达，约6万年前到达近东。",
+      D: "Incorrect. Australia was one of the last major regions reached, about 50,000 years ago.|不对。澳大利亚是最后被到达的主要地区之一，约5万年前。"
+    }
+  },
+  {
+    id: "t2q2", title: "Timeline of Emergence",
+    q: "Approximately how long ago did Homo sapiens first appear?",
+    q_cn: "智人大约多久前首次出现？",
+    options: [
+      "A. 50,000 years ago|A. 5万年前",
+      "B. 100,000 years ago|B. 10万年前",
+      "C. 300,000 years ago|C. 30万年前",
+      "D. 2 million years ago|D. 200万年前"
+    ],
+    correct: "C",
+    rat_right: "Correct. The earliest Homo sapiens fossils date to about 300,000 years ago at Jebel Irhoud, Morocco.|正确。最早的智人化石距今约30万年，发现于摩洛哥的杰贝尔依罗。",
+    rat_wrong: {
+      A: "Incorrect. 50,000 years ago is when humans were already spreading across much of the world.|不对。5万年前人类已经扩散到世界大部分地区。",
+      B: "Incorrect. While some early fossils are around this age, the oldest confirmed Homo sapiens are about 300,000 years old.|不对。虽然有些早期化石大约是这个年代，但最古老确认的智人约有30万年历史。",
+      D: "Incorrect. 2 million years ago is when earlier hominins like Homo habilis lived, not Homo sapiens.|不对。200万年前是早期人族如能人生活的时代，不是智人。"
+    }
+  },
+  {
+    id: "t2q3", title: "Out of Africa",
+    q: "When did Homo sapiens begin migrating out of Africa?",
+    q_cn: "智人何时开始迁出非洲？",
+    options: [
+      "A. Between 120,000 and 50,000 years ago|A. 12万至5万年前之间",
+      "B. About 2 million years ago|B. 约200万年前",
+      "C. Exactly 10,000 years ago|C. 正好1万年前",
+      "D. They never left Africa|D. 他们从未离开非洲"
+    ],
+    correct: "A",
+    rat_right: "Correct. Homo sapiens began leaving Africa between 120,000 and 50,000 years ago, with major dispersal around 70,000 years ago.|正确。智人在12万至5万年前之间开始离开非洲，大规模扩散约在7万年前。",
+    rat_wrong: {
+      B: "Incorrect. 2 million years ago is when much earlier hominins left Africa, not Homo sapiens.|不对。200万年前是更早的人族离开非洲的时间，不是智人。",
+      C: "Incorrect. 10,000 years ago is the Neolithic Revolution, long after humans had spread worldwide.|不对。1万年前是新石器革命，远在人类遍布全球之后。",
+      D: "Incorrect. Genetic and fossil evidence clearly shows Homo sapiens migrated to every continent except Antarctica.|不对。基因和化石证据清楚地表明智人迁徙到了除南极洲以外的每个大陆。"
+    }
+  },
+  {
+    id: "t2q4", title: "Neanderthals",
+    passage: "Neanderthals lived in Europe and Western Asia. They made tools, buried their dead, and had brains as large as modern humans. They coexisted with Homo sapiens for thousands of years.",
+    q: "What happened to the Neanderthals?",
+    q_cn: "尼安德特人发生了什么？",
+    options: [
+      "A. They evolved into chimpanzees|A. 他们进化成了黑猩猩",
+      "B. They went extinct around 40,000 years ago|B. 他们在约4万年前灭绝了",
+      "C. They migrated to the moon|C. 他们迁徙到了月球",
+      "D. They are still living in hidden caves|D. 他们仍然生活在隐藏的洞穴中"
+    ],
+    correct: "B",
+    rat_right: "Correct. Neanderthals went extinct around 40,000 years ago, possibly due to climate change, competition, or assimilation into Homo sapiens populations.|正确。尼安德特人约在4万年前灭绝，可能是由于气候变化、竞争或融入智人种群。",
+    rat_wrong: {
+      A: "Incorrect. Neanderthals and chimpanzees are on completely different evolutionary branches.|不对。尼安德特人和黑猩猩处于完全不同的进化分支上。",
+      C: "Incorrect. There is no evidence of space travel in prehistory.|不对。没有史前太空旅行的证据。",
+      D: "Incorrect. While this is a popular myth, all scientific evidence shows Neanderthals are extinct.|不对。虽然这是一个流行的神话，但所有科学证据都表明尼安德特人已灭绝。"
+    }
+  },
+  {
+    id: "t2q5", title: "Dispersal vs Migration",
+    q: "Why do scientists call early human movement a 'dispersal' rather than a 'migration'?",
+    q_cn: "为什么科学家称早期人类运动为'扩散'而不是'迁徙'？",
+    options: [
+      "A. Because it involved small groups moving gradually|A. 因为它涉及小群体逐渐移动",
+      "B. Because humans moved by airplane|B. 因为人类乘飞机移动",
+      "C. Because only one person moved at a time|C. 因为一次只有一个人移动",
+      "D. Because they moved in a perfect straight line|D. 因为他们沿完美直线移动"
+    ],
+    correct: "A",
+    rat_right: "Correct. Dispersal involves small groups moving gradually over long periods. Migration implies large, organized groups moving together over long distances.|正确。扩散涉及小群体在长时间内逐渐移动。迁徙意味着大规模有组织的群体一起长距离移动。",
+    rat_wrong: {
+      B: "Incorrect. Airplanes were invented in the 20th century, not prehistory.|不对。飞机是20世纪发明的，不是史前时期。",
+      C: "Incorrect. Small groups moved, not just individuals. The key difference is the scale and organization.|不对。小群体移动，不仅仅是个人。关键区别在于规模和组织。",
+      D: "Incorrect. Human movement followed coastlines, rivers, and animal herds, not straight lines.|不对。人类移动沿着海岸线、河流和兽群，不是直线。"
+    }
+  },
+  {
+    id: "t2q6", title: "Interbreeding",
+    q: "What does Neanderthal DNA in modern humans prove?",
+    q_cn: "现代人类中的尼安德特人DNA证明了什么？",
+    options: [
+      "A. Neanderthals invented farming|A. 尼安德特人发明了农耕",
+      "B. Homo sapiens and Neanderthals interbred|B. 智人和尼安德特人曾杂交",
+      "C. All humans came from Europe|C. 所有人类都来自欧洲",
+      "D. DNA testing is always wrong|D. DNA测试总是错误的"
+    ],
+    correct: "B",
+    rat_right: "Correct. Modern humans outside Africa carry 1-4% Neanderthal DNA. This is direct genetic proof that the two species interbred when they met in Europe and Asia.|正确。非洲以外的现代人类携带1-4%的尼安德特人DNA。这是两个物种在欧洲和亚洲相遇时杂交的直接基因证据。",
+    rat_wrong: {
+      A: "Incorrect. Neanderthals went extinct before farming began. Farming started about 10,000 years ago.|不对。尼安德特人在农耕开始前就已灭绝。农耕始于约1万年前。",
+      C: "Incorrect. Humans originated in Africa. European populations are actually younger branches of the human family tree.|不对。人类起源于非洲。欧洲人口实际上是人类家族树中较年轻的分支。",
+      D: "Incorrect. DNA analysis is one of the most reliable scientific methods available today.|不对。DNA分析是当今最可靠的科学方法之一。"
+    }
+  },
+  {
+    id: "t2q7", title: "Speech and Language",
+    q: "What advantage did Homo sapiens likely have over earlier hominins?",
+    q_cn: "智人可能比早期人族有什么优势？",
+    options: [
+      "A. They could fly|A. 他们能飞",
+      "B. Complex spoken language|B. 复杂的口语",
+      "C. They were much larger|C. 他们大得多",
+      "D. They had natural armor|D. 他们有天然盔甲"
+    ],
+    correct: "B",
+    rat_right: "Correct. Homo sapiens had a flexed basicranium that supports quantal speech — rapid, distinct speech with few copying errors. This allowed complex cooperation and knowledge sharing.|正确。智人有弯曲的颅底，支持量子语音——快速、清晰的语音，复制错误很少。这使得复杂的合作和知识分享成为可能。",
+    rat_wrong: {
+      A: "Incorrect. No hominin has ever been able to fly.|不对。从来没有人族能够飞行。",
+      C: "Incorrect. Neanderthals were actually shorter and stockier, but body size was not the key advantage.|不对。尼安德特人实际上更矮更壮，但体型不是关键优势。",
+      D: "Incorrect. There is no evidence of biological armor in any hominin species.|不对。没有任何人族物种有生物盔甲的证据。"
+    }
+  },
+  {
+    id: "t2q8", title: "Settlement of Australia",
+    q: "How did Homo sapiens reach Australia around 50,000 years ago?",
+    q_cn: "智人约5万年前如何到达澳大利亚？",
+    options: [
+      "A. By walking across a land bridge from Africa|A. 通过从非洲走过陆桥",
+      "B. By using boats or rafts across coastal waters|B. 通过使用船只或木筏穿越沿海水域",
+      "C. By swimming the entire distance|C. 通过游过整个距离",
+      "D. Australia was already connected to Asia by dry land|D. 澳大利亚已经通过干地与亚洲相连"
+    ],
+    correct: "B",
+    rat_right: "Correct. Even during low sea levels, reaching Australia required crossing open water. This means Homo sapiens had watercraft technology at least 50,000 years ago.|正确。即使在海平面较低时，到达澳大利亚也需要穿越开阔水域。这意味着智人在至少5万年前就有了船只技术。",
+    rat_wrong: {
+      A: "Incorrect. Africa and Australia are separated by the Indian Ocean. There was no direct land bridge.|不对。非洲和澳大利亚被印度洋隔开。没有直接的陆桥。",
+      C: "Incorrect. The distance is far too great for swimming. Humans needed boats.|不对。距离太远，无法游泳。人类需要船只。",
+      D: "Incorrect. While some islands were connected, Australia itself was always separated by water from mainland Asia.|不对。虽然有些岛屿相连，但澳大利亚本身始终被水域与亚洲大陆隔开。"
+    }
+  },
+  {
+    id: "t2q9", title: "Climate and Movement",
+    q: "Which factor helped Homo sapiens spread to new regions?",
+    q_cn: "哪个因素帮助智人扩散到新地区？",
+    options: [
+      "A. The invention of the wheel|A. 轮子的发明",
+      "B. Climate change that opened new routes|B. 开辟新路线的气候变化",
+      "C. Maps drawn by earlier explorers|C. 早期探险家绘制的地图",
+      "D. Help from alien species|D. 外星物种的帮助"
+    ],
+    correct: "B",
+    rat_right: "Correct. The end of the last Ice Age brought warmer weather and lower sea levels, opening new land routes and making new environments habitable.|正确。最后一个冰河时代的结束带来了更温暖的天气和更低的海平面，开辟了新的陆地路线并使新环境适合居住。",
+    rat_wrong: {
+      A: "Incorrect. The wheel was invented in the Neolithic period, long after humans had spread across the globe.|不对。轮子是在新石器时代发明的，远在人类遍布全球之后。",
+      C: "Incorrect. There were no earlier explorers with maps in prehistory. Each group discovered routes on their own.|不对。史前没有绘制地图的早期探险家。每个群体都是自行发现路线的。",
+      D: "Incorrect. There is no scientific evidence for extraterrestrial involvement in human migration.|不对。没有科学证据表明外星人参与了人类迁徙。"
+    }
+  },
+  {
+    id: "t2q10", title: "Last Human Species",
+    q: "By 30,000 years ago, which statement was true?",
+    q_cn: "到3万年前，哪句话是真的？",
+    options: [
+      "A. Neanderthals and Homo sapiens both thrived|A. 尼安德特人和智人都繁荣发展",
+      "B. Homo sapiens were the only surviving human species|B. 智人是唯一幸存的人类物种",
+      "C. Denisovans ruled Europe|C. 丹尼索瓦人统治欧洲",
+      "D. No humans lived in the Americas|D. 美洲没有人类生活"
+    ],
+    correct: "B",
+    rat_right: "Correct. By 30,000 years ago, Homo sapiens were the only surviving human species. They had spread to all continents except Antarctica.|正确。到3万年前，智人是唯一幸存的人类物种。他们已扩散到除南极洲以外的所有大陆。",
+    rat_wrong: {
+      A: "Incorrect. Neanderthals went extinct around 40,000 years ago, before 30,000 years ago.|不对。尼安德特人约在4万年前灭绝，早于3万年前。",
+      C: "Incorrect. Denisovans were a related group in Asia, not Europe, and they also went extinct.|不对。丹尼索瓦人是亚洲的一个相关群体，不是欧洲，而且他们也灭绝了。",
+      D: "Incorrect. Humans had reached the Americas by at least 15,000 years ago, well before 30,000 years ago.|不对。人类至少在1.5万年前就到达了美洲，远早于3万年前。"
+    }
+  }
+];
+
+const TAB3_Q = [
+  {
+    id: "t3q1", title: "Paleolithic Meaning",
+    q: "What does 'Paleolithic' mean?",
+    q_cn: "'Paleolithic'是什么意思？",
+    options: [
+      "A. New Stone Age|A. 新石器时代",
+      "B. Old Stone Age|B. 旧石器时代",
+      "C. Bronze Age|C. 青铜时代",
+      "D. Iron Age|D. 铁器时代"
+    ],
+    correct: "B",
+    rat_right: "Correct. Paleolithic comes from Greek 'paleo' (old) and 'lithos' (stone). It means Old Stone Age.|正确。Paleolithic来自希腊语'paleo'（古老）和'lithos'（石头）。意思是旧石器时代。",
+    rat_wrong: {
+      A: "Incorrect. New Stone Age is the Neolithic period.|不对。新石器时代是Neolithic时期。",
+      C: "Incorrect. The Bronze Age came much later, after the Neolithic.|不对。青铜时代要晚得多，在新石器时代之后。",
+      D: "Incorrect. The Iron Age is the most recent of these periods.|不对。铁器时代是这些时期中最近的。"
+    }
+  },
+  {
+    id: "t3q2", title: "Oldowan Tools",
+    q: "What characterizes Oldowan tools?",
+    q_cn: "奥杜威工具的特征是什么？",
+    options: [
+      "A. They are made of metal|A. 它们由金属制成",
+      "B. They are simple choppers and flakes|B. 它们是简单的砍砸器和石片",
+      "C. They are decorated with paint|C. 它们用颜料装饰",
+      "D. They are only found in Europe|D. 它们只在欧洲发现"
+    ],
+    correct: "B",
+    rat_right: "Correct. Oldowan tools, dating to 2.6 million years ago, are the oldest known stone tools. They are simple choppers and sharp flakes used for cutting meat and plants.|正确。奥杜威工具距今260万年，是已知最古老的石器。它们是用于切割肉类和植物的简单砍砸器和锋利石片。",
+    rat_wrong: {
+      A: "Incorrect. Metal tools were not invented until much later. Oldowan tools are stone.|不对。金属工具直到很晚才发明。奥杜威工具是石头的。",
+      C: "Incorrect. Decoration and paint appear only in the Upper Paleolithic, millions of years later.|不对。装饰和颜料只在旧石器时代晚期出现，数百万年之后。",
+      D: "Incorrect. Oldowan tools are found in Africa, where the earliest toolmakers lived.|不对。奥杜威工具在非洲发现，那里是最早工具制造者生活的地方。"
+    }
+  },
+  {
+    id: "t3q3", title: "Controlled Fire",
+    q: "Why was the control of fire so important to Paleolithic humans?",
+    q_cn: "为什么控制火对旧石器时代人类如此重要？",
+    options: [
+      "A. It allowed them to send smoke signals|A. 它使他们能发送烟雾信号",
+      "B. It provided warmth, protection, cooked food, and light|B. 它提供温暖、保护、熟食和照明",
+      "C. It was only used for religious ceremonies|C. 它只用于宗教仪式",
+      "D. It had no practical use|D. 它没有实际用途"
+    ],
+    correct: "B",
+    rat_right: "Correct. Fire provided warmth in cold climates, protection from predators, light after sunset, and a way to cook food. Cooking made food safer and easier to digest, possibly supporting brain growth.|正确。火在寒冷气候中提供温暖、保护免受捕食者侵害、日落后照明和烹饪食物的方式。烹饪使食物更安全、更易消化，可能支持大脑发育。",
+    rat_wrong: {
+      A: "Incorrect. While smoke signals are a later use, the primary benefits of fire were survival-related.|不对。虽然烟雾信号是后来的用途，但火的主要好处与生存相关。",
+      C: "Incorrect. Fire had many practical daily uses. Religious use, if any, was secondary.|不对。火有许多日常实际用途。如果有宗教用途，也是次要的。",
+      D: "Incorrect. Fire was one of the most important technologies in human history.|不对。火是人类历史上最重要的技术之一。"
+    }
+  },
+  {
+    id: "t3q4", title: "Cave Paintings",
+    passage: "The caves at Lascaux in France contain hundreds of paintings of animals. The artists used natural pigments like ochre and charcoal. Some paintings are deep inside caves where there is no natural light.",
+    q: "What do cave paintings suggest about Paleolithic people?",
+    q_cn: "洞穴壁画对旧石器时代人说明了什么？",
+    options: [
+      "A. They could not draw well|A. 他们画不好",
+      "B. They had symbolic thinking and possibly religious beliefs|B. 他们有符号思维，可能有宗教信仰",
+      "C. They only painted for decoration|C. 他们只为装饰而绘画",
+      "D. They used cameras to trace images|D. 他们用相机描摹图像"
+    ],
+    correct: "B",
+    rat_right: "Correct. The effort to create art deep in dark caves suggests these images had deep meaning. They likely related to hunting success, spiritual beliefs, or social identity.|正确。在黑暗洞穴深处创作艺术的努力表明这些图像有深刻意义。它们可能与狩猎成功、精神信仰或社会认同有关。",
+    rat_wrong: {
+      A: "Incorrect. The paintings show remarkable skill and observation of animal anatomy.|不对。这些绘画展示了卓越的技巧和对动物解剖学的观察。",
+      C: "Incorrect. Pure decoration would not require the dangerous effort of entering deep caves.|不对。纯装饰不需要进入深洞穴的危险努力。",
+      D: "Incorrect. Cameras were invented in the 19th century. These artists worked entirely by hand and memory.|不对。相机是19世纪发明的。这些艺术家完全靠手和记忆工作。"
+    }
+  },
+  {
+    id: "t3q5", title: "Nomadic Lifestyle",
+    q: "Why did Paleolithic people live a nomadic lifestyle?",
+    q_cn: "为什么旧石器时代人过着游牧生活方式？",
+    options: [
+      "A. They enjoyed traveling for fun|A. 他们喜欢旅行取乐",
+      "B. They had to follow animal herds and seasonal plants|B. 他们必须跟随兽群和季节性植物",
+      "C. They were running away from enemies|C. 他们在逃离敌人",
+      "D. They had no homes to live in|D. 他们没有房子住"
+    ],
+    correct: "B",
+    rat_right: "Correct. Hunter-gatherers moved to follow animal migrations and seasonal plant growth. Staying in one place would exhaust local food sources.|正确。狩猎采集者移动以跟随动物迁徙和季节性植物生长。停留在一个地方会耗尽当地食物来源。",
+    rat_wrong: {
+      A: "Incorrect. Nomadic life was difficult and dangerous, not a leisure activity.|不对。游牧生活艰难而危险，不是休闲活动。",
+      C: "Incorrect. While conflict existed, the main reason for movement was finding food, not escaping enemies.|不对。虽然冲突存在，但移动的主要原因是寻找食物，不是逃离敌人。",
+      D: "Incorrect. They built temporary shelters. The problem was food supply, not housing.|不对。他们建造临时住所。问题是食物供应，不是住房。"
+    }
+  },
+  {
+    id: "t3q6", title: "Venus Figurines",
+    q: "What are Venus figurines?",
+    q_cn: "什么是维纳斯小雕像？",
+    options: [
+      "A. Paintings of the planet Venus|A. 金星行星的绘画",
+      "B. Small carved female figures from the Paleolithic|B. 旧石器时代的小型雕刻女性形象",
+      "C. Modern statues from Italy|C. 来自意大利的现代雕像",
+      "D. Tools used for hunting|D. 用于狩猎的工具"
+    ],
+    correct: "B",
+    rat_right: "Correct. Venus figurines like the Venus of Willendorf are small carved female figures found across Europe. They date to the Upper Paleolithic and may represent fertility or idealized female forms.|正确。维伦多夫的维纳斯等维纳斯小雕像是欧洲各地发现的小型雕刻女性形象。它们可追溯到旧石器时代晚期，可能代表生育或理想化的女性形象。",
+    rat_wrong: {
+      A: "Incorrect. They are named after the Roman goddess Venus, not the planet.|不对。它们以罗马女神维纳斯命名，不是行星。",
+      C: "Incorrect. These are ancient artifacts, not modern Italian art.|不对。这些是古代人工制品，不是现代意大利艺术。",
+      D: "Incorrect. They are artistic sculptures, not functional hunting tools.|不对。它们是艺术雕塑，不是功能性狩猎工具。"
+    }
+  },
+  {
+    id: "t3q7", title: "Upper Paleolithic Tools",
+    q: "Which tool was invented in the Upper Paleolithic?",
+    q_cn: "哪种工具是在旧石器时代晚期发明的？",
+    options: [
+      "A. The simple chopper|A. 简单的砍砸器",
+      "B. The bone needle|B. 骨针",
+      "C. The wooden wheel|C. 木轮",
+      "D. The iron plow|D. 铁犁"
+    ],
+    correct: "B",
+    rat_right: "Correct. Bone needles appear in the Upper Paleolithic and allowed humans to sew fitted clothing from animal skins. This was essential for surviving in cold climates.|正确。骨针出现在旧石器时代晚期，使人类能够用兽皮缝制合身服装。这对在寒冷气候中生存至关重要。",
+    rat_wrong: {
+      A: "Incorrect. Simple choppers are Oldowan tools from the Lower Paleolithic, millions of years earlier.|不对。简单砍砸器是旧石器时代早期的奥杜威工具，早数百万年。",
+      C: "Incorrect. The wheel was invented in the Neolithic or Bronze Age, long after the Paleolithic.|不对。轮子是在新石器时代或青铜时代发明的，远在旧石器时代之后。",
+      D: "Incorrect. Iron plows belong to the Iron Age, thousands of years after the Paleolithic ended.|不对。铁犁属于铁器时代，在旧石器时代结束数千年后。"
+    }
+  },
+  {
+    id: "t3q8", title: "Burial Practices",
+    passage: "At Shanidar Cave, archaeologists found a Neanderthal burial with pollen from flowers. This suggests that the buried person was laid on a bed of flowers.",
+    q: "What do burial practices tell us about Paleolithic people?",
+    q_cn: "墓葬习俗告诉我们关于旧石器时代人的什么？",
+    options: [
+      "A. They were afraid of dead bodies|A. 他们害怕尸体",
+      "B. They had emotional bonds and ritual behavior|B. 他们有情感联系和仪式行为",
+      "C. They buried people only for hygiene|C. 他们只为卫生而埋葬人",
+      "D. They did not care about the dead|D. 他们不在乎死者"
+    ],
+    correct: "B",
+    rat_right: "Correct. Burials with grave goods, flower pollen, and careful body positioning show that Paleolithic people cared for the dead and had symbolic or emotional connections to them.|正确。带有陪葬品、花粉和仔细遗体摆放的墓葬表明，旧石器时代人关心死者，并与他们有象征性或情感联系。",
+    rat_wrong: {
+      A: "Incorrect. If they were afraid, they would likely dispose of bodies quickly, not carefully bury them with offerings.|不对。如果他们害怕，他们可能会快速处理尸体，而不是仔细埋葬并供奉。",
+      C: "Incorrect. Hygiene alone does not explain the inclusion of tools, flowers, or careful positioning.|不对。卫生 alone 不能解释工具、花朵或仔细摆放的包含。",
+      D: "Incorrect. The effort put into burials clearly shows they cared deeply about the dead.|不对。墓葬中投入的努力清楚地表明他们深切关心死者。"
+    }
+  },
+  {
+    id: "t3q9", title: "Tool Materials",
+    q: "What materials did Paleolithic people use to make tools?",
+    q_cn: "旧石器时代人用什么材料制作工具？",
+    options: [
+      "A. Only diamonds|A. 只有钻石",
+      "B. Wood, stone, and animal bones|B. 木头、石头和动物骨头",
+      "C. Plastic and glass|C. 塑料和玻璃",
+      "D. Steel and aluminum|D. 钢和铝"
+    ],
+    correct: "B",
+    rat_right: "Correct. Paleolithic tools were made from natural materials available in the environment: stone for cutting edges, wood for handles, and bone for needles and points.|正确。旧石器时代工具由环境中可获得的天然材料制成：石头做刀刃，木头做把手，骨头做针和尖头。",
+    rat_wrong: {
+      A: "Incorrect. Diamonds are extremely hard to work and were not used for tools in prehistory.|不对。钻石极难加工，史前时期没有用于工具。",
+      C: "Incorrect. Plastic and glass are modern materials invented thousands of years later.|不对。塑料和玻璃是数千年后才发明的现代材料。",
+      D: "Incorrect. Steel and aluminum require advanced metallurgy from the Iron Age and Industrial Revolution.|不对。钢和铝需要铁器时代和工业革命的高级冶金技术。"
+    }
+  },
+  {
+    id: "t3q10", title: "Social Organization",
+    q: "About how many people lived in a typical Paleolithic band?",
+    q_cn: "一个典型的旧石器时代群体大约有多少人？",
+    options: [
+      "A. 2-5 people|A. 2-5人",
+      "B. 20-50 people|B. 20-50人",
+      "C. 500-1000 people|C. 500-1000人",
+      "D. 10,000 people|D. 10000人"
+    ],
+    correct: "B",
+    rat_right: "Correct. Paleolithic bands typically had 20-50 members. This size allowed flexibility, shared childcare, and cooperation in hunting without being too large to feed.|正确。旧石器时代群体通常有20-50名成员。这个规模允许灵活性、共享育儿和狩猎合作，而不会太大以至于无法供养。",
+    rat_wrong: {
+      A: "Incorrect. Groups this small would struggle to hunt large animals and defend territory.|不对。这么小的群体将难以猎杀大型动物和保卫领土。",
+      C: "Incorrect. Groups this large could not survive as mobile hunter-gatherers. They would exhaust local resources too quickly.|不对。这么大的群体无法作为移动狩猎采集者生存。他们会太快耗尽当地资源。",
+      D: "Incorrect. Groups of 10,000 require agriculture and cities, which did not exist in the Paleolithic.|不对。1万人的群体需要农业和城市，这在旧石器时代不存在。"
+    }
+  }
+];
+
+const TAB4_Q = [
+  {
+    id: "t4q1", title: "Neolithic Revolution Definition",
+    q: "What is the Neolithic Revolution?",
+    q_cn: "什么是新石器革命？",
+    options: [
+      "A. The invention of the internet|A. 互联网的发明",
+      "B. The shift from hunting and gathering to farming|B. 从狩猎采集向农耕的转变",
+      "C. The discovery of fire|C. 火的发现",
+      "D. The first space flight|D. 第一次太空飞行"
+    ],
+    correct: "B",
+    rat_right: "Correct. The Neolithic Revolution was the transition from hunting and gathering to agriculture and herding. It began about 10,000 BCE and changed human society forever.|正确。新石器革命是从狩猎采集向农耕和畜牧的转变。它始于约公元前10000年，永远改变了人类社会。",
+    rat_wrong: {
+      A: "Incorrect. The internet was invented in the 20th century, not prehistory.|不对。互联网是20世纪发明的，不是史前时期。",
+      C: "Incorrect. Fire was controlled much earlier, about 1 million years ago, long before farming.|不对。火在约100万年前就被控制了，远在农耕之前。",
+      D: "Incorrect. Space flight began in 1961. The Neolithic Revolution was about farming.|不对。太空飞行始于1961年。新石器革命是关于农耕的。"
+    }
+  },
+  {
+    id: "t4q2", title: "Where Farming Began",
+    q: "Where did the earliest farming begin?",
+    q_cn: "最早的农耕始于哪里？",
+    options: [
+      "A. The Fertile Crescent|A. 新月沃土",
+      "B. Antarctica|B. 南极洲",
+      "C. The bottom of the ocean|C. 海底",
+      "D. The moon|D. 月球"
+    ],
+    correct: "A",
+    rat_right: "Correct. The Fertile Crescent, stretching from the Nile to Mesopotamia, had wild wheat, barley, and well-watered soils ideal for early farming with stone tools.|正确。新月沃土从尼罗河延伸到美索不达米亚，有野生小麦、大麦和排水良好的土壤，非常适合用石器进行早期农耕。",
+    rat_wrong: {
+      B: "Incorrect. Antarctica was covered in ice and had no plants or animals suitable for farming.|不对。南极洲被冰覆盖，没有适合农耕的植物或动物。",
+      C: "Incorrect. Farming requires dry land, sunlight, and soil. The ocean floor has none of these.|不对。农耕需要干地、阳光和土壤。海底没有这些条件。",
+      D: "Incorrect. The moon has no atmosphere, water, or soil. Farming there is impossible without advanced technology.|不对。月球没有大气、水或土壤。没有先进技术，在那里农耕是不可能的。"
+    }
+  },
+  {
+    id: "t4q3", title: "Causes of Farming",
+    q: "Which factor pushed humans toward agriculture?",
+    q_cn: "哪个因素推动人类走向农业？",
+    options: [
+      "A. They wanted harder work|A. 他们想要更辛苦的工作",
+      "B. Climate warming and population growth|B. 气候变暖和人口增长",
+      "C. They were bored with hunting|C. 他们厌倦了狩猎",
+      "D. Aliens taught them to farm|D. 外星人教他们农耕"
+    ],
+    correct: "B",
+    rat_right: "Correct. The end of the Ice Age brought warmer weather that supported grain growth. At the same time, growing populations needed more reliable food than hunting could provide.|正确。冰河时代的结束带来了更温暖的天气，有利于谷物生长。同时，不断增长的人口需要比狩猎更可靠的食物供应。",
+    rat_wrong: {
+      A: "Incorrect. Farming was actually harder work than hunting and gathering. People did not choose it for enjoyment.|不对。农耕实际上比狩猎采集更辛苦。人们不是为了享受而选择它。",
+      C: "Incorrect. Hunting was effective and respected. The shift to farming was driven by necessity, not boredom.|不对。狩猎是有效且受尊重的。向农耕的转变是由必要性驱动的，不是厌倦。",
+      D: "Incorrect. There is no evidence of extraterrestrial involvement in the development of agriculture.|不对。没有证据表明外星人参与了农业的发展。"
+    }
+  },
+  {
+    id: "t4q4", title: "Sedentism",
+    q: "What does 'sedentism' mean?",
+    q_cn: "'sedentism'是什么意思？",
+    options: [
+      "A. Moving constantly|A. 不断移动",
+      "B. Living in one permanent place|B. 居住在一个永久的地方",
+      "C. Hunting every day|C. 每天狩猎",
+      "D. Climbing mountains|D. 爬山"
+    ],
+    correct: "B",
+    rat_right: "Correct. Sedentism means living in one place year-round. Farming required people to stay near their crops, creating the first permanent villages.|正确。定居意味着全年居住在一个地方。农耕需要人们留在作物附近，创造了第一批永久村庄。",
+    rat_wrong: {
+      A: "Incorrect. Moving constantly is the opposite of sedentism. It describes nomadic life.|不对。不断移动是定居的反面。它描述了游牧生活。",
+      C: "Incorrect. Hunting daily describes Paleolithic life, not the settled farming lifestyle.|不对。每天狩猎描述的是旧石器时代生活，不是定居的农耕生活方式。",
+      D: "Incorrect. Mountain climbing is not related to the definition of sedentism.|不对。爬山与定居的定义无关。"
+    }
+  },
+  {
+    id: "t4q5", title: "First Cultivated Plants",
+    q: "Which plants were first cultivated in the Fertile Crescent?",
+    q_cn: "新月沃土最早种植了哪些植物？",
+    options: [
+      "A. Rice and bananas|A. 水稻和香蕉",
+      "B. Wheat and barley|B. 小麦和大麦",
+      "C. Corn and potatoes|C. 玉米和土豆",
+      "D. Apples and oranges|D. 苹果和橙子"
+    ],
+    correct: "B",
+    rat_right: "Correct. Wild wheat and barley grew naturally in the Fertile Crescent. Early farmers selected the largest seeds and replanted them, gradually creating domesticated varieties.|正确。野生小麦和大麦自然生长在新月沃土。早期农民选择最大的种子并重新种植，逐渐培育出驯化品种。",
+    rat_wrong: {
+      A: "Incorrect. Rice was first cultivated in East Asia, not the Fertile Crescent.|不对。水稻最早在东亚种植，不是新月沃土。",
+      C: "Incorrect. Corn and potatoes were domesticated in the Americas, thousands of years later.|不对。玉米和土豆在美洲被驯化，数千年之后。",
+      D: "Incorrect. While fruits were gathered, the first cultivated crops were grains like wheat and barley.|不对。虽然水果被采集，但最早种植的作物是小麦和大麦等谷物。"
+    }
+  },
+  {
+    id: "t4q6", title: "Pottery",
+    q: "Why was pottery important in the Neolithic period?",
+    q_cn: "为什么陶器在新石器时代很重要？",
+    options: [
+      "A. It was only used for decoration|A. 它只用于装饰",
+      "B. It allowed storage of grain and water|B. 它允许储存谷物和水",
+      "C. It was too heavy to be useful|C. 它太重了，没有用处",
+      "D. It was used as money|D. 它被用作货币"
+    ],
+    correct: "B",
+    rat_right: "Correct. Pottery was revolutionary because it allowed humans to store surplus grain, carry water, and cook food in new ways. This supported settled village life.|正确。陶器是革命性的，因为它使人类能够储存剩余谷物、携带水和以新方式烹饪食物。这支持了定居的村庄生活。",
+    rat_wrong: {
+      A: "Incorrect. While some pottery was decorated, its main purpose was practical storage and cooking.|不对。虽然有些陶器有装饰，但其主要目的是实用的储存和烹饪。",
+      C: "Incorrect. The weight was worth the benefit of durable, waterproof storage containers.|不对。重量值得耐用、防水的储存容器的好处。",
+      D: "Incorrect. Pottery was not used as money. The first money appeared much later in history.|不对。陶器不用作货币。最早的货币在历史上出现得晚得多。"
+    }
+  },
+  {
+    id: "t4q7", title: "Social Effects",
+    q: "What social change resulted from the Neolithic Revolution?",
+    q_cn: "新石器革命导致了什么社会变化？",
+    options: [
+      "A. Everyone became equal|A. 每个人都变得平等",
+      "B. Social inequality and specialization emerged|B. 社会不平等和专业化出现了",
+      "C. All people became farmers|C. 所有人都成了农民",
+      "D. Villages disappeared|D. 村庄消失了"
+    ],
+    correct: "B",
+    rat_right: "Correct. Farming created surplus food, which allowed some people to specialize as craftsmen, priests, or leaders. Land ownership created the first social classes and inequality.|正确。农耕创造了食物剩余，使一些人能够专门从事工匠、祭司或领导工作。土地所有权创造了第一批社会阶层和不平等。",
+    rat_wrong: {
+      A: "Incorrect. Farming actually increased inequality because some families controlled better land and stored more surplus.|不对。农耕实际上增加了不平等，因为一些家庭控制了更好的土地并储存了更多剩余。",
+      C: "Incorrect. While most people farmed, some became specialists in pottery, toolmaking, or religious roles.|不对。虽然大多数人务农，但一些人专门从事陶器、工具制造或宗教角色。",
+      D: "Incorrect. Villages grew and became permanent, not disappeared.|不对。村庄成长并变得永久，而不是消失。"
+    }
+  },
+  {
+    id: "t4q8", title: "Slash and Burn",
+    q: "What is 'slash-and-burn' agriculture?",
+    q_cn: "什么是'刀耕火种'农业？",
+    options: [
+      "A. A method of fighting wars|A. 一种作战方法",
+      "B. Clearing land by cutting and burning vegetation|B. 通过砍伐和焚烧植被来清理土地",
+      "C. A way to cook meat|C. 一种烹饪肉类的方法",
+      "D. A type of pottery decoration|D. 一种陶器装饰类型"
+    ],
+    correct: "B",
+    rat_right: "Correct. Slash-and-burn involves cutting down vegetation and burning it to clear fields. The ash fertilizes the soil. When the soil is exhausted, farmers move to a new area.|正确。刀耕火种涉及砍伐植被并焚烧以清理田地。灰烬使土壤肥沃。当土壤耗尽时，农民转移到新地区。",
+    rat_wrong: {
+      A: "Incorrect. While it involves burning, it is an agricultural technique, not a military one.|不对。虽然涉及焚烧，但它是农业技术，不是军事技术。",
+      C: "Incorrect. The burning is for clearing land, not cooking food.|不对。焚烧是为了清理土地，不是烹饪食物。",
+      D: "Incorrect. It has nothing to do with pottery decoration.|不对。它与陶器装饰无关。"
+    }
+  },
+  {
+    id: "t4q9", title: "Women's Role",
+    q: "Why were women and girls likely the first farmers?",
+    q_cn: "为什么女性和女孩可能是最早的农民？",
+    options: [
+      "A. Because men refused to work|A. 因为男性拒绝工作",
+      "B. Because farming grew from their role in gathering plants|B. 因为农耕源于她们采集植物的角色",
+      "C. Because only women knew how to use tools|C. 因为只有女性知道如何使用工具",
+      "D. Because women were stronger than men|D. 因为女性比男性更强壮"
+    ],
+    correct: "B",
+    rat_right: "Correct. In hunter-gatherer societies, women and girls typically gathered plants while men hunted. The knowledge of which plants were useful and how they grew naturally led to early cultivation.|正确。在狩猎采集社会中，女性和女孩通常采集植物，而男性狩猎。关于哪些植物有用以及它们如何自然生长的知识导致了早期种植。",
+    rat_wrong: {
+      A: "Incorrect. Men continued to hunt until animal domestication became common. There is no evidence they refused work.|不对。男性继续狩猎，直到动物驯化变得普遍。没有证据表明他们拒绝工作。",
+      C: "Incorrect. Both men and women used tools. The division was by task (hunting vs gathering), not tool knowledge.|不对。男性和女性都使用工具。分工是按任务（狩猎 vs 采集），不是工具知识。",
+      D: "Incorrect. There is no evidence that women were physically stronger. Their advantage was knowledge of plants.|不对。没有证据表明女性身体更强壮。她们的优势是植物知识。"
+    }
+  },
+  {
+    id: "t4q10", title: "Difference from Paleolithic",
+    q: "What was the biggest lifestyle difference between Paleolithic and Neolithic people?",
+    q_cn: "旧石器时代和新石器时代人之间最大的生活方式差异是什么？",
+    options: [
+      "A. Neolithic people had better music|A. 新石器时代人有更好的音乐",
+      "B. Neolithic people lived in permanent settlements and farmed|B. 新石器时代人居住在永久定居点并务农",
+      "C. Paleolithic people had larger brains|C. 旧石器时代人有更大的大脑",
+      "D. Neolithic people stopped using fire|D. 新石器时代人停止使用火"
+    ],
+    correct: "B",
+    rat_right: "Correct. The fundamental change was from mobile hunting and gathering to settled farming. This affected housing, food, work, social organization, and technology.|正确。根本性的变化是从移动的狩猎采集到定居的农耕。这影响了住房、食物、工作、社会组织和技术。",
+    rat_wrong: {
+      A: "Incorrect. There is no evidence that music quality changed significantly between these periods.|不对。没有证据表明这些时期之间音乐质量有显著变化。",
+      C: "Incorrect. Brain size did not change significantly. Both were fully modern humans.|不对。大脑大小没有显著变化。两者都是完全现代的人类。",
+      D: "Incorrect. Neolithic people continued using fire for cooking, pottery, and warmth.|不对。新石器时代人继续使用火来烹饪、制陶和取暖。"
+    }
+  }
+];
+
+const TAB5_Q = [
+  {
+    id: "t5q1", title: "Animal Domestication",
+    q: "Which animal was among the first to be domesticated in the Fertile Crescent?",
+    q_cn: "新月沃土中最早被驯化的动物之一是哪种？",
+    options: [
+      "A. Elephants|A. 大象",
+      "B. Goats|B. 山羊",
+      "C. Lions|C. 狮子",
+      "D. Penguins|D. 企鹅"
+    ],
+    correct: "B",
+    rat_right: "Correct. Goats were among the first domesticated animals in the Fertile Crescent, along with sheep, pigs, and cattle. They provided meat, milk, and wool.|正确。山羊是新月沃土中最早被驯化的动物之一，还有绵羊、猪和牛。它们提供肉、奶和羊毛。",
+    rat_wrong: {
+      A: "Incorrect. Elephants were never domesticated in the Fertile Crescent. They were used later in South Asia.|不对。大象从未在新月沃土被驯化。它们后来在南亚被使用。",
+      C: "Incorrect. Lions are dangerous predators and were never domesticated for farming.|不对。狮子是危险的捕食者，从未被驯化用于农耕。",
+      D: "Incorrect. Penguins live in Antarctica and were never part of Near Eastern agriculture.|不对。企鹅生活在南极洲，从未成为近东农业的一部分。"
+    }
+  },
+  {
+    id: "t5q2", title: "Fertile Crescent Location",
+    q: "The Fertile Crescent stretches from where to where?",
+    q_cn: "新月沃土从哪里延伸到哪里？",
+    options: [
+      "A. China to Japan|A. 中国到日本",
+      "B. The Nile Delta to Mesopotamia|B. 尼罗河三角洲到美索不达米亚",
+      "C. England to France|C. 英国到法国",
+      "D. Brazil to Argentina|D. 巴西到阿根廷"
+    ],
+    correct: "B",
+    rat_right: "Correct. The Fertile Crescent stretches from the Nile Delta through the Levant to Mesopotamia (modern Iraq). It is shaped like a crescent moon.|正确。新月沃土从尼罗河三角洲穿过黎凡特延伸到美索不达米亚（现代伊拉克）。它呈新月形。",
+    rat_wrong: {
+      A: "Incorrect. China and Japan are in East Asia, far from the Fertile Crescent.|不对。中国和日本在东亚，远离新月沃土。",
+      C: "Incorrect. England and France are in Europe. Farming began there much later.|不对。英国和法国在欧洲。那里的农耕开始得晚得多。",
+      D: "Incorrect. Brazil and Argentina are in South America, where farming developed independently and later.|不对。巴西和阿根廷在南美洲，那里的农耕独立发展且更晚。"
+    }
+  },
+  {
+    id: "t5q3", title: "Irrigation",
+    q: "What is irrigation?",
+    q_cn: "什么是灌溉？",
+    options: [
+      "A. A type of dance|A. 一种舞蹈",
+      "B. Bringing water to fields through channels and ditches|B. 通过渠道和水沟将水引到田地",
+      "C. A method of hunting birds|C. 一种捕鸟方法",
+      "D. A way to make pottery|D. 一种制陶方法"
+    ],
+    correct: "B",
+    rat_right: "Correct. Irrigation is the artificial supply of water to crops using channels, ditches, and later canals. It allowed farming in dry regions where rain was not enough.|正确。灌溉是使用渠道、水沟和后来的运河人工供水给作物。它使农业能在雨水不足的干旱地区进行。",
+    rat_wrong: {
+      A: "Incorrect. Irrigation has nothing to do with dance.|不对。灌溉与舞蹈无关。",
+      C: "Incorrect. Irrigation is about water for plants, not hunting birds.|不对。灌溉是关于植物用水，不是捕鸟。",
+      D: "Incorrect. Pottery is made with clay and fire, not irrigation.|不对。陶器是用粘土和火制作的，不是灌溉。"
+    }
+  },
+  {
+    id: "t5q4", title: "Pastoralism",
+    q: "What is pastoralism?",
+    q_cn: "什么是畜牧业？",
+    options: [
+      "A. Growing crops in cities|A. 在城市种植作物",
+      "B. A nomadic lifestyle based on herding animals|B. 基于放牧动物的游牧生活方式",
+      "C. Making stone tools|C. 制作石器",
+      "D. Painting cave walls|D. 绘制洞穴壁画"
+    ],
+    correct: "B",
+    rat_right: "Correct. Pastoralists are nomadic herders who move with their animals between seasonal pastures. They trade animal products with farming communities for grain and tools.|正确。畜牧者是随畜群在季节性牧场之间迁徙的游牧牧民。他们用畜产品与农耕社区交换谷物和工具。",
+    rat_wrong: {
+      A: "Incorrect. Growing crops in cities is urban agriculture, not pastoralism.|不对。在城市种植作物是城市农业，不是畜牧业。",
+      C: "Incorrect. Stone tools belong to the Paleolithic, not the pastoral lifestyle.|不对。石器属于旧石器时代，不是畜牧生活方式。",
+      D: "Incorrect. Cave painting is Paleolithic art, unrelated to pastoralism.|不对。洞穴绘画是旧石器时代艺术，与畜牧业无关。"
+    }
+  },
+  {
+    id: "t5q5", title: "Population Growth",
+    q: "How did agriculture affect human population?",
+    q_cn: "农业如何影响人类人口？",
+    options: [
+      "A. It caused population to decrease|A. 它导致人口减少",
+      "B. It allowed rapid population growth|B. 它使人口快速增长",
+      "C. It had no effect on population|C. 它对人口没有影响",
+      "D. It made people leave Earth|D. 它使人们离开地球"
+    ],
+    correct: "B",
+    rat_right: "Correct. Agriculture produced more reliable food, which supported larger families and denser settlements. Populations grew much faster than in the Paleolithic.|正确。农业生产了更可靠的食物，这支持了更大的家庭和更密集的定居点。人口增长速度远快于旧石器时代。",
+    rat_wrong: {
+      A: "Incorrect. While individual health sometimes declined, overall population increased because more food supported more people.|不对。虽然个人健康有时下降，但总体人口增加了，因为更多食物支持了更多人。",
+      C: "Incorrect. Agriculture had a massive effect on population, enabling the growth of villages, towns, and cities.|不对。农业对人口有巨大影响，使村庄、城镇和城市的发展成为可能。",
+      D: "Incorrect. There is no connection between early agriculture and space travel.|不对。早期农业与太空旅行之间没有联系。"
+    }
+  },
+  {
+    id: "t5q6", title: "Negative Consequences",
+    q: "What was a negative consequence of agriculture?",
+    q_cn: "农业的负面后果是什么？",
+    options: [
+      "A. People lived forever|A. 人们永远活着",
+      "B. New diseases spread in crowded villages|B. 新疾病在拥挤的村庄中传播",
+      "C. Everyone became rich|C. 每个人都变富了",
+      "D. All animals became extinct|D. 所有动物都灭绝了"
+    ],
+    correct: "B",
+    rat_right: "Correct. Living close to animals and each other in permanent villages allowed diseases to spread more easily. New diseases like tuberculosis and malaria first appeared in the Neolithic.|正确。在永久村庄中与动物和彼此密切接触使疾病更容易传播。结核病和疟疾等新疾病首次出现在新石器时代。",
+    rat_wrong: {
+      A: "Incorrect. Life expectancy actually decreased in the early Neolithic compared to the Paleolithic.|不对。与旧石器时代相比，早期新石器时代的预期寿命实际上下降了。",
+      C: "Incorrect. Agriculture created inequality, with some people controlling more land and surplus than others.|不对。农业造成了不平等，一些人比其他人控制了更多的土地和剩余。",
+      D: "Incorrect. While some wild animals declined, domesticated animals increased. Not all animals went extinct.|不对。虽然有些野生动物减少了，但驯化动物增加了。并非所有动物都灭绝了。"
+    }
+  },
+  {
+    id: "t5q7", title: "Trade",
+    q: "Why did farming lead to trade?",
+    q_cn: "为什么农耕导致了贸易？",
+    options: [
+      "A. Farmers had nothing to do|A. 农民无事可做",
+      "B. Surplus food allowed exchange for other goods|B. 剩余食物使交换其他商品成为可能",
+      "C. People wanted to travel for fun|C. 人们想旅行取乐",
+      "D. Trade was invented by aliens|D. 贸易是外星人发明的"
+    ],
+    correct: "B",
+    rat_right: "Correct. When farmers produced more food than they needed, they could trade the surplus for tools, pottery, or materials from other regions. This created the first economic networks.|正确。当农民生产的食物超过需要时，他们可以用剩余交换工具、陶器或其他地区的材料。这创造了第一批经济网络。",
+    rat_wrong: {
+      A: "Incorrect. Farmers worked harder and longer than hunter-gatherers. They were very busy.|不对。农民比狩猎采集者更辛苦、工作时间更长。他们非常忙碌。",
+      C: "Incorrect. While some travel occurred, trade was driven by economic need, not tourism.|不对。虽然发生了一些旅行，但贸易是由经济需求驱动的，不是旅游。",
+      D: "Incorrect. Trade developed naturally from surplus production, not from external intervention.|不对。贸易从剩余生产中自然发展，不是来自外部干预。"
+    }
+  },
+  {
+    id: "t5q8", title: "Calendar Invention",
+    q: "Why did farmers invent calendars?",
+    q_cn: "农民为什么发明历法？",
+    options: [
+      "A. To plan religious holidays only|A. 只为了计划宗教节日",
+      "B. To track seasons for planting and harvesting|B. 为了追踪播种和收获的季节",
+      "C. To count birthdays|C. 为了计算生日",
+      "D. To predict earthquakes|D. 为了预测地震"
+    ],
+    correct: "B",
+    rat_right: "Correct. Farmers needed to know when to plant seeds and when to harvest crops. Calendars based on the sun and moon helped them track the seasons accurately.|正确。农民需要知道何时播种和何时收获。基于太阳和月亮的历法帮助他们准确追踪季节。",
+    rat_wrong: {
+      A: "Incorrect. While calendars were later used for religious purposes, their original purpose was agricultural timing.|不对。虽然历法后来被用于宗教目的，但其最初目的是农业计时。",
+      C: "Incorrect. Birthdays were not the main concern. Crop survival depended on seasonal timing.|不对。生日不是主要关注点。作物生存取决于季节时机。",
+      D: "Incorrect. Early calendars tracked seasons, not earthquakes. Earthquake prediction was not possible in prehistory.|不对。早期历法追踪季节，不是地震。史前时期无法预测地震。"
+    }
+  },
+  {
+    id: "t5q9", title: "Surplus Effect",
+    q: "What did food surplus make possible?",
+    q_cn: "食物剩余使什么成为可能？",
+    options: [
+      "A. Everyone had to farm|A. 每个人都必须务农",
+      "B. Some people could specialize as craftsmen or leaders|B. 一些人可以专门从事工匠或领导工作",
+      "C. All villages disappeared|C. 所有村庄都消失了",
+      "D. People stopped eating|D. 人们停止进食"
+    ],
+    correct: "B",
+    rat_right: "Correct. Surplus meant not everyone needed to farm. Some people could become potters, toolmakers, priests, or rulers. This specialization was the foundation of civilization.|正确。剩余意味着不是每个人都需要务农。一些人可以成为陶工、工具制造者、祭司或统治者。这种专业化是文明的基础。",
+    rat_wrong: {
+      A: "Incorrect. Surplus reduced the need for everyone to farm, creating free time for other activities.|不对。剩余减少了每个人都需要务农的必要性，为其他活动创造了空闲时间。",
+      C: "Incorrect. Surplus supported larger, more permanent villages, not their disappearance.|不对。剩余支持了更大、更永久的村庄，而不是它们的消失。",
+      D: "Incorrect. People continued eating, but surplus allowed them to eat more regularly and store food for hard times.|不对。人们继续进食，但剩余使他们能更规律地进食并储存食物以备困难时期。"
+    }
+  },
+  {
+    id: "t5q10", title: "Long-term Result",
+    q: "What was the most important long-term result of agriculture?",
+    q_cn: "农业最重要的长期结果是什么？",
+    options: [
+      "A. Humans returned to hunting|A. 人类回归狩猎",
+      "B. It laid the foundation for cities and civilization|B. 它为城市和文明奠定了基础",
+      "C. All languages were forgotten|C. 所有语言都被遗忘了",
+      "D. The earth became uninhabitable|D. 地球变得不适合居住"
+    ],
+    correct: "B",
+    rat_right: "Correct. Agriculture created the conditions for the first civilizations: surplus food, permanent settlements, specialization, social hierarchy, and eventually writing and cities.|正确。农业为第一批文明创造了条件：食物剩余、永久定居点、专业化、社会等级，最终是文字和城市。",
+    rat_wrong: {
+      A: "Incorrect. While hunting continued as a supplement, agriculture became the main food source and was never abandoned.|不对。虽然狩猎作为补充继续存在，但农业成为主要食物来源，从未被放弃。",
+      C: "Incorrect. Agriculture actually encouraged the development of writing to record trade and laws, preserving language.|不对。农业实际上鼓励了文字的发展，以记录贸易和法律，保存语言。",
+      D: "Incorrect. While agriculture caused environmental changes, humans thrived and expanded across the planet.|不对。虽然农业造成了环境变化，但人类繁荣发展并扩展到整个星球。"
+    }
+  }
+];
+
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const numberOfContentTabs = 5;
+const totalPoints = (10 * numberOfContentTabs) + (VOCAB.length * 0.5);
+const pronouncedWords = new Set();
+
+const tab1Answers = {};
+const tab1Score = { val: 0 };
+const tab1Done = { val: 0 };
+const tab2Answers = {};
+const tab2Score = { val: 0 };
+const tab2Done = { val: 0 };
+const tab3Answers = {};
+const tab3Score = { val: 0 };
+const tab3Done = { val: 0 };
+const tab4Answers = {};
+const tab4Score = { val: 0 };
+const tab4Done = { val: 0 };
+const tab5Answers = {};
+const tab5Score = { val: 0 };
+const tab5Done = { val: 0 };
+
+const TAB_STATE = {
+  tab1: { answers: tab1Answers, score: tab1Score, done: tab1Done, questions: TAB1_Q, label: "Lesson 1" },
+  tab2: { answers: tab2Answers, score: tab2Score, done: tab2Done, questions: TAB2_Q, label: "Lesson 2" },
+  tab3: { answers: tab3Answers, score: tab3Score, done: tab3Done, questions: TAB3_Q, label: "Lesson 3" },
+  tab4: { answers: tab4Answers, score: tab4Score, done: tab4Done, questions: TAB4_Q, label: "Lesson 4" },
+  tab5: { answers: tab5Answers, score: tab5Score, done: tab5Done, questions: TAB5_Q, label: "Lesson 5" }
+};
+
+function buildVocab() {
+  console.log("buildVocab called");
+  var container = document.getElementById('vocab-grid');
+  if (!container) { console.error('vocab-grid not found'); return; }
+  VOCAB.forEach(function(item) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    var wordEl = document.createElement('div');
+    wordEl.className = 'vocab-word';
+    wordEl.textContent = item.word;
+    var posEl = document.createElement('div');
+    posEl.className = 'vocab-pos';
+    posEl.textContent = item.pos;
+    var cnEl = document.createElement('div');
+    cnEl.className = 'vocab-cn cn';
+    cnEl.textContent = item.cn;
+    var defEl = document.createElement('div');
+    defEl.className = 'vocab-def';
+    defEl.textContent = item.def;
+    var cnDefEl = document.createElement('div');
+    cnDefEl.className = 'vocab-cn-def cn';
+    cnDefEl.textContent = item.cn_def;
+    var exEl = document.createElement('div');
+    exEl.className = 'vocab-example';
+    exEl.textContent = item.example;
+    var btn = document.createElement('button');
+    btn.className = 'speak-btn';
+    btn.textContent = '🔊';
+    btn.setAttribute('aria-label', 'Listen to pronunciation');
+    btn.addEventListener('click', function() {
+      if (!pronouncedWords.has(item.word)) {
+        pronouncedWords.add(item.word);
+        addProgress(0.5);
+      }
+      var utter = new SpeechSynthesisUtterance(item.word);
+      utter.lang = 'en-US';
+      window.speechSynthesis.speak(utter);
+    });
+    card.appendChild(wordEl);
+    card.appendChild(posEl);
+    card.appendChild(cnEl);
+    card.appendChild(defEl);
+    card.appendChild(cnDefEl);
+    card.appendChild(exEl);
+    card.appendChild(btn);
+    container.appendChild(card);
+  });
+  console.log("buildVocab complete, added " + VOCAB.length + " cards");
+}
+
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  console.log("buildQuiz called for " + containerId);
+  var container = document.getElementById(containerId);
+  if (!container) { console.error(containerId + ' not found'); return; }
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx+1) + ' of ' + data.length;
+    card.appendChild(num);
+    if (item.passage) {
+      var pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+    var qEl = document.createElement('div');
+    qEl.className = 'q-text';
+    qEl.textContent = item.q;
+    card.appendChild(qEl);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn cn';
+    qCn.textContent = item.q_cn;
+    card.appendChild(qCn);
+    var optsWrap = document.createElement('div');
+    optsWrap.className = 'opts-wrap';
+    var ratDiv = document.createElement('div');
+    ratDiv.className = 'rationale';
+    var answered = false;
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].substring(3);
+      var cnText = parts[1] ? parts[1].substring(3) : '';
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.dataset.letter = letter;
+      var strong = document.createElement('strong');
+      strong.textContent = letter + '. ';
+      var enS = document.createElement('span');
+      enS.textContent = enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span');
+      cnS.className = 'cn';
+      cnS.textContent = cnText;
+      btn.appendChild(strong);
+      btn.appendChild(enS);
+      btn.appendChild(br);
+      btn.appendChild(cnS);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+        var ratText, ratCn, ratParts;
+        if (letter === item.correct) {
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = 'Correct! ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          var wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = 'Incorrect. ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+        addProgress(1);
+        var rDiv = document.createElement('div');
+        rDiv.textContent = ratText;
+        if (ratCn) {
+          var rBr = document.createElement('br');
+          var rCnS = document.createElement('span');
+          rCnS.className = 'cn';
+          rCnS.textContent = ratCn;
+          rDiv.appendChild(rBr);
+          rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+      optsWrap.appendChild(btn);
+    });
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+  console.log("buildQuiz complete for " + containerId);
+}
+
+function checkReadiness(tabKey) {
+  var state = TAB_STATE[tabKey];
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  var ready = (state.done.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+  }
+}
+
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2'].forEach(function(fld) {
+    var el = document.getElementById(tabKey + fld);
+    if (el) {
+      el.addEventListener('input', function() {
+        this.classList.toggle('filled', this.value.trim().length > 0);
+        checkReadiness(tabKey);
+      });
+    }
+  });
+  var gratEl = document.getElementById(tabKey + 'Grat');
+  if (gratEl) {
+    gratEl.addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  }
+  var dlBtn = document.getElementById(tabKey + 'DownloadBtn');
+  if (dlBtn) {
+    dlBtn.addEventListener('click', function() {
+      tryDownload(tabKey);
+    });
+  }
+}
+
+function tryDownload(tabKey) {
+  var state = TAB_STATE[tabKey];
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  if (state.done.val < 10 || !ref1 || !ref2 || !grat) return;
+  var name = document.getElementById(tabKey + 'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var txt = '';
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Day: ' + state.label + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + state.score.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+  state.questions.forEach(function(item, i) {
+    var sel = state.answers[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type: 'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.split(' ').join('_') + '_' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  var tabEl = document.getElementById('tab-' + name);
+  if (tabEl) tabEl.classList.add('active');
+  btn.classList.add('active');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  var bar = document.getElementById('progressBar');
+  var txt = document.getElementById('progressText');
+  if (bar) bar.style.width = pct + '%';
+  if (txt) txt.textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    var disp = document.getElementById('timer-display');
+    if (disp) disp.textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  var m = Math.floor(s / 60);
+  var sec = s % 60;
+  return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      var badge = document.getElementById('leaveBadge');
+      var notice = document.getElementById('leaveNotice');
+      if (badge) badge.textContent = '🚪 Leaves: ' + leaveCount;
+      if (notice) {
+        notice.style.display = 'block';
+        setTimeout(function() { notice.style.display = 'none'; }, 5000);
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("DOMContentLoaded fired - initializing module");
+  try {
+    buildVocab();
+    buildQuiz(TAB1_Q, 'tab1QuizContainer', tab1Answers, tab1Score, tab1Done, function() { checkReadiness('tab1'); });
+    buildQuiz(TAB2_Q, 'tab2QuizContainer', tab2Answers, tab2Score, tab2Done, function() { checkReadiness('tab2'); });
+    buildQuiz(TAB3_Q, 'tab3QuizContainer', tab3Answers, tab3Score, tab3Done, function() { checkReadiness('tab3'); });
+    buildQuiz(TAB4_Q, 'tab4QuizContainer', tab4Answers, tab4Score, tab4Done, function() { checkReadiness('tab4'); });
+    buildQuiz(TAB5_Q, 'tab5QuizContainer', tab5Answers, tab5Score, tab5Done, function() { checkReadiness('tab5'); });
+    wireListeners('tab1');
+    wireListeners('tab2');
+    wireListeners('tab3');
+    wireListeners('tab4');
+    wireListeners('tab5');
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var tabName = this.getAttribute('data-tab');
+        switchTab(tabName, this);
+      });
+    });
+    startTimer();
+    trackNavigation();
+    console.log("Initialization complete - module ready");
+  } catch (e) {
+    console.error("FATAL ERROR during initialization: " + e.message);
+    console.error(e.stack);
+  }
+});
+</script>
+</body>
+</html>
