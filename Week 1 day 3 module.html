@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 3 — India, China, the Americas &amp; Synthesis | 印度、中国、美洲与综合</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 3 — India, China, the Americas &amp; Synthesis · <span class="cn">印度、中国、美洲与综合</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson 1"></div>
+    <div class="pip" id="pip-l2" title="Lesson 2"></div>
+    <div class="pip" id="pip-l3" title="Lesson 3"></div>
+    <div class="pip" id="pip-l4" title="Lesson 4"></div>
+    <div class="pip" id="pip-l5" title="Lesson 5"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">🏙️ Indus River Valley Civilizations</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">🕉️ Vedic Period &amp; Early India</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">🐉 Shang Dynasty in Ancient China</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">🌎 Pre-Contact Americas</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">✍️ Development of Writing &amp; Unit Synthesis</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON 1: Indus River Valley -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Indus River Valley Civilizations · <span class="cn">印度河流域文明</span></h2>
+ 
+  <div class="concept-card">
+    <h3>A Civilization of Cities · <span class="cn">城市文明</span></h3>
+    <p>The <strong>Indus Valley Civilization</strong> (also called the Harappan Civilization) flourished from around <strong>3300–1300 BCE</strong> in what is now Pakistan and northwest India, along the Indus River. It is known for its remarkably advanced urban planning.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>印度河流域文明</strong>（也称为哈拉帕文明）在约<strong>公元前3300—1300年</strong>沿印度河在现今巴基斯坦和印度西北部繁荣发展。它以其非常先进的城市规划而著称。</span></p>
+    <div class="callout">
+      <strong>Major Cities:</strong> <strong>Mohenjo-daro</strong> and <strong>Harappa</strong> were two of the largest cities, each home to tens of thousands of people, with similar grid-pattern street layouts despite being hundreds of miles apart.
+      <br><span class="cn"><strong>主要城市：</strong><strong>摩亨佐-达罗</strong>和<strong>哈拉帕</strong>是两座最大的城市，每座城市居住着数万人，尽管相距数百英里，却有着相似的网格状街道布局。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Urban Planning &amp; Engineering · <span class="cn">城市规划与工程</span></h3>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Feature 特征</th><th>Description 描述</th></tr>
+      <tr><td>Grid streets 网格状街道</td><td>Straight streets running north-south and east-west 南北和东西走向的直街</td></tr>
+      <tr><td>Drainage system 排水系统</td><td>Covered sewers and drains beneath the streets — far advanced for the time 街道下方的封闭排水沟——在当时极为先进</td></tr>
+      <tr><td>Standardized bricks 标准化砖块</td><td>Bricks were uniform in size across the entire civilization 整个文明中砖块大小统一</td></tr>
+      <tr><td>The Great Bath 大浴池</td><td>A large public water tank at Mohenjo-daro, possibly used for ritual bathing 摩亨佐-达罗的大型公共水池，可能用于仪式性沐浴</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>An Unsolved Mystery · <span class="cn">未解之谜</span></h3>
+    <p>Unlike Mesopotamia and Egypt, we cannot fully read the Indus script — it has never been deciphered. We also do not know why the civilization declined around 1900–1300 BCE; theories include climate change, river shifts, and the drying of the Saraswati River.</p>
+    <div class="callout-blue">
+      <strong>What We Don't Know:</strong> Without decoded writing, historians rely heavily on archaeology alone to understand Indus Valley government, religion, and daily life — making it one of history's great mysteries.
+      <br><span class="cn"><strong>我们不知道的：</strong>由于文字尚未破译，历史学家主要依靠考古学来了解印度河流域的政府、宗教和日常生活——这使其成为历史上的一大谜团。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 1</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Historians cannot read the Indus script, so much about this civilization remains unknown. How does this change the way archaeologists must study it compared to Egypt or Mesopotamia? · <span class="cn">历史学家无法解读印度河文字，因此这个文明的许多方面仍然未知。这与研究埃及或美索不达米亚相比，考古学家研究方式有何不同？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Indus Valley cities had advanced drainage and standardized bricks thousands of years ago. What does this level of planning suggest about their society's organization? · <span class="cn">数千年前印度河流域城市就拥有先进的排水系统和标准化砖块。这种规划水平说明了他们社会组织的什么特点？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 2: Vedic Period & Early India -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Vedic Period &amp; Early India · <span class="cn">吠陀时期与早期印度</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Who Were the Vedic Peoples? · <span class="cn">吠陀人是谁？</span></h3>
+    <p>After the decline of the Indus Valley Civilization, a new culture emerged in northern India between roughly <strong>1500–500 BCE</strong>, called the <strong>Vedic Period</strong>. It is named after the <strong>Vedas</strong>, a collection of sacred hymns, rituals, and philosophical texts composed in Sanskrit.</p>
+    <p style="margin-top:8px"><span class="cn">印度河流域文明衰落后，约在<strong>公元前1500—500年</strong>，印度北部出现了一种新文化，称为<strong>吠陀时期</strong>。该时期以<strong>吠陀经</strong>命名，这是用梵文创作的圣歌、仪式和哲学文本的合集。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Caste System Begins · <span class="cn">种姓制度的起源</span></h3>
+    <p>During the Vedic Period, society became organized into <strong>varnas</strong> (social classes), the foundation of what later became the Indian caste system.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Varna 瓦尔纳</th><th>Role 角色</th></tr>
+      <tr><td>Brahmins 婆罗门</td><td>Priests and scholars 祭司与学者</td></tr>
+      <tr><td>Kshatriyas 刹帝利</td><td>Warriors and rulers 武士与统治者</td></tr>
+      <tr><td>Vaishyas 吠舍</td><td>Merchants and farmers 商人与农民</td></tr>
+      <tr><td>Shudras 首陀罗</td><td>Laborers and servants 劳工与仆人</td></tr>
+    </table>
+    <div class="callout" style="margin-top:12px">
+      <strong>Important Note:</strong> Over centuries, this system became more rigid and hereditary, deeply shaping Indian society for thousands of years.
+      <br><span class="cn"><strong>重要提示：</strong>数百年来，这一制度变得更加僵化并世代相传，深刻塑造了印度社会数千年。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Early Religious &amp; Philosophical Ideas · <span class="cn">早期宗教与哲学思想</span></h3>
+    <p>The Vedic Period laid the foundation for <strong>Hinduism</strong>, including early ideas about <strong>dharma</strong> (duty/righteousness), ritual sacrifice, and the gods who would later become central to Hindu belief.</p>
+    <p style="margin-top:8px"><span class="cn">吠陀时期为<strong>印度教</strong>奠定了基础，包括关于<strong>达摩</strong>（职责/正义）、祭祀仪式以及后来成为印度教信仰核心的神祇的早期思想。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 2</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The caste system organized society into fixed roles. What are the advantages and disadvantages of a society where your role is decided by birth rather than choice? · <span class="cn">种姓制度将社会组织成固定的角色。一个由出身而非个人选择决定角色的社会，有哪些优点和缺点？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Vedas were passed down orally for generations before being written. Why might oral tradition be both a strength and a risk for preserving history? · <span class="cn">吠陀经在被书写之前，经过几代人的口头传承。口头传统对于保存历史来说，为什么既是优势又是风险？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 3: Shang Dynasty -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">The Shang Dynasty in Ancient China · <span class="cn">古代中国的商朝</span></h2>
+ 
+  <div class="concept-card">
+    <h3>China's First Documented Dynasty · <span class="cn">中国第一个有文字记载的王朝</span></h3>
+    <p>The <strong>Shang Dynasty</strong> (c. 1600–1046 BCE) is the earliest Chinese dynasty for which we have clear written evidence. It was centered along the <strong>Yellow River</strong> in northern China.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>商朝</strong>（约公元前1600—1046年）是中国最早有明确文字证据的王朝。它以中国北方的<strong>黄河</strong>为中心。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Oracle Bones &amp; Early Chinese Writing · <span class="cn">甲骨文与早期汉字</span></h3>
+    <p>The Shang are known for <strong>oracle bones</strong> — turtle shells or ox bones inscribed with questions for ancestors or gods, then heated until they cracked. Diviners interpreted the cracks as answers. These inscriptions are the earliest known form of Chinese writing.</p>
+    <div class="callout">
+      <strong>What Oracle Bones Reveal:</strong> Questions ranged from harvests and weather to warfare and royal health, giving historians a direct window into Shang religious beliefs and daily concerns.
+      <br><span class="cn"><strong>甲骨文揭示的信息：</strong>问题涉及收成、天气、战争和皇室健康等各方面，使历史学家能够直接了解商朝的宗教信仰和日常关注。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Bronze Technology &amp; Society · <span class="cn">青铜技术与社会</span></h3>
+    <p>The Shang Dynasty produced elaborate <strong>bronze vessels</strong>, used in religious rituals and ancestor worship. Bronze-casting required organized labor and resources, suggesting a centralized, hierarchical society with kings, nobles, and skilled artisans.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Feature 特征</th><th>Significance 意义</th></tr>
+      <tr><td>Oracle bones 甲骨</td><td>Earliest Chinese writing; religious divination 最早的汉字；宗教占卜</td></tr>
+      <tr><td>Bronze vessels 青铜器</td><td>Ritual use; evidence of skilled craftsmanship and social hierarchy 用于仪式；展示精湛工艺和社会等级</td></tr>
+      <tr><td>Ancestor worship 祖先崇拜</td><td>Belief that ancestors could influence the living world 相信祖先能够影响现实世界</td></tr>
+    </table>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 3</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Oracle bones show that Shang rulers asked the gods about everything from harvests to warfare. What does this tell us about the role of religion in Shang government and daily life? · <span class="cn">甲骨文显示商朝统治者向神灵询问从收成到战争的各种事情。这告诉我们宗教在商朝政府和日常生活中的作用是什么？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Elaborate bronze vessels required skilled labor and resources. What does this tell you about social organization in Shang China? · <span class="cn">精致的青铜器需要熟练的劳动力和资源。这告诉你关于商朝中国社会组织的什么信息？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 4: Pre-Contact Americas -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Pre-Contact Americas · <span class="cn">接触前的美洲</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Independent Civilizations · <span class="cn">独立的文明</span></h3>
+    <p>Long before European contact, the Americas were home to diverse, complex civilizations that developed independently from those in Africa, Asia, and Europe. These societies built cities, developed agriculture, and created sophisticated art and religious systems.</p>
+    <p style="margin-top:8px"><span class="cn">早在欧洲人接触之前，美洲就拥有多样而复杂的文明，这些文明独立于非洲、亚洲和欧洲的文明发展。这些社会建造了城市，发展了农业，创造了精致的艺术和宗教体系。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Olmec: "Mother Culture" · <span class="cn">奥尔梅克："母文化"</span></h3>
+    <p>The <strong>Olmec</strong> civilization (c. 1200–400 BCE), centered in present-day Mexico, is often called the "mother culture" of Mesoamerica because later civilizations — including the Maya — adopted and adapted Olmec religious ideas, art styles, and possibly early writing.</p>
+    <div class="callout-blue">
+      <strong>Famous Olmec Achievement:</strong> Massive carved stone heads, some weighing over 20 tons, believed to represent rulers.
+      <br><span class="cn"><strong>著名的奥尔梅克成就：</strong>巨大的石刻头像，有些重达20多吨，被认为代表统治者。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Other Major Pre-Contact Cultures · <span class="cn">其他重要的接触前文化</span></h3>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Culture 文化</th><th>Region &amp; Notable Features 地区与显著特征</th></tr>
+      <tr><td>Maya 玛雅</td><td>Mesoamerica — writing system, mathematics (including the concept of zero), monumental pyramids 中美洲——文字系统、数学（包括零的概念）、巨型金字塔</td></tr>
+      <tr><td>Mississippian 密西西比文化</td><td>North America — large earthen mounds (e.g. Cahokia), extensive trade networks 北美洲——巨大的土墩（如卡霉基），广泛的贸易网络</td></tr>
+      <tr><td>Chavín 查文文化</td><td>Andes (Peru) — early religious center, advanced stone architecture and irrigation 安第斯山脉（秘鲁）——早期宗教中心，先进的石制建筑和灌溉</td></tr>
+    </table>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 4</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Olmec, Maya, Mississippian, and Chavín civilizations developed independently from Old World civilizations, yet built complex societies. What does this suggest about human capability across different parts of the world? · <span class="cn">奥尔梅克、玛雅、密西西比和查文文明独立于旧大陆文明发展，却建立了复杂的社会。这说明了世界不同地区人类能力的什么特点？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Why do you think the Olmec are called the 'mother culture' of Mesoamerica? Connect this idea to how cultures influence each other over time. · <span class="cn">你认为为什么奥尔梅克被称为中美洲的"母文化"？将这一想法与文化如何随时间相互影响联系起来。</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 5: Development of Writing & Synthesis -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Development of Writing &amp; Unit Synthesis · <span class="cn">文字的发展与单元综合</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Writing Develops Independently Around the World · <span class="cn">文字在世界各地独立发展</span></h3>
+    <p>One of the most striking patterns in early world history is that <strong>writing systems developed independently</strong> in multiple civilizations, without contact between them. This shows that complex record-keeping needs naturally arise as societies grow.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Civilization 文明</th><th>Writing System 文字系统</th><th>Approx. Date 大致年代</th></tr>
+      <tr><td>Sumer (Mesopotamia) 苏美尔（美索不达米亚）</td><td>Cuneiform 楔形文字</td><td>~3200 BCE</td></tr>
+      <tr><td>Egypt 埃及</td><td>Hieroglyphics 象形文字</td><td>~3200 BCE</td></tr>
+      <tr><td>Indus Valley 印度河流域</td><td>Indus script (undeciphered) 印度河文字（未破译）</td><td>~2600 BCE</td></tr>
+      <tr><td>China (Shang) 中国（商朝）</td><td>Oracle bone script 甲骨文</td><td>~1200 BCE</td></tr>
+      <tr><td>Mesoamerica (Olmec/Maya) 中美洲（奥尔梅克/玛雅）</td><td>Early glyphic writing 早期符号文字</td><td>~900 BCE onward</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Why Writing Developed: A Common Pattern · <span class="cn">文字发展的原因：一种共同模式</span></h3>
+    <p>In nearly every case, writing emerged from practical needs: tracking trade, recording taxes, communicating with gods, or legitimizing royal power — not as art for its own sake.</p>
+    <div class="callout">
+      <strong>The Pattern:</strong> Agriculture → Surplus food → Trade and taxation → Need for record-keeping → Writing systems develop. This sequence repeated independently across multiple civilizations.
+      <br><span class="cn"><strong>这一模式：</strong>农业→粮食盈余→贸易与税收→记录的需求→文字系统的发展。这一过程在多个文明中独立重复出现。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Unit 1 Synthesis: Connecting the Threads · <span class="cn">单元1综合：联系各条线索</span></h3>
+    <p>This week, we have studied civilizations across the globe — from the first humans in Africa, to farming villages in the Fertile Crescent, to empires in Egypt, the Hittite lands, India, China, and the Americas. Despite never having contact with one another, these societies followed remarkably similar paths:</p>
+    <ul style="padding-left:20px;font-size:.87rem;line-height:1.8;color:var(--ink2)">
+      <li><strong>Rivers</strong> supported agriculture and population growth</li>
+      <li><strong>Surplus food</strong> allowed specialization and social hierarchy</li>
+      <li><strong>Cities</strong> emerged as centers of trade, religion, and government</li>
+      <li><strong>Writing</strong> developed to manage growing, complex societies</li>
+      <li><strong>Religion and art</strong> gave meaning to life and legitimized rulers</li>
+    </ul>
+    <div class="callout-blue" style="margin-top:12px">
+      <strong>The Big Idea:</strong> Human civilizations on different continents, with no contact, independently arrived at similar solutions to the same challenges — suggesting these patterns reflect something universal about human societies.
+      <br><span class="cn"><strong>核心理念：</strong>不同大洲、彼此没有接触的人类文明，独立地找到了应对同样挑战的相似解决方案——这表明这些模式反映了人类社会的某种普遍性。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 5</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Writing developed independently in Mesopotamia, Egypt, China, and Mesoamerica without any contact between these civilizations. What does this tell you about human societies and their needs as they grow more complex? · <span class="cn">文字在美索不达米亚、埃及、中国和中美洲独立发展，这些文明之间没有任何接触。这告诉你关于人类社会及其在变得更复杂时的需求是什么？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Looking back at this entire unit (prehistory through early civilizations), which pattern or connection do you find most surprising or interesting, and why? · <span class="cn">回顾整个单元（从史前时代到早期文明），你认为哪种模式或联系最令人惊讶或有趣？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  { word: "Urban planning", pos: "noun phrase", cn: "城市规划", def: "The organized design of a city, including streets, drainage, and buildings.", cn_def: "城市的有组织设计，包括街道、排水系统和建筑物。", example: "The Indus Valley cities are famous for advanced urban planning." },
+  { word: "Varna", pos: "noun", cn: "瓦尔纳", def: "A social class category in the Vedic and later Hindu caste system.", cn_def: "吠陀及后来印度教种姓制度中的社会阶层类别。", example: "Brahmins were the priestly varna in ancient India." },
+  { word: "Dharma", pos: "noun", cn: "达摩", def: "A concept of duty, righteousness, and moral order in Hindu belief.", cn_def: "印度教信仰中关于职责、正义和道德秩序的概念。", example: "Dharma guided how people were expected to behave in Vedic society." },
+  { word: "Oracle bone", pos: "noun phrase", cn: "甲骨", def: "A bone or shell inscribed with questions and heated to crack for divination in ancient China.", cn_def: "刻有问题并加热使其裂开以进行占卜的骨头或贝壳，用于古代中国。", example: "Oracle bones provide the earliest evidence of Chinese writing." },
+  { word: "Divination", pos: "noun", cn: "占卜", def: "The practice of seeking knowledge of the future or the unknown through supernatural means.", cn_def: "通过超自然手段寻求关于未来或未知事物知识的做法。", example: "Shang rulers used divination to ask questions of their ancestors." },
+  { word: "Mesoamerica", pos: "noun", cn: "中美洲", def: "A historical region extending from central Mexico to Central America, home to many ancient civilizations.", cn_def: "从墨西哥中部延伸到中美洲的历史区域，是许多古代文明的发源地。", example: "The Olmec and Maya both developed in Mesoamerica." },
+  { word: "Independent development", pos: "noun phrase", cn: "独立发展", def: "When similar ideas, technologies, or institutions arise separately in different places without contact.", cn_def: "相似的思想、技术或制度在不同地方独立产生，彼此没有接触。", example: "Writing systems show independent development across several civilizations." },
+  { word: "Glyph", pos: "noun", cn: "符号文字", def: "A symbol or carved figure used in early writing systems, especially in Mesoamerica or Egypt.", cn_def: "早期文字系统中使用的符号或雕刻图案，尤指中美洲或埃及。", example: "Maya glyphs recorded dates, history, and royal lineages." },
+  { word: "Decipher", pos: "verb", cn: "破译", def: "To work out the meaning of something written in an unfamiliar or unknown writing system.", cn_def: "解读用不熟悉或未知文字系统书写的内容的含义。", example: "Historians have not yet been able to decipher the Indus script." },
+  { word: "Surplus", pos: "noun", cn: "盈余", def: "An amount of something, especially food, that is more than what is immediately needed.", cn_def: "超过即时需求的某种物品（尤指食物）的数量。", example: "Food surplus allowed some people to focus on jobs other than farming." },
+  { word: "Hierarchy", pos: "noun", cn: "等级制度", def: "A system in which people or groups are ranked one above another according to status or authority.", cn_def: "人或群体按地位或权力高低排列的等级体系。", example: "Bronze vessels suggest a clear social hierarchy in Shang China." },
+  { word: "Synthesis", pos: "noun", cn: "综合", def: "The combination of separate ideas or pieces of information to form a connected whole.", cn_def: "将不同的思想或信息片段结合起来形成一个有联系的整体。", example: "This lesson is a synthesis of everything we have learned this unit." }
+];
+ 
+var L1_Q = [
+  { id:"l1q1", q:"The Indus Valley Civilization developed along which river?", q_cn:"印度河流域文明沿哪条河流发展？",
+    options:["A. The Nile|A. 尼罗河","B. The Indus River|B. 印度河","C. The Yellow River|C. 黄河","D. The Tigris|D. 底格里斯河"],
+    correct:"B", rat_right:"The Indus Valley Civilization developed along the Indus River in modern-day Pakistan and northwest India.|印度河流域文明沿现今巴基斯坦和印度西北部的印度河发展。",
+    rat_wrong:{A:"The Nile is associated with Egyptian civilization.|尼罗河与埃及文明相关。",C:"The Yellow River is associated with Chinese civilization.|黄河与中国文明相关。",D:"The Tigris is associated with Mesopotamia.|底格里斯河与美索不达米亚相关。"}
+  },
+  { id:"l1q2", q:"Which two cities were major centers of the Indus Valley Civilization?", q_cn:"哪两座城市是印度河流域文明的主要中心？",
+    options:["A. Babylon and Ur|A. 巴比伦和乌尔","B. Memphis and Thebes|B. 孟菲斯和底比斯","C. Mohenjo-daro and Harappa|C. 摩亨佐-达罗和哈拉帕","D. Hattusa and Kadesh|D. 哈图沙和卡迭石"],
+    correct:"C", rat_right:"Mohenjo-daro and Harappa were two of the largest Indus Valley cities, both with similar advanced urban planning.|摩亨佐-达罗和哈拉帕是印度河流域最大的两座城市，都拥有相似的先进城市规划。",
+    rat_wrong:{A:"Babylon and Ur were Mesopotamian cities, not Indus Valley cities.|巴比伦和乌尔是美索不达米亚的城市，不是印度河流域的城市。",B:"Memphis and Thebes were Egyptian cities.|孟菲斯和底比斯是埃及的城市。",D:"Hattusa and Kadesh are associated with the Hittites and the Levant.|哈图沙和卡迭石与赫梯人及黎凡特相关。"}
+  },
+  { id:"l1q3", q:"What is notable about Indus Valley urban planning?", q_cn:"印度河流域城市规划有什么值得注意的地方？",
+    options:["A. Cities had no organized layout at all|A. 城市完全没有有组织的布局","B. Cities featured grid streets, covered drainage, and standardized bricks|B. 城市采用网格状街道、封闭排水系统和标准化砖块","C. Cities were built entirely underground|C. 城市完全建在地下","D. Cities had no permanent buildings|D. 城市没有永久性建筑"],
+    correct:"B", rat_right:"Indus Valley cities are famous for advanced features like grid-pattern streets, covered drainage systems, and standardized brick sizes.|印度河流域城市以网格状街道、封闭排水系统和标准化砖块尺寸等先进特征而闻名。",
+    rat_wrong:{A:"The cities had highly organized grid layouts, not random design.|这些城市有高度有组织的网格布局，不是随意设计。",C:"The cities were built at ground level with some underground drainage, not entirely underground.|这些城市建在地面上，部分排水系统在地下，但并非完全建在地下。",D:"The cities had substantial permanent buildings, including homes and public structures.|这些城市有大量永久性建筑，包括住宅和公共建筑。"}
+  },
+  { id:"l1q4", q:"Why is the Indus Valley Civilization considered a historical mystery in some ways?", q_cn:"为什么印度河流域文明在某些方面被认为是历史之谜？",
+    options:["A. No archaeological remains have ever been found|A. 从未发现任何考古遗迹","B. Its writing system has never been deciphered|B. 它的文字系统从未被破译","C. It is the only civilization with no cities|C. 它是唯一没有城市的文明","D. Historians do not believe it ever existed|D. 历史学家不相信它曾经存在"],
+    correct:"B", rat_right:"Because the Indus script remains undeciphered, much about Indus Valley government, religion, and beliefs remains unknown.|由于印度河文字仍未被破译，关于印度河流域政府、宗教和信仰的许多方面仍然未知。",
+    rat_wrong:{A:"Extensive archaeological remains, including entire cities, have been found.|已发现大量考古遗迹，包括整座城市。",C:"The Indus Valley Civilization had advanced cities, unlike this claim.|印度河流域文明拥有先进的城市，与此说法相反。",D:"There is extensive physical evidence proving the civilization existed.|有大量实物证据证明这个文明确实存在过。"}
+  },
+  { id:"l1q5", q:"What is one proposed reason for the decline of the Indus Valley Civilization?", q_cn:"印度河流域文明衰落的一个推测原因是什么？",
+    options:["A. Conquest by the Roman Empire|A. 被罗马帝国征服","B. Climate change and shifting or drying rivers|B. 气候变化以及河流改道或干涸","C. A sudden volcanic eruption|C. 突发的火山爆发","D. Invasion by the Hittites|D. 被赫梯人入侵"],
+    correct:"B", rat_right:"Theories for the civilization's decline include climate change, river shifts, and the drying of the Saraswati River.|该文明衰落的理论包括气候变化、河流改道以及萨拉斯瓦蒂河的干涸。",
+    rat_wrong:{A:"The Roman Empire developed long after the Indus Valley Civilization's decline and was not in contact with it.|罗马帝国在印度河流域文明衰落很久之后才发展起来，与其没有接触。",C:"There is no major evidence pointing to a volcanic eruption as the cause.|没有重大证据表明火山爆发是其衰落的原因。",D:"The Hittites were located in Anatolia, far from the Indus Valley, with no historical record of invasion.|赫梯人位于安纳托利亚，远离印度河流域，没有入侵的历史记录。"}
+  },
+  { id:"l1q6", q:"What was the purpose of the 'Great Bath' at Mohenjo-daro likely used for?", q_cn:"摩亨佐-达罗的'大浴池'可能用于什么目的？",
+    options:["A. Storing grain for the winter|A. 储存冬季粮食","B. Possibly ritual bathing|B. 可能用于仪式性沐浴","C. Training soldiers for war|C. 训练士兵作战","D. Housing the city's leader|D. 容纳城市的领导者"],
+    correct:"B", rat_right:"The Great Bath is believed to have had a ritual or religious purpose, possibly used for purification bathing.|大浴池被认为具有仪式或宗教用途，可能用于净化沐浴。",
+    rat_wrong:{A:"Grain storage would require a different type of structure than a large water tank.|粮食储存需要的建筑结构与大型水池不同。",C:"There is no evidence connecting the Great Bath to military training.|没有证据将大浴池与军事训练联系起来。",D:"The Great Bath is a water structure, not a residence.|大浴池是水利建筑，不是住所。"}
+  },
+  { id:"l1q7", q:"How were bricks used across the Indus Valley Civilization?", q_cn:"印度河流域文明中的砖块是如何使用的？",
+    options:["A. Each city used a completely different, random brick size|A. 每座城市使用完全不同的、随意的砖块尺寸","B. Bricks were standardized in size across the whole civilization|B. 整个文明的砖块尺寸都标准化","C. Bricks were never used for construction|C. 从未使用砖块进行建筑","D. Only royal buildings used bricks|D. 只有皇室建筑使用砖块"],
+    correct:"B", rat_right:"Standardized brick sizes across far-flung Indus Valley cities suggest some form of widespread coordination or shared standards.|远隔千里的印度河流域城市中砖块尺寸的标准化，表明存在某种广泛的协调或共同标准。",
+    rat_wrong:{A:"Brick sizes were actually consistent, not random, across the civilization.|事实上，整个文明的砖块尺寸是一致的，而不是随意的。",C:"Bricks were a primary building material in Indus Valley cities.|砖块是印度河流域城市的主要建筑材料。",D:"Bricks were used widely, including in homes and infrastructure, not just royal buildings.|砖块被广泛使用，包括住宅和基础设施，不仅仅是皇室建筑。"}
+  },
+  { id:"l1q8", q:"Approximately when did the Indus Valley Civilization flourish?", q_cn:"印度河流域文明大约在什么时期繁荣发展？",
+    options:["A. 3300–1300 BCE|A. 公元前3300—1300年","B. 500–100 BCE|B. 公元前500—100年","C. 100–500 CE|C. 公元100—500年","D. 1500–2000 CE|D. 公元1500—2000年"],
+    correct:"A", rat_right:"The Indus Valley Civilization flourished from approximately 3300 to 1300 BCE.|印度河流域文明大约在公元前3300年至1300年间繁荣发展。",
+    rat_wrong:{B:"500-100 BCE is much later than the Indus Valley Civilization's peak.|公元前500—100年远晚于印度河流域文明的鼎盛时期。",C:"100-500 CE is nearly two thousand years after the civilization had already declined.|公元100—500年是该文明衰落近两千年之后。",D:"1500-2000 CE is the modern era, far too late.|公元1500—2000年是现代时期，太晚了。"}
+  },
+  { id:"l1q9", q:"What does the similarity of city layouts across distant Indus Valley sites suggest?", q_cn:"印度河流域相距遥远的遗址城市布局的相似性说明了什么？",
+    options:["A. The cities had no contact or shared culture|A. 这些城市没有接触或共同文化","B. There may have been shared cultural standards or some form of coordination|B. 可能存在共同的文化标准或某种形式的协调","C. The cities were built by different, unrelated civilizations|C. 这些城市是由不同、不相关的文明建造的","D. There is no similarity between Indus Valley cities|D. 印度河流域城市之间没有相似之处"],
+    correct:"B", rat_right:"Similar grid layouts in cities hundreds of miles apart suggest shared cultural standards or a coordinated planning approach across the civilization.|相距数百英里的城市拥有相似的网格布局，表明整个文明存在共同的文化标准或协调的规划方式。",
+    rat_wrong:{A:"The shared layouts suggest the opposite — some form of connection or shared culture.|共同的布局恰恰相反——表明存在某种联系或共同文化。",C:"The consistent features suggest these cities were part of one connected civilization, not unrelated ones.|这些一致的特征表明这些城市属于一个相连的文明，而不是不相关的文明。",D:"There IS notable similarity, particularly in street grids and brick sizes.|确实存在显著的相似性，特别是在街道网格和砖块尺寸方面。"}
+  },
+  { id:"l1q10", q:"Why do historians rely so heavily on archaeology rather than written records to study the Indus Valley Civilization?", q_cn:"为什么历史学家在研究印度河流域文明时如此依赖考古学而非文字记录？",
+    options:["A. Because the Indus script has not yet been deciphered|A. 因为印度河文字尚未被破译","B. Because no physical artifacts have survived|B. 因为没有实物文物留存下来","C. Because the Indus Valley people never wrote anything down|C. 因为印度河流域的人从未记录任何东西","D. Because their writing was destroyed by the Hittites|D. 因为他们的文字被赫梯人摧毁"],
+    correct:"A", rat_right:"Since the Indus script remains undeciphered, historians cannot read written records and must rely on physical artifacts and city remains instead.|由于印度河文字仍未被破译，历史学家无法阅读文字记录，必须依靠实物文物和城市遗迹。",
+    rat_wrong:{B:"Many physical artifacts have survived — the issue is that the writing on some of them cannot be read.|许多实物文物已经留存下来——问题在于其中一些上的文字无法被解读。",C:"The Indus Valley people did develop a writing system; we simply cannot read it yet.|印度河流域的人确实发展了一种文字系统；我们只是还无法解读它。",D:"There is no historical evidence that the Hittites, located far away in Anatolia, destroyed Indus writing.|没有历史证据表明远在安纳托利亚的赫梯人摧毁了印度河文字。"}
+  }
+];
+ 
+var L2_Q = [
+  { id:"l2q1", q:"The Vedic Period in India is named after what?", q_cn:"印度的吠陀时期是以什么命名的？",
+    options:["A. A river system|A. 一个河流系统","B. The Vedas, a collection of sacred texts|B. 吠陀经，一部圣典合集","C. A royal dynasty|C. 一个王朝","D. A type of pottery|D. 一种陶器类型"],
+    correct:"B", rat_right:"The Vedic Period is named after the Vedas — sacred hymns, rituals, and philosophical texts composed in Sanskrit.|吠陀时期以吠陀经命名——用梵文创作的圣歌、仪式和哲学文本。",
+    rat_wrong:{A:"While rivers were important, the period is named for the religious texts, not a river system.|尽管河流很重要，但这个时期是以宗教文本命名的，不是河流系统。",C:"The Vedic Period is not named after a specific royal dynasty.|吠陀时期不是以特定王朝命名的。",D:"Pottery styles are not the source of the period's name.|陶器风格不是这个时期名称的来源。"}
+  },
+  { id:"l2q2", q:"What language were the Vedas composed in?", q_cn:"吠陀经是用什么语言创作的？",
+    options:["A. Sanskrit|A. 梵文","B. Cuneiform|B. 楔形文字","C. Hieroglyphics|C. 象形文字","D. Mandarin Chinese|D. 中文"],
+    correct:"A", rat_right:"The Vedas were composed in Sanskrit, an ancient Indo-European language of India.|吠陀经是用梵文创作的，这是印度一种古老的印欧语系语言。",
+    rat_wrong:{B:"Cuneiform was the writing system of Mesopotamia, not India.|楔形文字是美索不达米亚的文字系统，不是印度的。",C:"Hieroglyphics were used in ancient Egypt.|象形文字用于古埃及。",D:"Mandarin Chinese is unrelated to the Vedic texts of India.|中文与印度的吠陀文本无关。"}
+  },
+  { id:"l2q3", q:"What are the four main varnas (social classes) of the Vedic caste system?", q_cn:"吠陀种姓制度的四个主要瓦尔纳（社会阶层）是什么？",
+    options:["A. Kings, soldiers, slaves, and priests|A. 国王、士兵、奴隶和祭司","B. Brahmins, Kshatriyas, Vaishyas, and Shudras|B. 婆罗门、刹帝利、吠舍和首陀罗","C. Pharaohs, nobles, scribes, and farmers|C. 法老、贵族、书吏和农民","D. Patricians, plebeians, slaves, and senators|D. 贵族、平民、奴隶和元老"],
+    correct:"B", rat_right:"The four varnas were Brahmins (priests/scholars), Kshatriyas (warriors/rulers), Vaishyas (merchants/farmers), and Shudras (laborers).|四个瓦尔纳是婆罗门（祭司/学者）、刹帝利（武士/统治者）、吠舍（商人/农民）和首陀罗（劳工）。",
+    rat_wrong:{A:"These terms don't match the specific Vedic varna names.|这些术语与具体的吠陀瓦尔纳名称不符。",C:"Pharaohs, nobles, scribes, and farmers describe Egyptian social structure, not the Vedic caste system.|法老、贵族、书吏和农民描述的是埃及的社会结构，不是吠陀种姓制度。",D:"Patricians, plebeians, and senators describe Roman social/political classes, not Vedic India.|贵族、平民和元老描述的是罗马的社会/政治阶层，不是吠陀时期的印度。"}
+  },
+  { id:"l2q4", q:"What is 'dharma' in Hindu belief?", q_cn:"在印度教信仰中，'达摩'是什么？",
+    options:["A. A type of musical instrument|A. 一种乐器类型","B. A concept of duty, righteousness, and moral order|B. 关于职责、正义和道德秩序的概念","C. The name of a Vedic god|C. 吠陀神的名字","D. A style of Indian architecture|D. 一种印度建筑风格"],
+    correct:"B", rat_right:"Dharma refers to duty, righteousness, and moral/cosmic order — a central concept in Hindu belief that originated in the Vedic Period.|达摩指的是职责、正义和道德/宇宙秩序——这是源于吠陀时期的印度教信仰核心概念。",
+    rat_wrong:{A:"Dharma is a philosophical/religious concept, not a musical instrument.|达摩是一个哲学/宗教概念，不是乐器。",C:"Dharma is a concept, not the name of a specific deity.|达摩是一个概念，不是特定神祇的名字。",D:"Dharma relates to moral philosophy, not architectural style.|达摩与道德哲学相关，不是建筑风格。"}
+  },
+  { id:"l2q5", q:"Which varna was traditionally associated with priests and scholars?", q_cn:"哪个瓦尔纳传统上与祭司和学者相关？",
+    options:["A. Kshatriyas|A. 刹帝利","B. Vaishyas|B. 吠舍","C. Shudras|C. 首陀罗","D. Brahmins|D. 婆罗门"],
+    correct:"D", rat_right:"Brahmins were the priestly and scholarly class in the Vedic varna system.|婆罗门是吠陀瓦尔纳体系中的祭司和学者阶层。",
+    rat_wrong:{A:"Kshatriyas were warriors and rulers, not primarily priests.|刹帝利是武士和统治者，不是主要的祭司。",B:"Vaishyas were merchants and farmers.|吠舍是商人和农民。",C:"Shudras were laborers and servants.|首陀罗是劳工和仆人。"}
+  },
+  { id:"l2q6", q:"How did the caste system change over the centuries after the Vedic Period began?", q_cn:"吠陀时期开始后的几个世纪里，种姓制度发生了什么变化？",
+    options:["A. It became less rigid and eventually disappeared entirely|A. 它变得不那么僵化，最终完全消失","B. It became more rigid and hereditary over time|B. 它随时间变得更加僵化和世代相传","C. It was replaced immediately by a completely different system|C. 它立即被一个完全不同的体系取代","D. It only applied to foreign visitors|D. 它只适用于外国访客"],
+    correct:"B", rat_right:"Over centuries, the varna system became increasingly rigid and hereditary, evolving into the deeply structured caste system that shaped Indian society for millennia.|经过几个世纪，瓦尔纳体系变得日益僵化和世代相传，演变成深刻塑造印度社会数千年的结构化种姓制度。",
+    rat_wrong:{A:"The system became MORE rigid, not less, and persisted for centuries rather than disappearing.|这一体系变得更加僵化而非更少，并持续了数百年而非消失。",C:"The system evolved gradually over time rather than being immediately replaced.|这一体系是随时间逐渐演变的，而不是立即被取代。",D:"The caste system applied broadly to Indian society, not just foreign visitors.|种姓制度广泛适用于印度社会，不仅仅是外国访客。"}
+  },
+  { id:"l2q7", q:"What kind of texts make up the Vedas?", q_cn:"吠陀经由什么类型的文本组成？",
+    options:["A. Legal codes and tax records only|A. 仅有法典和税收记录","B. Sacred hymns, rituals, and philosophical texts|B. 圣歌、仪式和哲学文本","C. Military strategy manuals|C. 军事战略手册","D. Trade agreements between kingdoms|D. 王国间的贸易协议"],
+    correct:"B", rat_right:"The Vedas are a collection of sacred hymns, ritual instructions, and philosophical reflections composed in Sanskrit.|吠陀经是用梵文创作的圣歌、仪式指南和哲学思考的合集。",
+    rat_wrong:{A:"While some later Hindu texts cover law, the Vedas themselves are primarily religious and philosophical.|尽管一些后来的印度教文本涉及法律，但吠陀经本身主要是宗教和哲学性的。",C:"The Vedas are religious/philosophical texts, not military manuals.|吠陀经是宗教/哲学文本，不是军事手册。",D:"Trade agreements are not the content of the Vedas.|贸易协议不是吠陀经的内容。"}
+  },
+  { id:"l2q8", q:"Approximately when did the Vedic Period occur?", q_cn:"吠陀时期大约发生在什么时候？",
+    options:["A. 1500–500 BCE|A. 公元前1500—500年","B. 3300–1300 BCE|B. 公元前3300—1300年","C. 500–1000 CE|C. 公元500—1000年","D. 100 BCE–100 CE|D. 公元前100年—公元100年"],
+    correct:"A", rat_right:"The Vedic Period occurred roughly between 1500 and 500 BCE, following the decline of the Indus Valley Civilization.|吠陀时期大约发生在公元前1500年至500年之间，在印度河流域文明衰落之后。",
+    rat_wrong:{B:"3300-1300 BCE corresponds to the Indus Valley Civilization, which came before the Vedic Period.|公元前3300—1300年对应印度河流域文明，这是在吠陀时期之前。",C:"500-1000 CE is much later — well into the medieval period of Indian history.|公元500—1000年要晚得多——已经进入印度历史的中世纪时期。",D:"100 BCE-100 CE is later than the core Vedic Period.|公元前100年—公元100年比核心吠陀时期更晚。"}
+  },
+  { id:"l2q9", q:"Why might historians find the caste system both an important and complex topic to study?", q_cn:"为什么历史学家可能认为种姓制度既是一个重要又复杂的研究课题？",
+    options:["A. It had no real impact on Indian society|A. 它对印度社会没有真正的影响","B. It shaped social structure, opportunity, and identity in India for thousands of years|B. 它在数千年里塑造了印度的社会结构、机会和身份","C. It only existed for a few decades|C. 它只存在了几十年","D. It applied equally and identically to every region of India|D. 它在印度每个地区都同等且完全相同地适用"],
+    correct:"B", rat_right:"The caste system had a deep and lasting impact on social structure, occupation, and identity across Indian history, making it a major and complex topic.|种姓制度对印度历史上的社会结构、职业和身份产生了深远而持久的影响，使其成为一个重要而复杂的课题。",
+    rat_wrong:{A:"The caste system had a major, lasting impact on Indian society — the opposite of having no impact.|种姓制度对印度社会产生了重大而持久的影响——与没有影响恰恰相反。",C:"The caste system persisted for thousands of years, not just a few decades.|种姓制度持续了数千年，不仅仅是几十年。",D:"The caste system varied in practice across different regions and time periods of India.|种姓制度在印度不同地区和不同历史时期的实践有所不同。"}
+  },
+  { id:"l2q10", q:"How does the Vedic Period connect to the rise of Hinduism?", q_cn:"吠陀时期如何与印度教的兴起联系起来？",
+    options:["A. It has no connection to Hinduism at all|A. 它与印度教完全没有联系","B. It laid the foundation for later Hindu beliefs, including dharma and ritual practices|B. 它为后来的印度教信仰奠定了基础，包括达摩和仪式实践","C. It was a separate religion that replaced Hinduism|C. 它是一种取代了印度教的独立宗教","D. Hinduism developed entirely independently of the Vedic Period|D. 印度教完全独立于吠陀时期发展"],
+    correct:"B", rat_right:"Vedic religious ideas, rituals, and concepts like dharma directly developed into and shaped what became Hinduism.|吠陀的宗教思想、仪式以及达摩等概念直接发展并塑造了后来的印度教。",
+    rat_wrong:{A:"The Vedic Period is the direct foundation of Hindu religious tradition.|吠陀时期是印度教宗教传统的直接基础。",C:"The Vedic Period's religious ideas evolved into Hinduism rather than being replaced by it.|吠陀时期的宗教思想演变成了印度教，而不是被印度教取代。",D:"Hinduism's roots are directly traceable to Vedic religious concepts and texts.|印度教的根源可以直接追溯到吠陀宗教概念和文本。"}
+  }
+];
+ 
+var L3_Q = [
+  { id:"l3q1", q:"The Shang Dynasty developed along which river in China?", q_cn:"商朝沿中国哪条河流发展？",
+    options:["A. The Yangtze River|A. 长江","B. The Yellow River|B. 黄河","C. The Mekong River|C. 湄公河","D. The Pearl River|D. 珠江"],
+    correct:"B", rat_right:"The Shang Dynasty was centered along the Yellow River in northern China.|商朝以中国北方的黄河为中心。",
+    rat_wrong:{A:"The Yangtze River is significant in Chinese history but is not specifically associated with the Shang Dynasty's core territory.|长江在中国历史上很重要，但与商朝的核心领土没有特别关联。",C:"The Mekong River is in Southeast Asia, not associated with the Shang Dynasty.|湄公河位于东南亚，与商朝无关。",D:"The Pearl River is in southern China, far from the core Shang territory.|珠江位于中国南方，远离商朝的核心领土。"}
+  },
+  { id:"l3q2", q:"What were oracle bones used for in Shang China?", q_cn:"甲骨在商朝中国用于什么？",
+    options:["A. Building construction|A. 建筑施工","B. Currency for trade|B. 贸易货币","C. Asking ancestors and gods questions through divination|C. 通过占卜向祖先和神灵询问问题","D. Military weapons|D. 军事武器"],
+    correct:"C", rat_right:"Oracle bones were inscribed with questions, then heated until they cracked; diviners interpreted the cracks as answers from ancestors or gods.|甲骨上刻有问题，然后加热直到裂开；占卜者将裂纹解读为来自祖先或神灵的答案。",
+    rat_wrong:{A:"Oracle bones were used for religious divination, not as building materials.|甲骨用于宗教占卜，不是建筑材料。",B:"Oracle bones were not used as currency.|甲骨不用作货币。",D:"Oracle bones were religious/divinatory tools, not weapons.|甲骨是宗教/占卜工具，不是武器。"}
+  },
+  { id:"l3q3", q:"Why are oracle bones historically significant?", q_cn:"为什么甲骨在历史上具有重要意义？",
+    options:["A. They are the earliest known form of Chinese writing|A. 它们是已知最早的汉字形式","B. They were used as the first Chinese coins|B. 它们被用作最早的中国货币","C. They are evidence of early Chinese farming techniques|C. 它们是早期中国农业技术的证据","D. They prove the Shang Dynasty had no religion|D. 它们证明商朝没有宗教"],
+    correct:"A", rat_right:"Oracle bone inscriptions are the earliest known form of Chinese writing, providing direct evidence of Shang language and beliefs.|甲骨文是已知最早的汉字形式，提供了关于商朝语言和信仰的直接证据。",
+    rat_wrong:{B:"Oracle bones were religious/divinatory objects, not currency.|甲骨是宗教/占卜物品，不是货币。",C:"While agriculture is mentioned in some inscriptions, oracle bones are primarily significant for writing, not farming techniques themselves.|尽管一些铭文提到农业，但甲骨的主要意义在于文字，而非农业技术本身。",D:"Oracle bones actually prove the OPPOSITE — that religion and divination were central to Shang life.|甲骨实际上证明的恰恰相反——宗教和占卜是商朝生活的核心。"}
+  },
+  { id:"l3q4", q:"What does Shang bronze-casting technology suggest about their society?", q_cn:"商朝的青铜铸造技术说明了他们社会的什么特点？",
+    options:["A. Society was completely equal, with no hierarchy|A. 社会完全平等，没有等级","B. Society was organized with skilled labor, resources, and likely a hierarchy of kings and nobles|B. 社会有组织地拥有熟练劳动力、资源，并可能存在国王和贵族的等级制度","C. Bronze was unimportant and rarely used|C. 青铜不重要，很少使用","D. The Shang had no contact with metal technology|D. 商朝与金属技术没有接触"],
+    correct:"B", rat_right:"Elaborate bronze-casting required organized labor and resources, pointing to a centralized, hierarchical society.|精致的青铜铸造需要有组织的劳动力和资源，表明存在一个集中化、等级化的社会。",
+    rat_wrong:{A:"The organization required for bronze-casting suggests hierarchy, not equality.|青铜铸造所需的组织表明存在等级制度，而非平等。",C:"Bronze vessels were highly valued and central to Shang ritual life.|青铜器备受重视，是商朝仪式生活的核心。",D:"The Shang were skilled bronze workers, showing clear engagement with metal technology.|商朝人是熟练的青铜工匠，显示出与金属技术的明显接触。"}
+  },
+  { id:"l3q5", q:"What were Shang bronze vessels primarily used for?", q_cn:"商朝青铜器主要用于什么？",
+    options:["A. Everyday cooking for common people|A. 普通人的日常烹饪","B. Religious rituals and ancestor worship|B. 宗教仪式和祖先崇拜","C. Military weapons only|C. 仅用作军事武器","D. Currency for international trade|D. 国际贸易货币"],
+    correct:"B", rat_right:"Bronze vessels were primarily used in religious rituals and ceremonies connected to ancestor worship.|青铜器主要用于与祖先崇拜相关的宗教仪式和典礼。",
+    rat_wrong:{A:"Bronze vessels were elite ritual objects, not everyday cookware for common people.|青铜器是精英仪式用品，不是普通人的日常炊具。",C:"While some bronze was used for weapons, the elaborate vessels described were primarily ceremonial.|尽管一些青铜被用于武器，但所描述的精致器皿主要是仪式用品。",D:"Bronze vessels were not used as currency.|青铜器不用作货币。"}
+  },
+  { id:"l3q6", q:"What kinds of questions did Shang rulers typically ask through oracle bone divination?", q_cn:"商朝统治者通常通过甲骨占卜询问什么类型的问题？",
+    options:["A. Only questions about foreign trade prices|A. 只有关于外贸价格的问题","B. Questions about harvests, weather, warfare, and royal health|B. 关于收成、天气、战争和皇室健康的问题","C. Questions about which language to speak|C. 关于使用哪种语言的问题","D. Questions only about art and music|D. 只有关于艺术和音乐的问题"],
+    correct:"B", rat_right:"Oracle bone questions ranged widely across harvests, weather, military campaigns, and the health of the royal family.|甲骨占卜的问题广泛涉及收成、天气、军事行动和皇室健康。",
+    rat_wrong:{A:"There is no significant evidence of oracle bones being used for foreign trade pricing.|没有重大证据表明甲骨被用于外贸定价。",C:"Language choice was not a typical subject of oracle bone divination.|语言选择不是甲骨占卜的典型主题。",D:"Art and music were not the primary focus of oracle bone questions.|艺术和音乐不是甲骨问题的主要焦点。"}
+  },
+  { id:"l3q7", q:"Approximately when did the Shang Dynasty exist?", q_cn:"商朝大约存在于什么时期？",
+    options:["A. 1600–1046 BCE|A. 公元前1600—1046年","B. 3300–1300 BCE|B. 公元前3300—1300年","C. 500 BCE–200 CE|C. 公元前500年—公元200年","D. 100–600 CE|D. 公元100—600年"],
+    correct:"A", rat_right:"The Shang Dynasty existed from approximately 1600 to 1046 BCE.|商朝大约存在于公元前1600年至1046年。",
+    rat_wrong:{B:"3300-1300 BCE corresponds to the Indus Valley Civilization timeframe, not the Shang Dynasty.|公元前3300—1300年对应印度河流域文明的时间框架，不是商朝。",C:"500 BCE-200 CE is much later, well after the Shang Dynasty had ended.|公元前500年—公元200年要晚得多，远在商朝结束之后。",D:"100-600 CE is during the Roman and post-Han period, far too late for the Shang.|公元100—600年是罗马和汉朝之后的时期，对商朝来说太晚了。"}
+  },
+  { id:"l3q8", q:"What does ancestor worship in Shang China suggest about their beliefs?", q_cn:"商朝中国的祖先崇拜说明了他们信仰的什么特点？",
+    options:["A. They believed ancestors had no influence on the living world|A. 他们认为祖先对现实世界没有影响","B. They believed deceased ancestors could influence events in the living world|B. 他们认为已故的祖先能够影响现实世界中的事件","C. They believed in a single, all-powerful creator god only|C. 他们只信仰一个全能的创世神","D. They had no religious beliefs at all|D. 他们完全没有宗教信仰"],
+    correct:"B", rat_right:"Ancestor worship reflects the Shang belief that deceased ancestors retained influence over events and could be consulted through ritual and divination.|祖先崇拜反映了商朝人的信仰，即已故的祖先仍然对事件具有影响力，可以通过仪式和占卜进行咨询。",
+    rat_wrong:{A:"Ancestor worship is based on the belief that ancestors DO have influence, not the opposite.|祖先崇拜正是基于祖先确实具有影响力的信仰，而不是相反。",C:"Shang religion centered on ancestor worship and multiple spiritual forces, not a single creator god.|商朝宗教以祖先崇拜和多种精神力量为中心，不是单一的创世神。",D:"Oracle bones and bronze rituals are clear evidence of deep religious belief.|甲骨和青铜仪式是深厚宗教信仰的明确证据。"}
+  },
+  { id:"l3q9", q:"What does the existence of oracle bone writing tell historians about Shang government?", q_cn:"甲骨文字的存在告诉历史学家关于商朝政府的什么信息？",
+    options:["A. The government had no organized structure|A. 政府没有有组织的结构","B. The government and royal family were closely connected to religious practice and decision-making|B. 政府和皇室与宗教实践和决策密切相关","C. The government had no interest in agriculture or warfare|C. 政府对农业或战争没有兴趣","D. Writing was used only by common farmers|D. 文字只被普通农民使用"],
+    correct:"B", rat_right:"Because oracle bones record royal questions about state matters, they show that Shang governance was deeply intertwined with religious divination.|由于甲骨记录了皇室关于国家事务的问题，它们表明商朝的治理与宗教占卜密切交织。",
+    rat_wrong:{A:"The organized use of oracle bones for state decisions suggests a structured governing system.|甲骨在国家决策中的有组织使用表明存在一个结构化的治理体系。",C:"Oracle bone questions specifically included topics like harvests and warfare, showing strong government interest in these areas.|甲骨问题特别包括收成和战争等主题，表明政府对这些领域有浓厚的兴趣。",D:"Oracle bone writing was associated with the royal court and elite diviners, not common farmers.|甲骨文字与皇室宫廷和精英占卜师相关，不是普通农民。"}
+  },
+  { id:"l3q10", q:"How does the Shang Dynasty compare to other early civilizations we have studied, such as Egypt or Mesopotamia?", q_cn:"商朝与我们研究过的其他早期文明（如埃及或美索不达米亚）相比如何？",
+    options:["A. The Shang had no writing system, unlike Egypt and Mesopotamia|A. 与埃及和美索不达米亚不同，商朝没有文字系统","B. Like Egypt and Mesopotamia, the Shang developed writing, organized religion, and centralized political power along a major river|B. 与埃及和美索不达米亚一样，商朝沿主要河流发展了文字、有组织的宗教和中央集权","C. The Shang had no river valley civilization at all|C. 商朝根本不是河流流域文明","D. The Shang were the only early civilization to use bronze|D. 商朝是唯一使用青铜的早期文明"],
+    correct:"B", rat_right:"Like Egypt and Mesopotamia, the Shang Dynasty developed along a major river, created a writing system, and built a hierarchical, religiously connected government — showing common patterns of early civilization.|与埃及和美索不达米亚一样，商朝沿主要河流发展，创造了文字系统，建立了等级化、与宗教密切相关的政府——展示了早期文明的共同模式。",
+    rat_wrong:{A:"The Shang did develop a writing system — oracle bone script.|商朝确实发展了文字系统——甲骨文。",C:"The Shang Dynasty developed specifically along the Yellow River, making it a river valley civilization like Egypt and Mesopotamia.|商朝特别是沿黄河发展的，使其与埃及和美索不达米亚一样成为河流流域文明。",D:"Other civilizations, including the Hittites, also developed bronze and metal technology.|包括赫梯人在内的其他文明也发展了青铜和金属技术。"}
+  }
+];
+ 
+var L4_Q = [
+  { id:"l4q1", q:"Pre-contact civilizations in the Americas developed —", q_cn:"美洲接触前的文明是如何发展的——",
+    options:["A. After direct contact with Asian traders|A. 在与亚洲商人直接接触之后","B. Independently from civilizations in Africa, Asia, and Europe|B. 独立于非洲、亚洲和欧洲的文明","C. Only after European colonization began|C. 只在欧洲殖民开始之后","D. With no agriculture or permanent settlements|D. 没有农业或永久定居点"],
+    correct:"B", rat_right:"American civilizations developed independently, without contact with Old World civilizations in Africa, Asia, or Europe.|美洲文明独立发展，没有与非洲、亚洲或欧洲的旧大陆文明接触。",
+    rat_wrong:{A:"There is no significant evidence of regular contact between pre-contact American civilizations and Asia.|没有重大证据表明美洲接触前的文明与亚洲有定期接触。",C:"Pre-contact civilizations, by definition, existed before European colonization, not after.|根据定义，接触前的文明在欧洲殖民之前就已存在，而不是之后。",D:"Many pre-contact American civilizations had advanced agriculture and permanent settlements.|许多美洲接触前的文明拥有先进的农业和永久定居点。"}
+  },
+  { id:"l4q2", q:"The Olmec civilization is often called the 'mother culture' of which region?", q_cn:"奥尔梅克文明常被称为哪个地区的'母文化'？",
+    options:["A. South America|A. 南美洲","B. North America (United States)|B. 北美洲（美国）","C. Mesoamerica|C. 中美洲","D. The Caribbean islands|D. 加勒比群岛"],
+    correct:"C", rat_right:"The Olmec, centered in present-day Mexico, are called the 'mother culture' of Mesoamerica because later civilizations adopted their religious and artistic ideas.|奥尔梅克以现今墨西哥为中心，被称为中美洲的'母文化'，因为后来的文明采用了他们的宗教和艺术思想。",
+    rat_wrong:{A:"South America is home to civilizations like the Chavín and later the Inca, not the Olmec.|南美洲是查文文明以及后来的印加文明的所在地，不是奥尔梅克。",B:"North America (the present-day U.S.) was home to cultures like the Mississippian, separate from the Olmec.|北美洲（现今美国）是密西西比文化等文化的所在地，与奥尔梅克不同。",D:"The Caribbean islands are not associated with the Olmec civilization.|加勒比群岛与奥尔梅克文明无关。"}
+  },
+  { id:"l4q3", q:"What are the Olmec famous for creating?", q_cn:"奥尔梅克以创造什么而闻名？",
+    options:["A. The Great Pyramid of Giza|A. 吉萨大金字塔","B. Massive carved stone heads|B. 巨大的石刻头像","C. Cuneiform writing|C. 楔形文字","D. The first wheel|D. 第一个轮子"],
+    correct:"B", rat_right:"The Olmec are known for creating massive carved stone heads, some weighing over 20 tons, likely representing rulers.|奥尔梅克以创造巨大的石刻头像而闻名，有些重达20多吨，可能代表统治者。",
+    rat_wrong:{A:"The Great Pyramid of Giza was built by the ancient Egyptians.|吉萨大金字塔是由古埃及人建造的。",C:"Cuneiform was developed by the Sumerians in Mesopotamia.|楔形文字是由美索不达米亚的苏美尔人发展的。",D:"The wheel's invention is generally credited to Mesopotamian civilizations.|轮子的发明通常归功于美索不达米亚文明。"}
+  },
+  { id:"l4q4", q:"What advanced mathematical concept did the Maya develop?", q_cn:"玛雅人发展了什么先进的数学概念？",
+    options:["A. Algebra|A. 代数","B. The concept of zero|B. 零的概念","C. Calculus|C. 微积分","D. The metric system|D. 公制系统"],
+    correct:"B", rat_right:"The Maya independently developed the mathematical concept of zero, an advanced achievement used in their calendar and number systems.|玛雅人独立发展了零的数学概念，这是用于他们的历法和数字系统的先进成就。",
+    rat_wrong:{A:"Algebra developed primarily in other regions, including the Islamic world, much later.|代数主要在其他地区发展，包括后来的伊斯兰世界。",C:"Calculus was developed much later, in 17th-century Europe.|微积分是后来在17世纪欧洲发展起来的。",D:"The metric system is a much later European development, unrelated to the Maya.|公制系统是更晚的欧洲发展成果，与玛雅人无关。"}
+  },
+  { id:"l4q5", q:"The Mississippian culture in North America is known for building —", q_cn:"北美洲的密西西比文化以建造什么而闻名——",
+    options:["A. Stone pyramids similar to Egypt|A. 类似埃及的石制金字塔","B. Large earthen mounds, such as at Cahokia|B. 大型土墩，如卡霉基","C. Floating cities on rivers|C. 河流上的浮动城市","D. Underground tunnel networks only|D. 仅有地下隧道网络"],
+    correct:"B", rat_right:"The Mississippian culture built large earthen mounds, with Cahokia being one of the most significant sites, alongside extensive trade networks.|密西西比文化建造了大型土墩，卡霉基是最重要的遗址之一，同时拥有广泛的贸易网络。",
+    rat_wrong:{A:"Mississippian mounds were made of earth, not carved stone like Egyptian pyramids.|密西西比文化的土墩是用泥土建造的，不像埃及金字塔那样用雕刻石块。",C:"There is no evidence of floating cities in Mississippian culture.|没有证据表明密西西比文化有浮动城市。",D:"While some structures existed, the defining feature of Mississippian culture is earthen mounds, not underground tunnels.|尽管存在一些建筑，但密西西比文化的标志性特征是土墩，不是地下隧道。"}
+  },
+  { id:"l4q6", q:"Where was the Chavín culture located?", q_cn:"查文文化位于哪里？",
+    options:["A. Mesoamerica (Mexico)|A. 中美洲（墨西哥）","B. The Andes (Peru)|B. 安第斯山脉（秘鲁）","C. North America (Mississippi River Valley)|C. 北美洲（密西西比河谷）","D. The Caribbean|D. 加勒比地区"],
+    correct:"B", rat_right:"The Chavín culture developed in the Andes region of present-day Peru, known for early religious centers and advanced stone architecture.|查文文化发展于现今秘鲁的安第斯地区，以早期宗教中心和先进的石制建筑而闻名。",
+    rat_wrong:{A:"Mesoamerica (Mexico) was home to the Olmec and Maya, not Chavín.|中美洲（墨西哥）是奥尔梅克和玛雅的所在地，不是查文文化。",C:"The Mississippi River Valley was home to the Mississippian culture, a separate civilization from Chavín.|密西西比河谷是密西西比文化的所在地，是与查文文化不同的文明。",D:"The Caribbean is not associated with the Chavín culture.|加勒比地区与查文文化无关。"}
+  },
+  { id:"l4q7", q:"What does the existence of complex Maya writing and mathematics suggest?", q_cn:"复杂的玛雅文字和数学的存在说明了什么？",
+    options:["A. The Maya had no organized society|A. 玛雅人没有有组织的社会","B. Complex intellectual achievements developed independently in the Americas, just as in the Old World|B. 复杂的智力成就在美洲独立发展，正如在旧大陆一样","C. The Maya copied their writing system from Egypt|C. 玛雅人从埃及抄袭了他们的文字系统","D. Writing and mathematics had no purpose in Maya society|D. 文字和数学在玛雅社会中没有用途"],
+    correct:"B", rat_right:"Maya achievements in writing and mathematics, developed with no contact with the Old World, show that complex intellectual systems arise independently across human societies.|玛雅人在文字和数学方面的成就是在与旧大陆没有接触的情况下发展起来的，表明复杂的智力体系在人类社会中独立产生。",
+    rat_wrong:{A:"Complex writing and mathematics require organized society, not its absence.|复杂的文字和数学需要有组织的社会，而不是缺乏组织。",C:"There is no historical contact between the Maya and ancient Egypt — these developed independently.|玛雅人与古埃及之间没有历史接触——这些是独立发展的。",D:"Maya writing and mathematics were used for calendars, record-keeping, and religious/political purposes.|玛雅文字和数学用于历法、记录以及宗教/政治目的。"}
+  },
+  { id:"l4q8", q:"What is one similarity shared by the Olmec, Maya, Mississippian, and Chavín civilizations?", q_cn:"奥尔梅克、玛雅、密西西比和查文文明有什么共同的相似之处？",
+    options:["A. They were all in direct contact with each other constantly|A. 它们彼此一直保持直接接触","B. They each built complex societies with monumental architecture and organized religion|B. 它们各自建立了拥有宏伟建筑和有组织宗教的复杂社会","C. They all used the exact same written language|C. 它们都使用完全相同的书面语言","D. They were all conquered by the Aztec Empire|D. 它们都被阿兹特克帝国征服"],
+    correct:"B", rat_right:"Despite developing in different regions, all four civilizations built complex societies featuring monumental architecture and organized religious systems.|尽管在不同地区发展，这四个文明都建立了拥有宏伟建筑和有组织宗教体系的复杂社会。",
+    rat_wrong:{A:"These civilizations developed largely independently, often without direct, constant contact.|这些文明在很大程度上是独立发展的，通常没有直接、持续的接触。",C:"Each civilization developed its own distinct (or no) writing system — they were not identical.|每个文明都发展了自己独特（或没有）的文字系统——它们并不相同。",D:"The Aztec Empire arose much later and did not conquer all of these earlier civilizations.|阿兹特克帝国出现得晚得多，并未征服所有这些更早的文明。"}
+  },
+  { id:"l4q9", q:"Why is it significant that pre-contact American civilizations developed agriculture independently?", q_cn:"美洲接触前的文明独立发展农业有何重要意义？",
+    options:["A. It proves agriculture was invented only once, in the Middle East|A. 这证明农业只在中东被发明过一次","B. It shows that the Neolithic Revolution pattern (farming leading to complex society) occurred separately on multiple continents|B. 这表明新石器革命的模式（农业导致复杂社会）在多个大陆上分别发生","C. It proves the Americas had no early civilizations|C. 这证明美洲没有早期文明","D. It shows agriculture was unimportant to American civilizations|D. 这表明农业对美洲文明不重要"],
+    correct:"B", rat_right:"Independent agricultural development in the Americas (such as maize cultivation) shows that the broader pattern of farming leading to complex societies happened on separate continents, reinforcing a universal human pattern.|美洲独立的农业发展（如玉米种植）表明，农业导致复杂社会这一更广泛的模式在不同大陆上分别发生，强化了一种人类共同的模式。",
+    rat_wrong:{A:"Agriculture was actually invented independently in multiple regions, including the Americas — not just the Middle East.|农业实际上是在多个地区独立发明的，包括美洲——不仅仅是中东。",C:"Independent agriculture supported the rise of complex American civilizations like the Olmec and Maya.|独立的农业支撑了奥尔梅克和玛雅等复杂美洲文明的兴起。",D:"Agriculture, especially maize, was central to American civilizations' food supply and social development.|农业，特别是玉米，是美洲文明粮食供应和社会发展的核心。"}
+  },
+  { id:"l4q10", q:"What is the most important lesson from studying pre-contact American civilizations alongside those of Africa, Asia, and Europe?", q_cn:"将美洲接触前的文明与非洲、亚洲和欧洲的文明一起研究，最重要的教训是什么？",
+    options:["A. Only Old World civilizations were truly advanced|A. 只有旧大陆的文明才是真正先进的","B. Human societies on different continents, without contact, independently developed similarly complex civilizations|B. 不同大陆上没有接触的人类社会独立发展出了同样复杂的文明","C. American civilizations had no impact on world history|C. 美洲文明对世界历史没有影响","D. Agriculture only occurred in the Old World|D. 农业只发生在旧大陆"],
+    correct:"B", rat_right:"Comparing American civilizations to those of the Old World shows that complex societies, agriculture, religion, and monumental building arose independently and similarly on different continents.|将美洲文明与旧大陆文明进行比较表明，复杂的社会、农业、宗教和宏伟建筑在不同大陆上独立而相似地产生。",
+    rat_wrong:{A:"American civilizations achieved complex societies, mathematics, and monumental architecture — just as advanced in many respects as Old World civilizations.|美洲文明实现了复杂的社会、数学和宏伟建筑——在许多方面与旧大陆文明同样先进。",C:"American civilizations had major historical and cultural significance, both before and after European contact.|美洲文明在欧洲接触之前和之后都具有重大的历史和文化意义。",D:"Agriculture developed independently in the Americas as well, such as maize cultivation by the Olmec and Maya.|农业也在美洲独立发展，例如奥尔梅克和玛雅人种植玉米。"}
+  }
+];
+ 
+var L5_Q = [
+  { id:"l5q1", q:"Which civilizations developed writing systems independently of one another?", q_cn:"哪些文明彼此独立地发展了文字系统？",
+    options:["A. Only Mesopotamia and Egypt|A. 只有美索不达米亚和埃及","B. Mesopotamia, Egypt, the Indus Valley, China, and Mesoamerica|B. 美索不达米亚、埃及、印度河流域、中国和中美洲","C. Only civilizations in Europe|C. 只有欧洲的文明","D. No civilizations developed writing independently|D. 没有文明独立发展文字"],
+    correct:"B", rat_right:"Writing systems emerged independently in Mesopotamia, Egypt, the Indus Valley, China, and Mesoamerica — civilizations with no contact with one another.|文字系统在美索不达米亚、埃及、印度河流域、中国和中美洲独立出现——这些文明彼此没有接触。",
+    rat_wrong:{A:"The Indus Valley, China, and Mesoamerica also independently developed writing, not just Mesopotamia and Egypt.|印度河流域、中国和中美洲也独立发展了文字，不仅仅是美索不达米亚和埃及。",C:"European civilizations developed writing much later, often influenced by Mediterranean cultures, and are not part of this pattern of earliest independent writing.|欧洲文明的文字发展要晚得多，通常受到地中海文化的影响，不属于这种最早独立文字发展的模式。",D:"Multiple civilizations clearly developed writing systems independently, as shown by the historical record.|历史记录清楚地表明，多个文明独立发展了文字系统。"}
+  },
+  { id:"l5q2", q:"What practical need most commonly drove the development of early writing systems?", q_cn:"什么实际需求最常推动早期文字系统的发展？",
+    options:["A. The desire to write poetry|A. 想要写诗的欲望","B. Tracking trade, taxes, and resources|B. 跟踪贸易、税收和资源","C. Communicating with distant civilizations by mail|C. 通过邮件与遥远的文明交流","D. Decorating temple walls|D. 装饰神庙墙壁"],
+    correct:"B", rat_right:"In nearly every early civilization, writing began as a practical tool for record-keeping — tracking trade, taxes, and resources.|在几乎每个早期文明中，文字最初都是作为记录贸易、税收和资源的实用工具而出现的。",
+    rat_wrong:{A:"Literature and poetry developed after writing was already established for practical purposes.|文学和诗歌是在文字已经为实用目的建立之后才发展起来的。",C:"There was no organized mail system connecting distant ancient civilizations.|没有连接遥远古代文明的有组织邮件系统。",D:"While some writing appears on monuments, this was not the primary driving force behind its invention.|尽管一些文字出现在纪念建筑上，但这并不是其发明背后的主要推动力。"}
+  },
+  { id:"l5q3", q:"What sequence of developments commonly led to the creation of writing systems?", q_cn:"通常什么发展顺序导致了文字系统的创造？",
+    options:["A. Writing → agriculture → trade → cities|A. 文字→农业→贸易→城市","B. Agriculture → food surplus → trade and taxation → need for record-keeping → writing|B. 农业→粮食盈余→贸易与税收→记录需求→文字","C. Religion → writing → agriculture → cities|C. 宗教→文字→农业→城市","D. Cities → agriculture → writing → trade|D. 城市→农业→文字→贸易"],
+    correct:"B", rat_right:"The common pattern was: agriculture led to food surplus, which enabled trade and taxation, which created a need for record-keeping, which led to writing systems.|常见的模式是：农业导致粮食盈余，粮食盈余使贸易和税收成为可能，这又产生了记录的需求，最终导致文字系统的产生。",
+    rat_wrong:{A:"Writing developed AFTER agriculture, trade, and cities — not before them.|文字是在农业、贸易和城市之后才发展起来的——不是在它们之前。",C:"Religion and writing both developed after agriculture established surplus and complex societies; agriculture came first.|宗教和文字都是在农业建立盈余和复杂社会之后才发展起来的；农业是最先出现的。",D:"Agriculture and trade typically preceded the development of writing, not the other way around.|农业和贸易通常先于文字的发展，而不是相反。"}
+  },
+  { id:"l5q4", q:"What does the independent development of writing in multiple civilizations suggest about human societies?", q_cn:"文字在多个文明中独立发展说明了人类社会的什么特点？",
+    options:["A. All early civilizations were secretly in contact with each other|A. 所有早期文明都秘密地相互接触","B. Complex record-keeping needs arise naturally as societies grow, regardless of location|B. 随着社会的发展，复杂的记录需求自然产生，无论地理位置如何","C. Only the Sumerians ever developed real writing|C. 只有苏美尔人发展了真正的文字","D. Writing was always invented for religious reasons|D. 文字总是因宗教原因而发明"],
+    correct:"B", rat_right:"The fact that multiple unconnected civilizations independently developed writing for similar practical reasons shows this is a natural pattern in growing societies, not a coincidence requiring contact.|多个互不相连的文明独立地出于相似的实际原因发展了文字，这一事实表明这是发展中社会的一种自然模式，而不是需要接触的巧合。",
+    rat_wrong:{A:"There is no historical evidence of secret contact between these distant, unconnected civilizations.|没有历史证据表明这些遥远、不相连的文明之间存在秘密接触。",C:"Egypt, China, the Indus Valley, and Mesoamerica all developed their own genuine writing systems, not just the Sumerians.|埃及、中国、印度河流域和中美洲都发展了自己真正的文字系统，不仅仅是苏美尔人。",D:"Most early writing arose from economic/administrative needs first, with religious uses developing later.|大多数早期文字最初源于经济/行政需求，宗教用途是后来才发展的。"}
+  },
+  { id:"l5q5", q:"What river-based pattern connected the rise of civilizations in Mesopotamia, Egypt, the Indus Valley, and China?", q_cn:"什么基于河流的模式将美索不达米亚、埃及、印度河流域和中国文明的兴起联系起来？",
+    options:["A. All four civilizations had no access to fresh water|A. 这四个文明都没有获得淡水的途径","B. Each developed along a major river that supported agriculture and population growth|B. 每个文明都沿着支持农业和人口增长的主要河流发展","C. None of these civilizations used rivers for any purpose|C. 这些文明都没有将河流用于任何目的","D. They all shared the exact same river system|D. 它们都共享完全相同的河流系统"],
+    correct:"B", rat_right:"Mesopotamia (Tigris-Euphrates), Egypt (Nile), the Indus Valley (Indus), and China (Yellow River) all developed along major rivers that enabled farming and population growth.|美索不达米亚（底格里斯—幼发拉底河）、埃及（尼罗河）、印度河流域（印度河）和中国（黄河）都沿着支持农业和人口增长的主要河流发展。",
+    rat_wrong:{A:"Each civilization depended heavily on river access for water and agriculture.|每个文明都严重依赖河流获取水源和农业。",C:"Rivers were central to irrigation, transportation, and farming in all four civilizations.|河流是这四个文明灌溉、运输和农业的核心。",D:"Each civilization developed along a DIFFERENT river system in a different region.|每个文明都是沿着不同地区的不同河流系统发展的。"}
+  },
+  { id:"l5q6", q:"What is the 'big idea' connecting all the civilizations studied this unit?", q_cn:"本单元所学所有文明之间联系的'核心理念'是什么？",
+    options:["A. All civilizations were in constant warfare with each other|A. 所有文明都彼此持续交战","B. Civilizations on different continents, without contact, independently arrived at similar solutions to common challenges|B. 不同大陆上没有接触的文明独立地找到了应对共同挑战的相似解决方案","C. Only civilizations with writing systems could be considered successful|C. 只有拥有文字系统的文明才能被视为成功","D. Civilization only began in one single location and spread from there|D. 文明只起源于一个地方，然后从那里传播"],
+    correct:"B", rat_right:"Despite no contact, civilizations across the globe independently developed agriculture, cities, writing, and hierarchy — suggesting universal patterns in human society.|尽管没有接触，全球各地的文明独立发展了农业、城市、文字和等级制度——表明人类社会存在普遍模式。",
+    rat_wrong:{A:"While conflict occurred in some places, this is not the unifying theme of the unit's content.|尽管某些地方发生了冲突，但这不是本单元内容的统一主题。",C:"Civilizations like the Indus Valley achieved great complexity even though we cannot read their writing.|像印度河流域这样的文明即使我们无法解读其文字，也取得了巨大的复杂性。",D:"Civilizations arose independently in multiple separate locations, not from one single point of origin.|文明在多个独立的地方独立兴起，不是源自一个单一起源点。"}
+  },
+  { id:"l5q7", q:"Which of the following best summarizes the connection between surplus food and social hierarchy?", q_cn:"以下哪项最好地总结了粮食盈余与社会等级之间的联系？",
+    options:["A. Surplus food eliminated the need for any form of government|A. 粮食盈余消除了对任何形式政府的需求","B. Surplus food allowed some people to specialize in non-farming roles, leading to social hierarchy|B. 粮食盈余使一些人能够专注于非农业角色，从而导致社会等级制度","C. Surplus food had no effect on social organization|C. 粮食盈余对社会组织没有影响","D. Surplus food only existed in Mesoamerica|D. 粮食盈余只存在于中美洲"],
+    correct:"B", rat_right:"Surplus food freed some people from farming, enabling specialization (priests, artisans, rulers) and the rise of social hierarchy.|粮食盈余使一些人摆脱了农业劳动，使分工（祭司、工匠、统治者）和社会等级制度的兴起成为可能。",
+    rat_wrong:{A:"Surplus food and growing complexity actually increased the need for organized governance, not eliminated it.|粮食盈余和日益增长的复杂性实际上增加了对有组织治理的需求，而不是消除了它。",C:"Surplus food had a major effect, enabling specialization and hierarchy across multiple civilizations.|粮食盈余产生了重大影响，使多个文明中的分工和等级制度成为可能。",D:"Surplus food and its social effects occurred in multiple regions, including Mesopotamia, Egypt, China, and India — not just Mesoamerica.|粮食盈余及其社会影响发生在多个地区，包括美索不达米亚、埃及、中国和印度——不仅仅是中美洲。"}
+  },
+  { id:"l5q8", q:"Why is it significant that the Indus script remains undeciphered while Mesopotamian and Egyptian writing has been read?", q_cn:"为什么印度河文字仍未被破译，而美索不达米亚和埃及的文字已被解读，这一点很重要？",
+    options:["A. It means the Indus Valley Civilization never really existed|A. 这意味着印度河流域文明从未真正存在过","B. It shows that our knowledge of ancient history is sometimes limited by what evidence survives and can be understood|B. 这表明我们对古代历史的了解有时受到留存证据及其可理解程度的限制","C. It proves the Indus Valley people had no writing at all|C. 这证明印度河流域的人根本没有文字","D. It means historians should ignore the Indus Valley Civilization entirely|D. 这意味着历史学家应该完全忽略印度河流域文明"],
+    correct:"B", rat_right:"The undeciphered Indus script is a reminder that historical knowledge depends on both surviving evidence and our ability to interpret it — some civilizations remain only partially understood.|未被破译的印度河文字提醒我们，历史知识取决于留存的证据以及我们解读它的能力——一些文明仍然只能被部分理解。",
+    rat_wrong:{A:"Extensive physical evidence proves the Indus Valley Civilization existed, even without readable writing.|大量实物证据证明印度河流域文明确实存在，即使没有可解读的文字。",C:"The Indus Valley people clearly created a writing system — it simply has not yet been decoded.|印度河流域的人确实创造了一种文字系统——只是尚未被解码。",D:"Historians study the Indus Valley extensively through archaeology, despite the writing barrier.|尽管存在文字障碍，历史学家仍通过考古学广泛研究印度河流域。"}
+  },
+  { id:"l5q9", q:"How does comparing multiple early civilizations help historians understand human history more broadly?", q_cn:"比较多个早期文明如何帮助历史学家更广泛地理解人类历史？",
+    options:["A. It proves that history only matters in one region of the world|A. 这证明历史只在世界的一个地区才重要","B. It reveals common patterns and processes that may reflect universal aspects of human social development|B. 这揭示了可能反映人类社会发展普遍特征的共同模式和过程","C. It shows that all civilizations were identical in every detail|C. 这表明所有文明在每个细节上都完全相同","D. It proves that civilizations never change or develop over time|D. 这证明文明从不随时间变化或发展"],
+    correct:"B", rat_right:"By comparing civilizations across the globe, historians identify shared patterns (agriculture, surplus, specialization, writing) that suggest universal tendencies in human social development.|通过比较全球各地的文明，历史学家发现了共同的模式（农业、盈余、分工、文字），这表明人类社会发展存在普遍趋势。",
+    rat_wrong:{A:"Comparative history shows that significant developments happened across MANY regions, not just one.|比较历史表明，重大发展发生在许多地区，而不仅仅是一个地区。",C:"While patterns were similar, each civilization had unique cultural, religious, and artistic differences.|尽管模式相似，但每个文明都有独特的文化、宗教和艺术差异。",D:"Civilizations clearly changed and developed over time, as shown throughout this unit.|正如本单元所示，文明显然随时间发生了变化和发展。"}
+  },
+  { id:"l5q10", q:"What is the best summary conclusion for this unit on prehistory and early civilizations?", q_cn:"对于这个关于史前时代和早期文明的单元，最好的总结性结论是什么？",
+    options:["A. Early human societies were simple and accomplished very little|A. 早期人类社会简单，几乎没有取得任何成就","B. Despite vast distances and no contact, human societies repeatedly followed similar paths toward agriculture, cities, writing, and complex civilization|B. 尽管相隔遥远且没有接触，人类社会反复沿着相似的道路走向农业、城市、文字和复杂文明","C. Only civilizations with advanced writing systems are worth studying|C. 只有拥有先进文字系统的文明才值得研究","D. Civilization developed in a single location and spread outward to all other regions|D. 文明在一个地方发展，然后向所有其他地区扩散"],
+    correct:"B", rat_right:"The unit's overarching lesson is that human societies, even with no contact across vast distances, independently followed remarkably similar developmental paths — suggesting deep patterns in human social organization.|本单元的总体教训是，人类社会即使在相距遥远、没有接触的情况下，也独立地遵循了惊人相似的发展道路——这表明人类社会组织存在深刻的模式。",
+    rat_wrong:{A:"Early human societies accomplished a great deal, including art, technology, agriculture, and complex social organization.|早期人类社会取得了巨大成就，包括艺术、技术、农业和复杂的社会组织。",C:"Civilizations like the Indus Valley remain historically significant and worth studying, even without decoded writing.|像印度河流域这样的文明仍然具有重要的历史意义，即使没有解码的文字，也值得研究。",D:"Civilizations arose independently in multiple separate regions, not from one single point of origin spreading outward.|文明在多个独立的地区独立兴起，不是从一个单一起源点向外扩散。"}
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var allAnswered = Object.keys(storeMap[tabKey]).length === qMap[tabKey].length;
+  var hasRef1 = ref1 && ref1.value.trim().length > 0;
+  var hasRef2 = ref2 && ref2.value.trim().length > 0;
+  var hasGrat = grat && grat.value.trim().length > 0;
+  if (allAnswered && hasRef1 && hasRef2 && hasGrat) {
+    btn.classList.add('ready');
+    btn.disabled = false;
+    hint.style.display = 'none';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1','Ref2','Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Indus River Valley Civilizations',
+    l2: 'Vedic Period and Early India',
+    l3: 'The Shang Dynasty in Ancient China',
+    l4: 'Pre Contact Americas',
+    l5: 'Development of Writing and Unit Synthesis'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 3\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + (document.getElementById(tabKey+'Ref1').value) + '\n\n';
+  txt += 'Reflection 2:\n' + (document.getElementById(tabKey+'Ref2').value) + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + document.getElementById(tabKey+'Grat').value + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day3_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>

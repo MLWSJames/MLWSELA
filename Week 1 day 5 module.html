@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 5 — Rome: Republic, Empire &amp; Collapse | 罗马：共和国、帝国与衰亡</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 5 — Rome: Republic, Empire &amp; Collapse · <span class="cn">罗马：共和国、帝国与衰亡</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson 1"></div>
+    <div class="pip" id="pip-l2" title="Lesson 2"></div>
+    <div class="pip" id="pip-l3" title="Lesson 3"></div>
+    <div class="pip" id="pip-l4" title="Lesson 4"></div>
+    <div class="pip" id="pip-l5" title="Lesson 5"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">🏛️ Overview of Ancient Rome &amp; the Roman Republic</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">⚔️ Roman Military, Expansion &amp; Economy</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">🏗️ Urban Rome &amp; Augustus's Empire</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">🕊️ Pax Romana &amp; Its Emperors</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">📉 Fall of Rome &amp; Comparative Collapse</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON 1: Overview of Rome & the Republic -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Overview of Ancient Rome &amp; the Roman Republic · <span class="cn">古罗马概述与罗马共和国</span></h2>
+ 
+  <div class="concept-card">
+    <h3>From Village to Republic · <span class="cn">从村落到共和国</span></h3>
+    <p>According to legend, <strong>Rome</strong> was founded in 753 BCE. After expelling its last king in 509 BCE, Rome became a <strong>republic</strong> — a system in which power was held by elected officials and citizens, rather than a single hereditary monarch.</p>
+    <p style="margin-top:8px"><span class="cn">据传说，<strong>罗马</strong>建立于公元前753年。公元前509年驱逐最后一位国王后，罗马成为一个<strong>共和国</strong>——一种由民选官员和公民掌握权力的体制，而不是单一的世袭君主。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Political Institutions of the Republic · <span class="cn">共和国的政治制度</span></h3>
+    <p>Roman government divided power among multiple institutions to prevent any single person from gaining too much control:</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Institution 机构</th><th>Role 职能</th></tr>
+      <tr><td>Consuls 执政官</td><td>Two elected officials who led the government and army for one-year terms 两名通过选举产生、领导政府和军队、任期一年的官员</td></tr>
+      <tr><td>Senate 元老院</td><td>A council of wealthy, experienced citizens who advised on policy and finances 由富有、经验丰富的公民组成的议事会，负责政策和财政方面的建议</td></tr>
+      <tr><td>Assemblies 公民大会</td><td>Bodies where citizens voted on laws and elected officials 公民投票表决法律和选举官员的机构</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Patricians &amp; Plebeians · <span class="cn">贵族与平民</span></h3>
+    <p>Roman society was divided into two main social classes: <strong>patricians</strong> (the wealthy aristocratic elite, who held most political power) and <strong>plebeians</strong> (common citizens — farmers, merchants, and laborers). Over time, plebeians fought for and won greater political rights, including the right to hold certain offices.</p>
+    <div class="callout">
+      <strong>The Struggle of the Orders:</strong> Plebeians eventually created their own assembly and elected officials called <em>tribunes</em>, who could veto unfair laws — an early example of common people gaining political power through organized pressure.
+      <br><span class="cn"><strong>阶层斗争：</strong>平民最终建立了自己的议会，并选出了被称为<em>保民官</em>的官员，他们可以否决不公正的法律——这是普通民众通过有组织的压力获得政治权力的早期例子。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 1</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Roman Republic divided power among consuls, the Senate, and assemblies to prevent any one person from gaining too much control. Why might dividing power be important in government? · <span class="cn">罗马共和国将权力分配给执政官、元老院和公民大会，以防止任何一个人获得过多的控制权。为什么在政府中分配权力可能很重要？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Plebeians organized to win greater political rights from patricians over time. Can you think of a modern example of a group organizing to gain more rights? · <span class="cn">随着时间推移，平民通过组织起来从贵族手中赢得更多的政治权利。你能想到一个现代群体组织起来争取更多权利的例子吗？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 2: Military, Expansion, Economy -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Roman Military, Expansion &amp; Economy · <span class="cn">罗马军事、扩张与经济</span></h2>
+ 
+  <div class="concept-card">
+    <h3>The Roman Legion · <span class="cn">罗马军团</span></h3>
+    <p>Rome's military success rested on the <strong>legion</strong> — a highly organized, disciplined unit of about 5,000 soldiers. Roman soldiers trained constantly, built roads and fortifications wherever they camped, and used standardized equipment and tactics that gave them an edge over less organized enemies.</p>
+    <p style="margin-top:8px"><span class="cn">罗马军事的成功依赖于<strong>军团</strong>——一个由约5000名士兵组成的高度组织化、纪律严明的单位。罗马士兵不断训练，在驻扎的地方修建道路和防御工事，并使用标准化的装备和战术，使他们比组织较松散的敌人更具优势。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Foreign Policy &amp; Citizenship · <span class="cn">外交政策与公民权</span></h3>
+    <p>As Rome conquered new territories, it gradually extended <strong>citizenship</strong> to conquered peoples and allies. This was a key strategy — by offering legal rights and a path to citizenship, Rome built loyalty among diverse populations rather than relying purely on force.</p>
+    <div class="callout-blue">
+      <strong>Why This Mattered:</strong> Extending citizenship gave conquered peoples a stake in Rome's success, reducing the likelihood of rebellion and providing a steady source of soldiers and tax revenue.
+      <br><span class="cn"><strong>为何重要：</strong>扩大公民权使被征服的民族在罗马的成功中拥有利益，减少了叛乱的可能性，并提供了稳定的士兵和税收来源。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Roman Economy · <span class="cn">罗马经济</span></h3>
+    <p>Rome's economy depended on several interconnected systems:</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Economic Element 经济要素</th><th>Role 作用</th></tr>
+      <tr><td>Roads 道路</td><td>Connected the empire, enabling trade and rapid army movement 连接帝国，便利贸易和军队快速调动</td></tr>
+      <tr><td>Currency 货币</td><td>A standardized coinage system made trade across the empire easier 标准化的货币体系使整个帝国的贸易更便利</td></tr>
+      <tr><td>Trade 贸易</td><td>Goods flowed from Britain to Egypt to the Near East 商品从英国流通到埃及，再到近东</td></tr>
+      <tr><td>Slavery 奴隶制</td><td>Enslaved people provided much of the labor for farms, mines, and construction 奴隶为农场、矿山和建筑提供了大量劳动力</td></tr>
+    </table>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 2</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Rome extended citizenship to conquered peoples as a strategy to reduce rebellion. Why might giving people legal rights make them more loyal to a government? · <span class="cn">罗马将公民权扩大到被征服的民族，以此作为减少叛乱的策略。为什么赋予人们法律权利可能使他们更忠于政府？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Roman prosperity depended heavily on enslaved labor. How does this complicate how we should view Rome's achievements? · <span class="cn">罗马的繁荣在很大程度上依赖于奴隶劳动。这如何使我们对罗马成就的看法变得复杂？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 3: Urban Rome & Augustus -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Urban Development of Rome &amp; Augustus's Empire · <span class="cn">罗马的城市发展与奥古斯都的帝国</span></h2>
+ 
+  <div class="concept-card">
+    <h3>The City of Rome Grows · <span class="cn">罗马城的发展</span></h3>
+    <p>As the Republic's territory expanded, the city of Rome itself grew dramatically — eventually housing over a million people, one of the largest cities in the ancient world. Roman engineers built impressive infrastructure: <strong>aqueducts</strong> to carry fresh water, sewer systems, public baths, theaters, and the famous <strong>Colosseum</strong>.</p>
+    <p style="margin-top:8px"><span class="cn">随着共和国领土的扩张，罗马城本身也迅速发展——最终容纳了超过一百万人口，是古代世界最大的城市之一。罗马工程师建造了令人印象深刻的基础设施：用于输送淡水的<strong>水渠</strong>、排水系统、公共浴场、剧院，以及著名的<strong>罗马竞技场</strong>。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The End of the Republic · <span class="cn">共和国的终结</span></h3>
+    <p>By the 1st century BCE, the Republic faced growing instability — civil wars, ambitious generals, and political violence. <strong>Julius Caesar</strong> rose to power and was eventually declared dictator for life, but he was assassinated in 44 BCE by senators fearing he would become a king.</p>
+    <div class="callout">
+      <strong>Caesar's Heir:</strong> After years of further civil war, Caesar's adopted heir, Octavian, defeated his rivals and became the sole ruler of Rome.
+      <br><span class="cn"><strong>凯撒的继承人：</strong>经过多年的进一步内战，凯撒的养子屋大维击败了他的对手，成为罗马的唯一统治者。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Augustus &amp; the Birth of the Empire · <span class="cn">奥古斯都与帝国的诞生</span></h3>
+    <p>In 27 BCE, Octavian took the name <strong>Augustus</strong> and became Rome's first emperor, officially ending the Republic and beginning the <strong>Roman Empire</strong>. Augustus carefully preserved the appearance of republican institutions (the Senate still met) while holding nearly all real power himself.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Republic 共和国</th><th>Empire (under Augustus) 帝国（奥古斯都统治下）</th></tr>
+      <tr><td>Power shared among consuls, Senate 权力由执政官、元老院共享</td><td>Power concentrated in one emperor 权力集中于一位皇帝</td></tr>
+      <tr><td>Annual elections for consuls 执政官每年选举</td><td>Augustus ruled for life 奥古斯都终身统治</td></tr>
+      <tr><td>Senate held significant authority 元老院拥有重大权力</td><td>Senate mostly advisory, real power with emperor 元老院主要起咨询作用，实权在皇帝手中</td></tr>
+    </table>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 3</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Augustus preserved the appearance of republican institutions while holding real power himself. Why might this strategy have been more effective than openly declaring himself king? · <span class="cn">奥古斯都保留了共和制度的外表，同时自己掌握实权。为什么这种策略可能比公开宣布自己为国王更有效？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Julius Caesar was assassinated by senators who feared he would become a king. What does this tell you about Roman attitudes toward concentrated power, even as the Republic was failing? · <span class="cn">尤利乌斯·凯撒被担心他会成为国王的元老们刺杀。这告诉你罗马人对集中权力的态度是怎样的，即使在共和国正在衰落的时候？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 4: Pax Romana -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Pax Romana &amp; Its Emperors · <span class="cn">罗马和平与其皇帝</span></h2>
+ 
+  <div class="concept-card">
+    <h3>What Was the Pax Romana? · <span class="cn">什么是罗马和平？</span></h3>
+    <p>The <strong>Pax Romana</strong> ("Roman Peace") refers to a roughly 200-year period (27 BCE–180 CE) of relative peace, stability, and prosperity across the Roman Empire. While wars still occurred at the empire's borders, the interior provinces experienced unusual stability, allowing trade, culture, and infrastructure to flourish.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>罗马和平</strong>（"罗马式和平"）指的是罗马帝国大约200年（公元前27年—公元180年）相对和平、稳定和繁荣的时期。尽管帝国边境仍有战争发生，但内部省份经历了不寻常的稳定，使贸易、文化和基础设施得以蓬勃发展。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Notable Emperors of the Pax Romana · <span class="cn">罗马和平时期的著名皇帝</span></h3>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Emperor 皇帝</th><th>Reign 统治时期</th><th>Known For 著名事迹</th></tr>
+      <tr><td>Augustus 奥古斯都</td><td>27 BCE–14 CE</td><td>First emperor; began the Pax Romana 第一位皇帝；开启罗马和平时期</td></tr>
+      <tr><td>Trajan 图拉真</td><td>98–117 CE</td><td>Expanded the empire to its largest territorial extent 将帝国扩展到其最大领土范围</td></tr>
+      <tr><td>Hadrian 哈德良</td><td>117–138 CE</td><td>Built Hadrian's Wall in Britain; focused on consolidation 在英国修建哈德良长城；专注于巩固疆域</td></tr>
+      <tr><td>Marcus Aurelius 马可·奥勒留</td><td>161–180 CE</td><td>Philosopher-emperor; wrote "Meditations" 哲学家皇帝；著有《沉思录》</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Life During the Pax Romana · <span class="cn">罗马和平时期的生活</span></h3>
+    <p>During this period, the empire built impressive infrastructure across its territories — roads, aqueducts, amphitheaters, and forums. Trade flourished along secure roads and sea routes. Greco-Roman culture, law, and Latin language spread widely, creating lasting influence still visible today.</p>
+    <div class="callout-blue">
+      <strong>Why Stability Mattered:</strong> Without constant internal civil war, the empire could invest resources into infrastructure, trade, and culture rather than military conflict alone.
+      <br><span class="cn"><strong>稳定为何重要：</strong>没有持续的内部内战，帝国可以将资源投入到基础设施、贸易和文化中，而不仅仅是军事冲突。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 4</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Marcus Aurelius is remembered as a "philosopher-emperor." Do you think combining intellectual reflection with political power makes someone a better leader? Why or why not? · <span class="cn">马可·奥勒留被称为"哲学家皇帝"。你认为将知识反思与政治权力结合起来会使一个人成为更好的领导者吗？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Pax Romana shows that long periods of stability can lead to cultural and economic flourishing. What conditions do you think are necessary for a society to experience this kind of stability today? · <span class="cn">罗马和平表明，长期的稳定可以带来文化和经济的繁荣。你认为今天一个社会要实现这种稳定需要什么条件？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 5: Fall of Rome & Comparative Collapse -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Fall of the Roman Empire &amp; Comparative Collapse · <span class="cn">罗马帝国的衰亡与比较性崩溃</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Why Did Rome Fall? · <span class="cn">罗马为什么衰亡？</span></h3>
+    <p>The Western Roman Empire's decline was not a single event but a long process across several centuries, caused by multiple overlapping factors:</p>
+    <div class="callout">
+      <strong>Political:</strong> Frequent changes in emperors, civil wars, and corruption weakened central authority<br>
+      <strong>Economic:</strong> Heavy taxation, inflation, and the costs of maintaining a huge military strained resources<br>
+      <strong>Military:</strong> Overextension of borders made the empire harder to defend; increasing reliance on mercenary troops<br>
+      <strong>External pressure:</strong> Invasions by Germanic groups (Visigoths, Vandals, Ostrogoths) and others
+      <br><br>
+      <span class="cn"><strong>政治：</strong>皇帝频繁更换、内战和腐败削弱了中央权威<br><strong>经济：</strong>重税、通货膨胀以及维持庞大军队的成本使资源紧张<br><strong>军事：</strong>边境过度扩张使帝国难以防御；越来越依赖雇佣兵<br><strong>外部压力：</strong>日耳曼民族（西哥特人、汪达尔人、东哥特人）等的入侵</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>476 CE: The Traditional End Date · <span class="cn">公元476年：传统的终结日期</span></h3>
+    <p>In 476 CE, the Germanic leader <strong>Odoacer</strong> deposed the last Western Roman emperor, <strong>Romulus Augustulus</strong> — an event historians traditionally mark as the end of the Western Roman Empire. (The Eastern Roman/Byzantine Empire continued for nearly another thousand years.)</p>
+    <p style="margin-top:8px"><span class="cn">公元476年，日耳曼领袖<strong>奥多亚塞</strong>罢免了最后一位西罗马皇帝<strong>罗慕路斯·奥古斯图卢斯</strong>——历史学家传统上将这一事件视为西罗马帝国的终结。（东罗马/拜占庭帝国又延续了将近一千年。）</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Comparing Collapses: Rome, Persia &amp; the Gupta Empire · <span class="cn">比较衰亡：罗马、波斯与笈多帝国</span></h3>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Empire 帝国</th><th>Key Cause(s) of Decline 衰落的关键原因</th></tr>
+      <tr><td>Western Rome 西罗马</td><td>Internal political instability + external invasions 内部政治不稳定+外部入侵</td></tr>
+      <tr><td>Achaemenid Persia 阿契美尼德波斯</td><td>Military defeat by Alexander; internal weakness 被亚历山大军事击败；内部弱点</td></tr>
+      <tr><td>Gupta Empire (India) 笈多帝国（印度）</td><td>Invasions (Hunas), internal fragmentation, weakened central authority 入侵（匈奴）、内部分裂、中央权威削弱</td></tr>
+    </table>
+    <div class="callout-blue" style="margin-top:12px">
+      <strong>A Recurring Pattern:</strong> Across very different times and places, large empires tend to collapse from a combination of internal weakness and external pressure — rarely from just one cause alone.
+      <br><span class="cn"><strong>反复出现的模式：</strong>在截然不同的时代和地点，大型帝国往往因内部弱点和外部压力的结合而崩溃——很少仅因单一原因。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 5</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Rome, Persia, and the Gupta Empire all collapsed from a mix of internal weakness and external pressure. Why might this combination be more dangerous than either factor alone? · <span class="cn">罗马、波斯和笈多帝国都因内部弱点和外部压力的混合而崩溃。为什么这种组合可能比单独的任何一个因素都更危险？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The fall of Rome took place over centuries, not overnight. Why is it sometimes hard for people living through historical change to recognize it as a major turning point? · <span class="cn">罗马的衰亡经历了数个世纪，而不是一夜之间。为什么经历历史变革的人们有时很难认识到这是一个重大的转折点？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  { word: "Republic", pos: "noun", cn: "共和国", def: "A system of government in which power is held by elected officials and citizens rather than a monarch.", cn_def: "一种由民选官员和公民掌握权力的政府体系，而不是君主。", example: "Rome became a republic in 509 BCE." },
+  { word: "Consul", pos: "noun", cn: "执政官", def: "One of two elected officials who led the Roman government and army for a one-year term.", cn_def: "两名通过选举产生、领导罗马政府和军队、任期一年的官员之一。", example: "The two consuls shared power to prevent tyranny." },
+  { word: "Patrician", pos: "noun", cn: "贵族", def: "A member of the wealthy aristocratic class in ancient Rome.", cn_def: "古罗马富有贵族阶层的成员。", example: "Patricians held most political power early in the Republic." },
+  { word: "Plebeian", pos: "noun", cn: "平民", def: "A common citizen of ancient Rome, such as a farmer, merchant, or laborer.", cn_def: "古罗马的普通公民，如农民、商人或劳工。", example: "Plebeians fought for greater political rights over time." },
+  { word: "Legion", pos: "noun", cn: "军团", def: "A large, organized unit of the Roman army, typically about 5,000 soldiers.", cn_def: "罗马军队中一个庞大、有组织的单位，通常约5000名士兵。", example: "Roman legions were known for their discipline and training." },
+  { word: "Citizenship", pos: "noun", cn: "公民权", def: "Legal status granting a person rights and responsibilities within a state.", cn_def: "赋予一个人在国家内权利和义务的法律地位。", example: "Rome extended citizenship to many conquered peoples." },
+  { word: "Aqueduct", pos: "noun", cn: "水渠", def: "A structure built to carry water over long distances, often using arches.", cn_def: "用于长距离输水的建筑结构，通常使用拱形结构。", example: "Roman aqueducts brought fresh water into the city." },
+  { word: "Emperor", pos: "noun", cn: "皇帝", def: "The supreme ruler of an empire, holding power for life rather than through elections.", cn_def: "帝国的最高统治者，终身掌权而非通过选举。", example: "Augustus became Rome's first emperor in 27 BCE." },
+  { word: "Pax Romana", pos: "noun phrase", cn: "罗马和平", def: "A roughly 200-year period of relative peace and stability across the Roman Empire.", cn_def: "罗马帝国大约200年相对和平与稳定的时期。", example: "Trade flourished during the Pax Romana." },
+  { word: "Mercenary", pos: "noun", cn: "雇佣兵", def: "A soldier who fights for payment rather than out of loyalty to a nation.", cn_def: "为报酬而非出于对国家忠诚而作战的士兵。", example: "Late Rome relied increasingly on mercenary troops." },
+  { word: "Inflation", pos: "noun", cn: "通货膨胀", def: "A rise in prices across an economy, often reducing the value of money.", cn_def: "整个经济中价格的上涨，通常会降低货币的价值。", example: "Inflation weakened the late Roman economy." },
+  { word: "Invasion", pos: "noun", cn: "入侵", def: "An act of entering a territory by force, often with hostile intent.", cn_def: "以武力进入一个领土的行为，通常带有敌意意图。", example: "Germanic invasions contributed to the fall of Rome." }
+];
+ 
+var L1_Q = [
+  { id:"l1q1", q:"What system of government did Rome adopt after expelling its last king in 509 BCE?", q_cn:"公元前509年驱逐最后一位国王后，罗马采用了什么政府体制？",
+    options:["A. An absolute monarchy|A. 绝对君主制","B. A republic|B. 共和国","C. A direct democracy with no elected officials|C. 没有民选官员的直接民主制","D. A theocracy ruled by priests|D. 由祭司统治的神权政治"],
+    correct:"B", rat_right:"After expelling its last king, Rome became a republic, with power held by elected officials and citizens rather than a monarch.|驱逐最后一位国王后，罗马成为一个共和国，权力由民选官员和公民掌握，而不是君主。",
+    rat_wrong:{A:"A monarchy is the opposite of what Rome adopted — they specifically rejected kingship.|君主制与罗马所采用的体制恰恰相反——他们特别拒绝了王权。",C:"Rome had elected officials like consuls and senators, not pure direct democracy.|罗马有像执政官和元老这样的民选官员，不是纯粹的直接民主。",D:"Roman government was secular in structure, led by elected political officials, not priests.|罗马政府的结构是世俗的，由民选政治官员领导，不是祭司。"}
+  },
+  { id:"l1q2", q:"How many consuls led the Roman government at one time, and for how long did they serve?", q_cn:"罗马政府同时由多少名执政官领导，他们的任期是多长？",
+    options:["A. One consul for life|A. 一名执政官，终身任职","B. Two consuls for one-year terms|B. 两名执政官，任期一年","C. Five consuls for ten-year terms|C. 五名执政官，任期十年","D. Ten consuls with no fixed term|D. 十名执政官，没有固定任期"],
+    correct:"B", rat_right:"Rome had two consuls who shared power and served one-year terms, designed to prevent any single person from gaining too much control.|罗马有两名执政官共享权力，任期一年，旨在防止任何一个人获得过多的控制权。",
+    rat_wrong:{A:"A single lifelong consul would resemble a monarchy, which Rome specifically rejected.|单一的终身执政官会类似于君主制，而这正是罗马特别拒绝的体制。",C:"Five consuls with ten-year terms is not the historical structure of Roman consulship.|五名执政官、任期十年并非罗马执政官制度的历史结构。",D:"Rome's consulship had a fixed, short term specifically to limit individual power.|罗马的执政官制度有固定的短任期，专门用于限制个人权力。"}
+  },
+  { id:"l1q3", q:"What was the role of the Roman Senate during the Republic?", q_cn:"共和国时期罗马元老院的作用是什么？",
+    options:["A. To serve as Rome's military leadership|A. 担任罗马的军事领导层","B. To advise on policy and finances as a council of wealthy, experienced citizens|B. 作为富有、经验丰富的公民议事会，就政策和财政提供建议","C. To act as Rome's religious leadership|C. 担任罗马的宗教领导层","D. To elect the king of Rome|D. 选举罗马国王"],
+    correct:"B", rat_right:"The Senate was a council of wealthy, experienced citizens that advised on policy and financial matters, holding significant influence in the Republic.|元老院是由富有、经验丰富的公民组成的议事会，就政策和财政事务提供建议，在共和国中拥有重大影响力。",
+    rat_wrong:{A:"Military command was generally held by consuls and generals, not the Senate as a whole.|军事指挥权通常由执政官和将领掌握，不是整个元老院。",C:"While senators had religious roles in some contexts, the Senate's primary function was political/financial advising.|尽管元老在某些情况下有宗教角色，元老院的主要职能是政治/财政咨询。",D:"Rome had no king during the Republic — that system was specifically rejected after 509 BCE.|共和国时期罗马没有国王——这一体制在公元前509年后被特别拒绝。"}
+  },
+  { id:"l1q4", q:"Who were the patricians in Roman society?", q_cn:"罗马社会中的贵族是谁？",
+    options:["A. Enslaved laborers|A. 被奴役的劳工","B. The wealthy aristocratic elite who held most political power|B. 拥有大部分政治权力的富有贵族精英","C. Foreign ambassadors|C. 外国大使","D. Common farmers and merchants|D. 普通农民和商人"],
+    correct:"B", rat_right:"Patricians were the wealthy, aristocratic class that initially held most of Rome's political power.|贵族是最初掌握罗马大部分政治权力的富有贵族阶层。",
+    rat_wrong:{A:"Enslaved people were a separate social category with no political rights, unlike patricians.|被奴役的人是一个独立的社会类别，没有政治权利，与贵族不同。",C:"Foreign ambassadors are not a Roman social class — patricians were a domestic Roman category.|外国大使不是罗马的社会阶层——贵族是罗马国内的一个类别。",D:"Common farmers and merchants were generally plebeians, the opposite social class from patricians.|普通农民和商人通常是平民，与贵族属于相对的社会阶层。"}
+  },
+  { id:"l1q5", q:"What were plebeians able to achieve through organized political pressure?", q_cn:"平民通过有组织的政治压力实现了什么？",
+    options:["A. The complete abolition of the patrician class|A. 彻底废除贵族阶层","B. Greater political rights, including their own assembly and tribunes who could veto unfair laws|B. 更大的政治权利，包括他们自己的议会和能够否决不公正法律的保民官","C. Total control of the Roman army|C. 对罗马军队的完全控制","D. The restoration of the monarchy|D. 恢复君主制"],
+    correct:"B", rat_right:"Through organized pressure, plebeians won an assembly and tribunes with veto power, gradually gaining greater political rights.|通过有组织的压力，平民赢得了一个议会和拥有否决权的保民官，逐渐获得了更大的政治权利。",
+    rat_wrong:{A:"Plebeians gained more rights but did not eliminate the patrician class entirely.|平民获得了更多权利，但并未完全消除贵族阶层。",C:"While plebeians served extensively in the military, this was not 'total control' of the army by plebeians alone.|尽管平民广泛服役于军队，但这并不是平民单独对军队的'完全控制'。",D:"Restoring the monarchy would contradict the entire purpose of the Republic, which plebeians supported.|恢复君主制与共和国的整个目的相矛盾，而平民正是支持共和国的。"}
+  },
+  { id:"l1q6", q:"What was the purpose of dividing power among consuls, the Senate, and assemblies?", q_cn:"将权力分配给执政官、元老院和公民大会的目的是什么？",
+    options:["A. To make government decisions slower and less effective|A. 使政府决策变得更慢、更无效","B. To prevent any single person from gaining too much control|B. 防止任何一个人获得过多的控制权","C. To ensure only patricians could vote|C. 确保只有贵族才能投票","D. To eliminate the need for a military|D. 消除对军队的需求"],
+    correct:"B", rat_right:"Dividing power among multiple institutions was specifically designed to prevent any single individual from becoming too powerful, similar to the kings Rome had overthrown.|将权力分配给多个机构，专门设计用来防止任何单一个人变得过于强大，类似于罗马所推翻的国王。",
+    rat_wrong:{A:"While checks on power can slow decisions, the primary intended purpose was preventing tyranny, not inefficiency for its own sake.|尽管对权力的制约可能会减缓决策，但其主要目的是防止暴政，而不是为了低效而低效。",C:"Voting rights expanded over time to include plebeians, not just patricians.|投票权随着时间的推移扩大到包括平民，不仅仅是贵族。",D:"Rome maintained a strong military throughout the Republic — this division of power was unrelated to military needs.|罗马在整个共和国时期都保持着强大的军队——这种权力分配与军事需求无关。"}
+  },
+  { id:"l1q7", q:"What were tribunes, and what power did they hold?", q_cn:"保民官是什么，他们拥有什么权力？",
+    options:["A. Military commanders who led Rome's legions|A. 领导罗马军团的军事指挥官","B. Officials elected by plebeians who could veto unfair laws|B. 由平民选举产生、能够否决不公正法律的官员","C. Religious leaders who performed sacrifices|C. 执行祭祀的宗教领袖","D. Foreign diplomats representing Rome abroad|D. 代表罗马驻外的外交官"],
+    correct:"B", rat_right:"Tribunes were officials elected specifically by plebeians, with the power to veto laws they considered unfair to common citizens.|保民官是专门由平民选举产生的官员，有权否决他们认为对普通公民不公正的法律。",
+    rat_wrong:{A:"Tribunes held a political, not primarily military, leadership role.|保民官担任的是政治角色，不是主要的军事领导角色。",C:"Tribunes' power was political (veto power), not religious.|保民官的权力是政治性的（否决权），不是宗教性的。",D:"Tribunes operated within Rome's domestic government, not as diplomats abroad.|保民官在罗马国内政府中运作，不是驻外的外交官。"}
+  },
+  { id:"l1q8", q:"According to legend, in what year was Rome founded?", q_cn:"根据传说，罗马建立于哪一年？",
+    options:["A. 753 BCE|A. 公元前753年","B. 509 BCE|B. 公元前509年","C. 27 BCE|C. 公元前27年","D. 476 CE|D. 公元476年"],
+    correct:"A", rat_right:"According to Roman legend, the city of Rome was founded in 753 BCE.|根据罗马传说，罗马城建立于公元前753年。",
+    rat_wrong:{B:"509 BCE marks the founding of the Republic, after the city had already existed for over two centuries.|公元前509年标志着共和国的建立，当时罗马城已经存在了两个多世纪。",C:"27 BCE marks the beginning of the Roman Empire under Augustus, much later than the city's founding.|公元前27年标志着奥古斯都统治下罗马帝国的开始，远远晚于罗马城的建立。",D:"476 CE marks the traditional fall of the Western Roman Empire, over a thousand years after the city's founding.|公元476年标志着西罗马帝国的传统衰亡，距罗马城建立已超过一千年。"}
+  },
+  { id:"l1q9", q:"Why is the transition from monarchy to republic in Rome considered historically significant?", q_cn:"罗马从君主制到共和国的转变为何在历史上具有重要意义？",
+    options:["A. It had no lasting influence on later political systems|A. 它对后来的政治体制没有持久影响","B. It demonstrated an early model of shared governance and checks on power that influenced later democratic and republican systems|B. 它展示了一个早期的共同治理和权力制约模式，影响了后来的民主和共和体制","C. It immediately created full equality between all Roman citizens|C. 它立即在所有罗马公民之间创造了完全的平等","D. It eliminated social classes entirely|D. 它完全消除了社会阶层"],
+    correct:"B", rat_right:"Rome's republican system, with its checks on power and elected officials, influenced the development of later democratic and republican governments, including those founded much later.|罗马的共和体制及其对权力的制约和民选官员，影响了后来民主和共和政府的发展，包括很久以后建立的政府。",
+    rat_wrong:{A:"Roman republican concepts had enormous lasting influence on Western political thought.|罗马共和概念对西方政治思想产生了巨大而持久的影响。",C:"Patricians and plebeians remained unequal for a long time even after the Republic was established.|即使在共和国建立后，贵族和平民在很长一段时间内仍然不平等。",D:"Social classes (patricians, plebeians, enslaved people) persisted throughout the Republic.|社会阶层（贵族、平民、奴隶）在整个共和国时期一直存在。"}
+  },
+  { id:"l1q10", q:"How does the Struggle of the Orders illustrate a broader historical pattern?", q_cn:"阶层斗争如何说明了一种更广泛的历史模式？",
+    options:["A. Political change rarely results from organized pressure by ordinary people|A. 政治变革很少由普通民众的有组织压力造成","B. Marginalized groups have historically organized to win greater rights from those in power|B. 历史上边缘化的群体曾组织起来从权力掌握者手中赢得更多权利","C. Only violent revolution can lead to political change|C. 只有暴力革命才能带来政治变革","D. Patricians voluntarily gave plebeians equal rights with no struggle involved|D. 贵族自愿给予平民平等权利，没有任何斗争"],
+    correct:"B", rat_right:"The Struggle of the Orders shows a recurring historical pattern: groups with less power organizing collectively to win greater rights and representation.|阶层斗争展示了一种反复出现的历史模式：权力较小的群体集体组织起来赢得更大的权利和代表性。",
+    rat_wrong:{A:"This case directly demonstrates the opposite — organized pressure by plebeians DID lead to political change.|这个案例恰恰证明了相反的情况——平民有组织的压力确实导致了政治变革。",C:"The plebeians largely used political organizing and the threat of withdrawal (secession), not primarily violent revolution.|平民主要使用政治组织和退出（脱离）的威胁，不是主要靠暴力革命。",D:"The term 'struggle' itself indicates this was a contested, difficult process, not a voluntary gift from patricians.|'斗争'这个词本身就表明这是一个有争议、困难的过程，不是贵族自愿的馈赠。"}
+  }
+];
+ 
+var L2_Q = [
+  { id:"l2q1", q:"What was a Roman legion?", q_cn:"罗马军团是什么？",
+    options:["A. A group of senators|A. 一群元老","B. A highly organized military unit of about 5,000 soldiers|B. 一个由约5000名士兵组成的高度组织化的军事单位","C. A type of Roman currency|C. 一种罗马货币","D. A religious temple|D. 一座宗教神庙"],
+    correct:"B", rat_right:"A legion was a large, disciplined Roman military unit of roughly 5,000 soldiers, central to Rome's military success.|军团是一个由大约5000名士兵组成的庞大、纪律严明的罗马军事单位，是罗马军事成功的核心。",
+    rat_wrong:{A:"Senators were political figures, not a military formation.|元老是政治人物，不是军事编制。",C:"Currency refers to money, unrelated to military organization.|货币指的是钱，与军事组织无关。",D:"A legion is a military unit, not a religious structure.|军团是军事单位，不是宗教建筑。"}
+  },
+  { id:"l2q2", q:"What did Roman soldiers typically build wherever they camped?", q_cn:"罗马士兵在驻扎的地方通常会建造什么？",
+    options:["A. Pyramids|A. 金字塔","B. Roads and fortifications|B. 道路和防御工事","C. Cathedrals|C. 大教堂","D. Universities|D. 大学"],
+    correct:"B", rat_right:"Roman legions built roads and fortifications as they moved and camped, supporting both military operations and long-term infrastructure.|罗马军团在行军和驻扎时修建道路和防御工事，支持军事行动和长期基础设施建设。",
+    rat_wrong:{A:"Pyramids are associated with Egyptian civilization, not Roman military camps.|金字塔与埃及文明相关，与罗马军营无关。",C:"Cathedrals are Christian religious buildings from a much later period.|大教堂是更晚时期的基督教宗教建筑。",D:"Universities as institutions did not exist in this form in ancient Rome.|大学作为机构在古罗马并不以这种形式存在。"}
+  },
+  { id:"l2q3", q:"Why did Rome extend citizenship to conquered peoples and allies?", q_cn:"为什么罗马将公民权扩大到被征服的民族和盟友？",
+    options:["A. To weaken loyalty among conquered populations|A. 以削弱被征服人口的忠诚度","B. To build loyalty and reduce the likelihood of rebellion|B. 以建立忠诚度并减少叛乱的可能性","C. Because Roman law required immediate citizenship for all people on Earth|C. 因为罗马法律要求地球上所有人立即获得公民身份","D. To eliminate the need for a Roman military|D. 以消除对罗马军队的需求"],
+    correct:"B", rat_right:"Extending citizenship gave conquered peoples a stake in Rome's success, building loyalty and reducing rebellion.|扩大公民权使被征服的民族在罗马的成功中拥有利益，从而建立忠诚度并减少叛乱。",
+    rat_wrong:{A:"Citizenship was intended to strengthen, not weaken, loyalty to Rome.|公民权旨在加强而非削弱对罗马的忠诚。",C:"Citizenship was extended gradually and selectively, not immediately to everyone on Earth.|公民权是逐步且有选择性地扩大的，不是立即给予地球上的所有人。",D:"Rome continued to rely heavily on its military even as it extended citizenship.|即使在扩大公民权的同时，罗马仍然严重依赖其军队。"}
+  },
+  { id:"l2q4", q:"What role did roads play in the Roman economy?", q_cn:"道路在罗马经济中发挥了什么作用？",
+    options:["A. They had no economic significance, serving only religious purposes|A. 它们没有经济意义，仅用于宗教目的","B. They connected the empire, enabling trade and rapid army movement|B. 它们连接了帝国，便利了贸易和军队的快速调动","C. They were used exclusively by the emperor's family|C. 它们仅供皇帝家族使用","D. They prevented any trade between provinces|D. 它们阻止了各省之间的任何贸易"],
+    correct:"B", rat_right:"Roman roads connected the vast empire, facilitating both trade and the rapid movement of military forces.|罗马道路连接了庞大的帝国，促进了贸易和军事力量的快速调动。",
+    rat_wrong:{A:"Roads had major economic and military significance, not just religious purposes.|道路具有重大的经济和军事意义，不仅仅是宗教目的。",C:"Roads were used broadly by merchants, soldiers, and travelers, not exclusively by the emperor's family.|道路被商人、士兵和旅行者广泛使用，不是仅供皇帝家族使用。",D:"Roads actively facilitated trade between provinces rather than preventing it.|道路积极促进了各省之间的贸易，而不是阻止它。"}
+  },
+  { id:"l2q5", q:"What was the role of enslaved people in the Roman economy?", q_cn:"奴隶在罗马经济中扮演了什么角色？",
+    options:["A. They provided much of the labor for farms, mines, and construction|A. 他们为农场、矿山和建筑提供了大量劳动力","B. They held no economic role whatsoever|B. 他们没有任何经济作用","C. They were exclusively used for religious ceremonies|C. 他们仅用于宗教仪式","D. They were paid the same wages as free citizens|D. 他们获得与自由公民相同的工资"],
+    correct:"A", rat_right:"Enslaved people performed much of the labor that sustained Rome's farms, mines, and construction projects, making them central to the Roman economy.|奴隶承担了维持罗马农场、矿山和建筑项目的大部分劳动，使他们成为罗马经济的核心。",
+    rat_wrong:{B:"Enslaved labor was central to Rome's economic system, not economically irrelevant.|奴隶劳动是罗马经济体系的核心，不是与经济无关。",C:"While some enslaved people had religious-adjacent roles, their primary economic role was in labor (farming, mining, construction).|尽管一些奴隶担任与宗教相关的角色，但他们的主要经济角色是劳动（农业、采矿、建筑）。",D:"Enslaved people, by definition, were not paid wages like free citizens — they were considered property.|根据定义，奴隶不像自由公民那样获得工资——他们被视为财产。"}
+  },
+  { id:"l2q6", q:"What advantage did standardized Roman military equipment and tactics provide?", q_cn:"标准化的罗马军事装备和战术提供了什么优势？",
+    options:["A. It gave Rome an edge over less organized enemies|A. 它使罗马比组织较松散的敌人更具优势","B. It made Roman soldiers slower in battle|B. 它使罗马士兵在战斗中变得更慢","C. It eliminated the need for any training|C. 它消除了任何训练的需要","D. It was only used for ceremonial parades, never real combat|D. 它仅用于仪式游行，从不用于实战"],
+    correct:"A", rat_right:"Standardized equipment and disciplined tactics gave Roman legions a significant advantage over less organized and less unified enemy forces.|标准化的装备和有纪律的战术使罗马军团比组织较松散、不够统一的敌军具有显著优势。",
+    rat_wrong:{B:"Standardization and discipline generally made Roman forces more effective, not slower.|标准化和纪律通常使罗马军队更高效，不是更慢。",C:"Roman soldiers trained constantly — standardization did not eliminate the need for training.|罗马士兵不断训练——标准化并没有消除训练的需要。",D:"Roman military tactics and equipment were used in real combat across the empire's many conflicts.|罗马的军事战术和装备在帝国众多冲突中的实战中得到了使用。"}
+  },
+  { id:"l2q7", q:"What economic benefit did a standardized currency provide across the Roman Empire?", q_cn:"标准化货币为整个罗马帝国带来了什么经济利益？",
+    options:["A. It made trade across the empire easier and more consistent|A. 它使整个帝国的贸易更容易、更一致","B. It eliminated the need for any trade at all|B. 它完全消除了贸易的需要","C. It was used only by the military, never by ordinary citizens|C. 它仅供军队使用，普通公民从不使用","D. It caused immediate economic collapse|D. 它导致了立即的经济崩溃"],
+    correct:"A", rat_right:"A standardized coinage system simplified trade and economic exchange across the vast and diverse Roman Empire.|标准化的货币体系简化了庞大而多元的罗马帝国内的贸易和经济交流。",
+    rat_wrong:{B:"Standardized currency facilitated trade rather than eliminating the need for it.|标准化货币促进了贸易，而不是消除了对贸易的需要。",C:"Currency was used broadly by merchants and ordinary citizens, not just the military.|货币被商人和普通公民广泛使用，不仅仅是军队。",D:"Standardized currency supported economic stability for centuries, not immediate collapse.|标准化货币在数个世纪内支持了经济稳定，不是立即崩溃。"}
+  },
+  { id:"l2q8", q:"How did Rome's foreign policy toward conquered peoples differ from simply ruling by force alone?", q_cn:"罗马对被征服民族的外交政策与单纯依靠武力统治有何不同？",
+    options:["A. Rome relied solely on brutal force with no other strategies|A. 罗马仅依靠残酷武力，没有其他策略","B. Rome combined military conquest with extending legal rights and citizenship to build lasting loyalty|B. 罗马将军事征服与扩大法律权利和公民权相结合，以建立持久的忠诚","C. Rome immediately granted full independence to every conquered territory|C. 罗马立即向每个被征服的领土授予完全独立","D. Rome refused to interact with conquered peoples in any way|D. 罗马拒绝以任何方式与被征服的民族互动"],
+    correct:"B", rat_right:"Rome's strategy went beyond pure force — by extending citizenship and legal rights, Rome built lasting loyalty among conquered populations.|罗马的策略超越了单纯的武力——通过扩大公民权和法律权利，罗马在被征服的人口中建立了持久的忠诚。",
+    rat_wrong:{A:"While force was used in conquest, Rome's long-term strategy relied heavily on citizenship and integration, not force alone.|尽管在征服中使用了武力，罗马的长期策略在很大程度上依赖于公民权和融合，不仅仅是武力。",C:"Conquered territories generally became part of the Roman administrative system, not independent states.|被征服的领土通常成为罗马行政体系的一部分，不是独立国家。",D:"Rome actively integrated conquered peoples through citizenship, trade, and administration.|罗马通过公民权、贸易和行政管理积极融合被征服的民族。"}
+  },
+  { id:"l2q9", q:"What does Rome's economic and military system reveal about how large empires sustain themselves?", q_cn:"罗马的经济和军事体系揭示了大型帝国如何维持自身的什么特点？",
+    options:["A. Large empires require no infrastructure or organized systems|A. 大型帝国不需要任何基础设施或有组织的体系","B. Sustaining a large empire requires integrated systems — roads, currency, military, citizenship — working together|B. 维持一个大型帝国需要综合的体系——道路、货币、军队、公民权——共同协作","C. Empires can survive indefinitely using only military force|C. 帝国可以仅靠军事力量无限期生存","D. Economic systems have no connection to military success|D. 经济体系与军事成功没有任何联系"],
+    correct:"B", rat_right:"Rome's success depended on multiple interconnected systems — military, economic, legal, and infrastructural — working together, not any single factor alone.|罗马的成功依赖于多个相互关联的体系——军事、经济、法律和基础设施——共同协作，不是单一因素。",
+    rat_wrong:{A:"Rome built extensive infrastructure (roads, aqueducts) that was essential to its success.|罗马建立了广泛的基础设施（道路、水渠），这对其成功至关重要。",C:"Rome's longevity depended on more than military force alone — citizenship, economy, and administration also mattered greatly.|罗马的长久存在不仅仅依赖军事力量——公民权、经济和行政管理同样非常重要。",D:"Rome's economy directly supported its military through taxation, resources, and infrastructure like roads.|罗马的经济通过税收、资源和道路等基础设施直接支持其军队。"}
+  },
+  { id:"l2q10", q:"Comparing Rome's approach to citizenship with the Persian Empire's approach to religious tolerance, what similar strategic goal did both pursue?", q_cn:"比较罗马对公民权的处理方式与波斯帝国对宗教宽容的处理方式，两者追求的相似战略目标是什么？",
+    options:["A. Both aimed to eliminate all local customs immediately|A. 两者都旨在立即消除所有当地习俗","B. Both used inclusive policies to reduce rebellion and build loyalty among diverse, conquered populations|B. 两者都使用包容性政策来减少叛乱并在多元的被征服人口中建立忠诚","C. Both refused to interact with or govern conquered peoples|C. 两者都拒绝与被征服的民族互动或对其进行治理","D. Both relied entirely on religious conversion to maintain control|D. 两者都完全依靠宗教改信来维持控制"],
+    correct:"B", rat_right:"Both Rome (citizenship) and Persia (religious tolerance) used inclusive strategies to integrate diverse populations and reduce rebellion, despite using different specific tools.|罗马（公民权）和波斯（宗教宽容）都使用包容性策略来融合多元人口并减少叛乱，尽管使用的具体工具不同。",
+    rat_wrong:{A:"Both empires actually preserved certain local customs rather than eliminating them immediately.|两个帝国实际上都保留了某些当地习俗，而不是立即消除它们。",C:"Both Rome and Persia actively governed and interacted extensively with conquered peoples.|罗马和波斯都积极治理并与被征服的民族进行广泛的互动。",D:"Neither empire relied on religious conversion as its primary strategy — Rome used citizenship, Persia used tolerance.|两个帝国都没有将宗教改信作为主要策略——罗马使用公民权，波斯使用宽容。"}
+  }
+];
+ 
+var L3_Q = [
+  { id:"l3q1", q:"What major infrastructure did Roman engineers build to supply the growing city with fresh water?", q_cn:"罗马工程师建造了什么主要基础设施，为不断发展的城市供应淡水？",
+    options:["A. Pyramids|A. 金字塔","B. Aqueducts|B. 水渠","C. Ziggurats|C. 金字形神塔","D. Canals only used for trade|D. 仅用于贸易的运河"],
+    correct:"B", rat_right:"Roman engineers built aqueducts, often using arches, to carry fresh water over long distances into the growing city of Rome.|罗马工程师建造了水渠，通常使用拱形结构，将淡水从远距离输送到不断发展的罗马城。",
+    rat_wrong:{A:"Pyramids are associated with Egypt, not Roman water infrastructure.|金字塔与埃及相关，与罗马的水利基础设施无关。",C:"Ziggurats are Mesopotamian temple structures, unrelated to Roman water systems.|金字形神塔是美索不达米亚的神庙建筑，与罗马的水利系统无关。",D:"While Rome did have canals, the primary structure for delivering fresh water to the city was the aqueduct.|尽管罗马确实有运河，但向城市输送淡水的主要结构是水渠。"}
+  },
+  { id:"l3q2", q:"Who was assassinated in 44 BCE by senators fearing he would become a king?", q_cn:"公元前44年，谁因元老们担心他会成为国王而被刺杀？",
+    options:["A. Augustus|A. 奥古斯都","B. Julius Caesar|B. 尤利乌斯·凯撒","C. Marcus Aurelius|C. 马可·奥勒留","D. Hadrian|D. 哈德良"],
+    correct:"B", rat_right:"Julius Caesar was assassinated in 44 BCE by a group of senators who feared he intended to make himself king.|尤利乌斯·凯撒在公元前44年被一群担心他打算自封为王的元老刺杀。",
+    rat_wrong:{A:"Augustus succeeded Caesar and became the first emperor; he was not the one assassinated in 44 BCE.|奥古斯都继承了凯撒，成为第一位皇帝；他不是公元前44年被刺杀的人。",C:"Marcus Aurelius ruled centuries later, during the Pax Romana, not in 44 BCE.|马可·奥勒留统治时期是几个世纪后的罗马和平时期，不是公元前44年。",D:"Hadrian ruled during the 2nd century CE, long after Caesar's assassination.|哈德良统治于公元2世纪，远在凯撒被刺杀之后。"}
+  },
+  { id:"l3q3", q:"In what year did Octavian take the name Augustus and become Rome's first emperor?", q_cn:"屋大维在哪一年取名奥古斯都并成为罗马第一位皇帝？",
+    options:["A. 753 BCE|A. 公元前753年","B. 509 BCE|B. 公元前509年","C. 27 BCE|C. 公元前27年","D. 180 CE|D. 公元180年"],
+    correct:"C", rat_right:"In 27 BCE, Octavian took the name Augustus, officially beginning the Roman Empire and ending the Republic.|公元前27年，屋大维取名奥古斯都，正式开始了罗马帝国并终结了共和国。",
+    rat_wrong:{A:"753 BCE is the legendary founding date of the city of Rome, not the start of the Empire.|公元前753年是罗马城传说中的建立日期，不是帝国的开始。",B:"509 BCE marks the start of the Republic, not the Empire.|公元前509年标志着共和国的开始，不是帝国。",D:"180 CE marks the death of Marcus Aurelius and roughly the end of the Pax Romana, much later than Augustus's rise.|公元180年标志着马可·奥勒留的去世，大约是罗马和平时期的结束，远晚于奥古斯都的崛起。"}
+  },
+  { id:"l3q4", q:"How did Augustus maintain the appearance of republican government while holding near-total power?", q_cn:"奥古斯都在掌握近乎绝对权力的同时，如何维持共和政府的外表？",
+    options:["A. He abolished the Senate completely|A. 他完全废除了元老院","B. He allowed the Senate to continue meeting while he held nearly all real power|B. 他允许元老院继续开会，同时自己掌握几乎所有的实权","C. He declared himself a god immediately upon taking power|C. 他在掌权后立即宣布自己为神","D. He restored the monarchy and crowned himself king|D. 他恢复了君主制并自封为王"],
+    correct:"B", rat_right:"Augustus cleverly preserved republican institutions like the Senate in form, while consolidating nearly all real political power for himself.|奥古斯都巧妙地在形式上保留了元老院等共和制度，同时为自己集中了几乎所有的实际政治权力。",
+    rat_wrong:{A:"Augustus did not abolish the Senate — he kept it as a functioning, though largely advisory, body.|奥古斯都没有废除元老院——他保留了它作为一个运作的、尽管主要是咨询性的机构。",C:"Augustus did not immediately declare himself a god — Roman emperors were sometimes deified after death.|奥古斯都没有立即宣布自己为神——罗马皇帝有时是在死后被神化的。",D:"Augustus carefully avoided the title 'king,' which Romans associated with the tyranny they had overthrown.|奥古斯都小心地避免使用'国王'这个称号，罗马人将其与他们推翻的暴政联系在一起。"}
+  },
+  { id:"l3q5", q:"How large did the city of Rome grow, according to historical estimates?", q_cn:"根据历史估计，罗马城发展到了多大规模？",
+    options:["A. A few thousand people|A. 几千人","B. Over a million people|B. 超过一百万人","C. Only a small village of 500 people|C. 仅有500人的小村庄","D. There is no record of Rome's population size|D. 没有罗马人口规模的记录"],
+    correct:"B", rat_right:"At its height, the city of Rome grew to house over a million people, making it one of the largest cities in the ancient world.|在其巅峰时期，罗马城发展到容纳超过一百万人口，使其成为古代世界最大的城市之一。",
+    rat_wrong:{A:"A few thousand vastly undercounts the population of a major imperial capital like Rome.|几千人大大低估了像罗马这样一个主要帝国首都的人口。",C:"A village of 500 does not match the scale of the historical city of Rome at its height.|500人的村庄与罗马城历史巅峰时期的规模不符。",D:"Historians have substantial evidence and estimates regarding ancient Rome's population.|历史学家对古罗马的人口有大量的证据和估计。"}
+  },
+  { id:"l3q6", q:"What event led to decades of civil war before Augustus became emperor?", q_cn:"在奥古斯都成为皇帝之前，什么事件导致了数十年的内战？",
+    options:["A. The founding of Rome|A. 罗马的建立","B. The assassination of Julius Caesar|B. 尤利乌斯·凯撒的刺杀","C. The construction of the Colosseum|C. 罗马竞技场的建造","D. The signing of the Twelve Tables|D. 十二铜表法的签署"],
+    correct:"B", rat_right:"Julius Caesar's assassination in 44 BCE triggered a long period of civil war among his rivals before Octavian (Augustus) emerged as the sole ruler.|尤利乌斯·凯撒在公元前44年被刺杀，引发了他的对手之间长期的内战，直到屋大维（奥古斯都）成为唯一的统治者。",
+    rat_wrong:{A:"The founding of Rome occurred centuries before this period of civil war.|罗马的建立发生在这段内战时期的几个世纪之前。",C:"The Colosseum was built later, during the Empire, and is unrelated to the civil wars following Caesar's death.|罗马竞技场是后来在帝国时期建造的，与凯撒死后的内战无关。",D:"The Twelve Tables were an early Roman legal code from centuries earlier, unrelated to this civil war period.|十二铜表法是几个世纪前的早期罗马法典，与这段内战时期无关。"}
+  },
+  { id:"l3q7", q:"What was the Colosseum primarily used for?", q_cn:"罗马竞技场主要用于什么？",
+    options:["A. Religious sacrifices only|A. 仅用于宗教祭祀","B. Public entertainment, including gladiator contests|B. 公共娱乐，包括角斗士竞技","C. Government meetings for the Senate|C. 元老院的政府会议","D. Storing grain for the city|D. 为城市储存粮食"],
+    correct:"B", rat_right:"The Colosseum was a large amphitheater used primarily for public entertainment, including gladiator combats and public spectacles.|罗马竞技场是一座大型露天剧场，主要用于公共娱乐，包括角斗士战斗和公共表演。",
+    rat_wrong:{A:"While some events had ritual elements, the Colosseum's main purpose was public entertainment, not exclusively religious sacrifice.|尽管一些活动有仪式元素，罗马竞技场的主要用途是公共娱乐，不是专门用于宗教祭祀。",C:"Senate meetings took place in separate government buildings, not the Colosseum.|元老院会议在独立的政府建筑中举行，不是在罗马竞技场。",D:"Grain storage facilities were separate structures, unrelated to the Colosseum's entertainment function.|粮食储存设施是独立的建筑，与罗马竞技场的娱乐功能无关。"}
+  },
+  { id:"l3q8", q:"How did the structure of government change from the Republic to the Empire under Augustus?", q_cn:"在奥古斯都统治下，政府结构从共和国到帝国发生了怎样的变化？",
+    options:["A. Power shifted from being shared among multiple institutions to being concentrated in one emperor|A. 权力从多个机构共享转变为集中在一位皇帝手中","B. The Senate gained more power than it ever had under the Republic|B. 元老院获得了比共和国时期更多的权力","C. No changes occurred at all|C. 没有发生任何变化","D. Power was distributed equally among all Roman citizens|D. 权力在所有罗马公民中平等分配"],
+    correct:"A", rat_right:"Under Augustus, power shifted from being shared among consuls, the Senate, and assemblies to being concentrated primarily in the hands of one emperor.|在奥古斯都统治下，权力从执政官、元老院和公民大会共享，转变为主要集中在一位皇帝手中。",
+    rat_wrong:{B:"The Senate's real power actually decreased under the Empire, even though it continued to exist in form.|尽管元老院在形式上继续存在，但其实际权力在帝国时期实际上有所下降。",C:"This was a major structural shift in Roman governance, not a case of no change.|这是罗马治理结构的重大转变，不是没有变化的情况。",D:"Power became concentrated in the emperor, not distributed equally among all citizens.|权力集中在皇帝手中，不是在所有公民中平等分配。"}
+  },
+  { id:"l3q9", q:"Why might Augustus have chosen to preserve the appearance of republican institutions rather than openly abolishing them?", q_cn:"为什么奥古斯都可能选择保留共和制度的外表，而不是公开废除它们？",
+    options:["A. To make his rule seem more legitimate and avoid the fate of Julius Caesar|A. 使他的统治看起来更合法，并避免凯撒的命运","B. Because he had no actual political power|B. 因为他实际上没有政治权力","C. Because Roman law required him to do so with no other option|C. 因为罗马法律要求他这样做，没有其他选择","D. Because he genuinely believed in shared governance and gave up all his power|D. 因为他真心相信共同治理并放弃了所有权力"],
+    correct:"A", rat_right:"By preserving the appearance of republican institutions, Augustus made his rule seem legitimate and less threatening, helping him avoid the violent fate of Julius Caesar.|通过保留共和制度的外表，奥古斯都使他的统治看起来合法且不那么具有威胁性，这帮助他避免了尤利乌斯·凯撒的暴力命运。",
+    rat_wrong:{B:"Augustus held nearly all real political power — the republican appearance was a strategic choice, not a reflection of powerlessness.|奥古斯都掌握了几乎所有的实际政治权力——共和制的外表是一种战略选择，不是无权的反映。",C:"This was Augustus's own political strategy and choice, not a strict legal requirement with no alternatives.|这是奥古斯都自己的政治策略和选择，不是没有其他选择的严格法律要求。",D:"Augustus retained nearly all real power for himself — this was the opposite of giving up power.|奥古斯都为自己保留了几乎所有的实际权力——这与放弃权力恰恰相反。"}
+  },
+  { id:"l3q10", q:"What does the transition from Republic to Empire reveal about how political systems can change over time?", q_cn:"从共和国到帝国的过渡揭示了政治体制如何随时间变化的什么特点？",
+    options:["A. Political systems never change once established|A. 一旦建立，政治体制就永远不会改变","B. Gradual shifts in power, often justified by stability and crisis, can transform a system even while preserving its outward forms|B. 权力的渐进转移，通常以稳定和危机为理由，可以在保留其外在形式的同时改变一个体制","C. Only violent revolution can change a government's structure|C. 只有暴力革命才能改变政府的结构","D. Roman citizens had no role in or awareness of these political changes|D. 罗马公民对这些政治变化没有任何作用或意识"],
+    correct:"B", rat_right:"Rome's transition shows how political power can shift gradually — justified by crisis and instability — even while institutions appear unchanged on the surface.|罗马的过渡展示了政治权力如何能够逐步转移——以危机和不稳定为理由——即使表面上的制度看起来没有改变。",
+    rat_wrong:{A:"Rome's transition from Republic to Empire is direct evidence that political systems can and do change significantly.|罗马从共和国到帝国的过渡正是政治体制能够并确实发生重大变化的直接证据。",C:"While civil war played a role, the FINAL transition under Augustus involved political maneuvering as much as violence.|尽管内战发挥了作用，但奥古斯都统治下的最终过渡涉及的政治操纵与暴力一样多。",D:"Roman citizens, particularly senators and political elites, were directly involved in and aware of these changes.|罗马公民，特别是元老和政治精英，直接参与并意识到了这些变化。"}
+  }
+];
+ 
+var L4_Q = [
+  { id:"l4q1", q:"The Pax Romana refers to roughly what period of time?", q_cn:"罗马和平大约指的是什么时期？",
+    options:["A. A 10-year period of war|A. 10年的战争时期","B. A roughly 200-year period of relative peace and stability|B. 大约200年相对和平与稳定的时期","C. The entire history of the Roman Republic|C. 整个罗马共和国的历史","D. Only the reign of Julius Caesar|D. 仅仅是尤利乌斯·凯撒统治时期"],
+    correct:"B", rat_right:"The Pax Romana refers to a roughly 200-year period (27 BCE–180 CE) of relative peace and stability across the Roman Empire.|罗马和平指的是罗马帝国大约200年（公元前27年—公元180年）相对和平与稳定的时期。",
+    rat_wrong:{A:"The Pax Romana was a much longer, peaceful period, not a 10-year war.|罗马和平是一个更长的、和平的时期，不是10年的战争。",C:"The Republic existed for centuries before the Pax Romana, which specifically refers to a period during the Empire.|共和国在罗马和平之前存在了数个世纪，而罗马和平特指帝国时期的一段时间。",D:"Julius Caesar's reign was brief and occurred before the Pax Romana officially began under Augustus.|尤利乌斯·凯撒的统治时间短暂，发生在奥古斯都正式开始罗马和平之前。"}
+  },
+  { id:"l4q2", q:"Which emperor expanded the Roman Empire to its largest territorial extent?", q_cn:"哪位皇帝将罗马帝国扩展到其最大的领土范围？",
+    options:["A. Augustus|A. 奥古斯都","B. Trajan|B. 图拉真","C. Marcus Aurelius|C. 马可·奥勒留","D. Romulus Augustulus|D. 罗慕路斯·奥古斯图卢斯"],
+    correct:"B", rat_right:"Emperor Trajan (98–117 CE) expanded the Roman Empire to its largest territorial extent.|图拉真皇帝（公元98—117年）将罗马帝国扩展到其最大的领土范围。",
+    rat_wrong:{A:"Augustus began the Empire and the Pax Romana, but Trajan later achieved the empire's largest territorial size.|奥古斯都开启了帝国和罗马和平，但图拉真后来实现了帝国最大的领土规模。",C:"Marcus Aurelius focused more on defending existing borders than expanding territory.|马可·奥勒留更专注于防御现有边界，而不是扩张领土。",D:"Romulus Augustulus was the last Western Roman emperor, associated with the empire's fall, not its expansion.|罗慕路斯·奥古斯图卢斯是最后一位西罗马皇帝，与帝国的衰亡而非扩张相关。"}
+  },
+  { id:"l4q3", q:"What is Emperor Marcus Aurelius famous for writing?", q_cn:"马可·奥勒留皇帝以撰写什么著作而闻名？",
+    options:["A. The Twelve Tables|A. 十二铜表法","B. Meditations|B. 《沉思录》","C. The Epic of Gilgamesh|C. 《吉尔伽美什史诗》","D. The Code of Hammurabi|D. 汉谟拉比法典"],
+    correct:"B", rat_right:"Marcus Aurelius, known as a 'philosopher-emperor,' wrote Meditations, a collection of personal philosophical reflections.|马可·奥勒留被称为'哲学家皇帝'，著有《沉思录》，这是一部个人哲学反思的合集。",
+    rat_wrong:{A:"The Twelve Tables were an early Roman legal code, written centuries before Marcus Aurelius.|十二铜表法是早期的罗马法典，比马可·奥勒留早几个世纪。",C:"The Epic of Gilgamesh is a Mesopotamian work, unrelated to Marcus Aurelius.|《吉尔伽美什史诗》是美索不达米亚的作品，与马可·奥勒留无关。",D:"The Code of Hammurabi is a Babylonian legal text, unrelated to the Roman emperor.|汉谟拉比法典是巴比伦的法律文本，与这位罗马皇帝无关。"}
+  },
+  { id:"l4q4", q:"What did Emperor Hadrian build in Britain?", q_cn:"哈德良皇帝在英国建造了什么？",
+    options:["A. The Colosseum|A. 罗马竞技场","B. Hadrian's Wall|B. 哈德良长城","C. The Pantheon|C. 万神殿","D. The Roman Forum|D. 罗马广场"],
+    correct:"B", rat_right:"Hadrian built Hadrian's Wall in Britain, focusing on consolidating and defending the empire's existing borders rather than expanding further.|哈德良在英国建造了哈德良长城，专注于巩固和防御帝国现有的边界，而不是进一步扩张。",
+    rat_wrong:{A:"The Colosseum was built in Rome itself, not in Britain by Hadrian.|罗马竞技场是在罗马城本身建造的，不是哈德良在英国建造的。",C:"The Pantheon, while associated with Hadrian's reign, is located in Rome, not Britain.|万神殿虽然与哈德良统治时期相关，但位于罗马，不在英国。",D:"The Roman Forum is in Rome, the political center of the city, not a structure built in Britain.|罗马广场位于罗马，是这座城市的政治中心，不是在英国建造的建筑。"}
+  },
+  { id:"l4q5", q:"Why was the Pax Romana significant for trade and culture?", q_cn:"为什么罗马和平对贸易和文化具有重要意义？",
+    options:["A. Constant warfare made trade impossible during this period|A. 持续的战争使这一时期的贸易变得不可能","B. The relative stability allowed trade, culture, and infrastructure to flourish|B. 相对的稳定使贸易、文化和基础设施得以蓬勃发展","C. All trade was banned by imperial law during the Pax Romana|C. 罗马和平时期所有贸易都被帝国法律禁止","D. Culture and trade had no connection to political stability|D. 文化和贸易与政治稳定没有任何联系"],
+    correct:"B", rat_right:"The relative peace and stability of the Pax Romana created conditions that allowed trade routes, cultural exchange, and infrastructure projects to flourish.|罗马和平时期相对的和平与稳定创造了条件，使贸易路线、文化交流和基础设施项目得以蓬勃发展。",
+    rat_wrong:{A:"The Pax Romana was specifically characterized by relative peace within the empire, the opposite of constant warfare.|罗马和平的特点恰恰是帝国内部相对的和平，与持续战争恰恰相反。",C:"Trade flourished during the Pax Romana — it was not banned.|贸易在罗马和平时期蓬勃发展——它没有被禁止。",D:"Political stability directly enabled the flourishing of trade and culture during this period.|政治稳定直接促成了这一时期贸易和文化的蓬勃发展。"}
+  },
+  { id:"l4q6", q:"What kind of infrastructure flourished across the empire during the Pax Romana?", q_cn:"在罗马和平时期，帝国各地什么类型的基础设施蓬勃发展？",
+    options:["A. Roads, aqueducts, amphitheaters, and forums|A. 道路、水渠、露天剧场和广场","B. No new infrastructure was built during this period|B. 这一时期没有建造任何新的基础设施","C. Only military fortifications, with nothing else|C. 仅有军事防御工事，没有其他","D. Infrastructure was limited exclusively to the city of Rome|D. 基础设施仅限于罗马城本身"],
+    correct:"A", rat_right:"The Pax Romana saw extensive construction across the empire's territories — roads, aqueducts, amphitheaters, and public forums.|罗马和平时期，帝国领土上进行了广泛的建设——道路、水渠、露天剧场和公共广场。",
+    rat_wrong:{B:"This was a period of extensive infrastructure development, not a lack of building.|这是一个基础设施大规模发展的时期，不是缺乏建设。",C:"While military fortifications existed, civilian infrastructure like aqueducts and forums also flourished.|尽管军事防御工事存在，但水渠和广场等民用基础设施也蓬勃发展。",D:"Infrastructure development extended across the empire's many provinces, not just Rome itself.|基础设施发展扩展到帝国的众多省份，不仅仅是罗马本身。"}
+  },
+  { id:"l4q7", q:"What does the Pax Romana suggest about the relationship between political stability and economic prosperity?", q_cn:"罗马和平对政治稳定与经济繁荣之间的关系说明了什么？",
+    options:["A. They are unrelated to each other entirely|A. 它们彼此完全无关","B. Periods of political stability often create conditions favorable to economic growth and cultural development|B. 政治稳定的时期通常会创造有利于经济增长和文化发展的条件","C. Economic prosperity always causes political instability|C. 经济繁荣总是导致政治不稳定","D. Stability only benefits the emperor, with no broader societal effects|D. 稳定只对皇帝有利，没有更广泛的社会影响"],
+    correct:"B", rat_right:"The Pax Romana demonstrates how political stability can create favorable conditions for trade, infrastructure, and cultural development across a society.|罗马和平展示了政治稳定如何能够为整个社会的贸易、基础设施和文化发展创造有利条件。",
+    rat_wrong:{A:"The historical record of the Pax Romana shows a clear, direct relationship between stability and prosperity.|罗马和平的历史记录显示了稳定与繁荣之间清晰、直接的关系。",C:"This reverses the actual relationship shown by the Pax Romana, where stability led to prosperity, not the other way around.|这颠倒了罗马和平所展示的实际关系，稳定带来了繁荣，不是相反。",D:"The benefits of stability extended broadly across society — trade, infrastructure, and culture all flourished, not just benefits to the emperor.|稳定的好处广泛延伸到整个社会——贸易、基础设施和文化都蓬勃发展，不仅仅是对皇帝有利。"}
+  },
+  { id:"l4q8", q:"How did Augustus's role differ from later 'good emperors' like Trajan, Hadrian, and Marcus Aurelius in terms of their historical focus?", q_cn:"奥古斯都的角色与图拉真、哈德良和马可·奥勒留等后来的'贤君'在历史关注点上有何不同？",
+    options:["A. Augustus established the imperial system, while later emperors focused on expansion, consolidation, or governance within it|A. 奥古斯都建立了帝制体系，而后来的皇帝则专注于在其内部的扩张、巩固或治理","B. All four emperors had identical historical roles with no differences|B. 这四位皇帝有着完全相同的历史角色，没有任何差异","C. Augustus focused only on military expansion, never on governance|C. 奥古斯都只专注于军事扩张，从不关注治理","D. Later emperors abolished everything Augustus had built|D. 后来的皇帝废除了奥古斯都所建立的一切"],
+    correct:"A", rat_right:"Augustus founded the imperial system itself, while later emperors operated within that system, each focusing on different priorities like expansion (Trajan), consolidation (Hadrian), or philosophical governance (Marcus Aurelius).|奥古斯都建立了帝制体系本身，而后来的皇帝则在这个体系内运作，每位都专注于不同的优先事项，如扩张（图拉真）、巩固（哈德良）或哲学治理（马可·奥勒留）。",
+    rat_wrong:{B:"Each emperor had distinct priorities and historical contributions, not identical roles.|每位皇帝都有不同的优先事项和历史贡献，不是完全相同的角色。",C:"Augustus focused heavily on governance and establishing stable institutions, not solely on military expansion.|奥古斯都在很大程度上专注于治理和建立稳定的制度，不仅仅是军事扩张。",D:"Later emperors built upon and continued Augustus's imperial system rather than abolishing it.|后来的皇帝在奥古斯都的帝制体系基础上继续发展，而不是废除它。"}
+  },
+  { id:"l4q9", q:"Why might historians consider the Pax Romana a useful case study for understanding stability in large political systems?", q_cn:"为什么历史学家可能认为罗马和平是理解大型政治体系稳定性的有用案例研究？",
+    options:["A. It shows that stability requires absolutely no military or governance structure|A. 它表明稳定根本不需要任何军事或治理结构","B. It demonstrates how a large, diverse empire maintained internal stability for centuries despite governing many different peoples|B. 它展示了一个庞大、多元的帝国如何在治理许多不同民族的情况下维持了数个世纪的内部稳定","C. It proves that all empires throughout history experienced identical periods of peace|C. 它证明了历史上所有帝国都经历过完全相同的和平时期","D. It shows that large empires always immediately collapse|D. 它表明大型帝国总是立即崩溃"],
+    correct:"B", rat_right:"The Pax Romana offers historians insight into how a vast, ethnically and culturally diverse empire sustained relative internal stability for roughly two centuries.|罗马和平为历史学家提供了关于一个庞大、民族和文化多元的帝国如何在大约两个世纪内维持相对内部稳定的洞见。",
+    rat_wrong:{A:"The Pax Romana relied heavily on organized governance, administration, and military structure to maintain stability.|罗马和平在很大程度上依赖于有组织的治理、行政管理和军事结构来维持稳定。",C:"Not all empires experienced periods of stability comparable to the Pax Romana — this was a notable historical case.|并非所有帝国都经历过与罗马和平相当的稳定时期——这是一个值得关注的历史案例。",D:"The Pax Romana lasted roughly 200 years — the opposite of immediate collapse.|罗马和平持续了大约200年——与立即崩溃恰恰相反。"}
+  },
+  { id:"l4q10", q:"What overall lesson about empire governance can be drawn from the Pax Romana?", q_cn:"从罗马和平中可以得出关于帝国治理的总体教训是什么？",
+    options:["A. Stability and prosperity are impossible in large, diverse political systems|A. 在庞大、多元的政治体系中，稳定与繁荣是不可能的","B. With effective leadership, infrastructure, and administration, large empires can sustain long periods of internal peace and growth|B. 通过有效的领导、基础设施和行政管理，大型帝国可以维持长期的内部和平与发展","C. Only small nations can ever achieve political stability|C. 只有小国才能实现政治稳定","D. Military force alone, without any other systems, created the Pax Romana|D. 仅靠军事力量，没有任何其他体系，创造了罗马和平"],
+    correct:"B", rat_right:"The Pax Romana shows that effective leadership, strong administrative systems, and infrastructure investment can allow large, diverse empires to sustain long periods of stability and prosperity.|罗马和平表明，有效的领导、强大的行政体系和基础设施投资可以使庞大、多元的帝国维持长期的稳定与繁荣。",
+    rat_wrong:{A:"The Pax Romana is direct historical evidence against this claim — it demonstrates stability WAS achieved in a large, diverse system.|罗马和平正是反驳这一说法的直接历史证据——它证明了在一个庞大、多元的体系中确实实现了稳定。",C:"Rome was a massive, diverse empire, not a small nation, and achieved significant stability.|罗马是一个庞大、多元的帝国，不是小国，并实现了显著的稳定。",D:"The Pax Romana depended on administration, infrastructure, and governance, not military force alone.|罗马和平依赖于行政管理、基础设施和治理，不仅仅是军事力量。"}
+  }
+];
+ 
+var L5_Q = [
+  { id:"l5q1", q:"In what year did the traditional fall of the Western Roman Empire occur?", q_cn:"西罗马帝国的传统衰亡发生在哪一年？",
+    options:["A. 27 BCE|A. 公元前27年","B. 180 CE|B. 公元180年","C. 476 CE|C. 公元476年","D. 1000 CE|D. 公元1000年"],
+    correct:"C", rat_right:"476 CE is traditionally marked as the fall of the Western Roman Empire, when Odoacer deposed the last emperor.|公元476年传统上被标记为西罗马帝国的衰亡，当时奥多亚塞罢免了最后一位皇帝。",
+    rat_wrong:{A:"27 BCE marks the beginning of the Roman Empire under Augustus, not its fall.|公元前27年标志着奥古斯都统治下罗马帝国的开始，不是其衰亡。",B:"180 CE marks roughly the end of the Pax Romana, not the empire's final collapse.|公元180年大约标志着罗马和平的结束，不是帝国最终的崩溃。",D:"1000 CE is centuries after Rome's fall — the Eastern Roman/Byzantine Empire continued for nearly another thousand years after 476 CE.|公元1000年是罗马衰亡几个世纪之后——东罗马/拜占庭帝国在公元476年之后又延续了将近一千年。"}
+  },
+  { id:"l5q2", q:"Who deposed the last Western Roman emperor, Romulus Augustulus?", q_cn:"是谁罢免了最后一位西罗马皇帝罗慕路斯·奥古斯图卢斯？",
+    options:["A. Augustus|A. 奥古斯都","B. Odoacer|B. 奥多亚塞","C. Marcus Aurelius|C. 马可·奥勒留","D. Cyrus the Great|D. 居鲁士大帝"],
+    correct:"B", rat_right:"The Germanic leader Odoacer deposed Romulus Augustulus in 476 CE, an event traditionally marking the end of the Western Roman Empire.|日耳曼领袖奥多亚塞在公元476年罢免了罗慕路斯·奥古斯图卢斯，这一事件传统上标志着西罗马帝国的终结。",
+    rat_wrong:{A:"Augustus was Rome's first emperor, centuries before this event, not the one who deposed the last emperor.|奥古斯都是罗马第一位皇帝，比这一事件早几个世纪，不是罢免最后一位皇帝的人。",C:"Marcus Aurelius ruled during the Pax Romana, long before the empire's fall.|马可·奥勒留统治于罗马和平时期，远在帝国衰亡之前。",D:"Cyrus the Great founded the Persian Empire centuries earlier and is unrelated to Rome's fall.|居鲁士大帝在几个世纪前建立了波斯帝国，与罗马的衰亡无关。"}
+  },
+  { id:"l5q3", q:"Which of the following is a POLITICAL factor in Rome's decline?", q_cn:"以下哪项是罗马衰落中的政治因素？",
+    options:["A. Inflation|A. 通货膨胀","B. Frequent changes in emperors and civil wars|B. 皇帝频繁更换和内战","C. Germanic invasions|C. 日耳曼人的入侵","D. Overextension of military borders|D. 军事边境的过度扩张"],
+    correct:"B", rat_right:"Frequent changes in emperors, civil wars, and corruption are political factors that weakened Rome's central authority.|皇帝频繁更换、内战和腐败是削弱罗马中央权威的政治因素。",
+    rat_wrong:{A:"Inflation is generally classified as an economic factor, not a political one.|通货膨胀通常被归类为经济因素，不是政治因素。",C:"Germanic invasions are typically classified as an external/military pressure, not strictly a political factor.|日耳曼人的入侵通常被归类为外部/军事压力，不是严格意义上的政治因素。",D:"Overextension of borders is primarily a military factor, distinct from internal political instability.|边境的过度扩张主要是军事因素，与内部政治不稳定不同。"}
+  },
+  { id:"l5q4", q:"Which group is associated with invading and pressuring the Western Roman Empire?", q_cn:"哪个群体与入侵和向西罗马帝国施压相关？",
+    options:["A. The Maurya Empire|A. 孔雀王朝","B. Germanic groups such as the Visigoths and Vandals|B. 日耳曼民族，如西哥特人和汪达尔人","C. The Hittites|C. 赫梯人","D. The Han Dynasty|D. 汉朝"],
+    correct:"B", rat_right:"Germanic groups, including the Visigoths, Vandals, and Ostrogoths, invaded and put significant pressure on the declining Western Roman Empire.|包括西哥特人、汪达尔人和东哥特人的日耳曼民族入侵并对衰落中的西罗马帝国施加了重大压力。",
+    rat_wrong:{A:"The Maurya Empire was located in India, far from Rome's borders and unrelated to its invasions.|孔雀王朝位于印度，远离罗马的边境，与罗马的入侵无关。",C:"The Hittites existed over a thousand years before Rome's fall, in a completely different era.|赫梯人存在于罗马衰亡前一千多年，处于完全不同的时代。",D:"The Han Dynasty was located in China, geographically and historically separate from Rome's collapse.|汉朝位于中国，在地理和历史上都与罗马的崩溃无关。"}
+  },
+  { id:"l5q5", q:"What economic factor contributed to Rome's decline?", q_cn:"什么经济因素促成了罗马的衰落？",
+    options:["A. Too much trade with no military spending at all|A. 过多的贸易，完全没有军事开支","B. Heavy taxation, inflation, and the high costs of maintaining a huge military|B. 重税、通货膨胀以及维持庞大军队的高昂成本","C. A complete absence of currency|C. 完全没有货币","D. Excessive investment in education with no other spending|D. 在教育方面的过度投资，没有其他支出"],
+    correct:"B", rat_right:"Heavy taxation, inflation, and the enormous costs of maintaining Rome's military strained the empire's economic resources.|重税、通货膨胀以及维持罗马军队的巨大成本使帝国的经济资源紧张。",
+    rat_wrong:{A:"Rome maintained significant, costly military spending throughout its late period — the issue was the high cost, not its absence.|罗马在其后期一直保持着重大、高昂的军事开支——问题在于成本高昂，不是没有开支。",C:"Rome had a currency system throughout its history; the issue was inflation devaluing it, not an absence of currency.|罗马在其整个历史中都有货币体系；问题在于通货膨胀使其贬值，不是没有货币。",D:"Education spending was not a documented primary cause of Rome's economic strain.|教育支出不是罗马经济紧张的记录主要原因。"}
+  },
+  { id:"l5q6", q:"What military factor made the late Western Roman Empire harder to defend?", q_cn:"什么军事因素使后期西罗马帝国更难防御？",
+    options:["A. Too few borders to defend|A. 需要防御的边境太少","B. Overextension of borders, making them harder to defend, and increasing reliance on mercenaries|B. 边境的过度扩张使其更难防御，并越来越依赖雇佣兵","C. A complete lack of any army|C. 完全没有军队","D. Excessive peace treaties with no conflicts at all|D. 过多的和平条约，完全没有冲突"],
+    correct:"B", rat_right:"The vast, overextended borders of the late Western Roman Empire became increasingly difficult to defend, leading to greater reliance on mercenary troops rather than loyal Roman citizen-soldiers.|后期西罗马帝国庞大、过度扩张的边境变得越来越难以防御，导致越来越依赖雇佣兵，而不是忠诚的罗马公民士兵。",
+    rat_wrong:{A:"The empire's borders were actually too extensive, not too few, creating defensive challenges.|帝国的边境实际上是过于广泛，不是太少，这造成了防御上的挑战。",C:"Rome maintained an army throughout this period, though it relied more on mercenaries.|罗马在这一时期一直保持着军队，尽管它越来越依赖雇佣兵。",D:"The late empire faced significant military conflicts and invasions, not an absence of conflict.|后期帝国面临着重大的军事冲突和入侵，不是没有冲突。"}
+  },
+  { id:"l5q7", q:"What does it mean that Rome's decline was caused by 'multiple overlapping factors'?", q_cn:"罗马的衰落是由'多个重叠因素'造成的，这意味着什么？",
+    options:["A. Only one single cause led to the fall of Rome|A. 只有一个单一原因导致了罗马的衰亡","B. Political, economic, military, and external pressures combined and interacted to weaken the empire over time|B. 政治、经济、军事和外部压力相互结合并相互作用，随着时间推移削弱了帝国","C. Rome fell overnight with no warning signs|C. 罗马一夜之间衰亡，没有任何预警信号","D. Climate change was the only factor involved|D. 气候变化是唯一涉及的因素"],
+    correct:"B", rat_right:"Rome's decline resulted from political instability, economic strain, military overextension, and external invasions all interacting together over an extended period.|罗马的衰落是由政治不稳定、经济紧张、军事过度扩张和外部入侵在长期内共同相互作用造成的。",
+    rat_wrong:{A:"Historians identify multiple contributing causes working together, not a single isolated factor.|历史学家确定了多个共同作用的促成原因，不是单一孤立的因素。",C:"Rome's decline was a gradual process over centuries, not a sudden, overnight collapse.|罗马的衰落是一个持续数个世纪的渐进过程，不是突然的、一夜之间的崩溃。",D:"While environmental factors can play a role in some empire collapses, Rome's fall is attributed to a broader combination of political, economic, and military causes.|尽管环境因素在某些帝国崩溃中可能发挥作用，但罗马的衰亡归因于更广泛的政治、经济和军事原因的结合。"}
+  },
+  { id:"l5q8", q:"How did the collapse of the Gupta Empire in India compare to the fall of Western Rome?", q_cn:"印度笈多帝国的崩溃与西罗马的衰亡相比如何？",
+    options:["A. Both empires fell from a combination of invasions and internal weakness/fragmentation|A. 两个帝国都因入侵和内部弱点/分裂的结合而衰亡","B. The Gupta Empire fell due to a meteor strike, completely unlike Rome|B. 笈多帝国因陨石撞击而衰亡，与罗马完全不同","C. Rome and the Gupta Empire had no similarities whatsoever|C. 罗马和笈多帝国没有任何相似之处","D. The Gupta Empire never experienced any form of decline|D. 笈多帝国从未经历过任何形式的衰落"],
+    correct:"A", rat_right:"Both the Western Roman Empire and the Gupta Empire experienced collapse due to a combination of internal fragmentation/weakness and external invasions (Germanic groups for Rome, Hunas for Gupta).|西罗马帝国和笈多帝国都因内部分裂/弱点与外部入侵（罗马是日耳曼民族，笈多是匈奴）的结合而崩溃。",
+    rat_wrong:{B:"There is no historical evidence of a meteor strike causing the Gupta Empire's decline.|没有历史证据表明陨石撞击导致了笈多帝国的衰落。",C:"Both empires share the recurring historical pattern of internal weakness combined with external invasion.|两个帝国都共享内部弱点与外部入侵相结合的反复出现的历史模式。",D:"The Gupta Empire did experience significant decline due to invasions and internal fragmentation.|笈多帝国确实因入侵和内部分裂而经历了显著的衰落。"}
+  },
+  { id:"l5q9", q:"What happened to the Eastern Roman (Byzantine) Empire after the fall of the Western Roman Empire in 476 CE?", q_cn:"公元476年西罗马帝国衰亡后，东罗马（拜占庭）帝国发生了什么？",
+    options:["A. It also collapsed immediately in 476 CE|A. 它也在公元476年立即崩溃","B. It continued for nearly another thousand years|B. 它又延续了将近一千年","C. It merged completely with the Western Roman Empire|C. 它与西罗马帝国完全合并","D. It was absorbed by the Persian Empire immediately|D. 它立即被波斯帝国吞并"],
+    correct:"B", rat_right:"While the Western Roman Empire fell in 476 CE, the Eastern Roman (Byzantine) Empire continued to exist for nearly another thousand years.|尽管西罗马帝国在公元476年衰亡，但东罗马（拜占庭）帝国又延续了将近一千年。",
+    rat_wrong:{A:"The Eastern Roman Empire survived well beyond 476 CE, distinguishing it from the Western Empire's fall.|东罗马帝国在公元476年之后存活了很长时间，这使其与西罗马帝国的衰亡有所区别。",C:"The Eastern and Western empires had already been administratively separate before 476 CE and did not merge.|东西罗马帝国在公元476年之前已经在行政上是分离的，并没有合并。",D:"The Byzantine Empire remained independent and was not immediately absorbed by Persia.|拜占庭帝国保持独立，没有立即被波斯吞并。"}
+  },
+  { id:"l5q10", q:"What broader historical lesson can be drawn from comparing the collapse of Rome, Persia, and the Gupta Empire?", q_cn:"比较罗马、波斯和笈多帝国的崩溃，能得出什么更广泛的历史教训？",
+    options:["A. Large empires across different times and regions tend to collapse from a combination of internal weakness and external pressure, rarely from one cause alone|A. 不同时代和地区的大型帝国往往因内部弱点和外部压力的结合而崩溃，很少仅因单一原因","B. Only empires in the Mediterranean region ever experience decline|B. 只有地中海地区的帝国才会经历衰落","C. Empires always collapse for completely unrelated, random reasons with no patterns|C. 帝国的崩溃总是出于完全无关、随机的原因，没有任何模式","D. Climate was the only factor that ever caused empires to fall|D. 气候是导致帝国衰亡的唯一因素"],
+    correct:"A", rat_right:"Comparing Rome, Persia, and the Gupta Empire reveals a recurring historical pattern: large empires across different eras and regions tend to fall from combined internal and external pressures.|比较罗马、波斯和笈多帝国揭示了一种反复出现的历史模式：不同时代和地区的大型帝国往往因内部和外部压力的结合而衰亡。",
+    rat_wrong:{B:"The Gupta Empire was located in South Asia, showing this pattern extends well beyond the Mediterranean.|笈多帝国位于南亚，表明这种模式远远超出了地中海地区。",C:"The recurring combination of internal weakness and external pressure across these empires shows a clear pattern, not randomness.|这些帝国中内部弱点和外部压力反复出现的组合显示出清晰的模式，不是随机性。",D:"While environmental factors can contribute, the primary documented causes across these empires were political, economic, and military, not solely climate.|尽管环境因素可能有所贡献，但这些帝国的主要记录原因是政治、经济和军事因素，不仅仅是气候。"}
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var allAnswered = Object.keys(storeMap[tabKey]).length === qMap[tabKey].length;
+  var hasRef1 = ref1 && ref1.value.trim().length > 0;
+  var hasRef2 = ref2 && ref2.value.trim().length > 0;
+  var hasGrat = grat && grat.value.trim().length > 0;
+  if (allAnswered && hasRef1 && hasRef2 && hasGrat) {
+    btn.classList.add('ready');
+    btn.disabled = false;
+    hint.style.display = 'none';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1','Ref2','Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Overview of Ancient Rome and the Roman Republic',
+    l2: 'Roman Military Expansion and Economy',
+    l3: 'Urban Development of Rome and Augustus Empire',
+    l4: 'Pax Romana and Its Emperors',
+    l5: 'Fall of Rome and Comparative Collapse'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 5\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + (document.getElementById(tabKey+'Ref1').value) + '\n\n';
+  txt += 'Reflection 2:\n' + (document.getElementById(tabKey+'Ref2').value) + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + document.getElementById(tabKey+'Grat').value + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day5_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>

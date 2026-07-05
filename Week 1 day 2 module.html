@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 2 — Mesopotamia, Egypt &amp; the Hittites | 美索不达米亚、埃及与赫梯</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 2 — Mesopotamia, Egypt &amp; the Hittites · <span class="cn">美索不达米亚、埃及与赫梯</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson 1"></div>
+    <div class="pip" id="pip-l2" title="Lesson 2"></div>
+    <div class="pip" id="pip-l3" title="Lesson 3"></div>
+    <div class="pip" id="pip-l4" title="Lesson 4"></div>
+    <div class="pip" id="pip-l5" title="Lesson 5"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">📜 Ancient Mesopotamia &amp; the Epic of Gilgamesh</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">🏺 Ancient Egypt, the Nile &amp; Hatshepsut</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">⛵ Egyptian Trade, Ships &amp; Hittite Relations</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">⚔️ The Hittite Empire</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">🕊️ The Battle of Kadesh</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON 1: Ancient Mesopotamia & Epic of Gilgamesh -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Ancient Mesopotamia &amp; the Epic of Gilgamesh · <span class="cn">古代美索不达米亚与《吉尔伽美什史诗》</span></h2>
+ 
+  <div class="concept-card">
+    <h3>The Land Between Two Rivers · <span class="cn">两河之间的土地</span></h3>
+    <p><strong>Mesopotamia</strong> (Greek for "land between rivers") developed between the <strong>Tigris</strong> and <strong>Euphrates</strong> rivers in modern-day Iraq. Annual flooding deposited rich silt, making the soil ideal for farming — but the floods were unpredictable, so people built canals and irrigation systems to control the water.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>美索不达米亚</strong>（希腊语意为"两河之间的土地"）发展于现今伊拉克境内的<strong>底格里斯河</strong>与<strong>幼发拉底河</strong>之间。每年的洪水带来肥沃的淤泥，使土壤非常适合耕种——但洪水难以预测，因此人们修建了运河和灌溉系统来控制水源。</span></p>
+    <div class="callout">
+      <strong>Sumer:</strong> The southern region of Mesopotamia, home to the world's earliest cities, including <strong>Uruk</strong>, <strong>Ur</strong>, and <strong>Eridu</strong>. Sumerians developed cuneiform writing, the wheel, and the first law codes.
+      <br><span class="cn"><strong>苏美尔：</strong>美索不达米亚南部地区，是世界上最早城市的发源地，包括<strong>乌鲁克</strong>、<strong>乌尔</strong>和<strong>埃利都</strong>。苏美尔人发明了楔形文字、轮子和最早的法典。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Cuneiform: The First Writing System · <span class="cn">楔形文字：最早的文字系统</span></h3>
+    <p>Sumerians invented <strong>cuneiform</strong> around 3200 BCE — wedge-shaped marks pressed into wet clay tablets with a reed stylus. It was first used for record-keeping (trade, taxes, grain storage) before expanding to law, literature, and religion.</p>
+    <p style="margin-top:8px"><span class="cn">苏美尔人在约公元前3200年发明了<strong>楔形文字</strong>——用芦苇笔在湿泥板上压出楔形符号。它最初用于记录（贸易、税收、粮食储存），后来扩展到法律、文学和宗教领域。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Epic of Gilgamesh · <span class="cn">《吉尔伽美什史诗》</span></h3>
+    <p>The <strong>Epic of Gilgamesh</strong> is one of the oldest surviving works of literature, written in cuneiform. It tells the story of Gilgamesh, a king of Uruk, who searches for immortality after the death of his friend Enkidu.</p>
+    <div class="callout-blue">
+      <strong>Why It Matters:</strong> The epic explores universal human themes — friendship, mortality, the fear of death, and the search for meaning — showing that literature and philosophical reflection began thousands of years ago.
+      <br><span class="cn"><strong>重要性：</strong>这部史诗探讨了人类共同的主题——友谊、死亡、对死亡的恐惧以及对意义的追寻——表明文学和哲学思考早在数千年前就已开始。</span>
+    </div>
+    <table class="compare-table" style="margin-top:12px">
+      <tr><th>Theme 主题</th><th>Example in the Epic 史诗中的例子</th></tr>
+      <tr><td>Mortality 死亡</td><td>Gilgamesh seeks immortality after Enkidu dies 恩基都死后吉尔伽美什寻求不朽</td></tr>
+      <tr><td>Friendship 友谊</td><td>Gilgamesh and Enkidu's deep bond 吉尔伽美什与恩基都的深厚情谊</td></tr>
+      <tr><td>The Flood 洪水</td><td>A great flood story, similar to later flood myths 大洪水的故事，与后来的洪水神话相似</td></tr>
+    </table>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 1</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Why was cuneiform writing first developed for economic record-keeping rather than literature? What does this tell us about the priorities of early Mesopotamian society? · <span class="cn">为什么楔形文字最初是为经济记录而发展的，而不是文学？这告诉我们早期美索不达米亚社会的什么优先事项？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Epic of Gilgamesh deals with the fear of death and the search for meaning. Have you ever thought about similar questions? Explain. · <span class="cn">《吉尔伽美什史诗》探讨了对死亡的恐惧和对意义的追寻。你是否曾思考过类似的问题？请解释。</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 2: Ancient Egypt, Nile, Hatshepsut -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Ancient Egypt, the Nile &amp; Hatshepsut · <span class="cn">古埃及、尼罗河与哈特谢普苏特</span></h2>
+ 
+  <div class="concept-card">
+    <h3>The Gift of the Nile · <span class="cn">尼罗河的赠礼</span></h3>
+    <p>Ancient Egyptian civilization flourished along the <strong>Nile River</strong>. Unlike the Tigris and Euphrates, the Nile's flooding was predictable and gentle, depositing fertile black silt every year. The Greek historian Herodotus called Egypt "the gift of the Nile."</p>
+    <p style="margin-top:8px"><span class="cn">古埃及文明在<strong>尼罗河</strong>沿岸繁荣发展。与底格里斯河和幼发拉底河不同，尼罗河的洪水可预测且温和，每年带来肥沃的黑色淤泥。希腊历史学家希罗多德称埃及为"尼罗河的赠礼"。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Religion, Monuments &amp; Society · <span class="cn">宗教、纪念建筑与社会</span></h3>
+    <p>Egyptian religion was <strong>polytheistic</strong> — Egyptians worshipped many gods (Ra, Osiris, Isis, Horus) connected to nature and the afterlife. The <strong>pharaoh</strong> was believed to be a living god, responsible for maintaining cosmic order (<em>ma'at</em>).</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Monument 建筑</th><th>Purpose 用途</th></tr>
+      <tr><td>Pyramids 金字塔</td><td>Royal tombs designed to help pharaohs reach the afterlife 帮助法老到达来世的皇家陵墓</td></tr>
+      <tr><td>Temples 神庙</td><td>Places of worship for gods, maintained by priests 供祭司维护的祭神场所</td></tr>
+      <tr><td>Sphinx 狮身人面像</td><td>Guardian statue, symbol of royal power 守护雕像，象征王权</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Hatshepsut: A Female Pharaoh · <span class="cn">哈特谢普苏特：女性法老</span></h3>
+    <p><strong>Hatshepsut</strong> (ruled c. 1479–1458 BCE) was one of the most successful pharaohs in Egyptian history — and one of the few women to rule as pharaoh in her own right rather than as a queen consort. She expanded trade, commissioned grand building projects, and maintained peace and prosperity.</p>
+    <div class="callout">
+      <strong>Breaking Tradition:</strong> Hatshepsut sometimes had herself depicted in art with the traditional false beard and regalia of a male pharaoh, to legitimize her rule in a male-dominated role.
+      <br><span class="cn"><strong>打破传统：</strong>哈特谢普苏特有时在艺术作品中被描绘成戴着男性法老传统假胡须和王室服饰的形象，以使她在男性主导的角色中获得统治的合法性。</span></p>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 2</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Why do you think Hatshepsut had herself depicted with the traditional symbols of a male pharaoh? What does this reveal about gender and power in ancient Egypt? · <span class="cn">你认为为什么哈特谢普苏特将自己描绘成带有男性法老传统象征的形象？这揭示了古埃及性别与权力的什么关系？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Nile's predictable flooding shaped Egyptian civilization. Think of a natural feature (river, mountain, climate) that shapes life where you live. How does it affect daily life? · <span class="cn">尼罗河可预测的洪水塑造了埃及文明。想一想你所在地方的某种自然特征（河流、山脉、气候）如何塑造日常生活？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 3: Egyptian Trade, Ships & Hittite Relations -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Egyptian Trade, Ships &amp; Hittite Relations · <span class="cn">埃及贸易、船只与赫梯关系</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Egyptian Ships &amp; Trade · <span class="cn">埃及船只与贸易</span></h3>
+    <p>Egyptians built wooden ships to sail the Nile and the Mediterranean and Red Seas. Trade brought <strong>gold</strong> and <strong>ivory</strong> from Nubia, <strong>cedar wood</strong> from Lebanon (Byblos), and <strong>incense</strong> and exotic goods from Punt (East Africa).</p>
+    <p style="margin-top:8px"><span class="cn">埃及人建造木船，航行于尼罗河以及地中海和红海。贸易从努比亚带来<strong>黄金</strong>和<strong>象牙</strong>，从黎巴嫩（比布鲁斯）带来<strong>雪松木</strong>，从蓬特（东非）带来<strong>香料</strong>和奇珍异品。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Egypt Meets the Hittites · <span class="cn">埃及与赫梯的接触</span></h3>
+    <p>As Egypt expanded its influence into the Levant (modern Syria/Lebanon), it came into contact — and conflict — with the <strong>Hittite Empire</strong>, based in Anatolia (modern Turkey). Both empires competed for control of trade routes and vassal city-states in the region.</p>
+    <div class="callout-blue">
+      <strong>Why Conflict Arose:</strong> The region of Syria sat between the two empires and contained valuable trade routes. Both Egypt and the Hittites wanted to control local kingdoms there, leading to diplomatic tension and eventually war.
+      <br><span class="cn"><strong>冲突的原因：</strong>叙利亚地区位于两大帝国之间，拥有宝贵的贸易路线。埃及和赫梯都希望控制当地王国，导致外交紧张并最终引发战争。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Diplomacy Before Kadesh · <span class="cn">卡迭石之战前的外交</span></h3>
+    <p>Letters between Egyptian and Hittite rulers (and other Near Eastern kings) survive on clay tablets, showing that ancient diplomacy — marriage alliances, gift exchange, and treaties — existed long before the famous battle that would follow.</p>
+    <p style="margin-top:8px"><span class="cn">埃及与赫梯统治者之间（以及其他近东国王之间）往来的书信保存在泥板上，表明古代外交——联姻、礼物交换和条约——早在那场著名战役之前就已存在。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 3</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Why do you think trade routes were often a source of conflict between ancient empires? Can you think of a modern example of countries competing over resources or trade? · <span class="cn">你认为为什么贸易路线常常是古代帝国之间冲突的根源？你能想到现代国家为资源或贸易竞争的例子吗？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. What does the existence of diplomatic letters between Egypt and the Hittites tell you about how ancient empires tried to avoid war? · <span class="cn">埃及与赫梯之间的外交信件的存在，说明了古代帝国是如何努力避免战争的？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 4: The Hittite Empire -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">The Hittite Empire · <span class="cn">赫梯帝国</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Who Were the Hittites? · <span class="cn">赫梯人是谁？</span></h3>
+    <p>The <strong>Hittites</strong> built a powerful empire centered in <strong>Anatolia</strong> (modern Turkey) from around 1600–1180 BCE. Their capital was <strong>Hattusa</strong>. The Hittites were Indo-European speakers and controlled a vast network of vassal states across the Near East.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>赫梯人</strong>在约公元前1600—1180年建立了一个以<strong>安纳托利亚</strong>（现今土耳其）为中心的强大帝国。他们的首都是<strong>哈图沙</strong>。赫梯人讲印欧语系语言，控制着近东地区庞大的附属国网络。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Military Innovation: Iron &amp; Chariots · <span class="cn">军事创新：铁器与战车</span></h3>
+    <p>The Hittites are famous for two major military advantages:</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Innovation 创新</th><th>Advantage 优势</th></tr>
+      <tr><td>Early ironworking 早期炼铁技术</td><td>Iron weapons, though rare and expensive, were stronger than bronze 铁制武器虽然稀有昂贵，但比青铜更坚固</td></tr>
+      <tr><td>Light, fast chariots 轻便快速的战车</td><td>Hittite chariots carried three warriors (driver, shield-bearer, spearman) for greater battlefield flexibility 赫梯战车载有三名战士（驾驶员、持盾者、持矛者），战场机动性更强</td></tr>
+    </table>
+    <p style="margin-top:10px"><span class="cn">赫梯人以两大军事优势著称：早期的炼铁技术使他们拥有比青铜更坚固的武器；轻便快速的战车搭载三名战士，提升了战场上的灵活性。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Law and Governance · <span class="cn">法律与治理</span></h3>
+    <p>The Hittites developed a written legal code, generally considered less harsh than other Near Eastern law codes of the time (such as Hammurabi's Code) — often favoring fines and restitution over physical punishment.</p>
+    <div class="callout">
+      <strong>Hittite Law vs. Hammurabi's Code:</strong> While Hammurabi's Code is famous for "an eye for an eye," many Hittite laws instead required compensation, such as paying back stolen property with interest.
+      <br><span class="cn"><strong>赫梯法律与汉谟拉比法典的对比：</strong>汉谟拉比法典以"以眼还眼"著称，而许多赫梯法律则要求赔偿，例如以利息偿还被盗财物。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 4</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Hittites used early ironworking and advanced chariots as military advantages. How does new technology change the balance of power between civilizations, then and now? · <span class="cn">赫梯人使用早期炼铁和先进战车作为军事优势。新技术如何改变古今文明之间的力量平衡？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Hittite law often favored compensation over harsh punishment. Which approach to justice do you think is more effective, and why? · <span class="cn">赫梯法律通常倾向于赔偿而非严厉惩罚。你认为哪种司法方式更有效，为什么？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 5: Battle of Kadesh -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">The Battle of Kadesh · <span class="cn">卡迭石之战</span></h2>
+ 
+  <div class="concept-card">
+    <h3>The Clash of Empires · <span class="cn">帝国的冲突</span></h3>
+    <p>The <strong>Battle of Kadesh</strong> (c. 1274 BCE) was fought between the Egyptian forces of Pharaoh <strong>Ramesses II</strong> and the Hittite forces of King <strong>Muwatalli II</strong> near the city of Kadesh in modern Syria. It is one of the earliest battles in history for which we have detailed records.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>卡迭石之战</strong>（约公元前1274年）是埃及法老<strong>拉美西斯二世</strong>的军队与赫梯国王<strong>穆瓦塔利二世</strong>的军队在现今叙利亚境内的卡迭石城附近展开的战役。这是历史上有详细记录的最早战役之一。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>What Happened? · <span class="cn">发生了什么？</span></h3>
+    <p>Ramesses II was nearly ambushed when Hittite chariots attacked his divided army by surprise. Despite early setbacks, Ramesses rallied his forces and the battle ended without a clear military victor — both sides claimed success in their own records.</p>
+    <div class="callout">
+      <strong>Propaganda vs. Reality:</strong> Egyptian temple inscriptions describe the battle as a great victory for Ramesses II, but historians believe the actual result was closer to a stalemate.
+      <br><span class="cn"><strong>宣传与现实：</strong>埃及神庙的铭文将这场战役描述为拉美西斯二世的伟大胜利，但历史学家认为实际结果更接近僵局。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Treaty of Kadesh: An Early Peace Treaty · <span class="cn">卡迭石条约：早期的和平条约</span></h3>
+    <p>About 15 years after the battle, Egypt and the Hittites signed the <strong>Treaty of Kadesh</strong> (c. 1259 BCE) — one of the oldest surviving peace treaties in world history. It established mutual recognition of borders, a non-aggression pact, and a promise of mutual military support against outside enemies.</p>
+    <p style="margin-top:8px"><span class="cn">战役约15年后，埃及与赫梯签订了<strong>卡迭石条约</strong>（约公元前1259年）——这是世界历史上现存最古老的和平条约之一。条约确立了边界的相互承认、互不侵犯协议，以及对外敌的相互军事支持承诺。</span></p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Treaty Provision 条约内容</th><th>Significance 意义</th></tr>
+      <tr><td>Mutual border recognition 相互边界承认</td><td>Reduced territorial disputes 减少领土争端</td></tr>
+      <tr><td>Non-aggression pact 互不侵犯协议</td><td>Early example of formal diplomacy 早期正式外交的例子</td></tr>
+      <tr><td>Mutual defense clause 共同防御条款</td><td>Shows alliance-building between former enemies 展示了昔日敌对国之间的联盟建立</td></tr>
+    </table>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 5</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Both Egypt and the Hittites claimed victory at Kadesh in their own records. What does this tell you about how governments use propaganda, then and now? · <span class="cn">埃及和赫梯都在各自的记录中声称在卡迭石之战中获胜。这告诉你政府古今如何使用宣传？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Treaty of Kadesh shows that even bitter enemies can eventually make peace. Why do you think it took 15 years after the battle for the treaty to be signed? · <span class="cn">卡迭石条约表明即使是激烈的敌人最终也能达成和平。你认为为什么战役后过了15年才签订条约？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50; // 10 per lesson x 5 lessons
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  { word: "Mesopotamia", pos: "noun", cn: "美索不达米亚", def: "The region between the Tigris and Euphrates rivers, home to some of the world's earliest civilizations.", cn_def: "底格里斯河与幼发拉底河之间的地区，是世界上最早文明的发源地之一。", example: "Mesopotamia is often called the 'cradle of civilization.'" },
+  { word: "Cuneiform", pos: "noun", cn: "楔形文字", def: "An early writing system using wedge-shaped marks pressed into clay tablets.", cn_def: "一种早期文字系统，使用压印在泥板上的楔形符号。", example: "Sumerians used cuneiform to record trade and laws." },
+  { word: "Epic", pos: "noun", cn: "史诗", def: "A long narrative poem about heroic deeds and adventures.", cn_def: "讲述英雄事迹和冒险经历的长篇叙事诗。", example: "The Epic of Gilgamesh is one of the oldest works of literature." },
+  { word: "Pharaoh", pos: "noun", cn: "法老", def: "The title for an ancient Egyptian ruler, considered both a political leader and a living god.", cn_def: "古埃及统治者的称号，被视为政治领袖和活神。", example: "Hatshepsut was a powerful female pharaoh." },
+  { word: "Polytheistic", pos: "adjective", cn: "多神论的", def: "Believing in or worshipping more than one god.", cn_def: "信仰或崇拜多个神。", example: "Ancient Egyptian religion was polytheistic." },
+  { word: "Vassal state", pos: "noun phrase", cn: "附属国", def: "A smaller kingdom or territory that is controlled by, or owes loyalty to, a more powerful empire.", cn_def: "受更强大帝国控制或效忠的较小王国或领土。", example: "Egypt and the Hittites both sought control over vassal states in Syria." },
+  { word: "Diplomacy", pos: "noun", cn: "外交", def: "The practice of managing relationships between nations through negotiation rather than war.", cn_def: "通过谈判而非战争来管理国家间关系的做法。", example: "Letters between kings show ancient diplomacy in action." },
+  { word: "Chariot", pos: "noun", cn: "战车", def: "A two-wheeled vehicle pulled by horses, used in ancient warfare.", cn_def: "由马拉的双轮车，用于古代战争。", example: "Hittite chariots carried three warriors into battle." },
+  { word: "Treaty", pos: "noun", cn: "条约", def: "A formal written agreement between two or more nations.", cn_def: "两个或多个国家之间的正式书面协议。", example: "The Treaty of Kadesh ended hostility between Egypt and the Hittites." },
+  { word: "Stalemate", pos: "noun", cn: "僵局", def: "A situation in a conflict where neither side can win or gain an advantage.", cn_def: "冲突中任何一方都无法获胜或获得优势的局面。", example: "Historians believe the Battle of Kadesh ended in a stalemate." },
+  { word: "Propaganda", pos: "noun", cn: "宣传", def: "Information, often biased or misleading, used to promote a particular point of view.", cn_def: "用于宣扬特定观点的信息，通常带有偏见或误导性。", example: "Egyptian temple inscriptions used propaganda to describe Kadesh as a victory." },
+  { word: "Restitution", pos: "noun", cn: "赔偿", def: "The act of returning or compensating for something that was lost, stolen, or damaged.", cn_def: "归还或赔偿丢失、被盗或损坏物品的行为。", example: "Hittite law often required restitution instead of physical punishment." }
+];
+ 
+var L1_Q = [
+  { id:"l1q1", q:"Mesopotamia developed between which two rivers?", q_cn:"美索不达米亚发展于哪两条河流之间？",
+    options:["A. Nile and Indus|A. 尼罗河和印度河","B. Tigris and Euphrates|B. 底格里斯河和幼发拉底河","C. Yangtze and Yellow|C. 长江和黄河","D. Ganges and Brahmaputra|D. 恒河和雅鲁藏布江"],
+    correct:"B", rat_right:"Mesopotamia means 'land between rivers' — the Tigris and Euphrates in modern Iraq.|美索不达米亚意为'河流之间的土地'——指现今伊拉克境内的底格里斯河和幼发拉底河。",
+    rat_wrong:{A:"The Nile is associated with Egypt; the Indus with South Asia — neither defines Mesopotamia.|尼罗河与埃及相关；印度河与南亚相关——两者都不是美索不达米亚的定义河流。",C:"The Yangtze and Yellow rivers are in China, not the Middle East.|长江和黄河在中国，不在中东。",D:"The Ganges and Brahmaputra are in South Asia.|恒河和雅鲁藏布江位于南亚。"}
+  },
+  { id:"l1q2", q:"What was cuneiform primarily used for when it was first developed?", q_cn:"楔形文字最初发明时主要用于什么？",
+    options:["A. Writing poetry and epics|A. 书写诗歌和史诗","B. Record-keeping for trade, taxes, and grain storage|B. 用于贸易、税收和粮食储存的记录","C. Religious prayers only|C. 仅用于宗教祈祷","D. Military communication between armies|D. 军队之间的军事通讯"],
+    correct:"B", rat_right:"Cuneiform began as a practical tool for tracking trade, taxes, and resources before expanding to literature and law.|楔形文字最初是用于跟踪贸易、税收和资源的实用工具，后来才扩展到文学和法律领域。",
+    rat_wrong:{A:"Literature, like the Epic of Gilgamesh, came after cuneiform was already established for record-keeping.|像《吉尔伽美什史诗》这样的文学作品是在楔形文字已经用于记录之后才出现的。",C:"Religious texts came later, after cuneiform was used for economic purposes.|宗教文本是在楔形文字用于经济目的之后才出现的。",D:"Military communication was not the original purpose of cuneiform.|军事通讯不是楔形文字最初的用途。"}
+  },
+  { id:"l1q3", q:"The Epic of Gilgamesh is significant because it is —", q_cn:"《吉尔伽美什史诗》的重要性在于它是——",
+    options:["A. The first law code in history|A. 历史上第一部法典","B. One of the oldest surviving works of literature|B. 现存最古老的文学作品之一","C. The first map of Mesopotamia|C. 美索不达米亚的第一张地图","D. A record of Hittite military campaigns|D. 赫梯军事行动的记录"],
+    correct:"B", rat_right:"The Epic of Gilgamesh is one of the earliest known pieces of literature, exploring deep human themes.|《吉尔伽美什史诗》是已知最早的文学作品之一，探讨了深刻的人类主题。",
+    rat_wrong:{A:"Hammurabi's Code is a famous early law code — the Epic of Gilgamesh is literature, not law.|汉谟拉比法典是著名的早期法典——《吉尔伽美什史诗》是文学，不是法律。",C:"The epic is a narrative poem, not a map.|这部史诗是叙事诗，不是地图。",D:"The epic is about a Sumerian king, Gilgamesh, not Hittite military history.|这部史诗讲述的是苏美尔国王吉尔伽美什，而不是赫梯军事历史。"}
+  },
+  { id:"l1q4", q:"What does the Epic of Gilgamesh explore through its main character's journey?", q_cn:"《吉尔伽美什史诗》通过主人公的旅程探讨了什么？",
+    options:["A. The conquest of new territories|A. 征服新领土","B. The construction of pyramids|B. 金字塔的建造","C. The fear of death and the search for immortality|C. 对死亡的恐惧和对不朽的追寻","D. Trade routes through the Mediterranean|D. 穿越地中海的贸易路线"],
+    correct:"C", rat_right:"After his friend Enkidu dies, Gilgamesh seeks immortality, exploring universal themes of mortality and meaning.|在朋友恩基都死后，吉尔伽美什寻求不朽，探讨了死亡和意义的普遍主题。",
+    rat_wrong:{A:"The epic is a personal, philosophical journey, not primarily a conquest narrative.|这部史诗是个人的哲学之旅，并非主要是征服叙事。",B:"Pyramids are associated with Egypt, not the Epic of Gilgamesh.|金字塔与埃及相关，与《吉尔伽美什史诗》无关。",D:"Trade routes are not the focus of the epic's narrative.|贸易路线不是史诗叙事的重点。"}
+  },
+  { id:"l1q5", q:"Which city-states were part of ancient Sumer?", q_cn:"以下哪些城邦属于古代苏美尔？",
+    options:["A. Memphis and Thebes|A. 孟菲斯和底比斯","B. Athens and Sparta|B. 雅典和斯巴达","C. Uruk and Ur|C. 乌鲁克和乌尔","D. Hattusa and Kadesh|D. 哈图沙和卡迭石"],
+    correct:"C", rat_right:"Uruk and Ur were among the earliest Sumerian city-states in southern Mesopotamia.|乌鲁克和乌尔是美索不达米亚南部最早的苏美尔城邦之一。",
+    rat_wrong:{A:"Memphis and Thebes were major cities in ancient Egypt, not Sumer.|孟菲斯和底比斯是古埃及的主要城市，不属于苏美尔。",B:"Athens and Sparta were Greek city-states, much later and in a different region.|雅典和斯巴达是希腊城邦，时代更晚，地区也不同。",D:"Hattusa was the Hittite capital and Kadesh was a Syrian city — neither was Sumerian.|哈图沙是赫梯首都，卡迭石是叙利亚城市——两者都不是苏美尔城邦。"}
+  },
+  { id:"l1q6", q:"Why did Mesopotamians need to build canals and irrigation systems?", q_cn:"为什么美索不达米亚人需要修建运河和灌溉系统？",
+    options:["A. To transport stone for building pyramids|A. 为运输建造金字塔的石材","B. Because the Tigris and Euphrates flooded unpredictably|B. 因为底格里斯河和幼发拉底河的洪水难以预测","C. To connect Mesopotamia to Egypt by water|C. 为通过水路连接美索不达米亚和埃及","D. Because there was no rainfall in the region at all|D. 因为该地区完全没有降雨"],
+    correct:"B", rat_right:"Unlike the Nile, the Tigris and Euphrates flooded unpredictably, so canals and irrigation helped control water for farming.|与尼罗河不同，底格里斯河和幼发拉底河的洪水难以预测，因此运河和灌溉有助于控制水源用于耕种。",
+    rat_wrong:{A:"Pyramid construction is associated with Egypt, not Mesopotamian irrigation.|金字塔建造与埃及相关，与美索不达米亚灌溉无关。",C:"There was no direct water connection between Mesopotamia and Egypt for trade via canals.|美索不达米亚和埃及之间没有通过运河直接连接的水路用于贸易。",D:"The region did receive some rainfall, but the rivers' unpredictability was the bigger issue for irrigation.|该地区确实有一些降雨，但河流的不可预测性才是灌溉的更大问题。"}
+  },
+  { id:"l1q7", q:"What material did Sumerians write cuneiform on?", q_cn:"苏美尔人将楔形文字写在什么材料上？",
+    options:["A. Papyrus scrolls|A. 纸莎草卷","B. Stone tablets only|B. 仅在石板上","C. Wet clay tablets|C. 湿泥板","D. Animal hides|D. 动物皮"],
+    correct:"C", rat_right:"Cuneiform was pressed into wet clay tablets with a reed stylus, which then dried and hardened.|楔形文字是用芦苇笔压印在湿泥板上，然后干燥变硬。",
+    rat_wrong:{A:"Papyrus was used by the Egyptians, not the Sumerians for cuneiform.|纸莎草是埃及人使用的，不是苏美尔人用于楔形文字的材料。",B:"While some cuneiform appears on stone monuments, the primary everyday medium was clay.|尽管一些楔形文字出现在石制纪念碑上，但日常使用的主要媒介是泥土。",D:"Animal hides (parchment) were used by other later cultures, not primarily by Sumerians.|动物皮（羊皮纸）是后来其他文化使用的，不是苏美尔人的主要材料。"}
+  },
+  { id:"l1q8", q:"What modern country is ancient Mesopotamia located in today?", q_cn:"古代美索不达米亚位于现今哪个国家？",
+    options:["A. Egypt|A. 埃及","B. Turkey|B. 土耳其","C. Iraq|C. 伊拉克","D. Iran|D. 伊朗"],
+    correct:"C", rat_right:"Ancient Mesopotamia is located in modern-day Iraq, between the Tigris and Euphrates rivers.|古代美索不达米亚位于现今伊拉克境内，介于底格里斯河和幼发拉底河之间。",
+    rat_wrong:{A:"Egypt is home to the Nile civilization, a separate region from Mesopotamia.|埃及是尼罗河文明的所在地，与美索不达米亚是不同的地区。",B:"Turkey was home to the Hittite Empire (Anatolia), not Mesopotamia.|土耳其是赫梯帝国（安纳托利亚）的所在地，不是美索不达米亚。",D:"Iran lies east of Mesopotamia and was home to later civilizations like Persia.|伊朗位于美索不达米亚以东，是后来波斯等文明的所在地。"}
+  },
+  { id:"l1q9", q:"What can historians learn from the survival of the Epic of Gilgamesh?", q_cn:"历史学家能从《吉尔伽美什史诗》的留存中学到什么？",
+    options:["A. That ancient Mesopotamians had no interest in storytelling|A. 古代美索不达米亚人对讲故事不感兴趣","B. That early humans thought deeply about death, friendship, and meaning thousands of years ago|B. 数千年前的早期人类深刻思考了死亡、友谊和意义","C. That Mesopotamians had no writing system before 1000 BCE|C. 美索不达米亚人在公元前1000年之前没有文字系统","D. That the epic was written by the Egyptians and later translated|D. 这部史诗是埃及人所写，后来被翻译"],
+    correct:"B", rat_right:"The epic's themes show that complex philosophical and emotional reflection existed in human societies thousands of years ago.|这部史诗的主题表明，复杂的哲学和情感反思在数千年前的人类社会中就已存在。",
+    rat_wrong:{A:"The epic itself disproves this — it shows a rich storytelling tradition.|这部史诗本身就反驳了这一点——它展示了丰富的讲故事传统。",C:"Cuneiform writing existed by around 3200 BCE, well before 1000 BCE.|楔形文字大约在公元前3200年就已存在，远早于公元前1000年。",D:"The epic originated in Mesopotamia (Sumerian/Akkadian), not Egypt.|这部史诗起源于美索不达米亚（苏美尔/阿卡德），不是埃及。"}
+  },
+  { id:"l1q10", q:"Which best describes the overall significance of Mesopotamian civilization?", q_cn:"哪项最能描述美索不达米亚文明的总体重要性？",
+    options:["A. It had no lasting impact on later civilizations|A. 它对后来的文明没有持久影响","B. It is often called the 'cradle of civilization' due to early writing, law, and cities|B. 它常被称为'文明的摇篮'，因为有早期的文字、法律和城市","C. It only influenced art, not government or writing|C. 它只影响了艺术，而不是政府或文字","D. It developed entirely in isolation with no neighboring contact|D. 它完全孤立发展，没有与邻邦接触"],
+    correct:"B", rat_right:"Mesopotamia is called the 'cradle of civilization' because of foundational developments like writing, law codes, and the first cities.|美索不达米亚被称为'文明的摇篮'，因为有文字、法典和最早的城市等基础性发展。",
+    rat_wrong:{A:"Mesopotamian innovations like writing and law had enormous lasting impact.|美索不达米亚的创新，如文字和法律，产生了巨大的持久影响。",C:"Mesopotamia influenced writing, law, government, and religion — far beyond just art.|美索不达米亚影响了文字、法律、政府和宗教——远不止艺术。",D:"Mesopotamia traded and interacted with neighboring regions like Egypt and Anatolia.|美索不达米亚与埃及和安纳托利亚等邻近地区有贸易和互动。"}
+  }
+];
+ 
+var L2_Q = [
+  { id:"l2q1", q:"Why was the Nile River so important to ancient Egyptian civilization?", q_cn:"为什么尼罗河对古埃及文明如此重要？",
+    options:["A. It never flooded, keeping the land perfectly dry|A. 它从不泛滥，使土地保持完全干燥","B. Its predictable floods deposited fertile silt for farming|B. 它可预测的洪水带来肥沃的淤泥用于耕种","C. It connected Egypt directly to Mesopotamia|C. 它直接连接埃及与美索不达米亚","D. It was used only for religious ceremonies|D. 它只用于宗教仪式"],
+    correct:"B", rat_right:"The Nile's predictable annual flooding deposited rich black silt, making farming reliable and productive.|尼罗河每年可预测的洪水带来肥沃的黑色淤泥，使耕种变得可靠而高产。",
+    rat_wrong:{A:"The Nile DID flood — its predictable flooding was actually the key benefit.|尼罗河确实泛滥——其可预测的洪水实际上正是关键优势。",C:"The Nile flows through Egypt; it did not connect directly to Mesopotamia.|尼罗河流经埃及；它没有直接连接到美索不达米亚。",D:"While religiously significant, the Nile's primary importance was agricultural.|尽管在宗教上意义重大，尼罗河的主要重要性在于农业。"}
+  },
+  { id:"l2q2", q:"Egyptian religion is best described as —", q_cn:"埃及宗教最好被描述为——",
+    options:["A. Monotheistic, worshipping only one god|A. 一神论，只崇拜一个神","B. Polytheistic, worshipping many gods|B. 多神论，崇拜许多神","C. Atheistic, with no religious beliefs|C. 无神论，没有宗教信仰","D. Based entirely on ancestor worship|D. 完全基于祖先崇拜"],
+    correct:"B", rat_right:"Ancient Egyptians worshipped many gods connected to nature and the afterlife, such as Ra, Osiris, and Isis.|古埃及人崇拜许多与自然和来世相关的神，如拉、奥西里斯和伊西斯。",
+    rat_wrong:{A:"Egyptian religion had many gods, not just one — monotheism briefly appeared later under Akhenaten but was not the norm.|埃及宗教有许多神，不只一个——一神论后来在阿肯那顿统治下短暂出现，但并非常态。",C:"Egyptian civilization was deeply religious, not atheistic.|埃及文明具有深厚的宗教性，并非无神论。",D:"While ancestors mattered, Egyptian religion centered on a broader pantheon of gods, not only ancestors.|尽管祖先很重要，但埃及宗教以更广泛的神祇体系为中心，而不仅仅是祖先。"}
+  },
+  { id:"l2q3", q:"What was the primary purpose of the Egyptian pyramids?", q_cn:"埃及金字塔的主要用途是什么？",
+    options:["A. Marketplaces for trade|A. 贸易市场","B. Royal tombs to help pharaohs reach the afterlife|B. 帮助法老到达来世的皇家陵墓","C. Military fortresses|C. 军事堡垒","D. Granaries for storing food|D. 储存粮食的谷仓"],
+    correct:"B", rat_right:"Pyramids were elaborate royal tombs designed to protect the pharaoh's body and help their soul journey to the afterlife.|金字塔是精心设计的皇家陵墓，旨在保护法老的遗体，并帮助其灵魂前往来世。",
+    rat_wrong:{A:"Pyramids were religious/funerary structures, not commercial buildings.|金字塔是宗教/葬礼建筑，不是商业建筑。",C:"Pyramids were not designed for military defense.|金字塔不是为军事防御而设计的。",D:"Granaries were separate, practical structures — not the purpose of pyramids.|谷仓是独立的实用建筑——不是金字塔的用途。"}
+  },
+  { id:"l2q4", q:"Hatshepsut is historically significant because she —", q_cn:"哈特谢普苏特在历史上具有重要意义，因为她——",
+    options:["A. Was Egypt's only male pharaoh|A. 是埃及唯一的男性法老","B. Ruled as one of Egypt's most successful female pharaohs|B. 作为埃及最成功的女性法老之一进行统治","C. Built the Great Pyramid of Giza|C. 建造了吉萨大金字塔","D. Led Egypt's war against the Hittites at Kadesh|D. 领导埃及在卡迭石对赫梯的战争"],
+    correct:"B", rat_right:"Hatshepsut ruled successfully in her own right, expanding trade and commissioning major building projects.|哈特谢普苏特以自己的身份成功统治，扩大了贸易并委托建造重大建筑项目。",
+    rat_wrong:{A:"Hatshepsut was female, not male.|哈特谢普苏特是女性，不是男性。",C:"The Great Pyramid was built much earlier, under Pharaoh Khufu.|大金字塔是更早由法老胡夫建造的。",D:"The Battle of Kadesh occurred under Ramesses II, after Hatshepsut's reign.|卡迭石之战发生在拉美西斯二世统治时期，在哈特谢普苏特统治之后。"}
+  },
+  { id:"l2q5", q:"Why did Hatshepsut sometimes have herself depicted with a false beard and male regalia?", q_cn:"为什么哈特谢普苏特有时把自己描绘成戴着假胡须和男性服饰的形象？",
+    options:["A. To disguise herself from enemies|A. 为了在敌人面前伪装自己","B. To legitimize her rule in a traditionally male role|B. 为了在传统上由男性担任的角色中使自己的统治合法化","C. Because she believed she was physically male|C. 因为她认为自己生理上是男性","D. As a punishment from the priests|D. 作为祭司对她的惩罚"],
+    correct:"B", rat_right:"Depicting herself with traditional pharaoh symbols helped Hatshepsut assert legitimate authority in a role almost always held by men.|将自己描绘成带有传统法老象征的形象，有助于哈特谢普苏特在几乎总是由男性担任的角色中确立合法权威。",
+    rat_wrong:{A:"This was about political legitimacy, not disguise from enemies.|这是关于政治合法性，而不是在敌人面前伪装。",C:"This was a political/artistic strategy, not a personal belief about her own gender.|这是一种政治/艺术策略，而不是她对自己性别的个人信念。",D:"There is no evidence this was a punishment — it was a deliberate political choice.|没有证据表明这是一种惩罚——这是一种深思熟虑的政治选择。"}
+  },
+  { id:"l2q6", q:"What does the title 'pharaoh' represent in ancient Egyptian society?", q_cn:"'法老'这一称号在古埃及社会中代表什么？",
+    options:["A. A religious priest with no political power|A. 没有政治权力的宗教祭司","B. An elected official serving a fixed term|B. 任期固定的民选官员","C. Both a political ruler and a living god|C. 既是政治统治者也是活神","D. A military general who could be replaced at any time|D. 可以随时被替换的军事将领"],
+    correct:"C", rat_right:"Pharaohs held supreme political power and were believed to be divine, responsible for maintaining cosmic order.|法老拥有最高政治权力，被认为是神圣的，负责维持宇宙秩序。",
+    rat_wrong:{A:"Pharaohs held real political power, not just religious symbolism.|法老拥有真正的政治权力，不仅仅是宗教象征。",B:"Pharaohs ruled for life, often passing power to their children — not through elections.|法老终身统治，通常将权力传给子女——不是通过选举。",D:"Pharaohs were not military generals who could simply be swapped out.|法老不是可以随意更换的军事将领。"}
+  },
+  { id:"l2q7", q:"What is 'ma'at' in ancient Egyptian belief?", q_cn:"在古埃及信仰中，'玛阿特'是什么？",
+    options:["A. A type of pyramid|A. 一种金字塔类型","B. The concept of cosmic order and balance|B. 宇宙秩序与平衡的概念","C. A trade good imported from Nubia|C. 从努比亚进口的贸易商品","D. The name of a Hittite god|D. 一个赫梯神的名字"],
+    correct:"B", rat_right:"Ma'at represented truth, balance, and cosmic order, which the pharaoh was responsible for maintaining.|玛阿特代表真理、平衡和宇宙秩序，是法老负责维护的概念。",
+    rat_wrong:{A:"Ma'at is a concept, not a physical structure.|玛阿特是一个概念，不是实体建筑。",C:"Ma'at is not a trade good — it is an abstract religious/philosophical idea.|玛阿特不是贸易商品——它是一个抽象的宗教/哲学概念。",D:"Ma'at is an Egyptian concept, unrelated to Hittite religion.|玛阿特是埃及概念，与赫梯宗教无关。"}
+  },
+  { id:"l2q8", q:"What materials were commonly used to build Egyptian temples and monuments?", q_cn:"建造埃及神庙和纪念建筑通常使用什么材料？",
+    options:["A. Wood and thatch|A. 木材和茅草","B. Stone, such as limestone and granite|B. 石材，如石灰石和花岗岩","C. Mud bricks exclusively|C. 仅用泥砖","D. Iron and bronze|D. 铁和青铜"],
+    correct:"B", rat_right:"Major Egyptian monuments and temples were typically built of durable stone like limestone and granite, meant to last for eternity.|主要的埃及纪念建筑和神庙通常用耐久的石材建造，如石灰石和花岗岩，旨在永久保存。",
+    rat_wrong:{A:"Wood and thatch were used for everyday housing, not major monuments.|木材和茅草用于日常住房，不是主要的纪念建筑。",C:"Mud brick was common for homes and smaller structures, but major monuments used stone.|泥砖常用于住宅和较小的建筑，但主要纪念建筑使用石材。",D:"Iron and bronze were used for tools and weapons, not the structure of temples.|铁和青铜用于工具和武器，不是神庙的建筑材料。"}
+  },
+  { id:"l2q9", q:"How does Hatshepsut's reign challenge typical assumptions about gender roles in ancient societies?", q_cn:"哈特谢普苏特的统治如何挑战了人们对古代社会性别角色的典型假设？",
+    options:["A. It proves women never held power in the ancient world|A. 它证明女性在古代世界从未掌权","B. It shows that, despite a male-dominated tradition, a woman could successfully rule as pharaoh|B. 它表明尽管传统由男性主导，女性仍能成功地以法老身份统治","C. It shows that pharaohs were always chosen by popular vote|C. 它表明法老总是通过民众投票选出","D. It proves that Egyptian society had no gender expectations at all|D. 它证明埃及社会根本没有性别期望"],
+    correct:"B", rat_right:"Hatshepsut's successful reign demonstrates that, even within a traditionally male role, a capable woman could rule effectively.|哈特谢普苏特成功的统治表明，即使在传统上由男性担任的角色中，有能力的女性也能有效地统治。",
+    rat_wrong:{A:"Hatshepsut's reign is direct evidence against this claim — she did hold power.|哈特谢普苏特的统治正是反驳这一说法的直接证据——她确实掌权了。",C:"Pharaohs inherited power through dynastic succession, not elections.|法老通过王朝继承获得权力，不是通过选举。",D:"The fact that Hatshepsut needed male symbols to legitimize her rule shows gender expectations did exist.|哈特谢普苏特需要男性象征来使她的统治合法化，这一事实表明性别期望确实存在。"}
+  },
+  { id:"l2q10", q:"Comparing the Nile and the Tigris-Euphrates rivers, what was a key difference in their impact on early civilization?", q_cn:"比较尼罗河与底格里斯—幼发拉底河，它们对早期文明影响的一个关键区别是什么？",
+    options:["A. The Nile never flooded while the Tigris-Euphrates flooded constantly|A. 尼罗河从不泛滥，而底格里斯—幼发拉底河经常泛滥","B. The Nile's predictable floods supported stable agriculture, while the Tigris-Euphrates' unpredictable floods required irrigation management|B. 尼罗河可预测的洪水支持了稳定的农业，而底格里斯—幼发拉底河不可预测的洪水需要灌溉管理","C. Both rivers had identical flooding patterns with no differences|C. 两条河流的洪水模式完全相同，没有差异","D. The Tigris-Euphrates never supported any agriculture|D. 底格里斯—幼发拉底河从未支持任何农业"],
+    correct:"B", rat_right:"The Nile's gentle, predictable flooding made Egyptian agriculture more stable, while Mesopotamia's rivers required canals and irrigation due to unpredictable, sometimes violent flooding.|尼罗河温和、可预测的洪水使埃及农业更加稳定，而美索不达米亚的河流由于不可预测、有时猛烈的洪水而需要运河和灌溉。",
+    rat_wrong:{A:"The Nile did flood — its flooding was simply more predictable, not absent.|尼罗河确实泛滥——只是其洪水更可预测，并非不存在。",C:"The flooding patterns were quite different between the two river systems.|两个河流系统的洪水模式截然不同。",D:"The Tigris-Euphrates supported extensive agriculture in Mesopotamia, just with more management required.|底格里斯—幼发拉底河支持了美索不达米亚广泛的农业，只是需要更多的管理。"}
+  }
+];
+ 
+var L3_Q = [
+  { id:"l3q1", q:"What types of goods did Egypt import from Nubia?", q_cn:"埃及从努比亚进口什么商品？",
+    options:["A. Cedar wood and wine|A. 雪松木和葡萄酒","B. Gold and ivory|B. 黄金和象牙","C. Iron weapons|C. 铁制武器","D. Horses and chariots|D. 马和战车"],
+    correct:"B", rat_right:"Nubia, south of Egypt, was a major source of gold and ivory, which Egypt prized highly.|努比亚位于埃及以南，是黄金和象牙的主要来源地，埃及对这些物品高度珍视。",
+    rat_wrong:{A:"Cedar wood came from Lebanon (Byblos), not Nubia.|雪松木来自黎巴嫩（比布鲁斯），不是努比亚。",C:"Iron weapons were associated with the Hittites, not Nubian trade goods.|铁制武器与赫梯人相关，不是努比亚的贸易商品。",D:"Horses and chariots were associated with warfare technology from the Near East, not primarily Nubian trade.|马和战车与近东的战争技术相关，不是主要的努比亚贸易商品。"}
+  },
+  { id:"l3q2", q:"Where did Egypt obtain cedar wood, a valuable building material?", q_cn:"埃及从哪里获得珍贵的建筑材料雪松木？",
+    options:["A. Nubia|A. 努比亚","B. Punt (East Africa)|B. 蓬特（东非）","C. Lebanon (Byblos)|C. 黎巴嫩（比布鲁斯）","D. Anatolia|D. 安纳托利亚"],
+    correct:"C", rat_right:"Cedar wood, prized for shipbuilding and construction, was imported from Byblos in modern Lebanon.|雪松木因用于造船和建筑而备受珍视，是从现今黎巴嫩的比布鲁斯进口的。",
+    rat_wrong:{A:"Nubia was a source of gold and ivory, not cedar wood.|努比亚是黄金和象牙的来源地，不是雪松木。",B:"Punt provided incense and exotic goods, not cedar wood.|蓬特提供香料和奇珍异品，不是雪松木。",D:"Anatolia was Hittite territory, not a source of Egyptian cedar.|安纳托利亚是赫梯领土，不是埃及雪松木的来源地。"}
+  },
+  { id:"l3q3", q:"Why did Egypt and the Hittites come into contact and eventual conflict?", q_cn:"为什么埃及和赫梯接触并最终发生冲突？",
+    options:["A. Both empires wanted control of trade routes and vassal states in the Levant|A. 两大帝国都想控制黎凡特地区的贸易路线和附属国","B. The Hittites invaded Egypt's capital city|B. 赫梯入侵了埃及的首都","C. Egypt wanted to convert the Hittites to Egyptian religion|C. 埃及想让赫梯人改信埃及宗教","D. Both empires were fighting over control of the Nile River|D. 两大帝国都在争夺尼罗河的控制权"],
+    correct:"A", rat_right:"As both empires expanded into the Levant (Syria/Lebanon region), they competed for control of trade routes and local kingdoms.|当两大帝国都向黎凡特（叙利亚/黎巴嫩地区）扩张时，它们为控制贸易路线和当地王国而竞争。",
+    rat_wrong:{B:"The Hittites did not invade Egypt's capital — the conflict centered on the Levant region.|赫梯人没有入侵埃及的首都——冲突集中在黎凡特地区。",C:"There is no evidence of religious conversion being a cause of conflict.|没有证据表明宗教改信是冲突的原因。",D:"The Nile River was far from Hittite territory and not the source of conflict.|尼罗河远离赫梯领土，不是冲突的根源。"}
+  },
+  { id:"l3q4", q:"What evidence shows that diplomacy existed between Egypt and the Hittites before open warfare?", q_cn:"什么证据表明在公开战争之前，埃及和赫梯之间存在外交关系？",
+    options:["A. Stone pyramids built jointly by both empires|A. 两大帝国共同建造的石制金字塔","B. Surviving clay tablet letters between rulers|B. 统治者之间留存下来的泥板信件","C. A shared currency system|C. 共同的货币体系","D. Joint military training programs|D. 共同的军事训练计划"],
+    correct:"B", rat_right:"Clay tablet letters between Egyptian, Hittite, and other Near Eastern rulers reveal diplomatic relations including marriage alliances and gift exchange.|埃及、赫梯及其他近东统治者之间的泥板信件揭示了包括联姻和礼物交换的外交关系。",
+    rat_wrong:{A:"There is no evidence of jointly built pyramids between the two empires.|没有证据表明两大帝国共同建造了金字塔。",C:"There was no shared currency system in this era.|这个时代没有共同的货币体系。",D:"There is no record of joint military training between rivals.|没有竞争对手之间共同军事训练的记录。"}
+  },
+  { id:"l3q5", q:"What types of agreements did ancient diplomatic letters often cover?", q_cn:"古代外交信件通常涉及哪些类型的协议？",
+    options:["A. Marriage alliances, gift exchange, and treaties|A. 联姻、礼物交换和条约","B. Tax collection methods only|B. 仅税收方式","C. Farming techniques|C. 农业技术","D. Religious conversion agreements|D. 宗教改信协议"],
+    correct:"A", rat_right:"Diplomatic correspondence between ancient rulers often included marriage alliances, exchanges of gifts, and formal treaties.|古代统治者之间的外交信函通常包括联姻、礼物交换和正式条约。",
+    rat_wrong:{B:"Tax collection was a domestic matter, not the focus of diplomatic letters between empires.|税收是国内事务，不是帝国间外交信件的重点。",C:"Farming techniques were not typically a subject of royal diplomatic correspondence.|农业技术通常不是皇室外交信函的主题。",D:"There is no significant evidence of religious conversion agreements in this diplomatic correspondence.|这些外交信函中没有重大证据表明存在宗教改信协议。"}
+  },
+  { id:"l3q6", q:"What does Egypt's trade network reveal about its role in the ancient world?", q_cn:"埃及的贸易网络揭示了它在古代世界中的什么角色？",
+    options:["A. Egypt was isolated and had no contact with other regions|A. 埃及是孤立的，与其他地区没有接触","B. Egypt was a major hub connecting Africa, the Near East, and the Mediterranean|B. 埃及是连接非洲、近东和地中海的重要枢纽","C. Egypt only traded with the Hittites|C. 埃及只与赫梯进行贸易","D. Egypt had no need for imported goods|D. 埃及不需要进口商品"],
+    correct:"B", rat_right:"Egypt's trade connections to Nubia, the Levant, and Punt show it was a central hub linking Africa, the Near East, and the Mediterranean world.|埃及与努比亚、黎凡特和蓬特的贸易联系表明它是连接非洲、近东和地中海世界的中心枢纽。",
+    rat_wrong:{A:"Egypt's extensive trade network shows the opposite — strong connections to many regions.|埃及广泛的贸易网络恰恰相反——与许多地区有着紧密的联系。",C:"Egypt traded with Nubia, Punt, and the Levant, not just the Hittites.|埃及与努比亚、蓬特和黎凡特进行贸易，不仅仅是与赫梯。",D:"Egypt actively sought imported goods like cedar wood and incense, showing real need for trade.|埃及积极寻求进口商品，如雪松木和香料，表明确实需要贸易。"}
+  },
+  { id:"l3q7", q:"What was Punt known for in trade with Egypt?", q_cn:"蓬特在与埃及的贸易中以什么著称？",
+    options:["A. Iron weapons|A. 铁制武器","B. Incense and exotic goods|B. 香料和奇珍异品","C. Cedar wood|C. 雪松木","D. Horses|D. 马"],
+    correct:"B", rat_right:"Punt, located in East Africa, was known for supplying incense, myrrh, and other exotic goods to Egypt.|蓬特位于东非，以向埃及提供香料、没药和其他奇珍异品而闻名。",
+    rat_wrong:{A:"Iron weapons were associated with the Hittites, not Punt.|铁制武器与赫梯相关，不是蓬特。",C:"Cedar wood came from Lebanon (Byblos), not Punt.|雪松木来自黎巴嫩（比布鲁斯），不是蓬特。",D:"Horses were not Punt's primary trade good with Egypt.|马不是蓬特与埃及贸易的主要商品。"}
+  },
+  { id:"l3q8", q:"Why might controlling Syria have been strategically important to both Egypt and the Hittites?", q_cn:"为什么控制叙利亚对埃及和赫梯都具有重要的战略意义？",
+    options:["A. Syria had no resources of value|A. 叙利亚没有任何有价值的资源","B. Syria sat between both empires and contained valuable trade routes|B. 叙利亚位于两大帝国之间，拥有宝贵的贸易路线","C. Syria was the location of both empires' capital cities|C. 叙利亚是两大帝国首都的所在地","D. Syria had no contact with either empire|D. 叙利亚与两大帝国都没有接触"],
+    correct:"B", rat_right:"Syria's location between Egypt and the Hittite Empire, combined with its valuable trade routes, made it a strategic prize both empires wanted to control.|叙利亚位于埃及和赫梯帝国之间的位置，加上其宝贵的贸易路线，使其成为两大帝国都想控制的战略要地。",
+    rat_wrong:{A:"Syria's trade routes were highly valuable, not worthless.|叙利亚的贸易路线非常宝贵，并非毫无价值。",C:"Neither empire's capital was located in Syria — Egypt's capital was in the Nile Valley, the Hittite capital was Hattusa in Anatolia.|两大帝国的首都都不在叙利亚——埃及首都在尼罗河谷，赫梯首都哈图沙在安纳托利亚。",D:"Both empires had significant contact with and interest in Syria.|两大帝国都与叙利亚有重大接触并对其抱有兴趣。"}
+  },
+  { id:"l3q9", q:"What does the survival of diplomatic letters tell historians about ancient international relations?", q_cn:"外交信件的留存告诉历史学家关于古代国际关系的什么信息？",
+    options:["A. Ancient empires had no organized system of communication|A. 古代帝国没有有组织的通讯系统","B. Formal diplomacy, negotiation, and written agreements existed thousands of years ago|B. 数千年前就存在正式的外交、谈判和书面协议","C. All ancient conflicts were resolved only through war|C. 所有古代冲突都只能通过战争解决","D. Writing was used exclusively for religious purposes|D. 文字仅用于宗教目的"],
+    correct:"B", rat_right:"The existence of diplomatic letters shows that organized, written diplomacy was practiced by ancient civilizations long before modern international relations.|外交信件的存在表明，早在现代国际关系出现之前，古代文明就已实行有组织的书面外交。",
+    rat_wrong:{A:"The letters themselves prove an organized communication system did exist.|这些信件本身就证明了确实存在有组织的通讯系统。",C:"Diplomacy, not just war, was used to manage relationships, as shown by these letters.|正如这些信件所示，外交而非仅仅战争被用来管理关系。",D:"Writing served many purposes, including diplomacy, trade, and law — not just religion.|文字有多种用途，包括外交、贸易和法律——不仅仅是宗教。"}
+  },
+  { id:"l3q10", q:"How does Egypt's trade and diplomacy with the Hittites compare to its trade with Nubia and Punt?", q_cn:"埃及与赫梯的贸易和外交，与它与努比亚和蓬特的贸易相比有何不同？",
+    options:["A. All three relationships were identical in every way|A. 这三种关系在每个方面都完全相同","B. Trade with Nubia/Punt was peaceful exchange, while relations with the Hittites involved both trade competition and eventual conflict|B. 与努比亚/蓬特的贸易是和平交流，而与赫梯的关系既涉及贸易竞争又最终导致冲突","C. Egypt had no trade relationship with Nubia or Punt at all|C. 埃及与努比亚或蓬特根本没有贸易关系","D. Egypt only traded with the Hittites, never with Nubia or Punt|D. 埃及只与赫梯进行贸易，从未与努比亚或蓬特进行贸易"],
+    correct:"B", rat_right:"Egypt's relationships varied — trade with Nubia and Punt was largely peaceful, while the Hittite relationship involved competition over the Levant, escalating to conflict.|埃及的关系各不相同——与努比亚和蓬特的贸易基本上是和平的，而与赫梯的关系涉及对黎凡特的竞争，最终升级为冲突。",
+    rat_wrong:{A:"The relationships differed significantly in tone and outcome.|这些关系在性质和结果上有显著差异。",C:"Egypt had well-documented trade relationships with both Nubia and Punt.|埃及与努比亚和蓬特都有详细记录的贸易关系。",D:"Egypt traded extensively with Nubia and Punt, in addition to its relationship with the Hittites.|埃及除了与赫梯的关系外，还与努比亚和蓬特进行了广泛的贸易。"}
+  }
+];
+ 
+var L4_Q = [
+  { id:"l4q1", q:"The Hittite Empire was centered in which region?", q_cn:"赫梯帝国以哪个地区为中心？",
+    options:["A. The Nile Valley|A. 尼罗河谷","B. Mesopotamia|B. 美索不达米亚","C. Anatolia (modern Turkey)|C. 安纳托利亚（现今土耳其）","D. The Arabian Peninsula|D. 阿拉伯半岛"],
+    correct:"C", rat_right:"The Hittite Empire was based in Anatolia, in modern-day Turkey, with its capital at Hattusa.|赫梯帝国以安纳托利亚（现今土耳其）为基地，首都为哈图沙。",
+    rat_wrong:{A:"The Nile Valley was the center of Egyptian civilization, not the Hittites.|尼罗河谷是埃及文明的中心，不是赫梯。",B:"Mesopotamia was home to Sumerian, Babylonian, and Assyrian civilizations, not the Hittite core territory.|美索不达米亚是苏美尔、巴比伦和亚述文明的所在地，不是赫梯的核心领土。",D:"The Arabian Peninsula was not the Hittite homeland.|阿拉伯半岛不是赫梯人的故乡。"}
+  },
+  { id:"l4q2", q:"What was the capital of the Hittite Empire?", q_cn:"赫梯帝国的首都是什么？",
+    options:["A. Babylon|A. 巴比伦","B. Thebes|B. 底比斯","C. Hattusa|C. 哈图沙","D. Ur|D. 乌尔"],
+    correct:"C", rat_right:"Hattusa, located in central Anatolia, was the capital of the Hittite Empire.|哈图沙位于安纳托利亚中部，是赫梯帝国的首都。",
+    rat_wrong:{A:"Babylon was a Mesopotamian capital, associated with Hammurabi and later empires.|巴比伦是美索不达米亚的首都，与汉谟拉比及后来的帝国相关。",B:"Thebes was an important Egyptian city, not the Hittite capital.|底比斯是埃及的重要城市，不是赫梯首都。",D:"Ur was a Sumerian city-state, unrelated to the Hittite Empire.|乌尔是苏美尔城邦，与赫梯帝国无关。"}
+  },
+  { id:"l4q3", q:"What gave the Hittite military a significant advantage over their rivals?", q_cn:"是什么使赫梯军队相对于其对手具有显著优势？",
+    options:["A. Their use of elephants in battle|A. 在战斗中使用象兵","B. Early ironworking and advanced light chariots|B. 早期炼铁技术和先进的轻型战车","C. A massive navy that controlled the Mediterranean|C. 控制地中海的庞大海军","D. Their alliance with ancient Greece|D. 与古希腊的联盟"],
+    correct:"B", rat_right:"The Hittites were early adopters of ironworking and used fast, lightweight chariots carrying three warriors, giving them a battlefield edge.|赫梯人是早期采用炼铁技术的人，并使用搭载三名战士的快速轻型战车，使他们在战场上具有优势。",
+    rat_wrong:{A:"War elephants were used by later civilizations like the Mauryans, not primarily the Hittites.|战象是后来的文明如孔雀王朝使用的，不是主要由赫梯人使用。",C:"The Hittites were primarily a land-based empire, not known for naval power.|赫梯人主要是陆地帝国，不以海军力量著称。",D:"Ancient Greece developed much later and was not an ally of the Hittites during their empire's peak.|古希腊发展较晚，在赫梯帝国巅峰时期并非其盟友。"}
+  },
+  { id:"l4q4", q:"How many warriors typically rode in a Hittite chariot?", q_cn:"一辆赫梯战车上通常载有多少名战士？",
+    options:["A. One|A. 一名","B. Two|B. 两名","C. Three|C. 三名","D. Five|D. 五名"],
+    correct:"C", rat_right:"Hittite chariots carried three warriors — a driver, a shield-bearer, and a spearman — giving more battlefield flexibility than two-man chariots used by rivals.|赫梯战车载有三名战士——驾驶员、持盾者和持矛者——比对手使用的双人战车提供了更大的战场灵活性。",
+    rat_wrong:{A:"A single-rider chariot would not match the described Hittite design.|单人战车与所描述的赫梯设计不符。",B:"Two-man chariots were used by some rival civilizations like Egypt, but the Hittites used three.|一些对手文明如埃及使用双人战车，但赫梯人使用三人战车。",D:"Five would be too many for a lightweight, mobile chariot design.|五名战士对于轻便、机动的战车设计来说太多了。"}
+  },
+  { id:"l4q5", q:"How does Hittite law generally compare to Hammurabi's Code?", q_cn:"赫梯法律与汉谟拉比法典相比通常如何？",
+    options:["A. Hittite law was identical to Hammurabi's Code|A. 赫梯法律与汉谟拉比法典完全相同","B. Hittite law often favored compensation and restitution over harsh physical punishment|B. 赫梯法律通常倾向于赔偿和补偿，而非严厉的肉体惩罚","C. Hittite law had no written form|C. 赫梯法律没有书面形式","D. Hittite law applied only to nobles|D. 赫梯法律只适用于贵族"],
+    correct:"B", rat_right:"Unlike Hammurabi's harsher 'eye for an eye' approach, many Hittite laws required compensation, such as repaying stolen goods with interest.|与汉谟拉比更严厉的'以眼还眼'方式不同，许多赫梯法律要求赔偿，例如以利息偿还被盗物品。",
+    rat_wrong:{A:"Hittite law was generally less harsh than Hammurabi's Code, not identical.|赫梯法律通常不如汉谟拉比法典严厉，并非完全相同。",C:"The Hittites did have a written legal code.|赫梯人确实有书面法典。",D:"Hittite laws covered a range of social classes, not exclusively nobles.|赫梯法律涵盖了广泛的社会阶层，不仅仅是贵族。"}
+  },
+  { id:"l4q6", q:"What language family did the Hittites belong to?", q_cn:"赫梯人属于哪个语系？",
+    options:["A. Semitic|A. 闪米特语系","B. Indo-European|B. 印欧语系","C. Sino-Tibetan|C. 汉藏语系","D. Afro-Asiatic|D. 亚非语系"],
+    correct:"B", rat_right:"The Hittites spoke an Indo-European language, one of the earliest recorded languages in that family.|赫梯人讲印欧语系语言，是该语系中最早被记录的语言之一。",
+    rat_wrong:{A:"Semitic languages include Akkadian and Hebrew, not Hittite.|闪米特语系包括阿卡德语和希伯来语，不包括赫梯语。",C:"Sino-Tibetan languages are associated with China and surrounding regions, unrelated to the Hittites.|汉藏语系与中国及周边地区相关，与赫梯人无关。",D:"Afro-Asiatic languages include ancient Egyptian, not Hittite.|亚非语系包括古埃及语，不包括赫梯语。"}
+  },
+  { id:"l4q7", q:"What is a 'vassal state' in the context of the Hittite Empire?", q_cn:"在赫梯帝国的背景下，'附属国'是什么？",
+    options:["A. An independent empire with no ties to the Hittites|A. 与赫梯没有联系的独立帝国","B. A smaller kingdom controlled by or loyal to the Hittites|B. 受赫梯控制或效忠赫梯的较小王国","C. A region that had declared war on the Hittites|C. 已向赫梯宣战的地区","D. A type of Hittite chariot|D. 一种赫梯战车类型"],
+    correct:"B", rat_right:"Vassal states were smaller kingdoms that owed loyalty, tribute, or military support to the larger Hittite Empire.|附属国是效忠、纳贡或向更强大的赫梯帝国提供军事支持的较小王国。",
+    rat_wrong:{A:"A vassal state, by definition, has ties of loyalty to a larger power.|根据定义，附属国与更强大的国家有效忠关系。",C:"Vassal states were generally allied with, not at war with, the Hittites.|附属国通常与赫梯结盟，而非交战。",D:"This term refers to political relationships, not a type of vehicle.|这个术语指的是政治关系，不是一种交通工具。"}
+  },
+  { id:"l4q8", q:"Approximately when did the Hittite Empire exist?", q_cn:"赫梯帝国大约存在于什么时期？",
+    options:["A. 3000–2500 BCE|A. 公元前3000—2500年","B. 1600–1180 BCE|B. 公元前1600—1180年","C. 500–300 BCE|C. 公元前500—300年","D. 100–400 CE|D. 公元100—400年"],
+    correct:"B", rat_right:"The Hittite Empire existed from approximately 1600 to 1180 BCE, centered in Anatolia.|赫梯帝国存在于约公元前1600年至1180年，以安纳托利亚为中心。",
+    rat_wrong:{A:"3000-2500 BCE is earlier, closer to the rise of early Sumerian city-states.|公元前3000—2500年更早，接近早期苏美尔城邦的兴起。",C:"500-300 BCE is much later, during the era of Classical Greece and Persia.|公元前500—300年要晚得多，是古典希腊和波斯的时代。",D:"100-400 CE is during the Roman Empire period, long after the Hittites had fallen.|公元100—400年是罗马帝国时期，远在赫梯灭亡之后。"}
+  },
+  { id:"l4q9", q:"Why might historians consider the Hittite legal system advanced for its time?", q_cn:"为什么历史学家可能认为赫梯的法律体系在当时是先进的？",
+    options:["A. It relied entirely on oral tradition with no written record|A. 它完全依赖口头传统，没有书面记录","B. It emphasized compensation and fairness over brutal punishment in many cases|B. 在许多情况下，它强调赔偿和公平，而非残酷惩罚","C. It only applied to the royal family|C. 它只适用于皇室家族","D. It had no concept of property rights|D. 它没有财产权的概念"],
+    correct:"B", rat_right:"By favoring restitution and fines over harsh physical punishment in many cases, Hittite law reflects a relatively progressive approach to justice for its era.|在许多情况下，赫梯法律倾向于赔偿和罚款而非严厉的肉体惩罚，反映了那个时代相对进步的司法方式。",
+    rat_wrong:{A:"The Hittites had a written legal code, not solely oral tradition.|赫梯人有书面法典，不仅仅是口头传统。",C:"Hittite laws applied to broader segments of society, not just royalty.|赫梯法律适用于更广泛的社会阶层，不仅仅是皇室。",D:"Hittite law included provisions about property and restitution, showing clear property concepts.|赫梯法律包含关于财产和赔偿的条款，显示出明确的财产观念。"}
+  },
+  { id:"l4q10", q:"What overall role did the Hittite Empire play in the ancient Near East?", q_cn:"赫梯帝国在古代近东扮演了什么总体角色？",
+    options:["A. A minor, isolated kingdom with no influence|A. 一个没有影响力的孤立小王国","B. A major power that rivaled Egypt for control of the Levant and contributed military and legal innovations|B. 一个与埃及争夺黎凡特控制权的主要大国，并贡献了军事和法律创新","C. A purely peaceful civilization with no military|C. 一个纯粹和平、没有军队的文明","D. A vassal state under Egyptian control|D. 受埃及控制的附属国"],
+    correct:"B", rat_right:"The Hittites were a major Near Eastern power, rivaling Egypt for control of Syria, while contributing significant military technology (iron, chariots) and legal traditions.|赫梯人是近东的主要大国，与埃及争夺叙利亚的控制权，同时贡献了重要的军事技术（铁器、战车）和法律传统。",
+    rat_wrong:{A:"The Hittites were a major empire with significant regional influence, not minor or isolated.|赫梯人是具有重大地区影响力的大帝国，不是弱小或孤立的。",C:"The Hittites had a strong military, evidenced by their conflict with Egypt at Kadesh.|赫梯人拥有强大的军队，从他们在卡迭石与埃及的冲突中可见一斑。",D:"The Hittites were an independent empire, not a vassal of Egypt — they were rivals.|赫梯人是独立帝国，不是埃及的附属国——他们是竞争对手。"}
+  }
+];
+ 
+var L5_Q = [
+  { id:"l5q1", q:"The Battle of Kadesh was fought between Egypt and which other empire?", q_cn:"卡迭石之战是埃及与哪个帝国之间的战役？",
+    options:["A. Babylon|A. 巴比伦","B. The Hittites|B. 赫梯","C. Persia|C. 波斯","D. Assyria|D. 亚述"],
+    correct:"B", rat_right:"The Battle of Kadesh (c. 1274 BCE) was fought between Egypt under Ramesses II and the Hittite Empire under Muwatalli II.|卡迭石之战（约公元前1274年）是拉美西斯二世统治下的埃及与穆瓦塔利二世统治下的赫梯帝国之间的战役。",
+    rat_wrong:{A:"Babylon was a Mesopotamian power not directly involved in this battle.|巴比伦是美索不达米亚的大国，未直接参与这场战役。",C:"Persia rose to power centuries after the Battle of Kadesh.|波斯在卡迭石之战数百年后才崛起。",D:"Assyria was a separate Mesopotamian power, not the opponent at Kadesh.|亚述是另一个美索不达米亚大国，不是卡迭石之战的对手。"}
+  },
+  { id:"l5q2", q:"Who led the Egyptian forces at the Battle of Kadesh?", q_cn:"谁领导了卡迭石之战中的埃及军队？",
+    options:["A. Hatshepsut|A. 哈特谢普苏特","B. Ramesses II|B. 拉美西斯二世","C. Tutankhamun|C. 图坦卡蒙","D. Akhenaten|D. 阿肯那顿"],
+    correct:"B", rat_right:"Pharaoh Ramesses II personally led the Egyptian forces at the Battle of Kadesh.|法老拉美西斯二世亲自领导了卡迭石之战中的埃及军队。",
+    rat_wrong:{A:"Hatshepsut ruled generations earlier and was not involved in this battle.|哈特谢普苏特统治的时代更早，没有参与这场战役。",C:"Tutankhamun ruled before Ramesses II and was not the leader at Kadesh.|图坦卡蒙在拉美西斯二世之前统治，不是卡迭石之战的领导者。",D:"Akhenaten ruled earlier and focused on religious reform, not this battle.|阿肯那顿统治时期更早，专注于宗教改革，与这场战役无关。"}
+  },
+  { id:"l5q3", q:"What nearly happened to Ramesses II's army at the start of the battle?", q_cn:"战役开始时，拉美西斯二世的军队几乎发生了什么？",
+    options:["A. It was completely destroyed before the battle began|A. 在战役开始前就被完全摧毁","B. It was nearly ambushed by surprise Hittite chariot attacks|B. 几乎被赫梯战车的突袭打个措手不及","C. It retreated without fighting|C. 未战而退","D. It was reinforced by Mesopotamian allies|D. 得到了美索不达米亚盟友的增援"],
+    correct:"B", rat_right:"Ramesses II's divided army was nearly caught off guard when Hittite chariots launched a surprise attack.|拉美西斯二世分散的军队几乎被赫梯战车发动的突袭打个措手不及。",
+    rat_wrong:{A:"The army was not destroyed before the battle — it faced a dangerous surprise attack during the battle.|军队没有在战役前被摧毁——它在战役中面临危险的突袭。",C:"Ramesses rallied and fought rather than retreating immediately.|拉美西斯重整军队并战斗，而不是立即撤退。",D:"There is no record of Mesopotamian reinforcements at Kadesh.|没有记录显示美索不达米亚的增援出现在卡迭石。"}
+  },
+  { id:"l5q4", q:"How did Egyptian temple inscriptions describe the outcome of the Battle of Kadesh?", q_cn:"埃及神庙铭文如何描述卡迭石之战的结果？",
+    options:["A. As a clear defeat for Egypt|A. 作为埃及明确的失败","B. As a great victory for Ramesses II|B. 作为拉美西斯二世的伟大胜利","C. As an unimportant, minor skirmish|C. 作为一场不重要的小规模冲突","D. As a victory for the Hittites|D. 作为赫梯的胜利"],
+    correct:"B", rat_right:"Egyptian temple inscriptions presented the battle as a triumphant victory for Ramesses II, even though historians view the actual outcome differently.|埃及神庙铭文将这场战役描绘成拉美西斯二世的辉煌胜利，尽管历史学家对实际结果有不同看法。",
+    rat_wrong:{A:"Egyptian records would never have described the battle as a defeat for their own pharaoh.|埃及记录绝不会将这场战役描述为他们自己法老的失败。",C:"Egyptian inscriptions treated the battle as a major, celebrated event, not a minor skirmish.|埃及铭文将这场战役视为重大的、值得庆祝的事件，不是小规模冲突。",D:"Egyptian records, naturally, presented their own side as victorious, not the Hittites.|埃及记录自然会将自己一方描述为胜利者，而不是赫梯。"}
+  },
+  { id:"l5q5", q:"What do most historians believe was the actual outcome of the Battle of Kadesh?", q_cn:"大多数历史学家认为卡迭石之战的实际结果是什么？",
+    options:["A. A decisive Egyptian victory|A. 埃及的决定性胜利","B. A decisive Hittite victory|B. 赫梯的决定性胜利","C. A stalemate, with neither side achieving a clear victory|C. 一场僵局，双方都未取得明确胜利","D. A peaceful negotiation with no actual fighting|D. 一场没有实际战斗的和平谈判"],
+    correct:"C", rat_right:"While Egyptian records claimed victory, most historians believe the battle ended in a military stalemate.|尽管埃及记录声称胜利，但大多数历史学家认为这场战役以军事僵局结束。",
+    rat_wrong:{A:"Despite Egyptian propaganda, the actual military outcome was not a clear victory.|尽管有埃及的宣传，实际的军事结果并非明确的胜利。",B:"There is no strong historical evidence supporting a clear Hittite victory either.|也没有强有力的历史证据支持赫梯的明确胜利。",D:"The battle involved real, significant fighting before any later diplomatic resolution.|这场战役涉及真实、重大的战斗，之后才有外交解决方案。"}
+  },
+  { id:"l5q6", q:"What is the Treaty of Kadesh historically significant for?", q_cn:"卡迭石条约在历史上有什么重要意义？",
+    options:["A. It was the first treaty ever written in any language|A. 它是历史上用任何语言书写的第一份条约","B. It is one of the oldest surviving peace treaties in world history|B. 它是世界历史上现存最古老的和平条约之一","C. It ended all warfare in the ancient Near East permanently|C. 它永久结束了古代近东的所有战争","D. It created a new shared religion between Egypt and the Hittites|D. 它在埃及和赫梯之间创造了一种新的共同宗教"],
+    correct:"B", rat_right:"The Treaty of Kadesh (c. 1259 BCE) is one of the oldest surviving peace treaties in recorded history, showing early formal diplomacy.|卡迭石条约（约公元前1259年）是有记录历史上现存最古老的和平条约之一，展示了早期的正式外交。",
+    rat_wrong:{A:"Other earlier treaties and agreements likely existed; this is notable for surviving, not for being the literal first ever.|可能存在其他更早的条约和协议；这份条约因留存而著名，并非历史上的第一份。",C:"Warfare continued in the region after this treaty — it did not end all conflict permanently.|这份条约之后该地区的战争仍在继续——它没有永久结束所有冲突。",D:"The treaty addressed political and military matters, not religious unification.|这份条约涉及政治和军事事务，不是宗教统一。"}
+  },
+  { id:"l5q7", q:"What did the Treaty of Kadesh establish between Egypt and the Hittites?", q_cn:"卡迭石条约在埃及和赫梯之间确立了什么？",
+    options:["A. A complete merger of the two empires|A. 两大帝国的完全合并","B. Mutual recognition of borders and a promise of mutual military support|B. 相互承认边界，并承诺相互军事支持","C. The abolition of both monarchies|C. 废除两国君主制","D. A shared capital city|D. 共同的首都"],
+    correct:"B", rat_right:"The treaty established mutual border recognition, a non-aggression pact, and mutual military support against outside threats.|条约确立了相互边界承认、互不侵犯协议，以及对外部威胁的相互军事支持。",
+    rat_wrong:{A:"Egypt and the Hittites remained separate, independent empires after the treaty.|条约签订后，埃及和赫梯仍是各自独立的帝国。",C:"Both pharaonic and Hittite kingship continued after the treaty.|条约签订后，法老制和赫梯王权都继续存在。",D:"Each empire retained its own separate capital — Egypt's in the Nile Valley, the Hittites' at Hattusa.|两大帝国各自保留了独立的首都——埃及在尼罗河谷，赫梯在哈图沙。"}
+  },
+  { id:"l5q8", q:"Approximately how many years passed between the battle and the signing of the treaty?", q_cn:"战役与条约签订之间大约相隔多少年？",
+    options:["A. 1 year|A. 1年","B. 5 years|B. 5年","C. 15 years|C. 15年","D. 100 years|D. 100年"],
+    correct:"C", rat_right:"About 15 years passed between the Battle of Kadesh (c. 1274 BCE) and the Treaty of Kadesh (c. 1259 BCE).|卡迭石之战（约公元前1274年）和卡迭石条约（约公元前1259年）之间大约相隔15年。",
+    rat_wrong:{A:"One year is far too short a gap based on the historical dates.|根据历史日期，一年的间隔太短了。",B:"Five years is shorter than the actual historical gap.|五年比实际的历史间隔要短。",D:"One hundred years is far longer than the actual gap between these events.|一百年远远超过这些事件之间的实际间隔。"}
+  },
+  { id:"l5q9", q:"What does the eventual peace between Egypt and the Hittites suggest about ancient warfare and diplomacy?", q_cn:"埃及与赫梯最终实现和平，这表明了古代战争与外交的什么特点？",
+    options:["A. War always led to the complete destruction of one side|A. 战争总是导致一方的彻底毁灭","B. Even bitter rivals could eventually achieve formal peace through negotiation|B. 即使是激烈的竞争对手，最终也能通过谈判实现正式和平","C. Ancient empires never made peace agreements|C. 古代帝国从未达成和平协议","D. Treaties were only used to formally declare new wars|D. 条约仅用于正式宣战"],
+    correct:"B", rat_right:"The Treaty of Kadesh shows that, despite years of conflict, even powerful rival empires could negotiate lasting peace agreements.|卡迭石条约表明，尽管经历了多年冲突，即使是强大的竞争对手帝国也能通过谈判达成持久的和平协议。",
+    rat_wrong:{A:"Neither Egypt nor the Hittite Empire was destroyed by this conflict — they eventually made peace instead.|埃及和赫梯帝国都没有因这场冲突而被摧毁——他们最终选择了和平。",C:"The Treaty of Kadesh is direct evidence that ancient empires did make peace agreements.|卡迭石条约正是古代帝国确实达成和平协议的直接证据。",D:"The treaty was used to establish peace, not declare new wars.|这份条约用于建立和平，不是宣战。"}
+  },
+  { id:"l5q10", q:"Comparing Egyptian and Hittite records of the Battle of Kadesh, what lesson can historians draw about studying ancient sources?", q_cn:"比较埃及和赫梯关于卡迭石之战的记录，历史学家能从研究古代史料中得出什么教训？",
+    options:["A. Ancient records are always completely accurate and unbiased|A. 古代记录总是完全准确且没有偏见","B. Historians must consider that each side may have presented events in a way that favored themselves|B. 历史学家必须考虑到每一方可能都以有利于自己的方式呈现事件","C. Only Egyptian records of ancient battles should be trusted|C. 只应信任埃及对古代战役的记录","D. Ancient civilizations never recorded their own military history|D. 古代文明从未记录自己的军事历史"],
+    correct:"B", rat_right:"Since both Egypt and the Hittites likely shaped their accounts to favor themselves, historians must critically compare multiple sources rather than trusting one side's narrative alone.|由于埃及和赫梯都可能以有利于自己的方式塑造了各自的记述，历史学家必须批判性地比较多种史料，而不是只相信一方的叙述。",
+    rat_wrong:{A:"The differing accounts of Kadesh show that ancient records can be biased, not perfectly accurate.|卡迭石之战不同的记述表明古代记录可能存在偏见，并非完全准确。",C:"Hittite records also exist and provide a valuable counterpoint to Egyptian accounts.|赫梯的记录也存在，为埃及的记述提供了有价值的对照。",D:"Both Egypt and the Hittites did record this battle — the issue is bias, not absence of records.|埃及和赫梯都记录了这场战役——问题在于偏见，而不是记录的缺失。"}
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var allAnswered = Object.keys(storeMap[tabKey]).length === qMap[tabKey].length;
+  var hasRef1 = ref1 && ref1.value.trim().length > 0;
+  var hasRef2 = ref2 && ref2.value.trim().length > 0;
+  var hasGrat = grat && grat.value.trim().length > 0;
+  if (allAnswered && hasRef1 && hasRef2 && hasGrat) {
+    btn.classList.add('ready');
+    btn.disabled = false;
+    hint.style.display = 'none';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1','Ref2','Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Ancient Mesopotamia and the Epic of Gilgamesh',
+    l2: 'Ancient Egypt the Nile and Hatshepsut',
+    l3: 'Egyptian Trade Ships and Hittite Relations',
+    l4: 'The Hittite Empire',
+    l5: 'The Battle of Kadesh'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 2\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + (document.getElementById(tabKey+'Ref1').value) + '\n\n';
+  txt += 'Reflection 2:\n' + (document.getElementById(tabKey+'Ref2').value) + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + document.getElementById(tabKey+'Grat').value + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day2_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>

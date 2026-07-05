@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 7 — Byzantium, Feudal Europe &amp; the Birth of Islam | 拜占庭、欧洲封建制度与伊斯兰教的诞生</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 7 — Byzantium, Feudal Europe &amp; the Birth of Islam · <span class="cn">拜占庭、欧洲封建制度与伊斯兰教的诞生</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson 1"></div>
+    <div class="pip" id="pip-l2" title="Lesson 2"></div>
+    <div class="pip" id="pip-l3" title="Lesson 3"></div>
+    <div class="pip" id="pip-l4" title="Lesson 4"></div>
+    <div class="pip" id="pip-l5" title="Lesson 5"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">👑 Justinian &amp; the Byzantine Empire</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">🏰 Overview of the Middle Ages</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">⚔️ The Feudal System</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">🌙 Life of Muhammad / Origins of Islam</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">🕋 The Hijra to Medina / Conversion of Mecca</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON 1: Justinian & the Byzantine Empire -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Justinian &amp; the Byzantine Empire · <span class="cn">查士丁尼与拜占庭帝国</span></h2>
+ 
+  <div class="concept-card">
+    <h3>What Was the Byzantine Empire? · <span class="cn">拜占庭帝国是什么？</span></h3>
+    <p>When the Western Roman Empire collapsed in 476 CE, the <strong>Eastern Roman Empire</strong> — later called the <strong>Byzantine Empire</strong> — survived and continued for nearly another thousand years. Centered on its capital, <strong>Constantinople</strong>, the empire blended Roman law and government, Greek language and culture, and Christian religion into a distinct civilization that controlled trade between Europe and Asia.</p>
+    <p style="margin-top:8px"><span class="cn">西罗马帝国于公元476年崩溃后，<strong>东罗马帝国</strong>——后来被称为<strong>拜占庭帝国</strong>——存活下来，并又延续了将近一千年。该帝国以首都<strong>君士坦丁堡</strong>为中心，融合了罗马法律与政府体制、希腊语言与文化，以及基督教信仰，形成了一种独特的文明，并控制着欧亚之间的贸易。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Emperor Justinian's Achievements · <span class="cn">查士丁尼皇帝的成就</span></h3>
+    <p><strong>Justinian I</strong> (ruled 527–565 CE) is considered the most influential Byzantine emperor. He attempted to reconquer lost Western Roman territory, commissioned a massive legal reform known as the <strong>Justinian Code</strong>, and oversaw the construction of the <strong>Hagia Sophia</strong>, one of the greatest architectural achievements of the ancient world.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Achievement 成就</th><th>Significance 意义</th></tr>
+      <tr><td>Justinian Code 查士丁尼法典</td><td>Organized and preserved Roman law, influencing legal systems for centuries 整理并保存了罗马法律，影响了后世数百年的法律体系</td></tr>
+      <tr><td>Hagia Sophia 圣索菲亚大教堂</td><td>A massive domed cathedral symbolizing Byzantine wealth and engineering skill 一座象征拜占庭财富与工程技术的巨大圆顶教堂</td></tr>
+      <tr><td>Military reconquest 军事再征服</td><td>Temporarily recaptured parts of Italy, North Africa, and Spain 暂时收复了意大利、北非和西班牙的部分地区</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Justinian Code · <span class="cn">查士丁尼法典</span></h3>
+    <p>Roman law had grown disorganized over centuries of additions and contradictions. Justinian ordered legal scholars to collect, simplify, and organize this law into a single, coherent body known as the <strong>Corpus Juris Civilis</strong> (Body of Civil Law), commonly called the <strong>Justinian Code</strong>. This code preserved Roman legal traditions and later became a foundation for legal systems across Europe.</p>
+    <div class="callout">
+      <strong>Lasting Influence:</strong> Centuries after the Byzantine Empire fell, the Justinian Code continued to shape legal systems throughout Europe — a clear example of how ideas can outlast the empires that created them.
+      <br><span class="cn"><strong>持久的影响：</strong>在拜占庭帝国灭亡数百年后，查士丁尼法典仍持续影响着整个欧洲的法律体系——这清楚地说明了思想可以比创造它们的帝国存在得更久。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Constantinople: A Crossroads of Trade and Culture · <span class="cn">君士坦丁堡：贸易与文化的十字路口</span></h3>
+    <p>Constantinople's location, straddling the boundary between Europe and Asia, made it one of the wealthiest and most important trading cities in the world. Its strong walls and strategic position allowed the Byzantine Empire to survive numerous invasions for centuries, even as Western Europe fragmented into smaller, less centralized kingdoms.</p>
+    <p style="margin-top:8px"><span class="cn">君士坦丁堡的地理位置横跨欧亚两洲的边界，使其成为世界上最富有、最重要的贸易城市之一。其坚固的城墙与战略性的位置，使拜占庭帝国能够在数百年间抵御无数次入侵，即便此时西欧已分裂为更小、更分散的王国。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 1</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Justinian Code continued to influence legal systems centuries after the Byzantine Empire fell. Why might written laws and legal traditions sometimes outlast the empires or governments that created them? · <span class="cn">查士丁尼法典在拜占庭帝国灭亡数百年后仍持续影响着法律体系。为什么书面法律和法律传统有时能比创造它们的帝国或政府存在得更久？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Constantinople's location at the crossroads of Europe and Asia made it wealthy and important, but also a frequent target for invasion. Can you think of other examples where a strategic location creates both advantages and risks? · <span class="cn">君士坦丁堡位于欧亚交汇之处，这使其变得富有且重要，但也使其经常成为入侵的目标。你能想到其他战略位置既带来优势又带来风险的例子吗？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 2: Overview of the Middle Ages -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Overview of the Middle Ages · <span class="cn">中世纪概述</span></h2>
+ 
+  <div class="concept-card">
+    <h3>What Were the Middle Ages? · <span class="cn">中世纪是什么时期？</span></h3>
+    <p>The <strong>Middle Ages</strong> (roughly 500–1500 CE) refers to the long period in European history between the fall of the Western Roman Empire and the start of the Renaissance. This era is sometimes called the "medieval period," and its earlier centuries are sometimes referred to as the "Dark Ages" because of the loss of centralized Roman government, infrastructure, and widespread literacy.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>中世纪</strong>（大约公元500年—1500年）指的是欧洲历史上西罗马帝国灭亡与文艺复兴兴起之间的漫长时期。这一时代有时被称为"中世纪时期"，而其较早的几个世纪有时被称为"黑暗时代"，因为当时失去了罗马中央集权政府、基础设施以及广泛的识字能力。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Political Fragmentation · <span class="cn">政治分裂</span></h3>
+    <p>Without the centralized authority of Rome, Western Europe broke apart into many smaller, competing kingdoms and territories. No single power controlled the region the way Rome once had. This fragmentation created instability but also allowed local lords and the Christian Church to grow in influence, filling the gap left by the absence of a strong central government.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Roman Empire (Before) 罗马帝国（之前）</th><th>Medieval Europe (After) 中世纪欧洲（之后）</th></tr>
+      <tr><td>Centralized government and law 中央集权的政府与法律</td><td>Fragmented kingdoms and local rule 分裂的王国与地方统治</td></tr>
+      <tr><td>Extensive road and trade networks 广泛的道路与贸易网络</td><td>Smaller, more local economies 更小、更地方化的经济</td></tr>
+      <tr><td>State-supported infrastructure 国家支持的基础设施</td><td>Church and local lords filling gaps in authority 教会与地方领主填补权力真空</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Power of the Church · <span class="cn">教会的权力</span></h3>
+    <p>With Rome's central government gone, the <strong>Catholic Church</strong> became one of the most powerful and stable institutions in Western Europe. The Church provided education, preserved knowledge in monasteries, and often held more practical authority over daily life than any king. Religion shaped nearly every part of medieval society, from law to art to education.</p>
+    <div class="callout-blue">
+      <strong>Filling the Power Vacuum:</strong> When political authority weakens or disappears, other institutions — like the Church in medieval Europe — often step in to provide order, structure, and stability for ordinary people.
+      <br><span class="cn"><strong>填补权力真空：</strong>当政治权威减弱或消失时，其他机构——如中世纪欧洲的教会——往往会介入，为普通民众提供秩序、结构和稳定。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Setting the Stage for Feudalism · <span class="cn">为封建制度奠定基础</span></h3>
+    <p>The instability and constant threat of invasion during the early Middle Ages pushed people to seek protection from local strongmen rather than a distant or nonexistent central government. This need for local protection and order became the foundation of a new political and social system that would dominate medieval Europe: <strong>feudalism</strong>.</p>
+    <p style="margin-top:8px"><span class="cn">中世纪早期的不稳定与持续的入侵威胁，促使人们向地方强人而非遥远或根本不存在的中央政府寻求保护。这种对地方保护与秩序的需求，成为了一种将主导中世纪欧洲的新政治与社会体系的基础：<strong>封建制度</strong>。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 2</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. When Rome's central government disappeared, the Catholic Church grew in power to fill the gap. Can you think of a modern example where one institution grows stronger because another one weakens or disappears? · <span class="cn">当罗马的中央政府消失后，天主教会的权力逐渐增长以填补空缺。你能想到一个现代的例子，其中一个机构因为另一个机构变弱或消失而变得更强大吗？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The instability of the early Middle Ages pushed people to seek protection from local lords rather than a distant government. Why might people prioritize local, immediate protection over a more distant, larger system of order? · <span class="cn">中世纪早期的不稳定促使人们向地方领主而非遥远的政府寻求保护。为什么人们可能更重视地方性的、即时的保护，而不是更遥远、更庞大的秩序体系？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 3: The Feudal System -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">The Feudal System · <span class="cn">封建制度</span></h2>
+ 
+  <div class="concept-card">
+    <h3>What Was Feudalism? · <span class="cn">什么是封建制度？</span></h3>
+    <p><strong>Feudalism</strong> was a system of mutual obligations that structured medieval European society. In exchange for protection and use of land, lower-ranking individuals provided loyalty, labor, or military service to those above them. This created a clear hierarchy that organized nearly every part of medieval life, from the king down to the peasants who worked the land.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>封建制度</strong>是一种相互义务的体系，构成了中世纪欧洲社会的结构。下级人员通过向上级提供忠诚、劳动或军事服务，来换取保护与土地的使用权。这形成了一种明确的等级体系，组织了中世纪生活的几乎每一个方面，从国王到耕种土地的农民。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Feudal Hierarchy · <span class="cn">封建等级体系</span></h3>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Rank 等级</th><th>Role 角色</th></tr>
+      <tr><td>King 国王</td><td>Owned all land in theory; granted large estates (fiefs) to nobles in exchange for loyalty and military support 理论上拥有所有土地；将大片庄园（封地）授予贵族，以换取忠诚与军事支持</td></tr>
+      <tr><td>Lords/Nobles 领主/贵族</td><td>Managed land granted by the king; provided knights for military service 管理国王授予的土地；提供骑士进行军事服务</td></tr>
+      <tr><td>Knights 骑士</td><td>Provided military service to lords in exchange for smaller grants of land 向领主提供军事服务，以换取较小的土地授予</td></tr>
+      <tr><td>Peasants/Serfs 农民/农奴</td><td>Worked the land in exchange for protection and the right to live on it 耕种土地，以换取保护与居住权</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Manorialism: The Economic Side of Feudalism · <span class="cn">庄园制：封建制度的经济层面</span></h3>
+    <p>While feudalism described the political and military relationships between lords and vassals, <strong>manorialism</strong> described the economic system of daily life on a lord's estate, or <strong>manor</strong>. Most peasants were <strong>serfs</strong>, bound to the land they worked and unable to leave without their lord's permission. In return for their labor, serfs received protection and a small portion of what they grew.</p>
+    <div class="callout">
+      <strong>A System of Mutual (but Unequal) Obligation:</strong> Every level of feudal society owed something to the level above and received something from it — protection, land, or labor — but the benefits of this exchange were far from equal.
+      <br><span class="cn"><strong>相互（但不平等）的义务体系：</strong>封建社会的每一个层级都对上一层级负有义务，同时也从其获得回报——保护、土地或劳动——但这种交换所带来的利益远非平等。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Why Feudalism Developed · <span class="cn">封建制度为何会发展形成</span></h3>
+    <p>Feudalism developed largely as a response to the chaos and insecurity of the early Middle Ages. With no strong central government to provide protection from invasion or maintain order, people turned to local lords who could offer immediate, practical security in exchange for loyalty and labor.</p>
+    <p style="margin-top:8px"><span class="cn">封建制度的形成主要是为了应对中世纪早期的混乱与不安全感。由于没有强大的中央政府来提供抵御入侵的保护或维持秩序，人们转向能够提供即时、实际安全保障的地方领主，以换取忠诚与劳动。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 3</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Feudalism was a system of mutual obligation, but the benefits were not shared equally between lords and peasants. Why might people accept an unequal system if it still provides some sense of security? · <span class="cn">封建制度是一种相互义务的体系，但领主与农民之间的利益分配并不平等。为什么人们即使在不平等的体系中，仍可能因为获得一定的安全感而接受它？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Feudalism developed because people needed protection that a weak central government could not provide. Can you think of a modern situation where people rely on local or informal systems of support instead of a larger government structure? · <span class="cn">封建制度的形成是因为人们需要保护，而薄弱的中央政府无法提供这种保护。你能想到一个现代的情况，人们依赖地方性或非正式的支持体系，而不是依赖更庞大的政府结构吗？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 4: Life of Muhammad / Origins of Islam -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Life of Muhammad / Origins of Islam · <span class="cn">穆罕默德的生平 / 伊斯兰教的起源</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Arabia Before Islam · <span class="cn">伊斯兰教兴起前的阿拉伯</span></h3>
+    <p>Before the 7th century CE, the Arabian Peninsula was home to many tribes, most of whom worshipped multiple gods and spirits. The city of <strong>Mecca</strong> was an important trading center and religious site, home to the <strong>Kaaba</strong>, a shrine that housed statues representing different tribal deities and attracted pilgrims from across the region.</p>
+    <p style="margin-top:8px"><span class="cn">在公元7世纪之前，阿拉伯半岛上居住着许多部落，大多数部落信奉多神与多种精灵。<strong>麦加</strong>城是一个重要的贸易中心与宗教圣地，是<strong>克尔白</strong>的所在地——这是一座供奉着代表不同部落神灵雕像的圣殿，吸引了来自该地区各地的朝圣者。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Muhammad's Early Life · <span class="cn">穆罕默德的早年生活</span></h3>
+    <p><strong>Muhammad</strong> was born in Mecca around 570 CE. Orphaned at a young age, he was raised by relatives and later became a successful merchant known for his honesty. Muhammad frequently withdrew to a cave outside Mecca to meditate and reflect, a practice that set the stage for the spiritual experiences that would later transform his life and the history of the region.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Stage of Life 人生阶段</th><th>Key Details 主要细节</th></tr>
+      <tr><td>Early life 早年生活</td><td>Born c. 570 CE in Mecca; orphaned young 大约公元570年生于麦加；幼年成为孤儿</td></tr>
+      <tr><td>Adulthood 成年时期</td><td>Became a respected, honest merchant 成为一位受人尊敬、诚实的商人</td></tr>
+      <tr><td>Spiritual practice 精神实践</td><td>Regularly meditated in a cave near Mecca 经常在麦加附近的一个洞穴中冥想</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The First Revelation · <span class="cn">最初的启示</span></h3>
+    <p>Around 610 CE, Muslims believe Muhammad received the first of many revelations from God (Allah) through the angel <strong>Gabriel</strong> while meditating in a cave on Mount Hira. These revelations, delivered over the rest of his life, were later collected into the <strong>Quran</strong>, the central religious text of <strong>Islam</strong>. Muhammad began preaching a message of strict monotheism — belief in one God — which directly challenged Mecca's existing polytheistic religious traditions.</p>
+    <div class="callout-blue">
+      <strong>A Challenge to the Status Quo:</strong> Muhammad's message of one God threatened the religious and economic power of Mecca's elite, who profited from pilgrims visiting the Kaaba's many idols — setting up early conflict between Muhammad's followers and Meccan leaders.
+      <br><span class="cn"><strong>对现状的挑战：</strong>穆罕默德【一神】的信息威胁到了麦加权贵的宗教与经济权力，他们从前往克尔白朝拜众多神像的朝圣者中获利——这也为穆罕默德追随者与麦加领袖之间的早期冲突埋下了隐患。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Five Pillars of Islam · <span class="cn">伊斯兰教的五大支柱</span></h3>
+    <p>As Muhammad's teachings developed into the religion of Islam, they came to be organized around core practices known as the <strong>Five Pillars</strong>: declaration of faith (shahada), prayer five times daily (salat), charity to the poor (zakat), fasting during Ramadan (sawm), and pilgrimage to Mecca (hajj). These practices unified Muslim believers and structured daily religious life.</p>
+    <p style="margin-top:8px"><span class="cn">随着穆罕默德的教义发展成为伊斯兰教，这些教义逐渐围绕被称为<strong>五大支柱</strong>的核心实践组织起来：信仰宣言（清真言）、每日五次礼拜（礼拜）、对穷人的施舍（天课）、斋月斋戒（斋戒）以及前往麦加朝圣（朝觐）。这些实践统一了穆斯林信徒，并构建了日常的宗教生活。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 4</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Muhammad's message of one God threatened the economic and religious power of Mecca's elite. Why might a new religious idea be seen as dangerous to people who benefit from the existing system? · <span class="cn">穆罕默德"一神"的信息威胁到了麦加权贵的经济与宗教权力。为什么一种新的宗教理念可能被那些从现有体系中获益的人视为危险？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Five Pillars of Islam gave structure to daily religious life and unified believers around shared practices. Why might shared daily practices be effective at building a strong sense of community? · <span class="cn">伊斯兰教的五大支柱为日常宗教生活提供了结构，并通过共同的实践将信徒团结在一起。为什么共同的日常实践可能有助于建立强烈的社区认同感？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 5: The Hijra to Medina / Conversion of Mecca -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">The Hijra to Medina / Conversion of Mecca · <span class="cn">迁往麦地那 / 麦加的归顺</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Growing Persecution in Mecca · <span class="cn">麦加日益加剧的迫害</span></h3>
+    <p>As Muhammad's following grew, Meccan leaders — fearing the loss of their religious and economic power tied to the Kaaba — increased their persecution of Muhammad and his early followers. Facing threats to their safety, Muhammad and his followers needed to find a new place where they could practice and spread their faith without fear of violence.</p>
+    <p style="margin-top:8px"><span class="cn">随着穆罕默德追随者人数的增长，麦加领袖——担心失去与克尔白相关的宗教与经济权力——加剧了对穆罕默德及其早期追随者的迫害。面临着安全威胁，穆罕默德和他的追随者需要寻找一个新的地方，在那里他们能够实践并传播信仰，而不必担心暴力。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Hijra: Migration to Medina · <span class="cn">希吉拉：迁往麦地那</span></h3>
+    <p>In 622 CE, Muhammad and his followers migrated from Mecca to the city of <strong>Medina</strong>. This journey, known as the <strong>Hijra</strong>, marks such a pivotal turning point in Islamic history that it became <strong>Year 1 of the Islamic calendar</strong>. In Medina, Muhammad was welcomed as a political and religious leader, allowing him to establish the first Muslim community, or <strong>umma</strong>, with himself as both spiritual guide and governing authority.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Before the Hijra (Mecca) 希吉拉之前（麦加）</th><th>After the Hijra (Medina) 希吉拉之后（麦地那）</th></tr>
+      <tr><td>Muhammad faced persecution and threats 穆罕默德面临迫害与威胁</td><td>Muhammad was welcomed as a leader 穆罕默德被迎为领袖</td></tr>
+      <tr><td>Small, vulnerable community of believers 弱小且脆弱的信徒社群</td><td>Establishment of the first organized Muslim community (umma) 建立了第一个有组织的穆斯林社群（乌玛）</td></tr>
+      <tr><td>No political authority 没有政治权力</td><td>Combined religious and political leadership 兼具宗教与政治领导地位</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Building the Umma in Medina · <span class="cn">在麦地那建立乌玛</span></h3>
+    <p>In Medina, Muhammad drafted agreements establishing rules for cooperation between Muslims and other groups in the city, creating one of the earliest examples of a written constitution. This new community combined religious devotion with practical governance — laws, military organization, and social structure — laying the foundation for the rapid growth of Islam that would follow.</p>
+    <div class="callout">
+      <strong>Religion and Government Combined:</strong> Muhammad's role in Medina shows how, in this case, religious leadership and political authority became deeply intertwined from the very founding of the Muslim community.
+      <br><span class="cn"><strong>宗教与政府的结合：</strong>穆罕默德在麦地那的角色表明，在这种情况下，宗教领导地位与政治权力从穆斯林社群建立之初就紧密地交织在一起。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Conquest and Conversion of Mecca · <span class="cn">麦加的征服与归顺</span></h3>
+    <p>By 630 CE, Muhammad's growing community in Medina had become powerful enough to return to Mecca. Muhammad and his followers entered the city largely without violence, and Mecca's leaders ultimately converted to Islam. Muhammad then removed the idols from the Kaaba, rededicating it as the central holy site of Islam — a role it still holds today as the destination of the hajj pilgrimage.</p>
+    <p style="margin-top:8px"><span class="cn">到公元630年，穆罕默德在麦地那不断壮大的社群已强大到足以重返麦加。穆罕默德和他的追随者基本上是在没有暴力的情况下进入了这座城市，麦加的领袖最终皈依了伊斯兰教。随后穆罕默德移除了克尔白中的神像，将其重新奉为伊斯兰教的核心圣地——这一地位延续至今，成为朝觐朝圣的目的地。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 5</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Hijra is considered such a pivotal moment that it marks Year 1 of the Islamic calendar, rather than Muhammad's birth or first revelation. Why might a community choose a moment of migration or struggle, rather than a moment of triumph, as its defining starting point? · <span class="cn">希吉拉被视为如此关键的时刻，以至于它标志着伊斯兰历法的第一年，而不是穆罕默德的出生或最初的启示。为什么一个社群可能选择一个迁徙或斗争的时刻，而不是一个胜利的时刻，作为其历史的起点？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Muhammad and his followers returned to Mecca largely without violence, and Mecca's leaders converted to Islam. What does this suggest about how lasting change can sometimes happen through negotiation and persuasion rather than conquest? · <span class="cn">穆罕默德和他的追随者基本上是在没有暴力的情况下重返麦加的，麦加的领袖也皈依了伊斯兰教。这说明了什么——持久的变革有时可以通过谈判与说服而非征服来实现？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  { word:"Byzantine Empire", pos:"proper noun", cn:"拜占庭帝国", def:"The Eastern Roman Empire, which survived the fall of Rome and lasted nearly another thousand years.", cn_def:"东罗马帝国，在西罗马灭亡后存活下来，并又延续了将近一千年。", example:"The Byzantine Empire blended Roman law, Greek culture, and Christian religion." },
+  { word:"Justinian Code", pos:"proper noun", cn:"查士丁尼法典", def:"A massive legal reform commissioned by Emperor Justinian that organized and preserved Roman law.", cn_def:"由查士丁尼皇帝下令编纂的大规模法律改革，整理并保存了罗马法律。", example:"The Justinian Code influenced legal systems across Europe for centuries." },
+  { word:"Constantinople", pos:"proper noun", cn:"君士坦丁堡", def:"The capital of the Byzantine Empire, located at the crossroads of Europe and Asia.", cn_def:"拜占庭帝国的首都，位于欧亚交汇之处。", example:"Constantinople became one of the wealthiest trading cities in the world." },
+  { word:"Middle Ages", pos:"noun phrase", cn:"中世纪", def:"The long period of European history between the fall of Rome and the start of the Renaissance, roughly 500–1500 CE.", cn_def:"欧洲历史上罗马灭亡与文艺复兴兴起之间的漫长时期，大约公元500年至1500年。", example:"Political power became fragmented across Europe during the Middle Ages." },
+  { word:"Feudalism", pos:"noun", cn:"封建制度", def:"A system of mutual obligations in which land and protection were exchanged for loyalty and service.", cn_def:"一种相互义务的体系，土地与保护被用来换取忠诚与服务。", example:"Feudalism created a clear hierarchy from kings down to peasants." },
+  { word:"Fief", pos:"noun", cn:"封地", def:"Land granted by a king or lord to a noble or knight in exchange for loyalty and service.", cn_def:"国王或领主授予贵族或骑士的土地，以换取忠诚与服务。", example:"A lord managed his fief and provided knights for military service." },
+  { word:"Manorialism", pos:"noun", cn:"庄园制", def:"The economic system describing daily life and labor on a lord's estate, or manor.", cn_def:"描述领主庄园中日常生活与劳动的经济体系。", example:"Manorialism organized the economic relationship between lords and serfs." },
+  { word:"Serf", pos:"noun", cn:"农奴", def:"A peasant bound to the land they worked, unable to leave without their lord's permission.", cn_def:"被束缚在所耕种土地上的农民，未经领主允许不能离开。", example:"Serfs received protection in exchange for working the lord's land." },
+  { word:"Mecca", pos:"proper noun", cn:"麦加", def:"An important trading and religious center in Arabia, birthplace of Muhammad and home to the Kaaba.", cn_def:"阿拉伯的重要贸易与宗教中心，穆罕默德的出生地，也是克尔白的所在地。", example:"Pilgrims traveled to Mecca to visit the Kaaba before the rise of Islam." },
+  { word:"Kaaba", pos:"proper noun", cn:"克尔白", def:"A shrine in Mecca that became the central holy site of Islam after Muhammad removed its idols.", cn_def:"麦加的一座圣殿，穆罕默德移除其神像后，它成为伊斯兰教的核心圣地。", example:"The Kaaba is the destination of the hajj pilgrimage today." },
+  { word:"Quran", pos:"proper noun", cn:"古兰经", def:"The central religious text of Islam, believed by Muslims to be revelations given to Muhammad.", cn_def:"伊斯兰教的核心宗教经典，穆斯林相信这是赐予穆罕默德的启示。", example:"The Quran was collected from revelations Muhammad received over his life." },
+  { word:"Five Pillars of Islam", pos:"noun phrase", cn:"伊斯兰教五大支柱", def:"The five core practices of Islam: faith, prayer, charity, fasting, and pilgrimage.", cn_def:"伊斯兰教的五项核心实践：信仰、礼拜、施舍、斋戒与朝圣。", example:"The Five Pillars of Islam structure daily religious life for Muslims." },
+  { word:"Hijra", pos:"proper noun", cn:"希吉拉", def:"Muhammad's migration from Mecca to Medina in 622 CE, marking Year 1 of the Islamic calendar.", cn_def:"穆罕默德于公元622年从麦加迁往麦地那，标志着伊斯兰历法的第一年。", example:"The Hijra marked a pivotal turning point in the history of Islam." },
+  { word:"Umma", pos:"noun", cn:"乌玛", def:"The early Muslim community established by Muhammad in Medina.", cn_def:"穆罕默德在麦地那建立的早期穆斯林社群。", example:"The umma combined religious devotion with practical governance." }
+];
+ 
+var L1_Q = [
+  { id:"l1q1", q:"What happened to the Eastern Roman Empire after the Western Roman Empire fell in 476 CE?", q_cn:"公元476年西罗马帝国灭亡后，东罗马帝国发生了什么？",
+    options:["A. It also collapsed immediately|A. 它也立即崩溃了","B. It survived and continued for nearly another thousand years|B. 它存活下来，并又延续了将近一千年","C. It merged with the Persian Empire|C. 它与波斯帝国合并","D. It was renamed the Holy Roman Empire|D. 它被重新命名为神圣罗马帝国"],
+    correct:"B", rat_right:"The Eastern Roman Empire, later called the Byzantine Empire, survived the fall of the West and continued for nearly another thousand years.|东罗马帝国后来被称为拜占庭帝国，在西罗马灭亡后存活下来，并又延续了将近一千年。",
+    rat_wrong:{A:"The Eastern Empire specifically survived where the Western Empire collapsed, distinguishing the two halves.|东罗马帝国恰恰是在西罗马帝国崩溃的情况下存活下来的，这正是两者的区别所在。",C:"The Byzantine Empire remained a separate, independent state and did not merge with Persia.|拜占庭帝国仍是一个独立的国家，并没有与波斯合并。",D:"The Holy Roman Empire was a separate, later political entity in Western Europe, not a renaming of the Eastern Roman Empire.|神圣罗马帝国是西欧后来出现的一个独立的政治实体，并不是东罗马帝国的重新命名。"}
+  },
+  { id:"l1q2", q:"What was the capital of the Byzantine Empire?", q_cn:"拜占庭帝国的首都是哪里？",
+    options:["A. Rome|A. 罗马","B. Mecca|B. 麦加","C. Constantinople|C. 君士坦丁堡","D. Medina|D. 麦地那"],
+    correct:"C", rat_right:"Constantinople was the capital of the Byzantine Empire, strategically located at the crossroads of Europe and Asia.|君士坦丁堡是拜占庭帝国的首都，地理位置十分重要，横跨欧亚交汇之处。",
+    rat_wrong:{A:"Rome was the capital of the Western Roman Empire, which fell in 476 CE, not the Byzantine capital.|罗马是西罗马帝国的首都，该帝国于公元476年灭亡，并不是拜占庭的首都。",B:"Mecca is an important city in the history of Islam, unrelated to the Byzantine Empire's capital.|麦加是伊斯兰教历史上的重要城市，与拜占庭帝国的首都无关。",D:"Medina is also an important Islamic city, not the Byzantine capital.|麦地那同样是伊斯兰教的重要城市，不是拜占庭的首都。"}
+  },
+  { id:"l1q3", q:"What was the Justinian Code?", q_cn:"查士丁尼法典是什么？",
+    options:["A. A new religion created by Justinian|A. 查士丁尼创立的一种新宗教","B. A massive legal reform that organized and preserved Roman law|B. 一项大规模的法律改革，整理并保存了罗马法律","C. A trade agreement with Persia|C. 与波斯达成的一项贸易协议","D. A new system of feudal land grants|D. 一种新的封建土地授予体系"],
+    correct:"B", rat_right:"The Justinian Code was a massive legal reform commissioned by Justinian that organized and preserved Roman law.|查士丁尼法典是查士丁尼下令编纂的一项大规模法律改革，整理并保存了罗马法律。",
+    rat_wrong:{A:"The Justinian Code was a legal reform, not a religious creation.|查士丁尼法典是一项法律改革，不是宗教的创立。",C:"There is no trade agreement with Persia described as the Justinian Code in this lesson.|本课中并未将与波斯的贸易协议描述为查士丁尼法典。",D:"Feudal land grants are associated with medieval Western Europe, not the Justinian Code.|封建土地授予与中世纪西欧相关，与查士丁尼法典无关。"}
+  },
+  { id:"l1q4", q:"What architectural achievement did Justinian oversee the construction of?", q_cn:"查士丁尼监督建造了哪项建筑成就？",
+    options:["A. The Great Wall|A. 长城","B. The Kaaba|B. 克尔白","C. The Hagia Sophia|C. 圣索菲亚大教堂","D. The Pyramids|D. 金字塔"],
+    correct:"C", rat_right:"Justinian oversaw the construction of the Hagia Sophia, one of the greatest architectural achievements of the ancient world.|查士丁尼监督建造了圣索菲亚大教堂，这是古代世界最伟大的建筑成就之一。",
+    rat_wrong:{A:"The Great Wall is a Chinese structure, unrelated to Justinian's Byzantine achievements.|长城是中国的建筑，与查士丁尼的拜占庭成就无关。",B:"The Kaaba is located in Mecca and is connected to Islamic history, not Justinian.|克尔白位于麦加，与伊斯兰教历史相关，与查士丁尼无关。",D:"The Pyramids were built in ancient Egypt, long before Justinian's reign.|金字塔建于古埃及，远早于查士丁尼的统治时期。"}
+  },
+  { id:"l1q5", q:"Why did Justinian order Roman law to be reorganized?", q_cn:"为什么查士丁尼下令重新整理罗马法律？",
+    options:["A. Roman law had grown disorganized and contradictory over centuries|A. 罗马法律经过数百年的积累变得混乱且相互矛盾","B. Roman law no longer existed at all|B. 罗马法律已经完全不存在","C. The Church demanded an entirely new legal system|C. 教会要求建立一套全新的法律体系","D. Persia required Byzantine law to match its own|D. 波斯要求拜占庭法律与其自身保持一致"],
+    correct:"A", rat_right:"Roman law had grown disorganized through centuries of additions and contradictions, prompting Justinian to have it simplified and organized.|罗马法律经过数百年的不断增补与相互矛盾变得混乱，这促使查士丁尼对其进行简化与整理。",
+    rat_wrong:{B:"Roman law still existed but needed organization, not recreation from nothing.|罗马法律仍然存在，只是需要整理，而不是从零开始重新创造。",C:"The Church's demands are not described as the reason for this legal reform in this lesson.|本课并未将教会的要求描述为这项法律改革的原因。",D:"Persia's legal system is not mentioned as a factor in Justinian's reform.|波斯的法律体系并未被提及为查士丁尼改革的因素。"}
+  },
+  { id:"l1q6", q:"What three traditions did the Byzantine Empire blend together?", q_cn:"拜占庭帝国融合了哪三种传统？",
+    options:["A. Roman law, Greek culture, and Christian religion|A. 罗马法律、希腊文化与基督教信仰","B. Chinese philosophy, Indian religion, and Persian art|B. 中国哲学、印度宗教与波斯艺术","C. Arabic language, Islamic law, and African trade|C. 阿拉伯语言、伊斯兰法律与非洲贸易","D. Feudal land grants, knighthood, and serfdom|D. 封建土地授予、骑士制度与农奴制"],
+    correct:"A", rat_right:"The Byzantine Empire blended Roman law and government, Greek language and culture, and Christian religion into a distinct civilization.|拜占庭帝国将罗马法律与政府体制、希腊语言与文化，以及基督教信仰融合在一起，形成了一种独特的文明。",
+    rat_wrong:{B:"Chinese, Indian, and Persian traditions are not the three blended into Byzantine civilization as described.|中国、印度与波斯的传统并不是本课所描述融合形成拜占庭文明的三种传统。",C:"Arabic language and Islamic law relate to the rise of Islam, a separate topic from the Byzantine cultural blend.|阿拉伯语言与伊斯兰法律与伊斯兰教的兴起相关，这是与拜占庭文化融合不同的另一个主题。",D:"Feudal land grants, knighthood, and serfdom describe medieval Western Europe, not Byzantine civilization.|封建土地授予、骑士制度与农奴制描述的是中世纪西欧，而不是拜占庭文明。"}
+  },
+  { id:"l1q7", q:"Why was Constantinople's location so valuable?", q_cn:"为什么君士坦丁堡的地理位置如此重要？",
+    options:["A. It was far from any trade routes|A. 它远离任何贸易路线","B. It straddled the crossroads of Europe and Asia, making it a major trading hub|B. 它横跨欧亚交汇之处，使其成为重要的贸易中心","C. It had no access to the sea|C. 它没有通往海洋的通道","D. It was located deep within the Sahara Desert|D. 它位于撒哈拉沙漠深处"],
+    correct:"B", rat_right:"Constantinople's location at the crossroads of Europe and Asia made it one of the wealthiest and most important trading cities in the world.|君士坦丁堡位于欧亚交汇之处，使其成为世界上最富有、最重要的贸易城市之一。",
+    rat_wrong:{A:"Constantinople's value came specifically from being on major trade routes, not far from them.|君士坦丁堡的重要价值恰恰来自于它位于主要贸易路线之上，而不是远离贸易路线。",C:"Constantinople's strategic position included access to important waterways, supporting its role in trade.|君士坦丁堡的战略位置包括通往重要水道的通道，这支撑了它在贸易中的地位。",D:"Constantinople was located in the eastern Mediterranean region, not the Sahara Desert.|君士坦丁堡位于东地中海地区，而不是撒哈拉沙漠。"}
+  },
+  { id:"l1q8", q:"How did Constantinople's defenses help the Byzantine Empire?", q_cn:"君士坦丁堡的防御如何帮助了拜占庭帝国？",
+    options:["A. They allowed the empire to survive numerous invasions for centuries|A. 它们使帝国能够在数百年间抵御无数次入侵","B. They had no effect on the empire's survival|B. 它们对帝国的存续没有任何影响","C. They caused the empire to collapse faster|C. 它们导致帝国更快地崩溃","D. They prevented any trade from occurring|D. 它们阻止了任何贸易的发生"],
+    correct:"A", rat_right:"Constantinople's strong walls and strategic position allowed the Byzantine Empire to survive numerous invasions for centuries.|君士坦丁堡坚固的城墙与战略位置，使拜占庭帝国能够在数百年间抵御无数次入侵。",
+    rat_wrong:{B:"The defenses had a significant positive effect on the empire's long survival, not no effect.|这些防御对帝国的长期存续产生了显著的积极影响，而不是没有任何影响。",C:"Strong defenses helped the empire endure, the opposite of causing faster collapse.|坚固的防御帮助帝国得以延续，这与导致更快崩溃恰恰相反。",D:"Constantinople's strategic position supported extensive trade, rather than preventing it.|君士坦丁堡的战略位置支撑了广泛的贸易，而不是阻止贸易的发生。"}
+  },
+  { id:"l1q9", q:"What does the long survival of the Justinian Code's influence suggest about the power of written law?", q_cn:"查士丁尼法典影响力的长期延续，说明了书面法律的何种力量？",
+    options:["A. Written laws and legal traditions can shape society long after the government that created them is gone|A. 书面法律与法律传统可以在创造它们的政府消失很久之后，仍持续塑造社会","B. Laws only matter while the original government still exists|B. 法律只有在原始政府仍然存在时才有意义","C. The Justinian Code was quickly forgotten after Justinian's death|C. 查士丁尼法典在查士丁尼死后很快就被遗忘了","D. Legal systems never influence other regions or future societies|D. 法律体系从不影响其他地区或未来的社会"],
+    correct:"A", rat_right:"The Justinian Code continued to shape legal systems throughout Europe long after the Byzantine Empire fell, showing how ideas can outlast the governments that created them.|查士丁尼法典在拜占庭帝国灭亡很久之后，仍持续塑造着整个欧洲的法律体系，这表明思想可以比创造它们的政府存在得更久。",
+    rat_wrong:{B:"The Justinian Code's lasting influence is direct evidence against this claim.|查士丁尼法典持久的影响力正是反驳这一说法的直接证据。",C:"The Justinian Code was not quickly forgotten — it influenced legal systems for centuries.|查士丁尼法典并没有很快被遗忘——它影响了数百年的法律体系。",D:"The Justinian Code directly influenced legal systems far beyond the Byzantine Empire itself.|查士丁尼法典直接影响了远超拜占庭帝国本身范围的法律体系。"}
+  },
+  { id:"l1q10", q:"What broader lesson does the Byzantine Empire's survival illustrate about political collapse?", q_cn:"拜占庭帝国的存续说明了关于政治崩溃的什么更广泛的道理？",
+    options:["A. When one part of an empire collapses, the entire civilization always collapses with it|A. 当帝国的一部分崩溃时，整个文明也总是随之崩溃","B. Different regions of a large empire can have very different fates, with some surviving long after others collapse|B. 一个庞大帝国的不同地区可能有截然不同的命运，有些地区在其他地区崩溃后仍能长期存续","C. The Byzantine Empire had no connection at all to the Roman Empire|C. 拜占庭帝国与罗马帝国完全没有任何联系","D. Strong walls are the only factor that ever determines an empire's survival|D. 坚固的城墙是决定一个帝国能否存续的唯一因素"],
+    correct:"B", rat_right:"The Western Roman Empire collapsed in 476 CE while the Eastern Roman (Byzantine) Empire survived for nearly another thousand years, showing how different regions of one empire can have very different historical fates.|西罗马帝国于公元476年崩溃，而东罗马（拜占庭）帝国却又延续了将近一千年，这表明同一个帝国的不同地区可能有截然不同的历史命运。",
+    rat_wrong:{A:"The Byzantine Empire's long survival after Rome's fall directly contradicts this claim.|拜占庭帝国在罗马灭亡后的长期存续直接反驳了这一说法。",C:"The Byzantine Empire was directly the continuation of the Eastern half of the Roman Empire.|拜占庭帝国正是罗马帝国东半部分的直接延续。",D:"While walls helped, factors like trade, law, and government organization also contributed to Byzantine survival.|尽管城墙起到了帮助作用，但贸易、法律与政府组织等因素也对拜占庭的存续作出了贡献。"}
+  }
+];
+ 
+var L2_Q = [
+  { id:"l2q1", q:"What time period does 'the Middle Ages' refer to?", q_cn:"【中世纪】指的是哪个时期？",
+    options:["A. Roughly 500–1500 CE|A. 大约公元500年—1500年","B. Roughly 1500–2000 CE|B. 大约公元1500年—2000年","C. Roughly 500 BCE–1 CE|C. 大约公元前500年—公元1年","D. Roughly 1000 BCE–500 BCE|D. 大约公元前1000年—前500年"],
+    correct:"A", rat_right:"The Middle Ages refers to roughly 500–1500 CE, the period between the fall of the Western Roman Empire and the start of the Renaissance.|中世纪指的是大约公元500年至1500年，即西罗马帝国灭亡与文艺复兴兴起之间的时期。",
+    rat_wrong:{B:"1500–2000 CE comes after the Middle Ages, during and after the Renaissance.|公元1500年—2000年发生在中世纪之后，处于文艺复兴时期及之后。",C:"500 BCE–1 CE is part of classical antiquity, long before the Middle Ages.|公元前500年—公元1年属于古典时代，远早于中世纪。",D:"1000 BCE–500 BCE predates the Roman Empire entirely, far earlier than the Middle Ages.|公元前1000年—前500年完全早于罗马帝国，远早于中世纪。"}
+  },
+  { id:"l2q2", q:"Why are the earlier centuries of the Middle Ages sometimes called the 'Dark Ages'?", q_cn:"为什么中世纪较早的几个世纪有时被称为【黑暗时代】？",
+    options:["A. Because of the loss of centralized Roman government, infrastructure, and widespread literacy|A. 因为失去了罗马中央集权政府、基础设施以及广泛的识字能力","B. Because there was no sunlight during this period|B. 因为这一时期没有阳光","C. Because all historical records from this era have been lost|C. 因为这一时代的所有历史记录都已遗失","D. Because the Catholic Church banned all forms of writing|D. 因为天主教会禁止了所有形式的书写"],
+    correct:"A", rat_right:"This term is sometimes used because of the loss of centralized Roman government, infrastructure, and widespread literacy during the early Middle Ages.|这一术语有时被使用，是因为中世纪早期失去了罗马中央集权政府、基础设施以及广泛的识字能力。",
+    rat_wrong:{B:"This term has nothing to do with literal sunlight or darkness.|这一术语与字面意义上的阳光或黑暗毫无关系。",C:"While fewer records survive from this period, it is not because all records were entirely lost.|尽管这一时期保存下来的记录较少，但并不是因为所有记录都完全遗失了。",D:"The Catholic Church actually helped preserve knowledge and literacy through monasteries during this period.|天主教会实际上在这一时期通过修道院帮助保存了知识与识字能力。"}
+  },
+  { id:"l2q3", q:"What happened to political power in Western Europe after Rome's central government collapsed?", q_cn:"罗马中央政府崩溃后，西欧的政治权力发生了什么变化？",
+    options:["A. It remained perfectly centralized under one new emperor|A. 它在一位新皇帝的统治下依然完全集中","B. It fragmented into many smaller, competing kingdoms and territories|B. 它分裂为许多更小、相互竞争的王国与领地","C. It was immediately taken over by the Byzantine Empire|C. 它立即被拜占庭帝国接管","D. It disappeared completely, leaving no rulers at all|D. 它完全消失，没有留下任何统治者"],
+    correct:"B", rat_right:"Without Rome's centralized authority, Western Europe broke apart into many smaller, competing kingdoms and territories.|失去罗马的中央集权后，西欧分裂成许多更小、相互竞争的王国与领地。",
+    rat_wrong:{A:"Centralized power under one emperor is the opposite of what happened — power became fragmented.|在一位皇帝统治下的中央集权与实际发生的情况恰恰相反——权力变得分散。",C:"Western Europe fragmented into local kingdoms rather than being absorbed by the Byzantine Empire.|西欧分裂成了地方性的王国，而不是被拜占庭帝国吞并。",D:"Local lords and kings still ruled, even though authority was no longer centralized.|地方领主与国王依然在统治，尽管权力已不再集中。"}
+  },
+  { id:"l2q4", q:"Why did the Catholic Church grow more powerful during the Middle Ages?", q_cn:"为什么天主教会在中世纪变得更加强大？",
+    options:["A. Because it filled the gap left by the absence of a strong central government|A. 因为它填补了缺乏强大中央政府所留下的空缺","B. Because Rome's central government remained fully intact|B. 因为罗马的中央政府依然完整无损","C. Because feudalism had not yet developed|C. 因为封建制度尚未发展形成","D. Because Byzantine emperors directly controlled the Church|D. 因为拜占庭皇帝直接控制了教会"],
+    correct:"A", rat_right:"With Rome's central government gone, the Catholic Church became one of the most powerful and stable institutions in Western Europe, filling the resulting power gap.|罗马中央政府消失后，天主教会成为西欧最强大、最稳定的机构之一，填补了由此产生的权力空缺。",
+    rat_wrong:{B:"Rome's central government had actually collapsed, which is precisely why the Church's influence grew.|罗马中央政府实际上已经崩溃，这正是教会影响力增长的原因。",C:"Feudalism developing alongside Church influence is part of this period, not a reason against the Church's rise.|封建制度与教会影响力同时发展，是这一时期的一部分，而不是反对教会崛起的理由。",D:"Byzantine emperors are a separate topic from the rise of Church power in Western Europe.|拜占庭皇帝是与西欧教会权力崛起不同的另一个主题。"}
+  },
+  { id:"l2q5", q:"What roles did the Church take on in medieval society?", q_cn:"教会在中世纪社会中承担了哪些角色？",
+    options:["A. Providing education and preserving knowledge in monasteries|A. 提供教育并在修道院中保存知识","B. Building roads and managing trade routes exclusively|B. 专门负责修建道路与管理贸易路线","C. Leading military conquests across Asia|C. 领导横跨亚洲的军事征服","D. Eliminating all forms of local government|D. 消除所有形式的地方政府"],
+    correct:"A", rat_right:"The Church provided education and preserved knowledge in monasteries, often holding more practical authority over daily life than kings.|教会提供教育并在修道院中保存知识，其对日常生活的实际权威往往超过国王。",
+    rat_wrong:{B:"Road building and trade management were not described as the Church's primary roles in this lesson.|修路与贸易管理并未在本课中被描述为教会的主要角色。",C:"Military conquest in Asia is unrelated to the Church's role described in medieval Western Europe.|横跨亚洲的军事征服与本课所描述的教会在中世纪西欧的角色无关。",D:"The Church coexisted with local lords and feudal government rather than eliminating local governance.|教会与地方领主及封建政府共存，而不是消除地方治理。"}
+  },
+  { id:"l2q6", q:"What pushed people to seek protection from local strongmen during the early Middle Ages?", q_cn:"是什么促使人们在中世纪早期向地方强人寻求保护？",
+    options:["A. The instability and constant threat of invasion|A. 不稳定与持续的入侵威胁","B. A surplus of food and complete peace|B. 食物盈余与完全的和平","C. Direct orders from the Byzantine emperor|C. 拜占庭皇帝的直接命令","D. The spread of Islam into Western Europe|D. 伊斯兰教在西欧的传播"],
+    correct:"A", rat_right:"The instability and constant threat of invasion during the early Middle Ages pushed people to seek protection from local strongmen.|中世纪早期的不稳定与持续的入侵威胁，促使人们向地方强人寻求保护。",
+    rat_wrong:{B:"A surplus of food and peace would not have created the urgent need for protection described in this lesson.|食物盈余与和平并不会产生本课中所描述的对保护的迫切需求。",C:"The Byzantine emperor's direct orders are not described as the cause of this shift in Western Europe.|拜占庭皇帝的直接命令并未被描述为西欧这一转变的原因。",D:"The spread of Islam is a separate historical topic from the development of feudalism in this lesson.|伊斯兰教的传播是与本课中封建制度发展不同的另一个历史主题。"}
+  },
+  { id:"l2q7", q:"What new political and social system began to develop as a result of this instability?", q_cn:"由于这种不稳定，开始发展形成了什么新的政治与社会体系？",
+    options:["A. Feudalism|A. 封建制度","B. Legalism|B. 法家思想","C. Confucianism|C. 儒家思想","D. The Byzantine bureaucracy|D. 拜占庭官僚体系"],
+    correct:"A", rat_right:"This need for local protection and order became the foundation of feudalism, the system that would dominate medieval Europe.|这种对地方保护与秩序的需求，成为了将主导中世纪欧洲的封建制度的基础。",
+    rat_wrong:{B:"Legalism is a Chinese philosophy from a much earlier period, unrelated to medieval Western Europe.|法家思想是一种更早期的中国哲学，与中世纪西欧无关。",C:"Confucianism is also a Chinese philosophy, unrelated to the development of medieval European systems.|儒家思想同样是一种中国哲学，与中世纪欧洲体系的发展无关。",D:"The Byzantine bureaucracy refers to the Eastern Empire's government, separate from the Western European system described here.|拜占庭官僚体系指的是东罗马帝国的政府，与本课所描述的西欧体系不同。"}
+  },
+  { id:"l2q8", q:"How did the economy of medieval Europe compare to the Roman Empire's economy?", q_cn:"中世纪欧洲的经济与罗马帝国的经济相比有何不同？",
+    options:["A. Medieval economies became smaller and more local compared to Rome's extensive trade networks|A. 与罗马广泛的贸易网络相比，中世纪的经济变得更小、更地方化","B. Medieval economies were far larger and more globally connected than Rome's|B. 中世纪的经济比罗马的经济规模更大、全球联系更紧密","C. There was no economic activity at all during the Middle Ages|C. 中世纪根本没有任何经济活动","D. The medieval economy was identical to the Roman economy in every way|D. 中世纪的经济在每个方面都与罗马经济完全相同"],
+    correct:"A", rat_right:"Compared to Rome's extensive road and trade networks, medieval Europe's economies became smaller and more local.|与罗马广泛的道路与贸易网络相比，中世纪欧洲的经济变得更小、更地方化。",
+    rat_wrong:{B:"Medieval economies were generally smaller and more local, not larger or more globally connected than Rome's.|中世纪的经济通常更小、更地方化，而不是比罗马的经济更大或全球联系更紧密。",C:"Economic activity continued during the Middle Ages, just on a smaller and more local scale.|中世纪期间经济活动仍在持续，只是规模更小、更地方化。",D:"The medieval economy was notably different from Rome's, particularly in scale and centralization.|中世纪的经济与罗马的经济有着显著的不同，尤其是在规模与中央集权程度方面。"}
+  },
+  { id:"l2q9", q:"What does the rise of the Church's power during this period suggest about institutions in times of political instability?", q_cn:"这一时期教会权力的崛起，说明了在政治不稳定时期机构会发生什么？",
+    options:["A. Institutions providing stability and structure can grow more powerful when central political authority weakens|A. 在中央政治权威减弱时，提供稳定与结构的机构可能会变得更加强大","B. All institutions automatically weaken whenever a government collapses|B. 每当政府崩溃时，所有机构都会自动变弱","C. Religious institutions have never had any influence on government or society|C. 宗教机构对政府或社会从未产生任何影响","D. Political instability always leads to immediate full recovery of central government|D. 政治不稳定总是会导致中央政府立即完全恢复"],
+    correct:"A", rat_right:"As Rome's government weakened and disappeared, the Church grew stronger by filling the resulting gap in authority and stability.|随着罗马政府的衰弱与消失，教会通过填补由此产生的权威与稳定的空缺而变得更加强大。",
+    rat_wrong:{B:"The Church's growth shows the opposite — some institutions actually strengthen during political instability.|教会的崛起恰恰说明了相反的情况——某些机构在政治不稳定时期实际上会变得更强大。",C:"This lesson directly shows the Church having major influence over education, law, and daily life.|本课直接表明教会对教育、法律与日常生活产生了重大影响。",D:"Western Europe remained fragmented for a long period rather than experiencing an immediate recovery.|西欧在很长一段时间内仍处于分裂状态，而不是经历了立即的恢复。"}
+  },
+  { id:"l2q10", q:"What broader pattern connects the rise of the Church and the eventual development of feudalism?", q_cn:"教会的崛起与封建制度的最终发展之间，存在什么更广泛的联系模式？",
+    options:["A. Both arose as responses to fill the gap left by the collapse of centralized Roman authority|A. 两者都是为了填补罗马中央集权崩溃所留下的空缺而产生的回应","B. Neither had anything to do with the fall of Rome|B. 两者都与罗马的灭亡毫无关系","C. Feudalism existed long before the Roman Empire and had no connection to its fall|C. 封建制度早在罗马帝国之前就已存在，与其灭亡没有任何联系","D. The Church and feudal lords were always in complete agreement with no tension|D. 教会与封建领主之间总是完全一致，没有任何紧张关系"],
+    correct:"A", rat_right:"Both the growing power of the Church and the development of feudalism arose as responses to the instability and power gap left by Rome's collapse.|教会权力的增长与封建制度的发展，都是对罗马崩溃所留下的不稳定与权力真空的回应。",
+    rat_wrong:{B:"Both developments are directly tied to the collapse of Roman central authority described in this lesson.|这两种发展都与本课中所描述的罗马中央权威的崩溃直接相关。",C:"Feudalism specifically developed in medieval Europe as a response to instability after Rome's fall, not before the Roman Empire.|封建制度恰恰是在中世纪欧洲为应对罗马灭亡后的不稳定而发展形成的，而不是在罗马帝国之前。",D:"The lesson does not claim there was no tension; it simply notes that both arose to fill a similar power gap.|本课并未声称两者之间没有紧张关系；它只是指出两者都是为了填补类似的权力真空而产生的。"}
+  }
+];
+ 
+var L3_Q = [
+  { id:"l3q1", q:"What was feudalism?", q_cn:"什么是封建制度？",
+    options:["A. A system of mutual obligations exchanging protection and land for loyalty and service|A. 一种相互义务的体系，用保护与土地换取忠诚与服务","B. A religious practice unique to Byzantine Christians|B. 拜占庭基督徒特有的一种宗教实践","C. A trade agreement between Mecca and Medina|C. 麦加与麦地那之间的一项贸易协议","D. A type of legal code created by Justinian|D. 查士丁尼创立的一种法律法典"],
+    correct:"A", rat_right:"Feudalism was a system of mutual obligations: lower-ranking individuals provided loyalty, labor, or service in exchange for protection and use of land.|封建制度是一种相互义务的体系：下级人员通过提供忠诚、劳动或服务，来换取保护与土地的使用权。",
+    rat_wrong:{B:"Feudalism was a political and social system, not specifically a religious practice.|封建制度是一种政治与社会体系，不是特指一种宗教实践。",C:"A trade agreement between Mecca and Medina is unrelated to the feudal system described in this lesson.|麦加与麦地那之间的贸易协议与本课所描述的封建制度无关。",D:"The Justinian Code is a separate topic from feudalism, related instead to Byzantine law.|查士丁尼法典是与封建制度不同的另一个主题，它与拜占庭法律相关。"}
+  },
+  { id:"l3q2", q:"In the feudal hierarchy, who granted large estates (fiefs) to nobles?", q_cn:"在封建等级体系中，谁将大片庄园（封地）授予贵族？",
+    options:["A. Peasants|A. 农民","B. Knights|B. 骑士","C. The king|C. 国王","D. The Pope|D. 教皇"],
+    correct:"C", rat_right:"The king, who owned all land in theory, granted large estates called fiefs to nobles in exchange for loyalty and military support.|国王在理论上拥有所有土地，他将被称为封地的大片庄园授予贵族，以换取忠诚与军事支持。",
+    rat_wrong:{A:"Peasants were at the bottom of the feudal hierarchy and did not grant land to others.|农民处于封建等级体系的最底层，并没有将土地授予他人。",B:"Knights received land from lords but did not grant large estates to nobles themselves.|骑士从领主那里获得土地，但他们自己并没有将大片庄园授予贵族。",D:"The Pope is connected to the Church's authority, a separate topic from the king's role in granting fiefs.|教皇与教会的权威相关，这是与国王授予封地的角色不同的另一个主题。"}
+  },
+  { id:"l3q3", q:"What did knights provide in exchange for smaller grants of land?", q_cn:"骑士提供什么以换取较小的土地授予？",
+    options:["A. Military service|A. 军事服务","B. Religious sermons|B. 宗教布道","C. Trade goods from Asia|C. 来自亚洲的贸易商品","D. Written legal codes|D. 书面法律法典"],
+    correct:"A", rat_right:"Knights provided military service to lords in exchange for smaller grants of land.|骑士向领主提供军事服务，以换取较小的土地授予。",
+    rat_wrong:{B:"Religious sermons were associated with the Church, not the knight's role in feudalism.|宗教布道与教会相关，不是骑士在封建制度中的角色。",C:"Trade goods from Asia are unrelated to a knight's obligations within the feudal system.|来自亚洲的贸易商品与骑士在封建体系中的义务无关。",D:"Written legal codes, like the Justinian Code, are a separate topic from feudal military service.|书面法律法典，如查士丁尼法典，是与封建军事服务不同的另一个主题。"}
+  },
+  { id:"l3q4", q:"What was manorialism?", q_cn:"什么是庄园制？",
+    options:["A. The economic system describing daily life and labor on a lord's estate|A. 描述领主庄园中日常生活与劳动的经济体系","B. A religious ceremony performed by Byzantine emperors|B. 拜占庭皇帝举行的一种宗教仪式","C. A military alliance between knights and the Church|C. 骑士与教会之间的军事联盟","D. A system of trade between Mecca and Constantinople|D. 麦加与君士坦丁堡之间的一种贸易体系"],
+    correct:"A", rat_right:"Manorialism described the economic system of daily life on a lord's estate, or manor.|庄园制描述的是领主庄园中日常生活的经济体系。",
+    rat_wrong:{B:"Manorialism is an economic system, not a Byzantine religious ceremony.|庄园制是一种经济体系，不是拜占庭的宗教仪式。",C:"A military alliance between knights and the Church is not what manorialism describes.|骑士与教会之间的军事联盟并不是庄园制所描述的内容。",D:"Trade between Mecca and Constantinople is unrelated to manorialism, which concerns local manor economies.|麦加与君士坦丁堡之间的贸易与庄园制无关，庄园制关注的是地方庄园经济。"}
+  },
+  { id:"l3q5", q:"What was a serf?", q_cn:"什么是农奴？",
+    options:["A. A peasant bound to the land they worked, unable to leave without their lord's permission|A. 被束缚在所耕种土地上的农民，未经领主允许不能离开","B. A knight who owned multiple fiefs|B. 拥有多处封地的骑士","C. A religious leader in the Catholic Church|C. 天主教会中的一位宗教领袖","D. A noble who managed land granted by the king|D. 管理国王授予土地的贵族"],
+    correct:"A", rat_right:"A serf was a peasant bound to the land they worked, unable to leave without their lord's permission.|农奴是被束缚在所耕种土地上的农民，未经领主允许不能离开。",
+    rat_wrong:{B:"A knight who owned fiefs occupied a higher position in the hierarchy than a serf.|拥有封地的骑士在等级体系中的地位高于农奴。",C:"A religious leader in the Church is a separate role from a serf working the land.|教会中的宗教领袖是与耕种土地的农奴不同的另一种角色。",D:"A noble managing land granted by the king held a much higher rank than a serf.|管理国王授予土地的贵族，其地位远高于农奴。"}
+  },
+  { id:"l3q6", q:"What did serfs receive in exchange for their labor?", q_cn:"农奴用劳动换取了什么？",
+    options:["A. Protection and a small portion of what they grew|A. 保护以及他们所耕种作物的一小部分","B. Full ownership of the land they worked|B. 他们所耕种土地的完全所有权","C. A seat in the king's royal court|C. 国王朝廷中的一个席位","D. Exemption from all forms of labor|D. 免除一切形式的劳动"],
+    correct:"A", rat_right:"In return for their labor, serfs received protection and a small portion of what they grew.|作为劳动的回报，农奴获得了保护以及他们所耕种作物的一小部分。",
+    rat_wrong:{B:"Serfs did not own the land they worked; they were bound to it under a lord's authority.|农奴并不拥有他们所耕种的土地；他们被束缚在领主权威之下的土地上。",C:"A seat in the royal court would belong to nobles, not serfs at the bottom of the hierarchy.|朝廷中的席位属于贵族，而不是处于等级体系底层的农奴。",D:"Serfs were defined by their continued labor obligations, not exemption from labor.|农奴的特征正是他们持续的劳动义务，而不是免除劳动。"}
+  },
+  { id:"l3q7", q:"Why is feudalism often described as a system of mutual obligation?", q_cn:"为什么封建制度常被描述为一种相互义务的体系？",
+    options:["A. Every level of feudal society owed something to the level above and received something in return|A. 封建社会的每一个层级都对上一层级负有义务，同时也从中获得回报","B. Only kings had any obligations to anyone else|B. 只有国王对其他任何人负有义务","C. Peasants had no relationship at all with the nobility|C. 农民与贵族之间完全没有任何关系","D. Knights were completely independent of any lord|D. 骑士完全独立于任何领主"],
+    correct:"A", rat_right:"Every level of feudal society owed something to the level above it and received something in return, such as protection, land, or labor.|封建社会的每一个层级都对上一层级负有义务，同时也获得相应的回报，如保护、土地或劳动。",
+    rat_wrong:{B:"Obligations flowed in multiple directions throughout the hierarchy, not only from the king.|义务贯穿于整个等级体系的多个方向，而不仅仅来自国王。",C:"Peasants had a defined economic and protective relationship with the nobility through manorialism.|农民通过庄园制与贵族之间存在着明确的经济与保护关系。",D:"Knights provided military service to lords in exchange for land, showing dependence rather than independence.|骑士向领主提供军事服务以换取土地，这表明的是依附关系而不是独立性。"}
+  },
+  { id:"l3q8", q:"Were the benefits of the feudal exchange shared equally among all levels of society?", q_cn:"封建交换的利益是否在社会各阶层之间平等分配？",
+    options:["A. No, the benefits of this exchange were far from equal|A. 不，这种交换所带来的利益远非平等","B. Yes, everyone received exactly the same benefits|B. 是的，每个人获得的利益完全相同","C. Only peasants benefited from feudalism|C. 只有农民从封建制度中获益","D. Only the Church benefited from feudalism|D. 只有教会从封建制度中获益"],
+    correct:"A", rat_right:"While every level owed and received something, the benefits of this exchange were far from equal across feudal society.|尽管每个层级都付出与获得了一些东西，但这种交换所带来的利益在封建社会中远非平等。",
+    rat_wrong:{B:"Lords and nobles generally benefited far more than peasants and serfs at the bottom of the hierarchy.|领主与贵族通常比处于等级体系底层的农民和农奴获益更多。",C:"Peasants generally received the fewest benefits relative to their labor, not the most.|相对于他们的劳动，农民通常获得的利益最少，而不是最多。",D:"The Church's role is a separate topic from the direct economic exchange within feudalism described here.|教会的角色是与本课所描述封建制度内部直接经济交换不同的另一个主题。"}
+  },
+  { id:"l3q9", q:"How does feudalism's development connect to the instability of the early Middle Ages?", q_cn:"封建制度的发展与中世纪早期的不稳定有何联系？",
+    options:["A. Feudalism developed largely as a response to the chaos and insecurity of this period|A. 封建制度的形成主要是为了应对这一时期的混乱与不安全感","B. Feudalism existed before the Roman Empire and had no connection to this instability|B. 封建制度在罗马帝国之前就已存在，与这种不稳定没有任何联系","C. Feudalism only developed because the Byzantine Empire demanded it|C. 封建制度的发展仅仅是因为拜占庭帝国的要求","D. The instability of this period had no effect on how society was organized|D. 这一时期的不稳定对社会组织方式没有任何影响"],
+    correct:"A", rat_right:"Feudalism developed largely as a response to the chaos and insecurity of the early Middle Ages, when people needed local protection.|封建制度的形成主要是为了应对中世纪早期的混乱与不安全感，当时人们需要地方性的保护。",
+    rat_wrong:{B:"Feudalism developed specifically during the medieval period in response to this instability, not before the Roman Empire.|封建制度恰恰是在中世纪时期为应对这种不稳定而发展形成的，而不是在罗马帝国之前。",C:"The Byzantine Empire is a separate topic from the development of feudalism in Western Europe.|拜占庭帝国是与西欧封建制度发展不同的另一个主题。",D:"The instability of this period directly shaped the development of the feudal hierarchy, as described in this lesson.|正如本课所描述的，这一时期的不稳定直接塑造了封建等级体系的发展。"}
+  },
+  { id:"l3q10", q:"What broader insight about human societies does the development of feudalism illustrate?", q_cn:"封建制度的发展说明了关于人类社会的何种更广泛的见解？",
+    options:["A. People often build new systems of order and obligation when existing systems of protection collapse|A. 当现有的保护体系崩溃时，人们往往会建立新的秩序与义务体系","B. People never adapt to a loss of centralized government|B. 人们从不适应中央政府的消失","C. Feudalism shows that all societies are always perfectly equal|C. 封建制度表明所有社会总是完全平等的","D. Societies never develop new structures in response to instability|D. 社会从不会因应不稳定而发展出新的结构"],
+    correct:"A", rat_right:"Feudalism shows that when existing systems of protection and government collapse, people often build new structures of order and obligation to replace them.|封建制度表明，当现有的保护与政府体系崩溃时，人们往往会建立新的秩序与义务结构来取代它们。",
+    rat_wrong:{B:"Feudalism is itself direct evidence of people adapting to the loss of centralized Roman government.|封建制度本身正是人们适应罗马中央政府消失的直接证据。",C:"Feudalism created a clear, unequal hierarchy, not a perfectly equal society.|封建制度创造了一种明确且不平等的等级体系，而不是一个完全平等的社会。",D:"Feudalism is a clear example of a new structure developing directly in response to instability.|封建制度正是一个明确的例子，说明了为应对不稳定而直接发展出的新结构。"}
+  }
+];
+ 
+var L4_Q = [
+  { id:"l4q1", q:"What was the Kaaba before the rise of Islam?", q_cn:"在伊斯兰教兴起之前，克尔白是什么？",
+    options:["A. A shrine housing statues representing different tribal deities|A. 一座供奉着代表不同部落神灵雕像的圣殿","B. A Christian cathedral|B. 一座基督教大教堂","C. A Byzantine government building|C. 一座拜占庭政府建筑","D. A Buddhist temple|D. 一座佛教寺庙"],
+    correct:"A", rat_right:"The Kaaba was a shrine in Mecca that housed statues representing different tribal deities and attracted pilgrims from across the region.|克尔白是麦加的一座圣殿，供奉着代表不同部落神灵的雕像，吸引了来自该地区各地的朝圣者。",
+    rat_wrong:{B:"The Kaaba was not a Christian cathedral; it was tied to Arabian tribal religious practices before Islam.|克尔白不是基督教大教堂；在伊斯兰教之前，它与阿拉伯部落的宗教实践相关。",C:"The Kaaba was a religious shrine, not a Byzantine government building.|克尔白是一座宗教圣殿，不是拜占庭的政府建筑。",D:"The Kaaba is unrelated to Buddhism; it belongs to Arabian and later Islamic religious tradition.|克尔白与佛教无关；它属于阿拉伯及后来伊斯兰教的宗教传统。"}
+  },
+  { id:"l4q2", q:"What was Muhammad's occupation before he began receiving revelations?", q_cn:"穆罕默德在开始接受启示之前的职业是什么？",
+    options:["A. A respected, honest merchant|A. 一位受人尊敬、诚实的商人","B. A Byzantine soldier|B. 一名拜占庭士兵","C. A Catholic priest|C. 一位天主教神父","D. A feudal lord|D. 一位封建领主"],
+    correct:"A", rat_right:"Muhammad became a successful and respected merchant known for his honesty before he began receiving revelations.|穆罕默德在开始接受启示之前，成为了一位成功且受人尊敬、以诚实著称的商人。",
+    rat_wrong:{B:"Muhammad was not a Byzantine soldier; he lived and worked in Mecca on the Arabian Peninsula.|穆罕默德不是拜占庭士兵；他生活并工作在阿拉伯半岛的麦加。",C:"Muhammad was not a Catholic priest; his religious role developed later through revelations he believed came from God.|穆罕默德不是天主教神父；他的宗教角色是后来通过他认为来自神的启示而发展形成的。",D:"Feudal lords belong to the separate medieval European system discussed earlier in this unit.|封建领主属于本单元前面所讨论的中世纪欧洲体系，与此不同。"}
+  },
+  { id:"l4q3", q:"According to Muslim belief, who delivered the first revelation to Muhammad?", q_cn:"根据穆斯林的信仰，是谁向穆罕默德传达了最初的启示？",
+    options:["A. The angel Gabriel|A. 天使加百列","B. Justinian|B. 查士丁尼","C. A Byzantine emperor|C. 一位拜占庭皇帝","D. A Catholic bishop|D. 一位天主教主教"],
+    correct:"A", rat_right:"Muslims believe Muhammad received revelations from God through the angel Gabriel while meditating in a cave on Mount Hira.|穆斯林相信穆罕默德在希拉山的一个洞穴中冥想时，通过天使加百列接受了神的启示。",
+    rat_wrong:{B:"Justinian was a Byzantine emperor, unrelated to the religious revelations described in Islamic belief.|查士丁尼是一位拜占庭皇帝，与伊斯兰信仰中所描述的宗教启示无关。",C:"A Byzantine emperor is a political figure from a separate civilization, not connected to Muhammad's revelations.|拜占庭皇帝是来自另一个文明的政治人物，与穆罕默德的启示无关。",D:"A Catholic bishop belongs to Christian religious tradition, separate from Islamic belief about revelation.|天主教主教属于基督教的宗教传统，与伊斯兰信仰中关于启示的内容不同。"}
+  },
+  { id:"l4q4", q:"What is the Quran?", q_cn:"古兰经是什么？",
+    options:["A. The central religious text of Islam, believed to be revelations given to Muhammad|A. 伊斯兰教的核心宗教经典，被认为是赐予穆罕默德的启示","B. A legal code created by Justinian|B. 查士丁尼创立的一部法律法典","C. A history of the Byzantine Empire|C. 一部拜占庭帝国的历史","D. A feudal land agreement|D. 一份封建土地协议"],
+    correct:"A", rat_right:"The Quran is the central religious text of Islam, collected from revelations Muhammad received throughout his life.|古兰经是伊斯兰教的核心宗教经典，收集自穆罕默德一生中所接受的启示。",
+    rat_wrong:{B:"The Justinian Code is a Byzantine legal text, unrelated to the Quran.|查士丁尼法典是一部拜占庭法律文本，与古兰经无关。",C:"A history of the Byzantine Empire is a separate topic from the Quran, which is Islam's central religious text.|拜占庭帝国的历史是与古兰经不同的另一个主题，古兰经是伊斯兰教的核心宗教经典。",D:"A feudal land agreement belongs to medieval European systems, unrelated to the Quran.|封建土地协议属于中世纪欧洲体系，与古兰经无关。"}
+  },
+  { id:"l4q5", q:"What core religious idea did Muhammad's message emphasize?", q_cn:"穆罕默德的信息强调了什么核心宗教理念？",
+    options:["A. Strict monotheism, or belief in one God|A. 严格的一神论，即信仰唯一的神","B. Worship of multiple tribal deities|B. 信奉多种部落神灵","C. The divine right of Byzantine emperors|C. 拜占庭皇帝的神圣权力","D. The authority of the Catholic Pope|D. 天主教教皇的权威"],
+    correct:"A", rat_right:"Muhammad began preaching a message of strict monotheism — belief in one God — challenging Mecca's existing polytheistic traditions.|穆罕默德开始宣讲严格的一神论信息——信仰唯一的神——这对麦加现有的多神传统提出了挑战。",
+    rat_wrong:{B:"Muhammad's message directly opposed the existing worship of multiple tribal deities in Mecca.|穆罕默德的信息直接反对了麦加现有的多神部落崇拜。",C:"The divine right of Byzantine emperors is a separate political and religious concept from Islamic monotheism.|拜占庭皇帝的神圣权力是与伊斯兰一神论不同的另一种政治与宗教理念。",D:"The authority of the Catholic Pope belongs to a separate Christian tradition, unrelated to Muhammad's teaching.|天主教教皇的权威属于另一个基督教传统，与穆罕默德的教导无关。"}
+  },
+  { id:"l4q6", q:"Why did Mecca's elite see Muhammad's message as a threat?", q_cn:"为什么麦加权贵将穆罕默德的信息视为一种威胁？",
+    options:["A. It threatened the religious and economic power tied to pilgrims visiting the Kaaba's idols|A. 它威胁到了与朝圣者前往克尔白朝拜神像相关的宗教与经济权力","B. It had no effect on Mecca's economy at all|B. 它对麦加的经济完全没有任何影响","C. It strengthened the existing polytheistic religious system|C. 它强化了现有的多神宗教体系","D. It was fully supported by Mecca's leaders from the very beginning|D. 它从一开始就得到了麦加领袖的全力支持"],
+    correct:"A", rat_right:"Muhammad's message of one God threatened the religious and economic power of Mecca's elite, who profited from pilgrims visiting the Kaaba's many idols.|穆罕默德【一神】的信息威胁到了麦加权贵的宗教与经济权力，他们从朝圣者前往克尔白朝拜众多神像中获利。",
+    rat_wrong:{B:"Muhammad's message had a significant effect on Mecca's economy, since it directly threatened pilgrim-based income.|穆罕默德的信息对麦加的经济产生了重大影响，因为它直接威胁到了基于朝圣者的收入。",C:"Muhammad's message directly challenged and weakened the existing polytheistic system rather than strengthening it.|穆罕默德的信息直接挑战并削弱了现有的多神体系，而不是强化它。",D:"Mecca's leaders largely opposed and persecuted Muhammad's early followers, rather than supporting them from the start.|麦加的领袖在很大程度上反对并迫害了穆罕默德的早期追随者，而不是从一开始就支持他们。"}
+  },
+  { id:"l4q7", q:"What are the Five Pillars of Islam?", q_cn:"伊斯兰教的五大支柱是什么？",
+    options:["A. Faith, prayer, charity, fasting, and pilgrimage|A. 信仰、礼拜、施舍、斋戒与朝圣","B. Feudal obligations between lords and knights|B. 领主与骑士之间的封建义务","C. Five Byzantine legal principles|C. 五项拜占庭法律原则","D. Five Catholic sacraments|D. 五项天主教圣事"],
+    correct:"A", rat_right:"The Five Pillars of Islam are declaration of faith, prayer, charity, fasting during Ramadan, and pilgrimage to Mecca.|伊斯兰教的五大支柱是信仰宣言、礼拜、施舍、斋月斋戒以及前往麦加朝圣。",
+    rat_wrong:{B:"Feudal obligations belong to the separate medieval European system discussed earlier in this unit.|封建义务属于本单元前面所讨论的中世纪欧洲体系，与此不同。",C:"Byzantine legal principles relate to the Justinian Code, a separate topic from Islamic religious practice.|拜占庭法律原则与查士丁尼法典相关，这是与伊斯兰宗教实践不同的另一个主题。",D:"Catholic sacraments belong to Christian religious tradition, separate from the Five Pillars of Islam.|天主教圣事属于基督教的宗教传统，与伊斯兰教五大支柱不同。"}
+  },
+  { id:"l4q8", q:"How did the Five Pillars of Islam help shape the Muslim community?", q_cn:"伊斯兰教五大支柱如何帮助塑造了穆斯林社群？",
+    options:["A. They unified believers and structured daily religious life around shared practices|A. 它们将信徒团结起来，并围绕共同的实践构建了日常宗教生活","B. They had no impact on how believers lived day to day|B. 它们对信徒日常生活方式没有任何影响","C. They were only practiced by Mecca's ruling elite|C. 它们只被麦加的统治权贵所实践","D. They replaced the need for any form of community among believers|D. 它们取代了信徒之间任何形式社群的需要"],
+    correct:"A", rat_right:"The Five Pillars unified Muslim believers and structured daily religious life through shared practices like prayer and fasting.|五大支柱通过礼拜和斋戒等共同的实践，将穆斯林信徒团结起来，并构建了日常宗教生活。",
+    rat_wrong:{B:"The Five Pillars directly shaped daily practices like prayer and fasting, having a major impact on daily life.|五大支柱直接塑造了礼拜和斋戒等日常实践，对日常生活产生了重大影响。",C:"The Five Pillars were meant for all Muslim believers, not exclusively Mecca's ruling elite.|五大支柱适用于所有穆斯林信徒，而不仅仅是麦加的统治权贵。",D:"The shared practices of the Five Pillars actually helped build a stronger sense of community among believers.|五大支柱的共同实践实际上有助于在信徒之间建立更强的社群认同感。"}
+  },
+  { id:"l4q9", q:"What does the conflict between Muhammad's teachings and Mecca's elite suggest about religious change and economic interests?", q_cn:"穆罕默德的教义与麦加权贵之间的冲突，说明了宗教变革与经济利益之间的何种关系？",
+    options:["A. New religious ideas can directly threaten existing economic systems built around older religious practices|A. 新的宗教理念可能直接威胁到围绕旧有宗教实践所建立的现有经济体系","B. Religion and economics are always completely unrelated|B. 宗教与经济总是完全无关","C. Mecca's elite had no economic interest in the Kaaba's religious practices|C. 麦加权贵对克尔白的宗教实践没有任何经济利益","D. Muhammad's message had no impact on Mecca's society at all|D. 穆罕默德的信息对麦加社会没有任何影响"],
+    correct:"A", rat_right:"Muhammad's monotheistic message directly threatened the economic system built around pilgrims visiting the Kaaba's many idols, showing how religious change can disrupt existing economic interests.|穆罕默德的一神论信息直接威胁到了围绕朝圣者朝拜克尔白众多神像所建立的经济体系，这表明了宗教变革如何能够冲击现有的经济利益。",
+    rat_wrong:{B:"This lesson directly shows religion and economics intertwined through pilgrimage and the Kaaba's idols.|本课直接表明宗教与经济通过朝圣与克尔白的神像紧密交织在一起。",C:"Mecca's elite profited economically from pilgrims visiting the Kaaba, showing a clear economic interest.|麦加权贵从朝圣者朝拜克尔白中获利，这表明了明确的经济利益。",D:"Muhammad's message had a significant impact on Mecca, eventually leading to major religious and political change.|穆罕默德的信息对麦加产生了重大影响，最终导致了重大的宗教与政治变革。"}
+  },
+  { id:"l4q10", q:"What broader lesson about religious movements can be drawn from the early opposition Muhammad faced in Mecca?", q_cn:"从穆罕默德在麦加早期所面临的反对中，可以得出关于宗教运动的什么更广泛的教训？",
+    options:["A. New religious movements often face resistance from those whose power depends on the existing system|A. 新的宗教运动往往会面临那些权力依赖于现有体系的人的抵制","B. New religious ideas are always immediately accepted by everyone|B. 新的宗教理念总是立即被所有人接受","C. Religious movements never face any form of opposition|C. 宗教运动从不会面临任何形式的反对","D. Economic interests have no connection to how religious ideas are received|D. 经济利益与宗教理念的接受方式没有任何关系"],
+    correct:"A", rat_right:"Muhammad's early experience in Mecca shows that new religious movements often face resistance from those whose power and livelihood depend on the existing system.|穆罕默德在麦加的早期经历表明，新的宗教运动往往会面临那些权力与生计依赖于现有体系的人的抵制。",
+    rat_wrong:{B:"Muhammad's message faced significant early opposition in Mecca, the opposite of immediate acceptance.|穆罕默德的信息在麦加早期面临着重大的反对，这与立即被接受恰恰相反。",C:"Mecca's elite actively persecuted Muhammad and his early followers, showing clear opposition.|麦加权贵积极迫害穆罕默德及其早期追随者，这表明了明显的反对。",D:"This lesson shows economic interests directly shaping how Mecca's elite responded to Muhammad's religious message.|本课表明经济利益直接塑造了麦加权贵对穆罕默德宗教信息的回应方式。"}
+  }
+];
+ 
+var L5_Q = [
+  { id:"l5q1", q:"What was the Hijra?", q_cn:"什么是希吉拉？",
+    options:["A. Muhammad's migration from Mecca to Medina in 622 CE|A. 穆罕默德于公元622年从麦加迁往麦地那","B. The Byzantine reconquest of Italy|B. 拜占庭对意大利的再征服","C. The collapse of the Western Roman Empire|C. 西罗马帝国的崩溃","D. A feudal land agreement in Western Europe|D. 西欧的一份封建土地协议"],
+    correct:"A", rat_right:"The Hijra was Muhammad's migration from Mecca to Medina in 622 CE, a pivotal turning point in Islamic history.|希吉拉是穆罕默德于公元622年从麦加迁往麦地那的事件，是伊斯兰教历史上的一个关键转折点。",
+    rat_wrong:{B:"The Byzantine reconquest of Italy is connected to Justinian, a separate topic from the Hijra.|拜占庭对意大利的再征服与查士丁尼相关，这是与希吉拉不同的另一个主题。",C:"The collapse of the Western Roman Empire is unrelated to Muhammad's migration to Medina.|西罗马帝国的崩溃与穆罕默德迁往麦地那无关。",D:"A feudal land agreement belongs to medieval European systems, not Islamic history.|封建土地协议属于中世纪欧洲体系，不属于伊斯兰教历史。"}
+  },
+  { id:"l5q2", q:"Why does the Hijra mark Year 1 of the Islamic calendar?", q_cn:"为什么希吉拉标志着伊斯兰历法的第一年？",
+    options:["A. It marks such a pivotal turning point in Islamic history|A. 它标志着伊斯兰教历史上一个如此关键的转折点","B. It was the year Muhammad was born|B. 这是穆罕默德出生的那一年","C. It was the year the Kaaba was first built|C. 这是克尔白最初建造的那一年","D. It was the year the Byzantine Empire fell|D. 这是拜占庭帝国灭亡的那一年"],
+    correct:"A", rat_right:"The Hijra marks such a pivotal turning point in Islamic history that it became Year 1 of the Islamic calendar.|希吉拉标志着伊斯兰教历史上如此关键的一个转折点，以至于它成为了伊斯兰历法的第一年。",
+    rat_wrong:{B:"Muhammad's birth occurred around 570 CE, well before the Hijra in 622 CE.|穆罕默德的出生大约在公元570年，远早于公元622年的希吉拉。",C:"The Kaaba's construction is a separate topic from the timing of the Hijra.|克尔白的建造是与希吉拉时间不同的另一个主题。",D:"The Byzantine Empire's fall occurred centuries after the Hijra, not connected to its timing.|拜占庭帝国的灭亡发生在希吉拉之后数百年，与希吉拉的时间无关。"}
+  },
+  { id:"l5q3", q:"How was Muhammad received when he arrived in Medina?", q_cn:"穆罕默德抵达麦地那时受到了怎样的接待？",
+    options:["A. He was welcomed as a political and religious leader|A. 他被迎为政治与宗教领袖","B. He was immediately persecuted, just as in Mecca|B. 他立即遭到迫害，与在麦加时一样","C. He was forced to leave Medina right away|C. 他被迫立即离开麦地那","D. He was ignored by everyone in the city|D. 他被城中所有人忽视"],
+    correct:"A", rat_right:"In Medina, Muhammad was welcomed as a political and religious leader, allowing him to establish the first Muslim community.|在麦地那，穆罕默德被迎为政治与宗教领袖，这使他能够建立第一个穆斯林社群。",
+    rat_wrong:{B:"Medina offered Muhammad welcome and leadership, a contrast to the persecution he faced in Mecca.|麦地那给予穆罕默德欢迎与领导地位，这与他在麦加所面临的迫害形成了对比。",C:"Muhammad remained in Medina and built a lasting community there, rather than being forced to leave.|穆罕默德留在麦地那并在那里建立了一个持久的社群，而不是被迫离开。",D:"Muhammad was actively welcomed and given authority, not ignored, in Medina.|穆罕默德在麦地那受到了积极的欢迎并被赋予了权力，而不是被忽视。"}
+  },
+  { id:"l5q4", q:"What is the 'umma'?", q_cn:"什么是【乌玛】？",
+    options:["A. The first Muslim community established by Muhammad in Medina|A. 穆罕默德在麦地那建立的第一个穆斯林社群","B. A Byzantine legal code|B. 一部拜占庭法律法典","C. A feudal estate owned by a lord|C. 领主所拥有的一座封建庄园","D. A pilgrimage route across the Sahara|D. 一条横跨撒哈拉的朝圣路线"],
+    correct:"A", rat_right:"The umma was the first Muslim community established by Muhammad in Medina, combining religious devotion with practical governance.|乌玛是穆罕默德在麦地那建立的第一个穆斯林社群，它将宗教信仰与实际治理结合在一起。",
+    rat_wrong:{B:"A Byzantine legal code refers to something like the Justinian Code, unrelated to the umma.|拜占庭法律法典指的是类似查士丁尼法典的事物，与乌玛无关。",C:"A feudal estate belongs to the medieval European system discussed earlier, not Islamic Medina.|封建庄园属于本单元前面所讨论的中世纪欧洲体系，不属于伊斯兰教的麦地那。",D:"A pilgrimage route across the Sahara relates to later African trade networks, a separate topic.|横跨撒哈拉的朝圣路线与后来的非洲贸易网络相关，这是另一个主题。"}
+  },
+  { id:"l5q5", q:"What did Muhammad establish in Medina besides a religious community?", q_cn:"除了宗教社群之外，穆罕默德在麦地那还建立了什么？",
+    options:["A. Agreements establishing rules for cooperation, an early form of written constitution|A. 建立合作规则的协议，一种早期形式的书面宪法","B. A new set of Byzantine laws|B. 一套新的拜占庭法律","C. A feudal hierarchy of lords and knights|C. 一套由领主与骑士组成的封建等级体系","D. A new trading partnership with Constantinople|D. 与君士坦丁堡建立的一种新贸易伙伴关系"],
+    correct:"A", rat_right:"Muhammad drafted agreements establishing rules for cooperation between Muslims and other groups, creating one of the earliest examples of a written constitution.|穆罕默德起草了在穆斯林与其他群体之间建立合作规则的协议，创造了书面宪法最早的范例之一。",
+    rat_wrong:{B:"Byzantine laws, like the Justinian Code, are a separate topic from Muhammad's governance in Medina.|拜占庭法律，如查士丁尼法典，是与穆罕默德在麦地那的治理不同的另一个主题。",C:"A feudal hierarchy belongs to the medieval European system discussed earlier, not Medina.|封建等级体系属于本单元前面所讨论的中世纪欧洲体系，不属于麦地那。",D:"A trading partnership with Constantinople is not described as part of Muhammad's actions in Medina.|与君士坦丁堡的贸易伙伴关系并未被描述为穆罕默德在麦地那行动的一部分。"}
+  },
+  { id:"l5q6", q:"How did Muhammad and his followers enter Mecca in 630 CE?", q_cn:"公元630年，穆罕默德和他的追随者是如何进入麦加的？",
+    options:["A. Largely without violence|A. 基本上没有暴力","B. Through a prolonged and bloody siege|B. 通过一场长期且血腥的围攻","C. With help from the Byzantine army|C. 在拜占庭军队的帮助下","D. By secretly sneaking in at night|D. 在夜间秘密潜入"],
+    correct:"A", rat_right:"Muhammad and his followers entered Mecca largely without violence, and Mecca's leaders ultimately converted to Islam.|穆罕默德和他的追随者基本上是在没有暴力的情况下进入麦加的，麦加的领袖最终皈依了伊斯兰教。",
+    rat_wrong:{B:"The entry into Mecca is specifically described as largely peaceful, not a bloody siege.|进入麦加的过程被特别描述为基本上是和平的，而不是一场血腥的围攻。",C:"The Byzantine army is unrelated to Muhammad's return to Mecca, which involved his own growing community.|拜占庭军队与穆罕默德重返麦加无关，这一事件涉及的是他自己日益壮大的社群。",D:"Muhammad's return to Mecca is described as an open, largely peaceful entry, not a secret nighttime infiltration.|穆罕默德重返麦加被描述为一次公开、基本上和平的进入，而不是秘密的夜间潜入。"}
+  },
+  { id:"l5q7", q:"What did Muhammad do to the Kaaba after the conversion of Mecca?", q_cn:"麦加归顺后，穆罕默德对克尔白做了什么？",
+    options:["A. He removed the idols and rededicated it as the central holy site of Islam|A. 他移除了神像，并将其重新奉为伊斯兰教的核心圣地","B. He destroyed it completely|B. 他将其完全摧毁","C. He converted it into a Byzantine church|C. 他将其改造成一座拜占庭教堂","D. He left it completely unchanged|D. 他完全没有对其作出任何改变"],
+    correct:"A", rat_right:"Muhammad removed the idols from the Kaaba, rededicating it as the central holy site of Islam, a role it still holds today.|穆罕默德移除了克尔白中的神像，将其重新奉为伊斯兰教的核心圣地，这一地位延续至今。",
+    rat_wrong:{B:"Muhammad transformed the Kaaba's purpose rather than destroying the structure itself.|穆罕默德改变了克尔白的用途，而不是摧毁这座建筑本身。",C:"The Kaaba became Islam's central holy site, not a Byzantine church.|克尔白成为了伊斯兰教的核心圣地，而不是一座拜占庭教堂。",D:"Muhammad made a significant change by removing the idols and rededicating its religious purpose.|穆罕默德通过移除神像并重新奉献其宗教用途，作出了重大的改变。"}
+  },
+  { id:"l5q8", q:"What role does the Kaaba play in Islam today?", q_cn:"今天克尔白在伊斯兰教中扮演什么角色？",
+    options:["A. It is the destination of the hajj pilgrimage|A. 它是朝觐朝圣的目的地","B. It is no longer used for any religious purpose|B. 它不再用于任何宗教用途","C. It is a Byzantine cathedral|C. 它是一座拜占庭大教堂","D. It is a feudal manor house|D. 它是一座封建庄园府邸"],
+    correct:"A", rat_right:"The Kaaba remains the destination of the hajj pilgrimage, one of the Five Pillars of Islam, to this day.|克尔白至今仍是朝觐朝圣的目的地，朝觐是伊斯兰教五大支柱之一。",
+    rat_wrong:{B:"The Kaaba continues to serve a central religious purpose as the destination of the hajj.|克尔白作为朝觐的目的地，至今仍承担着核心的宗教用途。",C:"The Kaaba is Islam's holiest site, not a Byzantine cathedral.|克尔白是伊斯兰教最神圣的圣地，不是一座拜占庭大教堂。",D:"A feudal manor house belongs to the separate medieval European system discussed earlier.|封建庄园府邸属于本单元前面所讨论的中世纪欧洲体系，与此不同。"}
+  },
+  { id:"l5q9", q:"What does the largely peaceful conversion of Mecca suggest about how Muhammad's authority had changed since the Hijra?", q_cn:"麦加基本上和平的归顺，说明了希吉拉以来穆罕默德的权威发生了怎样的变化？",
+    options:["A. His community in Medina had grown powerful enough that negotiation, rather than only conflict, became possible|A. 他在麦地那的社群已变得足够强大，使得谈判而不仅仅是冲突成为可能","B. He had lost all influence and authority by this point|B. 到这个时候他已失去了所有的影响力与权威","C. Mecca's leaders had always supported him from the very beginning|C. 麦加领袖从一开始就一直支持他","D. The Byzantine Empire intervened to force the conversion|D. 拜占庭帝国出面干预，强迫实现了归顺"],
+    correct:"A", rat_right:"By 630 CE, Muhammad's growing community in Medina had become powerful enough that he could return to Mecca largely without violence, showing how his authority had grown since the Hijra.|到公元630年，穆罕默德在麦地那不断壮大的社群已变得足够强大，使他能够基本上在没有暴力的情况下重返麦加，这表明了自希吉拉以来他的权威已经增长。",
+    rat_wrong:{B:"Muhammad's authority and influence had grown substantially by 630 CE, the opposite of losing influence.|到公元630年，穆罕默德的权威与影响力已大幅增长，这与失去影响力恰恰相反。",C:"Mecca's leaders initially persecuted Muhammad and only converted later, not supporting him from the start.|麦加领袖最初迫害穆罕默德，只是后来才皈依，并不是从一开始就支持他。",D:"The Byzantine Empire is not described as playing any role in the conversion of Mecca.|拜占庭帝国并未被描述为在麦加归顺中扮演任何角色。"}
+  },
+  { id:"l5q10", q:"What broader lesson about the growth of religious and political movements can be drawn from the Hijra and the conversion of Mecca?", q_cn:"从希吉拉与麦加的归顺中，可以得出关于宗教与政治运动发展的什么更广泛的教训？",
+    options:["A. A movement that begins small and persecuted can grow strong enough to reshape the very place that once rejected it|A. 一场始于弱小且遭受迫害的运动，可能发展得足够强大，以重塑曾经拒绝它的地方","B. Religious movements never grow or change in strength over time|B. 宗教运动的力量从不会随时间增长或变化","C. Persecution always permanently destroys a new religious movement|C. 迫害总是会永久摧毁一场新的宗教运动","D. Political and religious authority can never be combined in one leader|D. 政治与宗教权威永远不能集中在一位领袖身上"],
+    correct:"A", rat_right:"Muhammad's journey from persecution in Mecca, to building a strong community in Medina, to the peaceful conversion of Mecca shows how a small, persecuted movement can grow powerful enough to transform its place of origin.|穆罕默德从在麦加遭受迫害，到在麦地那建立强大的社群，再到麦加的和平归顺，这一历程表明一场弱小且遭受迫害的运动，可能发展得足够强大，足以改变其起源之地。",
+    rat_wrong:{B:"Muhammad's movement grew dramatically in strength from its persecuted beginnings in Mecca to its triumphant return.|穆罕默德的运动从麦加遭受迫害的开端，到凯旋而归，力量发生了巨大的增长。",C:"Despite early persecution, Muhammad's movement not only survived but eventually transformed Mecca.|尽管早期遭受迫害，穆罕默德的运动不仅存活了下来，最终还改变了麦加。",D:"Muhammad himself combined religious and political leadership in Medina, directly contradicting this claim.|穆罕默德本人在麦地那将宗教与政治领导地位结合在一起，这直接反驳了这一说法。"}
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var allAnswered = Object.keys(storeMap[tabKey]).length === qMap[tabKey].length;
+  var hasRef1 = ref1 && ref1.value.trim().length > 0;
+  var hasRef2 = ref2 && ref2.value.trim().length > 0;
+  var hasGrat = grat && grat.value.trim().length > 0;
+  if (allAnswered && hasRef1 && hasRef2 && hasGrat) {
+    btn.classList.add('ready');
+    btn.disabled = false;
+    hint.style.display = 'none';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1','Ref2','Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Justinian and the Byzantine Empire',
+    l2: 'Overview of the Middle Ages',
+    l3: 'The Feudal System',
+    l4: 'Life of Muhammad and Origins of Islam',
+    l5: 'The Hijra to Medina and Conversion of Mecca'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 7\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + (document.getElementById(tabKey+'Ref1').value) + '\n\n';
+  txt += 'Reflection 2:\n' + (document.getElementById(tabKey+'Ref2').value) + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + document.getElementById(tabKey+'Grat').value + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day7_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 4 — Persia, Greece &amp; Alexander | 波斯、希腊与亚历山大</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 4 — Persia, Greece &amp; Alexander + Empire Comparisons · <span class="cn">波斯、希腊与亚历山大 · 帝国比较</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson 1"></div>
+    <div class="pip" id="pip-l2" title="Lesson 2"></div>
+    <div class="pip" id="pip-l3" title="Lesson 3"></div>
+    <div class="pip" id="pip-l4" title="Lesson 4"></div>
+    <div class="pip" id="pip-l5" title="Lesson 5"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">👑 Cyrus the Great, the Achaemenid Empire &amp; Classical Greece</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">🏛️ Greek Philosophy: Socrates, Plato &amp; Aristotle</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">⚔️ Philip II, Alexander &amp; His Conquests</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">🌍 What Is an Empire? How Empires Rise &amp; Grow</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">📉 Division of Alexander's Empire &amp; How Empires Fall</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON 1: Cyrus, Achaemenid Empire, Classical Greece -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Cyrus the Great, the Achaemenid Empire &amp; Classical Greece · <span class="cn">居鲁士大帝、阿契美尼德帝国与古典希腊</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Cyrus the Great &amp; the Founding of Persia · <span class="cn">居鲁士大帝与波斯的建立</span></h3>
+    <p><strong>Cyrus the Great</strong> (ruled c. 559–530 BCE) founded the <strong>Achaemenid Persian Empire</strong>, the largest empire the world had yet seen, stretching from Egypt to the edge of India. Cyrus is remembered for his policy of <strong>religious tolerance</strong> — allowing conquered peoples to keep their own customs, languages, and gods.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>居鲁士大帝</strong>（约公元前559—530年在位）建立了<strong>阿契美尼德波斯帝国</strong>，是当时世界上最大的帝国，从埃及延伸到印度边缘。居鲁士因其<strong>宗教宽容</strong>政策而著名——允许被征服的民族保留自己的习俗、语言和神灵。</span></p>
+    <div class="callout">
+      <strong>The Cyrus Cylinder:</strong> An ancient clay artifact recording Cyrus's policies after conquering Babylon, including freeing captives and allowing religious freedom — sometimes called an early "charter of human rights."
+      <br><span class="cn"><strong>居鲁士圆柱：</strong>一件记录居鲁士征服巴比伦后政策的古代泥制文物，包括释放俘虏和允许宗教自由——有时被称为早期的"人权宪章"。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Governing a Vast Empire · <span class="cn">治理庞大帝国</span></h3>
+    <p>The Achaemenid Empire was organized into provinces called <strong>satrapies</strong>, each ruled by a governor (satrap) loyal to the Persian king. The empire built the <strong>Royal Road</strong>, a system connecting distant regions, and used a common currency and postal relay system to manage communication.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Tool of Empire 帝国工具</th><th>Function 功能</th></tr>
+      <tr><td>Satrapies 行省制</td><td>Local governors managed regions while answering to the king 地方总督管理地区并向国王负责</td></tr>
+      <tr><td>Royal Road 御道</td><td>Connected the empire for trade, army movement, and messages 连接帝国以便贸易、军队调动和传递信息</td></tr>
+      <tr><td>Religious tolerance 宗教宽容</td><td>Reduced rebellion by respecting local customs 通过尊重当地习俗减少叛乱</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Classical Greece: The City-State World · <span class="cn">古典希腊：城邦世界</span></h3>
+    <p>While Persia built one vast empire, Greece remained divided into independent <strong>city-states (poleis)</strong> like Athens, Sparta, Corinth, and Thebes — each with its own government, laws, and military. <strong>Athens</strong> developed an early form of <strong>democracy</strong>, while <strong>Sparta</strong> built a militaristic society focused on discipline and warfare.</p>
+    <p style="margin-top:8px"><span class="cn">当波斯建立起一个庞大的帝国时，希腊仍然分裂为独立的<strong>城邦</strong>，如雅典、斯巴达、科林斯和底比斯——每个城邦都有自己的政府、法律和军队。<strong>雅典</strong>发展了早期形式的<strong>民主制度</strong>，而<strong>斯巴达</strong>建立了专注于纪律和战争的军事化社会。</span></p>
+    <div class="callout-blue">
+      <strong>Persia vs. Greece:</strong> The Greco-Persian Wars (499–449 BCE) saw Greek city-states unite temporarily to resist Persian invasion — famous battles include Marathon, Thermopylae, and Salamis.
+      <br><span class="cn"><strong>波斯与希腊：</strong>希波战争（公元前499—449年）期间，希腊城邦暂时联合起来抵抗波斯入侵——著名战役包括马拉松、温泉关和萨拉米斯。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 1</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Cyrus the Great's policy of religious tolerance helped him control a huge empire. Why might tolerance be a more effective long-term strategy than forced conversion? · <span class="cn">居鲁士大帝的宗教宽容政策帮助他控制了一个庞大的帝国。为什么宽容可能比强制改信是更有效的长期策略？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Athens and Sparta had very different societies despite both being Greek city-states. Which society's values seem closer to your own, and why? · <span class="cn">尽管雅典和斯巴达都是希腊城邦，但两者的社会却截然不同。哪个社会的价值观更接近你自己的价值观？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 2: Greek Philosophy -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Greek Philosophy: Socrates, Plato &amp; Aristotle · <span class="cn">希腊哲学：苏格拉底、柏拉图与亚里士多德</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Socrates: Questioning Everything · <span class="cn">苏格拉底：质疑一切</span></h3>
+    <p><strong>Socrates</strong> (c. 470–399 BCE) developed a method of teaching through asking probing questions — now called the <strong>Socratic Method</strong>. He believed wisdom began with admitting what you do not know. He was eventually sentenced to death for "corrupting the youth" of Athens with his constant questioning.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>苏格拉底</strong>（约公元前470—399年）发展了一种通过提出深入问题来教学的方法——现在称为<strong>苏格拉底式问答法</strong>。他认为智慧始于承认自己的无知。他最终因不断质疑而"腐蚀"雅典青年而被判处死刑。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Plato: The World of Ideas · <span class="cn">柏拉图：理念的世界</span></h3>
+    <p><strong>Plato</strong> (c. 428–348 BCE), a student of Socrates, founded the <strong>Academy</strong>, an early institution of higher learning. Plato wrote that the physical world is only a shadow of a more perfect world of "Forms" or "Ideas." His most famous work, <em>The Republic</em>, describes his vision of an ideal, just society ruled by philosopher-kings.</p>
+    <div class="callout">
+      <strong>The Allegory of the Cave:</strong> Plato's famous metaphor describes people chained in a cave, mistaking shadows for reality — representing how most people mistake the physical world for true knowledge.
+      <br><span class="cn"><strong>洞穴寓言：</strong>柏拉图著名的寓言描述了被锁在洞穴中的人们将影子误认为现实——代表了大多数人将物质世界误认为真正知识的状态。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Aristotle: The Empirical Thinker · <span class="cn">亚里士多德：经验主义思想家</span></h3>
+    <p><strong>Aristotle</strong> (384–322 BCE), a student of Plato, took a different approach — emphasizing observation and evidence from the physical world rather than abstract Forms. He wrote extensively on logic, biology, politics, ethics, and drama, and later became the tutor of <strong>Alexander the Great</strong>.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Philosopher 哲学家</th><th>Core Idea 核心思想</th></tr>
+      <tr><td>Socrates 苏格拉底</td><td>Question everything; admit what you don't know 质疑一切；承认自己的无知</td></tr>
+      <tr><td>Plato 柏拉图</td><td>True reality exists in a world of perfect Forms/Ideas 真正的现实存在于完美理念的世界中</td></tr>
+      <tr><td>Aristotle 亚里士多德</td><td>Knowledge comes from observing the physical world 知识来自对物质世界的观察</td></tr>
+    </table>
+    <p style="margin-top:10px"><span class="cn">亚里士多德强调观察和来自物质世界的证据，而非抽象理念。他广泛撰写关于逻辑学、生物学、政治学、伦理学和戏剧的著作，后来成为<strong>亚历山大大帝</strong>的导师。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 2</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Socrates believed wisdom begins with admitting what you don't know. Do you agree with this idea? Give an example from your own life. · <span class="cn">苏格拉底认为智慧始于承认自己的无知。你同意这个观点吗？请用你自己生活中的例子来说明。</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Plato and Aristotle disagreed about where true knowledge comes from. Which approach — abstract ideas or physical observation — makes more sense to you, and why? · <span class="cn">柏拉图和亚里士多德对真正知识的来源持不同看法。哪种方法——抽象理念还是物质观察——对你来说更有道理？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 3: Philip II, Alexander, Conquests -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Philip II, Alexander &amp; His Conquests · <span class="cn">腓力二世、亚历山大与他的征服</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Philip II: Building the Macedonian War Machine · <span class="cn">腓力二世：建立马其顿战争机器</span></h3>
+    <p><strong>Philip II of Macedon</strong> (ruled 359–336 BCE) transformed Macedonia from a minor kingdom into the dominant power in Greece. He created a professional, highly disciplined army using the <strong>phalanx formation</strong> with extra-long spears (sarissas), and gradually conquered or allied with the Greek city-states.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>马其顿的腓力二世</strong>（公元前359—336年在位）将马其顿从一个弱小的王国转变为希腊的主导力量。他创建了一支使用超长矛（萨里沙）<strong>方阵</strong>战术的专业化、高度纪律化的军队，逐渐征服或与希腊城邦结盟。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Alexander the Great Takes Power · <span class="cn">亚历山大大帝掌权</span></h3>
+    <p>When Philip II was assassinated in 336 BCE, his 20-year-old son <strong>Alexander</strong> inherited the throne — and the army his father had built. Trained by Aristotle and inspired by Homer's epics, Alexander quickly crushed rebellions and set out to conquer the Persian Empire.</p>
+    <div class="callout">
+      <strong>The Gordian Knot:</strong> According to legend, Alexander was challenged to untie an impossibly complex knot. Instead of carefully unraveling it, he simply cut it with his sword — a story symbolizing his bold, decisive approach to problems.
+      <br><span class="cn"><strong>戈尔迪之结：</strong>传说亚历山大被要求解开一个极其复杂的绳结。他没有耐心地解开它，而是直接用剑斩断——这个故事象征着他大胆、果断的解决问题方式。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Alexander's Conquests · <span class="cn">亚历山大的征服</span></h3>
+    <p>Between 334–323 BCE, Alexander led his army on one of history's most remarkable military campaigns, defeating the Persian Empire and pushing as far as modern-day Pakistan and northwestern India. He founded over 70 new cities (many named Alexandria) and spread Greek (Hellenistic) culture across his empire.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Key Battle/Event 关键战役/事件</th><th>Significance 意义</th></tr>
+      <tr><td>Battle of Granicus (334 BCE) 格拉尼库斯河战役</td><td>First major victory over Persian forces 对波斯军队的首次重大胜利</td></tr>
+      <tr><td>Battle of Issus (333 BCE) 伊苏斯战役</td><td>Defeated Persian King Darius III's main army 击败波斯国王大流士三世的主力军</td></tr>
+      <tr><td>Battle of Gaugamela (331 BCE) 高加米拉战役</td><td>Decisive victory; effectively ended the Achaemenid Empire 决定性胜利；实际上终结了阿契美尼德帝国</td></tr>
+    </table>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 3</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Alexander inherited a powerful army built by his father, Philip II. How important do you think preparation by previous generations is to later success? · <span class="cn">亚历山大继承了父亲腓力二世建立的强大军队。你认为前几代人的准备工作对后来的成功有多重要？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Gordian Knot story shows Alexander's bold, decisive nature. Do you think being bold and decisive is always a good leadership trait? Why or why not? · <span class="cn">戈尔迪之结的故事展示了亚历山大大胆、果断的天性。你认为大胆和果断总是好的领导特质吗？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 4: What Is an Empire? Rise & Grow -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">What Is an Empire? How Empires Rise &amp; Grow · <span class="cn">什么是帝国？帝国如何兴起与发展</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Defining an Empire · <span class="cn">定义帝国</span></h3>
+    <p>An <strong>empire</strong> is a large political unit that controls many different peoples, territories, and cultures under a single central authority — usually achieved through military conquest. Unlike a single nation-state, an empire often governs diverse populations who did not choose to be ruled together.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>帝国</strong>是一个庞大的政治单元，在单一的中央权威下控制着许多不同的民族、领土和文化——通常通过军事征服实现。与单一的民族国家不同，帝国通常统治着没有选择共同被统治的多元人口。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>How Empires Rise &amp; Grow · <span class="cn">帝国如何兴起与发展</span></h3>
+    <p>Historians identify several common factors that allow empires to rise and expand:</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Factor 因素</th><th>Example 例子</th></tr>
+      <tr><td>Military strength 军事力量</td><td>Advanced weapons, organized armies (Persian satrapies, Macedonian phalanx) 先进武器、有组织的军队（波斯行省制、马其顿方阵）</td></tr>
+      <tr><td>Strong leadership 强大的领导力</td><td>Ambitious, capable rulers (Cyrus, Alexander) 雄心勃勃、有能力的统治者（居鲁士、亚历山大）</td></tr>
+      <tr><td>Economic resources 经济资源</td><td>Wealth from trade, agriculture, taxation 来自贸易、农业、税收的财富</td></tr>
+      <tr><td>Administrative systems 行政体系</td><td>Roads, bureaucracy, governors to manage distant territories 道路、官僚体系、管理远方领土的总督</td></tr>
+      <tr><td>Cultural/religious policy 文化/宗教政策</td><td>Tolerance (Persia) or cultural blending (Hellenism) reduces rebellion 宽容（波斯）或文化融合（希腊化）减少叛乱</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Comparing Persia, Maurya &amp; Rome · <span class="cn">比较波斯、孔雀王朝与罗马</span></h3>
+    <p>Although separated by time and geography, the <strong>Persian</strong>, <strong>Mauryan</strong> (India), and later <strong>Roman</strong> empires shared remarkably similar strategies: organized bureaucracies, extensive road networks, standardized currency, and systems for managing diverse populations across vast territories.</p>
+    <div class="callout-blue">
+      <strong>Pattern Recognition:</strong> Despite arising independently in different regions, successful empires tend to solve the same basic problems — how to communicate, defend, tax, and govern — in remarkably similar ways.
+      <br><span class="cn"><strong>模式识别：</strong>尽管在不同地区独立兴起，成功的帝国往往以惊人相似的方式解决相同的基本问题——如何沟通、防御、征税和治理。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 4</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Of the five factors that help empires rise (military, leadership, economy, administration, cultural policy), which do you think is most important, and why? · <span class="cn">在帝国兴起的五个因素（军事、领导力、经济、行政、文化政策）中，你认为哪个最重要？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Persia, Maurya, and Rome arose independently but used similar strategies to govern. What does this tell you about how humans solve large-scale organizational problems? · <span class="cn">波斯、孔雀王朝和罗马是独立兴起的，但使用了类似的治理策略。这告诉你人类如何解决大规模组织问题？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 5: Division of Alexander's Empire & How Empires Fall -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Division of Alexander's Empire &amp; How Empires Fall · <span class="cn">亚历山大帝国的分裂与帝国如何衰亡</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Alexander's Sudden Death · <span class="cn">亚历山大的猝死</span></h3>
+    <p>Alexander the Great died unexpectedly in 323 BCE at age 32, likely from fever or illness, without a clear adult heir. According to legend, when asked who should inherit his empire, he said only, "to the strongest" — leading to decades of conflict among his generals.</p>
+    <p style="margin-top:8px"><span class="cn">亚历山大大帝在公元前323年32岁时意外去世，可能死于发热或疾病，没有明确的成年继承人。据传说，当被问及谁应该继承他的帝国时，他只说"给最强者"——这导致了他的将领们之间数十年的冲突。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Diadochi: Dividing the Empire · <span class="cn">继业者：帝国的分裂</span></h3>
+    <p>Alexander's generals, known as the <strong>Diadochi</strong> ("successors"), fought a series of wars to divide his empire. By around 275 BCE, the empire had split into three major Hellenistic kingdoms:</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Kingdom 王国</th><th>Founded by 建立者</th><th>Territory 领土</th></tr>
+      <tr><td>Ptolemaic Kingdom 托勒密王国</td><td>Ptolemy 托勒密</td><td>Egypt 埃及</td></tr>
+      <tr><td>Seleucid Empire 塞琉古帝国</td><td>Seleucus 塞琉古</td><td>Persia &amp; the Near East 波斯和近东地区</td></tr>
+      <tr><td>Antigonid Kingdom 安提柯王国</td><td>Antigonus 安提柯</td><td>Macedon &amp; Greece 马其顿和希腊</td></tr>
+    </table>
+    <p style="margin-top:10px"><span class="cn">亚历山大的将领，被称为<strong>继业者</strong>，进行了一系列战争来分裂他的帝国。到约公元前275年，帝国分裂成三个主要的希腊化王国：埃及的托勒密王国、波斯和近东的塞琉古帝国，以及马其顿和希腊的安提柯王国。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>How Empires Fall · <span class="cn">帝国如何衰亡</span></h3>
+    <p>Just as empires share common factors for rising, they also share common causes of decline:</p>
+    <div class="callout">
+      <strong>Political factors:</strong> Succession crises, corruption, weak leadership, civil war (as seen after Alexander's death)<br>
+      <strong>Economic factors:</strong> Overspending on military campaigns, heavy taxation, trade disruption<br>
+      <strong>Social factors:</strong> Inequality, rebellion, loss of loyalty among conquered peoples<br>
+      <strong>Environmental factors:</strong> Famine, disease, resource depletion
+      <br><br>
+      <span class="cn"><strong>政治因素：</strong>继承危机、腐败、领导力薄弱、内战（如亚历山大死后所见）<br><strong>经济因素：</strong>军事行动过度支出、重税、贸易中断<br><strong>社会因素：</strong>不平等、叛乱、被征服民族失去忠诚<br><strong>环境因素：</strong>饥荒、疾病、资源枯竭</span>
+    </div>
+    <p style="font-size:.85rem;color:var(--ink2);margin-top:10px">Alexander's empire collapsed primarily due to a <strong>succession crisis</strong> — no clear plan for leadership after his death — combined with the ambition of his powerful generals.</p>
+    <p style="margin-top:6px"><span class="cn" style="font-size:.83rem">亚历山大的帝国主要因<strong>继承危机</strong>——他死后没有明确的领导计划——加上他强大将领们的野心而崩溃。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 5</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Alexander's empire collapsed largely because he had no clear succession plan. Why is planning for leadership transitions important in any organization, not just empires? · <span class="cn">亚历山大的帝国主要因为没有明确的继承计划而崩溃。为什么在任何组织中（不仅是帝国）规划领导层过渡都很重要？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Of the four categories of empire collapse (political, economic, social, environmental), which do you think is hardest for a government to prevent, and why? · <span class="cn">在帝国崩溃的四个类别（政治、经济、社会、环境）中，你认为哪个是政府最难以预防的？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  { word: "Empire", pos: "noun", cn: "帝国", def: "A large political unit controlling many peoples and territories under one central authority.", cn_def: "在单一中央权威下控制许多民族和领土的大型政治单元。", example: "Cyrus the Great founded the Achaemenid Empire." },
+  { word: "Satrap", pos: "noun", cn: "总督", def: "A governor of a province (satrapy) in the Persian Empire.", cn_def: "波斯帝国行省的总督。", example: "Each satrap managed a region while remaining loyal to the king." },
+  { word: "Tolerance", pos: "noun", cn: "宽容", def: "The willingness to accept beliefs, customs, or practices different from one's own.", cn_def: "愿意接受与自己不同的信仰、习俗或做法。", example: "Cyrus's religious tolerance helped unite his diverse empire." },
+  { word: "City-state", pos: "noun", cn: "城邦", def: "An independent self-governing city with its own laws, government, and military.", cn_def: "拥有自己法律、政府和军队的独立自治城市。", example: "Athens and Sparta were rival Greek city-states." },
+  { word: "Democracy", pos: "noun", cn: "民主制", def: "A system of government in which citizens have the power to vote and participate in decisions.", cn_def: "公民有权投票并参与决策的政府体系。", example: "Athens developed an early form of democracy." },
+  { word: "Philosophy", pos: "noun", cn: "哲学", def: "The study of fundamental questions about knowledge, existence, and ethics.", cn_def: "对知识、存在和伦理等基本问题的研究。", example: "Socrates, Plato, and Aristotle shaped Greek philosophy." },
+  { word: "Phalanx", pos: "noun", cn: "方阵", def: "A tight military formation of soldiers carrying long spears or pikes.", cn_def: "士兵手持长矛或长枪组成的密集军事队形。", example: "Philip II's army used the phalanx formation with sarissas." },
+  { word: "Conquest", pos: "noun", cn: "征服", def: "The act of taking control of a place or people by force.", cn_def: "通过武力控制一个地方或民族的行为。", example: "Alexander's conquest of Persia changed the ancient world." },
+  { word: "Hellenistic", pos: "adjective", cn: "希腊化的", def: "Relating to Greek culture, language, and art spread after Alexander's conquests.", cn_def: "与亚历山大征服后传播的希腊文化、语言和艺术有关。", example: "Hellenistic culture blended Greek and local traditions." },
+  { word: "Succession", pos: "noun", cn: "继承", def: "The process or order of inheriting power, title, or office.", cn_def: "继承权力、头衔或职位的过程或顺序。", example: "Alexander's lack of a succession plan led to empire division." },
+  { word: "Diadochi", pos: "noun", cn: "继业者", def: "The generals and successors of Alexander the Great who divided his empire.", cn_def: "亚历山大大帝的将领和继承者，他们分裂了他的帝国。", example: "The Diadochi fought wars to claim parts of Alexander's empire." },
+  { word: "Bureaucracy", pos: "noun", cn: "官僚体系", def: "A system of government with many departments and officials managing administration.", cn_def: "由许多部门和官员管理行政事务的政府体系。", example: "Persia's bureaucracy helped govern its vast territory." }
+];
+ 
+var L1_Q = [
+  { id:"l1q1", q:"Cyrus the Great is remembered for his policy of —", q_cn:"居鲁士大帝以他的什么政策而被人们铭记——",
+    options:["A. Forcing all conquered peoples to convert to Persian religion|A. 强迫所有被征服的民族改信波斯宗教","B. Religious tolerance and respect for local customs|B. 宗教宽容和尊重当地习俗","C. Destroying all conquered cities|C. 摧毁所有被征服的城市","D. Banning trade between regions|D. 禁止地区间贸易"],
+    correct:"B", rat_right:"Cyrus allowed conquered peoples to keep their own customs, languages, and religions, which helped stabilize his vast empire.|居鲁士允许被征服的民族保留自己的习俗、语言和宗教，这有助于稳定他庞大的帝国。",
+    rat_wrong:{A:"Forced conversion was the opposite of Cyrus's actual policy.|强制改信与居鲁士的实际政策恰恰相反。",C:"Cyrus generally preserved conquered cities rather than destroying them.|居鲁士通常保留被征服的城市，而不是摧毁它们。",D:"Trade flourished under Persian rule via roads and infrastructure.|在波斯统治下，贸易通过道路和基础设施而蓬勃发展。"}
+  },
+  { id:"l1q2", q:"What was a 'satrapy' in the Achaemenid Persian Empire?", q_cn:"阿契美尼德波斯帝国中的'行省'是什么？",
+    options:["A. A type of Persian currency|A. 一种波斯货币","B. A province governed by a satrap loyal to the king|B. 一个由忠于国王的总督统治的行省","C. A religious temple|C. 一座宗教神庙","D. A military formation|D. 一种军事队形"],
+    correct:"B", rat_right:"A satrapy was an administrative province ruled by a satrap (governor) who answered to the central Persian king.|行省是由总督统治的行政省份，该总督向波斯中央国王负责。",
+    rat_wrong:{A:"Satrapy refers to a territorial division, not a currency.|行省指的是领土划分，不是货币。",C:"A satrapy is a political/administrative unit, not a religious structure.|行省是政治/行政单位，不是宗教建筑。",D:"This term describes governance, not military organization.|这个术语描述的是治理，不是军事组织。"}
+  },
+  { id:"l1q3", q:"What was the purpose of the Persian Royal Road?", q_cn:"波斯御道的用途是什么？",
+    options:["A. To connect the empire for trade, army movement, and communication|A. 为了贸易、军队调动和通讯而连接帝国","B. To separate different religious groups|B. 隔离不同的宗教团体","C. To mark the border with Greece|C. 标记与希腊的边界","D. To transport only royal family members|D. 仅用于运输皇室成员"],
+    correct:"A", rat_right:"The Royal Road allowed faster movement of messages, goods, and troops across the vast Persian Empire.|御道使信息、货物和军队能够在庞大的波斯帝国中更快速地移动。",
+    rat_wrong:{B:"The road served administrative and economic purposes, not religious separation.|这条道路服务于行政和经济目的，不是宗教隔离。",C:"The road connected internal regions of the empire, not specifically marking a border.|这条道路连接帝国的内部地区，并非专门标记边界。",D:"The road was used broadly for trade, military, and communication, not just royalty.|这条道路被广泛用于贸易、军事和通讯，不仅仅是为了皇室。"}
+  },
+  { id:"l1q4", q:"Which Greek city-state is most associated with the early development of democracy?", q_cn:"哪个希腊城邦与民主制度的早期发展最为相关？",
+    options:["A. Sparta|A. 斯巴达","B. Corinth|B. 科林斯","C. Athens|C. 雅典","D. Thebes|D. 底比斯"],
+    correct:"C", rat_right:"Athens is famous for developing an early form of democracy where citizens could vote and participate in government.|雅典以发展早期民主形式而闻名，公民可以投票并参与政府事务。",
+    rat_wrong:{A:"Sparta was known for its militaristic, disciplined society, not democracy.|斯巴达以其军事化、纪律严明的社会而闻名，不是民主制。",B:"Corinth was a trading city, not primarily known for democratic government.|科林斯是一个贸易城市，不以民主政府著称。",D:"Thebes was a significant city-state but not the primary example of early democracy.|底比斯是一个重要的城邦，但不是早期民主制的主要例子。"}
+  },
+  { id:"l1q5", q:"How did Spartan society differ from Athenian society?", q_cn:"斯巴达社会与雅典社会有何不同？",
+    options:["A. Sparta focused on trade and philosophy; Athens focused on war|A. 斯巴达专注于贸易和哲学；雅典专注于战争","B. Sparta was a militaristic society; Athens developed democracy and culture|B. 斯巴达是军事化社会；雅典发展了民主和文化","C. Both cities had identical governments and values|C. 两个城市的政府和价值观完全相同","D. Sparta had no army at all|D. 斯巴达完全没有军队"],
+    correct:"B", rat_right:"Sparta built a society centered on military discipline and training, while Athens developed democracy, philosophy, and the arts.|斯巴达建立了一个以军事纪律和训练为中心的社会，而雅典则发展了民主、哲学和艺术。",
+    rat_wrong:{A:"This reverses the actual roles — Sparta was the militaristic society, not Athens.|这颠倒了实际角色——斯巴达才是军事化社会，不是雅典。",C:"Sparta and Athens had very different governments and social values.|斯巴达和雅典的政府和社会价值观截然不同。",D:"Sparta had one of the most powerful armies in ancient Greece.|斯巴达拥有古希腊最强大的军队之一。"}
+  },
+  { id:"l1q6", q:"What was the significance of the Cyrus Cylinder?", q_cn:"居鲁士圆柱的意义是什么？",
+    options:["A. It recorded military defeats of the Persian army|A. 它记录了波斯军队的军事失败","B. It documented Cyrus's policies of religious freedom after conquering Babylon|B. 它记录了居鲁士征服巴比伦后的宗教自由政策","C. It was used as currency throughout the empire|C. 它被用作整个帝国的货币","D. It mapped the borders of Greece|D. 它绘制了希腊的边界"],
+    correct:"B", rat_right:"The Cyrus Cylinder records Cyrus's policies after taking Babylon, including freeing captives and allowing religious freedom.|居鲁士圆柱记录了居鲁士占领巴比伦后的政策，包括释放俘虏和允许宗教自由。",
+    rat_wrong:{A:"The cylinder records policy decisions, not military defeats.|这个圆柱记录的是政策决定，不是军事失败。",C:"It was a clay artifact with inscriptions, not a form of currency.|它是一件刻有铭文的泥制文物，不是货币形式。",D:"The cylinder addresses governance policy, not Greek geography.|这个圆柱涉及的是治理政策，不是希腊地理。"}
+  },
+  { id:"l1q7", q:"What event temporarily united Greek city-states against a common enemy?", q_cn:"什么事件使希腊城邦暂时联合起来对抗共同的敌人？",
+    options:["A. The Trojan War|A. 特洛伊战争","B. The Greco-Persian Wars|B. 希波战争","C. The Peloponnesian War|C. 伯罗奔尼撒战争","D. Alexander's conquest of Persia|D. 亚历山大对波斯的征服"],
+    correct:"B", rat_right:"The Greco-Persian Wars (499–449 BCE) saw rival Greek city-states unite temporarily to resist Persian invasion.|希波战争（公元前499—449年）期间，相互竞争的希腊城邦暂时联合起来抵抗波斯入侵。",
+    rat_wrong:{A:"The Trojan War is a legendary conflict, not the historical unification event described.|特洛伊战争是一场传说中的冲突，不是所描述的历史联合事件。",C:"The Peloponnesian War was a conflict BETWEEN Greek city-states (Athens vs. Sparta), not against Persia.|伯罗奔尼撒战争是希腊城邦之间（雅典对斯巴达）的冲突，不是对抗波斯。",D:"Alexander's conquest came after, and involved a unified Macedonian-led force, not all Greek city-states uniting independently.|亚历山大的征服发生在此之后，涉及统一的马其顿领导的军队，不是所有希腊城邦独立联合。"}
+  },
+  { id:"l1q8", q:"At its height, the Achaemenid Persian Empire stretched from Egypt to —", q_cn:"阿契美尼德波斯帝国在其巔峰时期从埃及延伸到——",
+    options:["A. The edge of India|A. 印度边缘","B. Rome|B. 罗马","C. China|C. 中国","D. Britain|D. 英国"],
+    correct:"A", rat_right:"At its height, the Achaemenid Empire stretched from Egypt in the west to the edge of India in the east, the largest empire the world had seen.|在其巅峰时期，阿契美尼德帝国从西边的埃及延伸到东边的印度边缘，是当时世界上最大的帝国。",
+    rat_wrong:{B:"Rome was a separate, later civilization to the west, not part of the Achaemenid Empire's reach.|罗马是西边一个独立的、更晚的文明，不在阿契美尼德帝国的范围内。",C:"China was far beyond Persian control and contact at this time.|中国当时远远超出波斯的控制和接触范围。",D:"Britain was far outside the reach of the Achaemenid Empire.|英国远远超出阿契美尼德帝国的范围。"}
+  },
+  { id:"l1q9", q:"Why was religious tolerance an effective governing strategy for the Persian Empire?", q_cn:"为什么宗教宽容是波斯帝国有效的治理策略？",
+    options:["A. It eliminated all religions in conquered territories|A. 它消除了被征服领土上的所有宗教","B. It reduced the likelihood of rebellion by respecting local customs and beliefs|B. 它通过尊重当地习俗和信仰减少了叛乱的可能性","C. It forced everyone to worship the Persian king as a god|C. 它强迫所有人崇拜波斯国王为神","D. It had no real effect on the empire's stability|D. 它对帝国的稳定没有实际影响"],
+    correct:"B", rat_right:"By allowing conquered peoples to keep their own religions and customs, Persia reduced resentment and the risk of rebellion.|通过允许被征服的民族保留自己的宗教和习俗，波斯减少了怨恨和叛乱的风险。",
+    rat_wrong:{A:"Tolerance means the opposite of eliminating religions — it allowed diverse beliefs to continue.|宽容意味着与消除宗教恰恰相反——它允许多元信仰继续存在。",C:"Persian kings did not generally force worship of themselves as gods, unlike some other ancient rulers.|与其他一些古代统治者不同，波斯国王通常不强迫人们崇拜自己为神。",D:"Tolerance was a key factor that helped stabilize the empire — it had a significant positive effect.|宽容是帮助稳定帝国的关键因素——它产生了显著的积极效果。"}
+  },
+  { id:"l1q10", q:"What does the contrast between Persia (one unified empire) and Greece (independent city-states) reveal about different paths to power?", q_cn:"波斯（统一帝国）与希腊（独立城邦）之间的对比揭示了通往权力的不同道路的什么特点？",
+    options:["A. Only large empires can be historically significant|A. 只有大帝国才能具有历史意义","B. Political organization can take very different forms — centralized empire vs. independent city-states — and both can achieve significant cultural and military power|B. 政治组织可以采取截然不同的形式——中央集权帝国对独立城邦——两者都能获得重要的文化和军事力量","C. City-states always defeat empires in war|C. 城邦在战争中总是战胜帝国","D. Greece and Persia had identical forms of government|D. 希腊和波斯有着相同的政府形式"],
+    correct:"B", rat_right:"Despite being organized completely differently, both Persia's centralized empire and Greece's independent city-states achieved major cultural, political, and military significance.|尽管组织方式完全不同，波斯的中央集权帝国和希腊的独立城邦都取得了重大的文化、政治和军事意义。",
+    rat_wrong:{A:"Greek city-states, despite being smaller and decentralized, had enormous historical and cultural influence.|希腊城邦尽管规模较小且分散，但具有巨大的历史和文化影响力。",C:"The Greco-Persian Wars had mixed outcomes, and ultimately Macedon (a unified kingdom) conquered the Greek city-states.|希波战争的结果并不一致，最终马其顿（一个统一的王国）征服了希腊城邦。",D:"Persia and Greece had very different governments — centralized monarchy vs. independent city-states with varied governments.|波斯和希腊有着截然不同的政府——中央集权君主制对拥有不同政府形式的独立城邦。"}
+  }
+];
+ 
+var L2_Q = [
+  { id:"l2q1", q:"The Socratic Method involves —", q_cn:"苏格拉底式问答法涉及——",
+    options:["A. Memorizing facts without questioning them|A. 不加质疑地记忆事实","B. Teaching through asking probing questions|B. 通过提出深入的问题进行教学","C. Following strict religious rituals|C. 遵循严格的宗教仪式","D. Avoiding all discussion of difficult topics|D. 避免讨论所有困难的话题"],
+    correct:"B", rat_right:"Socrates taught by asking a series of probing questions to lead students toward deeper understanding, rather than simply lecturing.|苏格拉底通过提出一系列深入的问题来教学，引导学生走向更深的理解，而不是简单地讲授。",
+    rat_wrong:{A:"The Socratic Method actively encourages questioning, the opposite of rote memorization.|苏格拉底式问答法积极鼓励质疑，与死记硬背恰恰相反。",C:"The method is philosophical/educational, not religious ritual.|这种方法是哲学性/教育性的，不是宗教仪式。",D:"Socrates was famous for engaging difficult and uncomfortable topics through questioning.|苏格拉底以通过质疑探讨困难和令人不安的话题而著名。"}
+  },
+  { id:"l2q2", q:"Why was Socrates eventually sentenced to death?", q_cn:"苏格拉底最终为什么被判处死刑？",
+    options:["A. He led a military rebellion against Athens|A. 他领导了一场反对雅典的军事叛乱","B. He was accused of 'corrupting the youth' through his constant questioning|B. 他被指控通过不断质疑'腐蚀青年'","C. He refused to pay Athenian taxes|C. 他拒绝缴纳雅典的税款","D. He converted to a foreign religion|D. 他改信了外国宗教"],
+    correct:"B", rat_right:"Socrates was tried and sentenced to death on charges of corrupting Athenian youth and impiety through his philosophical questioning.|苏格拉底因通过哲学质疑'腐蚀'雅典青年和不敬神的罪名而受审并被判处死刑。",
+    rat_wrong:{A:"Socrates was a philosopher, not a military rebel.|苏格拉底是哲学家，不是军事叛乱者。",C:"Tax evasion was not the charge against Socrates.|逃税不是对苏格拉底的指控。",D:"Religious conversion was not the stated reason for his trial.|宗教改信不是他受审的既定理由。"}
+  },
+  { id:"l2q3", q:"What institution did Plato found in Athens?", q_cn:"柏拉图在雅典创立了什么机构？",
+    options:["A. The Lyceum|A. 莱西昂学园","B. The Academy|B. 学园","C. The Senate|C. 元老院","D. The Areopagus|D. 阿瑞奥帕古斯"],
+    correct:"B", rat_right:"Plato founded the Academy, an early institution of higher learning in Athens.|柏拉图在雅典创立了学园，这是一所早期高等学府。",
+    rat_wrong:{A:"The Lyceum was founded by Aristotle, Plato's student, not Plato himself.|莱西昂学园是由柏拉图的学生亚里士多德创立的，不是柏拉图本人。",C:"The Senate is associated with Rome's government, not Plato's school.|元老院与罗马政府相关，不是柏拉图的学校。",D:"The Areopagus was an Athenian governing council, not Plato's educational institution.|阿瑞奥帕古斯是雅典的一个治理委员会，不是柏拉图的教育机构。"}
+  },
+  { id:"l2q4", q:"What does Plato's Allegory of the Cave illustrate?", q_cn:"柏拉图的洞穴寓言说明了什么？",
+    options:["A. How to build effective military fortifications|A. 如何建造有效的军事防御工事","B. How most people mistake the physical world for true knowledge, missing a higher reality|B. 大多数人将物质世界误认为真正的知识，错过了更高的现实","C. The best way to grow crops in Greece|C. 在希腊种植农作物的最佳方法","D. How Greek city-states should form alliances|D. 希腊城邦应如何结盟"],
+    correct:"B", rat_right:"The Allegory of the Cave shows people mistaking shadows (the physical world) for reality, representing Plato's belief in a higher world of perfect Forms.|洞穴寓言展示了人们将影子（物质世界）误认为现实，代表了柏拉图对更高的完美理念世界的信念。",
+    rat_wrong:{A:"This is a philosophical allegory about knowledge, not a military or engineering topic.|这是一个关于知识的哲学寓言，不是军事或工程主题。",C:"The allegory has nothing to do with agriculture.|这个寓言与农业无关。",D:"The allegory is about epistemology (knowledge), not political alliances.|这个寓言是关于认识论（知识），不是政治联盟。"}
+  },
+  { id:"l2q5", q:"How did Aristotle's approach to knowledge differ from Plato's?", q_cn:"亚里士多德获取知识的方法与柏拉图有何不同？",
+    options:["A. Aristotle emphasized observation of the physical world; Plato emphasized abstract Forms|A. 亚里士多德强调观察物质世界；柏拉图强调抽象理念","B. Aristotle rejected all forms of philosophy|A. 亚里士多德拒绝一切形式的哲学","C. Aristotle and Plato had identical philosophical views|C. 亚里士多德和柏拉图的哲学观点完全相同","D. Aristotle believed only in religious revelation|D. 亚里士多德只相信宗教启示"],
+    correct:"A", rat_right:"Aristotle emphasized empirical observation and evidence from the physical world, while Plato focused on a realm of perfect, abstract Forms.|亚里士多德强调对物质世界的经验观察和证据，而柏拉图则专注于完美、抽象理念的领域。",
+    rat_wrong:{A:"",B:"Aristotle was himself a major philosopher, not someone who rejected philosophy.|亚里士多德本身就是一位重要的哲学家，不是拒绝哲学的人。",C:"Aristotle and Plato disagreed significantly on the nature of knowledge and reality.|亚里士多德和柏拉图在知识和现实的本质上存在重大分歧。",D:"Aristotle's approach was based on observation and logic, not primarily religious revelation.|亚里士多德的方法基于观察和逻辑，不是主要基于宗教启示。"}
+  },
+  { id:"l2q6", q:"Who did Aristotle later become the tutor of?", q_cn:"亚里士多德后来成为了谁的导师？",
+    options:["A. Cyrus the Great|A. 居鲁士大帝","B. Socrates|B. 苏格拉底","C. Alexander the Great|C. 亚历山大大帝","D. Darius III|D. 大流士三世"],
+    correct:"C", rat_right:"Aristotle became the tutor of the young Alexander the Great, who would later conquer the Persian Empire.|亚里士多德成为年轻的亚历山大大帝的导师，后者后来征服了波斯帝国。",
+    rat_wrong:{A:"Cyrus the Great lived centuries before Aristotle.|居鲁士大帝生活在亚里士多德之前几个世纪。",B:"Socrates was actually Aristotle's intellectual predecessor (through Plato), not his student.|苏格拉底实际上是亚里士多德的思想前辈（通过柏拉图），不是他的学生。",D:"Darius III was the Persian king defeated by Alexander, not Aristotle's student.|大流士三世是被亚历山大击败的波斯国王，不是亚里士多德的学生。"}
+  },
+  { id:"l2q7", q:"What subjects did Aristotle write extensively about?", q_cn:"亚里士多德广泛撰写了关于哪些主题的著作？",
+    options:["A. Only mathematics|A. 仅数学","B. Logic, biology, politics, ethics, and drama|B. 逻辑学、生物学、政治学、伦理学和戏剧","C. Only Persian history|C. 仅波斯历史","D. Only military strategy|D. 仅军事战略"],
+    correct:"B", rat_right:"Aristotle was a remarkably broad thinker who wrote on logic, biology, politics, ethics, drama, and many other fields.|亚里士多德是一位思想极为广博的思想家，他撰写了关于逻辑学、生物学、政治学、伦理学、戏剧等众多领域的著作。",
+    rat_wrong:{A:"While Aristotle touched on logic and science, mathematics alone does not capture his broad range of work.|尽管亚里士多德涉及逻辑学和科学，但单独的数学并不能涵盖他广泛的著作范围。",C:"Aristotle's writings focused on philosophy and natural science, not specifically Persian history.|亚里士多德的著作专注于哲学和自然科学，不是专门关于波斯历史。",D:"While he tutored Alexander, Aristotle's writings covered far more than military strategy alone.|尽管他指导了亚历山大，但亚里士多德的著作涵盖的远不止军事战略。"}
+  },
+  { id:"l2q8", q:"What was Plato's relationship to Socrates?", q_cn:"柏拉图与苏格拉底的关系是什么？",
+    options:["A. Plato was Socrates's teacher|A. 柏拉图是苏格拉底的老师","B. Plato was a student of Socrates|B. 柏拉图是苏格拉底的学生","C. Plato and Socrates never interacted|C. 柏拉图和苏格拉底从未有过交往","D. Plato was Socrates's political rival|D. 柏拉图是苏格拉底的政治对手"],
+    correct:"B", rat_right:"Plato was a student of Socrates and recorded many of his teacher's ideas and dialogues in his own writings.|柏拉图是苏格拉底的学生，并在自己的著作中记录了老师的许多思想和对话。",
+    rat_wrong:{A:"This reverses the actual relationship — Socrates taught Plato, not the other way around.|这颠倒了实际关系——是苏格拉底教导柏拉图，不是反过来。",C:"Plato and Socrates had a close teacher-student relationship.|柏拉图和苏格拉底有着密切的师生关系。",D:"Plato deeply admired Socrates and preserved his teachings, rather than opposing him politically.|柏拉图深深敬仰苏格拉底，并保存了他的教导，而不是在政治上反对他。"}
+  },
+  { id:"l2q9", q:"Why is Aristotle's emphasis on observation considered important to the history of science?", q_cn:"为什么亚里士多德对观察的强调被认为对科学史很重要？",
+    options:["A. It had no influence on later scientific thinking|A. 它对后来的科学思维没有影响","B. It laid groundwork for empirical methods of studying the natural world|B. 它为研究自然世界的经验方法奠定了基础","C. It rejected all forms of evidence and reasoning|C. 它拒绝一切形式的证据和推理","D. It was based entirely on religious texts|D. 它完全基于宗教文本"],
+    correct:"B", rat_right:"Aristotle's focus on observing and categorizing the natural world influenced the later development of empirical, evidence-based scientific methods.|亚里士多德对观察和分类自然世界的关注，影响了后来经验性、基于证据的科学方法的发展。",
+    rat_wrong:{A:"Aristotle's methods had a major lasting influence on Western science and philosophy.|亚里士多德的方法对西方科学和哲学产生了重大而持久的影响。",C:"Aristotle's approach was based on careful evidence and logical reasoning, not a rejection of them.|亚里士多德的方法基于细致的证据和逻辑推理，而不是拒绝它们。",D:"Aristotle's method was based on observation of the natural world, not religious scripture.|亚里士多德的方法基于对自然世界的观察，不是宗教经文。"}
+  },
+  { id:"l2q10", q:"How do Socrates, Plato, and Aristotle together represent a 'chain' of philosophical development?", q_cn:"苏格拉底、柏拉图和亚里士多德如何共同代表哲学发展的'链条'？",
+    options:["A. Each one independently developed identical ideas with no connection|A. 每个人都独立发展出相同的思想，彼此没有联系","B. Socrates taught Plato, who taught Aristotle, with each building on and sometimes challenging the previous thinker's ideas|B. 苏格拉底教导柏拉图，柏拉图教导亚里士多德，每位思想家都在前人思想的基础上发展，有时也对其提出挑战","C. They lived in completely different time periods with no overlap|C. 他们生活在完全不同的时期，没有任何重叠","D. None of the three philosophers ever wrote anything down|D. 三位哲学家都没有留下任何书面著作"],
+    correct:"B", rat_right:"This teacher-student chain (Socrates → Plato → Aristotle) shows how philosophy develops through dialogue, building on, and sometimes challenging, earlier ideas.|这个师生链条（苏格拉底→柏拉图→亚里士多德）展示了哲学如何通过对话发展，建立在并有时挑战早期思想。",
+    rat_wrong:{A:"Their ideas were deeply connected through direct teacher-student relationships, not independent development.|他们的思想通过直接的师生关系紧密相连，不是独立发展的。",C:"Their lives overlapped in a teaching chain across roughly a century.|他们的生活在大约一个世纪的教学链条中重叠。",D:"Plato wrote extensively (dialogues), and Aristotle also wrote many treatises — both left substantial written records.|柏拉图写了大量著作（对话），亚里士多德也写了许多论著——两人都留下了大量书面记录。"}
+  }
+];
+ 
+var L3_Q = [
+  { id:"l3q1", q:"Philip II of Macedon's greatest contribution to Alexander's future success was —", q_cn:"马其顿的腓力二世对亚历山大未来成功的最大贡献是——",
+    options:["A. Defeating Persia himself|A. 他自己击败了波斯","B. Building a professional, disciplined army using the phalanx formation|B. 使用方阵战术建立了一支专业化、有纪律的军队","C. Forming a permanent alliance with Persia|C. 与波斯结成永久联盟","D. Translating Greek texts into Persian|D. 将希腊文献翻译成波斯语"],
+    correct:"B", rat_right:"Philip II created the disciplined Macedonian army with the phalanx formation that Alexander would later use to conquer much of the known world.|腓力二世建立了使用方阵战术的纪律严明的马其顿军队，亚历山大后来用这支军队征服了已知世界的大部分地区。",
+    rat_wrong:{A:"Philip did not personally defeat Persia — that achievement belonged to his son Alexander.|腓力本人没有击败波斯——这一成就属于他的儿子亚历山大。",C:"Macedon and Persia were rivals, not permanent allies.|马其顿和波斯是竞争对手，不是永久盟友。",D:"There is no significant record of Philip translating texts — his focus was military and political.|没有重大记录显示腓力翻译过文献——他的重点是军事和政治。"}
+  },
+  { id:"l3q2", q:"What weapon was characteristic of the Macedonian phalanx?", q_cn:"马其顿方阵的特色武器是什么？",
+    options:["A. The sarissa, an extra-long spear|A. 萨里沙，一种超长矛","B. The bow and arrow|B. 弓箭","C. The trident|C. 三叉戟","D. The catapult|D. 投石机"],
+    correct:"A", rat_right:"The sarissa was an extra-long spear used in the Macedonian phalanx formation, giving soldiers a reach advantage over enemies.|萨里沙是马其顿方阵中使用的超长矛，使士兵在与敌人作战时具有距离优势。",
+    rat_wrong:{B:"Bows were used by some ancient armies, but the phalanx is specifically known for the sarissa spear.|弓箭被一些古代军队使用，但方阵特别以萨里沙长矛而著称。",C:"The trident is associated with mythology (Poseidon), not the Macedonian military.|三叉戟与神话（波塞冬）相关，与马其顿军队无关。",D:"Catapults were siege weapons, not the hand-held weapon of phalanx infantry.|投石机是攻城武器，不是方阵步兵手持的武器。"}
+  },
+  { id:"l3q3", q:"How old was Alexander when he inherited the throne after Philip II's assassination?", q_cn:"腓力二世遇刺后，亚历山大继承王位时多大年纪？",
+    options:["A. 12|A. 12岁","B. 20|B. 20岁","C. 35|C. 35岁","D. 50|D. 50岁"],
+    correct:"B", rat_right:"Alexander was 20 years old when he inherited the Macedonian throne and army after his father's assassination in 336 BCE.|公元前336年腓力遇刺后，亚历山大20岁时继承了马其顿王位和军队。",
+    rat_wrong:{A:"Twelve would be too young — Alexander had already received significant education and training by the time he took power.|12岁太年轻了——亚历山大在掌权时已经接受了大量的教育和训练。",C:"Thirty-five is much older than Alexander's actual age at succession.|35岁远远超过亚历山大继位时的实际年龄。",D:"Fifty is far beyond Alexander's age — he died at only 32.|50岁远远超过亚历山大的年龄——他仅32岁就去世了。"}
+  },
+  { id:"l3q4", q:"What does the story of the Gordian Knot symbolize about Alexander?", q_cn:"戈尔迪之结的故事象征了亚历山大的什么特点？",
+    options:["A. His patience and careful planning|A. 他的耐心和周密计划","B. His bold, decisive approach to solving problems|B. 他大胆、果断的解决问题方式","C. His weakness in military strategy|C. 他在军事战略上的弱点","D. His refusal to take risks|D. 他拒绝承担风险"],
+    correct:"B", rat_right:"By cutting the knot instead of untangling it, Alexander demonstrated his characteristic boldness and willingness to take direct, decisive action.|通过斩断绳结而非解开它，亚历山大展示了他特有的大胆和愿意采取直接、果断行动的特点。",
+    rat_wrong:{A:"Cutting the knot was the opposite of careful, patient unraveling.|斩断绳结与细致、耐心地解开它恰恰相反。",C:"This story is typically used to illustrate Alexander's strength and creativity, not weakness.|这个故事通常用来说明亚历山大的力量和创造力，不是弱点。",D:"Cutting the knot was itself a bold risk-taking action, not risk avoidance.|斩断绳结本身就是一种大胆的冒险行为，不是回避风险。"}
+  },
+  { id:"l3q5", q:"Which battle was Alexander's decisive victory that effectively ended the Achaemenid Empire?", q_cn:"哪场战役是亚历山大实际上终结阿契美尼德帝国的决定性胜利？",
+    options:["A. Battle of Granicus|A. 格拉尼库斯河战役","B. Battle of Issus|B. 伊苏斯战役","C. Battle of Gaugamela|C. 高加米拉战役","D. Battle of Marathon|D. 马拉松战役"],
+    correct:"C", rat_right:"The Battle of Gaugamela (331 BCE) was Alexander's decisive victory that effectively ended Persian resistance and the Achaemenid Empire.|高加米拉战役（公元前331年）是亚历山大的决定性胜利，实际上结束了波斯的抵抗和阿契美尼德帝国。",
+    rat_wrong:{A:"Granicus was Alexander's first major victory, not the decisive, empire-ending battle.|格拉尼库斯河战役是亚历山大的第一次重大胜利，不是终结帝国的决定性战役。",B:"Issus was an important earlier victory, but Gaugamela was the decisive, final blow.|伊苏斯战役是早期的一次重要胜利，但高加米拉战役才是决定性的最后一击。",D:"The Battle of Marathon (490 BCE) was part of the earlier Greco-Persian Wars, long before Alexander.|马拉松战役（公元前490年）属于更早的希波战争，远在亚历山大之前。"}
+  },
+  { id:"l3q6", q:"How many cities did Alexander reportedly found during his conquests, many named Alexandria?", q_cn:"据报道，亚历山大在征战期间建立了多少座城市，其中许多以亚历山大命名？",
+    options:["A. 5|A. 5座","B. 20|B. 20座","C. Over 70|C. 超过70座","D. 500|D. 500座"],
+    correct:"C", rat_right:"Alexander founded over 70 new cities across his empire, many named Alexandria, spreading Greek (Hellenistic) culture.|亚历山大在他的帝国中建立了超过70座新城市，许多以亚历山大命名，传播了希腊（希腊化）文化。",
+    rat_wrong:{A:"Five is far too few given the scale of Alexander's empire-wide city founding.|考虑到亚历山大帝国范围内建城的规模，5座太少了。",B:"Twenty undercounts the number of cities historically attributed to Alexander's founding.|20座低估了历史上归功于亚历山大建立的城市数量。",D:"Five hundred greatly overstates the historically recorded number.|500座大大超过了历史记录的数字。"}
+  },
+  { id:"l3q7", q:"What does 'Hellenistic' culture refer to?", q_cn:"'希腊化'文化指的是什么？",
+    options:["A. Persian religious practices|A. 波斯宗教实践","B. The spread of Greek language, art, and culture after Alexander's conquests|B. 亚历山大征服后希腊语言、艺术和文化的传播","C. Egyptian pyramid construction techniques|C. 埃及金字塔建造技术","D. Roman legal traditions|D. 罗马法律传统"],
+    correct:"B", rat_right:"Hellenistic culture refers to the blending and spread of Greek language, art, philosophy, and customs across the territories Alexander conquered.|希腊化文化指的是希腊语言、艺术、哲学和习俗在亚历山大征服的领土上的融合与传播。",
+    rat_wrong:{A:"Persian religious practices are a separate cultural tradition, not what 'Hellenistic' describes.|波斯宗教实践是一种独立的文化传统，不是'希腊化'所描述的内容。",C:"Egyptian pyramid construction predates Alexander by thousands of years and is unrelated to Hellenistic culture.|埃及金字塔建造比亚历山大早数千年，与希腊化文化无关。",D:"Roman legal traditions developed later and separately from Hellenistic Greek culture.|罗马法律传统是后来独立于希腊化希腊文化发展起来的。"}
+  },
+  { id:"l3q8", q:"How far east did Alexander's conquests extend?", q_cn:"亚历山大的征服向东延伸到了多远？",
+    options:["A. Only to Greece|A. 仅到希腊","B. To Egypt|B. 到埃及","C. To modern-day Pakistan and northwestern India|C. 到现今的巴基斯坦和印度西北部","D. To China|D. 到中国"],
+    correct:"C", rat_right:"Alexander's conquests pushed as far east as modern-day Pakistan and northwestern India before his army turned back.|亚历山大的征服向东推进到现今的巴基斯坦和印度西北部，随后他的军队才返回。",
+    rat_wrong:{A:"Alexander's empire extended far beyond Greece, into Asia.|亚历山大的帝国远远超出希腊，延伸到亚洲。",B:"Egypt was part of his conquests, but his empire extended much further east than that.|埃及是他征服的一部分，但他的帝国向东延伸得更远。",D:"Alexander's army never reached China — it turned back in South Asia.|亚历山大的军队从未到达中国——它在南亚就返回了。"}
+  },
+  { id:"l3q9", q:"What advantage did Aristotle's tutoring potentially give Alexander as a military and political leader?", q_cn:"亚里士多德的指导可能为亚历山大作为军事和政治领袖带来了什么优势？",
+    options:["A. It taught him only how to fight in battle|A. 它只教会了他如何在战场上作战","B. It exposed him to philosophy, logic, and broad knowledge that may have shaped his leadership and worldview|B. 它使他接触到哲学、逻辑和广泛的知识，这可能塑造了他的领导力和世界观","C. It made him refuse to ever go to war|C. 它使他拒绝参战","D. It taught him exclusively Persian customs|D. 它专门教他波斯习俗"],
+    correct:"B", rat_right:"Aristotle's broad education in philosophy, logic, and science likely influenced how Alexander approached leadership, governance, and his vision for spreading Greek culture.|亚里士多德在哲学、逻辑和科学方面的广泛教育，可能影响了亚历山大对领导力、治理以及传播希腊文化愿景的方式。",
+    rat_wrong:{A:"Aristotle's tutoring was philosophical and intellectual, not military training.|亚里士多德的指导是哲学性和知识性的，不是军事训练。",C:"Alexander became one of history's most aggressive military conquerors, the opposite of avoiding war.|亚历山大成为历史上最具侵略性的军事征服者之一，与避免战争恰恰相反。",D:"Aristotle taught Greek philosophy and learning, not specifically Persian customs.|亚里士多德教授的是希腊哲学和学问，不是专门的波斯习俗。"}
+  },
+  { id:"l3q10", q:"What pattern connects Philip II's army-building, Aristotle's tutoring, and Alexander's military victories?", q_cn:"什么模式将腓力二世建军、亚里士多德的指导和亚历山大的军事胜利联系起来？",
+    options:["A. They are unrelated, isolated historical events|A. 它们是彼此无关的孤立历史事件","B. Alexander's success depended on a combination of inherited military strength, education, and his own leadership ability|B. 亚历山大的成功取决于继承的军事力量、教育以及他自身领导能力的结合","C. Alexander succeeded entirely due to luck, with no preparation involved|C. 亚历山大的成功完全是出于运气，没有任何准备工作","D. None of these factors had any real impact on Alexander's conquests|D. 这些因素都没有对亚历山大的征服产生任何实际影响"],
+    correct:"B", rat_right:"Alexander's remarkable conquests resulted from the combination of his father's military reforms, his philosophical education under Aristotle, and his own bold leadership and strategic skill.|亚历山大非凡的征服得益于他父亲的军事改革、亚里士多德的哲学教育，以及他自身大胆的领导力和战略技巧的结合。",
+    rat_wrong:{A:"These factors are deeply interconnected — each contributed directly to Alexander's later success.|这些因素紧密相连——每一个都直接促成了亚历山大后来的成功。",C:"Alexander's success was built on substantial preparation (army, education), not mere luck.|亚历山大的成功建立在大量准备（军队、教育）的基础上，不仅仅是运气。",D:"All three factors had significant, documented impact on Alexander's military and political success.|这三个因素都对亚历山大的军事和政治成功产生了重大、有记录的影响。"}
+  }
+];
+ 
+var L4_Q = [
+  { id:"l4q1", q:"How is an empire best defined?", q_cn:"帝国最好的定义是什么？",
+    options:["A. A small village governed by elders|A. 由长者治理的小村庄","B. A large political unit controlling many peoples and territories under one central authority|B. 在单一中央权威下控制许多民族和领土的大型政治单元","C. A religious organization with no political power|C. 没有政治权力的宗教组织","D. A single family ruling one small town|D. 统治一个小镇的单一家族"],
+    correct:"B", rat_right:"An empire is defined by its large scale and control of diverse peoples and territories under one central political authority.|帝国的定义是其规模庞大，在单一中央政治权威下控制着多元的民族和领土。",
+    rat_wrong:{A:"A small village does not have the scale or diversity that defines an empire.|一个小村庄不具有定义帝国所需的规模或多元性。",C:"Empires are political/military entities, though they may also have religious dimensions.|帝国是政治/军事实体，尽管它们也可能有宗教层面。",D:"A single family ruling one town lacks the scale and diversity of an empire.|统治一个小镇的单一家族缺乏帝国的规模和多元性。"}
+  },
+  { id:"l4q2", q:"Which factor is commonly associated with helping empires rise and expand?", q_cn:"哪个因素通常与帮助帝国兴起和扩张相关？",
+    options:["A. Isolation from all other societies|A. 与所有其他社会隔绝","B. Strong leadership and organized military strength|B. 强大的领导力和有组织的军事力量","C. Refusing to build roads or infrastructure|C. 拒绝修建道路或基础设施","D. Avoiding all trade with neighboring regions|D. 避免与邻近地区的一切贸易"],
+    correct:"B", rat_right:"Strong, capable leadership combined with organized military power is a key factor historians identify in the rise of empires.|强大、有能力的领导力与有组织的军事力量相结合，是历史学家在帝国兴起中确定的关键因素。",
+    rat_wrong:{A:"Isolation generally limits an empire's growth and influence rather than promoting it.|孤立通常会限制帝国的增长和影响力，而不是促进它。",C:"Infrastructure like roads typically HELPS empires expand and govern, rather than hindering them.|像道路这样的基础设施通常有助于帝国扩张和治理，而不是阻碍它们。",D:"Trade was usually a major source of wealth and power for expanding empires.|贸易通常是扩张中帝国财富和力量的主要来源。"}
+  },
+  { id:"l4q3", q:"What administrative tool did the Persian Empire use to manage its vast territory?", q_cn:"波斯帝国使用什么行政工具来管理其庞大的领土？",
+    options:["A. Satrapies (provinces with governors)|A. 行省（设有总督的省份）","B. A single ruler personally visiting every village|B. 单一统治者亲自访问每个村庄","C. Complete independence for every conquered city|C. 每个被征服城市的完全独立","D. No system of governance at all|D. 完全没有治理体系"],
+    correct:"A", rat_right:"The Persian Empire divided its territory into satrapies, provinces governed by satraps loyal to the central king, allowing effective management of a vast area.|波斯帝国将其领土划分为行省，由忠于中央国王的总督进行管理，从而有效管理庞大的地区。",
+    rat_wrong:{B:"It would be impossible for one ruler to personally manage every village across such a vast empire.|对于一位统治者来说，亲自管理如此庞大帝国中的每个村庄是不可能的。",C:"Conquered territories were integrated into the satrapy system, not left fully independent.|被征服的领土被纳入行省制度，不是完全独立的。",D:"The Persian Empire had a well-organized administrative system, not an absence of governance.|波斯帝国有一个组织良好的行政体系，不是没有治理。"}
+  },
+  { id:"l4q4", q:"Why might religious or cultural tolerance help an empire grow and remain stable?", q_cn:"为什么宗教或文化宽容可能有助于帝国发展并保持稳定？",
+    options:["A. It eliminates the need for any government structure|A. 它消除了对任何政府结构的需要","B. It reduces rebellion by respecting the customs of conquered peoples|B. 它通过尊重被征服民族的习俗来减少叛乱","C. It forces everyone to speak the same language overnight|C. 它强迫所有人立即说同一种语言","D. It has no effect on how conquered peoples behave|D. 它对被征服民族的行为没有任何影响"],
+    correct:"B", rat_right:"Allowing conquered peoples to keep their customs and beliefs reduces resentment, making rebellion less likely and stabilizing the empire.|允许被征服的民族保留自己的习俗和信仰可以减少怨恨，从而降低叛乱的可能性并稳定帝国。",
+    rat_wrong:{A:"Tolerance is a policy choice within a government structure, not a replacement for governance itself.|宽容是政府结构内的一种政策选择，不是治理本身的替代品。",C:"Tolerance respects existing customs, including language — it does not force sudden uniformity.|宽容尊重现有的习俗，包括语言——它不会强制突然的统一。",D:"Tolerance has a clear, documented effect — reducing rebellion and increasing stability.|宽容有明确、记录在案的效果——减少叛乱并增加稳定性。"}
+  },
+  { id:"l4q5", q:"What administrative features did Persia, the Mauryan Empire, and Rome have in common?", q_cn:"波斯、孔雀王朝和罗马在行政方面有什么共同特征？",
+    options:["A. None — they had completely different systems|A. 没有——他们的体系完全不同","B. Organized bureaucracies, road networks, and systems for managing diverse populations|B. 有组织的官僚体系、道路网络以及管理多元人口的体系","C. All three were ruled by elected councils with no kings|C. 三者都由没有国王的民选议会统治","D. None of them ever built roads|D. 它们都从未修建道路"],
+    correct:"B", rat_right:"Despite arising independently, Persia, the Mauryan Empire, and Rome all developed organized bureaucracies, extensive roads, and systems to govern diverse populations.|尽管是独立兴起的，波斯、孔雀王朝和罗马都发展了有组织的官僚体系、广泛的道路网络以及管理多元人口的体系。",
+    rat_wrong:{A:"These empires shared remarkably similar administrative strategies, despite arising in different regions.|尽管在不同地区兴起，这些帝国共享着惊人相似的行政策略。",C:"Persia, the Mauryan Empire, and Rome (during much of its empire phase) were ruled by monarchs/emperors, not purely elected councils.|波斯、孔雀王朝和罗马（在其帝国阶段的大部分时间）都由君主/皇帝统治，不是纯粹的民选议会。",D:"All three empires built extensive road networks to connect and govern their territories.|这三个帝国都修建了广泛的道路网络来连接和治理其领土。"}
+  },
+  { id:"l4q6", q:"What role did economic resources play in the rise of empires?", q_cn:"经济资源在帝国兴起中发挥了什么作用？",
+    options:["A. Wealth from trade, agriculture, and taxation funded armies and infrastructure|A. 来自贸易、农业和税收的财富资助了军队和基础设施","B. Economic resources had no relationship to imperial expansion|B. 经济资源与帝国扩张没有关系","C. Empires avoided collecting taxes from conquered peoples|C. 帝国避免向被征服的民族征税","D. Wealth only came from military plunder, with no other sources|D. 财富只来自军事掠夺，没有其他来源"],
+    correct:"A", rat_right:"Economic resources from trade, farming, and taxation provided the wealth needed to fund armies, build infrastructure, and sustain imperial administration.|来自贸易、农业和税收的经济资源提供了资助军队、建设基础设施和维持帝国行政管理所需的财富。",
+    rat_wrong:{B:"Economic resources were directly tied to an empire's ability to expand and maintain power.|经济资源与帝国扩张和维持权力的能力直接相关。",C:"Taxation of conquered territories was a common and important source of imperial revenue.|对被征服领土征税是帝国收入的常见且重要来源。",D:"While plunder mattered, ongoing trade, agriculture, and taxation were typically more significant long-term wealth sources.|尽管掠夺很重要，但持续的贸易、农业和税收通常是更重要的长期财富来源。"}
+  },
+  { id:"l4q7", q:"Why is strong leadership often listed as a key factor in empire-building?", q_cn:"为什么强大的领导力常被列为帝国建设的关键因素？",
+    options:["A. Ambitious, capable rulers like Cyrus and Alexander directed conquest, organization, and policy|A. 像居鲁士和亚历山大这样雄心勃勃、有能力的统治者指导了征服、组织和政策","B. Leadership has no real effect on whether an empire succeeds|B. 领导力对帝国是否成功没有实际影响","C. Only democratic leaders can build successful empires|C. 只有民主领导人才能建立成功的帝国","D. Strong leaders always rule peacefully with no conquest|D. 强大的领导人总是和平统治，没有征服"],
+    correct:"A", rat_right:"Ambitious and capable leaders like Cyrus and Alexander provided the vision, strategy, and decision-making that drove successful conquest and administration.|像居鲁士和亚历山大这样雄心勃勃、有能力的领导人提供了推动成功征服和管理的愿景、战略和决策。",
+    rat_wrong:{B:"Leadership had a major documented impact on whether empires succeeded or struggled.|领导力对帝国是否成功或陷入困境有重大的、有记录的影响。",C:"Most historical empires, including Persia and Macedon, were ruled by monarchs, not democracies.|大多数历史上的帝国，包括波斯和马其顿，都由君主统治，不是民主制。",D:"Most empire-building, including Persia's and Alexander's, involved significant military conquest, not purely peaceful rule.|大多数帝国建设，包括波斯和亚历山大的，都涉及重大的军事征服，不是纯粹的和平统治。"}
+  },
+  { id:"l4q8", q:"What does it mean that empires 'solve the same basic problems in similar ways'?", q_cn:"帝国'以相似的方式解决相同的基本问题'是什么意思？",
+    options:["A. All empires literally copied each other's exact laws|A. 所有帝国都直接复制了彼此完全相同的法律","B. Despite arising independently, empires tend to develop similar solutions for communication, defense, taxation, and governance|B. 尽管是独立兴起的，帝国往往会为沟通、防御、税收和治理开发出相似的解决方案","C. No two empires have ever shared any similarities|C. 没有任何两个帝国曾有过任何相似之处","D. Empires never face challenges related to governance|D. 帝国从未面临与治理相关的挑战"],
+    correct:"B", rat_right:"Even without direct contact, empires like Persia, Maurya, and Rome independently developed similar strategies — roads, bureaucracy, taxation — to solve common governance challenges.|即使没有直接接触，波斯、孔雀王朝和罗马等帝国也独立发展出了相似的策略——道路、官僚体系、税收——来解决共同的治理挑战。",
+    rat_wrong:{A:"These empires developed independently, not through direct copying — the similarity comes from solving similar problems.|这些帝国是独立发展的，不是通过直接复制——相似性来自解决相似的问题。",C:"Historical evidence shows clear similarities in how different empires organized themselves.|历史证据显示不同帝国在组织方式上有明显的相似之处。",D:"Governance was one of the central challenges every empire had to address.|治理是每个帝国都必须解决的核心挑战之一。"}
+  },
+  { id:"l4q9", q:"Why might historians study multiple empires (Persia, Maurya, Rome) together rather than separately?", q_cn:"为什么历史学家可能将多个帝国（波斯、孔雀王朝、罗马）放在一起研究，而不是分开研究？",
+    options:["A. To prove that only one empire in history ever succeeded|A. 为了证明历史上只有一个帝国曾经成功","B. To identify common patterns in how empires rise, govern, and eventually decline|B. 为了识别帝国兴起、治理和最终衰落的共同模式","C. Because all empires existed at the exact same time in history|C. 因为所有帝国都存在于历史上完全相同的时期","D. Because there is no value in comparing different civilizations|D. 因为比较不同文明没有价值"],
+    correct:"B", rat_right:"Comparing multiple empires helps historians identify broader historical patterns — common causes of rise, successful governance strategies, and shared reasons for decline.|比较多个帝国有助于历史学家识别更广泛的历史模式——兴起的共同原因、成功的治理策略，以及衰落的共同原因。",
+    rat_wrong:{A:"Comparative study does not aim to prove only one empire succeeded — many empires achieved significant success in different ways.|比较研究的目的不是证明只有一个帝国成功——许多帝国以不同的方式取得了重大成功。",C:"Persia, Maurya, and Rome existed in different, though sometimes overlapping, time periods.|波斯、孔雀王朝和罗马存在于不同的时期，尽管有时有所重叠。",D:"Comparative analysis is a valuable historical method for understanding broader patterns across civilizations.|比较分析是理解跨文明更广泛模式的宝贵历史方法。"}
+  },
+  { id:"l4q10", q:"What is the most important overall lesson from studying how empires rise and grow?", q_cn:"从研究帝国如何兴起和发展中得到的最重要的总体教训是什么？",
+    options:["A. Empires rise purely by chance, with no identifiable patterns|A. 帝国的兴起纯粹是偶然的，没有可识别的模式","B. Successful empires typically combine military strength, leadership, economic resources, administration, and cultural policy|B. 成功的帝国通常将军事力量、领导力、经济资源、行政管理和文化政策结合起来","C. Only military strength matters; all other factors are irrelevant|C. 只有军事力量重要；所有其他因素都无关紧要","D. Empires never need any form of organized government|D. 帝国从不需要任何形式的有组织的政府"],
+    correct:"B", rat_right:"The rise of successful empires like Persia, Macedon under Alexander, and others typically depended on a combination of multiple factors working together, not any single cause.|波斯、亚历山大统治下的马其顿等成功帝国的兴起，通常依赖于多个因素共同作用，而不是任何单一原因。",
+    rat_wrong:{A:"Historians have identified clear, recurring patterns across multiple empires, showing it is not purely random.|历史学家已经确定了多个帝国中清晰、反复出现的模式，表明这并非纯粹随机。",C:"While military strength matters greatly, leadership, economy, and administration are equally critical factors.|尽管军事力量非常重要，但领导力、经济和行政管理同样是关键因素。",D:"Organized administration (bureaucracy, roads, taxation) was essential to managing and sustaining large empires.|有组织的行政管理（官僚体系、道路、税收）对于管理和维持大型帝国至关重要。"}
+  }
+];
+ 
+var L5_Q = [
+  { id:"l5q1", q:"What happened to Alexander's empire after his death in 323 BCE?", q_cn:"公元前323年亚历山大死后，他的帝国发生了什么？",
+    options:["A. It remained perfectly united under his son|A. 它在他儿子的统治下完美地保持统一","B. It was divided among his generals, the Diadochi|B. 它在他的将领，即继业者之间被分裂","C. It was immediately conquered by Rome|C. 它立即被罗马征服","D. It peacefully dissolved with no conflict|D. 它和平解体，没有任何冲突"],
+    correct:"B", rat_right:"After Alexander's death, his generals (the Diadochi) fought a series of wars that ultimately divided his empire into separate Hellenistic kingdoms.|亚历山大死后，他的将领（继业者）进行了一系列战争，最终将他的帝国分裂成独立的希腊化王国。",
+    rat_wrong:{A:"Alexander had no clear adult heir, and the empire was not held together under his son.|亚历山大没有明确的成年继承人，帝国也没有在他儿子的统治下保持统一。",C:"Rome's conquest of Hellenistic territories came much later, not immediately after Alexander's death.|罗马对希腊化领土的征服发生在更晚的时期，不是亚历山大死后立即发生的。",D:"The division of the empire involved significant warfare among the Diadochi, not a peaceful dissolution.|帝国的分裂涉及继业者之间的重大战争，不是和平解体。"}
+  },
+  { id:"l5q2", q:"What does 'Diadochi' mean?", q_cn:"'继业者'是什么意思？",
+    options:["A. Persian governors|A. 波斯总督","B. Greek philosophers|B. 希腊哲学家","C. Successors (Alexander's generals who divided his empire)|C. 继承者（分裂亚历山大帝国的将领）","D. Roman senators|D. 罗马元老"],
+    correct:"C", rat_right:"Diadochi means 'successors' — the generals of Alexander who fought to divide and control parts of his empire after his death.|继业者意为'继承者'——亚历山大死后争夺并控制他帝国部分领土的将领们。",
+    rat_wrong:{A:"Persian governors (satraps) are a different role from Greek concept of Diadochi.|波斯总督是与希腊'继业者'概念不同的角色。",B:"Greek philosophers like Socrates and Plato are unrelated to this political/military term.|像苏格拉底和柏拉图这样的希腊哲学家与这个政治/军事术语无关。",D:"Roman senators belong to a different civilization and time period.|罗马元老属于不同的文明和时期。"}
+  },
+  { id:"l5q3", q:"Which Hellenistic kingdom controlled Egypt after Alexander's death?", q_cn:"亚历山大死后，哪个希腊化王国控制了埃及？",
+    options:["A. The Seleucid Empire|A. 塞琉古帝国","B. The Antigonid Kingdom|B. 安提柯王国","C. The Ptolemaic Kingdom|C. 托勒密王国","D. The Achaemenid Empire|D. 阿契美尼德帝国"],
+    correct:"C", rat_right:"Ptolemy, one of Alexander's generals, founded the Ptolemaic Kingdom, which controlled Egypt.|托勒密是亚历山大的一位将领，他建立了控制埃及的托勒密王国。",
+    rat_wrong:{A:"The Seleucid Empire controlled Persia and the Near East, not Egypt.|塞琉古帝国控制波斯和近东地区，不是埃及。",B:"The Antigonid Kingdom controlled Macedon and Greece, not Egypt.|安提柯王国控制马其顿和希腊，不是埃及。",D:"The Achaemenid Empire was the earlier Persian empire that Alexander conquered — it no longer existed after his conquest.|阿契美尼德帝国是亚历山大征服的早期波斯帝国——在他征服后已不复存在。"}
+  },
+  { id:"l5q4", q:"Which empire controlled Persia and the Near East after Alexander's death?", q_cn:"亚历山大死后，哪个帝国控制了波斯和近东地区？",
+    options:["A. The Ptolemaic Kingdom|A. 托勒密王国","B. The Seleucid Empire|B. 塞琉古帝国","C. The Antigonid Kingdom|C. 安提柯王国","D. The Roman Republic|D. 罗马共和国"],
+    correct:"B", rat_right:"Seleucus founded the Seleucid Empire, which controlled Persia and much of the Near East after Alexander's death.|塞琉古建立了塞琉古帝国，亚历山大死后该帝国控制了波斯和近东大部分地区。",
+    rat_wrong:{A:"The Ptolemaic Kingdom controlled Egypt, not Persia.|托勒密王国控制埃及，不是波斯。",C:"The Antigonid Kingdom controlled Macedon and Greece, not Persia.|安提柯王国控制马其顿和希腊，不是波斯。",D:"The Roman Republic was a separate, western power not directly controlling Persia at this time.|罗马共和国是一个独立的西方大国，当时并未直接控制波斯。"}
+  },
+  { id:"l5q5", q:"What is generally considered the primary cause of the collapse of Alexander's empire?", q_cn:"亚历山大帝国崩溃的主要原因通常被认为是什么？",
+    options:["A. A foreign invasion from China|A. 来自中国的外国入侵","B. A succession crisis — no clear plan for leadership after his death|B. 继承危机——他死后没有明确的领导计划","C. A massive earthquake that destroyed his cities|C. 摧毁他的城市的大规模地震","D. A peaceful vote among his generals to divide the empire|D. 他的将领们通过和平投票分裂帝国"],
+    correct:"B", rat_right:"Alexander's lack of a clear succession plan, combined with the ambitions of his generals, led to decades of conflict and the empire's division.|亚历山大没有明确的继承计划，加上他将领们的野心，导致了数十年的冲突和帝国的分裂。",
+    rat_wrong:{A:"There is no historical evidence of a Chinese invasion causing the empire's collapse.|没有历史证据表明中国的入侵导致了帝国的崩溃。",C:"Natural disaster is not the documented cause of the empire's political collapse.|自然灾害不是帝国政治崩溃的记录原因。",D:"The division of the empire involved warfare, not a peaceful vote.|帝国的分裂涉及战争，不是和平投票。"}
+  },
+  { id:"l5q6", q:"Which of the following is an example of an ECONOMIC factor in the fall of empires?", q_cn:"以下哪项是帝国衰亡中经济因素的例子？",
+    options:["A. Succession crises|A. 继承危机","B. Overspending on military campaigns and heavy taxation|B. 军事行动过度支出和重税","C. Loss of religious tolerance|C. 失去宗教宽容","D. Famine and disease|D. 饥荒和疾病"],
+    correct:"B", rat_right:"Overspending on military campaigns and excessive taxation are classic economic factors that strain an empire's resources and contribute to decline.|军事行动过度支出和过重的税收是典型的经济因素，会使帝国的资源紧张并促成衰落。",
+    rat_wrong:{A:"Succession crises are political factors, not economic ones.|继承危机是政治因素，不是经济因素。",C:"Loss of religious tolerance would be classified as a social/political factor.|失去宗教宽容会被归类为社会/政治因素。",D:"Famine and disease are environmental factors, not specifically economic ones.|饥荒和疾病是环境因素，不是专门的经济因素。"}
+  },
+  { id:"l5q7", q:"Which is an example of a SOCIAL factor contributing to imperial decline?", q_cn:"以下哪项是促成帝国衰落的社会因素的例子？",
+    options:["A. Resource depletion|A. 资源枯竭","B. Inequality and loss of loyalty among conquered peoples|B. 不平等和被征服民族失去忠诚","C. Heavy military spending|C. 大量军事开支","D. A new emperor's coronation|D. 新皇帝的加冕"],
+    correct:"B", rat_right:"Growing inequality and the loss of loyalty among conquered or marginalized groups is a classic social factor weakening empires from within.|不断加剧的不平等以及被征服或边缘化群体失去忠诚，是从内部削弱帝国的典型社会因素。",
+    rat_wrong:{A:"Resource depletion is an environmental factor, not social.|资源枯竭是环境因素，不是社会因素。",C:"Heavy military spending is an economic factor.|大量军事开支是经济因素。",D:"A coronation, by itself, is a political/ceremonial event, not necessarily a decline factor.|加冕本身是一个政治/仪式性事件，不一定是衰落因素。"}
+  },
+  { id:"l5q8", q:"Why is the division of Alexander's empire considered a good case study for 'how empires fall'?", q_cn:"为什么亚历山大帝国的分裂被认为是'帝国如何衰亡'的一个很好的案例研究？",
+    options:["A. It shows a slow, peaceful transition with no conflict|A. 它展示了一个缓慢、和平的过渡过程，没有任何冲突","B. It illustrates how a succession crisis and the ambition of subordinate leaders can rapidly fragment a powerful empire|B. 它说明了继承危机和下属领导人的野心如何能够迅速使一个强大的帝国分裂","C. It proves that all empires fall due to the same single cause|C. 它证明所有帝国都因同一个原因而衰亡","D. It shows that Alexander's empire never actually existed|D. 它表明亚历山大的帝国实际上从未存在过"],
+    correct:"B", rat_right:"The rapid fragmentation of Alexander's empire after his death is a clear example of how political instability and competing ambitions can quickly dismantle even a powerful empire.|亚历山大死后帝国的迅速分裂，清楚地说明了政治不稳定和相互竞争的野心如何能够迅速瓦解一个即使是强大的帝国。",
+    rat_wrong:{A:"The division involved significant warfare among the Diadochi, not a peaceful transition.|这次分裂涉及继业者之间的重大战争，不是和平过渡。",C:"Different empires fall for different combinations of reasons — there is no single universal cause.|不同的帝国因不同的原因组合而衰亡——没有单一的普遍原因。",D:"Alexander's empire was a well-documented historical reality before its division.|亚历山大的帝国在分裂之前是有充分历史记录的现实存在。"}
+  },
+  { id:"l5q9", q:"What can modern organizations learn from the collapse of Alexander's empire?", q_cn:"现代组织能从亚历山大帝国的崩溃中学到什么？",
+    options:["A. Succession planning and clear leadership transitions are important for long-term stability|A. 继承规划和明确的领导层过渡对长期稳定很重要","B. Organizations never need to plan beyond their current leader|B. 组织从不需要规划超出当前领导人的事情","C. Conflict among leaders always strengthens an organization|C. 领导层之间的冲突总是会增强一个组织","D. Large organizations are always more stable than small ones|D. 大型组织总是比小型组织更稳定"],
+    correct:"A", rat_right:"Alexander's empire shows that without clear succession planning, even powerful, well-built organizations can quickly fragment due to leadership conflict.|亚历山大的帝国表明，如果没有明确的继承规划，即使是强大、组织完善的组织也可能因领导层冲突而迅速分裂。",
+    rat_wrong:{B:"Alexander's case is a direct warning AGAINST failing to plan for leadership transitions.|亚历山大的案例正是对未能规划领导层过渡的直接警示。",C:"Conflict among Alexander's generals weakened and divided the empire, rather than strengthening it.|亚历山大将领之间的冲突削弱并分裂了帝国，而不是增强了它。",D:"Alexander's large empire collapsed quickly, showing size alone does not guarantee stability.|亚历山大庞大的帝国迅速崩溃，表明规模本身并不能保证稳定。"}
+  },
+  { id:"l5q10", q:"How do the political, economic, social, and environmental factors of imperial decline typically interact?", q_cn:"帝国衰落的政治、经济、社会和环境因素通常如何相互作用？",
+    options:["A. They always occur in complete isolation from one another|A. 它们总是完全孤立地发生，彼此没有关联","B. They often combine and reinforce each other, making an empire's decline a complex, multi-causal process|B. 它们常常相互结合并相互强化，使帝国的衰落成为一个复杂的多因素过程","C. Only one factor has ever caused the fall of any empire in history|C. 历史上任何帝国的衰亡都只由一个因素引起","D. These factors only applied to Alexander's empire and no others|D. 这些因素只适用于亚历山大的帝国，不适用于其他帝国"],
+    correct:"B", rat_right:"In most historical cases, including Alexander's empire, political instability, economic strain, social inequality, and environmental pressures combine and reinforce one another, leading to decline.|在大多数历史案例中，包括亚历山大的帝国，政治不稳定、经济压力、社会不平等和环境压力相互结合并相互强化，导致了衰落。",
+    rat_wrong:{A:"These factors typically interact and reinforce each other rather than occurring in complete isolation.|这些因素通常相互作用并相互强化，而不是完全孤立地发生。",C:"Most empires fall due to a combination of multiple interacting factors, not a single isolated cause.|大多数帝国的衰亡是由多个相互作用的因素组合造成的，不是单一孤立的原因。",D:"These four categories of decline (political, economic, social, environmental) apply broadly to many historical empires, not just Alexander's.|这四类衰落因素（政治、经济、社会、环境）广泛适用于许多历史帝国，不仅仅是亚历山大的帝国。"}
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var allAnswered = Object.keys(storeMap[tabKey]).length === qMap[tabKey].length;
+  var hasRef1 = ref1 && ref1.value.trim().length > 0;
+  var hasRef2 = ref2 && ref2.value.trim().length > 0;
+  var hasGrat = grat && grat.value.trim().length > 0;
+  if (allAnswered && hasRef1 && hasRef2 && hasGrat) {
+    btn.classList.add('ready');
+    btn.disabled = false;
+    hint.style.display = 'none';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1','Ref2','Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Cyrus the Great the Achaemenid Empire and Classical Greece',
+    l2: 'Greek Philosophy Socrates Plato and Aristotle',
+    l3: 'Philip II Alexander and His Conquests',
+    l4: 'What Is an Empire How Empires Rise and Grow',
+    l5: 'Division of Alexanders Empire and How Empires Fall'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 4\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + (document.getElementById(tabKey+'Ref1').value) + '\n\n';
+  txt += 'Reflection 2:\n' + (document.getElementById(tabKey+'Ref2').value) + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + document.getElementById(tabKey+'Grat').value + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day4_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>

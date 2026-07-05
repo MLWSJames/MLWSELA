@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 6 — Chinese Dynasties, World Religions &amp; the Silk Road | 中国王朝、世界宗教与丝绸之路</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 6 — Chinese Dynasties, World Religions &amp; the Silk Road · <span class="cn">中国王朝、世界宗教与丝绸之路</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson 1"></div>
+    <div class="pip" id="pip-l2" title="Lesson 2"></div>
+    <div class="pip" id="pip-l3" title="Lesson 3"></div>
+    <div class="pip" id="pip-l4" title="Lesson 4"></div>
+    <div class="pip" id="pip-l5" title="Lesson 5"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">🏯 Zhou, Qin &amp; Han Dynasties / Philosophers of the Warring States overview / Confucianism</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">⚖️ Legalism / Qin Shi Huangdi &amp; the Qin state / Daoism &amp; Laozi</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">🕉️ Hinduism / Caste System / Hindu Texts (Mahabharata, Ramayana, Bhagavad Gita)</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">☸️ Buddhism / Four Noble Truths / Noble Eightfold Path / Emperor Ashoka</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">🐫 The Silk Road / Week 1 Synthesis &amp; Review</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON 1: Zhou, Qin & Han Dynasties / Warring States Philosophers / Confucianism -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Zhou, Qin &amp; Han Dynasties / Philosophers of the Warring States overview / Confucianism · <span class="cn">周朝、秦朝与汉朝 / 战国时期哲学家概述 / 儒家思想</span></h2>
+ 
+  <div class="concept-card">
+    <h3>From the Zhou to the Han · <span class="cn">从周朝到汉朝</span></h3>
+    <p>The <strong>Zhou Dynasty</strong> (1046–256 BCE) was China's longest-ruling dynasty, but its later centuries — known as the <strong>Warring States period</strong> (475–221 BCE) — were marked by near-constant conflict between rival kingdoms. Out of this chaos, the short-lived but powerful <strong>Qin Dynasty</strong> (221–206 BCE) unified China for the first time, followed by the long and stable <strong>Han Dynasty</strong> (206 BCE–220 CE), which built much of the foundation of Chinese civilization that followed.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>周朝</strong>（公元前1046年—前256年）是中国统治时间最长的王朝，但其后期——被称为<strong>战国时期</strong>（公元前475年—前221年）——战乱几乎从未停止，各诸侯国相互争斗。在这场混乱中，短命却强大的<strong>秦朝</strong>（公元前221年—前206年）第一次统一了中国，随后是长期稳定的<strong>汉朝</strong>（公元前206年—公元220年），它为后来的中华文明奠定了大量基础。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Hundred Schools of Thought · <span class="cn">百家争鸣</span></h3>
+    <p>The instability of the Warring States period pushed thinkers to ask urgent questions: How should society be organized? What makes a good ruler? This produced a flowering of philosophy known as the <strong>Hundred Schools of Thought</strong>, each offering a different answer to the problem of disorder.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>School 学派</th><th>Core Idea 核心思想</th></tr>
+      <tr><td>Confucianism 儒家</td><td>Social order comes from moral virtue, proper relationships, and respect for hierarchy 社会秩序来自道德修养、正确的人际关系和对等级的尊重</td></tr>
+      <tr><td>Legalism 法家</td><td>Order comes from strict laws and harsh punishment, not morality 秩序来自严格的法律和严厉的惩罚，而非道德</td></tr>
+      <tr><td>Daoism 道家</td><td>Order comes from living in harmony with the natural way, the Dao 秩序来自与自然法则"道"和谐共处</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Confucius &amp; the Foundations of Confucianism · <span class="cn">孔子与儒家思想的基础</span></h3>
+    <p><strong>Confucius</strong> (551–479 BCE) was a teacher and philosopher who believed that a well-ordered society depended on individual moral character and correctly maintained relationships — between ruler and subject, parent and child, husband and wife, older and younger, friend and friend. He taught that virtues like <strong>ren</strong> (benevolence/humaneness) and <strong>li</strong> (proper ritual and conduct) created harmony from the family outward to the state.</p>
+    <div class="callout">
+      <strong>The Five Key Relationships:</strong> Confucius taught that if each person fulfilled their proper role within these relationships — with respect and care flowing in both directions — the entire society would naturally become stable and harmonious.
+      <br><span class="cn"><strong>五种基本关系：</strong>孔子认为，如果每个人都能在这些关系中履行自己应尽的角色——双方都怀有尊重与关怀——整个社会自然会变得稳定和谐。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Confucianism &amp; Government · <span class="cn">儒家思想与政府</span></h3>
+    <p>Confucius believed rulers should lead by moral example rather than force, earning the loyalty of the people through virtue. This idea — that a ruler's legitimacy depends on moral behavior — became deeply influential in Chinese government, especially once the Han Dynasty adopted Confucianism as a guiding philosophy for the state.</p>
+    <p style="margin-top:8px"><span class="cn">孔子认为，统治者应以道德榜样而非武力来治理，通过德行赢得百姓的忠诚。这一理念——统治者的合法性取决于其道德行为——对中国政府产生了深远影响，尤其是在汉朝将儒家思想确立为国家指导思想之后。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 1</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Confucius taught that society becomes stable when people fulfill their proper roles in key relationships, with respect flowing in both directions. Why might mutual respect work better than force for creating a stable society? · <span class="cn">孔子教导说，当人们在重要关系中履行自己应尽的角色，并双向地保持尊重时，社会就会变得稳定。为什么相互尊重比武力更能建立一个稳定的社会？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The chaos of the Warring States period pushed thinkers to develop very different philosophies for fixing society. Can you think of a time when a difficult or chaotic situation pushed you or people you know to come up with new solutions? · <span class="cn">战国时期的混乱促使思想家们提出了截然不同的社会治理理念。你能想到一个困难或混乱的情况促使你或你认识的人想出新解决方案的例子吗？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 2: Legalism / Qin Shi Huangdi / Daoism & Laozi -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Legalism / Qin Shi Huangdi &amp; the Qin state / Daoism &amp; Laozi · <span class="cn">法家 / 秦始皇与秦国 / 道家与老子</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Legalism: Order Through Law · <span class="cn">法家：以法立序</span></h3>
+    <p>Where Confucianism trusted moral virtue to create order, <strong>Legalism</strong> argued the opposite: human nature is selfish, so order can only come from strict laws, harsh punishments, and strong centralized state control. The most influential Legalist thinker, <strong>Han Feizi</strong>, argued that a ruler should use clear rules and consistent punishment — not moral persuasion — to keep society in line.</p>
+    <p style="margin-top:8px"><span class="cn">儒家信任道德修养能够创造秩序，<strong>法家</strong>则持相反观点：人性本是自私的，因此秩序只能来自严格的法律、严厉的惩罚和强大的中央集权统治。最具影响力的法家思想家<strong>韩非子</strong>认为，统治者应该用明确的规则和一贯的惩罚——而不是道德说服——来维持社会秩序。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Qin Shi Huangdi: The First Emperor · <span class="cn">秦始皇：第一位皇帝</span></h3>
+    <p><strong>Qin Shi Huangdi</strong> used Legalist ideas to unify China by 221 BCE and became its first emperor. He standardized writing, currency, weights, and measures across the conquered states, built a national network of roads, and connected earlier defensive walls into what became the basis of the <strong>Great Wall</strong>. His rule was extremely effective but also harsh — forced labor, heavy taxation, and brutal punishment for dissent were common.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Achievement 成就</th><th>Impact 影响</th></tr>
+      <tr><td>Standardized writing, currency, measures 统一文字、货币、度量衡</td><td>Made trade and administration possible across a huge, diverse territory 使一个庞大多元的领土上的贸易和行政管理成为可能</td></tr>
+      <tr><td>Roads &amp; early Great Wall 道路与早期长城</td><td>Connected the empire and helped defend against northern invaders 连接帝国并帮助抵御北方入侵者</td></tr>
+      <tr><td>Harsh Legalist rule 严酷的法家统治</td><td>Created resentment that helped cause the dynasty's quick collapse after his death 引发了不满，导致他死后王朝迅速崩溃</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Daoism: Harmony With the Dao · <span class="cn">道家：与道和谐共处</span></h3>
+    <p><strong>Daoism</strong>, founded by the philosopher <strong>Laozi</strong>, offered a very different vision. Laozi taught that people and rulers alike should follow the <strong>Dao</strong> ("the Way") — the natural order of the universe — rather than forcing rigid laws or rituals onto society. He emphasized simplicity, humility, and <em>wu wei</em> ("non-action" or effortless action), the idea that the best way to govern is often to interfere as little as possible.</p>
+    <div class="callout-blue">
+      <strong>Wu Wei in Practice:</strong> A Daoist ruler governs lightly, trusting that society naturally settles into balance — much like water finding its own level — rather than forcing order through strict laws or constant intervention.
+      <br><span class="cn"><strong>无为的实践：</strong>道家统治者轻施治理，相信社会自然会达到平衡——就像水会自然找到自己的水平面——而不是通过严格的法律或不断的干预来强行制造秩序。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 2</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Qin Shi Huangdi's harsh Legalist rule unified China effectively but created resentment that led to the dynasty's quick collapse. Why might a government that is very effective in the short term still fail in the long term? · <span class="cn">秦始皇严酷的法家统治有效地统一了中国，但也引发了不满，导致王朝迅速崩溃。为什么一个短期内非常有效的政府仍可能在长期内失败？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Daoism teaches "wu wei," or governing by interfering as little as possible. Can you think of a situation in your own life where doing less, rather than more, led to a better outcome? · <span class="cn">道家提倡"无为"，即尽量减少干预的治理方式。你能想到生活中"少做"反而带来更好结果的情况吗？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 3: Hinduism / Caste System / Hindu Texts -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Hinduism / Caste System / Hindu Texts (Mahabharata, Ramayana, Bhagavad Gita) · <span class="cn">印度教 / 种姓制度 / 印度教经典（摩诃婆罗多、罗摩衍那、薄伽梵歌）</span></h2>
+ 
+  <div class="concept-card">
+    <h3>What Is Hinduism? · <span class="cn">什么是印度教？</span></h3>
+    <p><strong>Hinduism</strong> developed gradually over thousands of years in South Asia, blending the beliefs of early Vedic peoples with later religious and philosophical traditions. Unlike many religions, it has no single founder and no single sacred text — instead it is a vast collection of beliefs, practices, and texts united by shared ideas like <strong>dharma</strong> (duty/righteous living), <strong>karma</strong> (the consequences of one's actions), and <strong>samsara</strong> (the cycle of rebirth).</p>
+    <p style="margin-top:8px"><span class="cn"><strong>印度教</strong>在南亚经过数千年逐渐发展形成，融合了早期吠陀民族的信仰与后来的宗教和哲学传统。与许多宗教不同，它没有单一的创始人，也没有单一的圣典——它是一系列由共同理念联系在一起的信仰、实践和经典的总和，如<strong>达摩</strong>（责任/正当的生活方式）、<strong>业</strong>（行为的后果）和<strong>轮回</strong>（重生的循环）。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Caste System · <span class="cn">种姓制度</span></h3>
+    <p>Hindu society in ancient India was traditionally organized into a system of social classes known as <strong>caste</strong>, which determined a person's occupation, social status, and the people they could marry. The system was generally divided into four main groups (<em>varnas</em>), with many more specific sub-groups (<em>jatis</em>) within them.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Varna 瓦尔纳</th><th>Traditional Role 传统职责</th></tr>
+      <tr><td>Brahmins 婆罗门</td><td>Priests and scholars 祭司与学者</td></tr>
+      <tr><td>Kshatriyas 刹帝利</td><td>Warriors and rulers 武士与统治者</td></tr>
+      <tr><td>Vaishyas 吠舍</td><td>Merchants, farmers, and traders 商人、农民与贸易者</td></tr>
+      <tr><td>Shudras 首陀罗</td><td>Laborers and servants 劳工与仆人</td></tr>
+    </table>
+    <div class="callout">
+      <strong>Caste &amp; Karma:</strong> Many Hindus traditionally believed a person's caste in this life reflected karma from past lives, and that fulfilling one's caste duties properly could lead to a better rebirth.
+      <br><span class="cn"><strong>种姓与业：</strong>许多印度教徒传统上认为，一个人在今生的种姓反映了前世的业，正确履行种姓职责可以带来更好的轮回。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Sacred Texts: Stories That Teach Dharma · <span class="cn">圣典：教导达摩的故事</span></h3>
+    <p>Hindu teachings are passed down through major epics and texts. The <strong>Mahabharata</strong> is one of the longest epic poems in the world, telling the story of a great war between royal families. Embedded within it is the <strong>Bhagavad Gita</strong>, a philosophical dialogue about duty, action, and devotion. The <strong>Ramayana</strong> tells the story of Prince Rama's quest to rescue his wife Sita, illustrating ideals of loyalty, honor, and righteous duty.</p>
+    <p style="margin-top:8px"><span class="cn">印度教教义通过重要的史诗和经典流传下来。<strong>摩诃婆罗多</strong>是世界上最长的史诗之一，讲述了王室家族之间一场大战的故事。其中包含<strong>薄伽梵歌</strong>，一段关于责任、行动与信仰的哲学对话。<strong>罗摩衍那</strong>讲述了罗摩王子营救妻子悉多的故事，体现了忠诚、荣誉与正当责任的理想。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 3</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The caste system determined a person's occupation and social status from birth. What might be some advantages and disadvantages of a society organized this way? · <span class="cn">种姓制度从一个人出生起就决定了他的职业和社会地位。这种社会组织方式可能有哪些优点和缺点？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Ramayana and Mahabharata use long stories to teach values like loyalty, duty, and honor. Why might stories be an effective way to teach moral lessons, compared to just stating rules directly? · <span class="cn">《罗摩衍那》和《摩诃婆罗多》通过长篇故事来传授忠诚、责任和荣誉等价值观。与直接陈述规则相比，为什么故事可能是教授道德的一种有效方式？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 4: Buddhism / Four Noble Truths / Noble Eightfold Path / Emperor Ashoka -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Buddhism / Four Noble Truths / Noble Eightfold Path / Emperor Ashoka · <span class="cn">佛教 / 四圣谛 / 八正道 / 阿育王</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Siddhartha Gautama &amp; the Birth of Buddhism · <span class="cn">悉达多·乔达摩与佛教的诞生</span></h3>
+    <p><strong>Buddhism</strong> began in the 6th century BCE with <strong>Siddhartha Gautama</strong>, a prince from northern India who gave up his royal life to search for the cause of human suffering. After years of searching, he reached <strong>enlightenment</strong> (a state of complete understanding and peace) and became known as the <strong>Buddha</strong>, meaning "the Awakened One." He then spent the rest of his life teaching others what he had learned.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>佛教</strong>起源于公元前6世纪，创始人是<strong>悉达多·乔达摩</strong>，一位放弃皇室生活去寻找人类苦难根源的北印度王子。经过多年的探索，他达到了<strong>觉悟</strong>（一种完全理解与平静的状态），被称为<strong>佛陀</strong>，意为"觉醒者"。此后，他将余生用于向他人传授自己所领悟的道理。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Four Noble Truths · <span class="cn">四圣谛</span></h3>
+    <p>At the core of Buddhist teaching are the <strong>Four Noble Truths</strong>, which diagnose the problem of suffering and offer a path beyond it.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Truth 真谛</th><th>Meaning 含义</th></tr>
+      <tr><td>1. Life involves suffering 人生皆苦</td><td>Suffering (dukkha) is a basic part of existence 苦是存在的基本特征</td></tr>
+      <tr><td>2. Suffering has a cause 苦因</td><td>Suffering comes from craving and attachment 苦来自渴望与执着</td></tr>
+      <tr><td>3. Suffering can end 苦灭</td><td>It is possible to end suffering by ending craving 通过消除渴望可以终止苦难</td></tr>
+      <tr><td>4. There is a path to end suffering 道</td><td>The Noble Eightfold Path leads to the end of suffering 八正道引向苦的终结</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Noble Eightfold Path · <span class="cn">八正道</span></h3>
+    <p>The <strong>Noble Eightfold Path</strong> is the practical guide for ending suffering, often grouped into three areas: <strong>wisdom</strong> (right view, right intention), <strong>ethical conduct</strong> (right speech, right action, right livelihood), and <strong>mental discipline</strong> (right effort, right mindfulness, right concentration). Following this path is meant to gradually free a person from craving and lead toward enlightenment.</p>
+    <div class="callout">
+      <strong>The Middle Way:</strong> The Buddha taught a "Middle Way" between extreme luxury and extreme self-denial — neither indulging every desire nor punishing the body — as the most balanced path toward enlightenment.
+      <br><span class="cn"><strong>中道：</strong>佛陀教导一种介于极端奢华与极端自我克制之间的"中道"——既不放纵每一种欲望，也不折磨身体——作为通向觉悟最为平衡的道路。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Emperor Ashoka &amp; the Spread of Buddhism · <span class="cn">阿育王与佛教的传播</span></h3>
+    <p><strong>Ashoka</strong>, an emperor of the Maurya Dynasty in India, ruled through brutal military conquest before converting to Buddhism and dramatically changing his approach to governing. He renounced violent expansion, promoted nonviolence and religious tolerance, and sent missionaries throughout Asia, helping Buddhism spread far beyond India into places like Sri Lanka, Central Asia, and eventually China.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>阿育王</strong>是印度孔雀王朝的一位皇帝，他在皈依佛教并彻底改变治理方式之前，通过残酷的军事征服进行统治。他放弃了暴力扩张，倡导非暴力与宗教宽容，并向亚洲各地派遣传教士，帮助佛教传播到印度以外，远至斯里兰卡、中亚，最终传入中国。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 4</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Buddha taught that suffering comes from craving and attachment. Do you think letting go of attachment to things or outcomes could actually reduce suffering? Why or why not? · <span class="cn">佛陀教导说，苦难来自渴望与执着。你认为放下对事物或结果的执着真的能减少苦难吗？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Ashoka completely changed his approach to ruling after converting to Buddhism, moving from violent conquest to promoting nonviolence and tolerance. What does this tell you about how personal beliefs can shape the actions of powerful leaders? · <span class="cn">阿育王皈依佛教后彻底改变了他的统治方式，从暴力征服转向倡导非暴力与宽容。这告诉你个人信仰如何能够影响有权势的领导者的行为？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 5: The Silk Road / Week 1 Synthesis & Review -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">The Silk Road / Week 1 Synthesis &amp; Review · <span class="cn">丝绸之路 / 第一周综合复习</span></h2>
+ 
+  <div class="concept-card">
+    <h3>What Was the Silk Road? · <span class="cn">什么是丝绸之路？</span></h3>
+    <p>The <strong>Silk Road</strong> was not a single road but a vast network of overland and maritime trade routes connecting China, Central Asia, India, Persia, the Middle East, and the Mediterranean world. It flourished especially during the Han Dynasty, when Chinese silk, spices, and goods traveled west while glass, wool, horses, and precious metals traveled east.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>丝绸之路</strong>并不是一条单一的道路，而是一个连接中国、中亚、印度、波斯、中东与地中海世界的庞大陆路与海路贸易网络。它在汉朝时期尤为繁荣，中国的丝绸、香料和商品向西流通，而玻璃、羊毛、马匹和贵金属则向东流通。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>More Than Trade: The Exchange of Ideas · <span class="cn">不仅是贸易：思想的交流</span></h3>
+    <p>The Silk Road carried far more than goods — it was a major channel for the spread of religion, technology, language, and disease across Eurasia. <strong>Buddhism</strong> traveled from India into Central Asia and China along these very routes, and innovations like papermaking eventually moved from China toward the West.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>What Traveled 传播的内容</th><th>Example 例子</th></tr>
+      <tr><td>Goods 商品</td><td>Silk, spices, glass, horses, precious metals 丝绸、香料、玻璃、马匹、贵金属</td></tr>
+      <tr><td>Religion 宗教</td><td>Buddhism spreading from India into China 佛教从印度传入中国</td></tr>
+      <tr><td>Technology 技术</td><td>Papermaking moving from China toward the West 造纸术从中国传向西方</td></tr>
+      <tr><td>Disease 疾病</td><td>Illnesses spreading along trade routes between distant regions 疾病沿贸易路线在遥远地区之间传播</td></tr>
+    </table>
+    <div class="callout-blue">
+      <strong>Connecting Civilizations:</strong> The Silk Road physically linked civilizations that students have studied separately this week — Han China, the religions of South Asia, and the wider Persian and Mediterranean world — into a single connected system of exchange.
+      <br><span class="cn"><strong>连接文明：</strong>丝绸之路将本周分别学习的文明——汉代中国、南亚的宗教，以及更广泛的波斯与地中海世界——物理性地连接成一个统一的交流体系。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Week 1 Synthesis: Comparing Systems of Order · <span class="cn">第一周综合：比较秩序体系</span></h3>
+    <p>This week covered many different civilizations and belief systems, all wrestling with a shared question: how should people and societies be organized? Confucianism, Legalism, and Daoism each gave China a different answer. Hinduism organized Indian society through caste and dharma. Buddhism offered a path to personal liberation that ultimately spread across all of Asia via networks like the Silk Road.</p>
+    <p style="margin-top:8px"><span class="cn">本周涵盖了许多不同的文明与信仰体系，它们都在思考一个共同的问题：人与社会应如何组织？儒家、法家与道家分别为中国提供了不同的答案。印度教通过种姓与达摩组织了印度社会。佛教提供了一条通向个人解脱的道路，并最终通过丝绸之路等网络传播到整个亚洲。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 5</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Silk Road carried religion, technology, and disease alongside trade goods. Why do you think the exchange of ideas along trade routes can be just as powerful, or even more powerful, than the exchange of physical goods? · <span class="cn">丝绸之路在传播贸易商品的同时也传播了宗教、技术和疾病。你认为为什么贸易路线上思想的交流可能与实物商品的交流一样重要，甚至更为重要？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. This week you studied Confucianism, Legalism, Daoism, Hinduism, and Buddhism — five very different answers to how society should be organized. Which one made the most sense to you personally, and why? · <span class="cn">本周你学习了儒家、法家、道家、印度教和佛教——五种关于社会应如何组织的截然不同的答案。哪一种对你个人而言最有道理？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  { word:"Dynasty", pos:"noun", cn:"王朝", def:"A series of rulers from the same family who govern over a long period of time.", cn_def:"一个家族连续多代统治国家的政治体系。", example:"The Han Dynasty ruled China for over 400 years." },
+  { word:"Warring States period", pos:"noun phrase", cn:"战国时期", def:"A period of Chinese history (475–221 BCE) marked by constant warfare between rival kingdoms.", cn_def:"中国历史上各诸侯国之间持续战乱的时期（公元前475—前221年）。", example:"Many great philosophers emerged during the Warring States period as thinkers searched for solutions to the chaos." },
+  { word:"Confucianism", pos:"noun", cn:"儒家思想", def:"A Chinese philosophy founded by Confucius that emphasizes moral virtue, proper relationships, and social harmony.", cn_def:"由孔子创立的中国哲学思想，强调道德修养、正确的人际关系与社会和谐。", example:"Confucianism teaches that a ruler should lead by moral example." },
+  { word:"Filial piety", pos:"noun phrase", cn:"孝道", def:"Respect and devotion toward one's parents and ancestors, a key Confucian value.", cn_def:"对父母和祖先的尊重与孝顺，是儒家思想的核心价值之一。", example:"Filial piety required children to honor and care for their elderly parents." },
+  { word:"Legalism", pos:"noun", cn:"法家思想", def:"A Chinese philosophy holding that strict laws and harsh punishment, not morality, create social order.", cn_def:"一种中国哲学思想，认为严格的法律和严厉的惩罚而非道德能创造社会秩序。", example:"Legalism argued that people needed strict laws because human nature was selfish." },
+  { word:"Qin Shi Huangdi", pos:"proper noun", cn:"秦始皇", def:"The first emperor of unified China, who used Legalist policies to centralize power.", cn_def:"统一中国后的第一位皇帝，运用法家政策来集中权力。", example:"Qin Shi Huangdi standardized writing and currency across China." },
+  { word:"Daoism", pos:"noun", cn:"道家思想", def:"A Chinese philosophy founded by Laozi that teaches harmony with the natural order, or Dao.", cn_def:"由老子创立的中国哲学思想，提倡与自然法则【道】和谐共处。", example:"Daoism encourages people to live simply and follow the Dao." },
+  { word:"Wu wei", pos:"noun phrase", cn:"无为", def:"A Daoist concept meaning effortless action or governing by minimal interference.", cn_def:"道家概念，指不费力的行动，或以最小干预进行治理。", example:"The idea of wu wei suggests that the best leaders interfere as little as possible." },
+  { word:"Hinduism", pos:"noun", cn:"印度教", def:"A major South Asian religion with no single founder, built on ideas like dharma, karma, and samsara.", cn_def:"南亚的主要宗教之一，没有单一创始人，基于达摩、业、轮回等理念。", example:"Hinduism developed gradually over thousands of years in South Asia." },
+  { word:"Caste system", pos:"noun phrase", cn:"种姓制度", def:"A traditional system of social classes in Hindu society that determined occupation and status.", cn_def:"印度教社会中的传统社会等级制度，决定职业与社会地位。", example:"The caste system divided society into groups such as priests, warriors, and laborers." },
+  { word:"Dharma", pos:"noun", cn:"达摩", def:"A Hindu and Buddhist concept referring to one's duty or righteous way of living.", cn_def:"印度教与佛教概念，指一个人的责任或正当的生活方式。", example:"Following one's dharma was considered essential to living a good life." },
+  { word:"Buddhism", pos:"noun", cn:"佛教", def:"A religion founded by Siddhartha Gautama, the Buddha, focused on overcoming suffering through enlightenment.", cn_def:"由悉达多·乔达摩（佛陀）创立的宗教，专注于通过觉悟来克服苦难。", example:"Buddhism teaches that suffering can be ended by following the Noble Eightfold Path." },
+  { word:"Enlightenment", pos:"noun", cn:"觉悟", def:"In Buddhism, a state of complete spiritual understanding and freedom from suffering.", cn_def:"佛教中指完全的精神理解与脱离苦难的状态。", example:"The Buddha reached enlightenment after years of searching for the cause of suffering." },
+  { word:"Silk Road", pos:"proper noun", cn:"丝绸之路", def:"A network of trade routes connecting China, Central Asia, India, and the Mediterranean world.", cn_def:"连接中国、中亚、印度与地中海世界的贸易路线网络。", example:"Silk, spices, religion, and technology all spread along the Silk Road." }
+];
+ 
+var L1_Q = [
+  { id:"l1q1", q:"What time period is known as the Warring States period?", q_cn:"哪个时期被称为战国时期？",
+    options:["A. 1046–256 BCE|A. 公元前1046—前256年","B. 475–221 BCE|B. 公元前475—前221年","C. 221–206 BCE|C. 公元前221—前206年","D. 206 BCE–220 CE|D. 公元前206年—公元220年"],
+    correct:"B", rat_right:"The Warring States period (475–221 BCE) was the later, chaotic part of the Zhou Dynasty marked by constant conflict between rival kingdoms.|战国时期（公元前475—前221年）是周朝后期的混乱阶段，各诸侯国之间持续争斗。",
+    rat_wrong:{A:"1046–256 BCE is the full span of the Zhou Dynasty, not just the Warring States period within it.|公元前1046—前256年是整个周朝的时间跨度，而不仅仅是其中的战国时期。",C:"221–206 BCE is the span of the Qin Dynasty, which came after the Warring States period.|公元前221—前206年是秦朝的时间跨度，发生在战国时期之后。",D:"206 BCE–220 CE is the span of the Han Dynasty, which followed the Qin Dynasty.|公元前206年—公元220年是汉朝的时间跨度，发生在秦朝之后。"}
+  },
+  { id:"l1q2", q:"Which dynasty was the first to unify China?", q_cn:"哪个王朝第一次统一了中国？",
+    options:["A. Zhou Dynasty|A. 周朝","B. Han Dynasty|B. 汉朝","C. Qin Dynasty|C. 秦朝","D. Shang Dynasty|D. 商朝"],
+    correct:"C", rat_right:"The short-lived but powerful Qin Dynasty (221–206 BCE) unified China for the first time.|短命却强大的秦朝（公元前221—前206年）第一次统一了中国。",
+    rat_wrong:{A:"The Zhou Dynasty existed before unification and eventually broke into rival kingdoms during the Warring States period.|周朝在统一之前就已存在，并在战国时期最终分裂成相互对立的诸侯国。",B:"The Han Dynasty followed the Qin and built on the unification the Qin had already achieved.|汉朝在秦朝之后建立，并以秦朝已实现的统一为基础。",D:"The Shang Dynasty predates the Zhou and Warring States periods entirely and is not discussed in this lesson as the unifier.|商朝完全早于周朝和战国时期，本课中不被视为统一者。"}
+  },
+  { id:"l1q3", q:"What problem did the Hundred Schools of Thought try to solve?", q_cn:"百家争鸣试图解决什么问题？",
+    options:["A. How to build better roads|A. 如何修建更好的道路","B. How to organize society and create order during a chaotic time|B. 如何在混乱时期组织社会并创造秩序","C. How to grow more crops|C. 如何种植更多农作物","D. How to translate foreign languages|D. 如何翻译外语"],
+    correct:"B", rat_right:"The instability of the Warring States period pushed thinkers to ask how society should be organized and what makes a good ruler, producing many competing philosophies.|战国时期的不稳定促使思想家们思考社会应如何组织以及什么造就一位好的统治者，从而产生了许多相互竞争的哲学思想。",
+    rat_wrong:{A:"Road-building was a later achievement of the Qin Dynasty, not the central problem of the Hundred Schools of Thought.|修路是秦朝后来的成就，并非百家争鸣所关注的核心问题。",C:"Agricultural questions were not the central focus of these competing philosophies.|农业问题并非这些相互竞争的哲学思想的核心关注点。",D:"Translation was not a concern addressed by the Hundred Schools of Thought.|翻译问题不是百家争鸣所关注的内容。"}
+  },
+  { id:"l1q4", q:"According to Confucianism, where does social order come from?", q_cn:"根据儒家思想，社会秩序来自哪里？",
+    options:["A. Strict laws and harsh punishment|A. 严格的法律和严厉的惩罚","B. Living in harmony with nature|B. 与自然和谐共处","C. Moral virtue and proper relationships|C. 道德修养与正确的人际关系","D. Military conquest|D. 军事征服"],
+    correct:"C", rat_right:"Confucianism teaches that social order comes from individual moral character and correctly maintained relationships between people.|儒家思想认为，社会秩序来自个人的道德修养以及人与人之间正确维持的关系。",
+    rat_wrong:{A:"Strict laws and harsh punishment describe Legalism, not Confucianism.|严格的法律和严厉的惩罚是法家思想的特征，而不是儒家思想。",B:"Living in harmony with nature describes Daoism, not Confucianism.|与自然和谐共处是道家思想的特征，而不是儒家思想。",D:"Military conquest is not the basis of order according to Confucian philosophy.|根据儒家哲学，军事征服不是秩序的基础。"}
+  },
+  { id:"l1q5", q:"What are the 'Five Key Relationships' in Confucian thought meant to create?", q_cn:"儒家思想中的'五种基本关系'旨在创造什么？",
+    options:["A. Wealth for the ruling class|A. 统治阶级的财富","B. Stability and harmony when each person fulfills their proper role|B. 当每个人履行其应尽的角色时实现稳定与和谐","C. Military strength|C. 军事力量","D. Competition between social classes|D. 社会阶层之间的竞争"],
+    correct:"B", rat_right:"Confucius taught that if each person fulfilled their proper role within key relationships, with respect flowing in both directions, society would become stable and harmonious.|孔子教导说，如果每个人都能在重要关系中履行自己应尽的角色，并双向保持尊重，社会就会变得稳定和谐。",
+    rat_wrong:{A:"Wealth accumulation was not the stated purpose of the Five Key Relationships.|积累财富并不是五种基本关系所宣称的目的。",C:"Military strength is not connected to the Confucian idea of proper relationships.|军事力量与儒家关于正确人际关系的理念无关。",D:"Confucianism emphasized harmony and mutual respect, not competition between classes.|儒家思想强调和谐与相互尊重，而不是阶层之间的竞争。"}
+  },
+  { id:"l1q6", q:"What does the Confucian virtue of 'ren' refer to?", q_cn:"儒家美德'仁'指的是什么？",
+    options:["A. Benevolence and humaneness|A. 仁爱与人道","B. Military skill|B. 军事技能","C. Wealth and status|C. 财富与地位","D. Strict legal punishment|D. 严厉的法律惩罚"],
+    correct:"A", rat_right:"'Ren' refers to benevolence or humaneness, a core Confucian virtue that, along with 'li' (proper conduct), creates social harmony.|【仁】指的是仁爱或人道，这是儒家的核心美德之一，与【礻L】（正当行为）共同创造社会和谐。",
+    rat_wrong:{B:"Military skill is not what 'ren' refers to in Confucian philosophy.|军事技能不是儒家哲学中【仁】所指的内容。",C:"Wealth and status are not the meaning of 'ren' in Confucianism.|财富与地位不是儒家思想中【仁】的含义。",D:"Strict legal punishment is associated with Legalism, not the Confucian virtue of 'ren'.|严厉的法律惩罚与法家思想相关，而不是儒家的【仁】这一美德。"}
+  },
+  { id:"l1q7", q:"How did Confucius believe rulers should lead?", q_cn:"孔子认为统治者应如何治理？",
+    options:["A. Through fear and force|A. 通过恐惧与武力","B. By moral example, earning loyalty through virtue|B. 以道德榜样治理，通过德行赢得忠诚","C. By ignoring the people entirely|C. 完全无视百姓","D. Through random decision-making|D. 通过随意的决策"],
+    correct:"B", rat_right:"Confucius believed rulers should lead by moral example rather than force, earning the loyalty of the people through virtue.|孔子认为统治者应以道德榜样而非武力来治理，通过德行赢得百姓的忠诚。",
+    rat_wrong:{A:"Leading through fear and force is closer to Legalist philosophy, not Confucian teaching.|通过恐惧与武力治理更接近法家哲学，而非儒家教义。",C:"Confucius emphasized the importance of the ruler's relationship with the people, not ignoring them.|孔子强调统治者与百姓关系的重要性，而非无视百姓。",D:"Confucianism emphasized careful moral reasoning, not random decision-making.|儒家思想强调审慎的道德思考，而不是随意的决策。"}
+  },
+  { id:"l1q8", q:"Which dynasty later adopted Confucianism as a guiding philosophy for the state?", q_cn:"哪个王朝后来将儒家思想确立为国家的指导思想？",
+    options:["A. Shang Dynasty|A. 商朝","B. Qin Dynasty|B. 秦朝","C. Han Dynasty|C. 汉朝","D. Zhou Dynasty|D. 周朝"],
+    correct:"C", rat_right:"The Han Dynasty adopted Confucianism as a guiding philosophy for the state, deeply influencing Chinese government for centuries.|汉朝将儒家思想确立为国家的指导思想，对中国政府产生了数百年的深远影响。",
+    rat_wrong:{A:"The Shang Dynasty existed long before Confucius and is not connected to the adoption of Confucianism.|商朝存在于孔子之前很久，与儒家思想的采纳无关。",B:"The Qin Dynasty favored Legalism, not Confucianism, as its guiding philosophy.|秦朝以法家思想而非儒家思想作为其指导哲学。",D:"The Zhou Dynasty existed during Confucius's lifetime but the dynasty itself did not formally adopt Confucianism as state philosophy.|周朝存在于孔子生活的时代，但该王朝本身并未正式将儒家思想确立为国家哲学。"}
+  },
+  { id:"l1q9", q:"Why might historians describe the Warring States period as a turning point for Chinese philosophy?", q_cn:"为什么历史学家可能将战国时期描述为中国哲学的一个转折点？",
+    options:["A. It produced no new ideas at all|A. 它根本没有产生任何新思想","B. Its chaos and conflict pushed thinkers to develop competing solutions for organizing society|B. 其混乱与冲突促使思想家们提出相互竞争的社会组织方案","C. It ended all philosophical debate in China permanently|C. 它永久地终结了中国所有的哲学辩论","D. It had no connection to later Chinese government|D. 它与后来的中国政府没有任何联系"],
+    correct:"B", rat_right:"The instability of the Warring States period directly produced the flowering of competing philosophies known as the Hundred Schools of Thought.|战国时期的不稳定直接催生了被称为百家争鸣的相互竞争哲学思想的繁荣。",
+    rat_wrong:{A:"This period produced an explosion of new philosophical ideas, not an absence of them.|这一时期产生了大量新的哲学思想，而不是缺乏新思想。",C:"Philosophical debate continued well beyond this period and influenced Chinese thought for centuries.|哲学辩论在这一时期之后仍长期延续，并影响了中国思想数百年。",D:"Ideas like Confucianism from this period directly shaped later Chinese government, especially under the Han.|这一时期产生的儒家等思想直接塑造了后来的中国政府，尤其是在汉朝。"}
+  },
+  { id:"l1q10", q:"What is the broader lesson the Hundred Schools of Thought illustrates about periods of crisis?", q_cn:"百家争鸣对危机时期能够说明什么更广泛的道理？",
+    options:["A. Crisis always destroys a society's ability to think creatively|A. 危机总是摧毁一个社会创造性思考的能力","B. Periods of crisis can produce a wide range of new ideas as people search for solutions|B. 危机时期可以催生大量新思想，因为人们在寻找解决方案","C. Only violence can resolve a society's problems during crisis|C. 在危机中只有暴力能解决社会问题","D. Philosophy has no real impact on how governments are run|D. 哲学对政府的运作方式没有实际影响"],
+    correct:"B", rat_right:"The Warring States period shows that crisis and instability can actually drive intense creative and philosophical activity, as thinkers search for new solutions.|战国时期表明，危机与不稳定实际上可以推动强烈的创造性和哲学活动，因为思想家们在寻找新的解决方案。",
+    rat_wrong:{A:"This period is direct evidence against this claim — crisis produced an explosion of creative philosophical thought.|这一时期正是反驳这一说法的直接证据——危机催生了创造性哲学思想的爆发。",C:"While conflict occurred, the response to crisis in this case was largely philosophical and political, not purely violent.|尽管存在冲突，但在这种情况下对危机的应对主要是哲学性和政治性的，而非纯粹的暴力。",D:"Confucianism's later adoption by the Han Dynasty shows philosophy had a direct, lasting impact on government.|儒家思想后来被汉朝采纳，表明哲学对政府产生了直接且持久的影响。"}
+  }
+];
+ 
+var L2_Q = [
+  { id:"l2q1", q:"According to Legalism, why is strict law necessary for social order?", q_cn:"根据法家思想，为什么严格的法律对社会秩序是必要的？",
+    options:["A. Because human nature is selfish|A. 因为人性本是自私的","B. Because people are naturally virtuous|B. 因为人天生具有美德","C. Because nature provides its own order|C. 因为自然本身提供秩序","D. Because rulers should never punish anyone|D. 因为统治者永远不应惩罚任何人"],
+    correct:"A", rat_right:"Legalism argued that human nature is selfish, so order can only come from strict laws, harsh punishments, and strong centralized control.|法家认为人性本是自私的，因此秩序只能来自严格的法律、严厉的惩罚和强大的中央集权统治。",
+    rat_wrong:{B:"This belief in natural virtue describes Confucianism, the opposite assumption from Legalism.|这种对天生美德的信念描述的是儒家思想，与法家的假设正好相反。",C:"Trusting nature's own order describes Daoism, not Legalism.|信任自然自身的秩序描述的是道家思想，而不是法家思想。",D:"Legalism specifically relied on consistent punishment to maintain order, not the absence of punishment.|法家恰恰依赖于一贯的惩罚来维持秩序，而不是不施加惩罚。"}
+  },
+  { id:"l2q2", q:"Who was the most influential Legalist thinker mentioned in this lesson?", q_cn:"本课中提到的最具影响力的法家思想家是谁？",
+    options:["A. Confucius|A. 孔子","B. Laozi|B. 老子","C. Han Feizi|C. 韩非子","D. Siddhartha Gautama|D. 悉达多·乔达摩"],
+    correct:"C", rat_right:"Han Feizi was the most influential Legalist thinker, arguing rulers should use clear rules and consistent punishment to maintain order.|韩非子是最具影响力的法家思想家，他认为统治者应该用明确的规则和一贯的惩罚来维持秩序。",
+    rat_wrong:{A:"Confucius founded Confucianism, a rival philosophy to Legalism, not a Legalist thinker.|孔子创立了儒家思想，是法家思想的对立学派，而不是法家思想家。",B:"Laozi founded Daoism, a different philosophical school from Legalism.|老子创立了道家思想，这是与法家不同的哲学学派。",D:"Siddhartha Gautama founded Buddhism in India and is unrelated to Chinese Legalism.|悉达多·乔达摩在印度创立了佛教，与中国的法家思想无关。"}
+  },
+  { id:"l2q3", q:"What did Qin Shi Huangdi standardize across the conquered states?", q_cn:"秦始皇在被征服的国家中统一了什么？",
+    options:["A. Religion only|A. 仅仅是宗教","B. Writing, currency, weights, and measures|B. 文字、货币、度量衡","C. Languages spoken at home|C. 家中所说的语言","D. Personal clothing styles|D. 个人服装风格"],
+    correct:"B", rat_right:"Qin Shi Huangdi standardized writing, currency, weights, and measures across the conquered states, making trade and administration possible.|秦始皇在被征服的国家中统一了文字、货币、度量衡，使贸易和行政管理成为可能。",
+    rat_wrong:{A:"Religious standardization was not a focus of Qin Shi Huangdi's policies as described in this lesson.|本课中描述的秦始皇政策并未将宗教统一作为重点。",C:"Standardizing spoken household language was not part of his administrative reforms.|统一家庭口语并不是他行政改革的内容。",D:"Personal clothing styles were not part of the standardization described in this lesson.|个人服装风格不在本课描述的统一范围内。"}
+  },
+  { id:"l2q4", q:"What later became the basis of the Great Wall of China?", q_cn:"后来成为中国长城基础的是什么？",
+    options:["A. A single new wall built entirely from scratch|A. 完全从零开始建造的一座单一新墙","B. Earlier defensive walls that Qin Shi Huangdi connected|B. 秦始皇连接起来的早期防御性城墙","C. Roman fortifications brought to China|C. 带到中国的罗马防御工事","D. A wall built only after the Han Dynasty|D. 仅在汉朝之后建造的一座墙"],
+    correct:"B", rat_right:"Qin Shi Huangdi connected earlier defensive walls into what became the basis of the Great Wall.|秦始皇将早期的防御性城墙连接起来，成为长城的基础。",
+    rat_wrong:{A:"The Great Wall's basis came from connecting existing walls, not building one new structure from nothing.|长城的基础来自连接已有的城墙，而不是从零开始建造一座新结构。",C:"Roman fortifications are unrelated to the Chinese Great Wall described in this lesson.|罗马防御工事与本课中描述的中国长城无关。",D:"This wall-connecting project happened under Qin Shi Huangdi, before the Han Dynasty.|这一连接城墙的工程发生在秦始皇统治时期，早于汉朝。"}
+  },
+  { id:"l2q5", q:"What helped cause the Qin Dynasty's quick collapse after Qin Shi Huangdi's death?", q_cn:"是什么导致秦朝在秦始皇死后迅速崩溃？",
+    options:["A. Too much religious tolerance|A. 过多的宗教宽容","B. Resentment caused by harsh Legalist rule, forced labor, and heavy taxation|B. 严酷的法家统治、强制劳动和重税引发的不满","C. A peaceful transfer of power|C. 权力的和平交接","D. A lack of any roads or infrastructure|D. 缺乏任何道路或基础设施"],
+    correct:"B", rat_right:"His harsh rule — forced labor, heavy taxation, and brutal punishment — created resentment that helped cause the dynasty's quick collapse.|他的严酷统治——强制劳动、重税和残酷的惩罚——引发了不满，导致王朝迅速崩溃。",
+    rat_wrong:{A:"Religious tolerance is not described as a factor in the Qin Dynasty's collapse.|宗教宽容并未被描述为秦朝崩溃的因素。",C:"The transition after Qin Shi Huangdi's death was marked by instability and resentment, not a peaceful transfer.|秦始皇死后的过渡时期充满了不稳定与不满，而不是和平交接。",D:"The Qin actually built significant infrastructure like roads, which is the opposite of a lack of infrastructure.|秦朝实际上建造了大量基础设施，如道路，这与缺乏基础设施恰恰相反。"}
+  },
+  { id:"l2q6", q:"Who founded Daoism?", q_cn:"谁创立了道家思想？",
+    options:["A. Confucius|A. 孔子","B. Han Feizi|B. 韩非子","C. Laozi|C. 老子","D. Qin Shi Huangdi|D. 秦始皇"],
+    correct:"C", rat_right:"Daoism was founded by the philosopher Laozi, who taught harmony with the Dao, or natural order of the universe.|道家由哲学家老子创立，他教导人们与【道】——宇宙的自然法则——和谐共处。",
+    rat_wrong:{A:"Confucius founded Confucianism, a different philosophical school from Daoism.|孔子创立了儒家思想，这是与道家不同的哲学学派。",B:"Han Feizi was a Legalist thinker, not the founder of Daoism.|韩非子是法家思想家，不是道家的创立者。",D:"Qin Shi Huangdi was a political ruler who used Legalism, not a philosopher who founded Daoism.|秦始皇是一位运用法家思想的政治统治者，不是创立道家的哲学家。"}
+  },
+  { id:"l2q7", q:"What does the Daoist concept of 'wu wei' mean?", q_cn:"道家【无为】的概念是什么意思？",
+    options:["A. Strict enforcement of harsh laws|A. 严格执行严厉的法律","B. Effortless action, or governing with minimal interference|B. 不费力的行动，或以最小干预进行治理","C. Constant military expansion|C. 持续的军事扩张","D. Memorizing ritual texts|D. 背诵仪式经文"],
+    correct:"B", rat_right:"'Wu wei' means effortless action or non-action — the idea that the best way to govern is often to interfere as little as possible.|【无为】指的是不费力的行动或不行动——即最好的治理方式往往是尽量减少干预。",
+    rat_wrong:{A:"Strict enforcement of harsh laws describes Legalism, the opposite philosophy from Daoism's wu wei.|严格执行严厉的法律描述的是法家思想，与道家的【无为】理念恰恰相反。",C:"Military expansion is not related to the Daoist concept of wu wei.|军事扩张与道家【无为】的概念无关。",D:"Memorizing ritual texts is more associated with Confucian practice, not Daoist wu wei.|背诵仪式经文更多与儒家实践相关，而不是道家的【无为】。"}
+  },
+  { id:"l2q8", q:"How does a Daoist ruler ideally govern, according to this lesson?", q_cn:"根据本课，理想的道家统治者应如何治理？",
+    options:["A. By forcing strict order onto every part of society|A. 在社会的每一个方面都强行制定严格的秩序","B. By governing lightly and trusting society to find its own natural balance|B. 轻施治理，相信社会会自然找到自身的平衡","C. By eliminating all laws and government entirely|C. 完全废除所有法律和政府","D. By punishing anyone who disagrees with the ruler|D. 惩罚任何与统治者意见不同的人"],
+    correct:"B", rat_right:"A Daoist ruler governs lightly, trusting that society naturally settles into balance, much like water finding its own level.|道家统治者轻施治理，相信社会会自然达到平衡，就像水会自然找到自己的水平面。",
+    rat_wrong:{A:"Forcing strict order describes Legalism, not the Daoist approach to governing.|强行制定严格的秩序描述的是法家思想，而不是道家的治理方式。",C:"Daoism advocates minimal interference, not the complete elimination of all government.|道家提倡最小干预，而不是完全废除所有政府。",D:"Punishing dissent describes a harsher, more Legalist style of rule, not the Daoist approach.|惩罚异见描述的是更严厉、更接近法家的统治方式，而不是道家的方式。"}
+  },
+  { id:"l2q9", q:"What does the contrast between Legalism and Daoism suggest about Chinese philosophy during this period?", q_cn:"法家与道家之间的对比说明了这一时期中国哲学的什么特点？",
+    options:["A. All Chinese philosophers agreed on every issue|A. 所有中国哲学家在每个问题上都意见一致","B. Thinkers proposed very different, even opposite, solutions to the same problem of social order|B. 思想家们针对同一个社会秩序问题提出了截然不同，甚至相反的解决方案","C. Philosophy had no influence on Chinese government|C. 哲学对中国政府没有任何影响","D. Only one philosophy was allowed to exist at any time|D. 在任何时候都只允许一种哲学思想存在"],
+    correct:"B", rat_right:"Legalism and Daoism offered nearly opposite solutions — strict control versus minimal interference — to the same underlying problem of how to create social order.|法家与道家针对如何创造社会秩序这一相同的根本问题，提出了几乎完全相反的解决方案——严格控制与最小干预。",
+    rat_wrong:{A:"Legalism and Daoism directly contradict each other, showing clear disagreement among Chinese philosophers.|法家与道家直接相互矛盾，表明中国哲学家之间存在明显的分歧。",C:"Legalism heavily shaped the Qin Dynasty's actual governance, showing philosophy had real political influence.|法家深刻影响了秦朝的实际治理，表明哲学具有真实的政治影响力。",D:"Multiple competing philosophies, including Confucianism, Legalism, and Daoism, coexisted during this period.|包括儒家、法家和道家在内的多种相互竞争的哲学思想在这一时期同时存在。"}
+  },
+  { id:"l2q10", q:"What broader lesson can be drawn from Qin Shi Huangdi's effective but harsh rule?", q_cn:"从秦始皇有效却严酷的统治中可以得出什么更广泛的教训？",
+    options:["A. Harsh methods always lead to permanent stability|A. 严酷的方法总是带来永久的稳定","B. A government can achieve major short-term goals while still creating problems that cause long-term collapse|B. 一个政府可以实现重大的短期目标，同时仍会产生导致长期崩溃的问题","C. Standardizing currency and writing has no lasting impact on a society|C. 统一货币和文字对社会没有持久的影响","D. Centralized power always leads to immediate failure|D. 中央集权总是导致立即失败"],
+    correct:"B", rat_right:"Qin Shi Huangdi achieved major unification and standardization, but the resentment from his harsh methods contributed to the dynasty's rapid collapse after his death.|秦始皇实现了重大的统一和标准化，但其严酷手段引发的不满导致了王朝在他死后的迅速崩溃。",
+    rat_wrong:{A:"The Qin Dynasty's quick collapse shows that harsh methods do not necessarily create permanent stability.|秦朝的迅速崩溃表明，严酷的方法并不一定能创造永久的稳定。",C:"Standardized writing and currency had a lasting impact, forming the basis for unified administration in later dynasties.|统一的文字和货币产生了持久的影响，为后来王朝的统一行政管理奠定了基础。",D:"Qin Shi Huangdi's centralized power achieved significant success initially, before later collapsing — not immediate failure.|秦始皇的中央集权最初取得了显著的成功，后来才崩溃——并非立即失败。"}
+  }
+];
+ 
+var L3_Q = [
+  { id:"l3q1", q:"Why is Hinduism different from many other major world religions?", q_cn:"为什么印度教与许多其他主要世界宗教不同？",
+    options:["A. It has no single founder and no single sacred text|A. 它没有单一的创始人，也没有单一的圣典","B. It was founded in the last 100 years|B. 它是在最近100年内创立的","C. It has only one god and one holy book|C. 它只有一位神和一本圣书","D. It originated in China|D. 它起源于中国"],
+    correct:"A", rat_right:"Unlike many religions, Hinduism has no single founder and no single sacred text, developing instead as a vast collection of beliefs and texts over thousands of years.|与许多宗教不同，印度教没有单一的创始人，也没有单一的圣典，而是在数千年间发展成为一系列庞大的信仰与经典的总和。",
+    rat_wrong:{B:"Hinduism developed gradually over thousands of years, not within the last century.|印度教是在数千年间逐渐发展形成的，而不是在最近一个世纪内。",C:"Hinduism encompasses many deities and many texts, not a single god and a single holy book.|印度教包含众多神灵和众多经典，而不是单一的神和单一的圣书。",D:"Hinduism originated and developed in South Asia, not China.|印度教起源并发展于南亚，而不是中国。"}
+  },
+  { id:"l3q2", q:"What does the Hindu concept of 'karma' refer to?", q_cn:"印度教中的【业】这一概念指的是什么？",
+    options:["A. The consequences of one's actions|A. 一个人行为的后果","B. A type of social class|B. 一种社会阶层","C. A sacred text|C. 一部圣典","D. A government position|D. 一种政府职位"],
+    correct:"A", rat_right:"'Karma' refers to the consequences of a person's actions, a core idea uniting Hindu beliefs and practices.|【业】指的是一个人行为的后果，是统一印度教信仰与实践的核心理念之一。",
+    rat_wrong:{B:"A social class is closer to the concept of caste, not karma.|社会阶层更接近种姓的概念，而不是业。",C:"Karma is a concept, not a specific sacred text.|业是一个概念，而不是一部具体的圣典。",D:"Karma is a spiritual and ethical concept, unrelated to any government position.|业是一个精神和伦理概念，与任何政府职位无关。"}
+  },
+  { id:"l3q3", q:"Which group in the caste system traditionally served as priests and scholars?", q_cn:"种姓制度中哪一群体传统上担任祭司与学者？",
+    options:["A. Shudras|A. 首陀罗","B. Vaishyas|B. 吠舍","C. Kshatriyas|C. 刹帝利","D. Brahmins|D. 婆罗门"],
+    correct:"D", rat_right:"Brahmins traditionally served as priests and scholars within the caste system.|婆罗门在种姓制度中传统上担任祭司与学者的角色。",
+    rat_wrong:{A:"Shudras traditionally worked as laborers and servants, not priests or scholars.|首陀罗传统上从事劳工与仆人的工作，而不是祭司或学者。",B:"Vaishyas were traditionally merchants, farmers, and traders, not priests or scholars.|吠舍传统上是商人、农民与贸易者，而不是祭司或学者。",C:"Kshatriyas traditionally served as warriors and rulers, not priests or scholars.|刹帝利传统上担任武士与统治者的角色，而不是祭司或学者。"}
+  },
+  { id:"l3q4", q:"What did many Hindus traditionally believe about the connection between caste and karma?", q_cn:"许多印度教徒传统上认为种姓与业之间有何联系？",
+    options:["A. Caste had nothing to do with karma at all|A. 种姓与业完全没有关系","B. A person's caste reflected karma from past lives|B. 一个人的种姓反映了前世的业","C. Karma only applied to priests|C. 业只适用于祭司","D. Caste was decided entirely by the government|D. 种姓完全由政府决定"],
+    correct:"B", rat_right:"Many Hindus traditionally believed a person's caste in this life reflected karma accumulated from past lives.|许多印度教徒传统上认为，一个人在今生的种姓反映了前世积累的业。",
+    rat_wrong:{A:"Caste and karma were traditionally seen as deeply connected, not unrelated.|种姓与业传统上被视为有着深刻的联系，而不是彼此无关。",C:"Karma was believed to apply to all people, not exclusively priests.|业被认为适用于所有人，而不仅仅是祭司。",D:"Caste was tied to birth and traditional belief in karma, not government decisions.|种姓与出生和对业的传统信仰相关，而不是政府的决定。"}
+  },
+  { id:"l3q5", q:"What is the Bhagavad Gita?", q_cn:"《薄伽梵歌》是什么？",
+    options:["A. A philosophical dialogue about duty, action, and devotion embedded within the Mahabharata|A. 嵌入在《摩诃婆罗多》中的关于责任、行动与信仰的哲学对话","B. A separate religion from Hinduism|B. 一个与印度教不同的独立宗教","C. A type of caste|C. 一种种姓","D. A code of criminal law|D. 一部刑法典"],
+    correct:"A", rat_right:"The Bhagavad Gita is a philosophical dialogue about duty, action, and devotion embedded within the larger epic, the Mahabharata.|《薄伽梵歌》是嵌入在更宏大的史诗《摩诃婆罗多》中的关于责任、行动与信仰的哲学对话。",
+    rat_wrong:{B:"The Bhagavad Gita is a Hindu text, part of Hindu tradition, not a separate religion.|《薄伽梵歌》是一部印度教经典，属于印度教传统的一部分，而不是一个独立的宗教。",C:"The Bhagavad Gita is a sacred text, not a category within the caste system.|《薄伽梵歌》是一部圣典，不是种姓制度中的一个类别。",D:"The Bhagavad Gita is a philosophical and spiritual text, not a legal code.|《薄伽梵歌》是一部哲学与精神经典，不是一部法律法典。"}
+  },
+  { id:"l3q6", q:"What does the Ramayana tell the story of?", q_cn:"《罗摩衍那》讲述的是什么故事？",
+    options:["A. Prince Rama's quest to rescue his wife Sita|A. 罗摩王子营救妻子悉多的故事","B. The founding of the Qin Dynasty|B. 秦朝的建立","C. The life of the Buddha|C. 佛陀的生平","D. The construction of the Great Wall|D. 长城的建造"],
+    correct:"A", rat_right:"The Ramayana tells the story of Prince Rama's quest to rescue his wife Sita, illustrating ideals of loyalty, honor, and righteous duty.|《罗摩衍那》讲述了罗摩王子营救妻子悉多的故事，体现了忠诚、荣誉与正当责任的理想。",
+    rat_wrong:{B:"The founding of the Qin Dynasty is part of Chinese history, unrelated to the Ramayana.|秦朝的建立属于中国历史的一部分，与《罗摩衍那》无关。",C:"The life of the Buddha is a Buddhist topic, not the subject of the Hindu epic Ramayana.|佛陀的生平是佛教主题，不是印度教史诗《罗摩衍那》的内容。",D:"The Great Wall is a Chinese structure, unrelated to the Ramayana's story.|长城是中国的建筑，与《罗摩衍那》的故事无关。"}
+  },
+  { id:"l3q7", q:"What is one possible disadvantage of organizing society through a rigid caste system?", q_cn:"通过严格的种姓制度组织社会可能存在哪一种弊端？",
+    options:["A. It guarantees equal opportunity for everyone|A. 它保证了每个人机会平等","B. It can limit a person's opportunities based on birth rather than ability|B. 它可能根据出身而非能力限制一个人的机会","C. It eliminates all forms of social structure|C. 它消除了所有形式的社会结构","D. It requires no government involvement at all|D. 它完全不需要政府的参与"],
+    correct:"B", rat_right:"Because caste was largely determined by birth, it could limit individual opportunity and mobility based on family background rather than personal ability.|由于种姓主要由出身决定，它可能根据家庭背景而非个人能力来限制个人的机会与流动性。",
+    rat_wrong:{A:"A birth-based caste system is the opposite of guaranteeing equal opportunity.|基于出身的种姓制度恰恰与保证机会平等相反。",C:"The caste system created a very defined social structure, not the elimination of structure.|种姓制度创造了一种非常明确的社会结构，而不是消除结构。",D:"Caste was deeply tied to social and religious tradition, separate from this specific claim about government involvement.|种姓与社会和宗教传统有着深刻的联系，与这一关于政府参与的具体说法无关。"}
+  },
+  { id:"l3q8", q:"Why might long epic stories like the Mahabharata be an effective way to teach values?", q_cn:"为什么像《摩诃婆罗多》这样的长篇史诗可能是传授价值观的有效方式？",
+    options:["A. Stories make abstract ideas like duty and loyalty memorable through characters and events|A. 故事通过人物和事件，让责任与忠诚等抽象观念变得令人难忘","B. Long stories are always easier to memorize word-for-word than short rules|B. 长篇故事总是比简短的规则更容易逐字记住","C. Epics contain no moral lessons at all|C. 史诗根本不包含任何道德教训","D. Stories were only used in China, not India|D. 故事只在中国使用，而不在印度使用"],
+    correct:"A", rat_right:"Stories like the Mahabharata make abstract values like duty and loyalty memorable and relatable by embedding them in characters and dramatic events.|《摩诃婆罗多》这样的故事通过将责任与忠诚等抽象价值观融入人物和戏剧性事件之中，使它们变得令人难忘且易于产生共鸣。",
+    rat_wrong:{B:"The value of stories lies in their memorable narrative structure, not necessarily easier word-for-word memorization than short rules.|故事的价值在于其令人难忘的叙事结构，而不一定是比简短规则更容易逐字记忆。",C:"Epics like the Mahabharata and Ramayana are full of moral lessons about duty, honor, and loyalty.|《摩诃婆罗多》和《罗摩衍那》等史诗充满了关于责任、荣誉与忠诚的道德教训。",D:"Teaching through stories was used in both Indian and Chinese traditions, not exclusively one or the other.|通过故事进行教化在印度和中国的传统中都有使用，并非只属于其中一方。"}
+  },
+  { id:"l3q9", q:"How does the caste system compare to the social divisions discussed in Confucian thought?", q_cn:"种姓制度与儒家思想中讨论的社会分工相比有何异同？",
+    options:["A. Both systems are completely identical with no differences|A. 两种体系完全相同，没有任何区别","B. Both involve structured roles in society, but caste was largely fixed by birth while Confucian relationships emphasized mutual moral duty|B. 两者都涉及社会中结构化的角色，但种姓主要由出身固定，而儒家关系则强调相互的道德责任","C. Neither system involved any kind of social structure|C. 两种体系都不涉及任何社会结构","D. Confucianism had no concept of social roles at all|D. 儒家思想完全没有社会角色的概念"],
+    correct:"B", rat_right:"Both systems organized society into roles, but caste was largely determined by birth, while Confucian relationships emphasized mutual moral responsibility regardless of fixed social rank.|两种体系都将社会组织为不同的角色，但种姓主要由出身决定，而儒家关系则强调不论固定社会等级如何，都应承担相互的道德责任。",
+    rat_wrong:{A:"The two systems share the idea of structured roles but differ significantly in how those roles are determined and maintained.|这两种体系都包含结构化角色的理念，但在角色如何确定与维持方面存在显著差异。",C:"Both caste and the Confucian Five Relationships are clear examples of structured social systems.|种姓制度和儒家的五种关系都是结构化社会体系的明显例子。",D:"Confucianism centers heavily on defined social roles, such as ruler-subject and parent-child relationships.|儒家思想高度聚焦于明确的社会角色，例如君臣关系和父子关系。"}
+  },
+  { id:"l3q10", q:"What broader insight can be drawn from comparing Hindu and Confucian approaches to social order?", q_cn:"通过比较印度教与儒家对社会秩序的不同处理方式，可以得出什么更广泛的见解？",
+    options:["A. All ancient civilizations organized society in exactly the same way|A. 所有古代文明都以完全相同的方式组织社会","B. Different civilizations developed distinct systems — based on birth, morality, or law — to answer the shared question of how society should be structured|B. 不同的文明发展出了截然不同的体系——基于出身、道德或法律——来回答社会应如何构建这一共同问题","C. Only Chinese civilizations developed ideas about social structure|C. 只有中国文明发展出了关于社会结构的理念","D. Social structure has no connection to religion or philosophy|D. 社会结构与宗教或哲学没有任何联系"],
+    correct:"B", rat_right:"Civilizations across Asia — China and India among them — developed distinct systems, whether based on birth (caste), morality (Confucianism), or law (Legalism), to answer the same underlying question of social organization.|包括中国和印度在内的亚洲各文明发展出了不同的体系——无论是基于出身（种姓）、道德（儒家）还是法律（法家）——来回答关于社会组织的相同根本问题。",
+    rat_wrong:{A:"Caste, Confucianism, and Legalism represent very different approaches to organizing society, not identical systems.|种姓、儒家与法家代表了截然不同的社会组织方式，而不是完全相同的体系。",C:"Hinduism in South Asia developed its own distinct ideas about social structure, alongside Chinese philosophies.|南亚的印度教与中国哲学一样，发展出了自己独特的社会结构理念。",D:"This week's content shows social structure is deeply tied to religious and philosophical beliefs in both China and India.|本周的内容表明，社会结构在中国和印度都与宗教及哲学信仰有着深刻的联系。"}
+  }
+];
+ 
+var L4_Q = [
+  { id:"l4q1", q:"Who founded Buddhism?", q_cn:"佛教是由谁创立的？",
+    options:["A. Confucius|A. 孔子","B. Siddhartha Gautama|B. 悉达多·乔达摩","C. Laozi|C. 老子","D. Ashoka|D. 阿育王"],
+    correct:"B", rat_right:"Buddhism was founded by Siddhartha Gautama, a prince who gave up royal life to search for the cause of human suffering and became known as the Buddha.|佛教由悉达多·乔达摩创立，他是一位放弃皇室生活去寻找人类苦难根源的王子，后来被称为佛陀。",
+    rat_wrong:{A:"Confucius founded Confucianism in China, not Buddhism.|孔子在中国创立了儒家思想，不是佛教。",C:"Laozi founded Daoism in China, a different tradition from Buddhism.|老子在中国创立了道家思想，这是与佛教不同的传统。",D:"Ashoka was an emperor who later promoted Buddhism, but he did not found the religion.|阿育王是一位后来推崇佛教的皇帝，但他并不是佛教的创立者。"}
+  },
+  { id:"l4q2", q:"What does the term 'Buddha' mean?", q_cn:"【佛陀】这一称号是什么意思？",
+    options:["A. The Awakened One|A. 觉醒者","B. The Great King|B. 伟大的国王","C. The First Emperor|C. 第一位皇帝","D. The Lawgiver|D. 立法者"],
+    correct:"A", rat_right:"'Buddha' means 'the Awakened One,' referring to Siddhartha Gautama's reaching of enlightenment.|【佛陀】意为【觉醒者】，指悉达多·乔达摩达到觉悟的状态。",
+    rat_wrong:{B:"'The Great King' is not the meaning of the title Buddha.|【伟大的国王】不是【佛陀】这一称号的含义。",C:"'The First Emperor' refers to a political title like Qin Shi Huangdi's, unrelated to the Buddha's title.|【第一位皇帝】指的是类似秦始皇这样的政治称号，与佛陀的称号无关。",D:"'The Lawgiver' is not the meaning of the title Buddha.|【立法者】不是【佛陀】这一称号的含义。"}
+  },
+  { id:"l4q3", q:"According to the Four Noble Truths, what is the cause of suffering?", q_cn:"根据四圣谛，苦难的根源是什么？",
+    options:["A. Bad luck|A. 厄运","B. Craving and attachment|B. 渴望与执着","C. Living in a city|C. 居住在城市中","D. Following strict laws|D. 遵循严格的法律"],
+    correct:"B", rat_right:"The Second Noble Truth teaches that suffering comes from craving and attachment.|第二圣谛教导说，苦难来自渴望与执着。",
+    rat_wrong:{A:"Bad luck is not identified as the cause of suffering in the Four Noble Truths.|厄运并不是四圣谛中所指出的苦难根源。",C:"Living in a city is unrelated to the Buddhist explanation of suffering's cause.|居住在城市中与佛教对苦难根源的解释无关。",D:"Following strict laws relates to Legalism, not the Buddhist Four Noble Truths.|遵循严格的法律与法家思想相关，而不是佛教的四圣谛。"}
+  },
+  { id:"l4q4", q:"What is the Noble Eightfold Path?", q_cn:"什么是八正道？",
+    options:["A. A set of Legalist punishments|A. 一套法家的惩罚措施","B. A practical guide for ending suffering, grouped into wisdom, conduct, and mental discipline|B. 一份终结苦难的实践指南，分为智慧、行为与心智修养三个方面","C. A list of Hindu castes|C. 一份印度教种姓的清单","D. A description of Chinese dynasties|D. 对中国王朝的描述"],
+    correct:"B", rat_right:"The Noble Eightfold Path is a practical guide for ending suffering, grouped into wisdom, ethical conduct, and mental discipline.|八正道是一份终结苦难的实践指南，分为智慧、伦理行为与心智修养三个方面。",
+    rat_wrong:{A:"Legalist punishments are part of Chinese Legalism, unrelated to the Buddhist Eightfold Path.|法家的惩罚措施属于中国法家思想，与佛教的八正道无关。",C:"Hindu castes are part of Hindu social structure, not the Buddhist path described here.|印度教种姓属于印度教社会结构的一部分，不是这里所描述的佛教道路。",D:"Chinese dynasties are a separate historical topic, unrelated to the Eightfold Path.|中国王朝是一个独立的历史主题，与八正道无关。"}
+  },
+  { id:"l4q5", q:"What is the Buddhist 'Middle Way'?", q_cn:"佛教的【中道】是什么？",
+    options:["A. A path between extreme luxury and extreme self-denial|A. 介于极端奢华与极端自我克制之间的一条道路","B. A road built by Qin Shi Huangdi|B. 由秦始皇修建的一条道路","C. A trade route across Asia|C. 一条横跨亚洲的贸易路线","D. A type of Hindu caste|D. 一种印度教种姓"],
+    correct:"A", rat_right:"The Middle Way is a balanced path between extreme luxury and extreme self-denial, taught by the Buddha as the most effective route to enlightenment.|中道是介于极端奢华与极端自我克制之间的一条平衡道路，佛陀教导这是通向觉悟最为有效的途径。",
+    rat_wrong:{B:"A road built by Qin Shi Huangdi is part of Chinese infrastructure, unrelated to the Buddhist Middle Way.|秦始皇修建的道路属于中国基础设施的一部分，与佛教的中道无关。",C:"A trade route across Asia describes something like the Silk Road, not the Buddhist concept of balance.|横跨亚洲的贸易路线描述的是类似丝绸之路的事物，不是佛教关于平衡的概念。",D:"A Hindu caste is part of Hindu social structure, unrelated to the Buddhist Middle Way.|印度教种姓属于印度教社会结构的一部分，与佛教的中道无关。"}
+  },
+  { id:"l4q6", q:"What was Ashoka's approach to ruling before he converted to Buddhism?", q_cn:"阿育王在皈依佛教之前的统治方式是怎样的？",
+    options:["A. Peaceful and nonviolent from the start|A. 从一开始就是和平且非暴力的","B. Brutal military conquest|B. 残酷的军事征服","C. He never ruled an empire at all|C. 他从未统治过任何帝国","D. He followed strict Confucian principles|D. 他遵循严格的儒家原则"],
+    correct:"B", rat_right:"Ashoka ruled through brutal military conquest before converting to Buddhism and dramatically changing his approach.|阿育王在皈依佛教并彻底改变其统治方式之前，是通过残酷的军事征服来进行统治的。",
+    rat_wrong:{A:"Ashoka's rule became peaceful and nonviolent only after his conversion, not from the start.|阿育王的统治只是在他皈依之后才变得和平且非暴力，而不是从一开始就是如此。",C:"Ashoka was an emperor of the Maurya Dynasty who ruled a large empire in India.|阿育王是印度孔雀王朝的一位皇帝，统治着一个庞大的帝国。",D:"Ashoka's approach to rule was tied to Indian Buddhist and Maurya traditions, not Chinese Confucianism.|阿育王的统治方式与印度佛教及孔雀王朝传统相关，而不是中国的儒家思想。"}
+  },
+  { id:"l4q7", q:"How did Ashoka's policies change after he converted to Buddhism?", q_cn:"阿育王皈依佛教后，他的政策发生了怎样的变化？",
+    options:["A. He renounced violent expansion and promoted nonviolence and religious tolerance|A. 他放弃了暴力扩张，倡导非暴力与宗教宽容","B. He continued exactly the same military policies|B. 他继续完全相同的军事政策","C. He banned all religions from his empire|C. 他在帝国内禁止了所有宗教","D. He adopted strict Legalist punishments|D. 他采用了严格的法家惩罚措施"],
+    correct:"A", rat_right:"After converting, Ashoka renounced violent expansion and promoted nonviolence and religious tolerance throughout his empire.|皈依后，阿育王放弃了暴力扩张，并在整个帝国内倡导非暴力与宗教宽容。",
+    rat_wrong:{B:"Ashoka's military approach changed dramatically after his conversion, not staying the same.|阿育王皈依后，他的军事方式发生了巨大变化，而不是保持不变。",C:"Ashoka promoted religious tolerance, the opposite of banning all religions.|阿育王倡导宗教宽容，这与禁止所有宗教恰恰相反。",D:"Ashoka moved away from harsh punishment toward Buddhist principles of nonviolence, not toward Legalism.|阿育王从严厉的惩罚转向佛教的非暴力原则，而不是转向法家思想。"}
+  },
+  { id:"l4q8", q:"How did Ashoka help Buddhism spread beyond India?", q_cn:"阿育王是如何帮助佛教传播到印度以外的地方的？",
+    options:["A. By sending missionaries throughout Asia|A. 通过向亚洲各地派遣传教士","B. By keeping Buddhism a secret religion|B. 将佛教保持为一种秘密宗教","C. By forbidding any travel outside India|C. 禁止任何人离开印度旅行","D. By destroying Buddhist temples|D. 摧毁佛教寺庙"],
+    correct:"A", rat_right:"Ashoka sent missionaries throughout Asia, helping Buddhism spread to places like Sri Lanka, Central Asia, and eventually China.|阿育王向亚洲各地派遣传教士，帮助佛教传播到斯里兰卡、中亚，最终传入中国等地。",
+    rat_wrong:{B:"Ashoka actively promoted and spread Buddhism rather than keeping it secret.|阿育王积极推广并传播佛教，而不是将其保密。",C:"Sending missionaries required travel, the opposite of forbidding it.|派遣传教士需要进行旅行，这与禁止旅行恰恰相反。",D:"Ashoka promoted Buddhism after his conversion; he did not destroy Buddhist temples.|阿育王皈依后大力推广佛教，他并没有摧毁佛教寺庙。"}
+  },
+  { id:"l4q9", q:"What does Ashoka's transformation suggest about the relationship between religion and political power?", q_cn:"阿育王的转变说明了宗教与政治权力之间的何种关系？",
+    options:["A. Religion and politics are always completely separate|A. 宗教与政治永远是完全分离的","B. A leader's religious conversion can fundamentally reshape government policy and a region's history|B. 一位领导者的宗教转变可以从根本上重塑政府政策与一个地区的历史","C. Rulers never change their methods of governing|C. 统治者从不改变其治理方式","D. Religious belief has no impact on how empires expand|D. 宗教信仰对帝国的扩张方式没有任何影响"],
+    correct:"B", rat_right:"Ashoka's shift from violent conquest to nonviolence and tolerance shows how a leader's personal religious conversion can reshape government policy and even spread a religion across a continent.|阿育王从暴力征服转向非暴力与宽容，表明一位领导者个人的宗教转变可以重塑政府政策，甚至能够将一种宗教传播至整个大陆。",
+    rat_wrong:{A:"Ashoka's case shows religion and politics were deeply intertwined, not separate.|阿育王的案例表明，宗教与政治紧密交织在一起，而不是相互分离的。",C:"Ashoka is a clear historical example of a ruler dramatically changing his methods of governing.|阿育王是一个明确的历史例子，表明统治者可以彻底改变其治理方式。",D:"Ashoka's religious conversion directly changed his approach to expanding and governing his empire.|阿育王的宗教转变直接改变了他扩张和治理帝国的方式。"}
+  },
+  { id:"l4q10", q:"What broader lesson about the spread of ideas can be drawn from Ashoka's promotion of Buddhism?", q_cn:"从阿育王推广佛教的过程中，可以得出关于思想传播的什么更广泛的教训？",
+    options:["A. Powerful political support can help an idea or belief system spread far beyond its place of origin|A. 强大的政治支持可以帮助一种思想或信仰体系传播到远超其起源地的地方","B. Ideas can never spread without military conquest|B. 思想若没有军事征服就永远无法传播","C. Religious ideas only spread accidentally, with no help from political leaders|C. 宗教思想只会偶然传播，没有政治领导人的帮助","D. Buddhism remained confined entirely to India and never spread elsewhere|D. 佛教完全局限于印度，从未传播到其他地方"],
+    correct:"A", rat_right:"Ashoka's missionary efforts show how political support and resources can help a religion or idea spread well beyond its original homeland.|阿育王的传教努力表明，政治支持和资源可以帮助一种宗教或思想传播到远超其原始故乡的地方。",
+    rat_wrong:{B:"Ashoka actually moved away from military conquest and still successfully spread Buddhism through missionaries.|阿育王实际上放弃了军事征服，却仍然通过传教士成功地传播了佛教。",C:"Ashoka's organized missionary efforts were a deliberate, planned political strategy, not an accident.|阿育王有组织的传教努力是一种刻意、有计划的政治策略，而不是偶然发生的。",D:"Buddhism spread well beyond India into Sri Lanka, Central Asia, and China, as described in this lesson.|正如本课所述，佛教传播到了印度以外的斯里兰卡、中亚和中国等地。"}
+  }
+];
+ 
+var L5_Q = [
+  { id:"l5q1", q:"What was the Silk Road?", q_cn:"丝绸之路是什么？",
+    options:["A. A single paved road built by the Han Dynasty|A. 由汉朝修建的一条单一铺设道路","B. A vast network of overland and maritime trade routes connecting China to the Mediterranean world|B. 一个连接中国与地中海世界的庞大陆路与海路贸易网络","C. A wall built to keep out invaders|C. 一座用于抵御入侵者的城墙","D. A religious pilgrimage site in India|D. 印度的一处宗教朝圣地"],
+    correct:"B", rat_right:"The Silk Road was not a single road but a vast network of overland and maritime trade routes connecting China, Central Asia, India, Persia, the Middle East, and the Mediterranean world.|丝绸之路并不是一条单一的道路，而是一个连接中国、中亚、印度、波斯、中东与地中海世界的庞大陆路与海路贸易网络。",
+    rat_wrong:{A:"The Silk Road was a network of many routes, not a single paved road.|丝绸之路是由许多路线组成的网络，不是一条单一铺设的道路。",C:"A defensive wall describes the Great Wall, not the Silk Road.|防御性城墙描述的是长城，不是丝绸之路。",D:"A pilgrimage site is unrelated to the Silk Road's role as a trade network.|朝圣地与丝绸之路作为贸易网络的角色无关。"}
+  },
+  { id:"l5q2", q:"During which dynasty did the Silk Road especially flourish?", q_cn:"丝绸之路在哪个王朝时期尤为繁荣？",
+    options:["A. Shang Dynasty|A. 商朝","B. Zhou Dynasty|B. 周朝","C. Qin Dynasty|C. 秦朝","D. Han Dynasty|D. 汉朝"],
+    correct:"D", rat_right:"The Silk Road flourished especially during the Han Dynasty, when Chinese silk and goods traveled west while glass, wool, horses, and metals traveled east.|丝绸之路在汉朝时期尤为繁荣，当时中国的丝绸和商品向西流通，而玻璃、羊毛、马匹和金属则向东流通。",
+    rat_wrong:{A:"The Shang Dynasty predates this period of Silk Road trade described in the lesson.|商朝早于本课所描述的丝绸之路贸易时期。",B:"The Zhou Dynasty's later years were marked by the Warring States period, not the height of Silk Road trade.|周朝后期以战国时期为标志，而不是丝绸之路贸易的鼎盛期。",C:"The Qin Dynasty was short-lived and focused on unification, not the flourishing of Silk Road trade described here.|秦朝存续时间短，重点在于统一，而不是本课所描述的丝绸之路贸易的繁荣。"}
+  },
+  { id:"l5q3", q:"Besides goods, what else traveled along the Silk Road?", q_cn:"除了商品之外，丝绸之路上还传播了什么？",
+    options:["A. Religion, technology, and disease|A. 宗教、技术与疾病","B. Nothing besides physical trade goods|B. 除了实物贸易商品之外什么都没有","C. Only military weapons|C. 只有军事武器","D. Only currency|D. 只有货币"],
+    correct:"A", rat_right:"The Silk Road carried far more than goods — it was a major channel for the spread of religion, technology, language, and disease across Eurasia.|丝绸之路所传播的远不止商品——它是宗教、技术、语言和疾病在欧亚大陆传播的重要渠道。",
+    rat_wrong:{B:"The Silk Road carried much more than physical goods, including ideas and diseases.|丝绸之路所传播的远不止实物商品，还包括思想和疾病。",C:"Military weapons are not specifically highlighted as a major category of Silk Road exchange in this lesson.|本课并未将军事武器特别强调为丝绸之路交流的主要类别。",D:"Currency exchange alone does not capture the full range of exchange described, which included religion and technology.|仅仅货币交流并不能涵盖本课所描述的全部交流范围，其中还包括宗教与技术。"}
+  },
+  { id:"l5q4", q:"Which religion is described as traveling from India into Central Asia and China along Silk Road routes?", q_cn:"哪种宗教被描述为沿丝绸之路从印度传入中亚和中国？",
+    options:["A. Confucianism|A. 儒家思想","B. Daoism|B. 道家思想","C. Buddhism|C. 佛教","D. Legalism|D. 法家思想"],
+    correct:"C", rat_right:"Buddhism traveled from India into Central Asia and China along Silk Road routes.|佛教沿丝绸之路从印度传入中亚和中国。",
+    rat_wrong:{A:"Confucianism originated in China itself, rather than traveling into China from elsewhere via the Silk Road.|儒家思想起源于中国本土，而不是通过丝绸之路从其他地方传入中国。",B:"Daoism also originated in China, rather than being a religion that traveled into China.|道家思想同样起源于中国本土，而不是一种传入中国的宗教。",D:"Legalism is a Chinese philosophy, not a religion that spread via Silk Road trade routes.|法家思想是一种中国哲学，不是通过丝绸之路贸易路线传播的宗教。"}
+  },
+  { id:"l5q5", q:"What technology is described as moving from China toward the West along the Silk Road?", q_cn:"哪项技术被描述为沿丝绸之路从中国传向西方？",
+    options:["A. Papermaking|A. 造纸术","B. The wheel|B. 轮子","C. Bronze casting|C. 青铜铸造","D. Irrigation canals|D. 灌溉渠"],
+    correct:"A", rat_right:"Innovations like papermaking eventually moved from China toward the West along Silk Road routes.|造纸术等创新最终沿丝绸之路从中国传向西方。",
+    rat_wrong:{B:"The wheel is not the technology highlighted in this lesson as moving from China to the West.|轮子不是本课中所强调的从中国传向西方的技术。",C:"Bronze casting is not specifically mentioned in this lesson's discussion of Silk Road technology exchange.|青铜铸造并未在本课关于丝绸之路技术交流的讨论中被特别提及。",D:"Irrigation canals are not the technology described in this lesson as spreading westward.|灌溉渠不是本课中所描述的向西传播的技术。"}
+  },
+  { id:"l5q6", q:"How did the Silk Road connect the different civilizations studied this week?", q_cn:"丝绸之路是如何连接本周所学习的各个文明的？",
+    options:["A. It had no connection to any of them|A. 它与其中任何一个文明都没有联系","B. It physically linked Han China, South Asian religions, and the Persian/Mediterranean world into one connected system|B. 它将汉代中国、南亚宗教与波斯/地中海世界物理性地连接成一个统一的系统","C. It only connected ancient Rome and Greece|C. 它只连接了古罗马和古希腊","D. It replaced all other forms of contact between civilizations|D. 它取代了文明之间所有其他形式的接触"],
+    correct:"B", rat_right:"The Silk Road physically linked civilizations studied separately this week — Han China, the religions of South Asia, and the wider Persian and Mediterranean world — into a single connected system of exchange.|丝绸之路将本周分别学习的文明——汉代中国、南亚的宗教，以及更广泛的波斯与地中海世界——物理性地连接成一个统一的交流体系。",
+    rat_wrong:{A:"The Silk Road is described as a direct physical connection between these civilizations, not a lack of connection.|丝绸之路被描述为这些文明之间的直接物理连接，而不是缺乏联系。",C:"The Silk Road's connections extended well beyond just Rome and Greece, including China, India, and Persia.|丝绸之路的连接范围远不止罗马和希腊，还包括中国、印度和波斯。",D:"The Silk Road was one important channel of contact alongside others, not a total replacement for all contact.|丝绸之路是众多接触渠道中的一个重要渠道，而不是取代了所有其他形式的接触。"}
+  },
+  { id:"l5q7", q:"Which philosophy taught that order comes from moral virtue and proper relationships?", q_cn:"哪种哲学思想认为秩序来自道德修养与正确的人际关系？",
+    options:["A. Legalism|A. 法家思想","B. Confucianism|B. 儒家思想","C. Daoism|C. 道家思想","D. Buddhism|D. 佛教"],
+    correct:"B", rat_right:"Confucianism taught that social order comes from moral virtue, proper relationships, and respect for hierarchy.|儒家思想认为社会秩序来自道德修养、正确的人际关系以及对等级的尊重。",
+    rat_wrong:{A:"Legalism taught that order comes from strict laws and harsh punishment, not moral virtue.|法家思想认为秩序来自严格的法律和严厉的惩罚，而不是道德修养。",C:"Daoism taught that order comes from harmony with the natural Dao, not specifically moral relationships.|道家思想认为秩序来自与自然之道的和谐，而不是特定的道德关系。",D:"Buddhism focuses on personal liberation from suffering, not specifically on social order through relationships.|佛教关注的是个人从苦难中解脱，而不是特指通过人际关系建立社会秩序。"}
+  },
+  { id:"l5q8", q:"How did Hinduism organize Indian society, according to this week's lessons?", q_cn:"根据本周的课程，印度教如何组织印度社会？",
+    options:["A. Through caste and dharma|A. 通过种姓与达摩","B. Through strict Legalist law codes|B. 通过严格的法家法典","C. Through wu wei and government withdrawal|C. 通过无为与政府的退场","D. Through the Noble Eightfold Path|D. 通过八正道"],
+    correct:"A", rat_right:"Hinduism organized Indian society through the concepts of caste (social class) and dharma (duty/righteous living).|印度教通过种姓（社会阶层）与达摩（责任/正当的生活方式）这两个概念来组织印度社会。",
+    rat_wrong:{B:"Legalist law codes were a Chinese approach to order, not a Hindu one.|法家法典是中国的一种治理方式，不是印度教的方式。",C:"Wu wei is a Daoist Chinese concept, not part of how Hinduism organized society.|无为是道家的中国概念，不是印度教组织社会的方式。",D:"The Noble Eightfold Path is a Buddhist concept focused on personal enlightenment, not the social organization of Hindu society.|八正道是佛教概念，专注于个人觉悟，不是印度教社会组织的方式。"}
+  },
+  { id:"l5q9", q:"What is one common theme connecting Confucianism, Legalism, Daoism, Hinduism, and Buddhism, despite their differences?", q_cn:"尽管儒家、法家、道家、印度教和佛教存在差异，它们之间有什么共同的主题？",
+    options:["A. They all originated in exactly the same place and time|A. 它们都起源于完全相同的地点和时间","B. They each try to answer questions about how people should live and how society should be organized|B. 它们都试图回答关于人应如何生活以及社会应如何组织的问题","C. They all reject the idea of government entirely|C. 它们都完全否定政府这一概念","D. They have no relationship to the historical events studied this week|D. 它们与本周所学的历史事件没有任何关系"],
+    correct:"B", rat_right:"Despite their differences, all five traditions wrestle with the shared question of how individuals should live and how society should be organized.|尽管这五种思想传统存在差异，它们都在探讨一个共同的问题：个人应如何生活，社会应如何组织。",
+    rat_wrong:{A:"These traditions arose in different places (China and India) and at different times, not the same place and time.|这些思想传统产生于不同的地点（中国和印度）和不同的时间，而不是相同的地点和时间。",C:"Confucianism, Legalism, and other traditions actually offer detailed views on how government should function, not a rejection of government.|儒家、法家等思想实际上对政府应如何运作提出了详细的见解，而不是否定政府本身。",D:"These philosophies directly shaped the historical events and dynasties studied this week, such as the Han adoption of Confucianism.|这些哲学思想直接塑造了本周所学的历史事件与王朝，例如汉朝采纳儒家思想。"}
+  },
+  { id:"l5q10", q:"What is the broader takeaway from comparing all the systems of order studied this week?", q_cn:"通过比较本周所学的所有秩序体系，可以得出什么更广泛的结论？",
+    options:["A. There is only one correct way to organize a society, and all civilizations eventually adopted it|A. 只有一种正确的社会组织方式，所有文明最终都采用了它","B. Civilizations facing similar questions about order and stability can arrive at very different answers shaped by their own values and circumstances|B. 面对关于秩序与稳定的相似问题，各文明可能因自身的价值观与处境而得出截然不同的答案","C. Trade routes like the Silk Road had no impact on the spread of these ideas|C. 像丝绸之路这样的贸易路线对这些思想的传播没有任何影响","D. None of these philosophies or religions had any lasting impact on history|D. 这些哲学或宗教都没有对历史产生任何持久的影响"],
+    correct:"B", rat_right:"Comparing Confucianism, Legalism, Daoism, Hinduism, and Buddhism shows that civilizations facing similar questions about social order can develop very different answers shaped by their own values, history, and circumstances.|比较儒家、法家、道家、印度教与佛教表明，面对关于社会秩序的相似问题，各文明可能因自身的价值观、历史与处境而发展出截然不同的答案。",
+    rat_wrong:{A:"This week's content shows multiple different systems coexisting and competing, not a single universally adopted answer.|本周的内容表明，多种不同的体系同时存在并相互竞争，而不是只有一种被普遍采纳的答案。",C:"The Silk Road is specifically described as a major channel for spreading religion and ideas like Buddhism.|丝绸之路被特别描述为传播宗教与佛教等思想的重要渠道。",D:"Confucianism shaped Han government, Buddhism spread across Asia, and the caste system shaped Indian society for centuries — all lasting impacts.|儒家思想塑造了汉朝政府，佛教传播至整个亚洲，种姓制度数百年来塑造了印度社会——这些都是持久的影响。"}
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var allAnswered = Object.keys(storeMap[tabKey]).length === qMap[tabKey].length;
+  var hasRef1 = ref1 && ref1.value.trim().length > 0;
+  var hasRef2 = ref2 && ref2.value.trim().length > 0;
+  var hasGrat = grat && grat.value.trim().length > 0;
+  if (allAnswered && hasRef1 && hasRef2 && hasGrat) {
+    btn.classList.add('ready');
+    btn.disabled = false;
+    hint.style.display = 'none';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1','Ref2','Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Zhou, Qin and Han Dynasties and Confucianism',
+    l2: 'Legalism, Qin Shi Huangdi, and Daoism',
+    l3: 'Hinduism, Caste System, and Hindu Texts',
+    l4: 'Buddhism, Four Noble Truths, and Emperor Ashoka',
+    l5: 'The Silk Road and Week 1 Synthesis'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 6\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + (document.getElementById(tabKey+'Ref1').value) + '\n\n';
+  txt += 'Reflection 2:\n' + (document.getElementById(tabKey+'Ref2').value) + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + document.getElementById(tabKey+'Grat').value + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day6_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
