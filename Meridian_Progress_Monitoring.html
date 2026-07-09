@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian Progress Monitoring | Oral Reading Fluency · MLWS</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--mist); color:var(--ink); line-height:1.6; }
+.cn { font-family:'Noto Sans SC',sans-serif; }
+h1,h2,h3 { font-family:'Literata',serif; color:var(--ml-green-dark); }
+
+/* ============ HEADER ============ */
+header {
+  background:linear-gradient(135deg, var(--ml-green-dark) 0%, var(--ml-green) 100%);
+  color:#fff; padding:24px 22px 16px; text-align:center;
+}
+header .leaf { font-size:1.6rem; }
+header h1 { color:#fff; font-size:1.5rem; margin:4px 0 2px; letter-spacing:0.02em; }
+header .sub { font-size:0.92rem; opacity:0.92; }
+header .cn-sub { font-family:'Noto Sans SC',sans-serif; font-size:0.85rem; opacity:0.85; margin-top:2px; }
+.meta-strip {
+  display:flex; justify-content:center; gap:14px; flex-wrap:wrap;
+  margin-top:12px; font-size:0.78rem; opacity:0.95;
+}
+.meta-strip span { background:rgba(255,255,255,0.14); padding:3px 12px; border-radius:20px; }
+
+main { max-width:920px; margin:0 auto; padding:26px 18px 90px; }
+.screen { display:none; animation:fadein .35s ease; }
+.screen.active { display:block; }
+@keyframes fadein { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none;} }
+
+.section-kicker {
+  font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--ml-green); font-weight:700; margin-bottom:4px;
+}
+.screen > h2 { font-size:1.45rem; margin-bottom:2px; }
+.h2-cn { font-family:'Noto Sans SC',sans-serif; color:var(--ink2); font-size:0.92rem; margin-bottom:18px; }
+
+.card {
+  background:#fff; border:1px solid var(--border); border-radius:14px;
+  padding:20px 22px; margin-bottom:18px; box-shadow:0 1px 4px rgba(27,67,50,0.05);
+}
+.card h3 { font-size:1.05rem; margin-bottom:8px; }
+
+.callout {
+  border-left:5px solid var(--ml-gold); background:var(--amber-light);
+  border-radius:0 10px 10px 0; padding:12px 16px; margin:12px 0; font-size:0.9rem;
+}
+.callout.green { border-left-color:var(--ml-green); background:var(--ml-green-light); }
+
+.field-row { margin:14px 0; }
+.field-row label { display:block; font-weight:600; font-size:0.9rem; margin-bottom:5px; color:var(--ml-green-dark); }
+input[type=text], select, textarea {
+  width:100%; border:2px solid var(--border); border-radius:10px; padding:10px 13px;
+  font-family:'DM Sans',sans-serif; font-size:0.95rem; color:var(--ink); background:#fff;
+  transition:border-color .2s;
+}
+input:focus, select:focus, textarea:focus { outline:none; border-color:var(--ml-green); }
+textarea { min-height:120px; resize:vertical; line-height:1.55; }
+
+.btn {
+  border:none; border-radius:26px; padding:11px 24px; font-family:'DM Sans',sans-serif;
+  font-size:0.92rem; font-weight:700; cursor:pointer; transition:all .18s;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.btn-primary { background:var(--ml-green); color:#fff; }
+.btn-primary:hover { background:var(--ml-green-dark); }
+.btn-gold { background:var(--ml-gold); color:var(--ml-green-dark); }
+.btn-gold:hover { filter:brightness(0.95); }
+.btn-red { background:var(--ml-red); color:#fff; }
+.btn-red:hover { background:#9b0e18; }
+.btn-outline { background:#fff; color:var(--ml-green-dark); border:2px solid var(--ml-green); }
+.btn-outline:hover { background:var(--ml-green-light); }
+.btn:disabled { opacity:0.45; cursor:not-allowed; }
+.btn-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
+
+/* ============ TIMER PANEL ============ */
+.timer-panel {
+  position:sticky; top:0; z-index:900;
+  background:#fff; border-bottom:3px solid var(--ml-green);
+  padding:12px 16px; display:flex; align-items:center; justify-content:center;
+  gap:22px; flex-wrap:wrap; box-shadow:0 2px 8px rgba(27,67,50,0.08);
+  border-radius:0 0 14px 14px; margin-bottom:20px;
+}
+.timer-display {
+  font-family:'Literata',serif; font-weight:700; font-size:3.4rem;
+  color:var(--ml-green-dark); letter-spacing:0.04em; min-width:160px; text-align:center;
+  font-variant-numeric:tabular-nums; line-height:1;
+}
+.timer-display.warning { color:var(--amber); }
+.timer-display.danger { color:var(--ml-red); animation:pulse 1s infinite; }
+.timer-display.done { color:var(--ml-red); }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.55;} }
+.timer-btns { display:flex; gap:8px; flex-wrap:wrap; }
+.student-chip {
+  background:var(--ml-green-light); color:var(--ml-green-dark); font-weight:700;
+  padding:5px 14px; border-radius:20px; font-size:0.82rem;
+}
+
+/* ============ PASSAGE ============ */
+.passage-title { font-family:'Literata',serif; font-size:1.35rem; color:var(--ml-green-dark); margin-bottom:2px; }
+.passage-meta { font-size:0.8rem; color:var(--ink2); margin-bottom:14px; }
+.passage-box {
+  background:#fff; border:1px solid var(--border); border-radius:14px;
+  padding:26px 30px; font-size:1.35rem; line-height:2.3;
+  font-family:'Literata',serif; color:var(--ink); box-shadow:0 1px 4px rgba(27,67,50,0.05);
+}
+.w {
+  cursor:pointer; padding:1px 4px; border-radius:6px; transition:background .12s;
+  -webkit-user-select:none; user-select:none;
+}
+.w:hover { background:#eef5ef; }
+.w.missed { background:var(--ml-gold); }
+.w.skipped { background:#fde2e4; text-decoration:line-through; text-decoration-color:var(--ml-red); text-decoration-thickness:2.5px; }
+.w.beyond { opacity:0.28; }
+.w.lastword { outline:3px solid var(--cobalt); outline-offset:1px; border-radius:6px; }
+.passage-box.markmode .w:hover { background:#dbe7f3; outline:2px dashed var(--cobalt); }
+
+.legend { display:flex; gap:18px; flex-wrap:wrap; margin:12px 2px 0; font-size:0.82rem; color:var(--ink2); }
+.legend .chip { display:inline-block; width:14px; height:14px; border-radius:4px; margin-right:5px; vertical-align:-2px; }
+
+.markmode-banner {
+  background:var(--cobalt); color:#fff; border-radius:10px; padding:12px 18px;
+  margin:14px 0; font-weight:600; font-size:0.95rem; display:none;
+}
+.markmode-banner.show { display:block; animation:fadein .3s; }
+
+/* ============ RESULTS ============ */
+.metric-row { display:flex; gap:14px; flex-wrap:wrap; margin:16px 0; }
+.metric {
+  flex:1 1 150px; background:#fff; border:1px solid var(--border); border-top:5px solid var(--ml-green);
+  border-radius:12px; padding:16px 14px; text-align:center;
+}
+.metric.gold { border-top-color:var(--ml-gold); }
+.metric.red { border-top-color:var(--ml-red); }
+.metric.blue { border-top-color:var(--cobalt); }
+.metric .num { font-family:'Literata',serif; font-size:2.1rem; font-weight:700; color:var(--ml-green-dark); line-height:1.1; }
+.metric .lbl { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink2); font-weight:700; margin-top:4px; }
+
+.word-tags { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0; }
+.wtag { padding:4px 12px; border-radius:16px; font-size:0.85rem; font-weight:600; }
+.wtag.miss { background:var(--ml-gold); color:var(--ml-green-dark); }
+.wtag.skip { background:#fde2e4; color:var(--ml-red); text-decoration:line-through; }
+
+table.session { width:100%; border-collapse:collapse; margin:12px 0; font-size:0.85rem; }
+table.session th { background:var(--ml-green-dark); color:#fff; text-align:left; padding:9px 12px; }
+table.session td { border:1px solid var(--border); padding:8px 12px; vertical-align:top; background:#fff; }
+table.session tr:nth-child(even) td { background:var(--mist); }
+.empty-note { font-size:0.88rem; color:var(--ink2); font-style:italic; }
+
+footer {
+  text-align:center; padding:22px; font-size:0.78rem; color:var(--ink2);
+  border-top:1px solid var(--border); margin-top:30px; background:#fff;
+}
+@media (max-width:640px){
+  .passage-box { font-size:1.15rem; padding:20px 18px; line-height:2.2; }
+  .timer-display { font-size:2.6rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="leaf">🍁</div>
+  <h1>Meridian Progress Monitoring</h1>
+  <div class="sub">Oral Reading Fluency Tracker · One-Minute Timed Reads</div>
+  <div class="cn-sub">口语朗读流利度评估 · 一分钟计时朗读</div>
+  <div class="meta-strip">
+    <span>Maple Leaf World School</span>
+    <span>K–12 Leveled Passages</span>
+    <span>Theme: The Journey · 旅程</span>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= SCREEN 1: SETUP ================= -->
+<section class="screen active" id="scr-setup">
+  <div class="section-kicker">Step 1 of 3</div>
+  <h2>Student Setup</h2>
+  <div class="h2-cn">学生信息 · Select the student and passage, then begin the timed read.</div>
+
+  <div class="card">
+    <div class="field-row">
+      <label for="inp-period">Class Period</label>
+      <select id="inp-period">
+        <option value="">— Select period —</option>
+        <option>Period 1</option><option>Period 2</option><option>Period 3</option>
+        <option>Period 4</option><option>Period 5</option><option>Period 6</option>
+        <option>Period 7</option><option>Period 8</option>
+        <option>Homeroom</option><option>Summer Intensive</option>
+      </select>
+    </div>
+    <div class="field-row">
+      <label for="inp-name">Student Name</label>
+      <input type="text" id="inp-name" placeholder="e.g., Wang Xiaoming (Kevin)" autocomplete="off">
+    </div>
+    <div class="field-row">
+      <label for="inp-passage">Passage — Reading Level</label>
+      <select id="inp-passage"></select>
+      <div style="font-size:0.8rem;color:var(--ink2);margin-top:5px;">All twelve passages share one theme — <b>The Journey</b> — written for Chinese high school English learners. Pick the level that matches the student's instructional reading level, not their grade.</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" id="btn-begin">Begin Timed Read →</button>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <b>How coding works during the read:</b> click a word <b>once</b> = missed / misread (yellow). Click <b>twice</b> = skipped (line-through). Click a <b>third time</b> to clear a mistake. When the minute ends, you'll click the <b>last word the student read</b>.
+  </div>
+</section>
+
+<!-- ================= SCREEN 2: READING ================= -->
+<section class="screen" id="scr-read">
+  <div class="timer-panel">
+    <div>
+      <div class="timer-display" id="timer">1:00</div>
+    </div>
+    <div>
+      <div class="student-chip" id="chip-student">—</div>
+      <div class="timer-btns" style="margin-top:8px;">
+        <button class="btn btn-primary" id="btn-start">▶ Start</button>
+        <button class="btn btn-gold" id="btn-pause" disabled>⏸ Stop</button>
+        <button class="btn btn-outline" id="btn-reset">↺ Reset</button>
+        <button class="btn btn-red" id="btn-finish" disabled>Finish ✔</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="passage-title" id="p-title"></div>
+  <div class="passage-meta" id="p-meta"></div>
+
+  <div class="markmode-banner" id="mark-banner">
+    👉 Timer finished. <b>Click the LAST word the student read.</b> If the student finished the whole passage, use the button below. · 请点击学生读到的最后一个词。
+  </div>
+
+  <div class="passage-box" id="p-box"></div>
+
+  <div class="legend">
+    <span><span class="chip" style="background:var(--ml-gold);"></span>1 click = missed word</span>
+    <span><span class="chip" style="background:#fde2e4;border:1px solid var(--ml-red);"></span>2 clicks = skipped word</span>
+    <span><span class="chip" style="background:#fff;border:2px solid var(--cobalt);"></span>Last word read</span>
+    <span>3rd click clears a mark</span>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-outline" id="btn-finished-all" style="display:none;">Student finished the whole passage ✓</button>
+    <button class="btn btn-primary" id="btn-results" style="display:none;">See Results →</button>
+    <button class="btn btn-outline" id="btn-back-setup">← Back to Setup</button>
+  </div>
+</section>
+
+<!-- ================= SCREEN 3: RESULTS ================= -->
+<section class="screen" id="scr-results">
+  <div class="section-kicker">Step 3 of 3</div>
+  <h2>Results</h2>
+  <div class="h2-cn" id="res-sub">评估结果</div>
+
+  <div class="metric-row">
+    <div class="metric"><div class="num" id="m-fluency">—</div><div class="lbl">Fluency (Accuracy) %</div></div>
+    <div class="metric gold"><div class="num" id="m-wpm">—</div><div class="lbl">WPM (correct/min)</div></div>
+    <div class="metric blue"><div class="num" id="m-read">—</div><div class="lbl">Words Read</div></div>
+    <div class="metric red"><div class="num" id="m-err">—</div><div class="lbl">Errors</div></div>
+  </div>
+
+  <div class="card">
+    <h3>Coded Words</h3>
+    <div style="font-size:0.85rem;color:var(--ink2);margin-bottom:6px;">Missed (yellow) and skipped (struck) words from this read:</div>
+    <div class="word-tags" id="res-words"><span class="empty-note">No errors coded — clean read! 🎉</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Teacher Comments <span style="font-weight:400;font-size:0.8rem;color:var(--ink2);">(auto-generated — edit before saving if you like)</span></h3>
+    <textarea id="res-comments"></textarea>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-primary" id="btn-save">💾 Save Student & Assess Next</button>
+    <button class="btn btn-gold" id="btn-csv">⬇ Download Session CSV</button>
+    <button class="btn btn-outline" id="btn-redo">↺ Redo This Read</button>
+  </div>
+
+  <div class="card" style="margin-top:22px;">
+    <h3>Session Roster <span style="font-weight:400;font-size:0.8rem;color:var(--ink2);">(everything below goes into the CSV)</span></h3>
+    <div style="overflow-x:auto;">
+      <table class="session">
+        <thead><tr><th>Date</th><th>Period</th><th>Name</th><th>Fluency %</th><th>WPM</th><th>Comments</th></tr></thead>
+        <tbody id="session-body">
+          <tr><td colspan="6" class="empty-note">No students saved yet this session.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  🍁 Meridian Progress Monitoring · Maple Leaf World School · Built on the Meridian Assessment suite<br>
+  Structured Literacy foundations: phonology · orthography · morphology · syntax · prosody
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ==================== PASSAGES — Theme: The Journey ==================== */
+var PASSAGES = [
+{lvl:"Level K", title:"The Train", text:"I see a train. The train is red. It is a big train. The train can go fast. I get on the train. I sit down. Mom sits with me. We look out. I see a dog. I see a tree. I see a bus. The train goes and goes. We are happy. I like the train. The train takes us home."},
+{lvl:"Grade 1", title:"Going to School", text:"Li Hua gets up at six. The sun is not up yet. She eats rice and an egg. Then she gets her big bag. Her bag is full of books. She walks to the bus stop with her friend. The bus is long and blue. They get on and find a seat. They talk about the math test. Out the window, the city wakes up. The bus stops at the school gate. Li Hua smiles and says, \"A new day! Let's go!\" She likes school very much."},
+{lvl:"Grade 2", title:"The Dumpling Shop", text:"Every Sunday, Ming walks to his uncle's dumpling shop. The shop is small, but it is always warm and busy. Ming helps his uncle roll the dough into little circles. Then they put pork and cabbage inside each one. His uncle can fold a dumpling in three seconds! Ming is much slower, but he is getting better every week. When the dumplings are ready, they eat together by the window. Ming watches people hurry past on the street outside. \"One day,\" he says, \"I will open my own shop in a big city.\" His uncle laughs and gives him one more dumpling. The walk home always feels shorter after a good meal."},
+{lvl:"Grade 3", title:"The High-Speed Train", text:"Last summer, Wei took the high-speed train from Dalian to Beijing for the very first time. His father bought the tickets on his phone, and they waited on the bright platform with their suitcases. When the white train slid into the station, Wei could not believe how long and shiny it was. Inside, the seats were soft, and a screen showed the speed: three hundred kilometers per hour! The farms and towns outside the window turned into green and gray ribbons. Wei tried to count the tunnels, but he lost track after twelve. His father told him stories about slow trains from long ago that took two whole days. Wei looked at the racing clouds and thought about how fast his own life was moving, too. In less than five hours, they arrived in the capital city, ready for a new adventure."},
+{lvl:"Grade 4", title:"A New City", text:"When Lin's family moved from a small town to a big coastal city, everything felt different. The buildings were taller, the streets were louder, and the air smelled like the sea. On her first morning, Lin got lost trying to find the bakery her mother wanted. She was too shy to ask strangers for directions, so she walked in circles for twenty minutes. Finally, an old woman sweeping her doorstep noticed Lin's worried face and pointed the way with her broom. That small kindness changed how Lin saw the city. Over the next weeks, she made a map in her notebook of every friendly place: the bakery, the bookshop, the park with the stone bridge. Slowly, the strange streets started to feel like her streets. Moving to a new place, Lin decided, is like reading a difficult book. The first chapter is confusing, but if you keep going, the story becomes yours. By winter, when visitors came, Lin was the one giving directions."},
+{lvl:"Grade 5", title:"The English Notebook", text:"Chen kept a secret notebook in the bottom of his schoolbag. It was not for math or science. It was for English words that he collected the way other students collected basketball cards. Whenever he heard a new word in a movie, a song, or a class, he wrote it down with a small drawing beside it. The word \"journey\" got a picture of a winding road. The word \"courage\" got a tiny lion. At first, his classmates laughed at the messy pages, but Chen did not stop. He noticed something interesting: words were like train stations, and each new one connected him to three or four others. \"Travel\" led to \"traveler\" and \"traveling.\" \"Care\" led to \"careful\" and \"careless.\" By the end of the year, the notebook held over six hundred words, and Chen could feel the difference when he read. Passages that once looked like walls now looked like doors. His teacher asked to show the notebook to the whole class. This time, nobody laughed. Three students started notebooks of their own the very next day."},
+{lvl:"Grade 6", title:"Going Home for Spring Festival", text:"Every January, Yan and her parents join the largest human migration on Earth: the journey home for Spring Festival. Her family lives and works in Shenzhen, but her grandparents' village sits far to the north, where winter paints the fields white. The trip takes a high-speed train, a slow bus, and finally a bumpy ride in her uncle's truck. Yan used to complain about the long hours, the crowded stations, and the heavy bags of gifts. But last year, something changed. As the train rolled through the darkness, she watched her tired father sleep with a smile on his face, still holding the red envelopes he had prepared. She understood, suddenly, that the journey itself was part of the gift. When they finally reached the village, her grandmother was waiting at the gate in the cold, exactly where she stood every year. The smell of dumplings and firewood floated from the kitchen. Distance, Yan realized, is not measured only in kilometers. It is measured in how much you are willing to travel for the people you love. This year, she packed the bags without a single complaint and even offered to carry the heaviest one."},
+{lvl:"Grade 7", title:"The Exchange Student", text:"When Marcus arrived from Canada to spend a semester at the school, everyone expected him to teach them about English. Nobody expected how much he would need to learn. On his first day, Marcus confidently ordered lunch in the cafeteria and received four bowls of soup instead of one bowl of noodles. The students laughed, but kindly, and Zhang Rui stepped forward to rescue him. From that day, the two became language partners. Zhang Rui helped Marcus survive the market, the bus system, and the mystery of chopsticks. In return, Marcus explained why English speakers say \"break a leg\" when they mean \"good luck,\" and why \"read\" and \"read\" look identical but sound completely different. Both boys discovered the same truth from opposite directions: a language is not a list of words to memorize but a country to explore. Some paths are smooth, some are muddy, and everyone gets lost sometimes. By December, Marcus could bargain for fruit in respectable Chinese, and Zhang Rui was dreaming in English at least once a week. At the farewell dinner, Marcus gave a short speech in Chinese. He made three grammar mistakes and nobody cared, because every sentence carried something more important than perfection: it carried friendship across an entire ocean."},
+{lvl:"Grade 8", title:"Two Languages, One Voice", text:"Xiao Mei used to believe she had two separate brains. Her Chinese brain was quick, funny, and full of opinions. Her English brain, she thought, was slow and clumsy, always arriving late to the conversation like a passenger running for a departing train. In Chinese, she could argue, joke, and persuade. In English, she felt reduced to simple sentences about weather and homework. Her turning point came during a school debate on technology. Halfway through her argument, she forgot the English word \"consequence.\" Instead of freezing, she rebuilt the idea from smaller parts: \"the result that follows a choice.\" The judges nodded. Her teacher later told her something she never forgot: \"Fluency is not knowing every word. Fluency is finding another road when the first road is blocked.\" Xiao Mei began to treat English less like an examination and more like a journey through unfamiliar territory, where wrong turns still teach you the map. She kept a list of her most useful detours: describing a word she could not remember, borrowing a simpler synonym, restarting a tangled sentence without embarrassment. Gradually, her two brains began working as partners rather than strangers. The day she caught herself making a joke in English, and hearing real laughter, she understood that she did not have two brains after all. She had one voice, learning to sing in two languages."},
+{lvl:"Grade 9", title:"The Old Silk Road", text:"Two thousand years before airplanes and container ships, merchants guided camel caravans across deserts and mountain passes on the network of routes we now call the Silk Road. The journey from Chang'an, today's Xi'an, to the markets of Central Asia and beyond could consume months of dangerous travel. Sandstorms buried trails, bandits haunted the narrow passes, and winter in the mountains showed no mercy to the unprepared. Yet the caravans kept moving, because the road carried far more than silk. Traders exchanged porcelain, spices, glass, paper, and horses, but they also exchanged something invisible and more valuable: knowledge. Mathematical ideas, medical techniques, musical instruments, and entire religions traveled the same dusty paths as the merchandise. A melody first played in Persia might echo, decades later, in a Chinese court. The travelers themselves were transformed by the journey. A merchant who crossed the Taklamakan Desert returned home with new languages on his tongue and new questions in his mind. Historians argue that these exchanges quietly shaped the modern world more than any single empire or army. Today's students, connecting across continents through fiber-optic cables instead of caravan routes, are heirs to that ancient conversation. The lesson of the Silk Road endures: civilizations grow not by building walls around what they know, but by carrying their knowledge outward and welcoming what returns. Every language learner walks a small Silk Road of their own, trading effort for understanding, one difficult mile at a time."},
+{lvl:"Grade 10", title:"Crossing Bridges", text:"The city of Dalian curls around its harbor like a question mark, and from the hills above Xinghai Square you can watch cargo ships stitch the horizon to ports on the far side of the Pacific. For Tang Yue, a tenth grader with a worn dictionary and an unreasonable dream of studying marine biology abroad, those ships were a daily provocation. They departed so easily; she felt anchored. Her obstacle was not intelligence but translation, the exhausting labor of moving her sophisticated thoughts across the narrow bridge of her English vocabulary. In Chinese, she could explain ocean acidification with precision and even elegance. In English, her explanations collapsed into fragments, and teachers who could not hear her real mind graded the fragments instead. Rather than surrender, Tang Yue redesigned her approach. She stopped memorizing isolated word lists and started studying how English words were constructed: the prefix that signals opposition, the suffix that converts an action into an idea, the Latin root that surfaces in fifty scientific terms. Morphology became her engineering manual. When she encountered \"unsustainable,\" she no longer saw an intimidating stranger but a machine with three visible parts. Her reading accelerated; her confidence followed. By spring, she was writing laboratory reports that needed correction only at the edges. The ships in the harbor no longer felt like a provocation. They felt like a schedule. Bridges, she wrote in her journal, are not found; they are built, one deliberate plank at a time, by people too stubborn to remain on the shore."},
+{lvl:"Grade 11", title:"The Distance Between Words", text:"Every translator knows a particular species of loneliness: the moment when a word in one language has no true twin in another. Wei Lan discovered this in her final year of high school while translating her grandfather's letters for a family history project. Her grandfather had crossed half of China during difficult decades, and his letters compressed those journeys into spare, dignified sentences. One recurring word defeated her repeatedly. It gestured toward homesickness, but also toward duty, endurance, and a stubborn tenderness for places that no longer existed. English offered her \"nostalgia,\" which felt too soft, and \"longing,\" which felt too vague. For weeks the word sat in her draft like a locked door. Her breakthrough arrived obliquely, during an ordinary vocabulary lesson on morphology. The teacher demonstrated how English builds meaning through accumulation: roots anchoring a concept, prefixes steering its direction, suffixes adjusting its function. Wei Lan realized that translation could work the same way. If no single English word carried her grandfather's meaning, she could construct the meaning across a sentence, distributing its weight among several carefully chosen words, the way a bridge distributes a load across many cables. Her final translation rendered the stubborn word as a phrase, and when her father read it, he was quiet for a long moment before saying it sounded like his father's voice. Wei Lan had learned what every serious student of language eventually learns: fluency is not the elimination of distance between languages. It is the art of building passage across a distance that never fully closes, and discovering that the crossing itself, with all its labor and imperfection, is where understanding actually lives."},
+{lvl:"Grade 12", title:"The Cartography of Becoming", text:"Commencement speeches habitually describe education as a journey, a metaphor so exhausted that students have stopped hearing it. Yet the comparison persists because it conceals a genuinely difficult truth: unlike geographic travel, intellectual journeys permanently alter the traveler, and there is no returning to the original point of departure. The student who struggles through a second language does not merely acquire vocabulary; she acquires an additional architecture of thought, a parallel system for organizing reality that subtly renovates the first. Neuroscientists studying bilingual cognition have documented this renovation empirically: enhanced executive function, greater cognitive flexibility, and a measurable capacity to inhabit perspectives other than one's own. But the deeper transformation resists measurement. Consider the Chinese student who, after years of laborious English study, first reads an unadapted novel and discovers that the sentences have stopped being obstacles and started being windows. Something irreversible has occurred. She now possesses two vantage points on every idea, and ideas viewed from two angles reveal dimensions invisible from one. The ancient Silk Road merchants understood this phenomenon in commercial terms: goods gained value by crossing borders, and so did the people who carried them. Contemporary learners crossing linguistic borders participate in the same economy of transformation. The frustrations they endure, the mispronounced words, the humiliating silences, the essays returned bleeding with corrections, are not obstacles on the journey; they are the journey, the friction without which no movement occurs. A map of any worthwhile education would therefore resemble the annotations of early cartographers, whose charts confessed their ignorance at the margins with the phrase \"here be dragons.\" The educated mind is one that has sailed deliberately toward those dragons and returned with the margins redrawn, carrying proof that the unknown was never a wall, merely a distance, and distances exist precisely so that determined travelers can close them."}
+];
+
+/* ==================== WORD ANALYSIS ==================== */
+var SIGHT_IRREGULAR = ["the","of","was","were","said","says","one","two","who","what","where","there","their","they","could","would","should","again","against","people","thought","through","enough","though","because","does","done","gone","some","come","once","only","other","another","many","any","been","have","give","live","love","move","above","water","want","warm","word","world","work","eye","eyes","friend","friends","laugh","laughed","hour","hours","heart","beautiful","women","woman","busy","sure","answer","often","island","listen","half","whole","great","break","steak","pretty","very","every","also","always","toward","towards","onto","among","during","earth","early","learn","heard","carried","carries","carry","buy","bought","brought","caught","taught"];
+var PREFIXES = ["un","re","dis","pre","mis","non","over","under","inter","trans","sub","im","in","ir","de","en","em","fore","semi","anti","mid","co","ex"];
+var SUFFIXES = ["tion","sion","ment","ness","ful","less","able","ible","ous","ious","ly","ing","ed","er","est","ity","ive","al","ial","ary","ery","ory","ance","ence","ist","ism","ize","ise","ify","ology","logy","graphy"];
+var VOWEL_TEAMS = ["ai","ay","ea","ee","ey","oa","oe","ow","ou","oo","au","aw","ew","ue","ui","oi","oy","igh","eigh"];
+var DIGRAPHS = ["th","sh","ch","ph","wh","ck","gh"];
+
+function clean(w){ return w.toLowerCase().replace(/[^a-z']/g,""); }
+function syllables(w){
+  w = clean(w).replace(/'/g,"");
+  if(!w) return 0;
+  if(w.length<=3) return 1;
+  w = w.replace(/(?:[^laeiouy]es|[^laeiouy]e|ed)$/,"").replace(/^y/,"");
+  var m = w.match(/[aeiouy]{1,2}/g);
+  return m ? m.length : 1;
+}
+function analyzeWord(raw){
+  var w = clean(raw);
+  var feats = [];
+  if(SIGHT_IRREGULAR.indexOf(w)>=0) feats.push("sight");
+  var i;
+  for(i=0;i<SUFFIXES.length;i++){ if(w.length>SUFFIXES[i].length+2 && w.slice(-SUFFIXES[i].length)===SUFFIXES[i]){ feats.push("morph-suffix:"+SUFFIXES[i]); break; } }
+  for(i=0;i<PREFIXES.length;i++){ if(w.length>PREFIXES[i].length+3 && w.indexOf(PREFIXES[i])===0){ feats.push("morph-prefix:"+PREFIXES[i]); break; } }
+  if(syllables(w)>=3) feats.push("multisyllabic");
+  for(i=0;i<VOWEL_TEAMS.length;i++){ if(w.indexOf(VOWEL_TEAMS[i])>=0){ feats.push("vowelteam:"+VOWEL_TEAMS[i]); break; } }
+  for(i=0;i<DIGRAPHS.length;i++){ if(w.indexOf(DIGRAPHS[i])>=0){ feats.push("digraph:"+DIGRAPHS[i]); break; } }
+  return feats;
+}
+
+function buildComments(missed, skipped, wpm, fluency, elapsedSec, wordsRead, totalWords){
+  var notes = [];
+  var buckets = { morph:[], sight:[], multi:[], vowel:[], digraph:[], other:[] };
+  missed.forEach(function(w){
+    var f = analyzeWord(w);
+    if(f.some(function(x){return x.indexOf("morph")===0;})) buckets.morph.push(w);
+    else if(f.indexOf("sight")>=0) buckets.sight.push(w);
+    else if(f.indexOf("multisyllabic")>=0) buckets.multi.push(w);
+    else if(f.some(function(x){return x.indexOf("vowelteam")===0;})) buckets.vowel.push(w);
+    else if(f.some(function(x){return x.indexOf("digraph")===0;})) buckets.digraph.push(w);
+    else buckets.other.push(w);
+  });
+  function list(arr){ return arr.join(", "); }
+
+  if(buckets.morph.length) notes.push("Morphology: missed affixed words ("+list(buckets.morph)+"). Teach word-part chunking — cover the prefix/suffix, read the base, then rebuild the whole word.");
+  if(buckets.multi.length) notes.push("Multisyllabic decoding: struggled with longer words ("+list(buckets.multi)+"). Practice syllable division (clap-and-chunk, spot-the-vowels) before reading.");
+  if(buckets.sight.length) notes.push("Sight-word automaticity: irregular high-frequency words ("+list(buckets.sight)+") are not yet automatic. Use quick daily flash drills — these can't be sounded out.");
+  if(buckets.vowel.length) notes.push("Vowel patterns: errors on vowel-team words ("+list(buckets.vowel)+"). Review target vowel teams explicitly (sound → spelling → word).");
+  if(buckets.digraph.length) notes.push("Digraphs/blends: errors on ("+list(buckets.digraph)+"). Quick phoneme-grapheme review recommended.");
+  if(buckets.other.length) notes.push("Also missed: "+list(buckets.other)+".");
+
+  if(skipped.length){
+    var funcSkips = skipped.filter(function(w){ return clean(w).length<=4; });
+    if(funcSkips.length>=2){
+      notes.push("Prosody/tracking: skipped small function words ("+list(skipped)+"), which flattens phrasing. Try finger/pencil tracking and echo reading to rebuild phrase-level prosody.");
+    } else {
+      notes.push("Skipped words: "+list(skipped)+". Model return-and-repair — pause, go back, reread the phrase.");
+    }
+  }
+
+  if(!missed.length && !skipped.length){
+    notes.push("Clean, accurate read — no coded errors.");
+  }
+
+  // rate/prosody framing
+  if(wpm < 60) notes.push("Rate is well below benchmark — prioritize repeated readings of THIS passage (2–3 rereads) plus partner reading; accuracy first, speed will follow.");
+  else if(wpm < 100) notes.push("Developing rate — continue timed repeated readings and phrase-scooping to build prosody and pace.");
+  else notes.push("Strong rate — shift focus to expression and comprehension checks after reading.");
+
+  if(fluency < 93 && (missed.length||skipped.length)) notes.push("Accuracy below 93% suggests this passage is at frustration level — consider dropping one passage level for practice.");
+  else if(fluency >= 98 && wordsRead>=totalWords*0.9) notes.push("Accuracy and completion suggest readiness to try the next passage level.");
+
+  return notes.join(" ");
+}
+
+/* ==================== STATE ==================== */
+var state = {
+  period:"", name:"", passageIdx:0,
+  wordEls:[], wordStates:[], lastIdx:-1,
+  timerSecs:60, elapsed:0, running:false, tick:null,
+  markMode:false, finished:false,
+  session:[]
+};
+
+/* ==================== DOM ==================== */
+function $(id){ return document.getElementById(id); }
+var screens = { setup:$("scr-setup"), read:$("scr-read"), results:$("scr-results") };
+function show(name){
+  Object.keys(screens).forEach(function(k){ screens[k].classList.remove("active"); });
+  screens[name].classList.add("active");
+  window.scrollTo(0,0);
+}
+
+/* populate passage select */
+(function(){
+  var sel = $("inp-passage");
+  PASSAGES.forEach(function(p,i){
+    var wc = p.text.trim().split(/\s+/).length;
+    var o = document.createElement("option");
+    o.value = i;
+    o.textContent = p.lvl + " — \"" + p.title + "\" (" + wc + " words)";
+    sel.appendChild(o);
+  });
+})();
+
+/* ==================== BEGIN ==================== */
+$("btn-begin").addEventListener("click", function(){
+  var period = $("inp-period").value.trim();
+  var name = $("inp-name").value.trim();
+  if(!period){ alert("Please select a class period."); return; }
+  if(!name){ alert("Please enter the student's name."); return; }
+  state.period = period; state.name = name;
+  state.passageIdx = parseInt($("inp-passage").value,10) || 0;
+  loadPassage();
+  show("read");
+});
+
+function loadPassage(){
+  var p = PASSAGES[state.passageIdx];
+  var words = p.text.trim().split(/\s+/);
+  $("p-title").textContent = "🍁 " + p.title;
+  $("p-meta").textContent = p.lvl + " · " + words.length + " words · Theme: The Journey";
+  $("chip-student").textContent = state.name + " · " + state.period;
+
+  var box = $("p-box");
+  box.innerHTML = "";
+  box.classList.remove("markmode");
+  state.wordEls = []; state.wordStates = []; state.lastIdx = -1;
+  state.markMode = false; state.finished = false;
+
+  words.forEach(function(w, i){
+    var s = document.createElement("span");
+    s.className = "w";
+    s.textContent = w;
+    s.dataset.idx = i;
+    s.addEventListener("click", onWordClick);
+    box.appendChild(s);
+    box.appendChild(document.createTextNode(" "));
+    state.wordEls.push(s);
+    state.wordStates.push(0);
+  });
+
+  resetTimer();
+  $("mark-banner").classList.remove("show");
+  $("btn-results").style.display = "none";
+  $("btn-finished-all").style.display = "none";
+}
+
+function onWordClick(e){
+  var i = parseInt(e.currentTarget.dataset.idx,10);
+  if(state.markMode){
+    setLastWord(i);
+    return;
+  }
+  var st = (state.wordStates[i]+1)%3;
+  state.wordStates[i] = st;
+  var el = state.wordEls[i];
+  el.classList.remove("missed","skipped");
+  if(st===1) el.classList.add("missed");
+  if(st===2) el.classList.add("skipped");
+}
+
+function setLastWord(i){
+  state.lastIdx = i;
+  state.wordEls.forEach(function(el,j){
+    el.classList.toggle("lastword", j===i);
+    el.classList.toggle("beyond", j>i);
+  });
+  $("btn-results").style.display = "inline-flex";
+}
+
+/* ==================== TIMER ==================== */
+function fmt(s){ var m=Math.floor(s/60), r=s%60; return m+":"+(r<10?"0":"")+r; }
+function renderTimer(){
+  var remain = state.timerSecs - state.elapsed;
+  var t = $("timer");
+  t.textContent = fmt(Math.max(0,remain));
+  t.classList.remove("warning","danger","done");
+  if(remain<=0) t.classList.add("done");
+  else if(remain<=10) t.classList.add("danger");
+  else if(remain<=20) t.classList.add("warning");
+}
+function startTimer(){
+  if(state.running || state.finished) return;
+  state.running = true;
+  $("btn-start").disabled = true;
+  $("btn-pause").disabled = false;
+  $("btn-finish").disabled = false;
+  state.tick = setInterval(function(){
+    state.elapsed++;
+    renderTimer();
+    if(state.elapsed >= state.timerSecs){ timeUp(); }
+  },1000);
+}
+function pauseTimer(){
+  state.running = false;
+  clearInterval(state.tick);
+  $("btn-start").disabled = false;
+  $("btn-pause").disabled = true;
+}
+function resetTimer(){
+  state.running = false;
+  clearInterval(state.tick);
+  state.elapsed = 0; state.finished = false; state.markMode = false;
+  $("btn-start").disabled = false;
+  $("btn-pause").disabled = true;
+  $("btn-finish").disabled = true;
+  $("p-box").classList.remove("markmode");
+  $("mark-banner").classList.remove("show");
+  $("btn-results").style.display="none";
+  $("btn-finished-all").style.display="none";
+  // clear last-word marks but keep error codes? Reset should clear everything for a clean re-run:
+  state.wordEls.forEach(function(el){ el.classList.remove("lastword","beyond"); });
+  state.lastIdx = -1;
+  renderTimer();
+}
+function fullReset(){
+  resetTimer();
+  state.wordStates = state.wordStates.map(function(){return 0;});
+  state.wordEls.forEach(function(el){ el.classList.remove("missed","skipped"); });
+}
+function timeUp(){ finishRead(); }
+function finishRead(){
+  if(state.finished) return;
+  state.finished = true;
+  state.running = false;
+  clearInterval(state.tick);
+  $("btn-start").disabled = true;
+  $("btn-pause").disabled = true;
+  $("btn-finish").disabled = true;
+  state.markMode = true;
+  $("p-box").classList.add("markmode");
+  $("mark-banner").classList.add("show");
+  $("btn-finished-all").style.display = "inline-flex";
+  renderTimer();
+}
+
+$("btn-start").addEventListener("click", startTimer);
+$("btn-pause").addEventListener("click", pauseTimer);
+$("btn-reset").addEventListener("click", function(){
+  if(confirm("Reset the timer AND clear all word marks?")) fullReset();
+});
+$("btn-finish").addEventListener("click", finishRead);
+$("btn-finished-all").addEventListener("click", function(){
+  setLastWord(state.wordEls.length-1);
+});
+$("btn-back-setup").addEventListener("click", function(){
+  pauseTimer();
+  show("setup");
+});
+
+/* ==================== RESULTS ==================== */
+var current = null;
+
+$("btn-results").addEventListener("click", function(){
+  if(state.lastIdx < 0){ alert("Click the last word the student read first."); return; }
+  computeResults();
+  show("results");
+});
+
+function computeResults(){
+  var wordsRead = state.lastIdx + 1;
+  var missed = [], skipped = [];
+  for(var i=0;i<=state.lastIdx;i++){
+    if(state.wordStates[i]===1) missed.push(state.wordEls[i].textContent.replace(/[^\w'-]/g,""));
+    if(state.wordStates[i]===2) skipped.push(state.wordEls[i].textContent.replace(/[^\w'-]/g,""));
+  }
+  var errors = missed.length + skipped.length;
+  var elapsedSec = Math.max(1, state.elapsed);
+  var minutes = elapsedSec/60;
+  var correct = Math.max(0, wordsRead - errors);
+  var wpm = Math.round(correct/minutes);            // WCPM — words correct per minute
+  var rawWpm = Math.round(wordsRead/minutes);
+  var fluency = wordsRead>0 ? Math.round((correct/wordsRead)*1000)/10 : 0;
+  var p = PASSAGES[state.passageIdx];
+  var totalWords = p.text.trim().split(/\s+/).length;
+
+  var comments = buildComments(missed, skipped, wpm, fluency, elapsedSec, wordsRead, totalWords);
+
+  current = {
+    date: new Date().toISOString().slice(0,10),
+    period: state.period,
+    name: state.name,
+    passage: p.lvl + " — " + p.title,
+    fluency: fluency,
+    wpm: wpm,
+    rawWpm: rawWpm,
+    wordsRead: wordsRead,
+    errors: errors,
+    elapsedSec: elapsedSec,
+    missed: missed, skipped: skipped,
+    comments: comments
+  };
+
+  $("res-sub").textContent = current.name + " · " + current.period + " · " + current.passage + " · " + elapsedSec + "s read";
+  $("m-fluency").textContent = fluency + "%";
+  $("m-wpm").textContent = wpm;
+  $("m-read").textContent = wordsRead;
+  $("m-err").textContent = errors;
+
+  var box = $("res-words");
+  box.innerHTML = "";
+  if(!missed.length && !skipped.length){
+    box.innerHTML = '<span class="empty-note">No errors coded — clean read! 🎉</span>';
+  } else {
+    missed.forEach(function(w){ var s=document.createElement("span"); s.className="wtag miss"; s.textContent=w; box.appendChild(s); });
+    skipped.forEach(function(w){ var s=document.createElement("span"); s.className="wtag skip"; s.textContent=w; box.appendChild(s); });
+  }
+  $("res-comments").value = comments;
+}
+
+$("btn-redo").addEventListener("click", function(){
+  fullReset();
+  show("read");
+});
+
+$("btn-save").addEventListener("click", function(){
+  if(!current) return;
+  current.comments = $("res-comments").value.trim();
+  state.session.push(current);
+  renderSession();
+  current = null;
+  // reset for next student
+  $("inp-name").value = "";
+  fullReset();
+  show("setup");
+  $("inp-name").focus();
+});
+
+function renderSession(){
+  var tb = $("session-body");
+  tb.innerHTML = "";
+  if(!state.session.length){
+    tb.innerHTML = '<tr><td colspan="6" class="empty-note">No students saved yet this session.</td></tr>';
+    return;
+  }
+  state.session.forEach(function(r){
+    var tr = document.createElement("tr");
+    [r.date, r.period, r.name, r.fluency+"%", String(r.wpm), r.comments].forEach(function(v){
+      var td = document.createElement("td"); td.textContent = v; tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+}
+
+/* ==================== CSV ==================== */
+function csvEscape(v){
+  v = String(v==null?"":v);
+  if(/[",\n]/.test(v)) v = '"' + v.replace(/"/g,'""') + '"';
+  return v;
+}
+$("btn-csv").addEventListener("click", function(){
+  var rows = state.session.slice();
+  // include current unsaved student too, if present
+  if(current){
+    var c = Object.assign({}, current, { comments: $("res-comments").value.trim() });
+    rows.push(c);
+  }
+  if(!rows.length){ alert("No results to export yet."); return; }
+  var header = ["Date","Class Period","Name","Fluency %","WPM","Comments"];
+  var lines = [header.join(",")];
+  rows.forEach(function(r){
+    lines.push([r.date, r.period, r.name, r.fluency, r.wpm, r.comments].map(csvEscape).join(","));
+  });
+  var blob = new Blob(["\uFEFF"+lines.join("\r\n")], {type:"text/csv;charset=utf-8;"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Meridian_Fluency_" + new Date().toISOString().slice(0,10) + ".csv";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+});
+
+renderTimer();
+})();
+</script>
+</body>
+</html>
