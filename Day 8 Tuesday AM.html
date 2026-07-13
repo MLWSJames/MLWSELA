@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 8 — Islamic Empires, Golden Age &amp; Religious Schisms | 伊斯兰帝国、黄金时代与宗教分裂</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 8 — Islamic Empires, Golden Age &amp; Religious Schisms · <span class="cn">伊斯兰帝国、黄金时代与宗教分裂</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson 1"></div>
+    <div class="pip" id="pip-l2" title="Lesson 2"></div>
+    <div class="pip" id="pip-l3" title="Lesson 3"></div>
+    <div class="pip" id="pip-l4" title="Lesson 4"></div>
+    <div class="pip" id="pip-l5" title="Lesson 5"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">⚔️ How Islam Spread / Rashidun Caliphate</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">🕌 Umayyad &amp; Abbasid Dynasties</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">🌟 Golden Age of Islam</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">☪️ Sunni and Shia Islam</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">⛪ Great Schism &amp; Introduction to the Crusades</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON 1: How Islam Spread / Rashidun Caliphate -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">How Islam Spread / Rashidun Caliphate · <span class="cn">伊斯兰教的传播 / 拉希顿哈里发国</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Four Ways Islam Spread · <span class="cn">伊斯兰教传播的四种方式</span></h3>
+    <p>After Muhammad's death in 632 CE, Islam expanded rapidly across the Middle East, North Africa, and beyond. This expansion happened through several different methods working together: <strong>military conquest</strong> brought new territories under Muslim political control, <strong>trade</strong> carried Islamic ideas along merchant routes, <strong>pilgrimage</strong> to Mecca connected distant communities to the faith, and <strong>missionaries</strong> actively taught Islamic beliefs to new populations.</p>
+    <p style="margin-top:8px"><span class="cn">穆罕默德于公元632年去世后，伊斯兰教迅速扩展到中东、北非及其他地区。这种扩展是通过几种不同的方式共同实现的：<strong>军事征服</strong>使新的领土纳入穆斯林的政治控制之下，<strong>贸易</strong>将伊斯兰教的理念沿着商路传播开来，前往麦加的<strong>朝圣</strong>将遥远的社群与信仰联系在一起，<strong>传教士</strong>则主动向新的人群传授伊斯兰教的信仰。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Rashidun Caliphate · <span class="cn">拉希顿哈里发国</span></h3>
+    <p>After Muhammad died, the Muslim community needed a new form of leadership since he had been both political and religious leader. The <strong>Rashidun Caliphate</strong> (632–661 CE) — meaning "rightly guided" — was the first Arab Muslim empire, led by a series of four <strong>caliphs</strong> chosen to succeed Muhammad. This period established the basic structure for governing the rapidly growing Muslim world.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Term 术语</th><th>Meaning 含义</th></tr>
+      <tr><td>Caliph 哈里发</td><td>A successor to Muhammad, serving as the political and religious leader of the Muslim community 穆罕默德的继承人，担任穆斯林社群的政治与宗教领袖</td></tr>
+      <tr><td>Caliphate 哈里发国</td><td>The territory and government led by a caliph 由哈里发领导的领土与政府</td></tr>
+      <tr><td>Rashidun ("rightly guided") 拉希顿（"正统的"）</td><td>The first four caliphs, chosen through community selection rather than inheritance 前四位哈里发，通过社群推选而非世袭产生</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Caliphs and Caliphate Structure · <span class="cn">哈里发与哈里发国的结构</span></h3>
+    <p>Unlike a king who inherits power through family bloodline, the early caliphs were selected by leading members of the Muslim community based on their close relationship to Muhammad and their reputation for piety and leadership. This structure combined religious authority with political and military command, giving the caliph responsibility over both the spiritual and worldly affairs of the growing empire.</p>
+    <div class="callout">
+      <strong>A New Kind of Leadership:</strong> The caliphate combined religious and political authority in a single office, a structure that differed sharply from both the Byzantine emperor's role and the feudal kings of medieval Europe.
+      <br><span class="cn"><strong>一种新型的领导方式：</strong>哈里发国将宗教与政治权威合并于同一个职位，这种结构与拜占庭皇帝的角色及中世纪欧洲的封建国王都截然不同。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Rapid Expansion Under the Rashidun · <span class="cn">拉希顿时期的迅速扩张</span></h3>
+    <p>During the Rashidun period, Muslim armies achieved remarkably swift military success, conquering vast territories including Persia, Egypt, and parts of the Byzantine Empire within just a few decades. This combination of strong leadership, motivated armies, and the weakened state of neighboring empires (including Byzantium, exhausted from earlier wars) allowed Islam to spread at a historically rapid pace.</p>
+    <p style="margin-top:8px"><span class="cn">在拉希顿时期，穆斯林军队取得了异常迅速的军事胜利，在短短几十年内征服了包括波斯、埃及以及拜占庭帝国部分地区的广阔领土。强有力的领导、士气高昂的军队，以及邻近帝国（包括因先前战争而疲惫不堪的拜占庭）实力的衰弱，这些因素共同作用，使伊斯兰教以历史上罕见的速度迅速传播。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 1</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Islam spread through conquest, trade, pilgrimage, and missionary work all at once. Why might a combination of methods spread an idea or religion more effectively than relying on just one method, like military force alone? · <span class="cn">伊斯兰教是通过征服、贸易、朝圣和传教工作同时传播的。为什么多种方式的结合可能比仅依赖一种方式（如单纯的军事力量）更能有效地传播一种理念或宗教？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Rashidun caliphs were chosen rather than inheriting their position through family bloodline. What might be an advantage or disadvantage of choosing leaders this way compared to hereditary succession? · <span class="cn">拉希顿哈里发是被推选出来的，而不是通过家族血统继承职位。与世袭继承相比，这种选拔领袖的方式可能有什么优势或劣势？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 2: Umayyad & Abbasid Dynasties -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Umayyad &amp; Abbasid Dynasties · <span class="cn">伍麦叶王朝与阿拔斯王朝</span></h2>
+ 
+  <div class="concept-card">
+    <h3>The Umayyad Dynasty (661–750) · <span class="cn">伍麦叶王朝（661–750年）</span></h3>
+    <p>The <strong>Umayyad Dynasty</strong> replaced the Rashidun Caliphate and shifted leadership from a chosen position to hereditary rule within one family. The Umayyads made Arabic the official state language across their vast empire, employed <strong>viziers</strong> (chief ministers) to help administer government affairs, and expanded the empire's borders from Spain to Central Asia. Non-Muslims living under Umayyad rule were generally allowed to practice their faith but paid a special tax called the <strong>jizya</strong>.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Feature 特征</th><th>Detail 细节</th></tr>
+      <tr><td>Official language 官方语言</td><td>Arabic became the state language throughout the empire 阿拉伯语成为整个帝国的官方语言</td></tr>
+      <tr><td>Administration 行政管理</td><td>Viziers (chief ministers) helped govern vast territory 维齐尔（首席大臣）协助治理广阔的领土</td></tr>
+      <tr><td>Non-Muslim taxation 非穆斯林税收</td><td>Non-Muslims paid the jizya tax in exchange for religious freedom and protection 非穆斯林缴纳吉兹亚税，以换取宗教自由与保护</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Abbasid Dynasty (750–1258) · <span class="cn">阿拔斯王朝（750–1258年）</span></h3>
+    <p>The <strong>Abbasid Dynasty</strong> overthrew the Umayyads and moved the capital to <strong>Baghdad</strong>, which became one of the largest and most culturally vibrant cities in the world. The Abbasids practiced greater <strong>cultural inclusion</strong> than the Umayyads, welcoming non-Arab Muslims into positions of power and scholarship. Religious scholars known as the <strong>ulema</strong> gained significant influence in interpreting Islamic law, and this period saw <strong>mass conversion</strong> to Islam across the empire's diverse population.</p>
+    <div class="callout-blue">
+      <strong>A Shift in Approach:</strong> While the Umayyads centered power around Arab identity, the Abbasids built a more multicultural empire that drew on Persian, Greek, and other traditions — helping fuel the intellectual flowering of the Golden Age.
+      <br><span class="cn"><strong>方式的转变：</strong>伍麦叶王朝以阿拉伯身份为权力中心，而阿拔斯王朝则建立了一个更具多元文化色彩的帝国，吸收了波斯、希腊及其他传统——这助力了黄金时代知识繁荣的兴起。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Comparing the Two Dynasties · <span class="cn">两个王朝的比较</span></h3>
+    <table class="compare-table">
+      <tr><th>Umayyad Dynasty 伍麦叶王朝</th><th>Abbasid Dynasty 阿拔斯王朝</th></tr>
+      <tr><td>Centered Arab identity and language 以阿拉伯身份与语言为中心</td><td>Embraced cultural inclusion of non-Arab Muslims 包容非阿拉伯穆斯林的多元文化</td></tr>
+      <tr><td>Capital in Damascus 首都位于大马士革</td><td>Capital moved to Baghdad 首都迁至巴格达</td></tr>
+      <tr><td>Hereditary rule began with this dynasty 世袭统治从这个王朝开始</td><td>Greater role for religious scholars (ulema) 宗教学者（乌理玛）发挥更大作用</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Why These Shifts Mattered · <span class="cn">这些转变为何重要</span></h3>
+    <p>The transition from Umayyad to Abbasid rule reflects a broader pattern in the early Islamic world: a movement away from a narrowly Arab-centered empire toward one that incorporated diverse peoples, languages, and traditions. This more inclusive approach under the Abbasids helped create the conditions for the explosion of learning and culture that would define the Golden Age of Islam.</p>
+    <p style="margin-top:8px"><span class="cn">从伍麦叶王朝到阿拔斯王朝的转变，反映了早期伊斯兰世界一种更广泛的模式：从一个狭隘的以阿拉伯为中心的帝国，转向一个融合了多元民族、语言与传统的帝国。阿拔斯王朝这种更具包容性的方式，为日后定义伊斯兰黄金时代的知识与文化大爆发创造了条件。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 2</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Abbasid Dynasty welcomed non-Arab Muslims into positions of power and scholarship, unlike the more Arab-centered Umayyads. Why might a more culturally inclusive empire be more successful at producing new ideas and innovations? · <span class="cn">与更以阿拉伯为中心的伍麦叶王朝不同，阿拔斯王朝欢迎非阿拉伯穆斯林进入权力与学术领域。为什么一个更具文化包容性的帝国可能更成功地产生新的理念与创新？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Non-Muslims under Umayyad rule paid a special tax (jizya) in exchange for religious freedom and protection. Can you think of other historical or modern examples where a group pays a cost in exchange for the right to practice their own beliefs or customs? · <span class="cn">伍麦叶统治下的非穆斯林缴纳一种特殊的税（吉兹亚），以换取宗教自由与保护。你能想到其他历史上或现代的例子，其中某个群体为了获得实践自己信仰或习俗的权利而付出代价吗？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 3: Golden Age of Islam -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Golden Age of Islam · <span class="cn">伊斯兰黄金时代</span></h2>
+ 
+  <div class="concept-card">
+    <h3>What Was the Golden Age of Islam? · <span class="cn">伊斯兰黄金时代是什么？</span></h3>
+    <p>The <strong>Golden Age of Islam</strong> refers to a centuries-long period of remarkable achievement in science, medicine, mathematics, philosophy, and the arts across the Islamic world. Scholars in cities like Baghdad translated and preserved Greek, Persian, and Indian texts while making major original contributions of their own, helping to preserve knowledge that might otherwise have been lost to Europe during this period.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>伊斯兰黄金时代</strong>指的是伊斯兰世界在科学、医学、数学、哲学与艺术领域取得卓越成就的一个长达数百年的时期。巴格达等城市的学者们翻译并保存了希腊、波斯与印度的文献，同时也作出了自己重要的原创贡献，帮助保存了这一时期可能在欧洲已经失传的知识。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>A Timeline of Dynasties · <span class="cn">王朝时间线</span></h3>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Dynasty 王朝</th><th>Approx. Period 大致时期</th></tr>
+      <tr><td>Rashidun 拉希顿</td><td>632–661 CE — first Arab Muslim empire 632–661年——第一个阿拉伯穆斯林帝国</td></tr>
+      <tr><td>Umayyad 伍麦叶</td><td>661–750 CE — hereditary rule, Arabic as state language 661–750年——世袭统治，阿拉伯语为官方语言</td></tr>
+      <tr><td>Abbasid 阿拔斯</td><td>750–1258 CE — Baghdad, cultural inclusion, height of the Golden Age 750–1258年——巴格达，文化包容，黄金时代的顶峰</td></tr>
+      <tr><td>Fatimid 法蒂玛</td><td>909–1171 CE — Shia dynasty centered in Egypt 909–1171年——以埃及为中心的什叶派王朝</td></tr>
+      <tr><td>Ayyubid 阿尤布</td><td>1171–1260 CE — founded by Saladin, reunified Egypt and Syria 1171–1260年——由萨拉丁建立，统一了埃及与叙利亚</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Geographic Reach · <span class="cn">地理范围</span></h3>
+    <p>At its height, the Islamic world stretched from Spain in the west to Central Asia in the east, encompassing a vast network of cities connected by trade and scholarship. This map of changing dynasties shows how political control shifted over centuries, even as the broader Islamic civilization and its cultural achievements continued to grow across this enormous territory.</p>
+    <div class="callout">
+      <strong>Connected Centers of Learning:</strong> Cities such as Baghdad, Cordoba, and Cairo became hubs where scholars exchanged ideas across vast distances — demonstrating how trade networks could also become networks for the exchange of knowledge.
+      <br><span class="cn"><strong>相互联系的学术中心：</strong>巴格达、科尔多瓦和开罗等城市成为学者们跨越遥远距离交流思想的中心——这表明贸易网络同样可以成为知识交流的网络。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Lasting Contributions · <span class="cn">持久的贡献</span></h3>
+    <p>Scholars during the Golden Age made foundational contributions across many fields: advances in algebra and the numeral system later adopted by Europe, major medical texts that remained standard references for centuries, innovations in astronomy and optics, and the preservation of classical philosophy through careful translation and commentary. Much of this knowledge eventually reached medieval Europe, helping lay groundwork for the later Renaissance.</p>
+    <p style="margin-top:8px"><span class="cn">黄金时代的学者们在许多领域作出了基础性的贡献：代数学的进步与后来被欧洲采用的数字系统、在数百年间仍作为标准参考的重要医学文献、天文学与光学方面的创新，以及通过细致的翻译与注释保存下来的古典哲学。这些知识中的大部分最终传到了中世纪欧洲，为后来的文艺复兴奠定了基础。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 3</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Scholars during the Golden Age preserved Greek, Persian, and Indian texts while also making their own discoveries. Why is preserving and building on the knowledge of other cultures often just as important as creating entirely new ideas? · <span class="cn">黄金时代的学者们在保存希腊、波斯和印度文献的同时，也作出了自己的发现。为什么保存并发展其他文化的知识，往往与创造全新的理念同样重要？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Knowledge from the Islamic Golden Age eventually reached medieval Europe and helped lay groundwork for the Renaissance. What does this suggest about how ideas and discoveries can travel between civilizations over long periods of time? · <span class="cn">伊斯兰黄金时代的知识最终传到了中世纪欧洲，并为文艺复兴奠定了基础。这说明了理念与发现如何能够在漫长的时间里跨越文明传播？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 4: Sunni and Shia Islam -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Sunni and Shia Islam · <span class="cn">逊尼派与什叶派</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Origins of the Schism · <span class="cn">分裂的起源</span></h3>
+    <p>The split between <strong>Sunni</strong> and <strong>Shia</strong> Islam originated in a disagreement over who should lead the Muslim community after Muhammad's death — a disagreement that deepened at the transition from the Rashidun Caliphate to the Umayyad Dynasty. Those who later became known as <strong>Shia</strong> ("partisans") believed leadership should remain within Muhammad's own family, specifically through his cousin and son-in-law, <strong>Ali</strong>. Those who became <strong>Sunni</strong> believed leadership should go to whoever the community judged most capable, regardless of bloodline.</p>
+    <p style="margin-top:8px"><span class="cn">逊尼派与什叶派之间的分裂，起源于在穆罕默德去世后由谁来领导穆斯林社群这一争议——这一争议在从拉希顿哈里发国向伍麦叶王朝过渡时进一步加深。后来被称为<strong>什叶派</strong>（"追随者"）的人认为，领导权应留在穆罕默德自己的家族内，具体来说是通过他的堂弟兼女婿<strong>阿里</strong>。而后来被称为<strong>逊尼派</strong>的人则认为，领导权应交给社群认为最有能力的人，无论其血统如何。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Rashidun-Umayyad Transition · <span class="cn">拉希顿到伍麦叶的过渡</span></h3>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Sunni View 逊尼派观点</th><th>Shia View 什叶派观点</th></tr>
+      <tr><td>Leadership should go to the most capable, chosen by the community 领导权应交给最有能力的人，由社群推选</td><td>Leadership should remain within Muhammad's family, through Ali's lineage 领导权应留在穆罕默德的家族内，通过阿里的血脉传承</td></tr>
+      <tr><td>Accepted the existing line of caliphs, including the Umayyads 接受现有的哈里发继承顺序，包括伍麦叶王朝</td><td>Viewed Ali as the rightful first successor to Muhammad 认为阿里是穆罕默德真正合法的第一继承人</td></tr>
+      <tr><td>Became the majority branch of Islam globally 成为全球伊斯兰教的多数派</td><td>Became a significant minority branch, strong in regions like Persia 成为重要的少数派，在波斯等地区势力强大</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Ibadi Islam: A Third Path · <span class="cn">伊巴德派：第三条道路</span></h3>
+    <p>Alongside the Sunni-Shia divide, a smaller branch called <strong>Ibadi Islam</strong> also emerged from this early period of disagreement. Ibadis held that leadership should be based purely on piety and ability, rejecting both hereditary claims and many of the political compromises made by early Sunni leadership. Ibadi communities survive today primarily in Oman and parts of East Africa.</p>
+    <div class="callout-blue">
+      <strong>More Than a Simple Split:</strong> The Sunni-Shia division is often described as a single schism, but the existence of Ibadi Islam shows that the early disagreement over leadership actually produced multiple distinct responses, not just two.
+      <br><span class="cn"><strong>不仅仅是简单的分裂：</strong>逊尼派与什叶派的分裂常被描述为单一的分裂事件，但伊巴德派的存在表明，早期关于领导权的争议实际上产生了多种不同的回应，而不仅仅是两种。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Why This Division Still Matters · <span class="cn">为什么这一分裂仍然重要</span></h3>
+    <p>The Sunni-Shia schism, which began as a political dispute over leadership, gradually developed into distinct religious, legal, and cultural traditions within Islam. Today, Sunni Muslims make up the majority of the global Muslim population, while Shia Muslims form significant communities especially in Iran, Iraq, and parts of the Gulf region. Understanding this early schism helps explain religious and political dynamics that continue to shape the Middle East today.</p>
+    <p style="margin-top:8px"><span class="cn">逊尼派与什叶派的分裂最初是一场关于领导权的政治争议，逐渐发展成为伊斯兰教内部独特的宗教、法律与文化传统。如今，逊尼派穆斯林占全球穆斯林人口的多数，而什叶派穆斯林则在伊朗、伊拉克及海湾地区部分地方形成了重要的社群。理解这一早期的分裂，有助于解释至今仍在塑造中东局势的宗教与政治动态。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 4</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Sunni-Shia schism began as a disagreement over leadership succession, not originally a difference in core religious beliefs. Why might a political disagreement eventually grow into deeper, lasting religious or cultural differences over time? · <span class="cn">逊尼派与什叶派的分裂最初是关于领导权继承的争议，而不是核心宗教信仰上的差异。为什么一场政治争议可能会随着时间的推移，逐渐发展成更深层、更持久的宗教或文化差异？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Ibadi Islam shows that the early leadership dispute produced more than just two responses. Why is it important for historians to look beyond simple two-sided explanations of historical events? · <span class="cn">伊巴德派表明，早期的领导权争议产生的回应不仅仅是两种。为什么历史学家关注超越简单二元解释的历史事件很重要？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 5: Great Schism & Introduction to the Crusades -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Great Schism &amp; Introduction to the Crusades · <span class="cn">大分裂与十字军东征导论</span></h2>
+ 
+  <div class="concept-card">
+    <h3>The Great Schism (East-West Schism) · <span class="cn">大分裂（东西教会分裂）</span></h3>
+    <p>In 1054 CE, Christianity split into two main branches in an event known as the <strong>Great Schism</strong>, or <strong>East-West Schism</strong>. The Christian Church based in Constantinople (which became <strong>Eastern Orthodox</strong> Christianity) and the Church based in Rome (which became the <strong>Roman Catholic</strong> Church) divided over disagreements about Church leadership, theology, and practice that had been building for centuries.</p>
+    <p style="margin-top:8px"><span class="cn">公元1054年，基督教分裂为两大主要分支，这一事件被称为<strong>大分裂</strong>，或称<strong>东西教会分裂</strong>。以君士坦丁堡为基地的基督教教会（后来发展为<strong>东正教</strong>）与以罗马为基地的教会（后来发展为<strong>罗马天主教</strong>会），因数百年来不断积累的关于教会领导权、神学与实践的分歧而分裂。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Causes of the Divide · <span class="cn">分裂的原因</span></h3>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Eastern Orthodox 东正教</th><th>Roman Catholic 罗马天主教</th></tr>
+      <tr><td>Based in Constantinople 以君士坦丁堡为基地</td><td>Based in Rome 以罗马为基地</td></tr>
+      <tr><td>Did not recognize the Pope's supreme authority 不承认教皇的最高权威</td><td>Recognized the Pope as the supreme head of the Church 承认教皇为教会的最高首领</td></tr>
+      <tr><td>Used Greek in religious services 在宗教仪式中使用希腊语</td><td>Used Latin in religious services 在宗教仪式中使用拉丁语</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>A Pattern of Religious Division · <span class="cn">宗教分裂的一种模式</span></h3>
+    <p>The Great Schism within Christianity happened only a few centuries after the Sunni-Shia split within Islam — both showing how large religious traditions, once they grow across vast distances and diverse cultures, can develop separate centers of authority that eventually break apart over questions of leadership and practice.</p>
+    <div class="callout">
+      <strong>Distance and Division:</strong> Just as Sunni and Shia Islam developed differently across different regions, the physical and cultural distance between Rome and Constantinople contributed to the Eastern and Western Churches drifting apart over time.
+      <br><span class="cn"><strong>距离与分裂：</strong>正如逊尼派与什叶派在不同地区有着不同的发展，罗马与君士坦丁堡之间的地理与文化距离，也促使东西方教会随着时间的推移逐渐疏远。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Introduction to the Crusades · <span class="cn">十字军东征导论</span></h3>
+    <p>By the late 11th century, the Byzantine Empire faced growing pressure from Muslim Turkish forces, prompting the Byzantine emperor to request military help from Western Europe. Pope Urban II responded in 1095 CE by calling for a series of religious wars — the <strong>Crusades</strong> — aimed at reclaiming Jerusalem and the Holy Land from Muslim control. This call combined religious devotion, political ambition, and the recently divided Christian world into a centuries-long series of conflicts between Christian Europe and the Islamic world.</p>
+    <p style="margin-top:8px"><span class="cn">到11世纪末，拜占庭帝国面临着来自穆斯林突厥势力日益增长的压力，促使拜占庭皇帝向西欧请求军事援助。教皇乌尔班二世于公元1095年作出回应，号召发起一系列宗教战争——<strong>十字军东征</strong>——旨在从穆斯林手中夺回耶路撒冷与圣地。这一号召将宗教信仰、政治野心以及刚刚分裂的基督教世界结合在一起，引发了基督教欧洲与伊斯兰世界之间长达数百年的一系列冲突。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 5</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Both the Sunni-Shia split and the Great Schism happened within a few centuries of each other, in two different world religions. What does this pattern suggest about what happens to large religious or political movements as they grow across vast distances? · <span class="cn">逊尼派与什叶派的分裂以及大分裂，在两种不同的世界性宗教中相隔仅几个世纪发生。这种模式说明了大型宗教或政治运动在跨越遥远距离扩展时会发生什么？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Byzantine emperor asked Western Europe for help, and this request eventually led to the Crusades. Why might asking for outside help sometimes lead to unintended or much larger consequences than originally expected? · <span class="cn">拜占庭皇帝向西欧请求援助，这一请求最终导致了十字军东征。为什么请求外部援助有时会带来比最初预期更大或更出乎意料的后果？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  { word:"Caliph", pos:"noun", cn:"哈里发", def:"A successor to Muhammad, serving as the political and religious leader of the Muslim community.", cn_def:"穆罕默德的继承人，担任穆斯林社群的政治与宗教领袖。", example:"The first caliph was chosen by leading members of the Muslim community." },
+  { word:"Caliphate", pos:"noun", cn:"哈里发国", def:"The territory and government led by a caliph.", cn_def:"由哈里发领导的领土与政府。", example:"The Rashidun Caliphate was the first Arab Muslim empire." },
+  { word:"Rashidun", pos:"proper noun", cn:"拉希顿", def:"Meaning 'rightly guided'; the first four caliphs who led the Muslim community after Muhammad's death.", cn_def:"意为【正统的】；穆罕默德去世后领导穆斯林社群的前四位哈里发。", example:"The Rashidun Caliphate lasted from 632 to 661 CE." },
+  { word:"Vizier", pos:"noun", cn:"维齐尔", def:"A chief minister who helped administer government affairs in Islamic empires.", cn_def:"协助治理伊斯兰帝国政务的首席大臣。", example:"Viziers helped the Umayyad caliphs govern their vast territory." },
+  { word:"Jizya", pos:"noun", cn:"吉兹亚税", def:"A special tax paid by non-Muslims living under Islamic rule in exchange for protection and religious freedom.", cn_def:"伊斯兰统治下非穆斯林缴纳的一种特殊税，以换取保护与宗教自由。", example:"Non-Muslims paid the jizya tax under Umayyad rule." },
+  { word:"Ulema", pos:"noun", cn:"乌理玛", def:"Religious scholars who gained significant influence interpreting Islamic law, especially under the Abbasids.", cn_def:"在解释伊斯兰法律方面具有重大影响力的宗教学者，尤其是在阿拔斯王朝时期。", example:"The ulema played an important role in Abbasid society." },
+  { word:"Golden Age of Islam", pos:"noun phrase", cn:"伊斯兰黄金时代", def:"A centuries-long period of major achievement in science, medicine, mathematics, and the arts in the Islamic world.", cn_def:"伊斯兰世界在科学、医学、数学与艺术领域取得重大成就的一个长达数百年的时期。", example:"Scholars in Baghdad made major contributions during the Golden Age of Islam." },
+  { word:"Sunni", pos:"proper noun", cn:"逊尼派", def:"The majority branch of Islam, believing leadership should go to whoever the community judges most capable.", cn_def:"伊斯兰教的多数派，认为领导权应交给社群认为最有能力的人。", example:"Sunni Muslims make up the majority of the global Muslim population." },
+  { word:"Shia", pos:"proper noun", cn:"什叶派", def:"A branch of Islam believing leadership should remain within Muhammad's family, through Ali's lineage.", cn_def:"伊斯兰教的一个分支，认为领导权应留在穆罕默德的家族内，通过阿里的血脉传承。", example:"Shia Muslims form significant communities in Iran and Iraq." },
+  { word:"Ali", pos:"proper noun", cn:"阿里", def:"Muhammad's cousin and son-in-law, viewed by Shia Muslims as the rightful first successor to Muhammad.", cn_def:"穆罕默德的堂弟兼女婿，被什叶派穆斯林视为穆罕默德真正合法的第一继承人。", example:"Shia Islam traces leadership through Ali's lineage." },
+  { word:"Great Schism", pos:"proper noun", cn:"大分裂", def:"The 1054 CE split of Christianity into Eastern Orthodox and Roman Catholic branches.", cn_def:"公元1054年基督教分裂为东正教与罗马天主教两大分支的事件。", example:"The Great Schism divided the Church based in Rome from the Church based in Constantinople." },
+  { word:"Eastern Orthodox", pos:"proper noun", cn:"东正教", def:"The branch of Christianity based in Constantinople that did not recognize the Pope's supreme authority.", cn_def:"以君士坦丁堡为基地的基督教分支，不承认教皇的最高权威。", example:"Eastern Orthodox Christianity used Greek in religious services." },
+  { word:"Crusades", pos:"proper noun", cn:"十字军东征", def:"A series of religious wars called for by Pope Urban II in 1095 CE to reclaim Jerusalem from Muslim control.", cn_def:"教皇乌尔班二世于公元1095年号召发起的一系列宗教战争，旨在从穆斯林手中夺回耶路撒冷。", example:"The Crusades began after the Byzantine emperor requested military help." },
+  { word:"Ibadi Islam", pos:"proper noun", cn:"伊巴德派", def:"A smaller branch of Islam holding that leadership should be based purely on piety and ability.", cn_def:"伊斯兰教的一个较小分支，主张领导权应纯粹基于虔诚与能力。", example:"Ibadi communities survive today primarily in Oman." }
+];
+ 
+var L1_Q = [
+  { id:"l1q1", q:"What were the four main ways Islam spread after Muhammad's death?", q_cn:"穆罕默德去世后，伊斯兰教传播的四种主要方式是什么？",
+    options:["A. Military conquest, trade, pilgrimage, and missionaries|A. 军事征服、贸易、朝圣与传教士","B. Feudal land grants and knighthood|B. 封建土地授予与骑士制度","C. The Justinian Code and Byzantine law|C. 查士丁尼法典与拜占庭法律","D. The Five Pillars and the Hijra only|D. 仅五大支柱与希吉拉"],
+    correct:"A", rat_right:"Islam spread through military conquest, trade, pilgrimage, and missionaries working together.|伊斯兰教是通过军事征服、贸易、朝圣与传教士共同作用而传播的。",
+    rat_wrong:{B:"Feudal land grants and knighthood belong to the medieval European system, unrelated to Islam's spread.|封建土地授予与骑士制度属于中世纪欧洲体系，与伊斯兰教的传播无关。",C:"The Justinian Code and Byzantine law are separate Byzantine topics from earlier in this unit.|查士丁尼法典与拜占庭法律是本单元前面所学的另一个拜占庭主题。",D:"The Five Pillars and Hijra are part of Islam's origins but not the four specific methods of its later spread.|五大支柱与希吉拉是伊斯兰教起源的一部分，但不是其后来传播的四种具体方式。"}
+  },
+  { id:"l1q2", q:"What was the Rashidun Caliphate?", q_cn:"拉希顿哈里发国是什么？",
+    options:["A. The first Arab Muslim empire, led by a series of four caliphs|A. 第一个阿拉伯穆斯林帝国，由一系列四位哈里发领导","B. A Byzantine military alliance|B. 一个拜占庭军事联盟","C. A feudal kingdom in Western Europe|C. 西欧的一个封建王国","D. A trading partnership between Mecca and Medina|D. 麦加与麦地那之间的贸易伙伴关系"],
+    correct:"A", rat_right:"The Rashidun Caliphate (632–661 CE) was the first Arab Muslim empire, led by a series of four caliphs chosen to succeed Muhammad.|拉希顿哈里发国（632–661年）是第一个阿拉伯穆斯林帝国，由一系列被推选为穆罕默德继承人的四位哈里发领导。",
+    rat_wrong:{B:"A Byzantine military alliance is unrelated to the Rashidun Caliphate, which was an Arab Muslim empire.|拜占庭军事联盟与拉希顿哈里发国无关，后者是一个阿拉伯穆斯林帝国。",C:"A feudal kingdom in Western Europe belongs to a separate topic from earlier in this unit.|西欧的封建王国是本单元前面所学的另一个主题。",D:"A trading partnership is not what the Rashidun Caliphate was; it was a political and religious empire.|拉希顿哈里发国不是一种贸易伙伴关系；它是一个政治与宗教帝国。"}
+  },
+  { id:"l1q3", q:"What does the word 'Rashidun' mean?", q_cn:"【拉希顿】这个词是什么意思？",
+    options:["A. Rightly guided|A. 正统的","B. Trading partners|B. 贸易伙伴","C. Holy warriors|C. 圣战士","D. Royal bloodline|D. 王室血统"],
+    correct:"A", rat_right:"Rashidun means 'rightly guided,' referring to the first four caliphs of the Muslim community.|拉希顿意为【正统的】，指的是穆斯林社群的前四位哈里发。",
+    rat_wrong:{B:"Trading partners is not the meaning of Rashidun, which refers to a type of leadership.|【贸易伙伴】不是拉希顿的含义，拉希顿指的是一种领导方式。",C:"Holy warriors is not the meaning of Rashidun; the term describes the early caliphs' leadership.|【圣战士】不是拉希顿的含义；这个词描述的是早期哈里发的领导地位。",D:"Royal bloodline is incorrect, since the Rashidun caliphs were chosen, not born into hereditary rule.|【王室血统】是不正确的，因为拉希顿哈里发是被推选出来的，而不是通过世袭继承职位。"}
+  },
+  { id:"l1q4", q:"How were the early caliphs chosen, in contrast to a king inheriting power?", q_cn:"与国王世袭继承权力相比，早期哈里发是如何被选定的？",
+    options:["A. Selected by leading members of the community based on piety and leadership|A. 由社群中的领导成员根据虔诚与领导能力推选","B. Chosen entirely at random by drawing lots|B. 完全通过抽签随机选定","C. Appointed directly by the Byzantine emperor|C. 由拜占庭皇帝直接任命","D. Selected only from Muhammad's direct male descendants|D. 仅从穆罕默德的直系男性后代中选定"],
+    correct:"A", rat_right:"The early caliphs were selected by leading members of the Muslim community based on their relationship to Muhammad and their reputation for piety and leadership.|早期哈里发是由穆斯林社群的领导成员根据他们与穆罕默德的关系以及虔诚与领导能力的声望推选出来的。",
+    rat_wrong:{B:"The caliphs were chosen deliberately based on qualities like piety, not randomly through drawing lots.|哈里发是根据虔诚等品质经过深思熟虑而选定的，而不是通过抽签随机决定的。",C:"The Byzantine emperor had no role in selecting Muslim caliphs, who were chosen within the Muslim community.|拜占庭皇帝在选定穆斯林哈里发方面没有任何作用，哈里发是在穆斯林社群内部选定的。",D:"The selection was based on piety and leadership rather than strictly bloodline descent.|这种选拔是基于虔诚与领导能力，而不是严格基于血统继承。"}
+  },
+  { id:"l1q5", q:"What territories did Muslim armies conquer during the Rashidun period?", q_cn:"在拉希顿时期，穆斯林军队征服了哪些领土？",
+    options:["A. Persia, Egypt, and parts of the Byzantine Empire|A. 波斯、埃及以及拜占庭帝国的部分地区","B. China and Japan|B. 中国与日本","C. The entire continent of North America|C. 整个北美大陆","D. All of Western Europe|D. 整个西欧"],
+    correct:"A", rat_right:"Muslim armies conquered vast territories including Persia, Egypt, and parts of the Byzantine Empire within a few decades.|穆斯林军队在短短几十年内征服了包括波斯、埃及以及拜占庭帝国部分地区的广阔领土。",
+    rat_wrong:{B:"China and Japan are far outside the regions conquered during the Rashidun period.|中国与日本远在拉希顿时期所征服的地区之外。",C:"North America was not yet known to or reached by these armies during this period.|这一时期的这些军队还未知晓或到达北美大陆。",D:"All of Western Europe was not conquered during the Rashidun period; conquests focused on the Middle East and North Africa.|拉希顿时期并未征服整个西欧；征服主要集中在中东与北非地区。"}
+  },
+  { id:"l1q6", q:"Why was the Byzantine Empire especially vulnerable to early Muslim expansion?", q_cn:"为什么拜占庭帝国对早期穆斯林扩张特别脆弱？",
+    options:["A. It was exhausted from earlier wars|A. 它因先前的战争而疲惫不堪","B. It had no army at all|B. 它根本没有军队","C. It had just converted to Islam|C. 它刚刚皈依了伊斯兰教","D. It was located entirely outside the region|D. 它完全位于该地区之外"],
+    correct:"A", rat_right:"Byzantium's weakened state, exhausted from earlier wars, was one factor that allowed Islam to spread at a historically rapid pace.|拜占庭因先前战争而疲惫不堪的状态，是使伊斯兰教能够以历史上罕见的速度迅速传播的一个因素。",
+    rat_wrong:{B:"The Byzantine Empire had an army, but it was weakened by prior conflicts, not entirely absent.|拜占庭帝国是有军队的，只是因先前的冲突而被削弱，并非完全没有军队。",C:"The Byzantine Empire remained a Christian empire and was a target of conquest, not a convert to Islam.|拜占庭帝国仍是一个基督教帝国，是被征服的目标，而不是皈依了伊斯兰教。",D:"The Byzantine Empire's territory bordered the expanding Muslim world directly, not outside the region.|拜占庭帝国的领土与不断扩张的穆斯林世界直接接壤，并不在该地区之外。"}
+  },
+  { id:"l1q7", q:"How did pilgrimage help spread Islam?", q_cn:"朝圣如何帮助传播了伊斯兰教？",
+    options:["A. It connected distant communities to the faith through travel to Mecca|A. 它通过前往麦加的旅程将遥远的社群与信仰联系在一起","B. It prevented any travel between regions|B. 它阻止了地区之间的任何旅行","C. It was only practiced by Byzantine emperors|C. 它只被拜占庭皇帝所实践","D. It replaced the need for missionaries entirely|D. 它完全取代了对传教士的需要"],
+    correct:"A", rat_right:"Pilgrimage to Mecca connected distant communities to the faith, helping Islam spread across wide regions.|前往麦加的朝圣将遥远的社群与信仰联系在一起，帮助伊斯兰教在广阔的地区传播。",
+    rat_wrong:{B:"Pilgrimage actually encouraged travel between regions rather than preventing it.|朝圣实际上鼓励了地区之间的旅行，而不是阻止它。",C:"Pilgrimage was practiced by Muslim believers generally, not only by Byzantine emperors, who were Christian.|朝圣是普遍由穆斯林信徒所实践的，而不仅仅是由拜占庭皇帝（基督徒）所实践。",D:"Pilgrimage worked alongside missionaries as one of several methods, not as a full replacement.|朝圣与传教士共同发挥作用，是多种方式中的一种，而不是完全取代传教士。"}
+  },
+  { id:"l1q8", q:"How did the structure of the caliphate differ from the Byzantine emperor's role?", q_cn:"哈里发国的结构与拜占庭皇帝的角色有何不同？",
+    options:["A. The caliphate combined religious and political authority in a single office|A. 哈里发国将宗教与政治权威合并于同一个职位","B. The caliphate had no connection to religion at all|B. 哈里发国与宗教完全没有任何联系","C. The Byzantine emperor had no political power|C. 拜占庭皇帝没有任何政治权力","D. Both systems were completely identical in structure|D. 两种体系的结构完全相同"],
+    correct:"A", rat_right:"The caliphate combined religious authority with political and military command in a single office, differing from the Byzantine emperor's role.|哈里发国将宗教权威与政治及军事指挥权合并于同一个职位，这与拜占庭皇帝的角色不同。",
+    rat_wrong:{B:"The caliphate was deeply connected to religion, combining it directly with political leadership.|哈里发国与宗教有着深刻的联系，将宗教与政治领导地位直接结合在一起。",C:"The Byzantine emperor held significant political power, as established earlier in this unit.|正如本单元前面所学，拜占庭皇帝拥有重大的政治权力。",D:"The two systems differed in important ways, particularly in how religious and political authority were combined.|这两种体系在重要方面有所不同，尤其是在宗教与政治权威结合的方式上。"}
+  },
+  { id:"l1q9", q:"What does the rapid spread of Islam through multiple methods suggest about how ideas expand across regions?", q_cn:"伊斯兰教通过多种方式迅速传播，这说明了理念如何能够跨地区扩展？",
+    options:["A. Combining multiple approaches — military, economic, religious, and educational — can be more effective than relying on just one|A. 结合多种方式——军事、经济、宗教与教育——可能比仅依赖一种方式更有效","B. Only military force can ever spread an idea or belief system|B. 只有军事力量才能传播一种理念或信仰体系","C. Trade and religion are always completely unrelated to each other|C. 贸易与宗教总是完全无关","D. Ideas can never spread without violent conquest|D. 没有暴力征服，理念绝不可能传播"],
+    correct:"A", rat_right:"Islam's combination of conquest, trade, pilgrimage, and missionary work shows how multiple methods working together can spread ideas more effectively than any single approach.|伊斯兰教将征服、贸易、朝圣与传教工作结合在一起，这表明多种方式共同作用，可能比任何单一方式更能有效地传播理念。",
+    rat_wrong:{B:"Trade, pilgrimage, and missionary work were equally important methods alongside military force.|贸易、朝圣与传教工作与军事力量同样重要。",C:"Trade routes directly carried Islamic ideas, showing a close connection between trade and religion.|贸易路线直接承载着伊斯兰教的理念，这表明贸易与宗教之间存在着紧密的联系。",D:"Pilgrimage and missionary work spread Islam without violence, contradicting this claim.|朝圣与传教工作在没有暴力的情况下传播了伊斯兰教，这与此说法相矛盾。"}
+  },
+  { id:"l1q10", q:"What broader pattern about leadership succession does the Rashidun Caliphate illustrate?", q_cn:"拉希顿哈里发国说明了关于领导权继承的何种更广泛的模式？",
+    options:["A. Communities sometimes choose leaders based on merit and reputation rather than bloodline alone|A. 社群有时会根据才能与声望而不仅仅是血统来选择领袖","B. All historical leadership has always been based purely on inherited bloodline|B. 所有历史上的领导权一直都纯粹基于继承的血统","C. Religious leadership and political leadership have never been combined in any society|C. 宗教领导地位与政治领导地位在任何社会中都从未结合过","D. Leadership selection methods never change over time|D. 领导权的选拔方式从不会随时间改变"],
+    correct:"A", rat_right:"The Rashidun Caliphate shows that communities can choose leaders based on merit, piety, and reputation rather than relying solely on inherited bloodline.|拉希顿哈里发国表明，社群可以根据才能、虔诚与声望来选择领袖，而不仅仅依赖于继承的血统。",
+    rat_wrong:{B:"The Rashidun system is a direct counterexample to leadership based purely on bloodline.|拉希顿体系正是纯粹基于血统的领导权的一个直接反例。",C:"The caliphate itself directly combined religious and political leadership in a single office.|哈里发国本身正是将宗教与政治领导地位结合于同一个职位的直接体现。",D:"The shift from the Rashidun's chosen leadership to the Umayyad's hereditary rule shows methods did change.|从拉希顿被推选的领导权到伍麦叶世袭统治的转变，表明选拔方式确实发生了变化。"}
+  }
+];
+ 
+var L2_Q = [
+  { id:"l2q1", q:"What major change did the Umayyad Dynasty introduce to leadership succession?", q_cn:"伍麦叶王朝对领导权继承引入了什么重大变化？",
+    options:["A. It shifted from a chosen position to hereditary rule within one family|A. 它从被推选的职位转变为一个家族内的世袭统治","B. It abolished the position of caliph entirely|B. 它完全废除了哈里发这一职位","C. It required all leaders to be elected by popular vote|C. 它要求所有领袖都通过全民投票选出","D. It transferred leadership to the Byzantine emperor|D. 它将领导权转移给了拜占庭皇帝"],
+    correct:"A", rat_right:"The Umayyad Dynasty shifted leadership from a chosen position under the Rashidun to hereditary rule within one family.|伍麦叶王朝将领导权从拉希顿时期的被推选职位，转变为一个家族内的世袭统治。",
+    rat_wrong:{B:"The position of caliph continued under the Umayyads; it became hereditary rather than disappearing.|哈里发这一职位在伍麦叶王朝时期得以延续；它变成了世袭，而不是消失。",C:"Popular vote was not how Umayyad leadership was determined; it became hereditary instead.|全民投票不是伍麦叶王朝确定领导权的方式；领导权变成了世袭。",D:"The Byzantine emperor had no role in Umayyad succession, which remained within the Muslim caliphate.|拜占庭皇帝在伍麦叶王朝的继承中没有任何作用，继承权仍留在穆斯林哈里发国内部。"}
+  },
+  { id:"l2q2", q:"What language did the Umayyads make the official state language?", q_cn:"伍麦叶王朝将什么语言定为官方语言？",
+    options:["A. Arabic|A. 阿拉伯语","B. Latin|B. 拉丁语","C. Greek|C. 希腊语","D. Persian|D. 波斯语"],
+    correct:"A", rat_right:"The Umayyads made Arabic the official state language across their vast empire.|伍麦叶王朝将阿拉伯语定为整个庞大帝国的官方语言。",
+    rat_wrong:{B:"Latin was associated with the Roman Catholic Church and Western Europe, not the Umayyad state.|拉丁语与罗马天主教会及西欧相关，与伍麦叶国家无关。",C:"Greek was associated with the Byzantine Empire, a separate civilization from the Umayyads.|希腊语与拜占庭帝国相关，这是与伍麦叶王朝不同的另一个文明。",D:"Persian became more prominent under later dynasties and Persian cultural influence, not as the Umayyad state language.|波斯语在后来的王朝及波斯文化影响下变得更加突出，但不是伍麦叶王朝的官方语言。"}
+  },
+  { id:"l2q3", q:"What was the jizya?", q_cn:"吉兹亚税是什么？",
+    options:["A. A special tax paid by non-Muslims in exchange for religious freedom and protection|A. 非穆斯林缴纳的一种特殊税，以换取宗教自由与保护","B. A tax paid only by Muslim merchants|B. 仅由穆斯林商人缴纳的一种税","C. A military service requirement for all citizens|C. 所有公民都必须履行的兵役要求","D. A fee paid to visit the Kaaba|D. 参观克尔白所需缴纳的费用"],
+    correct:"A", rat_right:"The jizya was a special tax paid by non-Muslims living under Umayyad rule in exchange for religious freedom and protection.|吉兹亚税是伍麦叶统治下非穆斯林缴纳的一种特殊税，以换取宗教自由与保护。",
+    rat_wrong:{B:"The jizya was paid by non-Muslims, not specifically by Muslim merchants.|吉兹亚税是由非穆斯林缴纳的，不是特指由穆斯林商人缴纳。",C:"The jizya was a tax, not a military service requirement.|吉兹亚税是一种税，不是兵役要求。",D:"A fee to visit the Kaaba is unrelated to the jizya tax described in this lesson.|参观克尔白的费用与本课所描述的吉兹亚税无关。"}
+  },
+  { id:"l2q4", q:"What city became the capital of the Abbasid Dynasty?", q_cn:"哪座城市成为了阿拔斯王朝的首都？",
+    options:["A. Baghdad|A. 巴格达","B. Mecca|B. 麦加","C. Constantinople|C. 君士坦丁堡","D. Damascus|D. 大马士革"],
+    correct:"A", rat_right:"The Abbasid Dynasty moved the capital to Baghdad, which became one of the largest and most culturally vibrant cities in the world.|阿拔斯王朝将首都迁至巴格达，这座城市后来成为世界上最大、文化最繁荣的城市之一。",
+    rat_wrong:{B:"Mecca remained an important religious city, but it was not the political capital of the Abbasid Dynasty.|麦加仍是一座重要的宗教城市，但它不是阿拔斯王朝的政治首都。",C:"Constantinople was the Byzantine capital, a separate empire from the Abbasids.|君士坦丁堡是拜占庭帝国的首都，这是与阿拔斯王朝不同的另一个帝国。",D:"Damascus was associated with the earlier Umayyad Dynasty, not the Abbasid capital.|大马士革与早先的伍麦叶王朝相关，不是阿拔斯王朝的首都。"}
+  },
+  { id:"l2q5", q:"How did the Abbasid approach to governance differ from the Umayyads?", q_cn:"阿拔斯王朝的治理方式与伍麦叶王朝有何不同？",
+    options:["A. The Abbasids practiced greater cultural inclusion, welcoming non-Arab Muslims into power|A. 阿拔斯王朝实行更大的文化包容，欢迎非阿拉伯穆斯林进入权力领域","B. The Abbasids excluded all non-Arabs from any role in society|B. 阿拔斯王朝将所有非阿拉伯人排除在社会的任何角色之外","C. The Abbasids abolished the position of caliph|C. 阿拔斯王朝废除了哈里发这一职位","D. The Abbasids moved the capital back to Mecca|D. 阿拔斯王朝将首都迁回了麦加"],
+    correct:"A", rat_right:"The Abbasids practiced greater cultural inclusion than the Umayyads, welcoming non-Arab Muslims into positions of power and scholarship.|阿拔斯王朝比伍麦叶王朝实行了更大的文化包容，欢迎非阿拉伯穆斯林进入权力与学术领域。",
+    rat_wrong:{B:"The Abbasids included non-Arabs more, not excluded them, compared to the Umayyads.|与伍麦叶王朝相比，阿拔斯王朝更多地包容了非阿拉伯人，而不是排斥他们。",C:"The position of caliph continued under the Abbasids, who were themselves caliphs.|哈里发这一职位在阿拔斯王朝时期得以延续，阿拔斯统治者本身就是哈里发。",D:"The Abbasids moved the capital to Baghdad, not back to Mecca.|阿拔斯王朝将首都迁至巴格达，而不是迁回麦加。"}
+  },
+  { id:"l2q6", q:"Who were the ulema?", q_cn:"乌理玛是谁？",
+    options:["A. Religious scholars who gained influence interpreting Islamic law under the Abbasids|A. 在阿拔斯王朝时期获得影响力、解释伊斯兰法律的宗教学者","B. Byzantine military generals|B. 拜占庭的军事将领","C. Feudal lords in Western Europe|C. 西欧的封建领主","D. Christian missionaries sent to Baghdad|D. 派往巴格达的基督教传教士"],
+    correct:"A", rat_right:"The ulema were religious scholars who gained significant influence in interpreting Islamic law during the Abbasid period.|乌理玛是在阿拔斯时期获得重大影响力、负责解释伊斯兰法律的宗教学者。",
+    rat_wrong:{B:"Byzantine military generals belong to a separate civilization from the Abbasid ulema.|拜占庭军事将领属于与阿拔斯乌理玛不同的另一个文明。",C:"Feudal lords belong to the medieval European system discussed earlier in this unit.|封建领主属于本单元前面所讨论的中世纪欧洲体系。",D:"Christian missionaries are unrelated to the ulema, who were Islamic religious scholars.|基督教传教士与乌理玛无关，乌理玛是伊斯兰教的宗教学者。"}
+  },
+  { id:"l2q7", q:"What happened to religious conversion during the Abbasid period?", q_cn:"阿拔斯时期的宗教皈依情况如何？",
+    options:["A. The empire saw mass conversion to Islam across its diverse population|A. 帝国境内多元化的人口中出现了大规模皈依伊斯兰教的现象","B. All conversion to Islam was completely banned|B. 所有皈依伊斯兰教的行为都被完全禁止","C. The population converted entirely to Christianity|C. 人口完全皈依了基督教","D. No religious change occurred at all during this period|D. 这一时期完全没有发生任何宗教变化"],
+    correct:"A", rat_right:"This period saw mass conversion to Islam across the empire's diverse population.|这一时期，帝国境内多元化的人口中出现了大规模皈依伊斯兰教的现象。",
+    rat_wrong:{B:"Conversion to Islam was not banned; in fact, mass conversion occurred during this period.|皈依伊斯兰教并未被禁止；事实上，这一时期发生了大规模的皈依。",C:"The population converted to Islam, not to Christianity, during the Abbasid period.|在阿拔斯时期，人口皈依的是伊斯兰教，而不是基督教。",D:"Significant religious change, specifically mass conversion to Islam, occurred during this period.|这一时期发生了重大的宗教变化，具体表现为大规模皈依伊斯兰教。"}
+  },
+  { id:"l2q8", q:"What helped fuel the intellectual flowering of the Golden Age, according to this lesson?", q_cn:"根据本课，是什么因素助力了黄金时代知识繁荣的兴起？",
+    options:["A. The more multicultural empire the Abbasids built, drawing on Persian, Greek, and other traditions|A. 阿拔斯王朝所建立的更具多元文化色彩的帝国，吸收了波斯、希腊及其他传统","B. The complete isolation of Baghdad from all other cultures|B. 巴格达与所有其他文化的完全隔绝","C. The strict exclusion of all non-Arab scholars|C. 严格排除所有非阿拉伯学者","D. The destruction of all Greek and Persian texts|D. 摧毁所有希腊与波斯文献"],
+    correct:"A", rat_right:"The Abbasids built a more multicultural empire that drew on Persian, Greek, and other traditions, helping fuel the Golden Age's intellectual flowering.|阿拔斯王朝建立了一个更具多元文化色彩的帝国，吸收了波斯、希腊及其他传统，这助力了黄金时代知识繁荣的兴起。",
+    rat_wrong:{B:"Baghdad was a hub connected to diverse traditions, not isolated from them.|巴格达是一个与多元传统相连的中心，而不是与之隔绝。",C:"The Abbasids included non-Arab scholars rather than excluding them, supporting the Golden Age.|阿拔斯王朝包容非阿拉伯学者，而不是排斥他们，这支撑了黄金时代的发展。",D:"Scholars preserved and translated Greek and Persian texts rather than destroying them.|学者们保存并翻译了希腊与波斯文献，而不是摧毁它们。"}
+  },
+  { id:"l2q9", q:"What does the shift from Umayyad to Abbasid rule suggest about how empires can change over time?", q_cn:"从伍麦叶到阿拔斯统治的转变，说明了帝国如何能够随时间发生变化？",
+    options:["A. An empire's approach to identity and inclusion can shift significantly between different ruling dynasties|A. 一个帝国对身份认同与包容性的态度，可能在不同的统治王朝之间发生显著的转变","B. Empires never change their policies once established|B. 帝国一旦建立，其政策从不会改变","C. All dynasties within the same empire are always identical in approach|C. 同一帝国内的所有王朝在治理方式上总是完全相同","D. Cultural inclusion was never a factor in any Islamic dynasty|D. 文化包容从未是任何伊斯兰王朝的考量因素"],
+    correct:"A", rat_right:"The shift from the more Arab-centered Umayyads to the more inclusive Abbasids shows how an empire's approach to identity can change significantly between dynasties.|从更以阿拉伯为中心的伍麦叶王朝到更具包容性的阿拔斯王朝的转变，表明一个帝国对身份认同的态度可能在不同王朝之间发生显著的变化。",
+    rat_wrong:{B:"The Umayyad-to-Abbasid transition is direct evidence that empires can change their policies significantly.|从伍麦叶到阿拔斯的过渡正是帝国可以显著改变其政策的直接证据。",C:"The Umayyads and Abbasids took notably different approaches to cultural inclusion.|伍麦叶王朝与阿拔斯王朝在文化包容方面采取了明显不同的方式。",D:"Cultural inclusion was a defining factor specifically under the Abbasid Dynasty.|文化包容正是阿拔斯王朝的一个决定性因素。"}
+  },
+  { id:"l2q10", q:"What broader insight about taxation and religious tolerance does the jizya illustrate?", q_cn:"吉兹亚税说明了关于税收与宗教宽容的何种更广泛的见解？",
+    options:["A. Empires can extend religious freedom to minority groups while still requiring some form of payment or obligation|A. 帝国可以在仍要求某种形式的缴纳或义务的同时，将宗教自由扩展给少数群体","B. Religious tolerance always means there are no obligations of any kind|B. 宗教宽容总是意味着没有任何形式的义务","C. Taxation was completely unrelated to religion in the Umayyad Empire|C. 在伍麦叶帝国，税收与宗教完全无关","D. Non-Muslims were never allowed to practice their religion under Umayyad rule|D. 在伍麦叶统治下，非穆斯林从未被允许实践自己的宗教"],
+    correct:"A", rat_right:"The jizya shows that the Umayyads extended religious freedom and protection to non-Muslims while still requiring a tax obligation in return.|吉兹亚税表明，伍麦叶王朝在向非穆斯林提供宗教自由与保护的同时，仍要求他们承担纳税的义务。",
+    rat_wrong:{B:"The jizya shows that tolerance under Umayyad rule still came with a financial obligation, not zero obligations.|吉兹亚税表明，伍麦叶统治下的宽容仍伴随着经济义务，而不是没有任何义务。",C:"The jizya directly connects taxation to religious status, showing they were related.|吉兹亚税直接将税收与宗教身份联系在一起，这表明两者是相关的。",D:"Non-Muslims were generally allowed to practice their faith under Umayyad rule, in exchange for paying the jizya.|在伍麦叶统治下，非穆斯林通常被允许实践自己的信仰，以换取缴纳吉兹亚税。"}
+  }
+];
+ 
+var L3_Q = [
+  { id:"l3q1", q:"What was the Golden Age of Islam?", q_cn:"伊斯兰黄金时代是什么？",
+    options:["A. A centuries-long period of major achievement in science, medicine, mathematics, and the arts|A. 在科学、医学、数学与艺术领域取得重大成就的一个长达数百年的时期","B. A short military campaign led by the Rashidun caliphs|B. 拉希顿哈里发领导的一场短暂的军事行动","C. A period when all scholarship in the Islamic world ceased|C. 伊斯兰世界所有学术活动停止的一个时期","D. A trade agreement between Baghdad and Constantinople|D. 巴格达与君士坦丁堡之间的一项贸易协议"],
+    correct:"A", rat_right:"The Golden Age of Islam refers to a centuries-long period of remarkable achievement in science, medicine, mathematics, philosophy, and the arts.|伊斯兰黄金时代指的是在科学、医学、数学、哲学与艺术领域取得卓越成就的一个长达数百年的时期。",
+    rat_wrong:{B:"The Golden Age was a long period of intellectual achievement, not a short military campaign.|黄金时代是一个长期的知识成就时期，不是一场短暂的军事行动。",C:"The Golden Age was marked by an explosion of scholarship, the opposite of scholarship ceasing.|黄金时代的特征是学术活动的大爆发，这与学术活动停止恰恰相反。",D:"A trade agreement is not what defines the Golden Age, which centered on intellectual and cultural achievement.|贸易协议并不是定义黄金时代的内容，黄金时代的核心是知识与文化成就。"}
+  },
+  { id:"l3q2", q:"What did scholars in Baghdad do with Greek, Persian, and Indian texts?", q_cn:"巴格达的学者们对希腊、波斯和印度的文献做了什么？",
+    options:["A. Translated and preserved them while making original contributions|A. 翻译并保存了这些文献，同时作出了原创的贡献","B. Destroyed them to make room for new ideas|B. 摧毁了这些文献，以便为新的理念让路","C. Ignored them entirely|C. 完全忽视了它们","D. Sold them to Byzantine merchants|D. 将它们卖给了拜占庭商人"],
+    correct:"A", rat_right:"Scholars translated and preserved Greek, Persian, and Indian texts while making major original contributions of their own.|学者们翻译并保存了希腊、波斯与印度的文献，同时也作出了自己重要的原创贡献。",
+    rat_wrong:{B:"Scholars preserved these texts rather than destroying them, helping save knowledge for future generations.|学者们保存了这些文献，而不是摧毁它们，这帮助为后代保存了知识。",C:"Scholars actively engaged with and built upon these texts rather than ignoring them.|学者们积极地研究并发展了这些文献，而不是忽视它们。",D:"Selling texts to Byzantine merchants is not described as part of this scholarly activity.|将文献卖给拜占庭商人并未被描述为这种学术活动的一部分。"}
+  },
+  { id:"l3q3", q:"Which dynasty came immediately after the Umayyads in the Golden Age timeline?", q_cn:"在黄金时代的时间线中，紧接伍麦叶王朝之后的是哪个王朝？",
+    options:["A. Abbasid|A. 阿拔斯","B. Rashidun|B. 拉希顿","C. Fatimid|C. 法蒂玛","D. Ayyubid|D. 阿尤布"],
+    correct:"A", rat_right:"The timeline moves Rashidun → Umayyad → Abbasid → Fatimid → Ayyubid, so the Abbasid Dynasty came immediately after the Umayyads.|时间线依次为拉希顿→伍麦叶→阿拔斯→法蒂玛→阿尤布，因此阿拔斯王朝紧接在伍麦叶王朝之后。",
+    rat_wrong:{B:"The Rashidun Caliphate came before the Umayyads, not after.|拉希顿哈里发国在伍麦叶王朝之前，而不是之后。",C:"The Fatimid Dynasty came later in the timeline, after the Abbasids, not immediately after the Umayyads.|法蒂玛王朝在时间线中出现得更晚，是在阿拔斯王朝之后，而不是紧接在伍麦叶王朝之后。",D:"The Ayyubid Dynasty came last in this timeline, founded by Saladin much later.|阿尤布王朝在这条时间线中出现得最晚，由萨拉丁在很久之后建立。"}
+  },
+  { id:"l3q4", q:"Who founded the Ayyubid Dynasty?", q_cn:"阿尤布王朝是由谁建立的？",
+    options:["A. Saladin|A. 萨拉丁","B. Justinian|B. 查士丁尼","C. Muhammad|C. 穆罕默德","D. Pope Urban II|D. 教皇乌尔班二世"],
+    correct:"A", rat_right:"The Ayyubid Dynasty (1171–1260 CE) was founded by Saladin, who reunified Egypt and Syria.|阿尤布王朝（1171–1260年）由萨拉丁建立，他统一了埃及与叙利亚。",
+    rat_wrong:{B:"Justinian was a Byzantine emperor from an earlier lesson, unrelated to the Ayyubid Dynasty.|查士丁尼是前面所学的一位拜占庭皇帝，与阿尤布王朝无关。",C:"Muhammad founded the Islamic faith centuries earlier, not the Ayyubid Dynasty specifically.|穆罕默德是数百年前伊斯兰教信仰的创立者，不是阿尤布王朝的具体建立者。",D:"Pope Urban II called for the Crusades, a separate topic from the Ayyubid Dynasty's founding.|教皇乌尔班二世号召发起了十字军东征，这是与阿尤布王朝建立不同的另一个主题。"}
+  },
+  { id:"l3q5", q:"At its height, how far did the Islamic world stretch geographically?", q_cn:"在其鼎盛时期，伊斯兰世界的地理范围延伸到了多远？",
+    options:["A. From Spain in the west to Central Asia in the east|A. 从西边的西班牙到东边的中亚","B. Only within the city of Mecca|B. 仅限于麦加城内","C. From North America to South America|C. 从北美到南美","D. Only within modern-day Iraq|D. 仅限于现今的伊拉克境内"],
+    correct:"A", rat_right:"At its height, the Islamic world stretched from Spain in the west to Central Asia in the east.|在其鼎盛时期，伊斯兰世界从西边的西班牙延伸到东边的中亚。",
+    rat_wrong:{B:"The Islamic world extended far beyond Mecca, covering a vast geographic area.|伊斯兰世界的范围远远超出了麦加，覆盖了广阔的地理区域。",C:"The Americas were not part of the Islamic world's geographic reach during this period.|美洲在这一时期不属于伊斯兰世界的地理范围。",D:"The Islamic world extended far beyond modern-day Iraq, spanning multiple continents.|伊斯兰世界的范围远远超出了现今的伊拉克，跨越了多个大陆。"}
+  },
+  { id:"l3q6", q:"What role did cities like Baghdad, Cordoba, and Cairo play during the Golden Age?", q_cn:"巴格达、科尔多瓦和开罗等城市在黄金时代扮演了什么角色？",
+    options:["A. They became hubs where scholars exchanged ideas across vast distances|A. 它们成为学者们跨越遥远距离交流思想的中心","B. They were completely isolated from one another|B. 它们彼此完全隔绝","C. They banned all forms of scholarship|C. 它们禁止所有形式的学术活动","D. They had no connection to trade routes|D. 它们与贸易路线没有任何联系"],
+    correct:"A", rat_right:"Cities such as Baghdad, Cordoba, and Cairo became hubs where scholars exchanged ideas across vast distances.|巴格达、科尔多瓦和开罗等城市成为学者们跨越遥远距离交流思想的中心。",
+    rat_wrong:{B:"These cities were connected through trade and scholarship networks, not isolated from each other.|这些城市通过贸易与学术网络相互联系，而不是彼此隔绝。",C:"These cities actively fostered scholarship rather than banning it.|这些城市积极促进了学术活动，而不是禁止它。",D:"These cities were connected by trade routes, which also became networks for exchanging knowledge.|这些城市通过贸易路线相连，这些路线同时也成为了知识交流的网络。"}
+  },
+  { id:"l3q7", q:"What kind of contributions did scholars make in mathematics during the Golden Age?", q_cn:"黄金时代的学者们在数学领域作出了什么样的贡献？",
+    options:["A. Advances in algebra and the numeral system later adopted by Europe|A. 代数学的进步以及后来被欧洲采用的数字系统","B. The invention of the printing press|B. 印刷机的发明","C. The creation of the Justinian Code|C. 查士丁尼法典的创立","D. The development of feudal land grants|D. 封建土地授予制度的发展"],
+    correct:"A", rat_right:"Scholars made advances in algebra and the numeral system that was later adopted by Europe.|学者们在代数学方面取得了进步，并发展了后来被欧洲采用的数字系统。",
+    rat_wrong:{B:"The printing press is unrelated to the mathematical contributions described in this lesson.|印刷机与本课所描述的数学贡献无关。",C:"The Justinian Code is a Byzantine legal text from an earlier lesson, not a Golden Age mathematical contribution.|查士丁尼法典是前面课程中的一部拜占庭法律文本，不是黄金时代的数学贡献。",D:"Feudal land grants belong to the medieval European system, unrelated to Golden Age mathematics.|封建土地授予属于中世纪欧洲体系，与黄金时代的数学无关。"}
+  },
+  { id:"l3q8", q:"How did Golden Age knowledge eventually affect medieval Europe?", q_cn:"黄金时代的知识最终如何影响了中世纪欧洲？",
+    options:["A. Much of this knowledge reached Europe, helping lay groundwork for the later Renaissance|A. 这些知识中的大部分传到了欧洲，为后来的文艺复兴奠定了基础","B. It had absolutely no effect on Europe at all|B. 它对欧洲完全没有任何影响","C. It caused Europe to abandon all forms of scholarship|C. 它导致欧洲放弃了所有形式的学术活动","D. It was completely unknown to Europeans until the 20th century|D. 直到20世纪欧洲人才完全知晓它"],
+    correct:"A", rat_right:"Much of the Golden Age's knowledge eventually reached medieval Europe, helping lay groundwork for the later Renaissance.|黄金时代的大部分知识最终传到了中世纪欧洲，为后来的文艺复兴奠定了基础。",
+    rat_wrong:{B:"This knowledge had a significant effect on Europe, contributing to later intellectual developments.|这些知识对欧洲产生了重大影响，促成了后来的知识发展。",C:"This knowledge helped fuel European scholarship rather than causing it to be abandoned.|这些知识助力了欧洲学术活动的发展，而不是导致其被放弃。",D:"This knowledge reached Europe well before the 20th century, contributing to the medieval and Renaissance periods.|这些知识早在20世纪之前就已传到欧洲，为中世纪与文艺复兴时期作出了贡献。"}
+  },
+  { id:"l3q9", q:"What does the preservation of Greek and Persian texts during the Golden Age suggest about cultural exchange?", q_cn:"黄金时代保存希腊与波斯文献，这说明了关于文化交流的什么道理？",
+    options:["A. Civilizations can build on and preserve the achievements of other cultures rather than starting from nothing|A. 文明可以发展并保存其他文化的成就，而不是从零开始","B. Cultures never benefit from learning about other civilizations|B. 文化从不会因了解其他文明而获益","C. Only one civilization at a time can ever make scientific progress|C. 在任何时候，只有一个文明能够取得科学进步","D. Translation of texts has no value for future generations|D. 文献的翻译对后代毫无价值"],
+    correct:"A", rat_right:"By translating and preserving Greek and Persian texts, Golden Age scholars show how civilizations can build on others' achievements rather than starting entirely from scratch.|通过翻译并保存希腊与波斯的文献，黄金时代的学者们表明，文明可以在其他文明成就的基础上发展，而不是完全从零开始。",
+    rat_wrong:{B:"This lesson shows the opposite — cultures clearly benefited from engaging with other civilizations' knowledge.|本课恰恰表明了相反的情况——文化显然从了解其他文明的知识中获益。",C:"Multiple civilizations, including Greek, Persian, Indian, and Islamic scholars, contributed to this shared body of knowledge.|包括希腊、波斯、印度与伊斯兰学者在内的多个文明，都为这一共同的知识体系作出了贡献。",D:"Translation directly preserved valuable knowledge for future generations, showing clear long-term value.|翻译直接为后代保存了宝贵的知识，这表明了明确的长期价值。"}
+  },
+  { id:"l3q10", q:"What broader lesson about historical knowledge transfer can be drawn from the Golden Age reaching Europe?", q_cn:"从黄金时代知识传到欧洲，可以得出关于历史知识传播的什么更广泛的教训？",
+    options:["A. Knowledge and ideas can travel across civilizations and time periods, shaping developments far from their origin|A. 知识与理念可以跨越文明与时代传播，塑造远离其起源地的发展","B. Knowledge created in one region can never influence another region|B. 一个地区创造的知识永远不会影响另一个地区","C. The Renaissance had no connection to any previous historical period|C. 文艺复兴与之前的任何历史时期都没有任何联系","D. Trade routes only ever carried goods, never ideas|D. 贸易路线从来只承载货物，从不承载理念"],
+    correct:"A", rat_right:"The transfer of Golden Age knowledge to medieval Europe shows how ideas can travel across civilizations and time periods, shaping developments far from where they originated.|黄金时代知识传到中世纪欧洲，表明理念可以跨越文明与时代传播，塑造远离其起源地的发展。",
+    rat_wrong:{B:"The Golden Age's influence on the European Renaissance is direct evidence against this claim.|黄金时代对欧洲文艺复兴的影响，正是反驳这一说法的直接证据。",C:"The Renaissance was connected to and built upon earlier knowledge, including from the Islamic Golden Age.|文艺复兴与之前的知识相连并以此为基础，其中也包括来自伊斯兰黄金时代的知识。",D:"Trade routes carried Islamic ideas as well as goods, as shown earlier in this lesson sequence.|正如本课序列前面所示，贸易路线既承载货物，也承载着伊斯兰教的理念。"}
+  }
+];
+ 
+var L4_Q = [
+  { id:"l4q1", q:"What was the original cause of the Sunni-Shia split?", q_cn:"逊尼派与什叶派分裂的最初原因是什么？",
+    options:["A. A disagreement over who should lead the Muslim community after Muhammad's death|A. 关于穆罕默德去世后由谁来领导穆斯林社群的争议","B. A disagreement over the location of the Kaaba|B. 关于克尔白位置的争议","C. A disagreement over the design of Constantinople|C. 关于君士坦丁堡设计的争议","D. A disagreement over Byzantine taxation policy|D. 关于拜占庭税收政策的争议"],
+    correct:"A", rat_right:"The split originated in a disagreement over who should lead the Muslim community after Muhammad's death.|这一分裂起源于关于穆罕默德去世后由谁来领导穆斯林社群的争议。",
+    rat_wrong:{B:"The location of the Kaaba was not a point of disagreement that caused this split.|克尔白的位置并不是导致这一分裂的争议点。",C:"The design of Constantinople is unrelated to the Sunni-Shia schism within Islam.|君士坦丁堡的设计与伊斯兰教内部的逊尼-什叶分裂无关。",D:"Byzantine taxation policy is a separate topic from the leadership dispute within Islam.|拜占庭税收政策是与伊斯兰教内部领导权争议不同的另一个主题。"}
+  },
+  { id:"l4q2", q:"Who did the Shia believe should have succeeded Muhammad?", q_cn:"什叶派认为谁本应继承穆罕默德？",
+    options:["A. Ali, Muhammad's cousin and son-in-law|A. 阿里，穆罕默德的堂弟兼女婿","B. The Byzantine emperor|B. 拜占庭皇帝","C. Pope Urban II|C. 教皇乌尔班二世","D. A randomly selected merchant|D. 一位随机选定的商人"],
+    correct:"A", rat_right:"Shia Muslims believed leadership should remain within Muhammad's family, specifically through his cousin and son-in-law, Ali.|什叶派穆斯林认为领导权应留在穆罕默德的家族内，具体来说是通过他的堂弟兼女婿阿里。",
+    rat_wrong:{B:"The Byzantine emperor was a separate, non-Muslim political figure unrelated to this succession dispute.|拜占庭皇帝是与这场继承争议无关的另一位非穆斯林政治人物。",C:"Pope Urban II is connected to the later Crusades, not the early succession dispute within Islam.|教皇乌尔班二世与后来的十字军东征相关，与伊斯兰教内部早期的继承争议无关。",D:"A randomly selected merchant has no connection to the Shia belief about rightful succession.|随机选定的商人与什叶派关于合法继承的信仰没有任何关系。"}
+  },
+  { id:"l4q3", q:"What did those who became Sunni believe about leadership?", q_cn:"后来成为逊尼派的人对领导权持何种观点？",
+    options:["A. Leadership should go to whoever the community judged most capable, regardless of bloodline|A. 领导权应交给社群认为最有能力的人，无论其血统如何","B. Leadership should always pass to the Byzantine emperor|B. 领导权应总是传给拜占庭皇帝","C. Leadership should be decided entirely by random lottery|C. 领导权应完全由随机抽签决定","D. Leadership should pass only through Ali's descendants|D. 领导权应仅通过阿里的后代传承"],
+    correct:"A", rat_right:"Those who became Sunni believed leadership should go to whoever the community judged most capable, regardless of bloodline.|后来成为逊尼派的人认为，领导权应交给社群认为最有能力的人，无论其血统如何。",
+    rat_wrong:{B:"The Byzantine emperor is unrelated to the Sunni view on Muslim leadership succession.|拜占庭皇帝与逊尼派关于穆斯林领导权继承的观点无关。",C:"Random lottery is not how Sunni belief described leadership selection; it was based on capability.|随机抽签不是逊尼派信仰中所描述的领导权选拔方式；其依据是能力。",D:"Passing leadership only through Ali's descendants describes the Shia view, not the Sunni view.|仅通过阿里的后代传承领导权，描述的是什叶派的观点，而不是逊尼派的观点。"}
+  },
+  { id:"l4q4", q:"At the transition from which two groups did the Sunni-Shia schism deepen?", q_cn:"逊尼派与什叶派的分裂在从哪两个群体过渡时进一步加深？",
+    options:["A. The Rashidun Caliphate to the Umayyad Dynasty|A. 拉希顿哈里发国过渡到伍麦叶王朝","B. The Byzantine Empire to the Holy Roman Empire|B. 拜占庭帝国过渡到神圣罗马帝国","C. The Roman Republic to the Roman Empire|C. 罗马共和国过渡到罗马帝国","D. The Neolithic Revolution to the Bronze Age|D. 新石器革命过渡到青铜时代"],
+    correct:"A", rat_right:"The disagreement over leadership deepened at the transition from the Rashidun Caliphate to the Umayyad Dynasty.|关于领导权的争议在从拉希顿哈里发国过渡到伍麦叶王朝时进一步加深。",
+    rat_wrong:{B:"The Byzantine Empire to Holy Roman Empire transition is unrelated to the Sunni-Shia schism within Islam.|拜占庭帝国过渡到神圣罗马帝国与伊斯兰教内部的逊尼-什叶分裂无关。",C:"The Roman Republic to Roman Empire transition occurred centuries earlier and is unrelated to this Islamic schism.|罗马共和国过渡到罗马帝国发生在数百年前，与这场伊斯兰教内部的分裂无关。",D:"The Neolithic Revolution to Bronze Age transition is a much earlier historical period, unrelated to this topic.|新石器革命过渡到青铜时代是一个更早的历史时期，与本主题无关。"}
+  },
+  { id:"l4q5", q:"What is Ibadi Islam?", q_cn:"伊巴德派是什么？",
+    options:["A. A smaller branch of Islam holding that leadership should be based purely on piety and ability|A. 伊斯兰教的一个较小分支，主张领导权应纯粹基于虔诚与能力","B. A branch of Christianity centered in Rome|B. 一个以罗马为中心的基督教分支","C. The largest branch of Islam in the world today|C. 当今世界伊斯兰教中最大的分支","D. A political movement within the Byzantine Empire|D. 拜占庭帝国内部的一场政治运动"],
+    correct:"A", rat_right:"Ibadi Islam is a smaller branch holding that leadership should be based purely on piety and ability, rejecting hereditary claims.|伊巴德派是一个较小的分支，主张领导权应纯粹基于虔诚与能力，拒绝世袭继承的主张。",
+    rat_wrong:{B:"Ibadi Islam is a branch of Islam, not a branch of Christianity centered in Rome.|伊巴德派是伊斯兰教的一个分支，不是以罗马为中心的基督教分支。",C:"Sunni Islam, not Ibadi Islam, is the largest branch of Islam in the world today.|逊尼派而不是伊巴德派，是当今世界伊斯兰教中最大的分支。",D:"Ibadi Islam emerged from within the early Islamic world, not the Byzantine Empire.|伊巴德派产生于早期伊斯兰世界内部，而不是拜占庭帝国。"}
+  },
+  { id:"l4q6", q:"Where do Ibadi communities survive today?", q_cn:"如今伊巴德派社群主要存在于哪里？",
+    options:["A. Primarily in Oman and parts of East Africa|A. 主要在阿曼及东非部分地区","B. Primarily in Western Europe|B. 主要在西欧","C. Primarily in Japan|C. 主要在日本","D. Primarily in Constantinople|D. 主要在君士坦丁堡"],
+    correct:"A", rat_right:"Ibadi communities survive today primarily in Oman and parts of East Africa.|如今伊巴德派社群主要存在于阿曼及东非部分地区。",
+    rat_wrong:{B:"Western Europe is not described as a primary region for Ibadi communities today.|西欧并未被描述为如今伊巴德派社群的主要地区。",C:"Japan is unrelated to the geographic distribution of Ibadi Islam.|日本与伊巴德派的地理分布无关。",D:"Constantinople is associated with Byzantine and Orthodox Christian history, not Ibadi Islam.|君士坦丁堡与拜占庭及东正教基督教历史相关，与伊巴德派无关。"}
+  },
+  { id:"l4q7", q:"What does the existence of Ibadi Islam suggest about the early leadership disagreement in Islam?", q_cn:"伊巴德派的存在说明了关于伊斯兰教早期领导权争议的什么道理？",
+    options:["A. The disagreement produced multiple distinct responses, not just a simple two-way split|A. 这一争议产生了多种不同的回应，而不仅仅是简单的二元分裂","B. There was no disagreement of any kind in early Islam|B. 早期伊斯兰教中根本不存在任何争议","C. Only Sunni and Shia views ever existed historically|C. 历史上只存在过逊尼派与什叶派两种观点","D. The disagreement was resolved immediately with no lasting effects|D. 这一争议立即得到解决，没有留下任何持久的影响"],
+    correct:"A", rat_right:"The existence of Ibadi Islam shows the early disagreement produced multiple distinct responses, not just the Sunni-Shia split.|伊巴德派的存在表明，这场早期的争议产生了多种不同的回应，而不仅仅是逊尼-什叶的分裂。",
+    rat_wrong:{B:"The disagreement over leadership was significant, as shown by the emergence of multiple distinct branches.|关于领导权的争议是重大的，多个不同分支的出现证明了这一点。",C:"Ibadi Islam itself is evidence that more than just Sunni and Shia views existed historically.|伊巴德派本身正是历史上不仅存在逊尼派与什叶派观点的证据。",D:"The lasting existence of distinct branches today shows the disagreement had long-term effects, not an immediate resolution.|这些不同分支至今仍持续存在，这表明这场争议产生了长期的影响，而不是立即得到解决。"}
+  },
+  { id:"l4q8", q:"What regions today have significant Shia Muslim populations?", q_cn:"如今哪些地区拥有重要的什叶派穆斯林人口？",
+    options:["A. Iran, Iraq, and parts of the Gulf region|A. 伊朗、伊拉克及海湾地区部分地方","B. Western Europe exclusively|B. 仅限西欧","C. Japan and South Korea|C. 日本与韩国","D. Only within Mecca|D. 仅限于麦加境内"],
+    correct:"A", rat_right:"Shia Muslims form significant communities especially in Iran, Iraq, and parts of the Gulf region.|什叶派穆斯林在伊朗、伊拉克及海湾地区部分地方形成了重要的社群。",
+    rat_wrong:{B:"Western Europe is not described as a primary region with significant Shia populations in this lesson.|本课并未将西欧描述为拥有重要什叶派人口的主要地区。",C:"Japan and South Korea are unrelated to the regions described as having significant Shia populations.|日本与韩国与本课所描述拥有重要什叶派人口的地区无关。",D:"Shia populations extend well beyond Mecca alone, particularly into Iran and Iraq.|什叶派人口的分布远远超出了麦加，尤其是延伸到了伊朗与伊拉克。"}
+  },
+  { id:"l4q9", q:"Why might a dispute over leadership succession eventually lead to distinct religious traditions, as seen in the Sunni-Shia split?", q_cn:"为什么一场关于领导权继承的争议，最终可能会导致不同的宗教传统，正如逊尼派与什叶派分裂中所见？",
+    options:["A. Differences in who holds authority can shape differences in religious interpretation and practice over time|A. 谁掌握权威方面的差异，可能随着时间的推移塑造出宗教解释与实践方面的差异","B. Leadership disputes never have any lasting impact on religious belief|B. 领导权争议从不会对宗教信仰产生任何持久的影响","C. Religious traditions are always completely separate from political history|C. 宗教传统总是与政治历史完全分离","D. Sunni and Shia Islam have always had completely identical practices|D. 逊尼派与什叶派的实践方式一直完全相同"],
+    correct:"A", rat_right:"As seen in the Sunni-Shia split, differences over who holds religious and political authority can shape differences in interpretation and practice that develop over time.|正如逊尼派与什叶派的分裂所示，关于谁掌握宗教与政治权威的差异，可能随着时间的推移塑造出在解释与实践方面发展形成的差异。",
+    rat_wrong:{B:"The Sunni-Shia split shows that a leadership dispute can have a major, lasting impact on religious tradition.|逊尼派与什叶派的分裂表明，一场领导权争议可能对宗教传统产生重大且持久的影响。",C:"This lesson shows political disputes over succession directly shaping later religious traditions.|本课表明，关于继承权的政治争议直接塑造了后来的宗教传统。",D:"Sunni and Shia Islam developed distinct traditions over time, rather than remaining completely identical.|逊尼派与什叶派随着时间的推移发展出了独特的传统，而不是一直保持完全相同。"}
+  },
+  { id:"l4q10", q:"What broader historical pattern does the Sunni-Shia schism share with other religious divisions studied in this unit?", q_cn:"逊尼-什叶分裂与本单元所学的其他宗教分裂，有何共同的更广泛的历史模式？",
+    options:["A. Disagreements over leadership and authority can cause a single religious tradition to split into multiple branches|A. 关于领导权与权威的争议，可能导致一个单一的宗教传统分裂成多个分支","B. Religious schisms have never occurred more than once in world history|B. 宗教分裂在世界历史上从未发生超过一次","C. All religious splits are caused exclusively by disagreements over architecture|C. 所有的宗教分裂都仅仅是由关于建筑的争议所引起的","D. Only Islam has ever experienced any kind of internal religious division|D. 只有伊斯兰教曾经经历过任何形式的内部宗教分裂"],
+    correct:"A", rat_right:"Like the later Great Schism within Christianity, the Sunni-Shia split shows how disagreements over leadership and authority can cause a single religious tradition to divide into multiple branches.|与后来基督教内部的大分裂一样，逊尼-什叶分裂表明，关于领导权与权威的争议可能导致一个单一的宗教传统分裂成多个分支。",
+    rat_wrong:{B:"This unit studies more than one schism, showing that such divisions have occurred more than once.|本单元学习了不止一次分裂，这表明此类分裂不止发生过一次。",C:"Architecture is not described as the cause of the Sunni-Shia split, which centered on leadership succession.|建筑并未被描述为逊尼-什叶分裂的原因，该分裂的核心是领导权继承。",D:"Christianity also experienced its own major schism, the Great Schism, studied later in this unit.|基督教也经历了自己的重大分裂——大分裂，这将在本单元后面学习。"}
+  }
+];
+ 
+var L5_Q = [
+  { id:"l5q1", q:"What was the Great Schism?", q_cn:"大分裂是什么？",
+    options:["A. The 1054 CE split of Christianity into Eastern Orthodox and Roman Catholic branches|A. 公元1054年基督教分裂为东正教与罗马天主教两大分支","B. The split between Sunni and Shia Islam|B. 逊尼派与什叶派伊斯兰教之间的分裂","C. The collapse of the Western Roman Empire|C. 西罗马帝国的崩溃","D. The division of the Rashidun Caliphate|D. 拉希顿哈里发国的分裂"],
+    correct:"A", rat_right:"The Great Schism, in 1054 CE, was the split of Christianity into Eastern Orthodox and Roman Catholic branches.|公元1054年的大分裂，是基督教分裂为东正教与罗马天主教两大分支的事件。",
+    rat_wrong:{B:"The split between Sunni and Shia Islam is a separate religious schism within Islam, studied in the previous lesson.|逊尼派与什叶派之间的分裂是伊斯兰教内部另一场宗教分裂，在上一课中学习过。",C:"The collapse of the Western Roman Empire occurred centuries before the Great Schism in Christianity.|西罗马帝国的崩溃发生在基督教大分裂之前数百年。",D:"The division of the Rashidun Caliphate is unrelated to the Christian Great Schism.|拉希顿哈里发国的分裂与基督教的大分裂无关。"}
+  },
+  { id:"l5q2", q:"What two branches did Christianity divide into during the Great Schism?", q_cn:"在大分裂期间，基督教分裂成了哪两个分支？",
+    options:["A. Eastern Orthodox and Roman Catholic|A. 东正教与罗马天主教","B. Sunni and Shia|B. 逊尼派与什叶派","C. Rashidun and Umayyad|C. 拉希顿与伍麦叶","D. Ibadi and Sunni|D. 伊巴德派与逊尼派"],
+    correct:"A", rat_right:"Christianity divided into Eastern Orthodox Christianity, based in Constantinople, and Roman Catholic Christianity, based in Rome.|基督教分裂为以君士坦丁堡为基地的东正教，以及以罗马为基地的罗马天主教。",
+    rat_wrong:{B:"Sunni and Shia are branches of Islam, not Christianity, and belong to a separate schism.|逊尼派与什叶派是伊斯兰教而非基督教的分支，属于另一场分裂。",C:"Rashidun and Umayyad are early Islamic caliphates, unrelated to the Christian Great Schism.|拉希顿与伍麦叶是早期的伊斯兰哈里发国，与基督教的大分裂无关。",D:"Ibadi and Sunni are both branches of Islam, not the two branches formed by the Great Schism.|伊巴德派与逊尼派都是伊斯兰教的分支，不是大分裂所形成的两个分支。"}
+  },
+  { id:"l5q3", q:"What language did the Eastern Orthodox Church use in religious services?", q_cn:"东正教在宗教仪式中使用什么语言？",
+    options:["A. Greek|A. 希腊语","B. Latin|B. 拉丁语","C. Arabic|C. 阿拉伯语","D. Persian|D. 波斯语"],
+    correct:"A", rat_right:"The Eastern Orthodox Church, based in Constantinople, used Greek in religious services.|以君士坦丁堡为基地的东正教在宗教仪式中使用希腊语。",
+    rat_wrong:{B:"Latin was used by the Roman Catholic Church, not the Eastern Orthodox Church.|拉丁语是罗马天主教会所使用的语言，不是东正教所使用的语言。",C:"Arabic is associated with the Islamic world, not the Eastern Orthodox Church.|阿拉伯语与伊斯兰世界相关，与东正教无关。",D:"Persian is associated with regions under earlier Islamic dynasties, not the Eastern Orthodox Church.|波斯语与早期伊斯兰王朝统治下的地区相关，与东正教无关。"}
+  },
+  { id:"l5q4", q:"What key issue did the Eastern and Western Churches disagree about regarding leadership?", q_cn:"东西方教会在领导权方面存在什么关键的分歧？",
+    options:["A. Whether the Pope held supreme authority over the Church|A. 教皇是否对教会拥有最高权威","B. Whether Jesus existed at all|B. 耶稣是否真实存在","C. Whether to use Arabic in services|C. 是否在仪式中使用阿拉伯语","D. Whether Mecca should be a holy site|D. 麦加是否应该是一处圣地"],
+    correct:"A", rat_right:"The Eastern Orthodox Church did not recognize the Pope's supreme authority, while the Roman Catholic Church recognized the Pope as the supreme head of the Church.|东正教不承认教皇的最高权威，而罗马天主教会则承认教皇为教会的最高首领。",
+    rat_wrong:{B:"The existence of Jesus was not a point of disagreement in the Great Schism, which centered on Church leadership and practice.|耶稣的存在不是大分裂中的争议点，大分裂的核心是教会的领导权与实践。",C:"The use of Arabic is unrelated to the Christian Great Schism, which involved Greek and Latin.|阿拉伯语的使用与基督教的大分裂无关，大分裂涉及的是希腊语与拉丁语。",D:"Mecca as a holy site is connected to Islam, not the Christian Great Schism.|麦加作为圣地与伊斯兰教相关，与基督教的大分裂无关。"}
+  },
+  { id:"l5q5", q:"What prompted the Byzantine emperor to request military help from Western Europe in the late 11th century?", q_cn:"11世纪末，是什么促使拜占庭皇帝向西欧请求军事援助？",
+    options:["A. Growing pressure from Muslim Turkish forces|A. 来自穆斯林突厥势力日益增长的压力","B. A trade dispute with Baghdad|B. 与巴格达的贸易争端","C. A request from the Sunni caliphs|C. 来自逊尼派哈里发的请求","D. An invitation to join the Abbasid Dynasty|D. 加入阿拔斯王朝的邀请"],
+    correct:"A", rat_right:"The Byzantine Empire faced growing pressure from Muslim Turkish forces, prompting the emperor to request military help from Western Europe.|拜占庭帝国面临着来自穆斯林突厥势力日益增长的压力，这促使皇帝向西欧请求军事援助。",
+    rat_wrong:{B:"A trade dispute with Baghdad is not described as the reason for this request for military help.|与巴格达的贸易争端并未被描述为这次请求军事援助的原因。",C:"A request from the Sunni caliphs is not described as prompting the Byzantine emperor's appeal.|来自逊尼派哈里发的请求并未被描述为促使拜占庭皇帝呼吁援助的原因。",D:"An invitation to join the Abbasid Dynasty is unrelated to the Byzantine emperor's request for help.|加入阿拔斯王朝的邀请与拜占庭皇帝请求援助无关。"}
+  },
+  { id:"l5q6", q:"Who called for the Crusades in 1095 CE?", q_cn:"是谁在公元1095年号召发起十字军东征的？",
+    options:["A. Pope Urban II|A. 教皇乌尔班二世","B. Justinian|B. 查士丁尼","C. Muhammad|C. 穆罕默德","D. Saladin|D. 萨拉丁"],
+    correct:"A", rat_right:"Pope Urban II called for the Crusades in 1095 CE, aiming to reclaim Jerusalem and the Holy Land from Muslim control.|教皇乌尔班二世于公元1095年号召发起十字军东征，旨在从穆斯林手中夺回耶路撒冷与圣地。",
+    rat_wrong:{B:"Justinian was a much earlier Byzantine emperor, unrelated to calling the Crusades.|查士丁尼是更早期的一位拜占庭皇帝，与号召十字军东征无关。",C:"Muhammad lived centuries before the Crusades and did not call for them.|穆罕默德生活在十字军东征之前数百年，并未号召发起十字军东征。",D:"Saladin was a later Muslim leader who responded to the Crusades, but did not call for them.|萨拉丁是后来回应十字军东征的一位穆斯林领袖，但他并未号召发起十字军东征。"}
+  },
+  { id:"l5q7", q:"What was the stated goal of the Crusades?", q_cn:"十字军东征宣称的目标是什么？",
+    options:["A. Reclaiming Jerusalem and the Holy Land from Muslim control|A. 从穆斯林手中夺回耶路撒冷与圣地","B. Establishing trade routes to China|B. 建立通往中国的贸易路线","C. Converting the Byzantine Empire to Islam|C. 使拜占庭帝国皈依伊斯兰教","D. Reuniting the Eastern and Western Churches immediately|D. 立即重新统一东西方教会"],
+    correct:"A", rat_right:"The Crusades aimed at reclaiming Jerusalem and the Holy Land from Muslim control.|十字军东征旨在从穆斯林手中夺回耶路撒冷与圣地。",
+    rat_wrong:{B:"Establishing trade routes to China is unrelated to the stated religious goal of the Crusades.|建立通往中国的贸易路线，与十字军东征所宣称的宗教目标无关。",C:"Converting the Byzantine Empire to Islam is the opposite of the Crusades' goal, which was a Christian military campaign.|使拜占庭帝国皈依伊斯兰教与十字军东征的目标恰恰相反，十字军东征是一场基督教的军事行动。",D:"Reuniting the Churches was not the stated goal of the Crusades, which focused on the Holy Land.|重新统一教会并不是十字军东征所宣称的目标，其重点是圣地。"}
+  },
+  { id:"l5q8", q:"What three elements combined to launch the Crusades, according to this lesson?", q_cn:"根据本课，哪三种因素结合在一起促成了十字军东征的发起？",
+    options:["A. Religious devotion, political ambition, and the recently divided Christian world|A. 宗教信仰、政治野心，以及刚刚分裂的基督教世界","B. Trade routes, agricultural surplus, and feudal hierarchy|B. 贸易路线、农业盈余与封建等级体系","C. The Justinian Code, manorialism, and serfdom|C. 查士丁尼法典、庄园制与农奴制","D. The Five Pillars, the Hijra, and the Quran|D. 五大支柱、希吉拉与古兰经"],
+    correct:"A", rat_right:"The call for the Crusades combined religious devotion, political ambition, and the recently divided Christian world.|发起十字军东征的号召，结合了宗教信仰、政治野心，以及刚刚分裂的基督教世界这三种因素。",
+    rat_wrong:{B:"Trade routes, agricultural surplus, and feudal hierarchy are not the three elements described as combining to launch the Crusades.|贸易路线、农业盈余与封建等级体系，并不是本课所描述结合起来发起十字军东征的三种因素。",C:"The Justinian Code, manorialism, and serfdom are separate topics from earlier lessons, not the cause of the Crusades.|查士丁尼法典、庄园制与农奴制是前面课程中的另一个主题，不是十字军东征的原因。",D:"The Five Pillars, the Hijra, and the Quran relate to the origins of Islam, not the cause of the Crusades.|五大支柱、希吉拉与古兰经与伊斯兰教的起源相关，不是十字军东征的原因。"}
+  },
+  { id:"l5q9", q:"What does the timing of the Great Schism, occurring shortly before the Crusades, suggest about the connection between religious division and conflict?", q_cn:"大分裂发生在十字军东征之前不久，这一时间点说明了宗教分裂与冲突之间的何种关联？",
+    options:["A. Religious divisions can shape the political and military events that follow them|A. 宗教分裂可能塑造其后续发生的政治与军事事件","B. Religious events never have any connection to later political or military events|B. 宗教事件从不会与后来的政治或军事事件有任何联系","C. The Crusades caused the Great Schism to happen|C. 十字军东征导致了大分裂的发生","D. The Great Schism and the Crusades are completely unrelated events|D. 大分裂与十字军东征是完全无关的两个事件"],
+    correct:"A", rat_right:"The Great Schism occurring shortly before the Crusades shows how religious divisions can shape the political and military events that follow them.|大分裂发生在十字军东征之前不久，这表明宗教分裂可能塑造其后续发生的政治与军事事件。",
+    rat_wrong:{B:"This lesson sequence shows a clear connection between the Great Schism and the later Crusades.|本课程序列表明了大分裂与后来十字军东征之间存在着明确的联系。",C:"The Great Schism (1054) occurred before the Crusades (beginning 1095), not the reverse.|大分裂（1054年）发生在十字军东征（始于1095年）之前，而不是相反。",D:"The timing and context described in this lesson show these events were closely connected, not unrelated.|本课所描述的时间与背景表明，这些事件之间紧密相关，而不是彼此无关。"}
+  },
+  { id:"l5q10", q:"What broader lesson about requests for help can be drawn from the Byzantine emperor's appeal to Western Europe?", q_cn:"从拜占庭皇帝向西欧的呼吁中，可以得出关于请求援助的什么更广泛的教训？",
+    options:["A. A request for limited help can sometimes set off events on a much larger scale than originally intended|A. 一次有限的援助请求，有时可能引发比最初意图规模大得多的事件","B. Requests for help never have any unintended consequences|B. 请求援助从不会产生任何意外的后果","C. The Byzantine emperor's request had no effect on Western Europe at all|C. 拜占庭皇帝的请求对西欧完全没有任何影响","D. Military help from neighboring civilizations was always refused throughout history|D. 历史上邻近文明的军事援助请求总是被拒绝"],
+    correct:"A", rat_right:"The Byzantine emperor's request for help, intended to address a specific military threat, set off the much larger and longer-lasting series of conflicts known as the Crusades.|拜占庭皇帝原本旨在应对特定军事威胁的援助请求，引发了被称为十字军东征的、规模更大且持续时间更长的一系列冲突。",
+    rat_wrong:{B:"The Crusades show a clear unintended consequence resulting from this initial request for help.|十字军东征清楚地表明，这次最初的援助请求产生了明显的意外后果。",C:"The request had a major effect on Western Europe, leading directly to the Crusades.|这次请求对西欧产生了重大影响，直接导致了十字军东征。",D:"This request for help was actually answered, leading to the Crusades, rather than being refused.|这次援助请求实际上得到了回应，引发了十字军东征，而不是被拒绝。"}
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var allAnswered = Object.keys(storeMap[tabKey]).length === qMap[tabKey].length;
+  var hasRef1 = ref1 && ref1.value.trim().length > 0;
+  var hasRef2 = ref2 && ref2.value.trim().length > 0;
+  var hasGrat = grat && grat.value.trim().length > 0;
+  if (allAnswered && hasRef1 && hasRef2 && hasGrat) {
+    btn.classList.add('ready');
+    btn.disabled = false;
+    hint.style.display = 'none';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1','Ref2','Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'How Islam Spread and the Rashidun Caliphate',
+    l2: 'Umayyad and Abbasid Dynasties',
+    l3: 'Golden Age of Islam',
+    l4: 'Sunni and Shia Islam',
+    l5: 'Great Schism and Introduction to the Crusades'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 8\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + (document.getElementById(tabKey+'Ref1').value) + '\n\n';
+  txt += 'Reflection 2:\n' + (document.getElementById(tabKey+'Ref2').value) + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + document.getElementById(tabKey+'Grat').value + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day8_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
