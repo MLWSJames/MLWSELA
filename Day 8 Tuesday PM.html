@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 9 — Crusades, Mongols, Song China &amp; Medieval Japan | 十字军东征、蒙古帝国、宋朝中国与中世纪日本</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 9 — Crusades, Mongols, Song China &amp; Medieval Japan · <span class="cn">十字军东征、蒙古帝国、宋朝中国与中世纪日本</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson 1"></div>
+    <div class="pip" id="pip-l2" title="Lesson 2"></div>
+    <div class="pip" id="pip-l3" title="Lesson 3"></div>
+    <div class="pip" id="pip-l4" title="Lesson 4"></div>
+    <div class="pip" id="pip-l5" title="Lesson 5"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">⚔️ Impact of the Crusades</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">🐎 Genghis Khan and the Mongol Empire</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">🏹 Why the Mongols Were So Effective</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">🌾 Prosperity in Song China</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">🎎 Shoguns, Samurai and Medieval Japan</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON 1: Impact of the Crusades -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Impact of the Crusades · <span class="cn">十字军东征的影响</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Quick Review: Why the Crusades Began · <span class="cn">快速复习：十字军东征为何开始</span></h3>
+    <p>In the last lesson, you learned that the Byzantine emperor asked Western Europe for military help against Muslim Turkish forces, and that Pope Urban II responded in 1095 CE by calling for the First Crusade to reclaim Jerusalem and the Holy Land. The Crusades continued, on and off, for almost two hundred years (1095–1291). Today's lesson looks at what these long wars actually changed in Europe and the wider Mediterranean world.</p>
+    <p style="margin-top:8px"><span class="cn">在上一课中，你学到了拜占庭皇帝向西欧请求军事援助以对抗穆斯林突厥势力，教皇乌尔班二世于公元1095年回应，号召发起第一次十字军东征以夺回耶路撒冷与圣地。十字军东征断断续续持续了将近两百年（1095–1291年）。今天的课程将探讨这些长期战争真正改变了欧洲与整个地中海世界的什么。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Economic Impact: Trade and Italian City-States · <span class="cn">经济影响：贸易与意大利城邦</span></h3>
+    <p>Crusader armies needed ships, supplies, and money to reach the Holy Land, and Italian city-states like <strong>Venice</strong> and <strong>Genoa</strong> grew extremely wealthy and powerful by providing exactly that. In exchange, these city-states gained valuable trading rights in crusader-controlled ports along the eastern Mediterranean. Soldiers returning home also brought a new taste for Eastern goods — spices, silk, sugar, and dyes — which sparked renewed long-distance trade between Europe and the Middle East and Asia.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>City-State 城邦</th><th>Role in the Crusades 在十字军东征中的角色</th></tr>
+      <tr><td>Venice 威尼斯</td><td>Provided ships, loans, and supplies; gained trading posts and rights in crusader ports 提供船只、贷款与物资；在十字军占领的港口获得贸易据点与权利</td></tr>
+      <tr><td>Genoa 热那亚</td><td>Competed with Venice for the same trade routes and port access in the eastern Mediterranean 在地中海东部与威尼斯争夺相同的贸易路线与港口准入</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Cultural Impact: The Flow of Knowledge · <span class="cn">文化影响：知识的流动</span></h3>
+    <p>Sustained contact with the Muslim world exposed Europeans to advanced scholarship that had been preserved and expanded during the Golden Age of Islam — including the works of Greek philosophers like Aristotle, along with major advances in medicine, mathematics, and astronomy. This flow of knowledge back into Western Europe helped lay groundwork that would later fuel the Renaissance, centuries afterward.</p>
+    <div class="callout">
+      <strong>Knowledge Doesn't Stay in One Place:</strong> Muslim scholars had preserved and built upon Greek texts during the Golden Age of Islam. The Crusades became one important pathway for that preserved knowledge to reach Western Europe.
+      <br><span class="cn"><strong>知识不会停留在一处：</strong>穆斯林学者在伊斯兰黄金时代保存并发展了希腊文献。十字军东征成为这些被保存的知识传回西欧的一条重要途径。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Political Impact: Weakening Empires · <span class="cn">政治影响：帝国的削弱</span></h3>
+    <p>The <strong>Fourth Crusade</strong> (1204) never even reached the Holy Land — instead, crusader armies were diverted and attacked <strong>Constantinople</strong>, the Christian capital of the Byzantine Empire, sacking the city. This severely weakened Byzantium and deepened the bitterness between Eastern Orthodox and Roman Catholic Christianity that had begun with the Great Schism. Two centuries of crusading also drained the resources and manpower of European feudal nobles, slowly loosening the rigid feudal structures you studied earlier in the week.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>第四次十字军东征</strong>（1204年）甚至从未到达圣地——相反，十字军军队被转向，攻击了拜占庭帝国的基督教都城<strong>君士坦丁堡</strong>，并洗劫了这座城市。这严重削弱了拜占庭帝国，并加深了东正教与罗马天主教之间自大分裂以来的怨恨。两百年的十字军东征也消耗了欧洲封建贵族的资源与人力，逐渐松动了你本周早些时候所学的僵化的封建结构。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 1</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Crusades were a religious war, but they ended up changing trade, knowledge, and politics far beyond the battlefield. Why might a long conflict affect a society in ways that have nothing to do with fighting? · <span class="cn">十字军东征是一场宗教战争，但它最终改变了战场之外的贸易、知识与政治。为什么一场长期冲突可能以与战斗本身无关的方式影响一个社会？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Fourth Crusade attacked a Christian city instead of reaching its original Muslim target. What does this suggest about how the original goals of a conflict can change over time? · <span class="cn">第四次十字军东征攻击了一座基督教城市，而不是到达其最初的穆斯林目标。这说明了一场冲突最初的目标可能如何随着时间发生变化？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 2: Genghis Khan and the Mongol Empire -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Genghis Khan and the Mongol Empire · <span class="cn">成吉思汗与蒙古帝国</span></h2>
+ 
+  <div class="concept-card">
+    <h3>From Temujin to Genghis Khan · <span class="cn">从铁木真到成吉思汗</span></h3>
+    <p>Genghis Khan was born around 1162 with the name <strong>Temujin</strong> on the harsh Mongolian steppe. His childhood was difficult — his father was poisoned by rivals, and his family was abandoned by their tribe and left to survive on their own. Through skilled alliances, loyalty from followers, and military success, Temujin slowly defeated rival Mongol and Tatar tribes. In 1206 CE, he united the nomadic peoples of the steppe under his rule and took the title <strong>Genghis Khan</strong>, meaning "universal ruler."</p>
+    <p style="margin-top:8px"><span class="cn">成吉思汗大约于1162年出生，名为<strong>铁木真</strong>，生长在严酷的蒙古草原上。他的童年十分艰难——父亲被对手毒死，家人被部落抛弃，只能独自求生。通过精明的结盟、追随者的忠诚以及军事上的成功，铁木真逐渐击败了对立的蒙古与塔塔尔部落。公元1206年，他统一了草原上的游牧民族，并取得了<strong>成吉思汗</strong>的称号，意为"全宇宙的统治者"。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>A Lifetime of Conquest · <span class="cn">一生的征服</span></h3>
+    <p>Once the Mongol tribes were united, Genghis Khan led devastating military campaigns across Central Asia, northern China, and Persia. Cities that resisted Mongol armies were often destroyed without mercy, creating a fearsome reputation that spread ahead of the army. Cities that surrendered peacefully, however, were generally allowed to keep their lives, their trade, and much of their daily life — a calculated strategy that encouraged surrender rather than resistance.</p>
+    <div class="callout">
+      <strong>Fear as a Weapon:</strong> Genghis Khan's reputation for brutality toward resisting cities was deliberately spread by the Mongols themselves, since fear could win a city's surrender without a single battle being fought.
+      <br><span class="cn"><strong>恐惧作为一种武器：</strong>成吉思汗对抵抗城市残暴的名声，是蒙古人自己刻意传播的，因为恐惧可以在不发一战的情况下赢得一座城市的投降。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Largest Contiguous Empire in History · <span class="cn">历史上最大的连续帝国</span></h3>
+    <p>By the time of its greatest extent, the Mongol Empire stretched from Korea and China in the east to Eastern Europe in the west, and from Siberia in the north down into Persia and the Middle East — making it the largest contiguous (connected, unbroken) land empire ever to exist. This was achieved within roughly a single generation, an extraordinarily fast rate of expansion for any empire in world history.</p>
+    <p style="margin-top:8px"><span class="cn">在其极盛时期，蒙古帝国东起朝鲜与中国，西至东欧，北起西伯利亚，南达波斯与中东——使其成为有史以来面积最大的连续（相连、不间断）陆地帝国。这一切大约在一代人的时间内便已实现，扩张速度在世界历史上任何帝国中都极为罕见地快。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Division After Death · <span class="cn">死后帝国的分裂</span></h3>
+    <p>When Genghis Khan died in 1227, the empire he built was eventually divided among his sons and grandsons into four major <strong>khanates</strong>. This division did not mean the empire's influence ended — each khanate continued Mongol rule and trade connections across its own region for generations.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Khanate 汗国</th><th>Region Ruled 统治区域</th></tr>
+      <tr><td>Yuan Dynasty 元朝</td><td>China, ruled by Kublai Khan 中国，由忽必烈统治</td></tr>
+      <tr><td>Golden Horde 金帐汗国</td><td>Russia and Eastern Europe 俄罗斯与东欧</td></tr>
+      <tr><td>Chagatai Khanate 察合台汗国</td><td>Central Asia 中亚</td></tr>
+      <tr><td>Ilkhanate 伊儿汗国</td><td>Persia and the Middle East 波斯与中东</td></tr>
+    </table>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 2</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Temujin faced extreme hardship as a child — betrayal, poverty, and abandonment. How might these early struggles have shaped the kind of leader he became? · <span class="cn">铁木真幼年时经历了极大的困苦——背叛、贫穷与被抛弃。这些早年的挣扎可能如何塑造了他后来成为的那种领袖？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Mongols offered mercy to cities that surrendered but destruction to cities that resisted. Why might this strategy have been more effective than simply attacking every city the same way? · <span class="cn">蒙古人对投降的城市给予宽恕，对抵抗的城市则加以摧毁。为什么这种策略可能比对每座城市都采取同样的进攻方式更为有效？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 3: Why the Mongols Were So Effective -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Why the Mongols Were So Effective · <span class="cn">蒙古人为何如此高效</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Masters of Mounted Warfare · <span class="cn">骑射的大师</span></h3>
+    <p>Mongol children learned to ride horses almost as soon as they could walk, and this lifetime of practice produced soldiers who could fire a <strong>composite bow</strong> accurately while riding at full speed. This combination of speed, mobility, and deadly accuracy let Mongol armies strike quickly, retreat just as quickly, and cover enormous distances that confused and exhausted slower-moving enemy forces.</p>
+    <p style="margin-top:8px"><span class="cn">蒙古儿童几乎从能走路起就开始学习骑马，这种终身的练习造就了能够在全速骑行中精准射出<strong>复合弓</strong>的士兵。这种速度、机动性与致命精准度的结合，使蒙古军队能够迅速出击、同样迅速撤退，并跨越使行动较慢的敌军感到困惑且疲惫不堪的巨大距离。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Military Organization and Discipline · <span class="cn">军事组织与纪律</span></h3>
+    <p>The Mongol army was organized using a strict decimal system — units of 10, 100, 1,000, and 10,000 soldiers — which made commanding huge armies far more manageable than in many rival forces. Promotion within this system was based on skill and loyalty rather than noble birth, a meritocratic approach that rewarded talented soldiers regardless of their family background.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Feature 特征</th><th>Why It Mattered 重要性</th></tr>
+      <tr><td>Decimal organization 十进制组织</td><td>Made commanding massive armies efficient and predictable 使指挥庞大的军队变得高效且有序</td></tr>
+      <tr><td>Meritocracy 唯才是举</td><td>Skilled soldiers could rise regardless of birth, motivating loyalty and effort 有能力的士兵无论出身均可晋升，激励了忠诚与努力</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Psychological Warfare and Strategy · <span class="cn">心理战与策略</span></h3>
+    <p>Mongol commanders used spies and scouts to gather detailed information before an attack, and often used a <strong>feigned retreat</strong> — pretending to flee in order to lure overconfident enemies into a trap. When Mongol armies needed to take a fortified city, they borrowed and adapted siege technology from the very civilizations they conquered, including Chinese and Persian engineers.</p>
+    <div class="callout-blue">
+      <strong>Learning From Conquered Peoples:</strong> Rather than relying only on their own traditions, the Mongols absorbed useful technology and knowledge from the peoples they defeated — a flexible approach that made them even more effective.
+      <br><span class="cn"><strong>向被征服的民族学习：</strong>蒙古人并不仅仅依赖自身的传统，而是吸收了被他们击败的民族中有用的技术与知识——这种灵活的方式使他们变得更加高效。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Pax Mongolica — the "Mongol Peace" · <span class="cn">蒙古和平</span></h3>
+    <p>Once a region came under Mongol control, the empire generally provided relative safety along its trade routes, a period historians call the <strong>Pax Mongolica</strong>. This stability revived long-distance trade along the Silk Road, allowing goods, ideas, and technology to travel more safely between China, Persia, and Europe than they had in centuries — though, as you will see in a later lesson, the same connected routes could also carry disease.</p>
+    <p style="margin-top:8px"><span class="cn">一旦某个地区落入蒙古的控制之下，帝国通常会在其贸易路线上提供相对的安全，历史学家称这一时期为<strong>蒙古和平</strong>。这种稳定使丝绸之路上的长途贸易重新复苏，让货物、理念与技术能够在中国、波斯与欧洲之间比过去几个世纪更安全地流动——不过，正如你将在后面的课程中看到的，同样畅通的路线也可能传播疾病。</span></p>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 3</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The Mongols promoted soldiers based on skill rather than noble birth. How might this kind of meritocratic system affect the loyalty and motivation of an army compared to a system based only on family status? · <span class="cn">蒙古人根据能力而非贵族出身来晋升士兵。与仅以家族地位为基础的制度相比，这种唯才是举的制度可能如何影响军队的忠诚度与士气？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The same trade routes that brought safety and prosperity during the Pax Mongolica could also later spread disease. What does this suggest about the risks and benefits of being closely connected to other parts of the world? · <span class="cn">蒙古和平时期带来安全与繁荣的同一条贸易路线，后来也可能传播疾病。这说明了与世界其他地区紧密相连存在着怎样的风险与好处？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 4: Prosperity in Song China -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Prosperity in Song China (960–1279) · <span class="cn">宋朝中国的繁荣（960–1279年）</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Economic Growth and Innovation · <span class="cn">经济增长与创新</span></h3>
+    <p>The Song Dynasty introduced the world's first government-issued <strong>paper money</strong>, which made large trade transactions far easier than carrying heavy coins. Advances in rice agriculture — including new strains and irrigation techniques — produced much larger harvests, supporting rapid population growth and the rise of enormous, bustling cities unlike almost anywhere else in the world at the time.</p>
+    <p style="margin-top:8px"><span class="cn">宋朝发行了世界上最早的政府发行<strong>纸币</strong>，这使大额贸易交易比携带沉重的硬币容易得多。稻米农业的进步——包括新的稻种与灌溉技术——带来了更大的收成，支撑了人口的快速增长，以及当时世界上几乎无与匹敌的巨大繁忙城市的兴起。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Technological Advances · <span class="cn">技术进步</span></h3>
+    <p>Song China produced some of the most important inventions in world history: early <strong>gunpowder</strong> weapons changed warfare forever, <strong>movable type printing</strong> made books far cheaper and faster to produce than hand-copying, and an improved <strong>magnetic compass</strong> made long-distance sea navigation dramatically more reliable.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Invention 发明</th><th>Impact 影响</th></tr>
+      <tr><td>Gunpowder 火药</td><td>Created new weapons that would eventually transform warfare worldwide 创造了最终改变全球战争方式的新式武器</td></tr>
+      <tr><td>Movable type printing 活字印刷</td><td>Made producing books faster and cheaper than copying by hand 使书籍的生产比手工抄写更快、更便宜</td></tr>
+      <tr><td>Improved magnetic compass 改良的磁罗盘</td><td>Made long-distance sea travel and navigation far more reliable 使长途航海与导航变得远更可靠</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Trade and the Grand Canal · <span class="cn">贸易与大运河</span></h3>
+    <p>The <strong>Grand Canal</strong> linked northern and southern China, allowing grain, goods, and people to move efficiently across the empire by water rather than slower overland routes. At the same time, large Chinese trading ships carried porcelain, silk, and tea along busy maritime routes throughout East and Southeast Asia, spreading Chinese goods and culture across the region.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>大运河</strong>连接了中国南北，使粮食、货物与人员能够通过水路而非较慢的陆路在帝国境内高效流动。与此同时，大型中国商船沿着繁忙的航线，将瓷器、丝绸与茶叶运往整个东亚与东南亚地区，将中国的商品与文化传播到该地区各地。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Civil Service Examination System · <span class="cn">科举考试制度</span></h3>
+    <p>Government officials in Song China were chosen largely through a demanding <strong>civil service examination</strong> based on knowledge of Confucian classics, rather than purely through noble birth — opening a path, however narrow, for talented commoners to rise into government positions. Despite all of this prosperity and innovation, Song China was eventually conquered by the Mongol Empire, becoming the Yuan Dynasty under Kublai Khan — the same Mongol expansion you studied in the previous lessons.</p>
+    <div class="callout">
+      <strong>Connecting the Lessons:</strong> The wealthy, advanced civilization you just studied — Song China — is the very empire that fell to the Mongol conquests described earlier in today's module.
+      <br><span class="cn"><strong>课程之间的联系：</strong>你刚刚学习的这个富裕而先进的文明——宋朝中国——正是在今天课程前面所描述的蒙古征服中陷落的那个帝国。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 4</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The civil service examination system allowed some talented commoners to rise into government positions based on knowledge rather than birth. Why might a society benefit from selecting some of its leaders this way? · <span class="cn">科举考试制度使一些有才能的平民能够凭借知识而非出身晋升到政府职位。一个社会以这种方式选拔部分领导者，可能有什么好处？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Despite all of its wealth, technology, and innovation, Song China was eventually conquered by the Mongols. What does this suggest about the relationship between a civilization's prosperity and its military strength? · <span class="cn">尽管宋朝拥有如此丰富的财富、技术与创新，最终仍被蒙古人征服。这说明了一个文明的繁荣与其军事实力之间存在着怎样的关系？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<!-- LESSON 5: Shoguns, Samurai and Medieval Japan -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Shoguns, Samurai and Medieval Japan · <span class="cn">幕府将军、武士与中世纪日本</span></h2>
+ 
+  <div class="concept-card">
+    <h3>Japan's Feudal Structure · <span class="cn">日本的封建结构</span></h3>
+    <p>Medieval Japan developed a layered system of power that looks, at first glance, similar to feudal Europe. The emperor remained Japan's symbolic head of state, but real military and political power belonged to the <strong>shogun</strong>. Below the shogun, regional lords called <strong>daimyo</strong> controlled their own territories, and <strong>samurai</strong> warriors served and protected the daimyo in exchange for land and status.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Role 角色</th><th>Function 职能</th></tr>
+      <tr><td>Emperor 天皇</td><td>Symbolic head of state with limited real power 象征性的国家元首，实际权力有限</td></tr>
+      <tr><td>Shogun 幕府将军</td><td>Held the true military and political power 掌握真正的军事与政治权力</td></tr>
+      <tr><td>Daimyo 大名</td><td>Regional lords who controlled their own territories 控制各自领地的地方领主</td></tr>
+      <tr><td>Samurai 武士</td><td>Warrior class who served and protected the daimyo 为大名服务并保护大名的武士阶层</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Samurai and Bushido · <span class="cn">武士与武士道</span></h3>
+    <p>Samurai warriors followed a strict code of conduct known as <strong>bushido</strong>, meaning "the way of the warrior." Bushido emphasized loyalty to one's lord, personal honor, courage in battle, and self-discipline, even to the point of a samurai being willing to die rather than live with dishonor. This code shaped daily samurai life far beyond the battlefield, influencing manners, art, and personal identity.</p>
+    <p style="margin-top:8px"><span class="cn">武士遵循一套被称为<strong>武士道</strong>的严格行为准则，意为"武者之道"。武士道强调对主人的忠诚、个人的荣誉、战斗中的勇气以及自我约束，甚至到了武士宁愿死也不愿活在耻辱中的程度。这一准则塑造了武士战场之外的日常生活，影响着礼仪、艺术与个人身份认同。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Comparing Japanese and European Feudalism · <span class="cn">比较日本与欧洲的封建制度</span></h3>
+    <p>Japanese feudalism and European feudalism share some clear similarities: both featured a layered hierarchy, an exchange of land and protection for loyalty and military service, and a warrior class bound by its own code of honor. But there were also important differences in how each system developed and operated.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Medieval Japan 中世纪日本</th><th>Medieval Europe 中世纪欧洲</th></tr>
+      <tr><td>Samurai followed bushido 武士遵循武士道</td><td>Knights followed a code of chivalry 骑士遵循骑士精神准则</td></tr>
+      <tr><td>Emperor kept symbolic authority while the shogun ruled 天皇保留象征性权威，幕府将军实际统治</td><td>Kings held formal authority, sometimes weakened by powerful nobles 国王拥有正式权威，有时被强大的贵族削弱</td></tr>
+      <tr><td>Daimyo controlled territory under the shogun 大名在幕府将军之下控制领地</td><td>Lords controlled territory under the king 领主在国王之下控制领地</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Cultural Influences and Relative Isolation · <span class="cn">文化影响与相对孤立</span></h3>
+    <p>As an island nation, Japan was somewhat geographically isolated from the Asian mainland, but this never fully cut it off from outside influence. Over centuries, Japan imported and adapted writing systems, Buddhism, art styles, and architectural ideas from China and Korea, then reshaped these borrowed elements into something distinctly its own.</p>
+    <div class="callout-blue">
+      <strong>Borrowing and Adapting:</strong> Like the Abbasids translating Greek texts or the Mongols adopting siege technology, medieval Japan shows another example of a civilization absorbing outside ideas and transforming them into something new.
+      <br><span class="cn"><strong>借鉴与改造：</strong>正如阿拔斯王朝翻译希腊文献或蒙古人采用攻城技术一样，中世纪日本也展示了一个文明吸收外来理念并将其转化为全新事物的另一个例子。</span>
+    </div>
+  </div>
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Lesson 5</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Both samurai and European knights followed strict codes of honor (bushido and chivalry). Why might warrior classes in very different parts of the world develop similar codes of conduct? · <span class="cn">武士与欧洲骑士都遵循严格的荣誉准则（武士道与骑士精神）。为什么世界上截然不同地区的武士阶层，可能会形成相似的行为准则？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Japan adapted writing, religion, and art from China and Korea but reshaped them into something uniquely Japanese. Can you think of a modern example where one culture borrows and adapts an idea from another? · <span class="cn">日本从中国与韩国吸收了文字、宗教与艺术，但将其改造成了独具日本特色的事物。你能想到一个现代的例子，说明一种文化如何借鉴并改造另一种文化的理念吗？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  { word:"Fourth Crusade", pos:"proper noun", cn:"第四次十字军东征", def:"A 1204 CE crusade that was diverted from its original goal and instead attacked and sacked Constantinople.", cn_def:"公元1204年的一次十字军东征，被从其最初目标转向，转而攻击并洗劫了君士坦丁堡。", example:"The Fourth Crusade severely weakened the Byzantine Empire." },
+  { word:"Italian city-state", pos:"noun phrase", cn:"意大利城邦", def:"An independent city, such as Venice or Genoa, that grew wealthy by supplying ships and trade for the Crusades.", cn_def:"如威尼斯或热那亚等独立城市，通过为十字军东征提供船只与贸易而变得富裕。", example:"Venice was the most powerful Italian city-state involved in crusader trade." },
+  { word:"Khan", pos:"noun", cn:"可汗", def:"A title meaning ruler or leader, used among Mongol and Central Asian peoples.", cn_def:"在蒙古及中亚民族中使用的、意为统治者或领袖的称号。", example:"Genghis Khan's title meant 'universal ruler.'" },
+  { word:"Khanate", pos:"noun", cn:"汗国", def:"A territory or kingdom ruled by a khan, such as one of the four regions the Mongol Empire divided into.", cn_def:"由可汗统治的领土或王国，例如蒙古帝国分裂后形成的四个区域之一。", example:"The Golden Horde was the khanate that ruled Russia and Eastern Europe." },
+  { word:"Composite bow", pos:"noun phrase", cn:"复合弓", def:"A powerful bow made of multiple materials layered together, used by Mongol horse archers.", cn_def:"由多种材料层叠制成的强力弓，被蒙古骑射手所使用。", example:"Mongol soldiers could fire a composite bow accurately while riding at full speed." },
+  { word:"Pax Mongolica", pos:"proper noun", cn:"蒙古和平", def:"The period of relative peace and safety along trade routes within the Mongol Empire.", cn_def:"蒙古帝国境内贸易路线上相对和平与安全的时期。", example:"The Pax Mongolica allowed Silk Road trade to flourish again." },
+  { word:"Civil service examination", pos:"noun phrase", cn:"科举考试", def:"A demanding test based on Confucian classics used to select government officials in Song China.", cn_def:"宋朝以儒家经典为基础选拔政府官员的高难度考试。", example:"The civil service examination allowed some talented commoners to enter government." },
+  { word:"Movable type printing", pos:"noun phrase", cn:"活字印刷", def:"A printing method using reusable individual characters, developed during the Song Dynasty.", cn_def:"宋朝发展出的一种使用可重复使用的单个字符的印刷方法。", example:"Movable type printing made books far cheaper to produce than copying by hand." },
+  { word:"Shogun", pos:"noun", cn:"幕府将军", def:"The military ruler who held real political power in medieval Japan, while the emperor remained a symbolic figure.", cn_def:"在中世纪日本掌握真正政治权力的军事统治者，而天皇则保留象征性的地位。", example:"The shogun commanded Japan's military and government affairs." },
+  { word:"Daimyo", pos:"noun", cn:"大名", def:"A regional lord in medieval Japan who controlled territory under the shogun.", cn_def:"中世纪日本在幕府将军之下控制领地的地方领主。", example:"Each daimyo governed their own territory and commanded their own samurai." },
+  { word:"Samurai", pos:"noun", cn:"武士", def:"The warrior class of medieval Japan, who served and protected the daimyo.", cn_def:"中世纪日本为大名服务并保护大名的武士阶层。", example:"Samurai trained for years to master swordsmanship and combat." },
+  { word:"Bushido", pos:"noun", cn:"武士道", def:"The strict code of conduct followed by samurai, emphasizing loyalty, honor, and courage.", cn_def:"武士所遵循的严格行为准则，强调忠诚、荣誉与勇气。", example:"Bushido required samurai to value honor above their own lives." }
+];
+ 
+var L1_Q = [
+  { id:"l1q1", q:"Why did Italian city-states like Venice and Genoa grow wealthy during the Crusades?", q_cn:"为什么威尼斯和热那亚等意大利城邦在十字军东征期间变得富裕？",
+    options:["A. By providing ships, supplies, and loans to crusader armies|A. 通过为十字军军队提供船只、物资与贷款","B. By converting to Islam to gain trading rights|B. 通过皈依伊斯兰教来获得贸易权","C. By refusing to trade with any crusader armies|C. 通过拒绝与任何十字军军队贸易","D. By conquering Constantinople themselves|D. 通过自行征服君士坦丁堡"],
+    correct:"A", rat_right:"Italian city-states like Venice and Genoa grew wealthy by providing the ships, supplies, and money crusader armies needed.|威尼斯和热那亚等意大利城邦通过提供十字军军队所需的船只、物资与资金而变得富裕。",
+    rat_wrong:{B:"These city-states remained Christian and gained wealth through trade and transport, not religious conversion.|这些城邦始终是基督教城邦，是通过贸易与运输获利，而不是通过宗教皈依。",C:"The city-states actively engaged in trade with crusader forces rather than refusing to participate.|这些城邦积极参与与十字军力量的贸易，而不是拒绝参与。",D:"It was the Fourth Crusade, not the Italian city-states acting alone, that attacked Constantinople.|攻击君士坦丁堡的是第四次十字军东征，而不是意大利城邦单独行动。"}
+  },
+  { id:"l1q2", q:"What kind of goods did returning crusaders create new demand for in Europe?", q_cn:"返回的十字军在欧洲创造了对什么商品的新需求？",
+    options:["A. Eastern goods such as spices, silk, sugar, and dyes|A. 香料、丝绸、糖与染料等东方商品","B. Only weapons and armor|B. 仅限武器与盔甲","C. Only farming tools|C. 仅限农具","D. Goods made exclusively in Western Europe|D. 仅产自西欧的商品"],
+    correct:"A", rat_right:"Returning soldiers brought home a new taste for Eastern goods like spices, silk, sugar, and dyes.|返回的士兵带回了对香料、丝绸、糖与染料等东方商品的新喜好。",
+    rat_wrong:{B:"Weapons and armor are not described as the new trade demand created by returning crusaders.|武器与盔甲并未被描述为返回的十字军所创造的新贸易需求。",C:"Farming tools are unrelated to the Eastern luxury goods crusaders brought a taste for.|农具与十字军所带来喜好的东方奢侈品无关。",D:"The new demand was specifically for goods from the East, not goods already made in Western Europe.|这种新需求专门指向来自东方的商品，而不是西欧本就生产的商品。"}
+  },
+  { id:"l1q3", q:"What knowledge did Europeans gain greater access to through contact during the Crusades?", q_cn:"通过十字军东征期间的接触，欧洲人获得了对哪种知识更多的接触？",
+    options:["A. Greek philosophy and advances in medicine, mathematics, and astronomy preserved by Muslim scholars|A. 由穆斯林学者保存的希腊哲学以及医学、数学与天文学方面的进步","B. Ancient Egyptian hieroglyphics|B. 古埃及的象形文字","C. Mongol military tactics|C. 蒙古的军事战术","D. Japanese writing systems|D. 日本的文字系统"],
+    correct:"A", rat_right:"Sustained contact exposed Europeans to Greek philosophy and advances in medicine, mathematics, and astronomy preserved during the Golden Age of Islam.|持续的接触使欧洲人接触到了在伊斯兰黄金时代被保存下来的希腊哲学以及医学、数学与天文学方面的进步。",
+    rat_wrong:{B:"Egyptian hieroglyphics are not described as the knowledge transferred through crusader contact.|埃及象形文字并未被描述为通过十字军接触所传递的知识。",C:"Mongol military tactics are covered in a separate lesson and are unrelated to crusader-era knowledge transfer.|蒙古的军事战术在另一课中学习，与十字军时期的知识传递无关。",D:"Japanese writing systems are covered in a much later lesson, unconnected to crusader contact with the Muslim world.|日本的文字系统在更后面的课程中学习，与十字军同穆斯林世界的接触无关。"}
+  },
+  { id:"l1q4", q:"What happened during the Fourth Crusade in 1204 CE?", q_cn:"公元1204年第四次十字军东征期间发生了什么？",
+    options:["A. Crusader forces were diverted and attacked Constantinople instead of reaching the Holy Land|A. 十字军力量被转向，攻击了君士坦丁堡，而没有到达圣地","B. Crusaders successfully reclaimed Jerusalem permanently|B. 十字军成功永久夺回了耶路撒冷","C. The Pope cancelled all future crusades|C. 教皇取消了所有未来的十字军东征","D. Genghis Khan allied with crusader forces|D. 成吉思汗与十字军力量结盟"],
+    correct:"A", rat_right:"The Fourth Crusade never reached the Holy Land; instead, crusader armies were diverted and attacked Constantinople, sacking the city.|第四次十字军东征从未到达圣地；相反，十字军军队被转向，攻击了君士坦丁堡，并洗劫了这座城市。",
+    rat_wrong:{B:"The Fourth Crusade did not reclaim Jerusalem at all — it attacked a Christian city instead.|第四次十字军东征根本没有夺回耶路撒冷——它转而攻击了一座基督教城市。",C:"The Pope did not cancel future crusades after the Fourth Crusade; crusading continued afterward.|教皇并未在第四次十字军东征之后取消未来的十字军东征；十字军东征此后仍在继续。",D:"Genghis Khan and the Mongol Empire are a separate topic, unconnected to the Fourth Crusade.|成吉思汗与蒙古帝国是另一个主题，与第四次十字军东征无关。"}
+  },
+  { id:"l1q5", q:"How did the sack of Constantinople affect the Byzantine Empire?", q_cn:"洗劫君士坦丁堡对拜占庭帝国产生了什么影响？",
+    options:["A. It severely weakened the Byzantine Empire|A. 它严重削弱了拜占庭帝国","B. It made the Byzantine Empire much stronger|B. 它使拜占庭帝国变得更加强大","C. It had no effect on the Byzantine Empire at all|C. 它对拜占庭帝国完全没有影响","D. It immediately ended the Byzantine Empire's existence|D. 它立即结束了拜占庭帝国的存在"],
+    correct:"A", rat_right:"The sack of Constantinople severely weakened the Byzantine Empire.|洗劫君士坦丁堡严重削弱了拜占庭帝国。",
+    rat_wrong:{B:"Being attacked and sacked weakened the empire rather than strengthening it.|遭受攻击与洗劫削弱了帝国，而不是使其变得更强。",C:"The lesson describes a significant weakening effect, not an absence of impact.|本课描述了一种显著的削弱效应，而不是没有影响。",D:"The Byzantine Empire was severely weakened but continued to exist after 1204, not ending immediately.|拜占庭帝国虽遭严重削弱，但1204年后仍继续存在，并未立即终结。"}
+  },
+  { id:"l1q6", q:"How did the sack of Constantinople affect relations between Eastern and Western Christianity?", q_cn:"洗劫君士坦丁堡对东西方基督教的关系产生了什么影响？",
+    options:["A. It deepened the bitterness between Eastern Orthodox and Roman Catholic Christianity|A. 它加深了东正教与罗马天主教之间的怨恨","B. It immediately reunited the two branches of Christianity|B. 它立即重新统一了基督教的两大分支","C. It had no effect on relations between the two churches|C. 它对两个教会之间的关系没有任何影响","D. It caused the Eastern Orthodox Church to convert to Islam|D. 它导致东正教皈依伊斯兰教"],
+    correct:"A", rat_right:"The sack of a Christian capital deepened the bitterness between Eastern Orthodox and Roman Catholic Christianity that began with the Great Schism.|洗劫这座基督教都城，加深了自大分裂以来东正教与罗马天主教之间的怨恨。",
+    rat_wrong:{B:"The attack deepened division rather than producing reunification.|这次攻击加深了分裂，而不是带来了重新统一。",C:"This event had a clear, lasting negative effect on relations between the two churches.|这一事件对两个教会之间的关系产生了明显且持久的负面影响。",D:"The Eastern Orthodox Church remained Christian; it did not convert to Islam after this event.|东正教在这一事件后仍是基督教，并未皈依伊斯兰教。"}
+  },
+  { id:"l1q7", q:"How did two centuries of crusading affect European feudal nobles?", q_cn:"两百年的十字军东征对欧洲封建贵族产生了什么影响？",
+    options:["A. It drained their resources and manpower, slowly loosening feudal structures|A. 消耗了他们的资源与人力，逐渐松动了封建结构","B. It made feudal nobles far wealthier and more powerful than before|B. 使封建贵族比以前更加富裕与强大","C. It had no impact on European feudal structures|C. 对欧洲的封建结构没有任何影响","D. It immediately ended feudalism across all of Europe|D. 立即终结了整个欧洲的封建制度"],
+    correct:"A", rat_right:"Two centuries of crusading drained the resources and manpower of European feudal nobles, slowly loosening rigid feudal structures.|两百年的十字军东征消耗了欧洲封建贵族的资源与人力，逐渐松动了僵化的封建结构。",
+    rat_wrong:{B:"The long campaigns drained nobles' resources rather than increasing their wealth and power.|长期的征战消耗了贵族的资源，而不是增加了他们的财富与权力。",C:"The lesson describes a real, gradual effect on feudal structures, not an absence of impact.|本课描述了对封建结构真实而渐进的影响，而不是没有影响。",D:"The effect described is a slow loosening over time, not an immediate end to feudalism.|本课所描述的是随时间推移而逐渐松动，而不是封建制度的立即终结。"}
+  },
+  { id:"l1q8", q:"What long-term European cultural shift did the transfer of knowledge during the Crusades help contribute to?", q_cn:"十字军东征期间的知识传递，助力推动了欧洲哪一长期的文化转变？",
+    options:["A. The later Renaissance|A. 后来的文艺复兴","B. The fall of the Western Roman Empire|B. 西罗马帝国的灭亡","C. The founding of the Mongol Empire|C. 蒙古帝国的建立","D. The start of the Hundred Schools of Thought in China|D. 中国百家争鸣的开始"],
+    correct:"A", rat_right:"The flow of preserved Greek knowledge back into Western Europe helped lay groundwork that would later fuel the Renaissance.|被保存的希腊知识重新流回西欧，为日后的文艺复兴奠定了基础。",
+    rat_wrong:{B:"The fall of the Western Roman Empire happened many centuries before the Crusades, not after.|西罗马帝国的灭亡发生在十字军东征之前许多个世纪，而不是之后。",C:"The founding of the Mongol Empire is a separate, unrelated historical development covered later in this module.|蒙古帝国的建立是另一个不相关的历史发展，将在本模块后面学习。",D:"The Hundred Schools of Thought occurred in ancient China, centuries before the Crusades.|百家争鸣发生在古代中国，远早于十字军东征。"}
+  },
+  { id:"l1q9", q:"What lasting attitude between Christians and Muslims resulted from centuries of crusading?", q_cn:"几个世纪的十字军东征导致了基督徒与穆斯林之间什么样的持久态度？",
+    options:["A. Lasting religious distrust between the two groups|A. 两个群体之间持久的宗教不信任","B. Complete and permanent friendship between all Christians and Muslims|B. 所有基督徒与穆斯林之间完全且永久的友谊","C. The total disappearance of both religions|C. 两种宗教的完全消失","D. An immediate merging of Christianity and Islam into one faith|D. 基督教与伊斯兰教立即合并为一种信仰"],
+    correct:"A", rat_right:"Centuries of crusading left a legacy of lasting religious distrust between Christians and Muslims.|几个世纪的十字军东征留下了基督徒与穆斯林之间持久宗教不信任的遗产。",
+    rat_wrong:{B:"The lasting effect described is distrust, not friendship, between the two groups.|本课描述的持久影响是两个群体之间的不信任，而不是友谊。",C:"Both Christianity and Islam continued to exist and grow long after the Crusades ended.|十字军东征结束后，基督教与伊斯兰教都继续存在并发展。",D:"The two religions remained separate and distinct; they did not merge into one faith.|两种宗教始终保持独立与不同；它们并未合并为一种信仰。"}
+  },
+  { id:"l1q10", q:"What does the variety of crusade impacts — economic, cultural, and political — suggest about how a long military conflict affects a society?", q_cn:"十字军东征所产生的经济、文化与政治等多方面的影响，说明了一场长期军事冲突如何影响一个社会？",
+    options:["A. A long conflict can reshape a society in ways that go far beyond the battlefield itself|A. 一场长期冲突可能以远超战场本身的方式重塑一个社会","B. Military conflicts only ever affect a country's army and have no other effects|B. 军事冲突只会影响一个国家的军队，没有其他任何影响","C. The Crusades had no lasting impact of any kind on Europe|C. 十字军东征对欧洲没有任何持久的影响","D. Trade, culture, and politics are always completely unrelated to warfare|D. 贸易、文化与政治总是与战争完全无关"],
+    correct:"A", rat_right:"The wide range of economic, cultural, and political effects shows that a long conflict can reshape a society far beyond the battlefield itself.|经济、文化与政治等广泛影响表明，一场长期冲突可能以远超战场本身的方式重塑一个社会。",
+    rat_wrong:{B:"This lesson shows clear effects on trade, knowledge, and politics, not just on armies.|本课清楚地展示了对贸易、知识与政治的影响，而不仅仅是对军队的影响。",C:"This lesson describes significant, lasting impacts across multiple areas of European society.|本课描述了对欧洲社会多个领域产生的重大且持久的影响。",D:"This lesson shows trade, culture, and politics were all closely connected to the warfare of the Crusades.|本课表明，贸易、文化与政治都与十字军东征的战争紧密相连。"}
+  }
+];
+ 
+var L2_Q = [
+  { id:"l2q1", q:"What was Genghis Khan's birth name?", q_cn:"成吉思汗的本名是什么？",
+    options:["A. Temujin|A. 铁木真","B. Kublai|B. 忽必烈","C. Saladin|C. 萨拉丁","D. Urban|D. 乌尔班"],
+    correct:"A", rat_right:"Genghis Khan was born around 1162 with the name Temujin.|成吉思汗大约于1162年出生，本名为铁木真。",
+    rat_wrong:{B:"Kublai Khan was Genghis Khan's grandson, who later ruled the Yuan Dynasty in China.|忽必烈是成吉思汗的孙子，后来统治了中国的元朝。",C:"Saladin was a Muslim leader associated with the Crusades, unrelated to Genghis Khan's birth name.|萨拉丁是与十字军东征相关的一位穆斯林领袖，与成吉思汗的本名无关。",D:"Pope Urban II called for the Crusades and is unrelated to Genghis Khan's birth name.|教皇乌尔班二世号召发起了十字军东征，与成吉思汗的本名无关。"}
+  },
+  { id:"l2q2", q:"What happened to unify the Mongol tribes in 1206 CE?", q_cn:"公元1206年发生了什么事使蒙古各部落得以统一？",
+    options:["A. Temujin united the nomadic peoples of the steppe under his rule|A. 铁木真将草原上的游牧民族统一于自己的统治之下","B. The Byzantine emperor conquered the Mongol tribes|B. 拜占庭皇帝征服了蒙古部落","C. The Song Dynasty absorbed the Mongol tribes peacefully|C. 宋朝和平地吸纳了蒙古部落","D. Pope Urban II converted the Mongols to Christianity|D. 教皇乌尔班二世使蒙古人皈依基督教"],
+    correct:"A", rat_right:"In 1206 CE, Temujin united the nomadic peoples of the steppe under his rule and took the title Genghis Khan.|公元1206年，铁木真将草原上的游牧民族统一于自己的统治之下，并取得了成吉思汗的称号。",
+    rat_wrong:{B:"The Byzantine emperor is unrelated to the unification of the Mongol tribes.|拜占庭皇帝与蒙古各部落的统一无关。",C:"The Song Dynasty did not unify the Mongol tribes; Temujin achieved this through alliances and conquest.|宋朝并未统一蒙古各部落；这一统一是铁木真通过结盟与征服实现的。",D:"Pope Urban II is associated with the Crusades, not the unification of the Mongol tribes.|教皇乌尔班二世与十字军东征相关，与蒙古各部落的统一无关。"}
+  },
+  { id:"l2q3", q:"What does the title \"Genghis Khan\" mean?", q_cn:"【成吉思汗】这个称号是什么意思？",
+    options:["A. Universal ruler|A. 全宇宙的统治者","B. Holy warrior|B. 圣战士","C. First emperor|C. 第一位皇帝","D. Sacred shogun|D. 神圣的幕府将军"],
+    correct:"A", rat_right:"The title Genghis Khan means \"universal ruler.\"|成吉思汗这一称号意为「全宇宙的统治者」。",
+    rat_wrong:{B:"\"Holy warrior\" is not the meaning given for the title Genghis Khan in this lesson.|本课中并未将「圣战士」作为成吉思汗这一称号的含义。",C:"\"First emperor\" is not the meaning of this Mongol title.|「第一位皇帝」不是这个蒙古称号的含义。",D:"\"Sacred shogun\" mixes a Japanese title with a Mongol one; it is not the meaning of Genghis Khan.|「神圣的幕府将军」将日本的称号与蒙古的称号混在一起；这不是成吉思汗这一称号的含义。"}
+  },
+  { id:"l2q4", q:"What happened to cities that resisted Mongol conquest?", q_cn:"抵抗蒙古征服的城市遭遇了什么？",
+    options:["A. They were often destroyed without mercy|A. 它们常常被毫不留情地摧毁","B. They were always given full independence|B. 它们总是被给予完全的独立","C. They were immediately made into trading partners|C. 它们立即成为贸易伙伴","D. They were ignored completely by Mongol armies|D. 完全被蒙古军队忽视"],
+    correct:"A", rat_right:"Cities that resisted Mongol armies were often destroyed without mercy, creating a fearsome reputation.|抵抗蒙古军队的城市常常被毫不留情地摧毁，造就了一种令人畏惧的名声。",
+    rat_wrong:{B:"Resisting cities faced destruction, not independence, under Mongol conquest.|在蒙古征服下，抵抗的城市面临的是摧毁，而不是独立。",C:"Becoming trading partners describes the treatment of surrendering cities, not resisting ones.|成为贸易伙伴描述的是投降城市受到的待遇，而不是抵抗城市。",D:"Mongol armies actively attacked resisting cities rather than ignoring them.|蒙古军队积极攻击抵抗的城市，而不是忽视它们。"}
+  },
+  { id:"l2q5", q:"What happened to cities and peoples that submitted peacefully to Mongol rule?", q_cn:"和平归顺蒙古统治的城市与民族遭遇了什么？",
+    options:["A. They were generally allowed to keep their lives, trade, and daily life|A. 它们通常被允许保住生命、贸易与日常生活","B. They were always destroyed regardless of surrender|B. 无论是否投降，它们总是被摧毁","C. They were forced to abandon all of their own culture immediately|C. 它们被迫立即放弃自己所有的文化","D. They were exiled to a different continent|D. 它们被流放到另一个大陆"],
+    correct:"A", rat_right:"Cities that surrendered peacefully were generally allowed to keep their lives, trade, and much of their daily life.|和平投降的城市通常被允许保住生命、贸易以及大部分的日常生活。",
+    rat_wrong:{B:"Destruction was the fate of resisting cities, not those that surrendered peacefully.|摧毁是抵抗城市的命运，而不是和平投降城市的命运。",C:"Cities that surrendered were generally allowed to keep much of their daily life, not forced to abandon their culture entirely.|投降的城市通常被允许保留大部分日常生活，而不是被迫完全放弃自己的文化。",D:"Exile to another continent is not described as the fate of peacefully surrendering cities.|流放到另一个大陆并未被描述为和平投降城市的命运。"}
+  },
+  { id:"l2q6", q:"What geographic extent did the Mongol Empire reach at its height?", q_cn:"蒙古帝国在其极盛时期达到了怎样的地理范围？",
+    options:["A. From Korea and China in the east to Eastern Europe in the west|A. 东起朝鲜与中国，西至东欧","B. Only within the Mongolian steppe|B. 仅限于蒙古草原境内","C. Only across the islands of Japan|C. 仅限于日本各岛","D. Only within modern-day Russia|D. 仅限于现今的俄罗斯境内"],
+    correct:"A", rat_right:"The Mongol Empire stretched from Korea and China in the east to Eastern Europe in the west, and from Siberia down into Persia and the Middle East.|蒙古帝国东起朝鲜与中国，西至东欧，北起西伯利亚，南达波斯与中东。",
+    rat_wrong:{B:"The empire expanded far beyond the Mongolian steppe to become the largest contiguous land empire in history.|帝国的扩张远远超出了蒙古草原，成为历史上最大的连续陆地帝国。",C:"The Mongols never conquered Japan; the islands of Japan are unrelated to the Mongol Empire's extent.|蒙古人从未征服日本；日本各岛与蒙古帝国的范围无关。",D:"The empire's extent was far larger than modern-day Russia alone, reaching into Asia and the Middle East.|帝国的范围远远大于现今的俄罗斯，还延伸到亚洲与中东。"}
+  },
+  { id:"l2q7", q:"What happened to the Mongol Empire after Genghis Khan died in 1227 CE?", q_cn:"公元1227年成吉思汗去世后，蒙古帝国发生了什么？",
+    options:["A. It was eventually divided among his sons and grandsons into four khanates|A. 最终在他的儿子与孙子之间分裂成四个汗国","B. It immediately collapsed and disappeared entirely|B. 立即完全崩溃并消失","C. It was conquered by the Byzantine Empire|C. 被拜占庭帝国征服","D. It merged permanently with Song China into one government|D. 与宋朝中国永久合并为一个政府"],
+    correct:"A", rat_right:"The empire he built was eventually divided among his sons and grandsons into four major khanates.|他所建立的帝国最终在他的儿子与孙子之间分裂成四个主要的汗国。",
+    rat_wrong:{B:"The empire did not collapse; it continued through the four khanates, each ruling for generations.|帝国并未崩溃；它通过四个汗国延续，每个汗国都统治了几代人。",C:"The Byzantine Empire did not conquer the Mongol Empire; the division happened among Genghis Khan's own descendants.|拜占庭帝国并未征服蒙古帝国；这次分裂发生在成吉思汗自己的后代之间。",D:"The Mongols conquered Song China to form the Yuan Dynasty rather than merging governments as equals.|蒙古人征服了宋朝中国，建立了元朝，而不是作为平等的政府进行合并。"}
+  },
+  { id:"l2q8", q:"Which khanate ruled over China after the Mongol conquest?", q_cn:"蒙古征服之后，哪个汗国统治了中国？",
+    options:["A. Yuan Dynasty|A. 元朝","B. Golden Horde|B. 金帐汗国","C. Chagatai Khanate|C. 察合台汗国","D. Ilkhanate|D. 伊儿汗国"],
+    correct:"A", rat_right:"The Yuan Dynasty, ruled by Kublai Khan, governed China after the Mongol conquest.|由忽必烈统治的元朝，在蒙古征服之后统治了中国。",
+    rat_wrong:{B:"The Golden Horde ruled Russia and Eastern Europe, not China.|金帐汗国统治的是俄罗斯与东欧，而不是中国。",C:"The Chagatai Khanate ruled Central Asia, not China.|察合台汗国统治的是中亚，而不是中国。",D:"The Ilkhanate ruled Persia and the Middle East, not China.|伊儿汗国统治的是波斯与中东，而不是中国。"}
+  },
+  { id:"l2q9", q:"Which khanate ruled over Russia and Eastern Europe?", q_cn:"哪个汗国统治了俄罗斯与东欧？",
+    options:["A. Golden Horde|A. 金帐汗国","B. Yuan Dynasty|B. 元朝","C. Ilkhanate|C. 伊儿汗国","D. Chagatai Khanate|D. 察合台汗国"],
+    correct:"A", rat_right:"The Golden Horde was the khanate that ruled Russia and Eastern Europe.|金帐汗国是统治俄罗斯与东欧的汗国。",
+    rat_wrong:{B:"The Yuan Dynasty ruled China, not Russia and Eastern Europe.|元朝统治的是中国，而不是俄罗斯与东欧。",C:"The Ilkhanate ruled Persia and the Middle East, not Russia and Eastern Europe.|伊儿汗国统治的是波斯与中东，而不是俄罗斯与东欧。",D:"The Chagatai Khanate ruled Central Asia, not Russia and Eastern Europe.|察合台汗国统治的是中亚，而不是俄罗斯与东欧。"}
+  },
+  { id:"l2q10", q:"What does Temujin's rise from a difficult childhood to ruler of a vast empire suggest about leadership?", q_cn:"铁木真从艰难的童年崛起成为庞大帝国的统治者，这说明了关于领导力的什么道理？",
+    options:["A. Early hardship does not necessarily prevent someone from becoming a powerful and effective leader|A. 早年的困苦不一定会阻碍一个人成为强大而有效的领袖","B. Only people born into wealth and power can ever become great leaders|B. 只有生于富贵权势的人才能成为伟大的领袖","C. Temujin's difficult childhood made it impossible for him to gain followers|C. 铁木真艰难的童年使他不可能获得追随者","D. Leadership ability has no connection to a person's life experiences|D. 领导能力与一个人的生活经历没有任何关联"],
+    correct:"A", rat_right:"Temujin's rise from betrayal and abandonment to ruler of the largest contiguous empire in history shows that early hardship does not necessarily prevent someone from becoming a powerful leader.|铁木真从背叛与被抛弃中崛起，成为历史上最大连续帝国的统治者，这表明早年的困苦不一定会阻碍一个人成为强大的领袖。",
+    rat_wrong:{B:"Temujin's own life directly contradicts this claim, since he rose from hardship rather than wealth.|铁木真自己的经历直接反驳了这一说法，因为他是从困苦而非富贵中崛起的。",C:"Temujin did gain loyal followers and alliances despite his difficult childhood.|尽管童年艰难，铁木真确实获得了忠诚的追随者与盟友。",D:"Temujin's life experiences, including hardship, are closely connected to how he led and unified the Mongol tribes.|铁木真的生活经历，包括他所经历的困苦，与他如何领导并统一蒙古各部落密切相关。"}
+  }
+];
+ 
+var L3_Q = [
+  { id:"l3q1", q:"Why could Mongol horse archers fire accurately while riding at full speed?", q_cn:"为什么蒙古骑射手能够在全速骑行中精准射箭？",
+    options:["A. A lifetime of practice riding horses from early childhood|A. 从幼年开始终身骑马练习","B. They never actually rode while shooting|B. 他们实际上从不在骑行时射箭","C. They used heavier weapons than other armies|C. 他们使用比其他军队更重的武器","D. They relied entirely on foot soldiers instead|D. 他们完全依赖步兵代替"],
+    correct:"A", rat_right:"Mongol children learned to ride horses almost as soon as they could walk, producing soldiers who could fire a composite bow accurately while riding at full speed.|蒙古儿童几乎从能走路起就开始学习骑马，造就了能够在全速骑行中精准射箭的士兵。",
+    rat_wrong:{B:"Mongol soldiers specifically fired their bows while riding, which made them so effective.|蒙古士兵正是在骑行中射箭，这正是他们如此高效的原因。",C:"The composite bow was valued for being powerful yet manageable, not simply heavier than other weapons.|复合弓的价值在于其强大且易于操控，而不仅仅是比其他武器更重。",D:"Mongol effectiveness relied heavily on mounted archers, not primarily on foot soldiers.|蒙古的高效很大程度上依赖于骑射手，而不是主要依赖步兵。"}
+  },
+  { id:"l3q2", q:"How was the Mongol army organized?", q_cn:"蒙古军队是如何组织的？",
+    options:["A. Using a strict decimal system of units of 10, 100, 1,000, and 10,000|A. 采用十进制的严格组织，单位为10、100、1000与10000","B. Each soldier acted completely independently with no organization|B. 每个士兵完全独立行动，没有任何组织","C. Only by family bloodline, with no other structure|C. 仅按家族血统组织，没有其他结构","D. Randomly, without any ranks or units|D. 随意编组，没有任何等级或单位"],
+    correct:"A", rat_right:"The Mongol army was organized using a strict decimal system of units of 10, 100, 1,000, and 10,000 soldiers.|蒙古军队采用十进制的严格组织，单位为10、100、1000与10000名士兵。",
+    rat_wrong:{B:"This decimal structure shows clear organization, not independent action without structure.|这种十进制结构表明了明确的组织方式，而不是没有结构的独立行动。",C:"Promotion was based on skill and loyalty, not purely on family bloodline.|晋升是基于能力与忠诚，而不仅仅是家族血统。",D:"The decimal system was a deliberate, organized structure, not a random one.|十进制系统是一种刻意设计的、有组织的结构，而不是随意的结构。"}
+  },
+  { id:"l3q3", q:"How was promotion within the Mongol army generally decided?", q_cn:"蒙古军队内部的晋升通常是如何决定的？",
+    options:["A. Based on skill and loyalty rather than noble birth|A. 基于能力与忠诚，而非贵族出身","B. Based purely on a soldier's family wealth|B. 完全基于士兵的家族财富","C. Based only on age, regardless of ability|C. 仅基于年龄，不考虑能力","D. Promotion did not exist in the Mongol army|D. 蒙古军队中不存在晋升"],
+    correct:"A", rat_right:"Promotion within this system was based on skill and loyalty rather than noble birth, rewarding talented soldiers regardless of family background.|这一体系中的晋升基于能力与忠诚，而非贵族出身，奖励有才能的士兵，无论其家族背景如何。",
+    rat_wrong:{B:"Family wealth is not described as the basis for promotion in the Mongol army.|家族财富并未被描述为蒙古军队晋升的依据。",C:"Skill and loyalty, not simply age, determined promotion in this meritocratic system.|在这一唯才是举的体系中，决定晋升的是能力与忠诚，而不仅仅是年龄。",D:"This lesson describes a clear system of meritocratic promotion that did exist.|本课描述了一种确实存在的、唯才是举的明确晋升制度。"}
+  },
+  { id:"l3q4", q:"What was a \"feigned retreat\" used by Mongol commanders?", q_cn:"蒙古指挥官所使用的【假装撤退】是什么？",
+    options:["A. Pretending to flee in order to lure overconfident enemies into a trap|A. 假装逃跑，以引诱过于自信的敌人进入陷阱","B. A permanent withdrawal from all future battles|B. 永久退出所有未来的战斗","C. A signal for the Mongol army to surrender completely|C. 蒙古军队完全投降的信号","D. A type of siege weapon borrowed from China|D. 一种从中国借来的攻城武器"],
+    correct:"A", rat_right:"Mongol commanders often used a feigned retreat — pretending to flee in order to lure overconfident enemies into a trap.|蒙古指挥官常常使用假装撤退——假装逃跑，以引诱过于自信的敌人进入陷阱。",
+    rat_wrong:{B:"A feigned retreat was a temporary tactic, not a permanent withdrawal from battle.|假装撤退是一种临时战术，而不是永久退出战斗。",C:"A feigned retreat was a deceptive strategy, not an actual surrender.|假装撤退是一种欺骗性的策略，而不是真正的投降。",D:"Siege weapons are a separate topic from the feigned retreat tactic, which involved deceptive movement, not equipment.|攻城武器是与假装撤退这一战术不同的另一话题，假装撤退涉及的是欺骗性的移动，而不是装备。"}
+  },
+  { id:"l3q5", q:"Where did the Mongols get siege technology to take fortified cities?", q_cn:"蒙古人从何处获得了攻取设防城市所需的攻城技术？",
+    options:["A. They borrowed and adapted siege technology from the civilizations they conquered|A. 他们从被征服的文明中借鉴并改进了攻城技术","B. They invented all siege technology entirely on their own|B. 他们完全独立发明了所有攻城技术","C. They never used siege technology against fortified cities|C. 他们从未对设防城市使用攻城技术","D. They purchased it exclusively from European crusaders|D. 他们专门从欧洲十字军那里购得"],
+    correct:"A", rat_right:"Mongol armies borrowed and adapted siege technology from the very civilizations they conquered, including Chinese and Persian engineers.|蒙古军队从他们所征服的文明中借鉴并改进了攻城技术，包括中国与波斯的工程师。",
+    rat_wrong:{B:"The Mongols adapted existing technology from conquered peoples rather than inventing it entirely alone.|蒙古人是从被征服的民族那里改进了现有的技术，而不是完全独自发明。",C:"The Mongols did use siege technology, adapted from conquered civilizations, to take fortified cities.|蒙古人确实使用了从被征服文明那里改进而来的攻城技术，以攻取设防城市。",D:"European crusaders are unrelated to the source of Mongol siege technology, which came from conquered Chinese and Persian engineers.|欧洲十字军与蒙古攻城技术的来源无关，蒙古的攻城技术来自被征服的中国与波斯工程师。"}
+  },
+  { id:"l3q6", q:"What does it mean to call the Mongols \"flexible\" in adopting technology from conquered peoples?", q_cn:"称蒙古人在采用被征服民族的技术方面【灵活】，是什么意思？",
+    options:["A. They were willing to absorb useful ideas from outside their own traditions|A. 他们愿意吸收自身传统之外的有用理念","B. They refused to use any technology that was not originally Mongol|B. 他们拒绝使用任何非蒙古本土的技术","C. They forced all conquered peoples to abandon their own technology|C. 他们强迫所有被征服的民族放弃自己的技术","D. They only used technology that came from Europe|D. 他们只使用来自欧洲的技术"],
+    correct:"A", rat_right:"Rather than relying only on their own traditions, the Mongols absorbed useful technology and knowledge from the peoples they defeated.|蒙古人并不仅仅依赖自身的传统，而是吸收了被他们击败的民族中有用的技术与知识。",
+    rat_wrong:{B:"The Mongols' flexibility meant the opposite — they actively adopted outside technology rather than refusing it.|蒙古人的灵活性恰恰相反——他们积极采用外来技术，而不是拒绝它。",C:"The Mongols adopted conquered peoples' technology for their own use, rather than forcing those peoples to abandon it.|蒙古人将被征服民族的技术用于自身，而不是强迫这些民族放弃这些技术。",D:"The siege technology described came from conquered Chinese and Persian engineers, not from Europe.|本课所描述的攻城技术来自被征服的中国与波斯工程师，而不是来自欧洲。"}
+  },
+  { id:"l3q7", q:"What was the Pax Mongolica?", q_cn:"蒙古和平是什么？",
+    options:["A. A period of relative safety along trade routes within the Mongol Empire|A. 蒙古帝国境内贸易路线上相对安全的一段时期","B. A peace treaty between the Mongols and the Byzantine Empire|B. 蒙古与拜占庭帝国之间的一项和平条约","C. A religious conversion of the Mongol people to Buddhism|C. 蒙古人皈依佛教的宗教转变","D. A period when all trade routes were permanently closed|D. 所有贸易路线被永久关闭的一段时期"],
+    correct:"A", rat_right:"The Pax Mongolica was a period of relative safety along trade routes within the Mongol Empire.|蒙古和平是蒙古帝国境内贸易路线上相对安全的一段时期。",
+    rat_wrong:{B:"The Pax Mongolica describes internal stability within Mongol territory, not a treaty with the Byzantines.|蒙古和平描述的是蒙古领土内部的稳定，而不是与拜占庭的条约。",C:"Religious conversion is not what the Pax Mongolica refers to in this lesson.|宗教皈依不是本课中蒙古和平所指的内容。",D:"The Pax Mongolica revived trade routes rather than closing them.|蒙古和平使贸易路线得以复苏，而不是将其关闭。"}
+  },
+  { id:"l3q8", q:"What did the stability of the Pax Mongolica allow to flourish again?", q_cn:"蒙古和平的稳定使什么得以再次繁荣？",
+    options:["A. Long-distance trade along the Silk Road|A. 丝绸之路上的长途贸易","B. Constant warfare between every Mongol khanate|B. 每个蒙古汗国之间持续不断的战争","C. The complete isolation of China from the rest of the world|C. 中国与世界其他地区的完全隔绝","D. The collapse of all trade between Asia and Europe|D. 亚洲与欧洲之间所有贸易的崩溃"],
+    correct:"A", rat_right:"This stability revived long-distance trade along the Silk Road, allowing goods, ideas, and technology to travel more safely.|这种稳定使丝绸之路上的长途贸易重新复苏，让货物、理念与技术能够更安全地流动。",
+    rat_wrong:{B:"The Pax Mongolica refers to a period of relative peace, not constant internal warfare.|蒙古和平指的是相对和平的一段时期，而不是持续的内部战争。",C:"The Pax Mongolica connected regions through trade rather than isolating China.|蒙古和平通过贸易将各地区连接起来，而不是使中国孤立。",D:"The Pax Mongolica revived trade between Asia and Europe rather than collapsing it.|蒙古和平使亚洲与欧洲之间的贸易得以复苏，而不是使其崩溃。"}
+  },
+  { id:"l3q9", q:"What did the same trade routes that brought prosperity during the Pax Mongolica later also carry?", q_cn:"在蒙古和平时期带来繁荣的同一条贸易路线，后来还传播了什么？",
+    options:["A. Disease|A. 疾病","B. Only gold and silver|B. 仅有黄金与白银","C. Only religious texts|C. 仅有宗教文献","D. Nothing besides the original goods|D. 除最初的商品外什么都没有"],
+    correct:"A", rat_right:"As mentioned in this lesson, the same connected routes that brought prosperity could also later carry disease.|正如本课所述，带来繁荣的同一条相连路线，后来也可能传播疾病。",
+    rat_wrong:{B:"Gold and silver are not specifically described as the later risk carried along these routes in this lesson.|本课并未特别将黄金与白银描述为这些路线后来所传播的风险。",C:"Religious texts are not described as the later danger associated with these trade routes.|宗教文献并未被描述为与这些贸易路线相关的后来的危险。",D:"This lesson specifically notes disease as an additional thing these connected routes could carry.|本课特别指出，疾病是这些相连路线可能传播的额外事物。"}
+  },
+  { id:"l3q10", q:"What broader lesson about meritocratic promotion can be drawn from the Mongol army's organization?", q_cn:"从蒙古军队的组织方式中，可以得出关于唯才是举式晋升的什么更广泛的道理？",
+    options:["A. Rewarding skill and loyalty rather than birth can motivate soldiers and strengthen an army|A. 奖励能力与忠诚而非出身，可能激励士兵并增强军队的实力","B. Meritocratic systems always weaken an army's effectiveness|B. 唯才是举的制度总是削弱军队的战斗力","C. Only soldiers born into noble families can ever be effective leaders|C. 只有出身贵族家庭的士兵才能成为有效的领袖","D. Promotion systems have no connection to an army's overall success|D. 晋升制度与军队的整体成功没有任何关联"],
+    correct:"A", rat_right:"The Mongol army's meritocratic promotion system, which rewarded skill and loyalty over birth, helped motivate soldiers and contributed to the army's overall effectiveness.|蒙古军队唯才是举的晋升制度奖励能力与忠诚而非出身，这有助于激励士兵，并促进了军队整体的高效。",
+    rat_wrong:{B:"The Mongol army's success suggests meritocracy strengthened rather than weakened its effectiveness.|蒙古军队的成功表明，唯才是举增强了而非削弱了其战斗力。",C:"The Mongol system specifically rewarded skilled soldiers regardless of noble birth.|蒙古的制度恰恰奖励有能力的士兵，而不论其是否出身贵族。",D:"The Mongol army's organization and promotion system are closely connected to its remarkable success.|蒙古军队的组织与晋升制度，与其卓越的成功密切相关。"}
+  }
+];
+ 
+var L4_Q = [
+  { id:"l4q1", q:"What did the Song Dynasty introduce that was the first of its kind in the world?", q_cn:"宋朝引入了世界上首创的什么事物？",
+    options:["A. Government-issued paper money|A. 政府发行的纸币","B. The first written language in history|B. 历史上最早的文字","C. The first wheel ever invented|C. 史上首次发明的车轮","D. The first calendar system ever created|D. 史上首创的历法系统"],
+    correct:"A", rat_right:"The Song Dynasty introduced the world's first government-issued paper money.|宋朝发行了世界上最早的政府发行纸币。",
+    rat_wrong:{B:"Written language existed long before the Song Dynasty in many civilizations.|文字在宋朝之前许多文明中早已存在。",C:"The wheel was invented many centuries before the Song Dynasty.|车轮在宋朝之前许多个世纪就已被发明。",D:"Calendar systems existed in earlier civilizations long before the Song Dynasty.|历法系统在宋朝之前的早期文明中早已存在。"}
+  },
+  { id:"l4q2", q:"What supported rapid population growth and the rise of huge cities in Song China?", q_cn:"是什么支撑了宋朝中国人口的快速增长以及巨大城市的兴起？",
+    options:["A. Advances in rice agriculture that produced much larger harvests|A. 稻米农业的进步带来了更大的收成","B. A decrease in the total amount of farmland|B. 农田总面积的减少","C. A ban on all forms of trade|C. 对所有形式贸易的禁止","D. The complete abandonment of agriculture|D. 完全放弃农业"],
+    correct:"A", rat_right:"Advances in rice agriculture, including new strains and irrigation techniques, produced much larger harvests that supported population growth.|稻米农业的进步，包括新的稻种与灌溉技术，带来了更大的收成，支撑了人口的增长。",
+    rat_wrong:{B:"Farmland and agricultural techniques expanded and improved rather than decreasing.|农田与农业技术得到了扩展与改善，而不是减少。",C:"Trade expanded during this period rather than being banned.|这一时期贸易得到了扩展，而不是被禁止。",D:"Agriculture advanced significantly during this period rather than being abandoned.|这一时期农业取得了显著进步，而不是被放弃。"}
+  },
+  { id:"l4q3", q:"What was movable type printing used for in Song China?", q_cn:"活字印刷在宋朝中国被用于什么用途？",
+    options:["A. Making books far cheaper and faster to produce than hand-copying|A. 使书籍的生产比手工抄写更便宜、更快","B. Printing paper money exclusively|B. 仅用于印刷纸币","C. Creating maps for sea navigation only|C. 仅用于制作航海地图","D. Producing gunpowder weapons|D. 用于制造火药武器"],
+    correct:"A", rat_right:"Movable type printing made books far cheaper and faster to produce than hand-copying.|活字印刷使书籍的生产比手工抄写更便宜、更快。",
+    rat_wrong:{B:"Movable type printing is described as a tool for producing books, not exclusively paper money.|活字印刷被描述为生产书籍的工具，而不仅仅是纸币。",C:"Mapmaking is connected more closely to the magnetic compass in this lesson than to movable type printing.|在本课中，制图与磁罗盘的关联更紧密，而不是与活字印刷。",D:"Gunpowder weapons are a separate Song-era invention, unrelated to movable type printing.|火药武器是宋朝另一项独立的发明，与活字印刷无关。"}
+  },
+  { id:"l4q4", q:"What did the improved magnetic compass make far more reliable?", q_cn:"改良的磁罗盘使什么变得更加可靠？",
+    options:["A. Long-distance sea travel and navigation|A. 长途航海与导航","B. Land-based farming methods|B. 陆地的农耕方法","C. Government tax collection|C. 政府的税收","D. The civil service examination system|D. 科举考试制度"],
+    correct:"A", rat_right:"An improved magnetic compass made long-distance sea navigation dramatically more reliable.|改良的磁罗盘使长途航海导航变得显著更可靠。",
+    rat_wrong:{B:"Farming methods are connected to rice agriculture advances, not the magnetic compass.|农耕方法与稻米农业的进步相关，而不是与磁罗盘相关。",C:"Tax collection is unrelated to the function of the magnetic compass described in this lesson.|税收与本课所描述的磁罗盘的功能无关。",D:"The civil service examination is a separate topic from the magnetic compass and sea navigation.|科举考试是与磁罗盘及航海导航不同的另一个主题。"}
+  },
+  { id:"l4q5", q:"What did the Grand Canal allow to move efficiently across the Song Empire?", q_cn:"大运河使什么能够在宋朝帝国境内高效流动？",
+    options:["A. Grain, goods, and people by water rather than slower overland routes|A. 粮食、货物与人员通过水路而非较慢的陆路","B. Only military soldiers and weapons|B. 仅有军队士兵与武器","C. Only foreign ambassadors|C. 仅有外国使节","D. Nothing, since the canal was rarely used|D. 什么都没有，因为运河很少被使用"],
+    correct:"A", rat_right:"The Grand Canal linked northern and southern China, allowing grain, goods, and people to move efficiently by water.|大运河连接了中国南北，使粮食、货物与人员能够通过水路高效流动。",
+    rat_wrong:{B:"The Grand Canal is described as moving grain, goods, and people generally, not exclusively soldiers and weapons.|大运河被描述为普遍运输粮食、货物与人员，而不仅仅是士兵与武器。",C:"Foreign ambassadors are not specifically described as the main use of the Grand Canal in this lesson.|本课并未特别将外国使节描述为大运河的主要用途。",D:"The Grand Canal is described as a heavily used route, not one that was rarely used.|大运河被描述为一条被大量使用的路线，而不是很少被使用的路线。"}
+  },
+  { id:"l4q6", q:"What goods did Chinese trading ships carry along maritime routes throughout East and Southeast Asia?", q_cn:"中国商船沿着东亚与东南亚的航线运送了哪些商品？",
+    options:["A. Porcelain, silk, and tea|A. 瓷器、丝绸与茶叶","B. Only weapons and gunpowder|B. 仅有武器与火药","C. Only paper money|C. 仅有纸币","D. Only rice and water|D. 仅有稻米与水"],
+    correct:"A", rat_right:"Large Chinese trading ships carried porcelain, silk, and tea along busy maritime routes throughout East and Southeast Asia.|大型中国商船沿着繁忙的航线，将瓷器、丝绸与茶叶运往整个东亚与东南亚地区。",
+    rat_wrong:{B:"Weapons and gunpowder are not the goods described as carried along these maritime trade routes.|武器与火药并未被描述为沿这些海上贸易路线运送的商品。",C:"Paper money was used domestically as currency, not described as the maritime export good here.|纸币在国内作为货币使用，本课并未将其描述为海上出口商品。",D:"Rice and water are not the specific trade goods described in this maritime trading context.|稻米与水并非本课在海上贸易背景下所描述的具体贸易商品。"}
+  },
+  { id:"l4q7", q:"How were most government officials chosen in Song China?", q_cn:"宋朝中国的大多数政府官员是如何被选拔的？",
+    options:["A. Largely through a civil service examination based on Confucian classics|A. 主要通过以儒家经典为基础的科举考试","B. Purely through inherited noble birth|B. 仅通过世袭的贵族出身","C. By random selection from the general population|C. 从普通民众中随机选拔","D. Only through military rank|D. 仅通过军衔"],
+    correct:"A", rat_right:"Government officials were chosen largely through a demanding civil service examination based on knowledge of Confucian classics.|政府官员主要通过以儒家经典知识为基础的高难度科举考试来选拔。",
+    rat_wrong:{B:"This system opened a path for talented commoners, rather than relying purely on inherited noble birth.|这一制度为有才能的平民开辟了一条道路，而不是仅仅依赖世袭的贵族出身。",C:"Selection was based on a demanding examination, not random chance.|选拔是基于一场高难度的考试，而不是随机的机会。",D:"Civil officials were chosen through the examination system, not specifically through military rank.|文官是通过考试制度选拔的，而不是专门通过军衔。"}
+  },
+  { id:"l4q8", q:"What opportunity did the civil service examination system open, even if narrowly?", q_cn:"科举考试制度即便范围有限，开辟了什么机会？",
+    options:["A. A path for talented commoners to rise into government positions|A. 一条使有才能的平民晋升到政府职位的道路","B. Complete equality between all social classes|B. 所有社会阶层之间的完全平等","C. Automatic government jobs for every citizen|C. 每个公民自动获得政府职位","D. The total abolition of all noble families|D. 彻底废除所有贵族家庭"],
+    correct:"A", rat_right:"The examination system opened a path, however narrow, for talented commoners to rise into government positions.|考试制度为有才能的平民开辟了一条道路，使其能够晋升到政府职位，尽管这条道路较为狭窄。",
+    rat_wrong:{B:"The system opened a narrow path for some commoners, not complete equality between all classes.|这一制度为部分平民开辟了一条狭窄的道路，而不是所有阶层之间的完全平等。",C:"Only those who passed the demanding examination could gain positions, not every citizen automatically.|只有通过这场高难度考试的人才能获得职位，而不是每个公民都能自动获得。",D:"Noble families continued to exist in Song China; the examination system did not abolish them.|贵族家庭在宋朝中国仍继续存在；科举制度并未废除它们。"}
+  },
+  { id:"l4q9", q:"What ultimately happened to Song China despite its wealth, technology, and innovation?", q_cn:"尽管宋朝中国拥有财富、技术与创新，最终却发生了什么？",
+    options:["A. It was eventually conquered by the Mongol Empire, becoming the Yuan Dynasty|A. 最终被蒙古帝国征服，成为元朝","B. It conquered the entire Mongol Empire in return|B. 它反过来征服了整个蒙古帝国","C. It remained completely untouched by any outside force forever|C. 它永远完全未受任何外部力量的影响","D. It peacefully merged with medieval Japan|D. 它与中世纪日本和平合并"],
+    correct:"A", rat_right:"Despite its prosperity and innovation, Song China was eventually conquered by the Mongol Empire, becoming the Yuan Dynasty under Kublai Khan.|尽管拥有繁荣与创新，宋朝中国最终被蒙古帝国征服，在忽必烈的统治下成为元朝。",
+    rat_wrong:{B:"Song China was the one conquered by the Mongols, not the other way around.|宋朝中国是被蒙古人征服的一方，而不是相反。",C:"Song China was directly affected by the Mongol conquest, not left untouched.|宋朝中国直接受到了蒙古征服的影响，而不是未受影响。",D:"Song China's fate involved Mongol conquest, not a peaceful merger with Japan.|宋朝中国的命运涉及蒙古征服，而不是与日本的和平合并。"}
+  },
+  { id:"l4q10", q:"What does the conquest of wealthy, technologically advanced Song China by the Mongols suggest about the relationship between prosperity and military strength?", q_cn:"富裕且技术先进的宋朝中国被蒙古人征服，说明了繁荣与军事实力之间存在着怎样的关系？",
+    options:["A. Economic and technological prosperity does not automatically guarantee military security|A. 经济与技术上的繁荣并不能自动保证军事上的安全","B. Wealthy civilizations can never be conquered by any military force|B. 富裕的文明绝不可能被任何军事力量征服","C. Technological innovation always prevents conquest entirely|C. 技术创新总能完全阻止被征服","D. Military strength and economic prosperity are always exactly equal|D. 军事实力与经济繁荣总是完全相等的"],
+    correct:"A", rat_right:"The fall of wealthy, innovative Song China to Mongol conquest shows that economic and technological prosperity does not automatically guarantee military security.|富裕且富有创新精神的宋朝中国被蒙古征服，表明经济与技术上的繁荣并不能自动保证军事上的安全。",
+    rat_wrong:{B:"Song China's conquest directly contradicts the claim that wealthy civilizations can never be conquered.|宋朝中国被征服的事实，直接反驳了富裕文明绝不可能被征服的说法。",C:"Song China's many innovations did not prevent its eventual conquest by the Mongols.|宋朝中国众多的创新并未阻止其最终被蒙古人征服。",D:"Song China had great economic prosperity but was still militarily overcome, showing the two are not always equal.|宋朝中国拥有巨大的经济繁荣，但仍在军事上被击败，这表明两者并不总是相等的。"}
+  }
+];
+ 
+var L5_Q = [
+  { id:"l5q1", q:"Who remained Japan's symbolic head of state in the medieval feudal system?", q_cn:"在中世纪的封建体制中，谁仍是日本象征性的国家元首？",
+    options:["A. The emperor|A. 天皇","B. The shogun|B. 幕府将军","C. The daimyo|C. 大名","D. The samurai|D. 武士"],
+    correct:"A", rat_right:"The emperor remained Japan's symbolic head of state, even though real military and political power belonged to the shogun.|天皇仍是日本象征性的国家元首，尽管真正的军事与政治权力属于幕府将军。",
+    rat_wrong:{B:"The shogun held real military and political power, but was not the symbolic head of state.|幕府将军掌握真正的军事与政治权力，但并非象征性的国家元首。",C:"Daimyo were regional lords below the shogun, not the symbolic head of state.|大名是幕府将军之下的地方领主，并非象征性的国家元首。",D:"Samurai were the warrior class serving the daimyo, not the symbolic head of state.|武士是为大名服务的武士阶层，并非象征性的国家元首。"}
+  },
+  { id:"l5q2", q:"Who held the real military and political power in medieval Japan?", q_cn:"在中世纪日本，谁掌握着真正的军事与政治权力？",
+    options:["A. The shogun|A. 幕府将军","B. The emperor|B. 天皇","C. The samurai alone|C. 仅有武士","D. Foreign ambassadors|D. 外国使节"],
+    correct:"A", rat_right:"Real military and political power belonged to the shogun, while the emperor remained a symbolic figure.|真正的军事与政治权力属于幕府将军，而天皇则保留象征性的地位。",
+    rat_wrong:{B:"The emperor was a symbolic figure, not the holder of real power in this system.|天皇是象征性的角色，而不是这一体制中真正权力的掌握者。",C:"Samurai served and protected the daimyo, but did not hold the empire's central political power.|武士为大名服务并提供保护，但并不掌握帝国的中央政治权力。",D:"Foreign ambassadors are unrelated to the structure of Japan's domestic feudal power.|外国使节与日本国内封建权力结构无关。"}
+  },
+  { id:"l5q3", q:"What did daimyo control in medieval Japan?", q_cn:"在中世纪日本，大名控制着什么？",
+    options:["A. Their own regional territories|A. 各自的地方领地","B. The entire country directly|B. 直接统治整个国家","C. Only religious ceremonies|C. 仅有宗教仪式","D. Foreign trade exclusively|D. 仅有对外贸易"],
+    correct:"A", rat_right:"Regional lords called daimyo controlled their own territories below the shogun.|被称为大名的地方领主在幕府将军之下控制着各自的领地。",
+    rat_wrong:{B:"Daimyo controlled regional territories, not the entire country directly, which was the shogun's domain.|大名控制的是地方领地，而不是直接统治整个国家，整个国家是幕府将军的统治范围。",C:"Religious ceremonies are not described as the main role of daimyo in this lesson.|本课并未将宗教仪式描述为大名的主要职责。",D:"Foreign trade exclusively is not described as the daimyo's role; they controlled regional territory generally.|本课并未将对外贸易作为大名唯一的职责；他们一般控制地方领地。"}
+  },
+  { id:"l5q4", q:"What did samurai receive in exchange for serving and protecting the daimyo?", q_cn:"武士为大名服务并提供保护，换来了什么？",
+    options:["A. Land and status|A. 土地与地位","B. Complete independence from all lords|B. 完全独立于所有领主","C. Permanent exemption from all combat|C. 永久免除一切战斗","D. A position equal to the emperor|D. 与天皇平等的地位"],
+    correct:"A", rat_right:"Samurai warriors served and protected the daimyo in exchange for land and status.|武士为大名服务并提供保护，以换取土地与地位。",
+    rat_wrong:{B:"Samurai served under daimyo rather than acting completely independently of all lords.|武士在大名之下服务，而不是完全独立于所有领主。",C:"Samurai were a warrior class expected to fight, not exempted from combat.|武士是被期望参与战斗的武士阶层，而不是免于战斗。",D:"Samurai held an important but distinct role from the emperor, not an equal position.|武士拥有重要但与天皇不同的角色，而不是平等的地位。"}
+  },
+  { id:"l5q5", q:"What does bushido mean?", q_cn:"武士道是什么意思？",
+    options:["A. The way of the warrior|A. 武者之道","B. The way of the emperor|B. 天皇之道","C. The way of trade|C. 贸易之道","D. The way of farming|D. 农耕之道"],
+    correct:"A", rat_right:"Bushido means \"the way of the warrior,\" the strict code of conduct followed by samurai.|武士道意为「武者之道」，是武士所遵循的严格行为准则。",
+    rat_wrong:{B:"Bushido refers to the samurai warrior code, not a code associated with the emperor.|武士道指的是武士的武者准则，而不是与天皇相关的准则。",C:"Bushido is unrelated to trade; it concerns honor and conduct for warriors.|武士道与贸易无关；它关乎武士的荣誉与行为准则。",D:"Bushido is unrelated to farming; it is specifically a code for samurai warriors.|武士道与农耕无关；它专门是武士的行为准则。"}
+  },
+  { id:"l5q6", q:"What did bushido emphasize among samurai?", q_cn:"武士道在武士中强调了什么？",
+    options:["A. Loyalty, honor, courage, and self-discipline|A. 忠诚、荣誉、勇气与自我约束","B. Wealth above all other values|B. 将财富置于一切价值之上","C. Avoiding combat whenever possible|C. 尽可能避免战斗","D. Complete disregard for one's lord|D. 完全无视自己的主人"],
+    correct:"A", rat_right:"Bushido emphasized loyalty to one's lord, personal honor, courage in battle, and self-discipline.|武士道强调对主人的忠诚、个人的荣誉、战斗中的勇气以及自我约束。",
+    rat_wrong:{B:"Wealth is not described as the central value of bushido, which centered on honor and loyalty.|财富并未被描述为武士道的核心价值，武士道的核心是荣誉与忠诚。",C:"Bushido emphasized courage in battle, not avoiding combat.|武士道强调战斗中的勇气，而不是避免战斗。",D:"Bushido emphasized strong loyalty to one's lord, the opposite of disregard.|武士道强调对主人坚定的忠诚，这与无视恰恰相反。"}
+  },
+  { id:"l5q7", q:"What did Japanese feudalism and European feudalism have in common?", q_cn:"日本封建制度与欧洲封建制度有什么共同点？",
+    options:["A. A layered hierarchy and an exchange of land and protection for loyalty and service|A. 层级化的等级体系，以及以忠诚与服务换取土地与保护","B. Both systems had no warrior class of any kind|B. 两种制度都完全没有任何武士阶层","C. Both systems were created at the exact same moment in history|C. 两种制度都是在历史上完全相同的时刻被创立的","D. Both systems were ruled entirely by elected officials|D. 两种制度都完全由选举产生的官员统治"],
+    correct:"A", rat_right:"Both featured a layered hierarchy, an exchange of land and protection for loyalty and military service, and a warrior class with its own code of honor.|两者都具有层级化的等级体系，以土地与保护换取忠诚与军事服务，以及拥有自身荣誉准则的武士阶层。",
+    rat_wrong:{B:"Both systems had a distinct warrior class — samurai in Japan and knights in Europe.|两种制度都拥有独特的武士阶层——日本是武士，欧洲是骑士。",C:"This lesson does not claim both systems began at the exact same historical moment.|本课并未声称两种制度是在完全相同的历史时刻诞生的。",D:"Neither system was ruled by elected officials; both relied on hereditary lords and warriors.|两种制度都不是由选举产生的官员统治的；两者都依赖世袭的领主与武士。"}
+  },
+  { id:"l5q8", q:"What is one key difference between medieval Japan and medieval Europe described in this lesson?", q_cn:"本课中所描述的中世纪日本与中世纪欧洲之间的一个关键差异是什么？",
+    options:["A. Samurai followed bushido while knights followed a code of chivalry|A. 武士遵循武士道，而骑士遵循骑士精神准则","B. Only Japan had any warrior class at all|B. 只有日本拥有任何武士阶层","C. Only Europe ever had regional lords|C. 只有欧洲曾拥有地方领主","D. Japan had no symbolic ruler of any kind|D. 日本没有任何象征性的统治者"],
+    correct:"A", rat_right:"Samurai followed bushido, while European knights followed their own code of chivalry — similar structures with distinct codes.|武士遵循武士道，而欧洲骑士则遵循自己的骑士精神准则——结构相似但准则各异。",
+    rat_wrong:{B:"Both Japan and Europe had a distinct warrior class, just with different codes of conduct.|日本与欧洲都拥有独特的武士阶层，只是行为准则各不相同。",C:"Daimyo in Japan served a role similar to lords in Europe; both had regional landholders.|日本的大名所扮演的角色与欧洲的领主相似；两者都拥有地方领地的所有者。",D:"Japan had the emperor as a symbolic ruler, similar in some ways to kings in Europe.|日本拥有天皇作为象征性的统治者，在某些方面与欧洲的国王相似。"}
+  },
+  { id:"l5q9", q:"How did Japan's island geography affect its relationship with the Asian mainland?", q_cn:"日本的岛国地理位置如何影响了它与亚洲大陆的关系？",
+    options:["A. It created some isolation but never fully cut Japan off from outside influence|A. 这造成了一定程度的孤立，但从未完全切断日本与外部影响的联系","B. It made Japan completely identical in culture to mainland Asia|B. 这使日本的文化与亚洲大陆完全相同","C. It made any cultural contact with China and Korea totally impossible|C. 这使与中国和韩国的任何文化接触都完全不可能","D. It caused Japan to conquer the entire Asian mainland|D. 这导致日本征服了整个亚洲大陆"],
+    correct:"A", rat_right:"As an island nation, Japan was somewhat geographically isolated from the mainland, but this never fully cut it off from outside influence.|作为岛国，日本在地理上与大陆有一定的隔离，但这从未完全切断它与外部影响的联系。",
+    rat_wrong:{B:"Japan imported and adapted outside ideas into something distinctly its own, rather than becoming culturally identical to the mainland.|日本吸收并改造了外来的理念，形成了独具自身特色的事物，而不是在文化上变得与大陆完全相同。",C:"Japan imported writing, Buddhism, art, and architecture from China and Korea, showing contact was possible.|日本从中国与韩国吸收了文字、佛教、艺术与建筑，这表明接触是可能的。",D:"Japan importing ideas from the mainland is the opposite of conquering it.|日本从大陆吸收理念，这与征服大陆恰恰相反。"}
+  },
+  { id:"l5q10", q:"What does Japan adapting Chinese and Korean writing, Buddhism, and art into something distinctly its own show about how cultures interact, connecting to earlier lessons in this unit?", q_cn:"日本将中国与韩国的文字、佛教与艺术改造成独具自身特色的事物，结合本单元前面的课程，这说明了文化之间如何相互作用？",
+    options:["A. Civilizations across history have repeatedly absorbed outside ideas and transformed them into something new|A. 历史上的各个文明反复吸收外来理念，并将其转化为新的事物","B. Cultures never borrow ideas from one another under any circumstances|B. 文化在任何情况下都绝不会相互借鉴理念","C. Only medieval Japan ever adapted ideas from another civilization|C. 只有中世纪日本曾经改造过其他文明的理念","D. Borrowing ideas from another culture always erases a society's own identity completely|D. 借鉴另一种文化的理念总会完全抹去一个社会自身的身份认同"],
+    correct:"A", rat_right:"Like the Abbasids translating Greek texts or the Mongols adopting siege technology, medieval Japan shows another example of civilizations absorbing outside ideas and transforming them into something new.|正如阿拔斯王朝翻译希腊文献或蒙古人采用攻城技术一样，中世纪日本展示了文明吸收外来理念并将其转化为新事物的另一个例子。",
+    rat_wrong:{B:"This lesson and earlier lessons in this unit show multiple clear examples of cultures borrowing ideas from one another.|本课以及本单元前面的课程都展示了文化相互借鉴理念的多个明确例子。",C:"This unit also describes the Abbasids and the Mongols adapting outside ideas, not just Japan.|本单元还描述了阿拔斯王朝与蒙古人改造外来理念的情况，不仅仅是日本。",D:"Japan reshaped borrowed elements into something distinctly its own, rather than losing its identity entirely.|日本将借鉴的元素改造成了独具自身特色的事物，而不是完全失去自己的身份认同。"}
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var ansMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var answeredCount = Object.keys(ansMap[tabKey]).length;
+  var ready = answeredCount >= qMap[tabKey].length && ref1.value.trim().length > 0 && ref2.value.trim().length > 0 && grat.value.trim().length > 0;
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.style.display = 'none';
+  } else {
+    btn.classList.remove('ready');
+    hint.style.display = 'block';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2', 'Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Impact of the Crusades',
+    l2: 'Genghis Khan and the Mongol Empire',
+    l3: 'Why the Mongols Were So Effective',
+    l4: 'Prosperity in Song China',
+    l5: 'Shoguns, Samurai and Medieval Japan'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  if (Object.keys(answers).length < questions.length) return;
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  if (!ref1 || !ref2 || !grat) return;
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 9\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + ref1 + '\n\n';
+  txt += 'Reflection 2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day9_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
