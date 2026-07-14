@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Literacy Cards | 读写卡片 | MLWS</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@500;700;900&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--mist); color:var(--ink); }
+.cn { font-family:'Noto Sans SC',sans-serif; }
+button { font-family:'DM Sans','Noto Sans SC',sans-serif; }
+
+/* ---------- Header ---------- */
+header {
+  background:linear-gradient(135deg, var(--ml-green-dark), var(--ml-green));
+  color:#fff; padding:24px 24px 16px; position:sticky; top:0; z-index:50;
+  box-shadow:0 2px 10px rgba(0,0,0,0.18);
+}
+.head-inner { max-width:1150px; margin:0 auto; }
+header h1 { font-family:'Literata',serif; font-size:1.45rem; line-height:1.25; }
+header .sub { font-size:0.84rem; opacity:0.92; margin-top:3px; }
+.navchips { display:flex; flex-wrap:wrap; gap:8px; margin-top:13px; }
+.chip {
+  background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.35);
+  color:#fff; border-radius:999px; padding:6px 14px; font-size:0.82rem;
+  font-weight:600; cursor:pointer; transition:background 0.15s;
+}
+.chip:hover { background:rgba(255,255,255,0.3); }
+
+/* ---------- Sections ---------- */
+main { max-width:1150px; margin:0 auto; padding:26px 20px 80px; }
+section { margin-bottom:46px; }
+.sec-head { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+  border-bottom:3px solid var(--sec-color, var(--ml-green));
+  padding-bottom:8px; margin-bottom:10px; }
+.sec-head h2 { font-family:'Literata',serif; color:var(--sec-color, var(--ml-green-dark));
+  font-size:1.3rem; }
+.sec-head .cn { color:var(--ink2); font-size:0.98rem; }
+.sec-head .count { margin-left:auto; font-size:0.78rem; font-weight:700;
+  background:var(--ml-green-light); color:var(--ml-green-dark);
+  border-radius:999px; padding:4px 12px; }
+.sec-note { font-size:0.84rem; color:var(--ink2); margin-bottom:14px; }
+.sec-note .cn { margin-left:6px; }
+
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:12px; }
+.tile {
+  background:#fff; border:1px solid var(--border); border-top:4px solid var(--sec-color, var(--ml-green));
+  border-radius:12px; cursor:pointer; transition:transform 0.12s, box-shadow 0.12s;
+  padding:16px 10px 12px; text-align:center; display:flex; flex-direction:column; gap:5px;
+  min-height:92px; justify-content:center;
+}
+.tile:hover { transform:translateY(-3px); box-shadow:0 6px 16px rgba(27,67,50,0.18); }
+.tile .num { font-size:0.68rem; font-weight:700; color:var(--ink2); opacity:0.65;
+  letter-spacing:0.06em; }
+.tile .term { font-family:'Literata',serif; font-weight:700; font-size:1.35rem;
+  color:var(--ink); line-height:1.15; word-break:break-word; }
+.tile.small-term .term { font-size:1.02rem; }
+.tile .tag { font-size:0.66rem; color:var(--sec-color, var(--ml-green)); font-weight:700;
+  text-transform:uppercase; letter-spacing:0.05em; }
+
+/* chart toggle */
+.chart-toggle {
+  background:#fff; color:var(--sec-color, var(--ml-green-dark));
+  border:2px solid var(--sec-color, var(--ml-green)); border-radius:999px;
+  padding:7px 16px; font-size:0.8rem; font-weight:700; cursor:pointer; margin-bottom:14px;
+}
+.chart-toggle:hover { background:var(--ml-green-light); }
+.chart-wrap { display:none; overflow-x:auto; margin-bottom:18px; }
+.chart-wrap.open { display:block; }
+table { border-collapse:collapse; width:100%; background:#fff; font-size:0.86rem; }
+th { background:var(--sec-color, var(--ml-green-dark)); color:#fff; text-align:left;
+  padding:8px 12px; font-size:0.78rem; letter-spacing:0.04em; }
+td { border:1px solid var(--border); padding:7px 12px; }
+tr:nth-child(even) td { background:var(--mist); }
+td.t-term { font-weight:700; font-family:'Literata',serif; white-space:nowrap; }
+
+/* ---------- Card modal ---------- */
+#modal {
+  position:fixed; inset:0; background:rgba(12,22,15,0.94); z-index:200;
+  display:none; flex-direction:column;
+}
+#modal.open { display:flex; }
+.m-top { display:flex; align-items:center; gap:14px; padding:12px 18px; color:#fff; }
+.m-top .m-sec { font-weight:700; font-size:0.92rem; color:var(--ml-gold); }
+.m-top .m-count { margin-left:auto; font-size:0.84rem; opacity:0.85; }
+#closeBtn {
+  background:var(--ml-red); border:none; color:#fff; font-weight:700;
+  border-radius:8px; padding:7px 16px; cursor:pointer; font-size:0.86rem;
+}
+.m-stage { flex:1; display:flex; align-items:center; justify-content:center;
+  position:relative; padding:0 74px 10px; min-height:0; }
+#bigCard {
+  background:#fff; border-radius:18px; width:min(860px, 100%); max-height:100%;
+  overflow-y:auto; cursor:pointer; box-shadow:0 12px 44px rgba(0,0,0,0.5);
+  border-top:10px solid var(--card-color, var(--ml-green));
+  padding:clamp(24px, 5vh, 52px) clamp(20px, 4vw, 56px); text-align:center;
+  display:flex; flex-direction:column; gap:14px; align-items:center;
+}
+#cardTag { font-size:0.78rem; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--card-color, var(--ml-green)); }
+#cardTerm { font-family:'Literata',serif; font-weight:900;
+  font-size:clamp(2.6rem, 8vw, 5rem); line-height:1.05; color:var(--ink);
+  word-break:break-word; }
+#cardPrompt { font-size:1rem; color:var(--ink2); }
+#cardPrompt .cn { display:block; font-size:0.9rem; margin-top:2px; opacity:0.85; }
+#revealBox { display:none; width:100%; border-top:2px dashed var(--border);
+  padding-top:18px; margin-top:4px; flex-direction:column; gap:12px; align-items:center; }
+#revealBox.shown { display:flex; }
+.rv-label { font-size:0.74rem; font-weight:700; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--card-color, var(--ml-green)); }
+.rv-main { font-family:'Literata',serif; font-weight:700;
+  font-size:clamp(1.7rem, 5vw, 3rem); line-height:1.15; color:var(--card-color, var(--ml-green-dark)); }
+.rv-examples { font-size:clamp(1.05rem, 2.8vw, 1.6rem); color:var(--ink2); line-height:1.55; }
+.rv-examples .exlbl { display:block; font-size:0.74rem; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--card-color, var(--ml-green));
+  margin-bottom:4px; }
+.rv-examples b { color:var(--card-color, var(--ml-green-dark)); }
+.m-arrow {
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:54px; height:54px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(255,255,255,0.92); color:var(--ml-green-dark);
+  font-size:1.6rem; font-weight:700; line-height:1;
+  box-shadow:0 4px 14px rgba(0,0,0,0.4); transition:background 0.15s;
+}
+.m-arrow:hover { background:var(--ml-gold); }
+#prevBtn { left:10px; }
+#nextBtn { right:10px; }
+.m-hint { text-align:center; color:rgba(255,255,255,0.68); font-size:0.78rem;
+  padding:8px 16px 14px; }
+@media (max-width:640px){
+  .m-stage { padding:0 10px 8px; }
+  .m-arrow { top:auto; bottom:-4px; transform:none; width:46px; height:46px; font-size:1.3rem; }
+  #prevBtn { left:18px; } #nextBtn { right:18px; }
+  .m-hint { padding-bottom:58px; }
+}
+footer { text-align:center; font-size:0.78rem; color:var(--ink2); padding:22px;
+  line-height:1.6; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <h1>Literacy Cards — Decoding &amp; Creating Meaning</h1>
+    <div class="sub">读写卡片：解码与建构意义 · content from the Educational Epiphany Literacy Kit by Donyall D. Dickey, Ed.D. · MLWS English</div>
+    <div class="navchips" id="navChips"></div>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<footer>
+  Decoding + Creating Meaning = Reading Proficiency · 解码 + 建构意义 = 阅读能力<br>
+  Card content: Educational Epiphany Literacy Kit © Donyall D. Dickey, Ed.D. —
+  www.educationalepiphany.com · Classroom display tool built for MLWS instruction.
+</footer>
+
+<div id="modal" role="dialog" aria-modal="true">
+  <div class="m-top">
+    <span class="m-sec" id="mSec"></span>
+    <span class="m-count" id="mCount"></span>
+    <button id="closeBtn">✕ Close <span class="cn">关闭</span></button>
+  </div>
+  <div class="m-stage">
+    <button class="m-arrow" id="prevBtn" aria-label="Previous">‹</button>
+    <div id="bigCard">
+      <div id="cardTag"></div>
+      <div id="cardTerm"></div>
+      <div id="cardPrompt"></div>
+      <div id="revealBox">
+        <div class="rv-label" id="rvLabel"></div>
+        <div class="rv-main" id="rvMain"></div>
+        <div class="rv-examples" id="rvExamples"></div>
+      </div>
+    </div>
+    <button class="m-arrow" id="nextBtn" aria-label="Next">›</button>
+  </div>
+  <div class="m-hint">Click the card to reveal · ← → to change cards · Space = reveal, then next · Esc closes ·
+    <span class="cn">点击卡片揭示答案 · 方向键换卡 · 空格键先揭示再下一张 · Esc 关闭</span></div>
+</div>
+
+<script>
+/* ================= DATA =================
+   Phoneme/grapheme content and affix definitions adapted from the
+   Educational Epiphany Literacy Kit by Donyall D. Dickey, Ed.D.
+   (www.educationalepiphany.com). Example words for prefixes, roots,
+   and suffixes added for MLWS ESL instruction.
+   In example strings, *asterisks* mark the word part — it renders bold. */
+
+var CAT = {
+  sc:  {en:"single consonant",   cn:"单辅音"},
+  cd:  {en:"consonant digraph",  cn:"辅音双字母"},
+  sv:  {en:"short vowel",        cn:"短元音"},
+  lv:  {en:"long vowel",         cn:"长元音"},
+  ov:  {en:"other vowel sound",  cn:"其他元音"},
+  dp:  {en:"vowel diphthong",    cn:"双元音"},
+  rv:  {en:"r-influenced vowel", cn:"r 控制元音"}
+};
+
+var PHONEMES = [
+  {p:"/b/",  cat:"sc", g:"b, bb",                 ex:"big, rubber"},
+  {p:"/d/",  cat:"sc", g:"d, dd, ed",             ex:"dog, add, filled"},
+  {p:"/f/",  cat:"sc", g:"f, ff, ph, gh",         ex:"fish, puff, phone, tough"},
+  {p:"/g/",  cat:"sc", g:"g, gg",                 ex:"go, egg"},
+  {p:"/h/",  cat:"sc", g:"h",                     ex:"hot"},
+  {p:"/j/",  cat:"sc", g:"j, g, ge, dge",         ex:"jet, cage, barge, judge"},
+  {p:"/k/",  cat:"sc", g:"c, k, ck, ch, cc, que", ex:"cat, kitten, duck, school, occur, antique, cheque"},
+  {p:"/l/",  cat:"sc", g:"l, ll",                 ex:"leg, bell"},
+  {p:"/m/",  cat:"sc", g:"m, mm, mb",             ex:"mad, hammer, lamb"},
+  {p:"/n/",  cat:"sc", g:"n, nn, kn, gn",         ex:"no, dinner, knee, gnome"},
+  {p:"/p/",  cat:"sc", g:"p, pp",                 ex:"pie, apple"},
+  {p:"/r/",  cat:"sc", g:"r, rr, wr",             ex:"run, marry, write"},
+  {p:"/s/",  cat:"sc", g:"s, se, ss, c, ce, sc",  ex:"sun, mouse, dress, city, ice, science"},
+  {p:"/t/",  cat:"sc", g:"t, tt, ed",             ex:"top, letter, stopped"},
+  {p:"/v/",  cat:"sc", g:"v, ve",                 ex:"vet, give"},
+  {p:"/w/",  cat:"sc", g:"w",                     ex:"wet, win, swim"},
+  {p:"/y/",  cat:"sc", g:"y, i",                  ex:"yes, onion"},
+  {p:"/z/",  cat:"sc", g:"z, zz, ze, s, se, x",   ex:"zip, fizz, sneeze, laser, is, was, please, Xerox, xylophone"},
+  {p:"/th/ (not voiced)", cat:"cd", g:"th",       ex:"thumb, thin, thing"},
+  {p:"/th/ (voiced)",     cat:"cd", g:"th",       ex:"this, feather, then"},
+  {p:"/ng/", cat:"cd", g:"ng, n",                 ex:"sing, monkey, sink"},
+  {p:"/sh/", cat:"cd", g:"sh, ss, ch, ti, ci",    ex:"ship, mission, chef, motion, special"},
+  {p:"/ch/", cat:"cd", g:"ch, tch",               ex:"chip, match"},
+  {p:"/zh/", cat:"cd", g:"ge, s",                 ex:"garage, measure, division"},
+  {p:"/wh/ (with breath)", cat:"cd", g:"wh",      ex:"what, when, where, why"},
+  {p:"/a/",  cat:"sv", g:"a, au",                 ex:"hat, laugh"},
+  {p:"/e/",  cat:"sv", g:"e, ea",                 ex:"bed, bread"},
+  {p:"/i/",  cat:"sv", g:"i",                     ex:"if"},
+  {p:"/o/",  cat:"sv", g:"o, a, au, aw, ough",    ex:"hot, want, haul, draw, bought"},
+  {p:"/u/",  cat:"sv", g:"u, o",                  ex:"up, ton"},
+  {p:"/ā/",  cat:"lv", g:"a, a_e, ay, ai, ey, ei",      ex:"bacon, late, day, train, they, eight, vein"},
+  {p:"/ē/",  cat:"lv", g:"e, e_e, ea, ee, ey, ie, y",   ex:"me, these, beat, feet, key, chief, baby"},
+  {p:"/ī/",  cat:"lv", g:"i, i_e, igh, y, ie",          ex:"find, ride, light, fly, pie"},
+  {p:"/ō/",  cat:"lv", g:"o, o_e, oa, ou, ow",          ex:"no, note, boat, soul, row"},
+  {p:"/ū/",  cat:"lv", g:"u, u_e, ew",                  ex:"human, use, few, chew"},
+  {p:"/oo/", cat:"ov", g:"oo, u, oul",                  ex:"book, put, could"},
+  {p:"/ōō/", cat:"ov", g:"oo, u, u_e",                  ex:"moon, truth, rule"},
+  {p:"/ow/", cat:"dp", g:"ow, ou, ou_e",                ex:"cow, out, mouse, house"},
+  {p:"/oy/", cat:"dp", g:"oi, oy",                      ex:"coin, toy"},
+  {p:"/a(r)/", cat:"rv", g:"ar",                        ex:"car"},
+  {p:"/ā(r)/", cat:"rv", g:"air, ear, are",             ex:"air, chair, fair, hair, bear, care"},
+  {p:"/i(r)/", cat:"rv", g:"irr, ere, eer",             ex:"mirror, here, cheer"},
+  {p:"/o(r)/", cat:"rv", g:"or, ore, oor",              ex:"for, core, door"},
+  {p:"/u(r)/", cat:"rv", g:"ur, ir, er, ear, or, ar",   ex:"burn, first, fern, heard, work, dollar"}
+];
+
+var PREFIXES = [
+  {t:"anti-",               d:"against",            ex:"*anti*freeze, *anti*social, *anti*virus"},
+  {t:"auto-",               d:"self",               ex:"*auto*matic, *auto*graph, *auto*biography"},
+  {t:"bi-",                 d:"two",                ex:"*bi*cycle, *bi*lingual, *bi*weekly"},
+  {t:"circum-",             d:"around",             ex:"*circum*ference, *circum*stance, *circum*navigate"},
+  {t:"co-, con-, com-",     d:"with/together",      ex:"*co*operate, *con*nect, *com*bine"},
+  {t:"contra-",             d:"against",            ex:"*contra*dict, *contra*st, *contra*ry"},
+  {t:"de-",                 d:"opposite",           ex:"*de*frost, *de*crease, *de*activate"},
+  {t:"dis-",                d:"reverse/opposite",   ex:"*dis*agree, *dis*appear, *dis*honest"},
+  {t:"en-, em-",            d:"cause to",           ex:"*en*able, *en*courage, *em*power"},
+  {t:"ex-",                 d:"out",                ex:"*ex*it, *ex*port, *ex*hale"},
+  {t:"in-, im-, il-, ir-",  d:"not",                ex:"*in*correct, *im*possible, *il*legal, *ir*regular"},
+  {t:"inter-",              d:"between",            ex:"*inter*national, *inter*net, *inter*act"},
+  {t:"macro-",              d:"large",              ex:"*macro*economics, *macro*scopic"},
+  {t:"micro-",              d:"small",              ex:"*micro*scope, *micro*wave, *micro*chip"},
+  {t:"mid-",                d:"middle",             ex:"*mid*night, *mid*term, *mid*way"},
+  {t:"mis-",                d:"wrong/wrongly",      ex:"*mis*take, *mis*spell, *mis*understand"},
+  {t:"mono-",               d:"one",                ex:"*mono*logue, *mono*tone, *mono*rail"},
+  {t:"non-",                d:"not",                ex:"*non*stop, *non*fiction, *non*sense"},
+  {t:"poly-",               d:"many",               ex:"*poly*gon, *poly*glot, *poly*ester"},
+  {t:"post-",               d:"after",              ex:"*post*pone, *post*war, *post*graduate"},
+  {t:"pre-",                d:"before",             ex:"*pre*view, *pre*dict, *pre*heat"},
+  {t:"re-",                 d:"back/again",         ex:"*re*do, *re*turn, *re*write"},
+  {t:"semi-",               d:"half/partly",        ex:"*semi*circle, *semi*final"},
+  {t:"sub-",                d:"under/below",        ex:"*sub*marine, *sub*way, *sub*title"},
+  {t:"super-",              d:"above/beyond",       ex:"*super*hero, *super*market, *super*natural"},
+  {t:"syn-, sym-",          d:"with/together",      ex:"*syn*onym, *sym*pathy, *syn*chronize"},
+  {t:"trans-",              d:"across",             ex:"*trans*port, *trans*late, *trans*fer"},
+  {t:"tri-",                d:"three",              ex:"*tri*angle, *tri*cycle, *tri*o"},
+  {t:"un-",                 d:"not",                ex:"*un*happy, *un*fair, *un*known"},
+  {t:"uni-",                d:"one",                ex:"*uni*form, *uni*corn, *uni*verse"}
+];
+
+var ROOTS = [
+  {t:"audi-",                  d:"hear",            ex:"*audi*o, *audi*ence, *audi*ble"},
+  {t:"bene-",                  d:"good",            ex:"*bene*fit, *bene*factor, *bene*volent"},
+  {t:"bio-",                   d:"life",            ex:"*bio*logy, *bio*graphy, anti*bio*tic"},
+  {t:"chrono-",                d:"time",            ex:"*chrono*logical, *chron*ic, syn*chron*ize"},
+  {t:"cred-",                  d:"believe",         ex:"*cred*it, *cred*ible, in*cred*ible"},
+  {t:"dict-",                  d:"say",             ex:"*dict*ionary, pre*dict*, *dict*ate"},
+  {t:"duc-",                   d:"lead",            ex:"con*duc*t, pro*duc*e, e*duc*ate"},
+  {t:"fid-",                   d:"truth/faith",     ex:"con*fid*ent, *fid*elity, con*fid*e"},
+  {t:"flex-",                  d:"bend",            ex:"*flex*ible, re*flex*, *flex*"},
+  {t:"gen-",                   d:"birth",           ex:"*gen*erate, *gen*eration, *gen*esis"},
+  {t:"geo-",                   d:"earth",           ex:"*geo*graphy, *geo*logy, *geo*metry"},
+  {t:"graph-",                 d:"write",           ex:"para*graph*, auto*graph*, *graph*ic"},
+  {t:"greg-",                  d:"group",           ex:"con*greg*ate, *greg*arious, se*greg*ate"},
+  {t:"jur-, jus-",             d:"law",             ex:"*jur*y, *jus*tice, *jur*or"},
+  {t:"log-",                   d:"speech/thought",  ex:"dia*log*ue, *log*ic, apo*log*y"},
+  {t:"luc-",                   d:"light",           ex:"trans*luc*ent, *luc*id"},
+  {t:"manu-",                  d:"hand",            ex:"*manu*al, *manu*facture, *manu*script"},
+  {t:"mand-",                  d:"order",           ex:"com*mand*, de*mand*, *mand*ate"},
+  {t:"mis-, mit-",             d:"send",            ex:"trans*mit*, sub*mit*, *mis*sion"},
+  {t:"omni-",                  d:"all",             ex:"*omni*vore, *omni*present, *omni*scient"},
+  {t:"-pathy",                 d:"feel",            ex:"sym*pathy*, em*pathy*, a*pathy*"},
+  {t:"phil-",                  d:"love",            ex:"*phil*osophy, *phil*anthropy, biblio*phil*e"},
+  {t:"phon-",                  d:"sound",           ex:"*phon*ics, tele*phon*e, sym*phon*y"},
+  {t:"photo-",                 d:"light",           ex:"*photo*graph, *photo*synthesis, *photo*copy"},
+  {t:"port-",                  d:"carry",           ex:"trans*port*, *port*able, im*port*"},
+  {t:"scrib-",                 d:"write",           ex:"de*scrib*e, *scrib*ble, *scrib*e"},
+  {t:"sens-, sent-",           d:"feel",            ex:"*sens*e, *sent*iment, *sens*itive"},
+  {t:"spec-, spect-, spic-",   d:"look",            ex:"in*spect*, *spect*ator, *spect*acles"},
+  {t:"tele-",                  d:"far off",         ex:"*tele*phone, *tele*vision, *tele*scope"},
+  {t:"terr-",                  d:"earth",           ex:"*terr*itory, *terr*ain, extra*terr*estrial"},
+  {t:"vac-",                   d:"empty",           ex:"*vac*ant, *vac*uum, *vac*ation"},
+  {t:"vid-, vis-",             d:"see",             ex:"*vid*eo, *vis*ion, *vis*ible"}
+];
+
+var SUFFIXES = [
+  {t:"-able, -ible",        d:"can be done",                  ex:"read*able*, comfort*able*, flex*ible*"},
+  {t:"-acy",                d:"state/quality",                ex:"priv*acy*, accur*acy*, democr*acy*"},
+  {t:"-al, -ial",           d:"pertaining to/of",             ex:"person*al*, music*al*, offic*ial*"},
+  {t:"-ary",                d:"relating to quality or place", ex:"libr*ary*, diction*ary*, imagin*ary*"},
+  {t:"-ate",                d:"become",                       ex:"activ*ate*, gradu*ate*, motiv*ate*"},
+  {t:"-dom",                d:"place/state of being",         ex:"free*dom*, king*dom*, wis*dom*"},
+  {t:"-ed",                 d:"past tense",                   ex:"walk*ed*, play*ed*, jump*ed*"},
+  {t:"-er, -or",            d:"one who",                      ex:"teach*er*, act*or*, visit*or*"},
+  {t:"-en",                 d:"become",                       ex:"strength*en*, short*en*, wid*en*"},
+  {t:"-er",                 d:"comparative",                  ex:"tall*er*, fast*er*, smart*er*"},
+  {t:"-ess",                d:"female",                       ex:"princ*ess*, actr*ess*, lion*ess*"},
+  {t:"-ful, -ous",          d:"full of",                      ex:"help*ful*, joy*ful*, danger*ous*"},
+  {t:"-ic, -ical",          d:"pertaining to",                ex:"histor*ic*, athlet*ic*, log*ical*"},
+  {t:"-ify, -fy",           d:"make or become",               ex:"simpl*ify*, clar*ify*, class*ify*"},
+  {t:"-ing",                d:"present participle",           ex:"runn*ing*, read*ing*, sing*ing*"},
+  {t:"-ion, -tion, -ation", d:"act of, process",              ex:"act*ion*, celebra*tion*, cre*ation*"},
+  {t:"-ish",                d:"having the quality of",        ex:"child*ish*, fool*ish*, self*ish*"},
+  {t:"-ism",                d:"belief/doctrine",              ex:"optim*ism*, hero*ism*, patriot*ism*"},
+  {t:"-ist",                d:"one who",                      ex:"art*ist*, scient*ist*, tour*ist*"},
+  {t:"-ity, -ty",           d:"quality of",                   ex:"abil*ity*, hones*ty*, real*ity*"},
+  {t:"-ize, -ise",          d:"make or become",               ex:"organ*ize*, real*ize*, apolog*ize*"},
+  {t:"-less",               d:"without",                      ex:"hope*less*, care*less*, home*less*"},
+  {t:"-ly",                 d:"characteristic of",            ex:"quick*ly*, friend*ly*, quiet*ly*"},
+  {t:"-ment",               d:"state/result of an action",    ex:"move*ment*, agree*ment*, achieve*ment*"},
+  {t:"-ness",               d:"state of",                     ex:"kind*ness*, happi*ness*, dark*ness*"},
+  {t:"-ology",              d:"study, science",               ex:"bi*ology*, psych*ology*, techn*ology*"},
+  {t:"-s, -es",             d:"more than one, plural",        ex:"book*s*, dog*s*, box*es*"},
+  {t:"-ship",               d:"position held",                ex:"leader*ship*, citizen*ship*, intern*ship*"},
+  {t:"-ward",               d:"in the direction of",          ex:"for*ward*, back*ward*, home*ward*"},
+  {t:"-y",                  d:"having the quality of",        ex:"rain*y*, sleep*y*, luck*y*"}
+];
+
+/* ================= SECTION CONFIG ================= */
+
+var SECTIONS = [
+  {
+    id:"graph", color:"#2d6a4f",
+    title:"Phonemes & Graphemes", cn:"音素与字母组合",
+    typeEn:"phoneme",
+    promptEn:"What graphemes spell this sound?",
+    promptCn:"哪些字母组合可以拼出这个音？",
+    revealLabel:"Grapheme(s) 字母组合",
+    note:"44 sounds of English. Click a card, say the sound together, then click to reveal the graphemes and example words.",
+    noteCn:"英语的44个音素。点击卡片，一起读出这个音，再点击揭示字母组合和例词。",
+    items: PHONEMES.map(function(x){
+      return {term:x.p, tag:CAT[x.cat].en + " " + CAT[x.cat].cn, main:x.g, examples:x.ex};
+    }),
+    chartCols:["#","Phoneme","Grapheme(s)","Example(s)"]
+  },
+  {
+    id:"pre", color:"#1e3a5f",
+    title:"Prefixes", cn:"前缀",
+    typeEn:"prefix",
+    promptEn:"What does this prefix mean?",
+    promptCn:"这个前缀是什么意思？",
+    revealLabel:"Definition 定义",
+    note:"30 prefixes. The prefix shows first — click the card to reveal its meaning and example words.",
+    noteCn:"30个前缀。先显示前缀，点击卡片揭示含义和例词。",
+    items: PREFIXES.map(function(x){ return {term:x.t, tag:"prefix 前缀", main:x.d, examples:x.ex}; }),
+    chartCols:["#","Prefix","Definition","Example(s)"]
+  },
+  {
+    id:"root", color:"#b45309",
+    title:"Root Words", cn:"词根",
+    typeEn:"root word",
+    promptEn:"What does this root mean?",
+    promptCn:"这个词根是什么意思？",
+    revealLabel:"Definition 定义",
+    note:"32 root words. The root shows first — click the card to reveal its meaning and example words.",
+    noteCn:"32个词根。先显示词根，点击卡片揭示含义和例词。",
+    items: ROOTS.map(function(x){ return {term:x.t, tag:"root word 词根", main:x.d, examples:x.ex}; }),
+    chartCols:["#","Root","Definition","Example(s)"]
+  },
+  {
+    id:"suf", color:"#c1121f",
+    title:"Suffixes", cn:"后缀",
+    typeEn:"suffix",
+    promptEn:"What does this suffix mean?",
+    promptCn:"这个后缀是什么意思？",
+    revealLabel:"Definition 定义",
+    note:"30 suffixes. The suffix shows first — click the card to reveal its meaning and example words.",
+    noteCn:"30个后缀。先显示后缀，点击卡片揭示含义和例词。",
+    items: SUFFIXES.map(function(x){ return {term:x.t, tag:"suffix 后缀", main:x.d, examples:x.ex}; }),
+    chartCols:["#","Suffix","Definition","Example(s)"]
+  }
+];
+
+/* ================= BUILD LANDING ================= */
+
+function buildLanding(){
+  var main = document.getElementById("main");
+  var nav = document.getElementById("navChips");
+
+  SECTIONS.forEach(function(sec, sIdx){
+    var chip = document.createElement("button");
+    chip.className = "chip";
+    chip.textContent = sec.title + " " + sec.cn;
+    chip.addEventListener("click", function(){
+      document.getElementById("sec-" + sec.id).scrollIntoView({behavior:"smooth"});
+    });
+    nav.appendChild(chip);
+
+    var s = document.createElement("section");
+    s.id = "sec-" + sec.id;
+    s.style.setProperty("--sec-color", sec.color);
+
+    var head = document.createElement("div");
+    head.className = "sec-head";
+    var h2 = document.createElement("h2"); h2.textContent = sec.title;
+    var cn = document.createElement("span"); cn.className = "cn"; cn.textContent = sec.cn;
+    var count = document.createElement("span"); count.className = "count";
+    count.textContent = sec.items.length + " cards";
+    head.appendChild(h2); head.appendChild(cn); head.appendChild(count);
+    s.appendChild(head);
+
+    var note = document.createElement("p");
+    note.className = "sec-note";
+    note.textContent = sec.note;
+    var noteCn = document.createElement("span");
+    noteCn.className = "cn"; noteCn.textContent = sec.noteCn;
+    note.appendChild(noteCn);
+    s.appendChild(note);
+
+    var toggle = document.createElement("button");
+    toggle.className = "chart-toggle";
+    toggle.textContent = "Show teacher chart (all answers) 显示教师图表";
+    s.appendChild(toggle);
+
+    var chartWrap = document.createElement("div");
+    chartWrap.className = "chart-wrap";
+    chartWrap.appendChild(buildChart(sec));
+    s.appendChild(chartWrap);
+
+    toggle.addEventListener("click", function(){
+      var open = chartWrap.classList.toggle("open");
+      toggle.textContent = open
+        ? "Hide teacher chart 隐藏教师图表"
+        : "Show teacher chart (all answers) 显示教师图表";
+    });
+
+    var grid = document.createElement("div");
+    grid.className = "grid";
+    sec.items.forEach(function(item, iIdx){
+      var tile = document.createElement("button");
+      tile.className = "tile" + (item.term.length > 14 ? " small-term" : "");
+      var num = document.createElement("div"); num.className = "num";
+      num.textContent = String(iIdx + 1);
+      var term = document.createElement("div"); term.className = "term";
+      term.textContent = item.term;
+      var tag = document.createElement("div"); tag.className = "tag";
+      tag.textContent = sec.typeEn;
+      tile.appendChild(num); tile.appendChild(term); tile.appendChild(tag);
+      tile.addEventListener("click", function(){ openCard(sIdx, iIdx); });
+      grid.appendChild(tile);
+    });
+    s.appendChild(grid);
+    main.appendChild(s);
+  });
+}
+
+function buildChart(sec){
+  var table = document.createElement("table");
+  var thead = document.createElement("thead");
+  var hr = document.createElement("tr");
+  sec.chartCols.forEach(function(c){
+    var th = document.createElement("th"); th.textContent = c; hr.appendChild(th);
+  });
+  thead.appendChild(hr); table.appendChild(thead);
+  var tbody = document.createElement("tbody");
+  sec.items.forEach(function(item, i){
+    var tr = document.createElement("tr");
+    var cells = [String(i+1), item.term, item.main, item.examples.replace(/\*/g, "")];
+    cells.forEach(function(c, ci){
+      var td = document.createElement("td");
+      if (ci === 1) td.className = "t-term";
+      td.textContent = c;
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  return table;
+}
+
+/* ================= CARD MODAL ================= */
+
+var curSec = 0, curIdx = 0, revealed = false;
+var modal = document.getElementById("modal");
+var bigCard = document.getElementById("bigCard");
+
+function openCard(sIdx, iIdx){
+  curSec = sIdx; curIdx = iIdx; revealed = false;
+  renderCard();
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeCard(){
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+}
+/* Render example text: segments between *asterisks* become bold. */
+function renderExamples(container, exString){
+  while (container.firstChild) container.removeChild(container.firstChild);
+  if (!exString) return;
+  var lbl = document.createElement("span");
+  lbl.className = "exlbl";
+  lbl.textContent = "Examples 例词";
+  container.appendChild(lbl);
+  var parts = exString.split("*");
+  parts.forEach(function(seg, i){
+    if (!seg) return;
+    if (i % 2 === 1){
+      var b = document.createElement("b");
+      b.textContent = seg;
+      container.appendChild(b);
+    } else {
+      container.appendChild(document.createTextNode(seg));
+    }
+  });
+}
+function renderCard(){
+  var sec = SECTIONS[curSec];
+  var item = sec.items[curIdx];
+  bigCard.style.setProperty("--card-color", sec.color);
+  document.getElementById("mSec").textContent = sec.title + " " + sec.cn;
+  document.getElementById("mCount").textContent = (curIdx + 1) + " / " + sec.items.length;
+  document.getElementById("cardTag").textContent = item.tag;
+  document.getElementById("cardTerm").textContent = item.term;
+
+  var prompt = document.getElementById("cardPrompt");
+  while (prompt.firstChild) prompt.removeChild(prompt.firstChild);
+  prompt.appendChild(document.createTextNode(sec.promptEn));
+  var pCn = document.createElement("span"); pCn.className = "cn";
+  pCn.textContent = sec.promptCn;
+  prompt.appendChild(pCn);
+
+  document.getElementById("rvLabel").textContent = sec.revealLabel;
+  document.getElementById("rvMain").textContent = item.main;
+  renderExamples(document.getElementById("rvExamples"), item.examples);
+
+  document.getElementById("revealBox").classList.toggle("shown", revealed);
+  prompt.style.display = revealed ? "none" : "block";
+}
+function reveal(){
+  revealed = true;
+  renderCard();
+}
+function go(delta){
+  var sec = SECTIONS[curSec];
+  var n = curIdx + delta;
+  if (n < 0 || n >= sec.items.length) return;
+  curIdx = n; revealed = false;
+  renderCard();
+}
+
+bigCard.addEventListener("click", function(){
+  if (!revealed) reveal();
+});
+document.getElementById("prevBtn").addEventListener("click", function(){ go(-1); });
+document.getElementById("nextBtn").addEventListener("click", function(){ go(1); });
+document.getElementById("closeBtn").addEventListener("click", closeCard);
+modal.addEventListener("click", function(e){
+  if (e.target === modal) closeCard();
+});
+document.addEventListener("keydown", function(e){
+  if (!modal.classList.contains("open")) return;
+  if (e.key === "ArrowRight" || e.key === "PageDown"){ e.preventDefault(); go(1); }
+  else if (e.key === "ArrowLeft" || e.key === "PageUp"){ e.preventDefault(); go(-1); }
+  else if (e.key === " "){ e.preventDefault(); if (!revealed) reveal(); else go(1); }
+  else if (e.key === "Enter"){ e.preventDefault(); if (!revealed) reveal(); }
+  else if (e.key === "Escape"){ closeCard(); }
+});
+
+buildLanding();
+</script>
+</body>
+</html>
