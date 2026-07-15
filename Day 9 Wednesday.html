@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 10 — The Americas, Black Death & African Empires | 美洲、黑死病与非洲帝国</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+ 
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+ 
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 10 — The Americas, Black Death & African Empires · <span class="cn">美洲、黑死病与非洲帝国</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson"></div>
+    <div class="pip" id="pip-l2" title="Lesson"></div>
+    <div class="pip" id="pip-l3" title="Lesson"></div>
+    <div class="pip" id="pip-l4" title="Lesson"></div>
+    <div class="pip" id="pip-l5" title="Lesson"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">🌎 The Americas Before Columbus</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">☠️ The Black Death</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">🐘 Mansa Musa and the Mali Empire</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">🗣️ Oral Traditions and African Historiography</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">🔗 Synthesis: Trade, Disease, and Civilizations</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON: The Americas Before Columbus -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">The Americas Before Columbus · <span class="cn">哥伦布之前的美洲</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>A World Apart · <span class="cn">一个独立的世界</span></h3>
+    <p>For thousands of years, the peoples of the Americas developed their civilizations almost entirely cut off from Africa, Europe, and Asia. No major trade routes connected the two hemispheres, so American societies built their own systems of agriculture, government, religion, and engineering — with no contact with the empires you have studied so far this unit. This isolation is one of the most important facts to remember about the Americas before 1492.</p>
+    <p style="margin-top:8px"><span class="cn">几千年来，美洲的居民几乎完全与非洲、欧洲和亚洲隔绝，独立发展出自己的文明。两个半球之间没有主要的贸易路线相连，因此美洲社会建立了属于自己的农业、政府、宗教与工程体系——与你在本单元目前所学的帝国毫无接触。这种孤立性是关于1492年之前美洲最重要的事实之一。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Aztec Empire: A City on a Lake · <span class="cn">阿兹特克帝国：湖上之城</span></h3>
+    <p>The Aztecs built their capital, <strong>Tenochtitlan</strong>, on an island in Lake Texcoco in the Valley of Mexico. To feed a population of perhaps 200,000 people, Aztec farmers built <strong>chinampas</strong> — artificial floating gardens woven from reeds and piled with rich mud, anchored to the lake bottom. The Aztec Empire was ruled through a <strong>Triple Alliance</strong> of three city-states, which conquered neighboring peoples and forced them to pay <strong>tribute</strong> — goods, food, and labor — rather than ruling them directly.</p>
+    <p style="margin-top:8px"><span class="cn">阿兹特克人将都城<strong>特诺奇蒂特兰</strong>建在墨西哥谷地特斯科科湖中的一座岛屿上。为了养活约20万人口，阿兹特克农民建造了<strong>奇南帕</strong>——用芦苇编织、堆上肥沃淤泥并固定于湖底的人工浮动园地。阿兹特克帝国由三个城邦组成的<strong>三方联盟</strong>统治，这些城邦征服周边民族，并强迫他们缴纳<strong>贡品</strong>——物资、粮食与劳力，而不是直接统治他们。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Inca Empire: Engineering the Andes · <span class="cn">印加帝国：征服安第斯山脉的工程</span></h3>
+    <p>Centered at <strong>Cuzco</strong>, the Inca Empire stretched roughly 4,000 km along the Andes Mountains, making it the largest empire in the pre-Columbian Americas. The Inca built an extraordinary network of stone roads and rope suspension bridges across extreme mountain terrain, and used <strong>quipu</strong> — knotted cords — to record numbers and information, since they had no written alphabet. Conquered peoples owed labor service called the <strong>mit'a</strong> system, working on roads, farms, and temples instead of paying goods directly.</p>
+    <p style="margin-top:8px"><span class="cn">以<strong>库斯科</strong>为中心的印加帝国沿安第斯山脉延伸约4000公里，是哥伦布之前美洲最大的帝国。印加人在极端的山地地形中修建了非凡的石路网络与绳索吊桥，并使用<strong>奇普</strong>——打结的绳索——来记录数字与信息，因为他们没有书写文字。被征服的民族需要承担称为<strong>米塔</strong>制度的劳役，负责修筑道路、耕种与建造神庙，而不是直接缴纳物资。</span></p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Aztec Empire 阿兹特克帝国</th><th>Inca Empire 印加帝国</th></tr>
+      <tr><td>Capital: Tenochtitlan, on a lake island 都城：特诺奇蒂特兰，湖中岛屿</td><td>Capital: Cuzco, high in the Andes 都城：库斯科，位于安第斯山脉高处</td></tr>
+      <tr><td>Ruled via Triple Alliance + tribute from conquered cities 通过三方联盟与对被征服城市征收贡品进行统治</td><td>Ruled via centralized roads + mit'a labor service 通过中央道路网络与米塔劳役制度进行统治</td></tr>
+      <tr><td>No system of writing; used pictorial codices 没有文字系统；使用图画手抄本</td><td>No alphabet; used knotted quipu cords for records 没有字母；用打结的奇普绳记录信息</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Deeper Roots: Earlier American Civilizations · <span class="cn">更深的根源：更早的美洲文明</span></h3>
+    <p>The Aztec and Inca were not the first complex societies in the Americas — they built on traditions going back thousands of years. The <strong>Olmec</strong> of Mexico's Gulf Coast (c. 1200–400 BCE) carved giant stone heads and are often called the "mother culture" of later Mesoamerican civilizations. The <strong>Maya</strong> developed a true writing system, advanced mathematics, and precise calendars in Central America. The <strong>Mississippian</strong> culture of North America built massive earthen mounds, including the city of Cahokia near modern St. Louis. In South America, the <strong>Chavín</strong> culture spread shared religious art and ideas through the Andes centuries before the Inca.</p>
+    <p style="margin-top:8px"><span class="cn">阿兹特克与印加并不是美洲最早的复杂社会——他们建立在可追溯至几千年前的传统之上。墨西哥湾沿岸的<strong>奥尔梅克文明</strong>（约公元前1200年至前400年）雕刻了巨大的石头人头像，常被称为后来中美洲文明的「母文化」。<strong>玛雅文明</strong>在中美洲发展出了真正的文字系统、先进的数学与精确的历法。北美洲的<strong>密西西比文化</strong>建造了巨大的土丘，包括位于今圣路易斯附近的卡霍基亚城。在南美洲，<strong>查文文化</strong>早在印加帝国之前几个世纪，就已经在安第斯地区传播共同的宗教艺术与理念。</span></p>
+    <div class="callout">
+      <strong>One Continent, Many Civilizations:</strong> Just as Afro-Eurasia had many distinct empires and cultures, the Americas were home to a long, varied history of complex civilizations long before 1492.
+      <br><span class="cn"><strong>一片大陆，多个文明：</strong>正如亚非欧大陆拥有许多不同的帝国与文化一样，早在1492年之前，美洲就已经存在悠久而多样的复杂文明历史。</span>
+    </div>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — The Americas Before Columbus</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. American civilizations like the Aztec and Inca developed in total isolation from Afro-Eurasia for thousands of years. Why might a civilization developing independently look very different from one shaped by constant outside contact? · <span class="cn">阿兹特克与印加等美洲文明，在数千年间与亚非欧大陆完全隔绝独立发展。为什么一个独立发展的文明，可能与一个不断受到外部接触影响的文明看起来截然不同？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Aztec used chinampas to feed a huge city, and the Inca used roads and quipu to govern a vast mountain empire. What does this tell you about how different environments shape different solutions to similar problems? · <span class="cn">阿兹特克人用奇南帕养活一座大城市，印加人用道路与奇普治理庞大的山地帝国。这说明了不同的环境是如何塑造出针对相似问题的不同解决方案的？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+ 
+<!-- LESSON: The Black Death -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">The Black Death · <span class="cn">黑死病</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>A Disease Born on the Steppe · <span class="cn">起源于草原的疾病</span></h3>
+    <p>The bubonic plague was caused by a bacterium called <strong>Yersinia pestis</strong>, which lived naturally among rodents such as marmots on the Central Asian steppe. Fleas that fed on infected rodents could pass the bacteria to other animals — and to humans. When the climate or rodent populations shifted, infected fleas began biting new hosts, including the black rats that traveled aboard merchant caravans and ships.</p>
+    <p style="margin-top:8px"><span class="cn">黑死病由一种名为<strong>鼠疫耶尔森菌</strong>的细菌引起，这种细菌天然存在于中亚草原上的旱獭等啮齿动物体内。吸食被感染啮齿动物血液的跳蚤，可以将细菌传染给其他动物——以及人类。当气候或啮齿动物种群发生变化时，被感染的跳蚤开始叮咬新的宿主，包括随商队与船只旅行的黑鼠。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Riding the Trade Routes: The Silk Road and Kaffa · <span class="cn">沿贸易路线传播：丝绸之路与卡法</span></h3>
+    <p>You have already learned that the <strong>Pax Mongolica</strong> made Silk Road trade safer and faster than ever before. Unfortunately, the same roads that carried silk, spices, and ideas also carried infected fleas and rats westward from Central Asia. In 1346, Mongol forces besieging the Genoese trading port of <strong>Kaffa</strong> on the Black Sea reportedly catapulted plague-infected bodies over the city walls. Genoese merchants who fled Kaffa by ship may have carried the disease directly into Mediterranean port cities.</p>
+    <p style="margin-top:8px"><span class="cn">你已经学过，<strong>蒙古和平</strong>使丝绸之路的贸易比以往任何时候都更安全、更快捷。不幸的是，运送丝绸、香料与思想的同一条道路，也将被感染的跳蚤与老鼠从中亚带向西方。1346年，围攻黑海沿岸热那亚贸易港口<strong>卡法</strong>的蒙古军队，据传曾用投石机将感染瘟疫的尸体抛入城内。从卡法乘船逃离的热那亚商人，可能将这种疾病直接带入了地中海港口城市。</span></p>
+    <div class="callout">
+      <strong>Connecting the Lessons:</strong> The very trade networks that made the Mongol Empire and the Silk Road so prosperous also became the highway that carried one of history's deadliest diseases into Europe.
+      <br><span class="cn"><strong>课程之间的联系：</strong>正是那些使蒙古帝国与丝绸之路繁荣昌盛的贸易网络，也成为了将历史上最致命的疾病之一传入欧洲的通道。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Spreading Through Europe, 1347–1351 · <span class="cn">在欧洲蔓延，1347年至1351年</span></h3>
+    <p>From Mediterranean ports, the plague spread rapidly along trade routes and rivers into the heart of Europe between 1347 and 1351, eventually killing an estimated <strong>one-third of Europe's population</strong>. Cities with crowded conditions and poor sanitation suffered especially severe losses, while some isolated rural areas were affected less. Medical understanding at the time could not explain bacteria or fleas, so people had no effective way to stop the disease's spread.</p>
+    <p style="margin-top:8px"><span class="cn">从地中海港口出发，瘟疫沿着贸易路线与河流迅速蔓延至欧洲腹地，在1347年至1351年间，最终导致欧洲约<strong>三分之一</strong>的人口死亡。拥挤、卫生条件差的城市遭受了尤为严重的损失，而一些孤立的农村地区受到的影响则较小。当时的医学知识无法解释细菌或跳蚤，因此人们没有有效的方法来阻止疾病的蔓延。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Economic and Social Aftershocks · <span class="cn">经济与社会的余震</span></h3>
+    <p>The sudden loss of so many workers created a severe labor shortage, and surviving peasants and laborers could demand <strong>higher wages</strong> for the first time in generations — a major blow to the rigid feudal and serfdom system you studied earlier in the week. With fewer farmers, some landlords switched to less labor-intensive sheep farming. Terrified and unable to explain the disease scientifically, communities across Europe also turned to dangerous <strong>scapegoating</strong>, unfairly blaming Jewish communities and other minority groups for spreading the plague, leading to violent persecution.</p>
+    <p style="margin-top:8px"><span class="cn">如此多劳动力的骤然损失造成了严重的劳动力短缺，幸存的农民与劳工历经数代以来第一次能够要求<strong>更高的工资</strong>——这对你本周早些时候所学的僵化封建与农奴制度造成了重大打击。由于农民减少，一些地主转而从事劳动密集程度较低的养羊业。由于恐惧且无法用科学解释这种疾病，欧洲各地的社区也出现了危险的<strong>替罪羊行为</strong>，不公正地将瘟疫的传播归咎于犹太社区及其他少数群体，导致了暴力迫害。</span></p>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — The Black Death</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The same trade routes that made the Mongol Empire prosperous also spread one of history's deadliest diseases. Why might increased global connection always carry both risks and rewards? · <span class="cn">使蒙古帝国繁荣的同一贸易路线，也传播了历史上最致命的疾病之一。为什么日益增长的全球联系总是同时伴随着风险与回报？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Fear and lack of scientific understanding led many Europeans to scapegoat innocent groups during the Black Death. Why do people sometimes blame others unfairly during a crisis they don't understand? · <span class="cn">恐惧与缺乏科学认知，导致许多欧洲人在黑死病期间将无辜群体作为替罪羊。为什么人们在面对无法理解的危机时，有时会不公正地归咎于他人？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+ 
+<!-- LESSON: Mansa Musa and the Mali Empire -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Mansa Musa and the Mali Empire · <span class="cn">曼萨·穆萨与马里帝国</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>Gold, Salt, and an Empire Between Two Deserts · <span class="cn">黄金、盐与两片沙漠之间的帝国</span></h3>
+    <p>The <strong>Mali Empire</strong> rose to power in West Africa by controlling the trade of two precious resources moving in opposite directions: <strong>gold</strong>, mined in forests to the south, and <strong>salt</strong>, mined from desert deposits to the north. Mali's rulers taxed this trade heavily, growing immensely wealthy as goods passed through cities like Timbuktu and Gao on their way across the Sahara.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>马里帝国</strong>通过控制两种朝相反方向流动的珍贵资源贸易，在西非崛起为强权：南方森林中开采的<strong>黄金</strong>，以及北方沙漠中开采的<strong>盐</strong>。马里的统治者对这一贸易征收重税，随着货物经过廷巴克图与加奥等城市穿越撒哈拉沙漠，国力变得极其富裕。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Mansa Musa's Famous Pilgrimage · <span class="cn">曼萨·穆萨著名的朝圣之旅</span></h3>
+    <p><strong>Mansa Musa</strong> ruled Mali at the height of its wealth and power in the early 1300s. In 1324, he set out on a <strong>hajj</strong> — a pilgrimage to the Muslim holy city of Mecca — bringing an enormous caravan that reportedly included thousands of soldiers, attendants, and so much gold that he gave generously to people along the way. When Mansa Musa passed through Cairo, Egypt, he gave away so much gold that he reportedly disrupted the local economy, lowering the value of gold there for years afterward.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>曼萨·穆萨</strong>在14世纪初马里国力最强盛、最富裕的时期统治该国。1324年，他出发前往穆斯林圣城麦加进行<strong>朝觐</strong>，率领着一支规模庞大的商队，据传随行人员包括数千名士兵、随从，以及大量黄金，他在途中慷慨地施舍给当地人。当曼萨·穆萨途经埃及开罗时，据传他施舍的黄金数量之多，扰乱了当地经济，使该地黄金的价值在此后多年内都有所下降。</span></p>
+    <div class="callout">
+      <strong>Wealth That Reshaped a Region:</strong> Mansa Musa's pilgrimage is one of the clearest historical examples of how one individual's wealth could ripple outward and affect economies far beyond his own empire's borders.
+      <br><span class="cn"><strong>重塑一个地区的财富：</strong>曼萨·穆萨的朝圣之旅是历史上最清晰的例子之一，说明个人的财富如何能够向外波及，影响远超出自己帝国边界的经济。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Camels, Caravans, and Timbuktu · <span class="cn">骆驼、商队与廷巴克图</span></h3>
+    <p>Crossing the Sahara required specialized knowledge: caravans relied on camels, which could survive long stretches without water, and experienced guides who knew the location of scattered desert oases. The city of <strong>Timbuktu</strong> grew into a major center not just for trade, but for Islamic scholarship, attracting scholars, books, and students from across West Africa and the wider Muslim world.</p>
+    <p style="margin-top:8px"><span class="cn">穿越撒哈拉需要专门的知识：商队依靠能够长时间不饮水生存的骆驼，以及熟知散布于沙漠中绿洲位置的经验丰富的向导。<strong>廷巴克图</strong>城发展成为一个重要中心，不仅是贸易中心，也是伊斯兰学术中心，吸引着来自西非各地及更广阔穆斯林世界的学者、书籍与学生。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Looking East: The Swahili Coast and the Indian Ocean · <span class="cn">放眼东方：斯瓦希里海岸与印度洋</span></h3>
+    <p>While Mali connected West Africa to the Mediterranean across the Sahara, a very different trade network linked East Africa to the wider world. Independent <strong>Swahili city-states</strong> such as Kilwa and Mogadishu grew wealthy along the East African coast by trading with merchants across the Indian Ocean, exchanging African gold, ivory, and enslaved people for porcelain, textiles, and spices arriving from Arabia, India, and even China.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Trans-Saharan Trade 跨撒哈拉贸易</th><th>Swahili Coast / Indian Ocean Trade 斯瓦希里海岸／印度洋贸易</th></tr>
+      <tr><td>Connected West Africa to North Africa and the Mediterranean 连接西非与北非及地中海</td><td>Connected East Africa to Arabia, India, and Asia 连接东非与阿拉伯、印度及亚洲</td></tr>
+      <tr><td>Carried by camel caravans across the Sahara Desert 由骆驼商队穿越撒哈拉沙漠运送</td><td>Carried by ships using monsoon winds across the Indian Ocean 由船只利用印度洋季风运送</td></tr>
+      <tr><td>Main goods: gold and salt 主要商品：黄金与盐</td><td>Main goods: gold, ivory for porcelain, textiles, spices 主要商品：黄金、象牙换瓷器、纺织品与香料</td></tr>
+    </table>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Mansa Musa and the Mali Empire</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Mansa Musa's pilgrimage affected the economy of Cairo, a city far outside his own empire. Can you think of a modern example of one wealthy individual or country affecting the global economy far beyond its own borders? · <span class="cn">曼萨·穆萨的朝圣之旅影响了远在他自己帝国之外的开罗的经济。你能想到一个现代的例子，说明一个富有的个人或国家如何影响远超出自己国界的全球经济吗？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. Mali grew wealthy by controlling trade between two regions (gold-producing forests and salt-producing deserts) rather than producing everything itself. Why might controlling trade routes be just as valuable as controlling resources directly? · <span class="cn">马里通过控制两个地区（产金的森林与产盐的沙漠）之间的贸易而变得富裕，而不是自己生产一切。为什么控制贸易路线可能和直接控制资源一样有价值？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+ 
+<!-- LESSON: Oral Traditions and African Historiography -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Oral Traditions and African Historiography · <span class="cn">口述传统与非洲史学方法论</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>What Is Oral Tradition? · <span class="cn">什么是口述传统？</span></h3>
+    <p><strong>Oral tradition</strong> is history, knowledge, and culture passed down by speaking and memory across generations, rather than through writing. In much of West Africa, specially trained storytellers called <strong>griots</strong> served as living libraries, memorizing the histories of kings, kingdoms, important events, and family lineages, and performing them at ceremonies and gatherings for centuries.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>口述传统</strong>是通过口头讲述与记忆，而非文字书写，代代相传的历史、知识与文化。在西非大部分地区，被称为<strong>格里奥</strong>的专门训练的说书人，充当着活的图书馆，记忆着国王、王国、重大事件与家族血统的历史，并在数百年间于仪式与聚会中讲述这些历史。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Historiography: How Do We Know What We Know? · <span class="cn">史学方法论：我们如何知晓我们所知道的？</span></h3>
+    <p><strong>Historiography</strong> is the study of how history itself gets written, including how historians decide which sources to trust and how to use them. Written documents are useful because they can be dated and directly quoted, but they are not the only valid form of historical evidence — and in many parts of the world, including much of pre-colonial Africa, written records were far less common than in Eurasia.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>史学方法论</strong>是研究历史本身如何被书写的学科，包括历史学家如何决定信任哪些史料以及如何使用它们。书面文献之所以有用，是因为它们可以被确定年代并直接引用，但它们并不是唯一有效的历史证据形式——而在包括前殖民时期非洲大部分地区在内的世界许多地方，书面记录远不如亚欧大陆常见。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Why Historians Value Oral Sources · <span class="cn">历史学家为何重视口述史料</span></h3>
+    <p>Oral traditions can preserve detailed and accurate information across generations, especially when memorization is treated as a formal, trained profession, as it was for griots. Historians today often cross-check oral traditions against archaeology, other written accounts from neighboring regions, and even DNA or linguistic evidence, using all available tools together rather than dismissing oral history just because it was not written down at the time.</p>
+    <p style="margin-top:8px"><span class="cn">口述传统能够在数代人之间保存详细而准确的信息，尤其是当记忆被视为一种正式、经过训练的职业时，就像格里奥那样。今天的历史学家常常将口述传统与考古学、邻近地区的其他书面记载，甚至DNA或语言学证据进行交叉核实，综合运用所有可用的工具，而不是仅仅因为口述历史当时没有被书写下来就将其否定。</span></p>
+    <div class="callout">
+      <strong>Not "Less Reliable," Just Different:</strong> A trained griot's memorized history is a different type of evidence than a written chronicle — not automatically a worse one. Good historians evaluate each type of source on its own terms.
+      <br><span class="cn"><strong>并非「不可靠」，只是不同：</strong>经过训练的格里奥所记忆的历史，是与书面编年史不同类型的证据——而不是自动地更不可靠。优秀的历史学家会根据每种史料自身的特点来评估它。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Connecting to the Mali Empire · <span class="cn">与马里帝国的联系</span></h3>
+    <p>Much of what historians know about Mansa Musa, the founding of the Mali Empire, and earlier West African kingdoms comes from a combination of Arabic written accounts from North African travelers and scholars, alongside oral traditions preserved by griots and passed down within Mali and neighboring societies. Neither source alone tells the complete story — together, they give historians a much fuller picture.</p>
+    <p style="margin-top:8px"><span class="cn">历史学家对曼萨·穆萨、马里帝国的建立以及更早的西非王国的大部分了解，来自北非旅行者与学者的阿拉伯文书面记载，以及由格里奥保存并在马里及邻近社会中代代相传的口述传统两者的结合。任何一种单独的来源都无法讲述完整的故事——两者结合，才为历史学家提供了更为完整的图景。</span></p>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Oral Traditions and African Historiography</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Historians use oral traditions, written documents, archaeology, and even DNA evidence together to understand the past. Why might relying on only one type of source ever give an incomplete picture of history? · <span class="cn">历史学家结合使用口述传统、书面文献、考古学，甚至DNA证据来理解过去。为什么仅仅依赖一种史料，可能永远无法呈现完整的历史图景？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. A griot trained for years to memorize the detailed history of kings and kingdoms. What does this suggest about the value a society can place on memory and oral skill, even without writing? · <span class="cn">格里奥经过多年训练，记忆国王与王国的详细历史。这说明了一个社会即使没有文字，也能够多么重视记忆与口述技巧？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+ 
+<!-- LESSON: Synthesis: Trade, Disease, and Civilizations -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Synthesis: Trade, Disease, and Civilizations · <span class="cn">综合：贸易、疾病与文明</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>Trade Networks as Highways — for Goods, Ideas, and Disease · <span class="cn">作为通道的贸易网络——商品、思想与疾病</span></h3>
+    <p>Today's earlier lessons revealed a powerful pattern: the same trade networks that carried gold, books, and spices also carried something far more dangerous. The Black Death moved along the Silk Road from Central Asia to Kaffa, then by ship into the Mediterranean — following the exact routes that had long carried silk, paper, and ideas. Notice that the Trans-Saharan and Indian Ocean trade routes you studied today were largely separate from this path, which is part of why historians find very little evidence that the Black Death reached deep into Sub-Saharan Africa the way it devastated Europe and parts of the Middle East.</p>
+    <p style="margin-top:8px"><span class="cn">今天前几课的内容揭示了一个重要的规律：运送黄金、书籍与香料的同一贸易网络，也运送着远更危险的东西。黑死病沿着丝绸之路从中亚传到卡法，再由船只传入地中海——所走的正是长期以来运送丝绸、纸张与思想的同样路线。请注意，你今天所学的跨撒哈拉贸易路线与印度洋贸易路线，与这条路径在很大程度上是分开的，这也是为什么历史学家发现很少有证据表明黑死病像摧毁欧洲与中东部分地区那样，深入传播到了撒哈拉以南非洲。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Comparing African and American Civilizations of This Period · <span class="cn">比较这一时期的非洲与美洲文明</span></h3>
+    <p>The Mali Empire and the Swahili city-states, like the Aztec and Inca Empires, were sophisticated civilizations with complex governments, impressive cities, and specialized economies. But their relationships to outside trade networks looked very different from those of the Americas.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th></th><th>Mali Empire &amp; Swahili Coast 马里帝国与斯瓦希里海岸</th><th>Aztec &amp; Inca Empires 阿兹特克与印加帝国</th></tr>
+      <tr><td>Connection to outside trade networks 与外部贸易网络的联系</td><td>Deeply connected to Mediterranean and Indian Ocean trade 与地中海及印度洋贸易紧密相连</td><td>Almost entirely isolated from Afro-Eurasia 几乎完全与亚非欧大陆隔绝</td></tr>
+      <tr><td>Exposure to Afro-Eurasian diseases 接触亚非欧大陆疾病的情况</td><td>Some exposure through long-distance trade contact 通过长途贸易接触有一定程度的暴露</td><td>No prior exposure at all before 1492 1492年之前完全没有任何暴露</td></tr>
+      <tr><td>Recording history 历史记录方式</td><td>Combination of Arabic writing and oral tradition 阿拉伯文书写与口述传统相结合</td><td>Pictorial codices (Aztec) and knotted quipu (Inca) 图画手抄本（阿兹特克）与打结的奇普（印加）</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Connectivity and Isolation: A Recurring Historical Theme · <span class="cn">互联互通与孤立：一个反复出现的历史主题</span></h3>
+    <p>Across this unit, you have seen connectivity bring both benefits and dangers: the Pax Mongolica spread trade and ideas but also the plague; Mansa Musa's wealth reshaped Cairo's economy; the Crusades brought knowledge to Europe but also conflict. The Americas' isolation meant civilizations like the Aztec and Inca developed independently for thousands of years — but as you will see in the next lessons, that same isolation would soon prove devastating once sustained contact with Afro-Eurasia finally began.</p>
+    <p style="margin-top:8px"><span class="cn">在本单元中，你已经看到互联互通既带来好处也带来危险：蒙古和平传播了贸易与思想，但也传播了瘟疫；曼萨·穆萨的财富重塑了开罗的经济；十字军东征为欧洲带来了知识，但也带来了冲突。美洲的孤立意味着阿兹特克与印加等文明能够独立发展数千年——但正如你将在接下来的课程中看到的，一旦与亚非欧大陆建立起持续的接触，这种孤立将很快被证明是灾难性的。</span></p>
+    <div class="callout-blue">
+      <strong>Looking Ahead:</strong> Tomorrow's lessons on the Age of Exploration and the Columbian Exchange will show exactly what happens when these long-separated worlds finally collide.
+      <br><span class="cn"><strong>展望未来：</strong>明天关于大航海时代与哥伦布大交换的课程，将展示这些长期分隔的世界最终相遇时究竟会发生什么。</span>
+    </div>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Synthesis: Trade, Disease, and Civilizations</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Today you compared deeply connected civilizations (Mali, the Swahili coast) with an almost entirely isolated one (the Americas). Which situation do you think carried more long-term risk, and why? · <span class="cn">今天你比较了高度互联的文明（马里、斯瓦希里海岸）与几乎完全孤立的文明（美洲）。你认为哪种情况长期来看风险更大，为什么？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. This unit keeps returning to the idea that connectivity brings both benefits and dangers. Based on everything you've learned this week, do you think the benefits of global connection generally outweigh the risks? Why or why not? · <span class="cn">本单元反复回到一个观点：互联互通既带来好处也带来危险。根据你本周所学的一切，你认为全球联系的好处总体上是否超过了风险？为什么？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  {
+    "word": "Aztec Empire",
+    "pos": "proper noun",
+    "cn": "阿兹特克帝国",
+    "def": "A powerful empire centered at Tenochtitlan in the Valley of Mexico, ruled through a Triple Alliance of city-states.",
+    "cn_def": "以墨西哥谷地特诺奇蒂特兰为中心的强大帝国，通过三方联盟的城邦进行统治。",
+    "example": "The Aztec Empire collected tribute from many conquered city-states."
+  },
+  {
+    "word": "Inca Empire",
+    "pos": "proper noun",
+    "cn": "印加帝国",
+    "def": "The largest empire in pre-Columbian South America, stretching along the Andes Mountains with its capital at Cuzco.",
+    "cn_def": "哥伦布之前南美洲最大的帝国，沿安第斯山脉延伸，首都为库斯科。",
+    "example": "The Inca Empire built an extensive road system across the Andes."
+  },
+  {
+    "word": "Chinampa",
+    "pos": "noun",
+    "cn": "奇南帕（浮田）",
+    "def": "A human-made floating garden plot built on a shallow lake, used by the Aztecs to grow large amounts of food.",
+    "cn_def": "建在浅湖上的人工浮动园地，阿兹特克人用来种植大量粮食。",
+    "example": "Chinampas allowed Tenochtitlan to feed a huge population."
+  },
+  {
+    "word": "Yersinia pestis",
+    "pos": "proper noun",
+    "cn": "鼠疫耶尔森菌",
+    "def": "The bacterium that causes the bubonic plague, carried by fleas living on rodents such as marmots.",
+    "cn_def": "引发黑死病的细菌，由寄生在旱獭等啮齿动物身上的跳蚤携带传播。",
+    "example": "Yersinia pestis spread along trade routes carried by infected fleas."
+  },
+  {
+    "word": "Bubonic plague",
+    "pos": "noun",
+    "cn": "黑死病（腺鼠疫）",
+    "def": "A deadly disease, also called the Black Death, that killed an estimated one-third of Europe's population between 1347 and 1351.",
+    "cn_def": "也称黑死病的致命疾病，在1347年至1351年间导致欧洲约三分之一人口死亡。",
+    "example": "The bubonic plague caused massive labor shortages across Europe."
+  },
+  {
+    "word": "Siege of Kaffa",
+    "pos": "proper noun",
+    "cn": "卡法围城战",
+    "def": "A 1346 Mongol siege of a Genoese trading port on the Black Sea, where plague-infected bodies may have been catapulted over the walls.",
+    "cn_def": "1346年蒙古军队围攻黑海沿岸热那亚贸易港口的事件，传说瘟疫感染者的尸体曾被投石机抛入城内。",
+    "example": "Fleeing merchants from the Siege of Kaffa may have carried the plague into Europe."
+  },
+  {
+    "word": "Scapegoating",
+    "pos": "noun",
+    "cn": "替罪羊行为",
+    "def": "Unfairly blaming a group of people for a problem they did not cause, such as blaming Jewish communities for the plague.",
+    "cn_def": "不公平地将某个问题归咎于并非造成该问题的群体，例如将瘟疫归咎于犹太社区。",
+    "example": "Fear during the Black Death led to dangerous scapegoating of minority groups."
+  },
+  {
+    "word": "Mansa Musa",
+    "pos": "proper noun",
+    "cn": "曼萨·穆萨",
+    "def": "A 14th-century emperor of the Mali Empire, famous for his extreme wealth and his 1324 pilgrimage to Mecca.",
+    "cn_def": "14世纪马里帝国的皇帝，以其极度的财富以及1324年前往麦加朝圣而闻名。",
+    "example": "Mansa Musa gave away so much gold in Cairo that it lowered the value of gold there for years."
+  },
+  {
+    "word": "Griot",
+    "pos": "noun",
+    "cn": "格里奥（口述史人）",
+    "def": "A West African storyteller, historian, and musician who preserves and passes down oral history across generations.",
+    "cn_def": "西非的说书人、历史学家兼音乐家，负责保存并代代相传口述历史。",
+    "example": "Griots memorized the histories of kings and kingdoms for centuries."
+  },
+  {
+    "word": "Trans-Saharan trade route",
+    "pos": "noun phrase",
+    "cn": "跨撒哈拉贸易路线",
+    "def": "A network of caravan routes across the Sahara Desert connecting West Africa to North Africa and the Mediterranean world.",
+    "cn_def": "穿越撒哈拉沙漠、连接西非与北非及地中海世界的商队路线网络。",
+    "example": "Gold and salt were the two most valuable goods carried along the Trans-Saharan trade route."
+  },
+  {
+    "word": "Swahili city-state",
+    "pos": "noun phrase",
+    "cn": "斯瓦希里城邦",
+    "def": "An independent trading city along the East African coast, such as Kilwa or Mogadishu, connected to Indian Ocean trade.",
+    "cn_def": "东非海岸的独立贸易城市，如基尔瓦或摩加迪沙，与印度洋贸易网络相连。",
+    "example": "Swahili city-states traded gold and ivory for porcelain and textiles from Asia."
+  },
+  {
+    "word": "Historiography",
+    "pos": "noun",
+    "cn": "史学方法论",
+    "def": "The study of how history is written, including how historians evaluate and use different kinds of sources.",
+    "cn_def": "研究历史如何被书写的学科，包括历史学家如何评估与使用不同类型的史料。",
+    "example": "Historiography helps explain why oral traditions are valuable evidence even without written records."
+  }
+];
+ 
+var L1_Q = [
+  {
+    "id": "l1q1",
+    "q": "What is the most important fact to remember about the Americas before 1492?",
+    "q_cn": "关于1492年之前的美洲，最重要的事实是什么？",
+    "options": [
+      "A. They were almost entirely isolated from Africa, Europe, and Asia|A. 它们几乎完全与非洲、欧洲和亚洲隔绝",
+      "B. They were ruled directly by the Mongol Empire|B. 它们由蒙古帝国直接统治",
+      "C. They had constant trade contact with Song China|C. 它们与宋朝中国有持续的贸易往来",
+      "D. They followed the same religion as medieval Europe|D. 它们信奉与中世纪欧洲相同的宗教"
+    ],
+    "correct": "A",
+    "rat_right": "No major trade routes connected the Americas to Afro-Eurasia, so American civilizations developed almost entirely in isolation.|没有主要的贸易路线连接美洲与亚非欧大陆，因此美洲文明几乎完全独立发展。",
+    "rat_wrong": {
+      "B": "The Mongol Empire never reached or ruled any part of the Americas.|蒙古帝国从未到达或统治过美洲的任何地方。",
+      "C": "There was no significant trade contact between the Americas and Song China during this period.|这一时期美洲与宋朝中国之间没有显著的贸易往来。",
+      "D": "American civilizations developed their own distinct religious traditions, separate from medieval Europe.|美洲文明发展出了自己独特的宗教传统，与中世纪欧洲不同。"
+    }
+  },
+  {
+    "id": "l1q2",
+    "q": "Where did the Aztecs build their capital city, Tenochtitlan?",
+    "q_cn": "阿兹特克人将其都城特诺奇蒂特兰建在哪里？",
+    "options": [
+      "A. On an island in Lake Texcoco|A. 特斯科科湖中的一座岛屿上",
+      "B. High in the Andes Mountains|B. 安第斯山脉高处",
+      "C. Along the Gulf Coast of Mexico|C. 墨西哥湾沿岸",
+      "D. On the banks of the Nile River|D. 尼罗河岸边"
+    ],
+    "correct": "A",
+    "rat_right": "The Aztecs built Tenochtitlan on an island in Lake Texcoco in the Valley of Mexico.|阿兹特克人将特诺奇蒂特兰建在墨西哥谷地特斯科科湖中的一座岛屿上。",
+    "rat_wrong": {
+      "B": "The Andes Mountains were the location of the Inca capital, Cuzco, not Tenochtitlan.|安第斯山脉是印加都城库斯科的所在地，而不是特诺奇蒂特兰。",
+      "C": "The Gulf Coast was home to the earlier Olmec culture, not the Aztec capital.|墨西哥湾沿岸是更早的奥尔梅克文化的所在地，而不是阿兹特克都城。",
+      "D": "The Nile River is in Africa and is unrelated to the Aztec Empire.|尼罗河位于非洲，与阿兹特克帝国无关。"
+    }
+  },
+  {
+    "id": "l1q3",
+    "q": "What were chinampas, and why were they important?",
+    "q_cn": "奇南帕是什么，为什么它们很重要？",
+    "options": [
+      "A. Floating gardens that allowed Aztec farmers to feed a huge population|A. 使阿兹特克农民能够养活庞大人口的浮动园地",
+      "B. Stone roads built by the Inca across the Andes|B. 印加人在安第斯山脉修建的石路",
+      "C. Knotted cords used to record numbers|C. 用于记录数字的打结绳索",
+      "D. Giant stone heads carved by the Olmec|D. 奥尔梅克人雕刻的巨型石头人头像"
+    ],
+    "correct": "A",
+    "rat_right": "Chinampas were artificial floating gardens that allowed Aztec farmers to grow enough food to support Tenochtitlan's large population.|奇南帕是人工浮动园地，使阿兹特克农民能够种植足够的粮食养活特诺奇蒂特兰庞大的人口。",
+    "rat_wrong": {
+      "B": "Stone roads describe Inca infrastructure across the Andes, not the Aztec chinampas.|石路描述的是印加人在安第斯山脉的基础设施，而不是阿兹特克的奇南帕。",
+      "C": "Knotted cords describe the Inca quipu system, a separate concept from chinampas.|打结的绳索描述的是印加的奇普系统，与奇南帕是不同的概念。",
+      "D": "Giant stone heads were carved by the earlier Olmec culture, not related to chinampas.|巨型石头人头像是更早的奥尔梅克文化所雕刻的，与奇南帕无关。"
+    }
+  },
+  {
+    "id": "l1q4",
+    "q": "How was the Aztec Empire governed?",
+    "q_cn": "阿兹特克帝国是如何治理的？",
+    "options": [
+      "A. Through a Triple Alliance of city-states that collected tribute from conquered peoples|A. 通过三方联盟的城邦向被征服民族征收贡品",
+      "B. Through a single emperor who personally ruled every conquered city directly|B. 由一位皇帝亲自直接统治每一座被征服的城市",
+      "C. Through elected officials chosen by all citizens|C. 由全体公民选举产生的官员治理",
+      "D. Through a written legal code copied from the Maya|D. 通过抄袭玛雅的成文法典"
+    ],
+    "correct": "A",
+    "rat_right": "The Aztec Empire was ruled through a Triple Alliance of three city-states that forced conquered peoples to pay tribute rather than ruling them directly.|阿兹特克帝国由三个城邦组成的三方联盟统治，迫使被征服民族缴纳贡品，而不是直接统治他们。",
+    "rat_wrong": {
+      "B": "Conquered cities paid tribute rather than being ruled directly by a single emperor.|被征服的城市是缴纳贡品，而不是由一位皇帝直接统治。",
+      "C": "There is no evidence the Aztec Empire used elections to choose its officials.|没有证据表明阿兹特克帝国通过选举来选拔官员。",
+      "D": "The lesson does not describe the Aztecs copying a Maya legal code.|本课并未描述阿兹特克人抄袭玛雅的法典。"
+    }
+  },
+  {
+    "id": "l1q5",
+    "q": "Approximately how far did the Inca Empire stretch along the Andes Mountains?",
+    "q_cn": "印加帝国沿安第斯山脉延伸的距离大约是多少？",
+    "options": [
+      "A. Roughly 4,000 km, making it the largest pre-Columbian American empire|A. 大约4000公里，是哥伦布之前美洲最大的帝国",
+      "B. Only about 50 km around the city of Cuzco|B. 仅约50公里，环绕库斯科城周边",
+      "C. Across the entire continent from coast to coast|C. 横跨整个大陆，从一岸到另一岸",
+      "D. It never extended beyond a single city|D. 从未超出单一城市的范围"
+    ],
+    "correct": "A",
+    "rat_right": "The Inca Empire stretched roughly 4,000 km along the Andes Mountains, making it the largest empire in the pre-Columbian Americas.|印加帝国沿安第斯山脉延伸约4000公里，是哥伦布之前美洲最大的帝国。",
+    "rat_wrong": {
+      "B": "The empire extended far beyond the area immediately around Cuzco.|帝国的范围远远超出了库斯科周边地区。",
+      "C": "The Inca Empire ran along the Andes, not coast to coast across the entire continent.|印加帝国沿安第斯山脉延伸，而不是横跨整个大陆。",
+      "D": "The Inca built a vast network of roads connecting many cities far beyond just Cuzco.|印加人建立了庞大的道路网络，连接着远不止库斯科一座城市的众多城镇。"
+    }
+  },
+  {
+    "id": "l1q6",
+    "q": "How did the Inca record numbers and information without a written alphabet?",
+    "q_cn": "印加人在没有字母文字的情况下，是如何记录数字与信息的？",
+    "options": [
+      "A. By using quipu, knotted cords|A. 使用奇普，即打结的绳索",
+      "B. By carving giant stone heads|B. 雕刻巨型石头人头像",
+      "C. By painting pictorial codices on bark paper|C. 在树皮纸上绘制图画手抄本",
+      "D. By memorizing everything with no physical records at all|D. 完全凭记忆，没有任何实物记录"
+    ],
+    "correct": "A",
+    "rat_right": "The Inca used quipu — knotted cords — to record numbers and information since they had no written alphabet.|印加人由于没有字母文字，使用奇普——打结的绳索——来记录数字与信息。",
+    "rat_wrong": {
+      "B": "Carving giant stone heads describes the Olmec, not the Inca recording system.|雕刻巨型石头人头像描述的是奥尔梅克人，而不是印加的记录系统。",
+      "C": "Painted pictorial codices were used by the Aztecs, not the Inca quipu system.|绘制图画手抄本是阿兹特克人使用的方式，而不是印加的奇普系统。",
+      "D": "The Inca did create physical records — quipu cords — rather than relying purely on memory.|印加人确实创造了实物记录——奇普绳——而不是完全依赖记忆。"
+    }
+  },
+  {
+    "id": "l1q7",
+    "q": "What was the mit'a system in the Inca Empire?",
+    "q_cn": "印加帝国的米塔制度是什么？",
+    "options": [
+      "A. A labor service owed by conquered peoples instead of paying goods directly|A. 被征服民族应承担的劳役，而不是直接缴纳物资",
+      "B. A type of floating garden used to grow food|B. 一种用于种植粮食的浮动园地",
+      "C. A written legal code used across the empire|C. 在帝国范围内使用的成文法典",
+      "D. A religious festival held once every hundred years|D. 每一百年举行一次的宗教节日"
+    ],
+    "correct": "A",
+    "rat_right": "Conquered peoples owed labor service called the mit'a system, working on roads, farms, and temples instead of paying goods.|被征服的民族需要承担称为米塔制度的劳役，负责修筑道路、耕种与建造神庙，而不是缴纳物资。",
+    "rat_wrong": {
+      "B": "Floating gardens describe Aztec chinampas, not the Inca mit'a labor system.|浮动园地描述的是阿兹特克的奇南帕，而不是印加的米塔劳役制度。",
+      "C": "The mit'a was a labor obligation, not a written legal code.|米塔是一种劳役义务，而不是成文法典。",
+      "D": "The mit'a was an ongoing labor obligation, not an occasional festival.|米塔是一种持续性的劳役义务，而不是偶尔举行的节日。"
+    }
+  },
+  {
+    "id": "l1q8",
+    "q": "Which earlier culture is often called the \"mother culture\" of later Mesoamerican civilizations?",
+    "q_cn": "哪个更早的文化常被称为后来中美洲文明的「母文化」？",
+    "options": [
+      "A. The Olmec|A. 奥尔梅克",
+      "B. The Mississippian|B. 密西西比文化",
+      "C. The Chavín|C. 查文文化",
+      "D. The Inca|D. 印加"
+    ],
+    "correct": "A",
+    "rat_right": "The Olmec of Mexico's Gulf Coast are often called the \"mother culture\" of later Mesoamerican civilizations.|墨西哥湾沿岸的奥尔梅克文明常被称为后来中美洲文明的「母文化」。",
+    "rat_wrong": {
+      "B": "The Mississippian culture built earthen mounds in North America, but is not called the mother culture of Mesoamerica.|密西西比文化在北美洲建造了土丘，但并不被称为中美洲的母文化。",
+      "C": "The Chavín culture spread religious ideas through the Andes in South America, not Mesoamerica.|查文文化在南美洲安第斯地区传播宗教理念，而不是中美洲。",
+      "D": "The Inca came much later than the Olmec and built on different regional traditions.|印加比奥尔梅克晚得多，建立在不同的地区传统之上。"
+    }
+  },
+  {
+    "id": "l1q9",
+    "q": "What major North American culture built massive earthen mounds, including the city of Cahokia?",
+    "q_cn": "哪个主要的北美文化建造了巨大的土丘，包括卡霍基亚城？",
+    "options": [
+      "A. The Mississippian culture|A. 密西西比文化",
+      "B. The Aztec Empire|B. 阿兹特克帝国",
+      "C. The Swahili city-states|C. 斯瓦希里城邦",
+      "D. The Mali Empire|D. 马里帝国"
+    ],
+    "correct": "A",
+    "rat_right": "The Mississippian culture of North America built massive earthen mounds, including the city of Cahokia near modern St. Louis.|北美洲的密西西比文化建造了巨大的土丘，包括位于今圣路易斯附近的卡霍基亚城。",
+    "rat_wrong": {
+      "B": "The Aztec Empire was centered in Mexico, not the Mississippian mound-building region of North America.|阿兹特克帝国以墨西哥为中心，而不是北美洲建造土丘的密西西比地区。",
+      "C": "The Swahili city-states were located on the East African coast, unrelated to North American mounds.|斯瓦希里城邦位于东非海岸，与北美洲的土丘无关。",
+      "D": "The Mali Empire was in West Africa and is unrelated to Cahokia.|马里帝国位于西非，与卡霍基亚无关。"
+    }
+  },
+  {
+    "id": "l1q10",
+    "q": "What does the existence of many distinct American civilizations before 1492 suggest?",
+    "q_cn": "1492年之前存在许多不同的美洲文明，这说明了什么？",
+    "options": [
+      "A. Complex civilizations can develop independently in different parts of the world without contact with each other|A. 复杂文明可以在世界不同地区独立发展，彼此之间没有接触",
+      "B. Complex civilization is only possible with contact between Afro-Eurasia and the Americas|B. 复杂文明只有在亚非欧大陆与美洲有接触的情况下才可能出现",
+      "C. The Aztec and Inca were the only complex societies that ever existed in the Americas|C. 阿兹特克与印加是美洲曾经存在过的唯一复杂社会",
+      "D. American civilizations copied all of their ideas directly from medieval Europe|D. 美洲文明的所有理念都直接抄袭自中世纪欧洲"
+    ],
+    "correct": "A",
+    "rat_right": "The long, varied history of Olmec, Maya, Mississippian, Chavín, Aztec, and Inca civilizations shows that complex societies can develop independently without contact between hemispheres.|奥尔梅克、玛雅、密西西比、查文、阿兹特克与印加等文明悠久而多样的历史表明，复杂社会可以在不同半球之间没有接触的情况下独立发展。",
+    "rat_wrong": {
+      "B": "American civilizations flourished for thousands of years with no contact with Afro-Eurasia, disproving this claim.|美洲文明在与亚非欧大陆毫无接触的情况下繁荣发展了数千年，这一说法因此不成立。",
+      "C": "The Olmec, Maya, Mississippian, and Chavín all existed as complex societies before and alongside the Aztec and Inca.|奥尔梅克、玛雅、密西西比文化与查文文化都在阿兹特克与印加之前及同期作为复杂社会存在过。",
+      "D": "There was no contact between the Americas and medieval Europe before 1492, so this is impossible.|1492年之前美洲与中世纪欧洲毫无接触，因此这种说法不可能成立。"
+    }
+  }
+];
+var L2_Q = [
+  {
+    "id": "l2q1",
+    "q": "What bacterium caused the bubonic plague?",
+    "q_cn": "是什么细菌导致了黑死病？",
+    "options": [
+      "A. Yersinia pestis|A. 鼠疫耶尔森菌",
+      "B. Smallpox virus|B. 天花病毒",
+      "C. A parasite found only in camels|C. 一种仅存在于骆驼体内的寄生虫",
+      "D. A fungus found in wheat fields|D. 一种存在于麦田中的真菌"
+    ],
+    "correct": "A",
+    "rat_right": "The bubonic plague was caused by a bacterium called Yersinia pestis, which lived among rodents on the Central Asian steppe.|黑死病由一种名为鼠疫耶尔森菌的细菌引起，这种细菌存在于中亚草原的啮齿动物体内。",
+    "rat_wrong": {
+      "B": "Smallpox is a separate disease, caused by a virus, not the bacterium behind the bubonic plague.|天花是一种由病毒引起的不同疾病，并非导致黑死病的细菌。",
+      "C": "The plague bacterium lived among rodents such as marmots, not specifically camels.|引发瘟疫的细菌存在于旱獭等啮齿动物体内，而不是特指骆驼。",
+      "D": "The plague was caused by a bacterium carried by fleas, not a fungus in wheat.|瘟疫是由跳蚤携带的细菌引起的，而不是麦田中的真菌。"
+    }
+  },
+  {
+    "id": "l2q2",
+    "q": "How did fleas spread the plague to new hosts, including humans?",
+    "q_cn": "跳蚤是如何将瘟疫传播给包括人类在内的新宿主的？",
+    "options": [
+      "A. Fleas that fed on infected rodents passed the bacteria when biting other animals or people|A. 吸食被感染啮齿动物血液的跳蚤在叮咬其他动物或人类时传播细菌",
+      "B. The plague spread only through drinking contaminated river water|B. 瘟疫仅通过饮用被污染的河水传播",
+      "C. The plague spread only through direct contact with marmot fur|C. 瘟疫仅通过直接接触旱獭皮毛传播",
+      "D. The plague spread only through eating infected grain|D. 瘟疫仅通过食用被感染的谷物传播"
+    ],
+    "correct": "A",
+    "rat_right": "Fleas that fed on infected rodents could pass the bacteria to other animals and to humans through biting.|吸食被感染啮齿动物血液的跳蚤，可以通过叮咬将细菌传染给其他动物和人类。",
+    "rat_wrong": {
+      "B": "The lesson describes flea bites as the method of transmission, not contaminated water.|本课描述的传播方式是跳蚤叮咬，而不是被污染的水。",
+      "C": "Transmission came from flea bites, not direct contact with rodent fur.|传播方式来自跳蚤叮咬，而不是直接接触啮齿动物的皮毛。",
+      "D": "The lesson does not describe the plague spreading through infected grain.|本课并未描述瘟疫通过被感染的谷物传播。"
+    }
+  },
+  {
+    "id": "l2q3",
+    "q": "What made Silk Road trade routes faster and safer right before the plague spread, according to the previous lesson?",
+    "q_cn": "根据上一课，在瘟疫传播之前，是什么使丝绸之路贸易路线变得更快、更安全？",
+    "options": [
+      "A. The Pax Mongolica|A. 蒙古和平",
+      "B. The Protestant Reformation|B. 新教改革",
+      "C. The Trans-Saharan trade route|C. 跨撒哈拉贸易路线",
+      "D. The Inca road system|D. 印加道路系统"
+    ],
+    "correct": "A",
+    "rat_right": "The Pax Mongolica made Silk Road trade safer and faster than ever before, which unfortunately also helped spread the plague westward.|蒙古和平使丝绸之路贸易比以往任何时候都更安全、更快捷，不幸的是，这也促使瘟疫向西传播。",
+    "rat_wrong": {
+      "B": "The Protestant Reformation happened centuries later and is unrelated to Silk Road trade safety.|新教改革发生在几个世纪之后，与丝绸之路贸易的安全性无关。",
+      "C": "The Trans-Saharan trade route is a separate African trade network, not the route connected to the Pax Mongolica.|跨撒哈拉贸易路线是另一个非洲贸易网络，与蒙古和平所涉及的路线不同。",
+      "D": "The Inca road system was in South America and unrelated to the Silk Road or the plague's spread.|印加道路系统位于南美洲，与丝绸之路或瘟疫的传播无关。"
+    }
+  },
+  {
+    "id": "l2q4",
+    "q": "What reportedly happened during the 1346 Siege of Kaffa?",
+    "q_cn": "据传，1346年的卡法围城战中发生了什么？",
+    "options": [
+      "A. Mongol forces catapulted plague-infected bodies over the city walls|A. 蒙古军队用投石机将感染瘟疫的尸体抛入城墙内",
+      "B. Genoese merchants successfully cured the plague with new medicine|B. 热那亚商人成功用新药物治愈了瘟疫",
+      "C. The city was peacefully traded to the Mongols without any conflict|C. 该城在没有任何冲突的情况下被和平地割让给蒙古人",
+      "D. Mansa Musa led an army to defend the city|D. 曼萨·穆萨率军保卫该城"
+    ],
+    "correct": "A",
+    "rat_right": "Mongol forces besieging Kaffa reportedly catapulted plague-infected bodies over the city walls in 1346.|围攻卡法的蒙古军队据传于1346年用投石机将感染瘟疫的尸体抛入城墙内。",
+    "rat_wrong": {
+      "B": "There was no effective cure for the plague at this time; medical understanding could not explain bacteria.|当时没有有效的瘟疫治疗方法；医学知识无法解释细菌的存在。",
+      "C": "Kaffa was under a violent siege, not a peaceful exchange.|卡法当时正遭受暴力围攻，而不是和平易手。",
+      "D": "Mansa Musa ruled the Mali Empire in West Africa and had no connection to the Siege of Kaffa.|曼萨·穆萨统治着西非的马里帝国，与卡法围城战无关。"
+    }
+  },
+  {
+    "id": "l2q5",
+    "q": "How might Genoese merchants have carried the plague into Mediterranean Europe?",
+    "q_cn": "热那亚商人可能是如何将瘟疫带入地中海欧洲的？",
+    "options": [
+      "A. By fleeing Kaffa by ship, carrying infected fleas and rats with them|A. 乘船逃离卡法，随身携带被感染的跳蚤与老鼠",
+      "B. By marching overland through the Sahara Desert|B. 步行穿越撒哈拉沙漠",
+      "C. By sailing directly from the Inca Empire|C. 直接从印加帝国航行而来",
+      "D. By trading exclusively with Swahili city-states|D. 仅与斯瓦希里城邦进行贸易"
+    ],
+    "correct": "A",
+    "rat_right": "Genoese merchants who fled Kaffa by ship may have carried infected fleas and rats directly into Mediterranean port cities.|乘船逃离卡法的热那亚商人，可能将被感染的跳蚤与老鼠直接带入了地中海港口城市。",
+    "rat_wrong": {
+      "B": "The route described is by ship from the Black Sea, not overland through the Sahara.|本课描述的路线是从黑海乘船而来，而不是步行穿越撒哈拉。",
+      "C": "There was no contact between Genoese merchants and the Inca Empire at this time.|当时热那亚商人与印加帝国之间没有任何接触。",
+      "D": "The plague's spread into Europe is linked to Black Sea trade, not Swahili coastal trade.|瘟疫传入欧洲与黑海贸易有关，而不是斯瓦希里沿海贸易。"
+    }
+  },
+  {
+    "id": "l2q6",
+    "q": "Approximately what fraction of Europe's population died from the Black Death between 1347 and 1351?",
+    "q_cn": "1347年至1351年间，黑死病导致欧洲大约多大比例的人口死亡？",
+    "options": [
+      "A. About one-third|A. 大约三分之一",
+      "B. Almost the entire population|B. 几乎全部人口",
+      "C. Less than one percent|C. 不到百分之一",
+      "D. Exactly one-half, with no regional variation|D. 恰好二分之一，且各地区没有差异"
+    ],
+    "correct": "A",
+    "rat_right": "The Black Death killed an estimated one-third of Europe's population between 1347 and 1351.|黑死病在1347年至1351年间导致欧洲约三分之一的人口死亡。",
+    "rat_wrong": {
+      "B": "Devastating as it was, the plague did not wipe out nearly the entire population.|尽管造成了毁灭性的破坏，瘟疫并未几乎消灭全部人口。",
+      "C": "The death toll was far higher than one percent — roughly a third of the population.|死亡人数远远高于百分之一——大约占人口的三分之一。",
+      "D": "The lesson states roughly one-third, and effects varied significantly between crowded cities and isolated rural areas.|本课指出大约是三分之一，且拥挤的城市与孤立的农村地区所受影响差异显著。"
+    }
+  },
+  {
+    "id": "l2q7",
+    "q": "Why were crowded cities hit especially hard by the plague compared to some isolated rural areas?",
+    "q_cn": "与一些孤立的农村地区相比，为什么拥挤的城市受瘟疫打击尤为严重？",
+    "options": [
+      "A. Crowded conditions and poor sanitation helped the disease spread faster|A. 拥挤的环境与不良的卫生条件加速了疾病的传播",
+      "B. Cities had no trade connections to the outside world|B. 城市与外界没有任何贸易联系",
+      "C. Rural areas had access to modern vaccines that cities lacked|C. 农村地区拥有城市所没有的现代疫苗",
+      "D. Cities were located only in Africa, far from the source of plague|D. 城市仅位于非洲，远离瘟疫的源头"
+    ],
+    "correct": "A",
+    "rat_right": "Cities with crowded conditions and poor sanitation suffered especially severe losses compared to some isolated rural areas.|拥挤、卫生条件差的城市与一些孤立的农村地区相比，遭受了尤为严重的损失。",
+    "rat_wrong": {
+      "B": "Cities actually had more trade connections, which is part of why they were hit harder.|事实上城市拥有更多的贸易联系，这正是其受灾更严重的原因之一。",
+      "C": "No vaccines existed at this time anywhere in the world.|当时世界上任何地方都不存在疫苗。",
+      "D": "The plague struck cities across Europe and Asia, not only in Africa.|瘟疫袭击了欧洲与亚洲各地的城市，而不仅仅是非洲。"
+    }
+  },
+  {
+    "id": "l2q8",
+    "q": "What economic change did surviving peasants and laborers experience after the plague?",
+    "q_cn": "瘟疫过后，幸存的农民与劳工经历了怎样的经济变化？",
+    "options": [
+      "A. They could demand higher wages due to a severe labor shortage|A. 由于严重的劳动力短缺，他们能够要求更高的工资",
+      "B. They were forced to accept lower wages than before the plague|B. 他们被迫接受比瘟疫前更低的工资",
+      "C. All feudal obligations were immediately and permanently strengthened|C. 所有封建义务立即且永久性地得到加强",
+      "D. Trade and farming stopped completely for the rest of the century|D. 贸易与农业在那个世纪剩余的时间里完全停止"
+    ],
+    "correct": "A",
+    "rat_right": "The sudden loss of so many workers created a labor shortage, allowing surviving workers to demand higher wages for the first time in generations.|大量劳动力的骤然损失造成了劳动力短缺，使幸存的劳工历经数代以来第一次能够要求更高的工资。",
+    "rat_wrong": {
+      "B": "Wages rose, not fell, because labor became scarce and valuable.|由于劳动力变得稀缺而宝贵，工资是上升而不是下降。",
+      "C": "The labor shortage actually weakened, not strengthened, the rigid feudal and serfdom system.|劳动力短缺实际上削弱了，而不是加强了僵化的封建与农奴制度。",
+      "D": "Trade and farming continued, though they were disrupted; they did not stop completely.|贸易与农业虽然受到冲击，但仍在继续，并没有完全停止。"
+    }
+  },
+  {
+    "id": "l2q9",
+    "q": "What dangerous social response occurred because people could not scientifically explain the plague?",
+    "q_cn": "由于人们无法用科学解释瘟疫，出现了怎样危险的社会反应？",
+    "options": [
+      "A. Scapegoating and violent persecution of Jewish communities and other minority groups|A. 对犹太社区及其他少数群体的替罪羊行为与暴力迫害",
+      "B. A peaceful and unified effort across all of Europe to find a cure|B. 全欧洲为寻找治愈方法而展开的和平且团结的努力",
+      "C. Immediate adoption of modern germ theory by all physicians|C. 所有医生立即采纳了现代细菌理论",
+      "D. A complete and permanent end to all trade across Europe|D. 欧洲所有贸易的彻底且永久性终结"
+    ],
+    "correct": "A",
+    "rat_right": "Terrified communities turned to dangerous scapegoating, unfairly blaming Jewish communities and other minority groups for spreading the plague.|恐惧的社区出现了危险的替罪羊行为，不公正地将瘟疫的传播归咎于犹太社区及其他少数群体。",
+    "rat_wrong": {
+      "B": "The response described is violent persecution, not a peaceful, unified search for a cure.|本课描述的反应是暴力迫害，而不是和平、团结地寻找治愈方法。",
+      "C": "Germ theory did not exist yet; medical understanding could not explain bacteria at this time.|细菌理论当时尚不存在；那个时代的医学知识无法解释细菌。",
+      "D": "Trade was disrupted but resumed; it did not end completely and permanently.|贸易受到了冲击但后来恢复了；它并没有完全且永久性地终结。"
+    }
+  },
+  {
+    "id": "l2q10",
+    "q": "What does the path of the Black Death — from Central Asian rodents to European cities — best illustrate about trade networks?",
+    "q_cn": "黑死病的传播路径——从中亚啮齿动物到欧洲城市——最能说明贸易网络的什么特点？",
+    "options": [
+      "A. Trade networks can spread disease just as easily as they spread goods and ideas|A. 贸易网络传播疾病的速度可以与传播商品和思想一样快",
+      "B. Trade networks only ever carry positive benefits with no risks|B. 贸易网络只会带来好处，没有任何风险",
+      "C. Disease can only spread through direct military conquest|C. 疾病只能通过直接的军事征服传播",
+      "D. The Silk Road had no connection at all to the spread of the plague|D. 丝绸之路与瘟疫的传播完全无关"
+    ],
+    "correct": "A",
+    "rat_right": "The same trade networks that carried silk, spices, and ideas across Eurasia also carried infected fleas and rats, showing that connectivity can spread disease as well as goods.|运送丝绸、香料与思想穿越亚欧大陆的同一贸易网络，也运送了被感染的跳蚤与老鼠，这表明互联互通既能传播商品，也能传播疾病。",
+    "rat_wrong": {
+      "B": "This lesson shows a clear negative consequence of trade networks: the spread of deadly disease.|本课清楚地展示了贸易网络的一个明显负面后果：致命疾病的传播。",
+      "C": "The plague spread primarily through trade and travel, not military conquest.|瘟疫主要通过贸易与旅行传播，而不是军事征服。",
+      "D": "The Silk Road and the Pax Mongolica are directly connected to how the plague moved westward.|丝绸之路与蒙古和平与瘟疫向西传播的方式直接相关。"
+    }
+  }
+];
+var L3_Q = [
+  {
+    "id": "l3q1",
+    "q": "What two precious resources formed the foundation of the Mali Empire's wealth?",
+    "q_cn": "哪两种珍贵资源构成了马里帝国财富的基础？",
+    "options": [
+      "A. Gold from the south and salt from the north|A. 南方的黄金与北方的盐",
+      "B. Silver and spices|B. 白银与香料",
+      "C. Porcelain and silk|C. 瓷器与丝绸",
+      "D. Sugar and tobacco|D. 糖与烟草"
+    ],
+    "correct": "A",
+    "rat_right": "Mali rose to power by controlling the trade of gold mined to the south and salt mined to the north.|马里通过控制南方开采的黄金与北方开采的盐的贸易而崛起为强权。",
+    "rat_wrong": {
+      "B": "Silver and spices are not the resources described as the foundation of Mali's wealth.|白银与香料并非本课描述的马里财富基础。",
+      "C": "Porcelain and silk were traded along the Swahili coast and Silk Road, not the basis of Mali's gold-salt trade.|瓷器与丝绸是斯瓦希里海岸与丝绸之路的贸易商品，而不是马里黄金—盐贸易的基础。",
+      "D": "Sugar and tobacco became important cash crops later, in the Americas, unrelated to medieval Mali.|糖与烟草是后来在美洲成为重要经济作物的商品，与中世纪的马里无关。"
+    }
+  },
+  {
+    "id": "l3q2",
+    "q": "In what year did Mansa Musa set out on his famous pilgrimage to Mecca?",
+    "q_cn": "曼萨·穆萨在哪一年出发前往麦加进行著名的朝圣之旅？",
+    "options": [
+      "A. 1324|A. 1324年",
+      "B. 1095|B. 1095年",
+      "C. 1492|C. 1492年",
+      "D. 1517|D. 1517年"
+    ],
+    "correct": "A",
+    "rat_right": "In 1324, Mansa Musa set out on a hajj — a pilgrimage to Mecca.|1324年，曼萨·穆萨出发前往麦加进行朝觐。",
+    "rat_wrong": {
+      "B": "1095 was the year Pope Urban II called for the First Crusade, not Mansa Musa's pilgrimage.|1095年是教皇乌尔班二世号召发起第一次十字军东征的年份，而不是曼萨·穆萨朝圣的年份。",
+      "C": "1492 is associated with Columbus's first voyage, centuries after Mansa Musa's pilgrimage.|1492年与哥伦布的首次航行有关，远在曼萨·穆萨朝圣之后数百年。",
+      "D": "1517 is associated with Martin Luther's 95 Theses, not Mansa Musa's pilgrimage.|1517年与马丁·路德的95条论纲有关，而不是曼萨·穆萨的朝圣。"
+    }
+  },
+  {
+    "id": "l3q3",
+    "q": "What happened to gold's value in Cairo after Mansa Musa passed through the city?",
+    "q_cn": "曼萨·穆萨途经开罗后，该城黄金的价值发生了什么变化？",
+    "options": [
+      "A. It dropped, because he gave away so much gold that it disrupted the local economy|A. 下降了，因为他施舍了大量黄金，扰乱了当地经济",
+      "B. It rose sharply due to a sudden gold shortage|B. 由于黄金突然短缺而急剧上涨",
+      "C. It remained completely unchanged|C. 完全没有变化",
+      "D. Gold was banned from use in Cairo afterward|D. 此后开罗禁止使用黄金"
+    ],
+    "correct": "A",
+    "rat_right": "Mansa Musa gave away so much gold in Cairo that it reportedly lowered the value of gold there for years afterward.|曼萨·穆萨在开罗施舍了大量黄金，据传此后多年该地黄金的价值都因此下降。",
+    "rat_wrong": {
+      "B": "Gold became more abundant, not scarce, due to Mansa Musa's generosity, which lowered its value.|由于曼萨·穆萨的慷慨施舍，黄金变得更加充裕而非稀缺，这导致了其价值的下降。",
+      "C": "The lesson describes a real, lasting disruption to Cairo's gold value, not no change at all.|本课描述了对开罗黄金价值真实而持久的扰动，而不是毫无变化。",
+      "D": "There is no mention of gold being banned in Cairo as a result of this event.|本课没有提到由于这一事件而禁止在开罗使用黄金。"
+    }
+  },
+  {
+    "id": "l3q4",
+    "q": "What does Mansa Musa's pilgrimage illustrate about wealth and trade?",
+    "q_cn": "曼萨·穆萨的朝圣之旅说明了财富与贸易之间的什么关系？",
+    "options": [
+      "A. One individual's wealth could ripple outward and affect economies far beyond his own empire|A. 一个人的财富可以向外波及，影响远超出自己帝国范围的经济",
+      "B. Wealth from West Africa never had any effect outside the region|B. 西非的财富从未对该地区以外产生过任何影响",
+      "C. Only military conquest could spread economic influence in this period|C. 在这一时期，只有军事征服才能传播经济影响力",
+      "D. Gold had no value anywhere outside of Mali|D. 黄金在马里以外的任何地方都没有价值"
+    ],
+    "correct": "A",
+    "rat_right": "Mansa Musa's pilgrimage shows how one individual's wealth could ripple outward and affect economies far beyond his own empire's borders.|曼萨·穆萨的朝圣之旅展示了一个人的财富如何能够向外波及，影响远超出自己帝国边界的经济。",
+    "rat_wrong": {
+      "B": "Mansa Musa's gold spending in Cairo is a direct example of West African wealth affecting a distant region.|曼萨·穆萨在开罗的黄金支出，正是西非财富影响遥远地区的直接例证。",
+      "C": "This example shows economic influence spreading through trade and spending, not military conquest.|这个例子展示的是经济影响力通过贸易与花费传播，而不是通过军事征服。",
+      "D": "Gold clearly had value in Cairo, since its sudden abundance affected the local economy there.|黄金在开罗显然是有价值的，因为其突然的充裕影响了当地经济。"
+    }
+  },
+  {
+    "id": "l3q5",
+    "q": "Why were camels essential to Trans-Saharan trade caravans?",
+    "q_cn": "为什么骆驼对跨撒哈拉贸易商队至关重要？",
+    "options": [
+      "A. They could survive long stretches of desert travel without water|A. 它们能够在沙漠中长途跋涉而不需要饮水",
+      "B. They could swim across the Mediterranean Sea|B. 它们能够游过地中海",
+      "C. They were used only for racing, not for carrying goods|C. 它们仅用于赛跑，而不用于运送货物",
+      "D. They could fly over the Sahara Desert|D. 它们能够飞越撒哈拉沙漠"
+    ],
+    "correct": "A",
+    "rat_right": "Caravans relied on camels because they could survive long stretches without water while crossing the Sahara.|商队依靠骆驼，是因为它们能够在穿越撒哈拉时长时间不饮水生存。",
+    "rat_wrong": {
+      "B": "The lesson describes desert crossing, not swimming across the Mediterranean.|本课描述的是穿越沙漠，而不是游过地中海。",
+      "C": "Camels were used to carry goods across the desert, not simply for racing.|骆驼被用来在沙漠中运送货物，而不仅仅是用于赛跑。",
+      "D": "Camels traveled on land across the desert; they did not fly.|骆驼是在陆地上穿越沙漠的，它们并不会飞行。"
+    }
+  },
+  {
+    "id": "l3q6",
+    "q": "What did the city of Timbuktu become especially known for, beyond trade?",
+    "q_cn": "廷巴克图城除了贸易之外，还以什么而特别闻名？",
+    "options": [
+      "A. Islamic scholarship, attracting scholars, books, and students|A. 伊斯兰学术，吸引学者、书籍与学生",
+      "B. Building giant stone heads|B. 建造巨型石头人头像",
+      "C. Constructing floating gardens for farming|C. 建造用于耕种的浮动园地",
+      "D. Producing the world's first paper money|D. 发行世界上最早的纸币"
+    ],
+    "correct": "A",
+    "rat_right": "Timbuktu grew into a major center for Islamic scholarship, attracting scholars, books, and students from across West Africa and beyond.|廷巴克图发展成为伊斯兰学术的重要中心，吸引着来自西非各地及更远地区的学者、书籍与学生。",
+    "rat_wrong": {
+      "B": "Giant stone heads were carved by the Olmec in Mesoamerica, unrelated to Timbuktu.|巨型石头人头像是中美洲的奥尔梅克人雕刻的，与廷巴克图无关。",
+      "C": "Floating gardens describe Aztec chinampas, not Timbuktu's scholarly reputation.|浮动园地描述的是阿兹特克的奇南帕，而不是廷巴克图的学术声誉。",
+      "D": "Paper money was a Song Dynasty Chinese innovation, not associated with Timbuktu.|纸币是宋朝中国的发明，与廷巴克图无关。"
+    }
+  },
+  {
+    "id": "l3q7",
+    "q": "What trade network connected East Africa's Swahili city-states to the wider world?",
+    "q_cn": "哪个贸易网络将东非的斯瓦希里城邦与更广阔的世界连接起来？",
+    "options": [
+      "A. Indian Ocean trade using monsoon winds|A. 利用季风航行的印度洋贸易",
+      "B. The Trans-Saharan camel caravan routes|B. 跨撒哈拉骆驼商队路线",
+      "C. The Silk Road overland through Central Asia|C. 穿越中亚的丝绸之路陆路",
+      "D. Direct trade with the Aztec Empire|D. 与阿兹特克帝国的直接贸易"
+    ],
+    "correct": "A",
+    "rat_right": "Swahili city-states grew wealthy by trading with merchants across the Indian Ocean.|斯瓦希里城邦通过与印度洋彼岸的商人进行贸易而变得富裕。",
+    "rat_wrong": {
+      "B": "Trans-Saharan caravan routes connected West Africa, not the Swahili coast of East Africa.|跨撒哈拉商队路线连接的是西非，而不是东非的斯瓦希里海岸。",
+      "C": "The overland Silk Road connected Central Asia and China, a separate network from the Indian Ocean trade.|陆上丝绸之路连接的是中亚与中国，这是一个与印度洋贸易不同的网络。",
+      "D": "There was no direct trade between the Swahili coast and the Aztec Empire in the Americas.|斯瓦希里海岸与美洲的阿兹特克帝国之间没有直接贸易。"
+    }
+  },
+  {
+    "id": "l3q8",
+    "q": "What goods did Swahili city-states typically trade away to Indian Ocean merchants?",
+    "q_cn": "斯瓦希里城邦通常向印度洋商人出口什么商品？",
+    "options": [
+      "A. Gold, ivory, and enslaved people|A. 黄金、象牙与被奴役的人",
+      "B. Porcelain and silk produced locally|B. 本地生产的瓷器与丝绸",
+      "C. Paper money and printed books|C. 纸币与印刷书籍",
+      "D. Llamas and potatoes|D. 美洲驼与马铃薯"
+    ],
+    "correct": "A",
+    "rat_right": "Swahili city-states exchanged African gold, ivory, and enslaved people for porcelain, textiles, and spices.|斯瓦希里城邦用非洲的黄金、象牙与被奴役的人，交换瓷器、纺织品与香料。",
+    "rat_wrong": {
+      "B": "Porcelain and silk were goods Swahili traders received from Asia, not goods they exported.|瓷器与丝绸是斯瓦希里商人从亚洲获得的商品，而不是他们出口的商品。",
+      "C": "Paper money and printed books were associated with Song China, not Swahili exports.|纸币与印刷书籍与宋朝中国有关，而不是斯瓦希里的出口商品。",
+      "D": "Llamas and potatoes were part of Andean South American civilizations, unrelated to Swahili trade.|美洲驼与马铃薯属于南美安第斯文明，与斯瓦希里贸易无关。"
+    }
+  },
+  {
+    "id": "l3q9",
+    "q": "What was a key difference between Trans-Saharan trade and Indian Ocean trade?",
+    "q_cn": "跨撒哈拉贸易与印度洋贸易之间的一个关键差异是什么？",
+    "options": [
+      "A. Trans-Saharan trade used camel caravans across desert land, while Indian Ocean trade used ships and monsoon winds|A. 跨撒哈拉贸易使用骆驼商队穿越沙漠陆地，而印度洋贸易使用船只与季风",
+      "B. Both networks used only ships and never crossed any land at all|B. 两个网络都仅使用船只，从未穿越任何陆地",
+      "C. Trans-Saharan trade connected East Africa to China directly|C. 跨撒哈拉贸易直接连接东非与中国",
+      "D. Indian Ocean trade carried only salt and no other goods|D. 印度洋贸易只运送盐，没有其他商品"
+    ],
+    "correct": "A",
+    "rat_right": "Trans-Saharan trade was carried by camel caravans across the desert, while Indian Ocean trade was carried by ships using monsoon winds.|跨撒哈拉贸易由骆驼商队穿越沙漠运送，而印度洋贸易则由利用季风的船只运送。",
+    "rat_wrong": {
+      "B": "Trans-Saharan trade crossed land by camel, not ships.|跨撒哈拉贸易是骆驼穿越陆地，而不是船只。",
+      "C": "Trans-Saharan trade connected West Africa to North Africa and the Mediterranean, not East Africa to China.|跨撒哈拉贸易连接的是西非与北非及地中海，而不是东非与中国。",
+      "D": "Indian Ocean trade carried gold, ivory, porcelain, textiles, and spices, not just salt.|印度洋贸易运送黄金、象牙、瓷器、纺织品与香料，而不仅仅是盐。"
+    }
+  },
+  {
+    "id": "l3q10",
+    "q": "What does the existence of both Trans-Saharan and Indian Ocean trade networks suggest about medieval Africa?",
+    "q_cn": "跨撒哈拉与印度洋两大贸易网络的存在，说明了关于中世纪非洲的什么？",
+    "options": [
+      "A. Africa was connected to multiple global trade systems, not isolated from the wider world|A. 非洲与多个全球贸易体系相连，并未与更广阔的世界隔绝",
+      "B. Africa had no trade connections to any other continent|B. 非洲与其他任何大陆都没有贸易联系",
+      "C. Only West Africa engaged in any trade at all|C. 只有西非进行过任何贸易",
+      "D. African empires never grew wealthy from trade|D. 非洲帝国从未通过贸易而变得富裕"
+    ],
+    "correct": "A",
+    "rat_right": "Mali's Trans-Saharan trade and the Swahili coast's Indian Ocean trade together show Africa was connected to multiple global trade systems.|马里的跨撒哈拉贸易与斯瓦希里海岸的印度洋贸易共同表明，非洲与多个全球贸易体系相连。",
+    "rat_wrong": {
+      "B": "Both trade networks directly connected Africa to the Mediterranean and Asian worlds.|这两个贸易网络都直接将非洲与地中海及亚洲世界相连。",
+      "C": "East Africa's Swahili coast also engaged extensively in Indian Ocean trade, not just West Africa.|东非的斯瓦希里海岸也广泛参与了印度洋贸易，而不仅仅是西非。",
+      "D": "Mansa Musa's wealth and the prosperous Swahili city-states both show African empires growing wealthy through trade.|曼萨·穆萨的财富与繁荣的斯瓦希里城邦都表明非洲帝国通过贸易而变得富裕。"
+    }
+  }
+];
+var L4_Q = [
+  {
+    "id": "l4q1",
+    "q": "What is oral tradition?",
+    "q_cn": "什么是口述传统？",
+    "options": [
+      "A. History, knowledge, and culture passed down by speaking and memory across generations|A. 通过口头讲述与记忆代代相传的历史、知识与文化",
+      "B. A type of stone monument built by the Olmec|B. 奥尔梅克人建造的一种石质纪念碑",
+      "C. A written legal code used only in Europe|C. 仅在欧洲使用的成文法典",
+      "D. A modern method of recording video interviews|D. 一种现代的视频访谈记录方法"
+    ],
+    "correct": "A",
+    "rat_right": "Oral tradition is history, knowledge, and culture passed down by speaking and memory rather than through writing.|口述传统是通过口头讲述与记忆，而非文字书写，代代相传的历史、知识与文化。",
+    "rat_wrong": {
+      "B": "Stone monuments describe Olmec carvings, an unrelated concept from a different region.|石质纪念碑描述的是奥尔梅克人的雕刻，与一个不同地区相关的不同概念。",
+      "C": "Oral tradition is found across many world regions, not a specific European legal code.|口述传统存在于世界许多地区，而不是某一特定的欧洲法典。",
+      "D": "Oral tradition refers to a historical practice across generations, not a modern recording technology.|口述传统指的是代代相传的历史实践，而不是一种现代录制技术。"
+    }
+  },
+  {
+    "id": "l4q2",
+    "q": "What role did griots play in West African societies?",
+    "q_cn": "格里奥在西非社会中扮演什么角色？",
+    "options": [
+      "A. Trained storytellers who memorized and performed the histories of kings and kingdoms|A. 受过训练的说书人，记忆并讲述国王与王国的历史",
+      "B. Government tax collectors who recorded trade in writing|B. 以书面记录贸易的政府税务官员",
+      "C. Religious leaders who built giant stone temples|C. 建造巨型石庙的宗教领袖",
+      "D. Military commanders who led caravans across the Sahara|D. 率领商队穿越撒哈拉的军事指挥官"
+    ],
+    "correct": "A",
+    "rat_right": "Griots were specially trained storytellers who memorized and performed the histories of kings, kingdoms, and lineages.|格里奥是经过专门训练的说书人，他们记忆并讲述国王、王国与家族血统的历史。",
+    "rat_wrong": {
+      "B": "Griots preserved history orally, not through written tax records.|格里奥是以口述方式保存历史，而不是通过书面税收记录。",
+      "C": "Griots are described as storytellers, not as builders of stone temples.|格里奥是说书人，本课并未将其描述为石庙的建造者。",
+      "D": "Griots are described as storytellers and historians, not as military leaders of caravans.|格里奥是说书人与历史学家，而不是商队的军事指挥官。"
+    }
+  },
+  {
+    "id": "l4q3",
+    "q": "What does the field of historiography study?",
+    "q_cn": "史学方法论这一学科研究的是什么？",
+    "options": [
+      "A. How history itself gets written, including how historians evaluate and use sources|A. 历史本身是如何被书写的，包括历史学家如何评估与使用史料",
+      "B. Only the history of ancient Rome|B. 仅仅是古罗马的历史",
+      "C. The chemical composition of ancient artifacts|C. 古代文物的化学成分",
+      "D. The grammar rules of dead languages|D. 已消亡语言的语法规则"
+    ],
+    "correct": "A",
+    "rat_right": "Historiography is the study of how history itself gets written, including how historians decide which sources to trust.|史学方法论是研究历史本身如何被书写的学科，包括历史学家如何决定信任哪些史料。",
+    "rat_wrong": {
+      "B": "Historiography is a broad method of studying history, not limited to ancient Rome specifically.|史学方法论是研究历史的一种广泛方法，并不局限于古罗马。",
+      "C": "Chemical analysis of artifacts is part of archaeology, a different field from historiography.|文物的化学分析属于考古学，是与史学方法论不同的学科。",
+      "D": "Historiography concerns historical method, not the grammar of dead languages.|史学方法论关注的是历史研究方法，而不是已消亡语言的语法。"
+    }
+  },
+  {
+    "id": "l4q4",
+    "q": "Why were written records far less common in much of pre-colonial Africa compared to Eurasia?",
+    "q_cn": "为什么前殖民时期非洲大部分地区的书面记录远不如亚欧大陆常见？",
+    "options": [
+      "A. Many African societies relied on strong oral traditions to preserve history instead|A. 许多非洲社会反而依靠强大的口述传统来保存历史",
+      "B. Africans had no interest in preserving any history at all|B. 非洲人对保存任何历史都毫无兴趣",
+      "C. Writing was banned by law across the entire continent|C. 整个大陆都以法律禁止文字书写",
+      "D. No African society ever developed any writing system|D. 非洲社会从未发展出任何文字系统"
+    ],
+    "correct": "A",
+    "rat_right": "Many African societies, including West Africa, relied on strong, trained oral traditions like griots to preserve history.|包括西非在内的许多非洲社会，依靠像格里奥这样强大且经过训练的口述传统来保存历史。",
+    "rat_wrong": {
+      "B": "The detailed, trained oral tradition of griots shows clear and deep interest in preserving history.|格里奥这种详细且经过训练的口述传统，清楚地表明了对保存历史的深厚兴趣。",
+      "C": "There is no mention of any law banning writing across Africa.|本课没有提到任何禁止整个非洲书写文字的法律。",
+      "D": "Arabic written accounts were used in parts of Africa, and some African societies did develop writing.|阿拉伯文书面记载在非洲部分地区被使用，一些非洲社会确实发展出了文字。"
+    }
+  },
+  {
+    "id": "l4q5",
+    "q": "What advantage do written documents offer as historical evidence?",
+    "q_cn": "作为历史证据，书面文献提供了什么优势？",
+    "options": [
+      "A. They can be dated and directly quoted|A. 它们可以被确定年代并被直接引用",
+      "B. They are always perfectly accurate with no possibility of bias|B. 它们总是完全准确，不可能存在偏见",
+      "C. They are the only valid form of historical evidence|C. 它们是唯一有效的历史证据形式",
+      "D. They require no training at all to interpret correctly|D. 完全不需要任何训练就能正确解读"
+    ],
+    "correct": "A",
+    "rat_right": "Written documents are useful because they can be dated and directly quoted.|书面文献之所以有用，是因为它们可以被确定年代并被直接引用。",
+    "rat_wrong": {
+      "B": "Written documents can still contain bias or errors; they are not automatically perfectly accurate.|书面文献仍然可能包含偏见或错误；它们并非自动完全准确。",
+      "C": "The lesson explicitly states written documents are not the only valid form of historical evidence.|本课明确指出，书面文献并不是唯一有效的历史证据形式。",
+      "D": "Interpreting written documents, like any source, still requires historical training and skill.|解读书面文献和任何史料一样，仍然需要历史学训练与技巧。"
+    }
+  },
+  {
+    "id": "l4q6",
+    "q": "How do historians often verify the accuracy of oral traditions today?",
+    "q_cn": "今天的历史学家通常如何验证口述传统的准确性？",
+    "options": [
+      "A. By cross-checking them against archaeology, other written accounts, and even DNA or linguistic evidence|A. 将其与考古学、其他书面记载，甚至DNA或语言学证据进行交叉核实",
+      "B. By assuming all oral traditions are automatically false|B. 假设所有口述传统都自动是虚假的",
+      "C. By ignoring oral traditions completely in all historical research|C. 在所有历史研究中完全忽视口述传统",
+      "D. By translating them into Latin before any analysis|D. 在进行任何分析之前先将其翻译成拉丁文"
+    ],
+    "correct": "A",
+    "rat_right": "Historians cross-check oral traditions against archaeology, other written accounts, and even DNA or linguistic evidence.|历史学家将口述传统与考古学、其他书面记载，甚至DNA或语言学证据进行交叉核实。",
+    "rat_wrong": {
+      "B": "Historians evaluate oral traditions carefully rather than assuming they are automatically false.|历史学家是仔细评估口述传统，而不是假设它们自动是虚假的。",
+      "C": "Historians use oral traditions as valuable evidence rather than ignoring them.|历史学家将口述传统作为有价值的证据加以运用，而不是忽视它们。",
+      "D": "There is no mention of translating oral traditions into Latin as a verification method.|本课没有提到将口述传统翻译成拉丁文作为一种验证方法。"
+    }
+  },
+  {
+    "id": "l4q7",
+    "q": "According to the callout box, how should historians think about a griot's memorized history compared to a written chronicle?",
+    "q_cn": "根据课文中的提示框，历史学家应该如何看待格里奥记忆的历史与书面编年史之间的关系？",
+    "options": [
+      "A. As a different type of evidence, not automatically a worse one|A. 作为一种不同类型的证据，而不是自动地更不可靠",
+      "B. As completely useless and unworthy of study|B. 作为完全无用、不值得研究的东西",
+      "C. As exactly identical in every way to written sources|C. 在各方面都与书面史料完全相同",
+      "D. As more reliable than every written document in every situation|D. 在任何情况下都比每一份书面文献更可靠"
+    ],
+    "correct": "A",
+    "rat_right": "A trained griot's memorized history is a different type of evidence than a written chronicle, not automatically a worse one.|经过训练的格里奥所记忆的历史，是与书面编年史不同类型的证据，而不是自动地更不可靠。",
+    "rat_wrong": {
+      "B": "The lesson argues oral tradition is valuable evidence, not useless.|本课论证口述传统是有价值的证据，而不是无用的东西。",
+      "C": "Oral and written sources are described as different types of evidence, not identical.|口述史料与书面史料被描述为不同类型的证据，而不是完全相同。",
+      "D": "The lesson argues each source should be evaluated on its own terms, not that oral sources are always more reliable.|本课主张每种史料都应根据自身特点进行评估，而不是说口述史料在任何情况下都更可靠。"
+    }
+  },
+  {
+    "id": "l4q8",
+    "q": "What two types of sources together give historians the fullest picture of Mansa Musa and the Mali Empire?",
+    "q_cn": "哪两种史料结合起来，能为历史学家提供关于曼萨·穆萨与马里帝国最完整的图景？",
+    "options": [
+      "A. Arabic written accounts and oral traditions preserved by griots|A. 阿拉伯文书面记载与格里奥保存的口述传统",
+      "B. Only Chinese written records|B. 仅有中文书面记录",
+      "C. Only modern satellite photographs|C. 仅有现代卫星照片",
+      "D. Only European cave paintings|D. 仅有欧洲洞穴壁画"
+    ],
+    "correct": "A",
+    "rat_right": "Historians' knowledge of Mansa Musa and Mali comes from a combination of Arabic written accounts and oral traditions preserved by griots.|历史学家对曼萨·穆萨与马里帝国的了解，来自阿拉伯文书面记载与格里奥保存的口述传统两者的结合。",
+    "rat_wrong": {
+      "B": "Chinese written records are not described as the key source for Mali Empire history in this lesson.|本课并未将中文书面记录描述为关于马里帝国历史的关键史料。",
+      "C": "Satellite photographs are a modern tool unrelated to the historical sources described in this lesson.|卫星照片是一种现代工具，与本课所描述的历史史料无关。",
+      "D": "Cave paintings in Europe are unrelated to historical knowledge of the Mali Empire.|欧洲的洞穴壁画与关于马里帝国的历史知识无关。"
+    }
+  },
+  {
+    "id": "l4q9",
+    "q": "Why is it inaccurate to think of oral history as simply \"less reliable\" than written history?",
+    "q_cn": "为什么认为口述历史只是「不如」书面历史可靠，这种看法是不准确的？",
+    "options": [
+      "A. Because memorization could be a formal, trained profession that preserved detailed, accurate information|A. 因为记忆可以是一种正式且受过训练的职业，能够保存详细而准确的信息",
+      "B. Because written history has never contained any errors in all of human history|B. 因为书面历史在整个人类历史中从未出现过任何错误",
+      "C. Because oral history is always one hundred percent perfectly accurate with no exceptions|C. 因为口述历史总是百分之百完全准确，没有任何例外",
+      "D. Because no historian has ever studied or used oral traditions|D. 因为从未有历史学家研究或使用过口述传统"
+    ],
+    "correct": "A",
+    "rat_right": "Memorization could be a formal, trained profession, as it was for griots, allowing oral traditions to preserve detailed and accurate information.|记忆可以是一种正式且受过训练的职业，正如格里奥那样，使口述传统能够保存详细而准确的信息。",
+    "rat_wrong": {
+      "B": "Written documents can contain bias or error too, which is part of why oral history shouldn't be dismissed by comparison.|书面文献同样可能包含偏见或错误，这正是不应仅凭比较就否定口述历史的部分原因。",
+      "C": "The lesson does not claim oral history is always perfectly accurate, only that it is valuable evidence.|本课并未声称口述历史总是完全准确，只是说它是有价值的证据。",
+      "D": "Historians today actively study and cross-check oral traditions as valuable evidence.|今天的历史学家积极研究并交叉核实口述传统，将其作为有价值的证据。"
+    }
+  },
+  {
+    "id": "l4q10",
+    "q": "What is the best summary of why oral traditions matter to the historical study of pre-colonial Africa?",
+    "q_cn": "对于前殖民时期非洲的历史研究而言，口述传统为何重要，最佳的总结是什么？",
+    "options": [
+      "A. They preserve detailed history in regions where written records were less common, and provide valuable evidence alongside other sources|A. 它们在书面记录不常见的地区保存了详细的历史，并与其他史料一道提供了宝贵的证据",
+      "B. They are completely unnecessary because written sources alone explain everything about Africa's past|B. 它们完全没有必要，因为仅凭书面史料就能解释关于非洲历史的一切",
+      "C. They only describe events that happened after 1900|C. 它们只描述1900年以后发生的事件",
+      "D. They were invented by European colonizers to study Africa|D. 它们是欧洲殖民者为研究非洲而发明的"
+    ],
+    "correct": "A",
+    "rat_right": "Oral traditions preserve detailed history in regions with fewer written records and provide valuable evidence used alongside archaeology and written accounts.|口述传统在书面记录较少的地区保存了详细的历史，并与考古学和书面记载一道提供了宝贵的证据。",
+    "rat_wrong": {
+      "B": "The lesson explains written sources alone do not give the full picture; oral tradition adds essential detail.|本课说明仅凭书面史料并不能呈现完整的图景；口述传统补充了必不可少的细节。",
+      "C": "Griots preserved histories of kings and kingdoms going back centuries, not just events after 1900.|格里奥保存的是可追溯至数百年前的国王与王国的历史，而不仅仅是1900年以后的事件。",
+      "D": "Oral tradition is a long-standing African practice, not something invented by European colonizers.|口述传统是非洲历史悠久的实践，而不是欧洲殖民者发明的东西。"
+    }
+  }
+];
+var L5_Q = [
+  {
+    "id": "l5q1",
+    "q": "What pattern connects the spread of trade goods and the spread of the Black Death?",
+    "q_cn": "贸易商品的传播与黑死病的传播之间存在着什么共同的规律？",
+    "options": [
+      "A. The same trade networks that carried goods and ideas also carried the plague|A. 运送商品与思想的同一贸易网络，也运送了瘟疫",
+      "B. Trade goods and disease always traveled along completely separate, unrelated routes|B. 贸易商品与疾病总是沿着完全不同、互不相关的路线传播",
+      "C. The plague spread only through military invasion, never through trade|C. 瘟疫只通过军事入侵传播，从未通过贸易传播",
+      "D. Trade had no connection at all to the spread of any disease in this unit|D. 在本单元中，贸易与任何疾病的传播都毫无关联"
+    ],
+    "correct": "A",
+    "rat_right": "The Black Death followed the same Silk Road and Mediterranean trade routes that long carried silk, paper, and ideas.|黑死病所走的正是长期以来运送丝绸、纸张与思想的同一条丝绸之路及地中海贸易路线。",
+    "rat_wrong": {
+      "B": "The lesson shows the plague following the same routes as trade goods, not separate ones.|本课表明瘟疫所走的路线与贸易商品相同，而不是分开的路线。",
+      "C": "The plague spread primarily through trade routes and travel, not through military invasion.|瘟疫主要通过贸易路线与旅行传播，而不是通过军事入侵。",
+      "D": "This unit directly connects the spread of the Black Death to Silk Road trade networks.|本单元将黑死病的传播与丝绸之路贸易网络直接联系在了一起。"
+    }
+  },
+  {
+    "id": "l5q2",
+    "q": "Why do historians find little evidence that the Black Death devastated Sub-Saharan Africa the way it did Europe?",
+    "q_cn": "为什么历史学家几乎没有发现黑死病像摧毁欧洲那样摧毁撒哈拉以南非洲的证据？",
+    "options": [
+      "A. The Trans-Saharan and Indian Ocean trade routes were largely separate from the plague's main path|A. 跨撒哈拉与印度洋贸易路线在很大程度上与瘟疫的主要传播路径是分开的",
+      "B. Sub-Saharan Africa had no trade connections of any kind|B. 撒哈拉以南非洲没有任何形式的贸易联系",
+      "C. The plague started in Sub-Saharan Africa and never left the region|C. 瘟疫起源于撒哈拉以南非洲，且从未离开该地区",
+      "D. All of Africa was completely connected to the Silk Road|D. 整个非洲与丝绸之路完全相连"
+    ],
+    "correct": "A",
+    "rat_right": "The Trans-Saharan and Indian Ocean routes were largely separate from the Silk Road/Kaffa path the plague followed.|跨撒哈拉与印度洋贸易路线，与瘟疫所走的丝绸之路／卡法路径在很大程度上是分开的。",
+    "rat_wrong": {
+      "B": "Sub-Saharan Africa had extensive trade through the Trans-Saharan and Indian Ocean networks, just on a different path.|撒哈拉以南非洲通过跨撒哈拉与印度洋网络进行着广泛的贸易，只是路径不同。",
+      "C": "The plague originated among rodents in Central Asia, not in Sub-Saharan Africa.|瘟疫起源于中亚的啮齿动物，而不是撒哈拉以南非洲。",
+      "D": "Sub-Saharan Africa's main trade routes were largely separate from the Silk Road path the plague followed.|撒哈拉以南非洲的主要贸易路线，与瘟疫所走的丝绸之路路径在很大程度上是分开的。"
+    }
+  },
+  {
+    "id": "l5q3",
+    "q": "What did the Mali Empire and the Aztec/Inca Empires have in common?",
+    "q_cn": "马里帝国与阿兹特克／印加帝国有什么共同点？",
+    "options": [
+      "A. Both were sophisticated civilizations with complex governments and impressive cities|A. 两者都是拥有复杂政府与宏伟城市的先进文明",
+      "B. Both were equally isolated from all outside trade networks|B. 两者与所有外部贸易网络的隔绝程度相同",
+      "C. Both used exactly the same writing system|C. 两者使用完全相同的文字系统",
+      "D. Both were destroyed by the Black Death at the same time|D. 两者在同一时间被黑死病摧毁"
+    ],
+    "correct": "A",
+    "rat_right": "Like the Aztec and Inca Empires, Mali and the Swahili city-states were sophisticated civilizations with complex governments and impressive cities.|与阿兹特克和印加帝国一样，马里帝国与斯瓦希里城邦也是拥有复杂政府与宏伟城市的先进文明。",
+    "rat_wrong": {
+      "B": "Mali and the Swahili coast were deeply connected to outside trade, unlike the isolated Americas.|马里与斯瓦希里海岸与外部贸易紧密相连，这与孤立的美洲不同。",
+      "C": "Mali used Arabic writing and oral tradition, while the Aztec used pictorial codices and the Inca used quipu — all different.|马里使用阿拉伯文书写与口述传统，而阿兹特克使用图画手抄本，印加使用奇普——三者各不相同。",
+      "D": "There is no evidence the Black Death reached and destroyed either Mali or the Aztec/Inca Empires.|没有证据表明黑死病曾到达并摧毁马里帝国或阿兹特克／印加帝国。"
+    }
+  },
+  {
+    "id": "l5q4",
+    "q": "What was a major difference between Mali/the Swahili coast and the Aztec/Inca Empires regarding trade?",
+    "q_cn": "在贸易方面，马里／斯瓦希里海岸与阿兹特克／印加帝国之间的一个主要差异是什么？",
+    "options": [
+      "A. Mali and the Swahili coast were deeply connected to Mediterranean and Indian Ocean trade, while the Americas were nearly isolated|A. 马里与斯瓦希里海岸与地中海及印度洋贸易紧密相连，而美洲几乎完全孤立",
+      "B. The Aztec and Inca had far more trade connections to Afro-Eurasia than Mali did|B. 阿兹特克与印加与亚非欧大陆的贸易联系远多于马里",
+      "C. Neither region had any trade connections of any kind|C. 两个地区都没有任何形式的贸易联系",
+      "D. Both regions were equally connected to Afro-Eurasian trade networks|D. 两个地区与亚非欧贸易网络的联系程度相同"
+    ],
+    "correct": "A",
+    "rat_right": "Mali and the Swahili coast were deeply connected to outside trade networks, while the Americas were almost entirely isolated from Afro-Eurasia.|马里与斯瓦希里海岸与外部贸易网络紧密相连，而美洲则几乎完全与亚非欧大陆隔绝。",
+    "rat_wrong": {
+      "B": "The Aztec and Inca had no significant trade connection to Afro-Eurasia at all, unlike Mali.|与马里不同，阿兹特克与印加与亚非欧大陆没有任何重大的贸易联系。",
+      "C": "Mali and the Swahili coast both had extensive trade connections, contrary to this option.|与该选项相反，马里与斯瓦希里海岸都拥有广泛的贸易联系。",
+      "D": "The two regions' trade connections were very different, not equal — Mali was connected, the Americas were isolated.|两个地区的贸易联系程度差异很大，而不是相同——马里是相连的，美洲是孤立的。"
+    }
+  },
+  {
+    "id": "l5q5",
+    "q": "Why might isolation have left American civilizations more vulnerable in the long run?",
+    "q_cn": "从长远来看，为什么孤立可能使美洲文明更加脆弱？",
+    "options": [
+      "A. They had no prior exposure to Afro-Eurasian diseases before sustained contact began|A. 在持续接触开始之前，他们从未接触过亚非欧大陆的疾病",
+      "B. They had too much trade with Europe and Asia for centuries|B. 他们与欧洲和亚洲有数百年过多的贸易往来",
+      "C. They had stronger immune systems than any other population on Earth|C. 他们拥有地球上任何其他人群都更强的免疫系统",
+      "D. They had already experienced the Black Death directly in the 1300s|D. 他们在14世纪已经直接经历过黑死病"
+    ],
+    "correct": "A",
+    "rat_right": "The Americas' isolation meant no prior exposure at all to Afro-Eurasian diseases before contact began, which the next lessons will explore.|美洲的孤立意味着在接触开始之前，他们完全没有接触过亚非欧大陆的疾病，接下来的课程将探讨这一点。",
+    "rat_wrong": {
+      "B": "The Americas had almost no trade contact with Europe and Asia before 1492, not too much.|1492年之前，美洲与欧洲和亚洲几乎没有贸易接触，而不是过多。",
+      "C": "The lesson does not claim American populations had stronger immune systems; rather, they lacked exposure.|本课并未声称美洲人群拥有更强的免疫系统；而是说他们缺乏接触。",
+      "D": "The Black Death of the 1300s struck Afro-Eurasia; the isolated Americas had no documented exposure to it.|14世纪的黑死病袭击了亚非欧大陆；孤立的美洲没有记录显示曾接触过这种疾病。"
+    }
+  },
+  {
+    "id": "l5q6",
+    "q": "What does the Pax Mongolica example, combined with the Black Death, teach about connectivity?",
+    "q_cn": "蒙古和平的例子，结合黑死病，说明了关于互联互通的什么道理？",
+    "options": [
+      "A. Connectivity can bring both major benefits and major dangers at the same time|A. 互联互通可能同时带来重大的好处与重大的危险",
+      "B. Connectivity only ever produces positive results with absolutely no risk|B. 互联互通只会产生积极的结果，绝对没有任何风险",
+      "C. Connectivity has no relationship at all to the spread of disease|C. 互联互通与疾病的传播毫无关系",
+      "D. Isolation always leads to greater wealth than connectivity|D. 孤立总是比互联互通带来更大的财富"
+    ],
+    "correct": "A",
+    "rat_right": "The Pax Mongolica spread trade and ideas but also the plague — connectivity brings both benefits and dangers.|蒙古和平传播了贸易与思想，但也传播了瘟疫——互联互通既带来好处，也带来危险。",
+    "rat_wrong": {
+      "B": "The plague is a clear example of a major danger that came from increased connectivity.|瘟疫正是互联互通增加所带来的重大危险的明确例证。",
+      "C": "This unit directly connects trade connectivity to the spread of disease through the Black Death.|本单元通过黑死病，将贸易互联互通与疾病的传播直接联系在了一起。",
+      "D": "The lesson does not claim isolation produces more wealth than connectivity; Mali's wealth came from trade connections.|本课并未声称孤立比互联互通能带来更多财富；马里的财富正是来自贸易联系。"
+    }
+  },
+  {
+    "id": "l5q7",
+    "q": "What recording method did the Aztecs use to keep historical records, compared to West Africa's combination of methods?",
+    "q_cn": "与西非综合使用多种方法相比，阿兹特克人使用什么方式记录历史？",
+    "options": [
+      "A. Pictorial codices, compared to Mali's combination of Arabic writing and oral tradition|A. 图画手抄本，而马里则结合使用阿拉伯文书写与口述传统",
+      "B. Knotted quipu cords, the same method used by Mali|B. 打结的奇普绳，与马里使用的方法相同",
+      "C. Printed books using movable type, just like Song China|C. 使用活字印刷的书籍，与宋朝中国相同",
+      "D. No historical records were kept by the Aztecs at all|D. 阿兹特克人完全没有保存任何历史记录"
+    ],
+    "correct": "A",
+    "rat_right": "The Aztecs used pictorial codices, while Mali combined Arabic writing and oral tradition.|阿兹特克人使用图画手抄本，而马里则结合使用阿拉伯文书写与口述传统。",
+    "rat_wrong": {
+      "B": "Knotted quipu cords were used by the Inca, not the Aztecs or Mali.|打结的奇普绳是印加人使用的，而不是阿兹特克人或马里使用的。",
+      "C": "Movable type printing was a Song Dynasty Chinese innovation, not used by the Aztecs.|活字印刷是宋朝中国的发明，并非阿兹特克人使用的方法。",
+      "D": "The Aztecs did keep historical records, through pictorial codices.|阿兹特克人确实通过图画手抄本保存了历史记录。"
+    }
+  },
+  {
+    "id": "l5q8",
+    "q": "According to the lesson, what will the next lessons in this unit explore?",
+    "q_cn": "根据本课内容，本单元接下来的课程将探讨什么？",
+    "options": [
+      "A. What happens when the long-separated worlds of Afro-Eurasia and the Americas finally collide|A. 当长期分隔的亚非欧大陆与美洲世界最终相遇时会发生什么",
+      "B. The complete history of ancient Rome from beginning to end|B. 古罗马从始至终的完整历史",
+      "C. Only the history of medieval Japan in greater depth|C. 仅仅是更深入的中世纪日本历史",
+      "D. A return to studying the Byzantine Empire exclusively|D. 专门回去研究拜占庭帝国"
+    ],
+    "correct": "A",
+    "rat_right": "The next lessons on the Age of Exploration and Columbian Exchange will show what happens when these long-separated worlds finally collide.|接下来关于大航海时代与哥伦布大交换的课程，将展示这些长期分隔的世界最终相遇时会发生什么。",
+    "rat_wrong": {
+      "B": "The lesson points forward to the Age of Exploration, not a full history of ancient Rome.|本课展望的是大航海时代，而不是古罗马的完整历史。",
+      "C": "Medieval Japan was covered in an earlier lesson, not what the next lessons focus on.|中世纪日本是在更早的课程中学习的内容，而不是接下来课程的重点。",
+      "D": "The Byzantine Empire was studied at the start of the week, not the focus of upcoming lessons.|拜占庭帝国是本周早些时候学习的内容，而不是接下来课程的重点。"
+    }
+  },
+  {
+    "id": "l5q9",
+    "q": "How did the Crusades, mentioned in an earlier day, fit this unit's recurring theme of connectivity?",
+    "q_cn": "前一天提到的十字军东征，如何契合本单元互联互通这一反复出现的主题？",
+    "options": [
+      "A. They brought knowledge to Europe but also brought conflict, showing connectivity's double-sided nature|A. 它们为欧洲带来了知识，但也带来了冲突，展示了互联互通的双重性",
+      "B. They had no connection at all to trade, culture, or politics|B. 它们与贸易、文化或政治都毫无关联",
+      "C. They proved that isolation is always safer than connectivity|C. 它们证明了孤立总是比互联互通更安全",
+      "D. They occurred entirely within the Americas|D. 它们完全发生在美洲境内"
+    ],
+    "correct": "A",
+    "rat_right": "The Crusades brought knowledge to Europe but also brought conflict, fitting the pattern that connectivity brings both benefits and dangers.|十字军东征为欧洲带来了知识，但也带来了冲突，契合了互联互通既带来好处也带来危险这一规律。",
+    "rat_wrong": {
+      "B": "The earlier lesson on the Crusades described clear effects on trade, culture, and politics.|更早关于十字军东征的课程描述了对贸易、文化与政治的明显影响。",
+      "C": "The Crusades show connectivity bringing both benefits and dangers, not that isolation is always safer.|十字军东征展示的是互联互通既带来好处也带来危险，而不是孤立总是更安全。",
+      "D": "The Crusades took place between Europe and the Middle East, not within the Americas.|十字军东征发生在欧洲与中东之间，而不是在美洲境内。"
+    }
+  },
+  {
+    "id": "l5q10",
+    "q": "What is the best overall lesson to take from comparing trade networks, disease, and isolated civilizations in today's module?",
+    "q_cn": "从今天模块中关于贸易网络、疾病与孤立文明的比较中，能得到的最佳整体启示是什么？",
+    "options": [
+      "A. How connected or isolated a civilization is can shape both its opportunities and its risks|A. 一个文明的互联互通或孤立程度，能够同时塑造其机遇与风险",
+      "B. Trade networks have never had any effect on history at all|B. 贸易网络从未对历史产生过任何影响",
+      "C. Isolated civilizations were always weaker and less advanced than connected ones|C. 孤立的文明总是比互联互通的文明更弱、更落后",
+      "D. Disease has spread evenly to every civilization on Earth at the exact same time|D. 疾病以完全相同的时间均匀传播到了地球上的每一个文明"
+    ],
+    "correct": "A",
+    "rat_right": "Comparing the Black Death's spread, Mali's trade wealth, and the isolated Americas shows that connectivity and isolation each carry their own opportunities and risks.|比较黑死病的传播、马里的贸易财富以及孤立的美洲，表明互联互通与孤立各自都伴随着自身的机遇与风险。",
+    "rat_wrong": {
+      "B": "Trade networks clearly shaped the spread of disease, wealth, and ideas throughout this module.|贸易网络在本模块中明显塑造了疾病、财富与思想的传播。",
+      "C": "The Aztec and Inca were highly advanced despite their isolation, showing isolation does not equal weakness.|阿兹特克与印加尽管孤立，却高度先进，这表明孤立并不等同于落后。",
+      "D": "The plague reached Europe and parts of the Middle East but left little evidence in Sub-Saharan Africa or the Americas, showing uneven spread.|瘟疫到达了欧洲与中东部分地区，但在撒哈拉以南非洲或美洲几乎没有留下证据，这表明传播是不均匀的。"
+    }
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var ansMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var answeredCount = Object.keys(ansMap[tabKey]).length;
+  var ready = answeredCount >= qMap[tabKey].length && ref1.value.trim().length > 0 && ref2.value.trim().length > 0 && grat.value.trim().length > 0;
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.style.display = 'none';
+  } else {
+    btn.classList.remove('ready');
+    hint.style.display = 'block';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2', 'Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Impact of the Crusades',
+    l2: 'Genghis Khan and the Mongol Empire',
+    l3: 'Why the Mongols Were So Effective',
+    l4: 'Prosperity in Song China',
+    l5: 'Shoguns, Samurai and Medieval Japan'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  if (Object.keys(answers).length < questions.length) return;
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  if (!ref1 || !ref2 || !grat) return;
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 9\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + ref1 + '\n\n';
+  txt += 'Reflection 2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day9_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+ 
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var ansMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var answeredCount = Object.keys(ansMap[tabKey]).length;
+  var ready = answeredCount >= qMap[tabKey].length && ref1.value.trim().length > 0 && ref2.value.trim().length > 0 && grat.value.trim().length > 0;
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.style.display = 'none';
+  } else {
+    btn.classList.remove('ready');
+    hint.style.display = 'block';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2', 'Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'The Americas Before Columbus',
+    l2: 'The Black Death',
+    l3: 'Mansa Musa and the Mali Empire',
+    l4: 'Oral Traditions and African Historiography',
+    l5: 'Synthesis: Trade, Disease, and Civilizations'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  if (Object.keys(answers).length < questions.length) return;
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  if (!ref1 || !ref2 || !grat) return;
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — Day 10\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + ref1 + '\n\n';
+  txt += 'Reflection 2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day_10_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+ 
+</body>
+</html>
