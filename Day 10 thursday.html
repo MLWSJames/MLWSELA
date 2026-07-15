@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 11 — Age of Exploration, Columbian Exchange & Indigenous Impact | 大航海时代、哥伦布大交换与原住民所受冲击</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+ 
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.wrong-rat{background:#fff7f0;border-left-color:#d97706;color:#78350f}
+.reflect-section{margin-top:30px;border-top:2px solid var(--border);padding-top:20px}
+.reflect-q{font-size:.88rem;font-weight:600;color:var(--ink2);margin-bottom:6px;margin-top:16px}
+.reflect-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px;font-family:'DM Sans',sans-serif;font-size:.85rem;resize:vertical;min-height:70px}
+.reflect-textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.grat-row label{font-size:.88rem;font-weight:500;color:var(--ink2)}
+.grat-input{border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-input:focus{outline:2px solid var(--ml-gold);border-color:transparent}
+.download-btn{display:block;width:100%;margin-top:16px;padding:12px;border-radius:9px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;background:#d1d5db;color:#6b7280;cursor:not-allowed;transition:all .3s}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:800;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:600px){.tab-content{padding:18px 14px}#vocab-grid{grid-template-columns:1fr}}
+ 
+</style>
+</head>
+<body>
+ 
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<div class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 11 — Age of Exploration, Columbian Exchange & Indigenous Impact · <span class="cn">大航海时代、哥伦布大交换与原住民所受冲击</span></div>
+      <div class="header-sub">MLWS Social Studies</div>
+    </div>
+    <span id="leaveBadge" class="leave-badge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.6">Tabs complete 完成标签：</span>
+    <div class="pip" id="pip-l1" title="Lesson"></div>
+    <div class="pip" id="pip-l2" title="Lesson"></div>
+    <div class="pip" id="pip-l3" title="Lesson"></div>
+    <div class="pip" id="pip-l4" title="Lesson"></div>
+    <div class="pip" id="pip-l5" title="Lesson"></div>
+  </div>
+</div>
+ 
+<div class="tab-bar">
+  <button class="tab-btn active" id="btn-vocab" onclick="switchTab('vocab',this)">📚 Vocabulary · 词汇</button>
+  <button class="tab-btn" id="btn-l1" onclick="switchTab('l1',this)">🧭 Age of Exploration: Navigation & Global Trade</button>
+  <button class="tab-btn" id="btn-l2" onclick="switchTab('l2',this)">⛵ European Voyages & Conquest</button>
+  <button class="tab-btn" id="btn-l3" onclick="switchTab('l3',this)">🏝️ Oceanic Empires & Plantation Economies</button>
+  <button class="tab-btn" id="btn-l4" onclick="switchTab('l4',this)">🦠 The Columbian Exchange</button>
+  <button class="tab-btn" id="btn-l5" onclick="switchTab('l5',this)">⚖️ Indigenous Impact & the Origins of Slavery</button>
+</div>
+ 
+<!-- VOCAB -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Unit Vocabulary · <span class="cn">单元词汇</span></h2>
+  <p style="font-size:.87rem;color:#666;margin-bottom:16px">
+    Click 🔊 to hear the pronunciation. Learn these words before the lessons.
+    <span class="cn">点击🔊收听发音。学习这些词语后再开始课程。</span>
+  </p>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- LESSON: Age of Exploration: Navigation & Global Trade -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Age of Exploration: Navigation & Global Trade · <span class="cn">大航海时代：导航与全球贸易</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>Why Did Europe Look Outward? · <span class="cn">为什么欧洲要向外探索？</span></h3>
+    <p>By the 1400s, Spain and Portugal sat at the western edge of Afro-Eurasia, cut off from the lucrative overland spice trade that Italian city-states and Muslim merchants controlled across the Mediterranean and Silk Road. Portuguese and Spanish monarchs wanted a direct sea route to Asia's spices, silk, and gold — one that would not require paying middlemen. This hunger for a new path to wealth, combined with new navigation technology, launched what historians call the <strong>Age of Exploration</strong> and eventually created the first truly global economy.</p>
+    <p style="margin-top:8px"><span class="cn">到15世纪，西班牙与葡萄牙位于亚非欧大陆的西部边缘，无法直接参与意大利城邦与穆斯林商人控制的、横跨地中海与丝绸之路的丰厚香料贸易。葡萄牙与西班牙的君主希望找到一条通往亚洲香料、丝绸与黄金的直接海路——一条无需向中间商支付费用的航线。这种对新财富之路的渴求，加上新的航海技术，开启了历史学家所称的<strong>大航海时代</strong>，并最终缔造了第一个真正意义上的全球经济。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Borrowed Knowledge: Navigators Before Columbus · <span class="cn">借鉴前人：哥伦布之前的航海者</span></h3>
+    <p>Portuguese and Spanish sailors did not invent ocean navigation from scratch — they built on centuries of knowledge from <strong>Venetian and Genoese</strong> Mediterranean traders, <strong>Arab</strong> astronomers and cartographers, and <strong>Viking</strong> sailors who had already crossed the North Atlantic to Greenland and briefly North America. Arab scholars had preserved and advanced ancient Greek astronomy, and Arab traders had long used the astrolabe to navigate the Indian Ocean. Portugal's Prince Henry the Navigator gathered this combined knowledge at a school for sailors, training a generation of explorers in the new techniques.</p>
+    <p style="margin-top:8px"><span class="cn">葡萄牙与西班牙的水手并非凭空发明了海洋导航技术——他们建立在数个世纪以来<strong>威尼斯与热那亚</strong>地中海商人、<strong>阿拉伯</strong>天文学家与制图师，以及早已横渡北大西洋抵达格陵兰、并短暂抵达北美的<strong>维京</strong>水手所积累的知识之上。阿拉伯学者保存并发展了古希腊天文学，阿拉伯商人也早已使用星盘在印度洋上航行。葡萄牙的航海家亨利王子在一所水手学校中汇集了这些综合知识，培养了一代采用新技术的探险家。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Tools That Made It Possible · <span class="cn">使其成为可能的工具</span></h3>
+    <p>Three technologies made long ocean voyages possible. The <strong>astrolabe</strong> let sailors measure the angle of stars or the sun to calculate latitude, even far from any landmark. The <strong>magnetic compass</strong>, adapted from Chinese navigation technology, let sailors hold a steady direction even when clouds hid the stars. Improved <strong>Portuguese cartography</strong> — increasingly accurate maps built from returning sailors' reports — let explorers plan voyages and pass on hard-won knowledge to the next expedition instead of starting from zero each time.</p>
+    <p style="margin-top:8px"><span class="cn">三项技术使长途远洋航行成为可能。<strong>星盘</strong>让水手即使远离任何陆标，也能通过测量星辰或太阳的角度来计算纬度。改良自中国导航技术的<strong>磁罗盘</strong>，让水手在云层遮住星辰时仍能保持稳定的航向。日益精确的<strong>葡萄牙制图技术</strong>——根据返航水手报告不断改进的地图——让探险家能够规划航程，并将来之不易的知识传递给下一支探险队，而不必每次都从零开始。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Mapping the World — and Distorting It · <span class="cn">绘制世界——以及扭曲世界</span></h3>
+    <p>Maps are never perfectly neutral. The <strong>Mercator projection</strong>, created in 1569, keeps shapes and compass directions accurate, which made it extremely useful for sailors plotting straight-line courses. But it badly distorts size near the poles, making Europe and North America look much larger relative to Africa and South America than they really are. The <strong>Robinson projection</strong>, developed centuries later, sacrifices some accuracy of shape to give a fairer sense of countries' true relative sizes. Which map a society chooses to use can quietly shape how people imagine which regions of the world matter most.</p>
+    <p style="margin-top:8px"><span class="cn">地图从来都不是完全中立的。1569年绘制的<strong>墨卡托投影</strong>保持了形状与罗盘方向的准确性，这使其对规划直线航线的水手极为有用。但它严重扭曲了两极附近的大小比例，使欧洲与北美相对于非洲与南美看起来远比实际更大。数个世纪后开发的<strong>罗宾逊投影</strong>则牺牲了一些形状的准确性，以更公正地呈现各国真实的相对大小。一个社会选择使用哪种地图，可能在无形中塑造人们对世界上哪些地区更重要的想象。</span></p>
+    <div class="callout">
+      <strong>Maps Carry Bias:</strong> Choosing a map projection is not just a technical decision — it can reflect and reinforce which parts of the world a culture sees as central or important.
+      <br><span class="cn"><strong>地图带有偏见：</strong>选择地图投影方式不仅仅是技术决定——它可能反映并强化一种文化认为世界上哪些地区是核心或重要的观念。</span>
+    </div>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Age of Exploration: Navigation & Global Trade</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l1"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Arab, Venetian, and Viking navigators all contributed knowledge that Portugal and Spain later combined and built upon. Why might major historical achievements often depend on borrowed knowledge rather than a single inventor working alone? · <span class="cn">阿拉伯、威尼斯与维京航海家都为后来葡萄牙与西班牙所结合并发展的知识做出了贡献。为什么重大的历史成就往往依赖于借鉴而来的知识，而不是单一发明者的独立创造？</span></div>
+    <textarea class="reflect-textarea" id="l1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Mercator projection distorts the size of countries near the poles. Can you think of another example, in maps or elsewhere, where a tool that is useful in one way can also unintentionally create a biased impression? · <span class="cn">墨卡托投影扭曲了两极附近国家的大小比例。你能想到另一个例子吗？无论是在地图还是其他领域，一种在某方面有用的工具，也可能无意中造成一种有偏差的印象。</span></div>
+    <textarea class="reflect-textarea" id="l1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l1Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l1DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+ 
+<!-- LESSON: European Voyages & Conquest -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">European Voyages & Conquest · <span class="cn">欧洲航行与征服</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>Around the World: Magellan's Circumnavigation · <span class="cn">环绕世界：麦哲伦的环球航行</span></h3>
+    <p>In 1519, Portuguese navigator <strong>Ferdinand Magellan</strong> set sail with five ships under the Spanish flag, seeking a western route to Asia's Spice Islands. Magellan himself was killed in the Philippines in 1521, but one battered ship, the <em>Victoria</em>, completed the journey in 1522 with only 18 of the original roughly 270 crew members surviving. This first <strong>circumnavigation</strong> proved beyond doubt that the Earth was round and that all the world's oceans were connected — a single, navigable global ocean system.</p>
+    <p style="margin-top:8px"><span class="cn">1519年，葡萄牙航海家<strong>费迪南德·麦哲伦</strong>率领五艘悬挂西班牙旗帜的船只出发，寻找通往亚洲香料群岛的西方航线。麦哲伦本人于1521年在菲律宾被杀，但一艘伤痕累累的船只「维多利亚号」于1522年完成了航程，原本约270名船员中仅有18人幸存。这次首次<strong>环球航行</strong>无可辩驳地证明了地球是圆的，且世界上所有的海洋是相连的——构成一个统一、可航行的全球海洋系统。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Two Different Models of Empire · <span class="cn">两种不同的帝国模式</span></h3>
+    <p>Portugal and Spain built very different kinds of overseas empires. Portugal focused on the <strong>Indian Ocean</strong>, establishing fortified coastal trading posts rather than conquering large territories. Key bases like <strong>Goa</strong> on India's west coast let Portugal control valuable trading cities and tax the existing spice trade network without governing huge inland populations. Spain, by contrast, sent <strong>conquistadors</strong> who conquered and directly ruled vast American territories — toppling the Aztec Empire under Hernán Cortés and the Inca Empire under Francisco Pizarro by combining superior weapons, disease, and alliances with rival Indigenous groups who resented Aztec or Inca rule.</p>
+    <p style="margin-top:8px"><span class="cn">葡萄牙与西班牙建立了非常不同类型的海外帝国。葡萄牙将重心放在<strong>印度洋</strong>，建立设防的沿海贸易据点，而非征服大片领土。<strong>果阿</strong>等印度西海岸的关键据点，使葡萄牙能够控制重要的贸易城市，并对现有的香料贸易网络征税，而无需治理庞大的内陆人口。相比之下，西班牙派出<strong>征服者</strong>征服并直接统治了广阔的美洲领土——埃尔南·科尔特斯率军推翻了阿兹特克帝国，弗朗西斯科·皮萨罗率军推翻了印加帝国，他们结合了先进的武器、疾病，以及与不满阿兹特克或印加统治的敌对原住民群体的结盟。</span></p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Portuguese Empire 葡萄牙帝国</th><th>Spanish Empire 西班牙帝国</th></tr>
+      <tr><td>Indian Ocean: fortified trading posts (Goa) 印度洋：设防贸易据点（果阿）</td><td>Americas: direct conquest of huge territories 美洲：直接征服广阔领土</td></tr>
+      <tr><td>Controlled trade, did not rule large populations directly 控制贸易，不直接统治庞大人口</td><td>Conquistadors toppled the Aztec and Inca Empires 征服者推翻了阿兹特克与印加帝国</td></tr>
+      <tr><td>Profited from taxing existing spice networks 通过对现有香料网络征税获利</td><td>Profited from silver mines and forced labor 通过银矿与强迫劳役获利</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Silver and the Birth of Corporate Trade · <span class="cn">白银与企业贸易的兴起</span></h3>
+    <p>Spain extracted enormous quantities of <strong>silver</strong> from mines in Mexico and the Andes (especially Potosí), which financed the Spanish crown and flowed into a genuinely global trade network reaching as far as Ming China. Meanwhile, the cost and risk of long overseas voyages led to a financial innovation: the <strong>joint-stock company</strong>, which let many investors pool money and share both risk and profit. The <strong>Dutch East India Company</strong>, founded in 1602, became the most powerful example, and the <strong>Amsterdam Stock Exchange</strong> emerged to let people buy and sell shares in these ventures — an early ancestor of the modern stock market.</p>
+    <p style="margin-top:8px"><span class="cn">西班牙从墨西哥与安第斯山脉（尤其是波托西）的矿场中开采出大量<strong>白银</strong>，这些白银为西班牙王室提供资金，并流入一个真正意义上的全球贸易网络，甚至远达明朝中国。与此同时，远洋航行的高成本与高风险催生了一项金融创新：<strong>股份制公司</strong>，使众多投资者能够集资，共同分担风险与利润。1602年成立的<strong>荷兰东印度公司</strong>成为其中最强大的范例，<strong>阿姆斯特丹证券交易所</strong>也随之兴起，使人们能够买卖这些企业的股份——这是现代证券市场的早期雏形。</span></p>
+    <div class="callout">
+      <strong>From Exploration to Finance:</strong> The risks of global trade voyages directly led to new financial tools — joint-stock companies and stock exchanges — that still shape the global economy today.
+      <br><span class="cn"><strong>从探索到金融：</strong>全球贸易航行的风险直接催生了至今仍塑造全球经济的新金融工具——股份制公司与证券交易所。</span>
+    </div>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — European Voyages & Conquest</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l2"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. Portugal built an empire of coastal trading posts, while Spain conquered vast inland territories. Which approach do you think required more resources, and which do you think caused more harm to local populations? · <span class="cn">葡萄牙建立了沿海贸易据点的帝国，而西班牙则征服了广阔的内陆领土。你认为哪种方式需要更多资源？哪种方式对当地人口造成了更大的伤害？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The joint-stock company let many investors share risk on expensive voyages. Why might spreading financial risk across many people encourage even riskier, larger-scale ventures than any single investor would attempt alone? · <span class="cn">股份制公司使众多投资者能够共同分担昂贵航行的风险。为什么将财务风险分散到众多人身上，可能会鼓励比任何单一投资者独自尝试更冒险、规模更大的事业？</span></div>
+    <textarea class="reflect-textarea" id="l2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l2Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l2DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+ 
+<!-- LESSON: Oceanic Empires & Plantation Economies -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Oceanic Empires & Plantation Economies · <span class="cn">海洋帝国与种植园经济</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>A New Kind of Empire: Networks of Colonies and Commerce · <span class="cn">一种新型帝国：殖民地与商业的网络</span></h3>
+    <p>Between roughly 1450 and 1750, European powers built what historians call <strong>oceanic empires</strong> — vast, scattered networks of colonies, trading posts, and shipping routes that linked together Europe, the Americas, Africa, and Asia into one interconnected commercial system. Unlike earlier land-based empires such as Rome or the Mongols, these empires depended entirely on controlling the seas. Whoever controlled the most valuable trade routes and ports could extract wealth from territories thousands of kilometers from their home country.</p>
+    <p style="margin-top:8px"><span class="cn">大约在1450年至1750年之间，欧洲列强建立了历史学家所称的<strong>海洋帝国</strong>——由殖民地、贸易据点与航运路线组成的庞大、分散网络，将欧洲、美洲、非洲与亚洲连接成一个相互关联的商业体系。与罗马或蒙古等早期陆基帝国不同，这些帝国完全依赖于对海洋的控制。谁掌控了最有价值的贸易路线与港口，谁就能从远在数千公里之外的领土中攫取财富。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Plantation Economy and Forced Labor · <span class="cn">种植园经济与强迫劳役</span></h3>
+    <p>Across the Caribbean and the Americas, European colonizers built <strong>plantation economies</strong> — large farms dedicated to growing a single profitable <strong>cash crop</strong> like sugar, tobacco, or cotton for export back to Europe. These plantations needed enormous amounts of labor, which Spain initially extracted through the <strong>encomienda system</strong>, granting colonists the right to demand forced labor and tribute from Indigenous people in exchange for supposedly 'protecting' and converting them. In practice, the encomienda system amounted to brutal forced labor that, combined with disease, devastated Indigenous communities.</p>
+    <p style="margin-top:8px"><span class="cn">在加勒比地区与美洲各地，欧洲殖民者建立了<strong>种植园经济</strong>——专门种植单一获利经济作物（如蔗糖、烟草或棉花）以出口回欧洲的大型农场。这些种植园需要大量劳动力，西班牙最初通过<strong>监护征赋制</strong>来获取，授予殖民者向原住民强征劳役与贡品的权利，名义上是为了「保护」并使其皈依宗教。实际上，监护征赋制等同于残酷的强迫劳役，加上疾病的影响，给原住民社区带来了毁灭性的打击。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Rivals for Empire: Britain and France · <span class="cn">帝国的竞争对手：英国与法国</span></h3>
+    <p>Spain and Portugal were not alone for long. By the 1600s, <strong>Britain and France</strong> had joined the competition, establishing their own colonies in North America and the Caribbean and fighting repeated wars over valuable sugar islands and fur-trading territory. This rivalry meant that European political conflicts increasingly played out on a global stage — a war in Europe could trigger fighting in the Caribbean, North America, and even India, as competing empires fought to control the most profitable pieces of this new global commercial network.</p>
+    <p style="margin-top:8px"><span class="cn"><strong>英国与法国</strong>很快也加入了这场竞争。到17世纪，他们在北美与加勒比地区建立了自己的殖民地，并多次为争夺珍贵的蔗糖岛屿与毛皮贸易领地而开战。这种竞争意味着欧洲的政治冲突日益在全球舞台上上演——欧洲的一场战争可能引发加勒比地区、北美甚至印度的战事，因为相互竞争的帝国都在争夺这一新兴全球商业网络中最有利可图的部分。</span></p>
+    <div class="callout-blue">
+      <strong>Connecting the Dots:</strong> Oceanic empires turned local European rivalries into global conflicts — a pattern that connects directly to the demographic and economic upheavals you will study next in the Columbian Exchange.
+      <br><span class="cn"><strong>串联线索：</strong>海洋帝国将欧洲本地的竞争转化为全球性的冲突——这一模式与你接下来将学习的哥伦布大交换中的人口与经济剧变直接相关。</span>
+    </div>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Oceanic Empires & Plantation Economies</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l3"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The encomienda system was justified as 'protection,' but in practice it was brutal forced labor. Can you think of other moments in history, or today, where harmful systems are justified using friendly-sounding language? · <span class="cn">监护征赋制以「保护」之名作为正当理由，但实际上却是残酷的强迫劳役。你能想到历史上或当今其他用听起来友善的语言来为有害制度辩护的例子吗？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. European rivalries in Europe led to wars fought in the Caribbean, North America, and India. What does this suggest about how connected the modern world had already become by the 1600s? · <span class="cn">欧洲内部的竞争导致了在加勒比地区、北美与印度爆发的战争。这说明到17世纪，现代世界已经变得多么紧密相连？</span></div>
+    <textarea class="reflect-textarea" id="l3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l3Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l3DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+ 
+<!-- LESSON: The Columbian Exchange -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">The Columbian Exchange · <span class="cn">哥伦布大交换</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>What Was the Columbian Exchange? · <span class="cn">什么是哥伦布大交换？</span></h3>
+    <p>Christopher Columbus's voyages beginning in 1492 connected two hemispheres that had been almost entirely separate for thousands of years. This contact triggered a massive, two-way transfer of plants, animals, diseases, and people known as the <strong>Columbian Exchange</strong>. The Americas gave the rest of the world crops like potatoes, maize, and tomatoes, which would later transform diets and population growth across Afro-Eurasia. In return, Europe brought horses, cattle, wheat, and sugarcane to the Americas — along with something far deadlier than any crop.</p>
+    <p style="margin-top:8px"><span class="cn">克里斯托弗·哥伦布从1492年开始的航行，将两个数千年来几乎完全隔绝的半球连接了起来。这次接触引发了大规模的双向交换，涉及植物、动物、疾病与人口的传播，被称为<strong>哥伦布大交换</strong>。美洲为世界其他地区带来了马铃薯、玉米与番茄等作物，这些作物后来彻底改变了亚非欧大陆的饮食结构与人口增长。作为回报，欧洲将马、牛、小麦与甘蔗带到了美洲——同时还带来了比任何作物都更致命的东西。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The "Great Dying": Disease and Demographic Collapse · <span class="cn">「大死亡」：疾病与人口崩溃</span></h3>
+    <p>Indigenous Americans had no prior exposure to diseases like <strong>smallpox</strong>, measles, and influenza, which had circulated among Afro-Eurasian populations for centuries and to which many Europeans and Africans had developed at least partial immunity. When these diseases arrived in the Americas, they spread explosively, killing an estimated 90 percent of some Indigenous populations within decades — a catastrophe historians call the <strong>"Great Dying."</strong> This was likely the single deadliest demographic event in recorded human history, and it devastated Indigenous societies long before most ever met a European in person, since disease often traveled ahead of explorers along existing trade and contact networks.</p>
+    <p style="margin-top:8px"><span class="cn">美洲原住民此前从未接触过<strong>天花</strong>、麻疹与流感等疾病，这些疾病已在亚非欧人口中流行了数个世纪，许多欧洲人与非洲人已对其产生了至少部分免疫力。当这些疾病传入美洲时，迅速蔓延，在数十年内导致部分原住民人口约90%死亡——历史学家称这场灾难为<strong>「大死亡」</strong>。这很可能是有记录的人类历史上最致命的单一人口事件，它在许多原住民社会的成员亲眼见到欧洲人之前，就已经摧毁了他们的社会，因为疾病常常沿着既有的贸易与接触网络，先于探险家本人传播开来。</span></p>
+    <div class="callout">
+      <strong>Disease as History's Deadliest Force:</strong> Just as the Black Death devastated Afro-Eurasia in the 1300s, European diseases devastated the Americas after 1492 — connecting these two units through the recurring theme of disease and connectivity.
+      <br><span class="cn"><strong>疾病：历史上最致命的力量：</strong>正如黑死病在14世纪重创亚非欧大陆，欧洲疾病在1492年后重创了美洲——通过疾病与互联性这一反复出现的主题，将这两个单元联系起来。</span>
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Sugarcane and the Reshaping of Africa · <span class="cn">甘蔗与非洲的重塑</span></h3>
+    <p>Europeans introduced <strong>sugarcane</strong> to the Caribbean, where it thrived in the tropical climate and became the foundation of the brutal <strong>plantation complex</strong> you studied in the last lesson. As Indigenous populations collapsed from disease, plantation owners turned increasingly to enslaved Africans to provide the massive labor force sugarcane demanded. This single agricultural and demographic shift — sugarcane's success in the Americas combined with Indigenous demographic collapse — set in motion the demographic changes in Africa that would unfold over the following centuries, as the demand for enslaved labor grew.</p>
+    <p style="margin-top:8px"><span class="cn">欧洲人将<strong>甘蔗</strong>引入加勒比地区，甘蔗在热带气候中蓬勃生长，成为你在上一课中所学的残酷种植园体系的基础。随着原住民人口因疾病而崩溃，种植园主越来越多地转向被奴役的非洲人，以提供甘蔗种植所需的庞大劳动力。这一单一的农业与人口变化——甘蔗在美洲的成功结合原住民人口的崩溃——开启了非洲在随后数个世纪中将经历的人口变化，随着对被奴役劳动力的需求不断增长。</span></p>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — The Columbian Exchange</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l4"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. The 'Great Dying' may be the deadliest demographic event in recorded human history, yet it is less widely known than many other historical disasters. Why do you think that might be? · <span class="cn">「大死亡」可能是有记录的人类历史上最致命的人口事件，但它却不如许多其他历史灾难广为人知。你认为这是为什么？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The Columbian Exchange brought both new foods that improved diets worldwide and diseases that devastated entire populations. How can a single historical event be both beneficial and catastrophic at the same time, depending on where you stood? · <span class="cn">哥伦布大交换既带来了改善全球饮食的新食物，也带来了摧毁整个人口的疾病。一个单一的历史事件，根据你所处的位置不同，怎么会同时既有益又具有灾难性？</span></div>
+    <textarea class="reflect-textarea" id="l4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l4Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l4DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+ 
+<!-- LESSON: Indigenous Impact & the Origins of Slavery -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · <span class="cn">你的姓名</span></label>
+    <input type="text" id="l5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Indigenous Impact & the Origins of Slavery · <span class="cn">原住民所受冲击与奴隶制的起源</span></h2>
+ 
+ 
+  <div class="concept-card">
+    <h3>A Century of Disaster: 1500–1600 · <span class="cn">灾难的世纪：1500–1600年</span></h3>
+    <p>For Indigenous peoples of the Americas, the century following 1492 brought disaster on a scale rarely matched in human history. Demographic collapse from disease, violent conquest, and forced labor under systems like the encomienda combined to devastate entire societies within just a few generations. This was not a single event but an overlapping cascade of catastrophes — disease arriving first, often followed by military conquest, and then a colonial labor system that extracted whatever population remained.</p>
+    <p style="margin-top:8px"><span class="cn">对美洲原住民而言，1492年之后的一个世纪带来了人类历史上罕见的灾难规模。疾病造成的人口崩溃、暴力征服与监护征赋制等强迫劳役制度相互叠加，在短短几代人的时间内摧毁了整个社会。这并非单一事件，而是一系列相互重叠的灾难——疾病首先到来，随后往往是军事征服，再之后是榨取剩余人口的殖民劳役体系。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>From Labor Shortage to a New Slave Trade · <span class="cn">从劳动力短缺到新的奴隶贸易</span></h3>
+    <p>As Indigenous populations collapsed, European colonizers faced a severe labor shortage on their sugar, tobacco, and silver-mining operations. This shortage was the direct economic driver behind the origins of the <strong>Atlantic slave trade</strong>: plantation owners and mine operators increasingly turned to enslaved Africans, who were forcibly transported across the ocean in massive numbers to replace the lost Indigenous workforce. The demand for cash crops did not decrease — colonizers simply sought a different source of forced labor, setting the stage for the next lesson's deep examination of the transatlantic slave trade.</p>
+    <p style="margin-top:8px"><span class="cn">随着原住民人口的崩溃，欧洲殖民者在其蔗糖、烟草与银矿作业中面临严重的劳动力短缺。这一短缺正是<strong>大西洋奴隶贸易</strong>兴起背后的直接经济驱动力：种植园主与矿场主越来越多地转向被奴役的非洲人，他们被大规模强行运送过海，以取代失去的原住民劳动力。对经济作物的需求并未减少——殖民者只是寻求了另一种来源的强迫劳动力，这为下一课深入探讨大西洋奴隶贸易奠定了基础。</span></p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Who Benefited? A Question for Historians · <span class="cn">谁从中获益？历史学家的一个问题</span></h3>
+    <p>Historians use <strong>demography</strong> — the statistical study of population — as a powerful tool for understanding the true costs and benefits of this era. European economies grew dramatically richer through silver, sugar, and trade profits. Meanwhile, Indigenous American populations suffered catastrophic losses, and West and Central African societies experienced their own demographic upheaval as the demand for enslaved labor grew. Comparing population data, wealth data, and labor systems side by side reveals a stark and uncomfortable pattern: the benefits and the costs of global interaction in this era fell on very different groups of people.</p>
+    <p style="margin-top:8px"><span class="cn">历史学家利用<strong>人口统计学</strong>——对人口的统计研究——作为理解这一时代真实代价与收益的有力工具。欧洲经济通过白银、蔗糖与贸易利润而迅速变得富裕。与此同时，美洲原住民人口遭受了灾难性的损失，西非与中非社会也随着对被奴役劳动力需求的增长而经历了自身的人口剧变。将人口数据、财富数据与劳役体系并列比较，揭示出一种鲜明而令人不安的规律：这一时代全球互动的收益与代价，落在了截然不同的群体身上。</span></p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Who Largely Benefited 主要获益方</th><th>Who Bore the Greatest Cost 承担最大代价的一方</th></tr>
+      <tr><td>European crowns and merchants (silver, sugar profits) 欧洲王室与商人（白银、蔗糖利润）</td><td>Indigenous Americans (demographic collapse, forced labor) 美洲原住民（人口崩溃、强迫劳役）</td></tr>
+      <tr><td>Joint-stock company investors 股份制公司投资者</td><td>West and Central African societies (rising demand for enslaved labor) 西非与中非社会（被奴役劳动力需求上升）</td></tr>
+    </table>
+    <div class="callout-blue">
+      <strong>Looking Ahead:</strong> Tomorrow's lesson begins exactly where this one ends — examining in depth how this labor shortage and demand for enslaved people transformed West African societies through the transatlantic slave trade.
+      <br><span class="cn"><strong>展望明天：</strong>明天的课程将正是从本课结束之处开始——深入探讨这种劳动力短缺与对被奴役人口的需求，是如何通过跨大西洋奴隶贸易改变西非社会的。</span>
+    </div>
+  </div>
+ 
+ 
+  <h2 class="quiz-section-head">📝 Quiz · 测验 — Indigenous Impact & the Origins of Slavery</h2>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="quiz-l5"></div>
+ 
+  <div class="reflect-section">
+    <h3 style="font-family:'Literata',serif;font-size:1rem;color:var(--ml-green-dark);margin-bottom:4px">Reflection · 反思</h3>
+    <div class="reflect-q">1. This lesson shows that the labor shortage from Indigenous demographic collapse directly drove the growth of the Atlantic slave trade. Why is it important for historians to trace this kind of direct economic cause and effect, rather than treating historical events as separate and unrelated? · <span class="cn">本课表明，原住民人口崩溃所造成的劳动力短缺，直接推动了大西洋奴隶贸易的发展。为什么历史学家追溯这种直接的经济因果关系如此重要，而不是将历史事件视为彼此独立、互不相关？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="reflect-q">2. The lesson states that the benefits and costs of this era fell on very different groups of people. Why might it be uncomfortable, but still important, for historians to study and discuss this kind of unequal pattern? · <span class="cn">本课指出，这一时代的收益与代价落在了截然不同的群体身上。为什么历史学家研究并讨论这种不平等的模式可能令人不安，但仍然十分重要？</span></div>
+    <textarea class="reflect-textarea" id="l5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+    <div class="grat-row">
+      <label>🙏 Today I am grateful for</label>
+      <input type="text" class="grat-input" id="l5Grat" placeholder="___">
+    </div>
+    <button class="download-btn" id="l5DownloadBtn">⬇ Download My Report · 下载我的报告</button>
+    <div class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · <span class="cn">完成所有问题和反思栏后解锁下载。</span></div>
+  </div>
+</div>
+ 
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l2Answers = {}, l3Answers = {}, l4Answers = {}, l5Answers = {};
+ 
+var VOCAB = [
+  {
+    "word": "Astrolabe",
+    "pos": "noun",
+    "cn": "星盘",
+    "def": "A navigation instrument used by sailors to measure the angle of stars or the sun above the horizon to determine latitude.",
+    "cn_def": "水手用来测量星辰或太阳与地平线夹角以确定纬度的航海仪器。",
+    "example": "Sailors used an astrolabe to figure out how far north or south they had traveled."
+  },
+  {
+    "word": "Magnetic compass",
+    "pos": "noun phrase",
+    "cn": "磁罗盘",
+    "def": "A navigation tool with a magnetized needle that always points north, allowing sailors to hold a steady direction out of sight of land.",
+    "cn_def": "装有磁化指针、始终指向北方的导航工具，使水手在看不见陆地的情况下也能保持稳定的航向。",
+    "example": "The magnetic compass let European sailors sail confidently across open ocean."
+  },
+  {
+    "word": "Mercator projection",
+    "pos": "noun phrase",
+    "cn": "墨卡托投影",
+    "def": "A map projection that preserves accurate shapes and compass directions but greatly distorts the size of land near the poles, making Europe and North America look larger than they are.",
+    "cn_def": "一种能保持准确形状与罗盘方向、但极大扭曲两极附近陆地大小的地图投影，使欧洲与北美看起来比实际更大。",
+    "example": "The Mercator projection was useful for sailors but gave a misleading sense of countries' true sizes."
+  },
+  {
+    "word": "Conquistador",
+    "pos": "noun",
+    "cn": "征服者",
+    "def": "A Spanish soldier-explorer who conquered territory in the Americas during the 1500s, often using superior weapons and alliances with rival Indigenous groups.",
+    "cn_def": "16世纪在美洲征服领土的西班牙士兵探险家，常借助先进武器以及与敌对原住民群体结盟取得胜利。",
+    "example": "Conquistadors like Cortés and Pizarro toppled the Aztec and Inca Empires."
+  },
+  {
+    "word": "Circumnavigation",
+    "pos": "noun",
+    "cn": "环球航行",
+    "def": "The act of sailing completely around the world, first achieved by the surviving crew of Ferdinand Magellan's expedition (1519–1522).",
+    "cn_def": "环绕世界航行一周的行为，最早由费迪南德·麦哲伦探险队的幸存船员于1519年至1522年完成。",
+    "example": "The circumnavigation proved beyond doubt that the Earth was round and the oceans were connected."
+  },
+  {
+    "word": "Joint-stock company",
+    "pos": "noun phrase",
+    "cn": "股份制公司",
+    "def": "A business owned by many investors who buy shares and share the risk and profit of expensive overseas trading voyages.",
+    "cn_def": "由许多投资者共同拥有的企业，投资者购买股份，共同分担昂贵海外贸易航行的风险与利润。",
+    "example": "The Dutch East India Company was one of the first major joint-stock companies."
+  },
+  {
+    "word": "Encomienda system",
+    "pos": "noun phrase",
+    "cn": "监护征赋制",
+    "def": "A Spanish colonial labor system that granted colonists the right to demand forced labor and tribute from Indigenous people in exchange for supposedly 'protecting' and converting them.",
+    "cn_def": "西班牙殖民地的劳役制度，授予殖民者向原住民强征劳役与贡品的权利，名义上是为了'保护'并使其皈依宗教。",
+    "example": "The encomienda system led to brutal forced labor on Spanish plantations and mines."
+  },
+  {
+    "word": "Columbian Exchange",
+    "pos": "noun phrase",
+    "cn": "哥伦布大交换",
+    "def": "The widespread transfer of plants, animals, diseases, and people between the Americas and Afro-Eurasia following Columbus's voyages.",
+    "cn_def": "哥伦布航行之后，美洲与亚非欧大陆之间植物、动物、疾病与人口的广泛交换。",
+    "example": "The Columbian Exchange brought potatoes to Europe and horses to the Americas."
+  },
+  {
+    "word": "Demographic collapse",
+    "pos": "noun phrase",
+    "cn": "人口崩溃",
+    "def": "A sudden, catastrophic decline in population, such as the massive death toll among Indigenous Americans from European diseases like smallpox.",
+    "cn_def": "人口的突然性、灾难性下降，例如美洲原住民因天花等欧洲疾病而出现的大规模死亡。",
+    "example": "Smallpox caused a demographic collapse that killed an estimated 90 percent of some Indigenous populations."
+  },
+  {
+    "word": "Plantation economy",
+    "pos": "noun phrase",
+    "cn": "种植园经济",
+    "def": "An economic system built around large farms producing a single cash crop, such as sugar, tobacco, or cotton, usually worked by forced or enslaved labor.",
+    "cn_def": "以大型农场生产单一经济作物（如蔗糖、烟草或棉花）为核心的经济体系，通常依靠强迫或奴隶劳动。",
+    "example": "The Caribbean plantation economy depended heavily on enslaved African labor."
+  },
+  {
+    "word": "Cash crop",
+    "pos": "noun phrase",
+    "cn": "经济作物",
+    "def": "A crop grown specifically to be sold for profit rather than used by the farmer, such as sugar, tobacco, or cotton.",
+    "cn_def": "专门为出售获利而非供农民自用而种植的作物，如蔗糖、烟草或棉花。",
+    "example": "Sugar became the most profitable cash crop in the Caribbean colonies."
+  },
+  {
+    "word": "Triangular trade",
+    "pos": "noun phrase",
+    "cn": "三角贸易",
+    "def": "The network of trade routes connecting Europe, Africa, and the Americas, carrying manufactured goods, enslaved people, and raw materials between the three regions.",
+    "cn_def": "连接欧洲、非洲与美洲的贸易路线网络，在三地之间运送制成品、被奴役的人口与原材料。",
+    "example": "Triangular trade linked European factories, West African coasts, and American plantations into one system."
+  }
+];
+ 
+var L1_Q = [
+  {
+    "id": "l1q1",
+    "q": "Why did Spain and Portugal want a direct sea route to Asia?",
+    "q_cn": "西班牙与葡萄牙为什么想要找到通往亚洲的直接海路？",
+    "options": [
+      "A. To avoid paying middlemen who controlled the overland spice trade|A. 以避免向控制陆路香料贸易的中间商支付费用",
+      "B. To copy Viking settlements in Greenland|B. 以模仿维京人在格陵兰的定居点",
+      "C. Because the Mongol Empire ordered them to|C. 因为蒙古帝国命令他们这样做",
+      "D. To escape the Black Death by leaving Europe entirely|D. 为了完全离开欧洲以躲避黑死病"
+    ],
+    "correct": "A",
+    "rat_right": "Spain and Portugal wanted a direct sea route to Asia's spices, silk, and gold so they would not have to pay Italian and Muslim middlemen.|西班牙与葡萄牙想要找到通往亚洲香料、丝绸与黄金的直接海路，以免向意大利与穆斯林中间商支付费用。",
+    "rat_wrong": {
+      "B": "Viking voyages to Greenland happened centuries earlier and were not the motivation for Iberian exploration.|维京人前往格陵兰的航行发生在几个世纪之前，并非伊比利亚探索的动因。",
+      "C": "The Mongol Empire did not order Spain or Portugal to explore the oceans.|蒙古帝国并未命令西班牙或葡萄牙进行海洋探索。",
+      "D": "The motivation was economic access to trade goods, not escaping disease.|其动因是为了获得贸易商品的经济利益，而不是躲避疾病。"
+    }
+  },
+  {
+    "id": "l1q2",
+    "q": "What knowledge did Portuguese and Spanish sailors build on before launching their own voyages?",
+    "q_cn": "葡萄牙与西班牙水手在开展自己的航行之前，借鉴了哪些知识？",
+    "options": [
+      "A. Venetian, Genoese, Arab, and Viking navigation knowledge|A. 威尼斯、热那亚、阿拉伯与维京人的航海知识",
+      "B. Knowledge entirely invented by Portugal alone with no outside influence|B. 完全由葡萄牙独自发明、不受任何外部影响的知识",
+      "C. Only knowledge passed down from the Aztec Empire|C. 仅来自阿兹特克帝国的知识传承",
+      "D. Knowledge gained exclusively from Song Chinese sailors who visited Lisbon|D. 仅来自曾访问里斯本的宋朝中国水手的知识"
+    ],
+    "correct": "A",
+    "rat_right": "Iberian sailors built on centuries of Venetian and Genoese trading knowledge, Arab astronomy and navigation, and earlier Viking ocean crossings.|伊比利亚水手借鉴了数个世纪以来威尼斯与热那亚的贸易知识、阿拉伯天文学与航海技术，以及更早的维京人远洋航行经验。",
+    "rat_wrong": {
+      "B": "Portuguese navigation drew heavily on outside knowledge, not pure invention.|葡萄牙的航海技术大量借鉴了外部知识，而非纯粹自主发明。",
+      "C": "The Aztec Empire had no contact with or influence on Iberian sailors before 1492.|阿兹特克帝国在1492年之前与伊比利亚水手没有任何接触或影响。",
+      "D": "There is no evidence of direct Song Chinese sailors training Portuguese navigators in Lisbon.|没有证据表明宋朝中国水手曾直接在里斯本训练葡萄牙航海家。"
+    }
+  },
+  {
+    "id": "l1q3",
+    "q": "What role did Arab scholars and traders play in the history of navigation?",
+    "q_cn": "阿拉伯学者与商人在航海史上扮演了什么角色？",
+    "options": [
+      "A. They preserved and advanced Greek astronomy and used the astrolabe to navigate the Indian Ocean|A. 他们保存并发展了希腊天文学，并使用星盘在印度洋航行",
+      "B. They had no influence on later European navigation|B. 他们对后来的欧洲航海毫无影响",
+      "C. They invented the magnetic compass independently of China|C. 他们独立于中国发明了磁罗盘",
+      "D. They refused to share any astronomical knowledge with outsiders|D. 他们拒绝与外人分享任何天文学知识"
+    ],
+    "correct": "A",
+    "rat_right": "Arab scholars preserved and advanced ancient Greek astronomy, and Arab traders had long used the astrolabe to navigate the Indian Ocean.|阿拉伯学者保存并发展了古希腊天文学，阿拉伯商人也早已使用星盘在印度洋上航行。",
+    "rat_wrong": {
+      "B": "Arab navigational and astronomical knowledge directly influenced European exploration.|阿拉伯的航海与天文学知识直接影响了欧洲的探索活动。",
+      "C": "The magnetic compass was adapted from Chinese technology, not independently invented by Arab navigators.|磁罗盘是改良自中国技术，而非阿拉伯航海家独立发明。",
+      "D": "Knowledge of astronomy and navigation spread across cultures through trade and scholarship.|天文学与航海知识通过贸易与学术交流在不同文化间传播。"
+    }
+  },
+  {
+    "id": "l1q4",
+    "q": "What did the astrolabe allow sailors to do?",
+    "q_cn": "星盘使水手能够做什么？",
+    "options": [
+      "A. Measure the angle of stars or the sun to calculate latitude|A. 测量星辰或太阳的角度以计算纬度",
+      "B. Predict storms several weeks in advance|B. 提前数周预测风暴",
+      "C. Communicate instantly with sailors on other ships|C. 与其他船只上的水手即时通讯",
+      "D. Convert seawater into fresh drinking water|D. 将海水转化为淡水"
+    ],
+    "correct": "A",
+    "rat_right": "The astrolabe let sailors measure the angle of stars or the sun to calculate latitude, even far from land.|星盘让水手即使远离陆地，也能通过测量星辰或太阳的角度来计算纬度。",
+    "rat_wrong": {
+      "B": "The astrolabe measured celestial angles, not weather forecasting.|星盘测量的是天体角度，而不是用于天气预报。",
+      "C": "No instant communication technology existed for ships during this era.|这一时期还没有船只之间即时通讯的技术。",
+      "D": "Desalination technology did not exist on Age of Exploration ships.|大航海时代的船只上还没有海水淡化技术。"
+    }
+  },
+  {
+    "id": "l1q5",
+    "q": "Where was the magnetic compass technology originally adapted from?",
+    "q_cn": "磁罗盘的技术最初是改良自哪里？",
+    "options": [
+      "A. Chinese navigation technology|A. 中国的航海技术",
+      "B. Aztec engineering|B. 阿兹特克的工程技术",
+      "C. Roman military equipment|C. 罗马的军事装备",
+      "D. Viking shipbuilding alone|D. 单纯的维京造船技术"
+    ],
+    "correct": "A",
+    "rat_right": "The magnetic compass was adapted from Chinese navigation technology and let sailors hold a steady direction even when clouds hid the stars.|磁罗盘改良自中国的航海技术，使水手即使在云层遮住星辰时也能保持稳定的航向。",
+    "rat_wrong": {
+      "B": "Aztec engineering focused on chinampas and architecture, not compass technology.|阿兹特克工程技术专注于奇南帕与建筑，而非罗盘技术。",
+      "C": "Roman military equipment is unrelated to the origin of the magnetic compass.|罗马军事装备与磁罗盘的起源无关。",
+      "D": "Viking shipbuilding was about hull design, not the origin of the compass itself.|维京造船技术涉及的是船体设计，而不是罗盘本身的起源。"
+    }
+  },
+  {
+    "id": "l1q6",
+    "q": "What was the purpose of improved Portuguese cartography during this era?",
+    "q_cn": "这一时期改良的葡萄牙制图技术的目的是什么？",
+    "options": [
+      "A. To let explorers plan voyages using accumulated knowledge instead of starting from zero each time|A. 让探险家能够利用积累的知识规划航程，而不必每次都从零开始",
+      "B. To hide all geographic information from rival nations permanently|B. 永久向竞争国家隐瞒一切地理信息",
+      "C. To replace the need for compasses entirely|C. 完全取代对罗盘的需求",
+      "D. To create maps purely for religious ceremonies|D. 仅为宗教仪式制作地图"
+    ],
+    "correct": "A",
+    "rat_right": "Improved Portuguese cartography let explorers plan voyages and pass on hard-won knowledge to future expeditions instead of starting from zero.|改良的葡萄牙制图技术让探险家能够规划航程，并将来之不易的知识传递给未来的探险队，而不必每次都从零开始。",
+    "rat_wrong": {
+      "B": "While some maps were guarded as state secrets, the core purpose described was building useful, accumulated knowledge.|尽管一些地图被作为国家机密保护，但所描述的核心目的是积累有用的知识。",
+      "C": "Cartography complemented compass use rather than replacing it.|制图技术是对罗盘使用的补充，而不是取代它。",
+      "D": "These maps served practical navigation purposes, not religious ceremony.|这些地图服务于实际的航海目的，而不是宗教仪式。"
+    }
+  },
+  {
+    "id": "l1q7",
+    "q": "What does the Mercator projection do well, and what is its major flaw?",
+    "q_cn": "墨卡托投影的优点是什么？其主要缺陷又是什么？",
+    "options": [
+      "A. It keeps shapes and directions accurate but badly distorts size near the poles|A. 它保持形状与方向准确，但严重扭曲两极附近的大小比例",
+      "B. It is perfectly accurate in every way with no distortions|B. 它在各方面都完全精确，没有任何扭曲",
+      "C. It shows population density but ignores all geography|C. 它显示人口密度，但忽略所有地理信息",
+      "D. It was designed specifically to make Africa appear larger than Europe|D. 它专门设计用来使非洲看起来比欧洲更大"
+    ],
+    "correct": "A",
+    "rat_right": "The Mercator projection keeps shapes and compass directions accurate, which was useful for sailors, but it badly distorts the size of land near the poles.|墨卡托投影保持了形状与罗盘方向的准确性，这对水手很有用，但它严重扭曲了两极附近陆地的大小比例。",
+    "rat_wrong": {
+      "B": "No flat map projection can be perfectly accurate in every respect.|没有任何平面地图投影能在各方面都完全精确。",
+      "C": "The Mercator projection is a geographic map, not a population density map.|墨卡托投影是地理地图，而不是人口密度地图。",
+      "D": "The Mercator projection makes Europe and North America look larger than Africa and South America, not the reverse.|墨卡托投影使欧洲与北美看起来比非洲与南美更大，而不是相反。"
+    }
+  },
+  {
+    "id": "l1q8",
+    "q": "How does the Robinson projection differ from the Mercator projection?",
+    "q_cn": "罗宾逊投影与墨卡托投影有何不同？",
+    "options": [
+      "A. It sacrifices some shape accuracy to give a fairer sense of countries' true relative sizes|A. 它牺牲了一些形状的准确性，以更公正地呈现各国真实的相对大小",
+      "B. It was created before the Mercator projection|B. 它的创作时间早于墨卡托投影",
+      "C. It is used exclusively by sailors for plotting straight-line courses|C. 它专门用于水手规划直线航线",
+      "D. It removes all of the Americas from the map|D. 它将整个美洲从地图中移除"
+    ],
+    "correct": "A",
+    "rat_right": "The Robinson projection sacrifices some accuracy of shape to give a fairer sense of countries' true relative sizes.|罗宾逊投影牺牲了一些形状的准确性，以更公正地呈现各国真实的相对大小。",
+    "rat_wrong": {
+      "B": "The Robinson projection was developed centuries after the 1569 Mercator projection.|罗宾逊投影是在1569年的墨卡托投影问世数个世纪之后才被开发出来的。",
+      "C": "The Mercator projection, not the Robinson projection, was prized for straight-line navigation.|被珍视用于规划直线航线的是墨卡托投影，而不是罗宾逊投影。",
+      "D": "The Robinson projection still shows all continents, including the Americas.|罗宾逊投影仍然显示所有大陆，包括美洲。"
+    }
+  },
+  {
+    "id": "l1q9",
+    "q": "According to the lesson, why does map projection choice matter beyond technical accuracy?",
+    "q_cn": "根据本课内容，地图投影方式的选择为何不仅仅是技术问题？",
+    "options": [
+      "A. It can shape how people imagine which regions of the world matter most|A. 它可能塑造人们对世界上哪些地区更重要的想象",
+      "B. It has no effect on how people view the world|B. 它对人们看待世界的方式没有任何影响",
+      "C. It only affects sailors and has no influence on the general public|C. 它只影响水手，对普通公众没有任何影响",
+      "D. All map projections show identical proportions, so the choice is meaningless|D. 所有地图投影显示的比例都完全相同，因此选择并无意义"
+    ],
+    "correct": "A",
+    "rat_right": "Which map projection a society uses can quietly shape how people imagine which regions of the world matter most.|一个社会使用哪种地图投影，可能在无形中塑造人们对世界上哪些地区更重要的想象。",
+    "rat_wrong": {
+      "B": "Maps influence perception, which is precisely why projection choice matters.|地图会影响人们的认知，这正是投影方式选择重要的原因。",
+      "C": "Maps used in classrooms, books, and media shape public perception far beyond sailors alone.|在课堂、书籍与媒体中使用的地图，其影响远不止于水手群体。",
+      "D": "Different projections distort size and shape in very different ways, which is the whole point of the lesson.|不同的投影方式以截然不同的方式扭曲大小与形状，这正是本课的核心要点。"
+    }
+  },
+  {
+    "id": "l1q10",
+    "q": "What overall theme connects navigation technology, cartography, and map bias in this lesson?",
+    "q_cn": "本课中，航海技术、制图学与地图偏见之间的整体主题联系是什么？",
+    "options": [
+      "A. New tools opened global connections, but how those connections were represented was never fully neutral|A. 新工具开启了全球联系，但这些联系的呈现方式从来都不是完全中立的",
+      "B. Navigation technology had no connection to how maps were drawn|B. 航海技术与地图绘制方式毫无关联",
+      "C. Only the Spanish developed any navigation tools during this era|C. 这一时期只有西班牙人开发了任何航海工具",
+      "D. Maps and navigation tools were unrelated to the Age of Exploration|D. 地图与航海工具与大航海时代无关"
+    ],
+    "correct": "A",
+    "rat_right": "New navigation tools made global ocean travel possible, but the maps that resulted from this knowledge were never fully neutral representations of the world.|新的航海工具使全球海洋旅行成为可能，但由此产生的地图从来都不是世界的完全中立呈现。",
+    "rat_wrong": {
+      "B": "Cartography directly depended on navigation data gathered using tools like the astrolabe and compass.|制图学直接依赖于使用星盘与罗盘等工具所收集的航海数据。",
+      "C": "Portugal led much of this early navigation development, alongside Spain.|葡萄牙与西班牙一起，在这一早期航海发展中起到了主导作用。",
+      "D": "Maps and navigation tools were central, foundational elements of the Age of Exploration described in this lesson.|地图与航海工具是本课所描述的大航海时代的核心基础要素。"
+    }
+  }
+];
+var L2_Q = [
+  {
+    "id": "l2q1",
+    "q": "What did Magellan's circumnavigation prove?",
+    "q_cn": "麦哲伦的环球航行证明了什么？",
+    "options": [
+      "A. That the Earth was round and all the world's oceans were connected|A. 地球是圆的，且世界上所有的海洋是相连的",
+      "B. That sailing west from Spain was the fastest route to Asia|B. 从西班牙向西航行是通往亚洲最快的路线",
+      "C. That the Pacific Ocean did not exist|C. 太平洋并不存在",
+      "D. That no ship could survive a journey around the world|D. 没有任何船只能在环绕世界的航行中幸存"
+    ],
+    "correct": "A",
+    "rat_right": "The circumnavigation proved beyond doubt that the Earth was round and that all the world's oceans were connected.|这次环球航行无可辩驳地证明了地球是圆的，且世界上所有的海洋是相连的。",
+    "rat_wrong": {
+      "B": "The voyage was extremely long and dangerous, not the fastest route to Asia.|这次航行极其漫长且危险，并非通往亚洲最快的路线。",
+      "C": "Magellan's expedition crossed the Pacific Ocean, confirming its existence.|麦哲伦的探险队横渡了太平洋，证实了它的存在。",
+      "D": "While most of the crew died, the Victoria did successfully complete the circumnavigation.|尽管大多数船员死亡，但「维多利亚号」确实成功完成了环球航行。"
+    }
+  },
+  {
+    "id": "l2q2",
+    "q": "What happened to Magellan himself during the voyage?",
+    "q_cn": "麦哲伦本人在航行途中发生了什么事？",
+    "options": [
+      "A. He was killed in the Philippines in 1521 before the voyage finished|A. 他于1521年在菲律宾被杀，未能完成整个航程",
+      "B. He successfully returned to Spain to celebrate the voyage's completion|B. 他成功返回西班牙庆祝航行的完成",
+      "C. He retired from sailing immediately after departing Spain|C. 他在离开西班牙后立即退出航海",
+      "D. He became governor of the Philippines for the rest of his life|D. 他在余生中担任菲律宾总督"
+    ],
+    "correct": "A",
+    "rat_right": "Magellan was killed in the Philippines in 1521, before the expedition's surviving ship completed the journey in 1522.|麦哲伦于1521年在菲律宾被杀，此时探险队幸存的船只尚未在1522年完成整个航程。",
+    "rat_wrong": {
+      "B": "Magellan did not survive to return to Spain; only one ship under different leadership completed the voyage.|麦哲伦并未活着返回西班牙；只有一艘在不同领导下的船只完成了航行。",
+      "C": "Magellan led the expedition for most of its early stages, not retiring immediately.|麦哲伦在探险初期的大部分阶段都领导着这支队伍，而非立即退出。",
+      "D": "Magellan died in the Philippines and never became its governor.|麦哲伦在菲律宾去世，从未担任过当地总督。"
+    }
+  },
+  {
+    "id": "l2q3",
+    "q": "How did the Portuguese Indian Ocean empire generally operate?",
+    "q_cn": "葡萄牙的印度洋帝国通常是如何运作的？",
+    "options": [
+      "A. Through fortified coastal trading posts like Goa, rather than conquering large inland territories|A. 通过果阿等设防的沿海贸易据点，而非征服广阔的内陆领土",
+      "B. By directly ruling enormous inland populations across all of Asia|B. 直接统治整个亚洲广阔的内陆人口",
+      "C. By avoiding all contact with existing Indian Ocean trade networks|C. 完全避免与现有印度洋贸易网络接触",
+      "D. By relocating the entire Portuguese population to India|D. 将整个葡萄牙人口迁移到印度"
+    ],
+    "correct": "A",
+    "rat_right": "Portugal established fortified coastal trading posts like Goa, controlling trade cities without governing huge inland populations.|葡萄牙建立了像果阿这样设防的沿海贸易据点，控制贸易城市而无需治理庞大的内陆人口。",
+    "rat_wrong": {
+      "B": "Portugal controlled coastal trading posts, not vast inland territories across Asia.|葡萄牙控制的是沿海贸易据点，而非整个亚洲广阔的内陆领土。",
+      "C": "Portugal taxed and integrated into existing Indian Ocean trade networks rather than avoiding them.|葡萄牙对现有的印度洋贸易网络征税并融入其中，而非加以回避。",
+      "D": "Portugal established trading posts, not mass population relocation.|葡萄牙建立的是贸易据点，而不是大规模人口迁移。"
+    }
+  },
+  {
+    "id": "l2q4",
+    "q": "How did Spain's approach to empire-building in the Americas differ from Portugal's approach in the Indian Ocean?",
+    "q_cn": "西班牙在美洲建立帝国的方式与葡萄牙在印度洋的方式有何不同？",
+    "options": [
+      "A. Spain conquered and directly ruled vast territories, while Portugal focused on controlling trade through coastal posts|A. 西班牙征服并直接统治广阔的领土，而葡萄牙则专注于通过沿海据点控制贸易",
+      "B. Both empires used the exact same strategy of coastal trading posts only|B. 两个帝国都仅采用沿海贸易据点这一相同策略",
+      "C. Spain refused to use any military force in its conquests|C. 西班牙在征服过程中拒绝使用任何武力",
+      "D. Portugal conquered larger territories than Spain did|D. 葡萄牙征服的领土比西班牙更大"
+    ],
+    "correct": "A",
+    "rat_right": "Spanish conquistadors conquered and directly ruled vast American territories, unlike Portugal's coastal trading-post model in the Indian Ocean.|西班牙征服者征服并直接统治了广阔的美洲领土，这与葡萄牙在印度洋采用的沿海贸易据点模式不同。",
+    "rat_wrong": {
+      "B": "The two empires used distinctly different strategies, as described in the lesson.|正如本课所述，这两个帝国采用了截然不同的策略。",
+      "C": "Conquistadors used superior weapons in their conquest of the Aztec and Inca Empires.|征服者在征服阿兹特克与印加帝国时使用了先进的武器。",
+      "D": "Spain's American territorial conquests were far larger in scope than Portugal's coastal trading posts.|西班牙在美洲征服的领土范围远大于葡萄牙的沿海贸易据点。"
+    }
+  },
+  {
+    "id": "l2q5",
+    "q": "What combination of factors allowed conquistadors to topple the Aztec and Inca Empires?",
+    "q_cn": "哪些因素的结合使征服者能够推翻阿兹特克与印加帝国？",
+    "options": [
+      "A. Superior weapons, disease, and alliances with rival Indigenous groups|A. 先进的武器、疾病，以及与敌对原住民群体的结盟",
+      "B. A peaceful treaty signed by both empires|B. 双方帝国签署的和平条约",
+      "C. Overwhelming numbers of Spanish soldiers alone|C. 仅凭西班牙士兵的绝对数量优势",
+      "D. Support from the Mongol Empire|D. 蒙古帝国的支持"
+    ],
+    "correct": "A",
+    "rat_right": "Conquistadors combined superior weapons, disease, and alliances with Indigenous groups who resented Aztec or Inca rule.|征服者结合了先进的武器、疾病，以及与不满阿兹特克或印加统治的原住民群体的结盟。",
+    "rat_wrong": {
+      "B": "The conquests were violent military campaigns, not peaceful treaties.|这些征服是暴力的军事行动，而非和平条约。",
+      "C": "Conquistador forces were actually quite small in number relative to Indigenous populations; alliances and disease were key factors.|相对于原住民人口，征服者的军队规模实际上相当小；结盟与疾病才是关键因素。",
+      "D": "The Mongol Empire had no involvement in the conquest of the Americas.|蒙古帝国与美洲的征服毫无关系。"
+    }
+  },
+  {
+    "id": "l2q6",
+    "q": "What did Spain extract from mines such as Potosí in Mexico and the Andes?",
+    "q_cn": "西班牙从墨西哥与安第斯山脉的波托西等矿场中开采出什么？",
+    "options": [
+      "A. Enormous quantities of silver|A. 大量的白银",
+      "B. Large quantities of oil|B. 大量的石油",
+      "C. Coal used for European factories|C. 用于欧洲工厂的煤炭",
+      "D. Diamonds for European royal jewelry|D. 用于欧洲皇室珠宝的钻石"
+    ],
+    "correct": "A",
+    "rat_right": "Spain extracted enormous quantities of silver from mines in Mexico and the Andes, especially Potosí.|西班牙从墨西哥与安第斯山脉的矿场（尤其是波托西）中开采出大量白银。",
+    "rat_wrong": {
+      "B": "Oil extraction was not part of this era's colonial economy.|石油开采并不属于这一时期殖民经济的一部分。",
+      "C": "Coal mining was not the resource described as financing the Spanish crown in this lesson.|本课所描述为西班牙王室提供资金的资源并非煤炭。",
+      "D": "Silver, not diamonds, was the resource central to the Spanish colonial economy described here.|本课所述的西班牙殖民经济核心资源是白银，而非钻石。"
+    }
+  },
+  {
+    "id": "l2q7",
+    "q": "What problem did the joint-stock company solve for overseas trading voyages?",
+    "q_cn": "股份制公司解决了远洋贸易航行的什么问题？",
+    "options": [
+      "A. It let many investors pool money and share the risk and profit of expensive voyages|A. 它使众多投资者能够集资，共同分担昂贵航行的风险与利润",
+      "B. It eliminated the need for ships entirely|B. 它完全消除了对船只的需求",
+      "C. It guaranteed every voyage would be profitable with no risk|C. 它保证每次航行都能盈利，没有任何风险",
+      "D. It was used only for transporting silver from Potosí|D. 它仅用于运输波托西的白银"
+    ],
+    "correct": "A",
+    "rat_right": "The joint-stock company let many investors pool money and share both the risk and profit of expensive overseas voyages.|股份制公司使众多投资者能够集资，共同分担昂贵远洋航行的风险与利润。",
+    "rat_wrong": {
+      "B": "Joint-stock companies still required ships; they solved a financing problem, not a transportation one.|股份制公司仍然需要船只；它们解决的是融资问题，而非运输问题。",
+      "C": "Joint-stock companies shared risk; they did not eliminate it.|股份制公司分担风险，而非消除风险。",
+      "D": "Joint-stock companies financed many kinds of trade ventures, not only silver transport.|股份制公司为多种贸易事业提供资金，而不仅仅是白银运输。"
+    }
+  },
+  {
+    "id": "l2q8",
+    "q": "What was the Dutch East India Company, founded in 1602?",
+    "q_cn": "1602年成立的荷兰东印度公司是什么？",
+    "options": [
+      "A. The most powerful early example of a joint-stock trading company|A. 早期最强大的股份制贸易公司范例",
+      "B. A Spanish military unit that conquered the Aztec Empire|B. 征服阿兹特克帝国的西班牙军事单位",
+      "C. A type of map projection used by Dutch sailors|C. 荷兰水手使用的一种地图投影",
+      "D. A religious order founded to convert Indigenous Americans|D. 为使原住民皈依而成立的宗教团体"
+    ],
+    "correct": "A",
+    "rat_right": "The Dutch East India Company, founded in 1602, became the most powerful example of a joint-stock company.|1602年成立的荷兰东印度公司，成为股份制公司中最强大的范例。",
+    "rat_wrong": {
+      "B": "The Dutch East India Company was a trading company, not a Spanish military unit.|荷兰东印度公司是一家贸易公司，而非西班牙军事单位。",
+      "C": "The Dutch East India Company was a business venture, not a map projection.|荷兰东印度公司是一项商业事业，而非地图投影。",
+      "D": "The Dutch East India Company focused on trade, not religious conversion.|荷兰东印度公司专注于贸易，而非宗教皈依。"
+    }
+  },
+  {
+    "id": "l2q9",
+    "q": "What role did the Amsterdam Stock Exchange play in this new economic system?",
+    "q_cn": "阿姆斯特丹证券交易所在这一新经济体系中扮演了什么角色？",
+    "options": [
+      "A. It let people buy and sell shares in trading ventures, becoming an early ancestor of the modern stock market|A. 它使人们能够买卖贸易企业的股份，成为现代证券市场的早期雏形",
+      "B. It was used exclusively to mint silver coins|B. 它仅用于铸造银币",
+      "C. It replaced the need for any ships to sail to Asia|C. 它使航船前往亚洲的需求不复存在",
+      "D. It was located in Lisbon, not Amsterdam|D. 它位于里斯本，而不是阿姆斯特丹"
+    ],
+    "correct": "A",
+    "rat_right": "The Amsterdam Stock Exchange emerged to let people buy and sell shares in trading ventures — an early ancestor of the modern stock market.|阿姆斯特丹证券交易所的兴起，使人们能够买卖贸易企业的股份——这是现代证券市场的早期雏形。",
+    "rat_wrong": {
+      "B": "The stock exchange traded company shares, not coin minting.|证券交易所交易的是公司股份，而不是铸币。",
+      "C": "The stock exchange financed voyages; it did not replace the need for ships.|证券交易所为航行提供资金，但并未取代对船只的需求。",
+      "D": "As its name suggests, the Amsterdam Stock Exchange was located in Amsterdam.|正如其名称所示，阿姆斯特丹证券交易所位于阿姆斯特丹。"
+    }
+  },
+  {
+    "id": "l2q10",
+    "q": "What is the overall connection between Magellan's voyage and the rise of joint-stock companies, according to this lesson?",
+    "q_cn": "根据本课内容，麦哲伦的航行与股份制公司兴起之间的总体联系是什么？",
+    "options": [
+      "A. Risky, expensive long-distance voyages like Magellan's drove the need for new ways to finance and share that risk|A. 像麦哲伦这样高风险、高成本的远洋航行，催生了分担风险的新融资方式的需求",
+      "B. Magellan's voyage had no connection to later economic developments|B. 麦哲伦的航行与后来的经济发展毫无关联",
+      "C. Joint-stock companies existed long before any ocean voyages took place|C. 股份制公司的存在远早于任何海洋航行",
+      "D. The Dutch funded Magellan's entire voyage|D. 荷兰人资助了麦哲伦的整个航行"
+    ],
+    "correct": "A",
+    "rat_right": "The huge cost and risk of voyages like Magellan's helped drive the financial innovation of joint-stock companies to pool risk among many investors.|像麦哲伦航行这样的巨大成本与风险，推动了股份制公司这一金融创新的产生，以便在众多投资者之间分担风险。",
+    "rat_wrong": {
+      "B": "The lesson directly connects the costly risks of exploration to new financial tools.|本课直接将探索活动的高昂风险与新金融工具联系了起来。",
+      "C": "Joint-stock companies emerged as a response to the costs of overseas voyages, after exploration had already begun.|股份制公司是为应对海外航行的成本而兴起的，发生在探索活动已经开始之后。",
+      "D": "Magellan sailed under the Spanish flag, not Dutch funding.|麦哲伦的航行是在西班牙旗帜下进行的，而非由荷兰人资助。"
+    }
+  }
+];
+var L3_Q = [
+  {
+    "id": "l3q1",
+    "q": "What made oceanic empires (1450–1750) different from earlier land-based empires like Rome or the Mongols?",
+    "q_cn": "海洋帝国（1450–1750）与罗马或蒙古等早期陆基帝国有何不同？",
+    "options": [
+      "A. They depended entirely on controlling the seas to link scattered colonies and trade routes|A. 它们完全依赖于对海洋的控制，以连接分散的殖民地与贸易路线",
+      "B. They had no contact with any other continents|B. 它们与任何其他大陆都没有接触",
+      "C. They were built entirely without any ships|C. 它们的建立完全不依赖任何船只",
+      "D. They were smaller than any previous empire in history|D. 它们比历史上任何先前的帝国都要小"
+    ],
+    "correct": "A",
+    "rat_right": "Oceanic empires depended entirely on controlling the seas, linking scattered colonies and trade routes across continents.|海洋帝国完全依赖于对海洋的控制，将跨越各大洲的分散殖民地与贸易路线连接起来。",
+    "rat_wrong": {
+      "B": "Oceanic empires connected Europe, the Americas, Africa, and Asia into one system, unlike isolation.|海洋帝国将欧洲、美洲、非洲与亚洲连接成一个体系，而不是彼此孤立。",
+      "C": "Ships and sea routes were the entire foundation of oceanic empires.|船只与海上航线正是海洋帝国的整个基础。",
+      "D": "Oceanic empires were vast, spanning multiple continents and oceans.|海洋帝国规模庞大，横跨多个大洲与海洋。"
+    }
+  },
+  {
+    "id": "l3q2",
+    "q": "What was a plantation economy?",
+    "q_cn": "种植园经济是什么？",
+    "options": [
+      "A. Large farms dedicated to growing a single profitable cash crop for export|A. 专门种植单一获利经济作物以供出口的大型农场",
+      "B. A system of small family farms growing food only for local use|B. 以仅供本地使用为目的的小型家庭农场体系",
+      "C. A government program for building roads|C. 一项建造道路的政府计划",
+      "D. A type of navigation school for sailors|D. 一种水手航海学校"
+    ],
+    "correct": "A",
+    "rat_right": "A plantation economy was built around large farms dedicated to growing a single profitable cash crop, like sugar, tobacco, or cotton, for export.|种植园经济围绕专门种植单一获利经济作物（如蔗糖、烟草或棉花）以供出口的大型农场而建立。",
+    "rat_wrong": {
+      "B": "Plantations grew crops for export profit, not for local subsistence use.|种植园种植作物是为了出口获利，而不是供本地自给自足之用。",
+      "C": "A plantation economy refers to an agricultural and labor system, not road construction.|种植园经济指的是一种农业与劳动体系，而不是道路建设。",
+      "D": "Navigation schools are unrelated to the plantation economy described in this lesson.|航海学校与本课所描述的种植园经济无关。"
+    }
+  },
+  {
+    "id": "l3q3",
+    "q": "What did Spain's encomienda system grant to colonists?",
+    "q_cn": "西班牙的监护征赋制授予殖民者什么权利？",
+    "options": [
+      "A. The right to demand forced labor and tribute from Indigenous people|A. 向原住民强征劳役与贡品的权利",
+      "B. Free passage on any ship returning to Spain|B. 免费乘坐任何返回西班牙的船只",
+      "C. Voting rights for Indigenous communities|C. 原住民社区的投票权",
+      "D. Ownership of all silver mines in Portugal|D. 葡萄牙所有银矿的所有权"
+    ],
+    "correct": "A",
+    "rat_right": "The encomienda system granted colonists the right to demand forced labor and tribute from Indigenous people.|监护征赋制授予殖民者向原住民强征劳役与贡品的权利。",
+    "rat_wrong": {
+      "B": "The encomienda system was about labor extraction in the colonies, not transportation to Spain.|监护征赋制涉及殖民地的劳动力榨取，而不是前往西班牙的交通。",
+      "C": "The encomienda system was a system of forced labor, the opposite of granting rights like voting to Indigenous people.|监护征赋制是一种强迫劳役制度，与赋予原住民投票权等权利恰恰相反。",
+      "D": "Spanish silver mines were in the Americas, not Portugal, and ownership is a separate topic from the encomienda labor grant.|西班牙的银矿位于美洲而非葡萄牙，矿产所有权与监护征赋制下的劳役授予是不同的议题。"
+    }
+  },
+  {
+    "id": "l3q4",
+    "q": "What was the supposed justification Spain gave for the encomienda system?",
+    "q_cn": "西班牙为监护征赋制提供的所谓正当理由是什么？",
+    "options": [
+      "A. That colonists were 'protecting' and converting Indigenous people in exchange for their labor|A. 殖民者以「保护」并使原住民皈依为名换取其劳力",
+      "B. That Indigenous people had voluntarily requested the system|B. 原住民自愿要求实行这一制度",
+      "C. That it was a temporary measure lasting only one year|C. 这是一项仅持续一年的临时措施",
+      "D. That the Pope had banned all forced labor entirely|D. 教皇已全面禁止一切强迫劳役"
+    ],
+    "correct": "A",
+    "rat_right": "The encomienda system was supposedly justified by colonists 'protecting' and converting Indigenous people in exchange for forced labor and tribute.|监护征赋制的所谓正当理由是，殖民者以「保护」并使原住民皈依为名，换取其强迫劳役与贡品。",
+    "rat_wrong": {
+      "B": "The encomienda system was imposed on Indigenous people, not requested by them.|监护征赋制是强加于原住民身上的，而不是他们主动要求的。",
+      "C": "The encomienda system operated for an extended period, not just one year.|监护征赋制运行了相当长的一段时间，而不仅仅是一年。",
+      "D": "The lesson does not describe the Pope banning forced labor in this context.|本课内容中并未描述教皇禁止此类强迫劳役。"
+    }
+  },
+  {
+    "id": "l3q5",
+    "q": "What was the actual practical result of the encomienda system, according to the lesson?",
+    "q_cn": "根据本课内容，监护征赋制实际产生的结果是什么？",
+    "options": [
+      "A. It amounted to brutal forced labor that, combined with disease, devastated Indigenous communities|A. 它等同于残酷的强迫劳役，加上疾病的影响，给原住民社区带来了毁灭性的打击",
+      "B. It significantly improved the living standards of Indigenous people|B. 它显著改善了原住民的生活水平",
+      "C. It had no measurable effect on Indigenous populations at all|C. 它对原住民人口完全没有可衡量的影响",
+      "D. It was abolished before any labor was ever extracted|D. 在任何劳役被征收之前，它就已被废除"
+    ],
+    "correct": "A",
+    "rat_right": "In practice, the encomienda system amounted to brutal forced labor that, combined with disease, devastated Indigenous communities.|实际上，监护征赋制等同于残酷的强迫劳役，加上疾病的影响，给原住民社区带来了毁灭性的打击。",
+    "rat_wrong": {
+      "B": "The encomienda system harmed, rather than improved, Indigenous living conditions.|监护征赋制损害而非改善了原住民的生活条件。",
+      "C": "The system had severe, measurable, devastating effects on Indigenous populations.|该制度对原住民人口产生了严重且可衡量的毁灭性影响。",
+      "D": "The encomienda system was actively practiced and extracted significant forced labor.|监护征赋制被广泛实行，并征收了大量强迫劳役。"
+    }
+  },
+  {
+    "id": "l3q6",
+    "q": "Which European powers joined Spain and Portugal in competing for colonies by the 1600s?",
+    "q_cn": "到17世纪，哪些欧洲列强加入了西班牙与葡萄牙争夺殖民地的竞争？",
+    "options": [
+      "A. Britain and France|A. 英国与法国",
+      "B. The Mongol Empire and Song China|B. 蒙古帝国与宋朝中国",
+      "C. The Aztec and Inca Empires|C. 阿兹特克帝国与印加帝国",
+      "D. The Byzantine Empire alone|D. 仅有拜占庭帝国"
+    ],
+    "correct": "A",
+    "rat_right": "By the 1600s, Britain and France had joined the competition, establishing their own colonies in North America and the Caribbean.|到17世纪，英国与法国也加入了这场竞争，在北美与加勒比地区建立了自己的殖民地。",
+    "rat_wrong": {
+      "B": "The Mongol Empire and Song China were not part of this European colonial competition.|蒙古帝国与宋朝中国并未参与这场欧洲殖民竞争。",
+      "C": "The Aztec and Inca Empires were conquered, not colonial competitors.|阿兹特克帝国与印加帝国是被征服的对象，而不是殖民竞争者。",
+      "D": "The Byzantine Empire had ended well before this colonial competition and was not involved.|拜占庭帝国早在这场殖民竞争之前就已灭亡，并未参与其中。"
+    }
+  },
+  {
+    "id": "l3q7",
+    "q": "What did Britain and France fight repeated wars over in the Caribbean and North America?",
+    "q_cn": "英国与法国在加勒比地区与北美多次开战，争夺的是什么？",
+    "options": [
+      "A. Valuable sugar islands and fur-trading territory|A. 珍贵的蔗糖岛屿与毛皮贸易领地",
+      "B. Control over the Mercator map projection|B. 对墨卡托地图投影的控制权",
+      "C. Possession of the original astrolabe|C. 原始星盘的所有权",
+      "D. Religious leadership of the Catholic Church|D. 天主教会的宗教领导权"
+    ],
+    "correct": "A",
+    "rat_right": "Britain and France fought repeated wars over valuable sugar islands and fur-trading territory.|英国与法国多次为争夺珍贵的蔗糖岛屿与毛皮贸易领地而开战。",
+    "rat_wrong": {
+      "B": "Map projections were a cartographic tool, not a cause of these colonial wars.|地图投影是一种制图工具，而不是这些殖民地战争的起因。",
+      "C": "The astrolabe was a navigation tool, unrelated to these territorial wars.|星盘是一种航海工具，与这些领土战争无关。",
+      "D": "These wars were about territory and trade, not Church leadership.|这些战争是关于领土与贸易的，而非教会领导权。"
+    }
+  },
+  {
+    "id": "l3q8",
+    "q": "How did European political conflicts change as a result of oceanic empires?",
+    "q_cn": "由于海洋帝国的出现，欧洲的政治冲突发生了怎样的变化？",
+    "options": [
+      "A. A war in Europe could trigger fighting in the Caribbean, North America, and India|A. 欧洲的一场战争可能引发加勒比地区、北美甚至印度的战事",
+      "B. European wars became entirely confined to Europe with no overseas effects|B. 欧洲的战争变得完全局限于欧洲，对海外毫无影响",
+      "C. All European powers signed a permanent peace treaty|C. 所有欧洲列强签署了一项永久和平条约",
+      "D. Colonial wars stopped completely once joint-stock companies were founded|D. 一旦股份制公司成立，殖民地战争便完全停止"
+    ],
+    "correct": "A",
+    "rat_right": "European political conflicts increasingly played out on a global stage, where a war in Europe could trigger fighting in the Caribbean, North America, and even India.|欧洲的政治冲突日益在全球舞台上上演，欧洲的一场战争可能引发加勒比地区、北美甚至印度的战事。",
+    "rat_wrong": {
+      "B": "European conflicts spread to overseas colonies, the opposite of staying confined to Europe.|欧洲的冲突蔓延到了海外殖民地，而不是局限于欧洲本土。",
+      "C": "The lesson describes ongoing rivalry and war, not a permanent peace.|本课描述的是持续的竞争与战争，而不是永久和平。",
+      "D": "Colonial wars continued well past the founding of joint-stock companies.|殖民地战争在股份制公司成立之后仍持续了很长时间。"
+    }
+  },
+  {
+    "id": "l3q9",
+    "q": "What three cash crops are specifically named as central to the plantation economy?",
+    "q_cn": "种植园经济中明确提到的三种核心经济作物是什么？",
+    "options": [
+      "A. Sugar, tobacco, and cotton|A. 蔗糖、烟草与棉花",
+      "B. Wheat, rice, and corn|B. 小麦、大米与玉米",
+      "C. Coffee, tea, and cacao|C. 咖啡、茶叶与可可",
+      "D. Silk, spices, and porcelain|D. 丝绸、香料与瓷器"
+    ],
+    "correct": "A",
+    "rat_right": "Sugar, tobacco, and cotton were the cash crops named as central to the plantation economy.|蔗糖、烟草与棉花是本课中明确提到种植园经济核心的经济作物。",
+    "rat_wrong": {
+      "B": "Wheat, rice, and corn were subsistence staples, not the plantation cash crops described here.|小麦、大米与玉米是自给型主食作物，而不是本课所述的种植园经济作物。",
+      "C": "Coffee, tea, and cacao are not the crops specifically named in this lesson.|咖啡、茶叶与可可并非本课中明确提到的作物。",
+      "D": "Silk, spices, and porcelain were Asian trade goods, not American plantation crops.|丝绸、香料与瓷器是亚洲贸易商品，而不是美洲种植园作物。"
+    }
+  },
+  {
+    "id": "l3q10",
+    "q": "How does this lesson connect oceanic empires to the topic of the next lesson, the Columbian Exchange?",
+    "q_cn": "本课如何将海洋帝国与下一课「哥伦布大交换」的主题联系起来？",
+    "options": [
+      "A. Oceanic empires turned local European rivalries into global conflicts, connecting to the demographic and economic upheavals of the Columbian Exchange|A. 海洋帝国将欧洲本地的竞争转化为全球性的冲突，这与哥伦布大交换中的人口与经济剧变相联系",
+      "B. Oceanic empires and the Columbian Exchange are completely unrelated topics|B. 海洋帝国与哥伦布大交换是完全无关的主题",
+      "C. The Columbian Exchange happened centuries before oceanic empires existed|C. 哥伦布大交换发生在海洋帝国出现之前的数个世纪",
+      "D. Only Portugal was involved in both oceanic empires and the Columbian Exchange|D. 只有葡萄牙同时参与了海洋帝国与哥伦布大交换"
+    ],
+    "correct": "A",
+    "rat_right": "The lesson notes that oceanic empires turned local rivalries into global conflicts, a pattern connecting directly to the demographic and economic upheavals of the Columbian Exchange.|本课指出，海洋帝国将本地竞争转化为全球性冲突，这一模式与哥伦布大交换中的人口与经济剧变直接相关。",
+    "rat_wrong": {
+      "B": "The lesson explicitly draws a connection between these two topics.|本课明确指出了这两个主题之间的联系。",
+      "C": "The Columbian Exchange and oceanic empires developed during the same overlapping era.|哥伦布大交换与海洋帝国是在同一重叠时期发展起来的。",
+      "D": "Spain, Britain, and France were also deeply involved in both oceanic empires and the Columbian Exchange.|西班牙、英国与法国也都深度参与了海洋帝国与哥伦布大交换。"
+    }
+  }
+];
+var L4_Q = [
+  {
+    "id": "l4q1",
+    "q": "What was the Columbian Exchange?",
+    "q_cn": "哥伦布大交换是什么？",
+    "options": [
+      "A. The massive, two-way transfer of plants, animals, diseases, and people between the Americas and Afro-Eurasia|A. 美洲与亚非欧大陆之间植物、动物、疾病与人口的大规模双向交换",
+      "B. A trade agreement signed only between Spain and Portugal|B. 仅由西班牙与葡萄牙签署的贸易协定",
+      "C. A one-way shipment of gold from the Americas to Europe only|C. 仅是从美洲单向运往欧洲的黄金运输",
+      "D. A military alliance between European nations|D. 欧洲国家之间的军事联盟"
+    ],
+    "correct": "A",
+    "rat_right": "The Columbian Exchange was the massive, two-way transfer of plants, animals, diseases, and people between the Americas and the rest of the world.|哥伦布大交换是美洲与世界其他地区之间植物、动物、疾病与人口的大规模双向交换。",
+    "rat_wrong": {
+      "B": "The Columbian Exchange involved much more than a trade agreement between two countries.|哥伦布大交换涉及的内容远不止两国之间的贸易协定。",
+      "C": "The exchange went both ways, not just gold flowing in one direction.|这种交换是双向的，而不仅仅是黄金的单向流动。",
+      "D": "The Columbian Exchange was about biological and demographic transfer, not a military alliance.|哥伦布大交换关乎生物与人口的交流，而非军事联盟。"
+    }
+  },
+  {
+    "id": "l4q2",
+    "q": "What crops did the Americas give to the rest of the world through the Columbian Exchange?",
+    "q_cn": "通过哥伦布大交换，美洲为世界其他地区带来了哪些作物？",
+    "options": [
+      "A. Potatoes, maize, and tomatoes|A. 马铃薯、玉米与番茄",
+      "B. Wheat and rice|B. 小麦与大米",
+      "C. Coffee and tea|C. 咖啡与茶叶",
+      "D. Olives and grapes|D. 橄榄与葡萄"
+    ],
+    "correct": "A",
+    "rat_right": "The Americas gave the rest of the world crops like potatoes, maize, and tomatoes.|美洲为世界其他地区带来了马铃薯、玉米与番茄等作物。",
+    "rat_wrong": {
+      "B": "Wheat and rice originated in Afro-Eurasia, not the Americas.|小麦与大米起源于亚非欧大陆，而不是美洲。",
+      "C": "Coffee and tea are not described in this lesson as American Columbian Exchange crops.|咖啡与茶叶在本课中并未被描述为美洲在哥伦布大交换中输出的作物。",
+      "D": "Olives and grapes are Mediterranean crops, not American in origin.|橄榄与葡萄是地中海作物，并非起源于美洲。"
+    }
+  },
+  {
+    "id": "l4q3",
+    "q": "What did Europe bring to the Americas as part of the Columbian Exchange?",
+    "q_cn": "作为哥伦布大交换的一部分，欧洲为美洲带来了什么？",
+    "options": [
+      "A. Horses, cattle, wheat, and sugarcane|A. 马、牛、小麦与甘蔗",
+      "B. Potatoes and tomatoes|B. 马铃薯与番茄",
+      "C. Maize and tobacco|C. 玉米与烟草",
+      "D. Llamas and alpacas|D. 美洲驼与羊驼"
+    ],
+    "correct": "A",
+    "rat_right": "Europe brought horses, cattle, wheat, and sugarcane to the Americas as part of the Columbian Exchange.|作为哥伦布大交换的一部分，欧洲将马、牛、小麦与甘蔗带到了美洲。",
+    "rat_wrong": {
+      "B": "Potatoes and tomatoes flowed from the Americas to Europe, the opposite direction.|马铃薯与番茄是从美洲流向欧洲的，方向恰恰相反。",
+      "C": "Maize and tobacco were American crops moving outward, not European imports.|玉米与烟草是从美洲向外传播的作物，而不是欧洲的输入品。",
+      "D": "Llamas and alpacas were already native to the Americas before European contact.|美洲驼与羊驼在欧洲人接触之前就已是美洲本土物种。"
+    }
+  },
+  {
+    "id": "l4q4",
+    "q": "Why were diseases like smallpox so devastating to Indigenous Americans specifically?",
+    "q_cn": "为什么天花等疾病对美洲原住民特别具有毁灭性？",
+    "options": [
+      "A. They had no prior exposure to these diseases, unlike Afro-Eurasian populations who had built up some immunity over centuries|A. 与已通过数个世纪建立了部分免疫力的亚非欧人口不同，他们此前从未接触过这些疾病",
+      "B. Indigenous Americans had weaker immune systems for genetic reasons unrelated to disease exposure|B. 由于与疾病接触无关的遗传原因，美洲原住民的免疫系统天生较弱",
+      "C. European doctors deliberately withheld all medical treatment|C. 欧洲医生故意拒绝提供任何医疗救治",
+      "D. The diseases were specifically engineered as biological weapons|D. 这些疾病是专门设计的生物武器"
+    ],
+    "correct": "A",
+    "rat_right": "Indigenous Americans had no prior exposure to diseases like smallpox, unlike Afro-Eurasian populations who had circulated these diseases for centuries and developed some immunity.|美洲原住民此前从未接触过天花等疾病，而亚非欧人口已让这些疾病流行了数个世纪并产生了一定的免疫力。",
+    "rat_wrong": {
+      "B": "The vulnerability was due to lack of prior exposure, not an inherent genetic weakness.|这种脆弱性源于此前从未接触过这些疾病，而不是先天的遗传弱点。",
+      "C": "The catastrophic spread was due to lack of immunity, not deliberately withheld treatment, which the lesson does not describe.|这场灾难性的传播源于缺乏免疫力，而不是本课未曾描述的故意拒绝治疗。",
+      "D": "There is no evidence diseases were engineered; they spread naturally due to lack of prior immunity.|没有证据表明这些疾病是被设计出来的；它们是由于缺乏先前的免疫力而自然传播的。"
+    }
+  },
+  {
+    "id": "l4q5",
+    "q": "What does the lesson estimate as the population decline among some Indigenous communities due to disease?",
+    "q_cn": "本课估计，部分原住民社区因疾病造成的人口下降比例是多少？",
+    "options": [
+      "A. An estimated 90 percent within decades|A. 数十年内约90%",
+      "B. A negligible decline of less than 5 percent|B. 不到5%的微不足道的下降",
+      "C. Exactly half of the population, evenly across all regions|C. 恰好一半的人口，且在所有地区均匀分布",
+      "D. No measurable population change at all|D. 完全没有可衡量的人口变化"
+    ],
+    "correct": "A",
+    "rat_right": "Diseases killed an estimated 90 percent of some Indigenous populations within decades, an event called the 'Great Dying.'|疾病在数十年内导致部分原住民人口约90%死亡，这一事件被称为「大死亡」。",
+    "rat_wrong": {
+      "B": "The decline was catastrophic, far more severe than 5 percent.|这一下降是灾难性的，远超5%。",
+      "C": "The decline varied by region but is estimated at around 90 percent in some areas, not an even 50 percent everywhere.|这一下降幅度因地区而异，但部分地区估计约为90%，而非各地均一的50%。",
+      "D": "This was likely the deadliest demographic event in recorded human history, not a negligible change.|这很可能是有记录的人类历史上最致命的人口事件，绝非可忽略的变化。"
+    }
+  },
+  {
+    "id": "l4q6",
+    "q": "Why did diseases sometimes devastate Indigenous communities even before they had met a European in person?",
+    "q_cn": "为什么有些原住民社区在亲眼见到欧洲人之前，就已经被疾病摧毁了？",
+    "options": [
+      "A. Disease often traveled ahead of explorers along existing trade and contact networks|A. 疾病常常沿着既有的贸易与接触网络，先于探险家本人传播开来",
+      "B. Indigenous communities deliberately infected themselves first|B. 原住民社区故意先让自己感染",
+      "C. Diseases could not actually spread without direct European contact|C. 若没有与欧洲人的直接接触，疾病实际上无法传播",
+      "D. European explorers always traveled faster than any disease could spread|D. 欧洲探险家的移动速度总是比任何疾病的传播速度更快"
+    ],
+    "correct": "A",
+    "rat_right": "Disease often traveled ahead of explorers along existing trade and contact networks, devastating societies before they ever met a European.|疾病常常沿着既有的贸易与接触网络，先于探险家本人传播开来，在原住民社会成员亲眼见到欧洲人之前就已将其摧毁。",
+    "rat_wrong": {
+      "B": "There is no indication Indigenous communities infected themselves intentionally.|没有迹象表明原住民社区故意让自己感染。",
+      "C": "The lesson explicitly states disease spread without direct contact, via existing networks.|本课明确指出，疾病通过既有网络传播，无需直接接触。",
+      "D": "Disease, not explorers, often moved fastest along these networks.|沿着这些网络传播最快的往往是疾病，而不是探险家。"
+    }
+  },
+  {
+    "id": "l4q7",
+    "q": "How does the lesson connect the Columbian Exchange to the earlier unit on the Black Death?",
+    "q_cn": "本课如何将哥伦布大交换与之前所学的黑死病单元联系起来？",
+    "options": [
+      "A. Both show disease as one of history's deadliest forces, devastating populations through connectivity and contact|A. 两者都表明疾病是历史上最致命的力量之一，通过互联性与接触摧毁了人口",
+      "B. The Black Death and the Columbian Exchange are described as completely unrelated events|B. 黑死病与哥伦布大交换被描述为完全无关的事件",
+      "C. The Black Death happened after the Columbian Exchange|C. 黑死病发生在哥伦布大交换之后",
+      "D. Only the Columbian Exchange involved any disease at all|D. 只有哥伦布大交换涉及疾病"
+    ],
+    "correct": "A",
+    "rat_right": "Just as the Black Death devastated Afro-Eurasia, European diseases devastated the Americas — connecting the units through the theme of disease and connectivity.|正如黑死病重创亚非欧大陆，欧洲疾病重创了美洲——通过疾病与互联性这一主题，将这两个单元联系起来。",
+    "rat_wrong": {
+      "B": "The lesson explicitly draws a connection between these two disease events.|本课明确指出了这两个疾病事件之间的联系。",
+      "C": "The Black Death (1347–1351) happened well before the Columbian Exchange began in 1492.|黑死病（1347–1351年）发生的时间远早于始于1492年的哥伦布大交换。",
+      "D": "The Black Death, studied earlier in the unit, was also a major disease event.|本单元早前所学的黑死病同样是一次重大的疾病事件。"
+    }
+  },
+  {
+    "id": "l4q8",
+    "q": "What crop did Europeans introduce to the Caribbean that became foundational to the plantation complex?",
+    "q_cn": "欧洲人将哪种作物引入加勒比地区，使其成为种植园体系的基础？",
+    "options": [
+      "A. Sugarcane|A. 甘蔗",
+      "B. Maize|B. 玉米",
+      "C. Potatoes|C. 马铃薯",
+      "D. Tomatoes|D. 番茄"
+    ],
+    "correct": "A",
+    "rat_right": "Europeans introduced sugarcane to the Caribbean, where it became the foundation of the plantation complex.|欧洲人将甘蔗引入加勒比地区，使其成为种植园体系的基础。",
+    "rat_wrong": {
+      "B": "Maize was a crop flowing from the Americas outward, not introduced by Europeans to the Caribbean.|玉米是从美洲向外传播的作物，而不是欧洲人引入加勒比地区的作物。",
+      "C": "Potatoes were also an American export crop, not introduced to the Caribbean by Europe.|马铃薯同样是美洲的出口作物，而不是欧洲引入加勒比地区的作物。",
+      "D": "Tomatoes flowed outward from the Americas as well.|番茄同样是从美洲向外传播的。"
+    }
+  },
+  {
+    "id": "l4q9",
+    "q": "What connection does the lesson draw between sugarcane's success and the demographic changes in Africa?",
+    "q_cn": "本课在甘蔗的成功与非洲的人口变化之间建立了什么联系？",
+    "options": [
+      "A. As Indigenous labor collapsed from disease, plantation owners turned to enslaved Africans to meet sugarcane's labor demands|A. 随着原住民劳动力因疾病而崩溃，种植园主转向被奴役的非洲人，以满足甘蔗种植的劳动力需求",
+      "B. Sugarcane was never grown using enslaved labor of any kind|B. 甘蔗种植从未使用任何形式的被奴役劳动力",
+      "C. Africa was completely unaffected by any developments in the Americas|C. 非洲完全不受美洲任何发展的影响",
+      "D. Sugarcane failed to grow successfully anywhere in the Caribbean|D. 甘蔗在加勒比地区任何地方都未能成功种植"
+    ],
+    "correct": "A",
+    "rat_right": "As Indigenous populations collapsed from disease, plantation owners turned increasingly to enslaved Africans to provide labor for sugarcane, setting in motion demographic changes in Africa.|随着原住民人口因疾病崩溃，种植园主越来越多地转向被奴役的非洲人为甘蔗种植提供劳动力，从而引发了非洲的人口变化。",
+    "rat_wrong": {
+      "B": "The lesson directly states enslaved African labor became central to sugarcane plantations.|本课直接指出，被奴役的非洲劳动力成为甘蔗种植园的核心。",
+      "C": "The lesson explicitly connects American sugarcane demand to demographic changes in Africa.|本课明确将美洲对甘蔗的需求与非洲的人口变化联系了起来。",
+      "D": "Sugarcane thrived in the Caribbean's tropical climate, according to the lesson.|根据本课内容，甘蔗在加勒比地区的热带气候中蓬勃生长。"
+    }
+  },
+  {
+    "id": "l4q10",
+    "q": "What overall pattern does the Columbian Exchange reveal about global connection?",
+    "q_cn": "哥伦布大交换揭示了全球联系的总体规律是什么？",
+    "options": [
+      "A. Global connection brought benefits like new crops, but also catastrophic costs like disease and demographic collapse|A. 全球联系带来了新作物等益处，但也带来了疾病与人口崩溃等灾难性代价",
+      "B. Global connection brought only benefits with no negative consequences whatsoever|B. 全球联系只带来了好处，没有任何负面后果",
+      "C. Global connection had no effect on population levels anywhere|C. 全球联系对任何地方的人口水平都没有影响",
+      "D. The Columbian Exchange only affected Europe and had no impact on the Americas or Africa|D. 哥伦布大交换只影响了欧洲，对美洲或非洲没有任何影响"
+    ],
+    "correct": "A",
+    "rat_right": "The Columbian Exchange brought benefits like new crops to Afro-Eurasia, but also catastrophic costs like disease and demographic collapse in the Americas.|哥伦布大交换为亚非欧大陆带来了新作物等益处，但也给美洲带来了疾病与人口崩溃等灾难性代价。",
+    "rat_wrong": {
+      "B": "The Great Dying shows clear, devastating negative consequences.|「大死亡」清楚地表明了这一过程具有毁灭性的负面后果。",
+      "C": "Population collapsed dramatically in the Americas as a direct result of the exchange.|作为交换的直接结果，美洲的人口出现了急剧崩溃。",
+      "D": "The Columbian Exchange profoundly affected the Americas, Africa, and Europe alike.|哥伦布大交换深刻地影响了美洲、非洲与欧洲。"
+    }
+  }
+];
+var L5_Q = [
+  {
+    "id": "l5q1",
+    "q": "What combination of catastrophes devastated Indigenous societies in the century after 1492?",
+    "q_cn": "1492年之后的一个世纪中，哪些灾难的叠加摧毁了原住民社会？",
+    "options": [
+      "A. Disease, violent conquest, and forced labor systems like the encomienda|A. 疾病、暴力征服与监护征赋制等强迫劳役制度",
+      "B. A single isolated earthquake|B. 一次孤立的地震",
+      "C. A trade boycott organized by Indigenous leaders|C. 由原住民领袖组织的贸易抵制",
+      "D. A drought that lasted exactly one year|D. 一场恰好持续一年的干旱"
+    ],
+    "correct": "A",
+    "rat_right": "Demographic collapse from disease, violent conquest, and forced labor under systems like the encomienda combined to devastate Indigenous societies.|疾病造成的人口崩溃、暴力征服与监护征赋制等强迫劳役制度相互叠加，摧毁了原住民社会。",
+    "rat_wrong": {
+      "B": "The catastrophes described were disease, conquest, and forced labor, not a natural earthquake.|本课所述的灾难是疾病、征服与强迫劳役，而不是自然地震。",
+      "C": "The lesson does not describe an Indigenous-organized trade boycott as a cause.|本课并未将原住民组织的贸易抵制描述为成因。",
+      "D": "The devastation unfolded over many decades, not a single year of drought.|这场灾难是在数十年间逐渐展开的，而不是一年的干旱。"
+    }
+  },
+  {
+    "id": "l5q2",
+    "q": "What was the typical sequence of catastrophes that struck Indigenous societies?",
+    "q_cn": "打击原住民社会的灾难，其典型顺序是怎样的？",
+    "options": [
+      "A. Disease arriving first, often followed by military conquest, then a colonial labor system|A. 疾病首先到来，随后往往是军事征服，再之后是殖民劳役体系",
+      "B. Military conquest always arrived before any disease ever spread|B. 军事征服总是先于任何疾病的传播",
+      "C. Colonial labor systems were established centuries before any European contact|C. 殖民劳役体系在任何欧洲人接触之前数个世纪就已建立",
+      "D. All three catastrophes occurred simultaneously in a single day|D. 这三场灾难都在同一天同时发生"
+    ],
+    "correct": "A",
+    "rat_right": "This was an overlapping cascade: disease arriving first, often followed by military conquest, and then a colonial labor system.|这是一系列相互重叠的灾难：疾病首先到来，随后往往是军事征服，再之后是殖民劳役体系。",
+    "rat_wrong": {
+      "B": "Disease typically arrived before conquest, traveling ahead along existing networks.|疾病通常先于征服到来，沿着既有网络传播。",
+      "C": "Colonial labor systems were imposed after European contact, not before.|殖民劳役体系是在欧洲人接触之后才被强加的，而不是之前。",
+      "D": "This was a gradual cascade over time, not a single simultaneous day.|这是一个随时间逐渐展开的连锁过程，而不是同一天同时发生的事件。"
+    }
+  },
+  {
+    "id": "l5q3",
+    "q": "What labor shortage problem did European colonizers face as Indigenous populations collapsed?",
+    "q_cn": "随着原住民人口的崩溃，欧洲殖民者面临着什么样的劳动力短缺问题？",
+    "options": [
+      "A. A severe shortage of workers for sugar, tobacco, and silver-mining operations|A. 蔗糖、烟草与银矿作业中工人的严重短缺",
+      "B. Too many workers, leading to widespread unemployment|B. 工人过多，导致大规模失业",
+      "C. A shortage of ships to transport European settlers|C. 运送欧洲移民的船只短缺",
+      "D. A shortage of maps needed for navigation|D. 导航所需地图的短缺"
+    ],
+    "correct": "A",
+    "rat_right": "European colonizers faced a severe labor shortage on their sugar, tobacco, and silver-mining operations as Indigenous populations collapsed.|随着原住民人口的崩溃，欧洲殖民者在其蔗糖、烟草与银矿作业中面临严重的劳动力短缺。",
+    "rat_wrong": {
+      "B": "The problem was a labor shortage, the opposite of a labor surplus.|问题在于劳动力短缺，而不是劳动力过剩。",
+      "C": "The shortage was specifically of plantation and mining labor, not ships.|这一短缺特指种植园与矿场的劳动力，而不是船只。",
+      "D": "The shortage described is about labor, unrelated to maps.|本课所述的短缺是关于劳动力的，与地图无关。"
+    }
+  },
+  {
+    "id": "l5q4",
+    "q": "What was the direct economic driver behind the origins of the Atlantic slave trade, according to this lesson?",
+    "q_cn": "根据本课内容，大西洋奴隶贸易兴起背后的直接经济驱动力是什么？",
+    "options": [
+      "A. The labor shortage caused by Indigenous demographic collapse|A. 原住民人口崩溃所导致的劳动力短缺",
+      "B. A religious requirement with no economic motivation|B. 一项没有经济动机的宗教要求",
+      "C. A decision made entirely by Indigenous leaders|C. 完全由原住民领袖做出的决定",
+      "D. A shortage of silver in European treasuries|D. 欧洲国库中白银的短缺"
+    ],
+    "correct": "A",
+    "rat_right": "The labor shortage from Indigenous demographic collapse was the direct economic driver behind the origins of the Atlantic slave trade.|原住民人口崩溃所导致的劳动力短缺，是大西洋奴隶贸易兴起背后的直接经济驱动力。",
+    "rat_wrong": {
+      "B": "The lesson frames this as an economic decision driven by labor demand, not religious requirement.|本课将其描述为由劳动力需求驱动的经济决定，而不是宗教要求。",
+      "C": "This was a decision made by European colonizers, not Indigenous leaders.|这是欧洲殖民者做出的决定，而不是原住民领袖。",
+      "D": "The driver was a labor shortage, not a silver shortage.|驱动因素是劳动力短缺，而不是白银短缺。"
+    }
+  },
+  {
+    "id": "l5q5",
+    "q": "What did colonizers do in response to the loss of Indigenous labor, according to the lesson?",
+    "q_cn": "根据本课内容，殖民者为应对原住民劳动力的流失采取了什么行动？",
+    "options": [
+      "A. They increasingly turned to enslaved Africans to replace the lost workforce|A. 他们越来越多地转向被奴役的非洲人，以取代失去的劳动力",
+      "B. They abandoned all plantations and mines permanently|B. 他们永久放弃了所有种植园与矿场",
+      "C. They reduced the demand for cash crops to zero|C. 他们将对经济作物的需求降为零",
+      "D. They relied entirely on European workers willing to relocate|D. 他们完全依赖愿意迁移的欧洲工人"
+    ],
+    "correct": "A",
+    "rat_right": "Plantation owners and mine operators increasingly turned to enslaved Africans to replace the lost Indigenous workforce.|种植园主与矿场主越来越多地转向被奴役的非洲人，以取代失去的原住民劳动力。",
+    "rat_wrong": {
+      "B": "Plantations and mines continued operating, now relying on enslaved African labor.|种植园与矿场继续运作，转而依靠被奴役的非洲劳动力。",
+      "C": "Demand for cash crops did not decrease, according to the lesson.|根据本课内容，对经济作物的需求并未减少。",
+      "D": "The lesson describes a shift to enslaved African labor, not European relocation.|本课描述的是转向被奴役的非洲劳动力，而不是欧洲人的迁移。"
+    }
+  },
+  {
+    "id": "l5q6",
+    "q": "What field of historical study does the lesson highlight as useful for understanding the true costs and benefits of this era?",
+    "q_cn": "本课强调哪个历史研究领域有助于理解这一时代真实的代价与收益？",
+    "options": [
+      "A. Demography, the statistical study of population|A. 人口统计学，即对人口的统计研究",
+      "B. Astronomy, the study of stars and planets|B. 天文学，即对星辰与行星的研究",
+      "C. Linguistics, the study of language structure|C. 语言学，即对语言结构的研究",
+      "D. Geology, the study of rocks and minerals|D. 地质学，即对岩石与矿物的研究"
+    ],
+    "correct": "A",
+    "rat_right": "Historians use demography — the statistical study of population — as a powerful tool for understanding the true costs and benefits of this era.|历史学家利用人口统计学——对人口的统计研究——作为理解这一时代真实代价与收益的有力工具。",
+    "rat_wrong": {
+      "B": "Astronomy was relevant to navigation tools earlier in the unit, not this analysis of costs and benefits.|天文学与本单元早前所学的航海工具相关，而不是本课对代价与收益的分析。",
+      "C": "Linguistics is not the field highlighted in this lesson.|语言学并非本课所强调的领域。",
+      "D": "Geology is not the field highlighted in this lesson.|地质学并非本课所强调的领域。"
+    }
+  },
+  {
+    "id": "l5q7",
+    "q": "According to the comparison in the lesson, who largely benefited economically from this era of global interaction?",
+    "q_cn": "根据本课中的比较，这一全球互动时代主要的经济获益方是谁？",
+    "options": [
+      "A. European crowns, merchants, and joint-stock company investors|A. 欧洲王室、商人与股份制公司投资者",
+      "B. Indigenous American communities exclusively|B. 仅有美洲原住民社区",
+      "C. West and Central African societies exclusively|C. 仅有西非与中非社会",
+      "D. No group benefited economically in any way|D. 没有任何群体在经济上有所获益"
+    ],
+    "correct": "A",
+    "rat_right": "European crowns and merchants, along with joint-stock company investors, largely benefited from silver, sugar, and trade profits.|欧洲王室与商人，连同股份制公司投资者，主要从白银、蔗糖与贸易利润中获益。",
+    "rat_wrong": {
+      "B": "Indigenous American communities bore catastrophic costs, not the primary economic benefits.|美洲原住民社区承受的是灾难性的代价，而不是主要的经济收益。",
+      "C": "West and Central African societies experienced demographic upheaval, not the primary economic benefit described.|西非与中非社会经历的是人口剧变，而不是本课所述的主要经济收益。",
+      "D": "European economies grew dramatically richer, according to the lesson.|根据本课内容，欧洲经济变得显著更加富裕。"
+    }
+  },
+  {
+    "id": "l5q8",
+    "q": "According to the table comparing benefits and costs, which group bore the greatest cost?",
+    "q_cn": "根据比较收益与代价的表格，哪个群体承担了最大的代价？",
+    "options": [
+      "A. Indigenous Americans and West/Central African societies|A. 美洲原住民以及西非与中非社会",
+      "B. European crowns and merchants|B. 欧洲王室与商人",
+      "C. Joint-stock company investors|C. 股份制公司投资者",
+      "D. No group bore any cost at all during this era|D. 在这一时代没有任何群体承担任何代价"
+    ],
+    "correct": "A",
+    "rat_right": "Indigenous Americans suffered demographic collapse and forced labor, while West and Central African societies experienced demographic upheaval from rising demand for enslaved labor.|美洲原住民遭受了人口崩溃与强迫劳役，而西非与中非社会则因被奴役劳动力需求的上升而经历了人口剧变。",
+    "rat_wrong": {
+      "B": "European crowns and merchants are described as benefiting, not bearing the greatest cost.|欧洲王室与商人被描述为获益方，而不是承担最大代价的一方。",
+      "C": "Joint-stock company investors are described as benefiting, not bearing the greatest cost.|股份制公司投资者被描述为获益方，而不是承担最大代价的一方。",
+      "D": "The lesson clearly identifies groups that bore catastrophic costs.|本课明确指出了承受灾难性代价的群体。"
+    }
+  },
+  {
+    "id": "l5q9",
+    "q": "What does comparing population, wealth, and labor data side by side reveal, according to the lesson?",
+    "q_cn": "根据本课内容，将人口、财富与劳役数据并列比较揭示了什么？",
+    "options": [
+      "A. A stark pattern where benefits and costs of global interaction fell on very different groups of people|A. 一种鲜明的规律：全球互动的收益与代价落在了截然不同的群体身上",
+      "B. That every group experienced exactly equal benefits and costs|B. 每个群体经历的收益与代价完全相等",
+      "C. That there was no meaningful difference between regions|C. 各地区之间没有任何有意义的差异",
+      "D. That global interaction had no measurable economic effects anywhere|D. 全球互动在任何地方都没有可衡量的经济影响"
+    ],
+    "correct": "A",
+    "rat_right": "Comparing the data reveals a stark and uncomfortable pattern: the benefits and costs of global interaction fell on very different groups of people.|比较这些数据揭示出一种鲜明而令人不安的规律：全球互动的收益与代价落在了截然不同的群体身上。",
+    "rat_wrong": {
+      "B": "The pattern is one of stark inequality, not equal distribution.|这一规律呈现的是鲜明的不平等，而不是均等分配。",
+      "C": "The comparison reveals significant regional differences, not an absence of difference.|这一比较揭示了显著的地区差异，而不是差异的缺失。",
+      "D": "The data shows major economic effects, both positive and catastrophic.|这些数据显示出重大的经济影响，既有积极的也有灾难性的。"
+    }
+  },
+  {
+    "id": "l5q10",
+    "q": "How does this lesson set up the topic of the next day's lessons?",
+    "q_cn": "本课如何为接下来一天的课程主题做铺垫？",
+    "options": [
+      "A. It establishes that labor shortages drove demand for enslaved Africans, leading directly into an in-depth study of the transatlantic slave trade|A. 它确立了劳动力短缺驱动了对被奴役非洲人的需求，直接引出对跨大西洋奴隶贸易的深入研究",
+      "B. It has no connection to any future lessons in the unit|B. 它与本单元后续任何课程都没有关联",
+      "C. It concludes the unit entirely with no further topics to study|C. 它彻底结束了本单元，没有更多主题需要学习",
+      "D. It shifts focus entirely away from Africa toward unrelated topics|D. 它将焦点完全从非洲转移到无关的主题"
+    ],
+    "correct": "A",
+    "rat_right": "This lesson establishes the labor shortage that drove demand for enslaved Africans, setting the stage for the next lesson's deep examination of the transatlantic slave trade.|本课确立了驱动对被奴役非洲人需求的劳动力短缺，为下一课深入探讨跨大西洋奴隶贸易奠定了基础。",
+    "rat_wrong": {
+      "B": "The lesson explicitly previews the next lesson's focus on the slave trade.|本课明确预告了下一课将聚焦于奴隶贸易。",
+      "C": "This lesson sets up further study rather than concluding the unit.|本课为进一步学习做铺垫，而不是结束本单元。",
+      "D": "The lesson explicitly moves toward deeper focus on West African societies, not away from Africa.|本课明确转向更深入地聚焦西非社会，而不是远离非洲。"
+    }
+  }
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML =
+      '<div><span class="vocab-word">' + v.word + '</span><span class="vocab-pos">' + v.pos + '</span></div>' +
+      '<div class="vocab-cn">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-def" style="font-family:\'Noto Sans SC\',sans-serif;color:#4b5563;margin-top:3px;font-size:.82rem">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">"' + v.example + '"</div>';
+    var btn = document.createElement('button');
+    btn.className = 'tts-btn';
+    btn.textContent = '🔊 ' + v.word;
+    btn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(v.word + '. ' + v.def);
+      u.lang = 'en-US';
+      speechSynthesis.speak(u);
+    });
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(questions, containerId, tabKey, answerStore) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = (idx + 1) + '. ' + q.q;
+    block.appendChild(qText);
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+    var answered = false;
+    var buttons = [];
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0];
+      var cnText = parts[1] || '';
+      var letter = enText.charAt(0);
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.textContent = enText + (cnText ? '  (' + cnText + ')' : '');
+      buttons.push(btn);
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answerStore[q.id] = letter;
+        buttons.forEach(function(b) { b.disabled = true; });
+        var isCorrect = letter === q.correct;
+        buttons.forEach(function(b) {
+          if (b.textContent.charAt(0) === q.correct) b.classList.add('correct');
+        });
+        if (!isCorrect) btn.classList.add('wrong');
+        var rat = document.createElement('div');
+        rat.className = 'rationale' + (isCorrect ? '' : ' wrong-rat');
+        rat.style.display = 'block';
+        var ratParts = (isCorrect ? q.rat_right : (q.rat_wrong[letter] || q.rat_right)).split('|');
+        rat.textContent = ratParts[0] + (ratParts[1] ? ' · ' + ratParts[1] : '');
+        block.appendChild(rat);
+        addProgress(1);
+        checkReadiness(tabKey);
+      });
+      block.appendChild(btn);
+    });
+    container.appendChild(block);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var ansMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var answeredCount = Object.keys(ansMap[tabKey]).length;
+  var ready = answeredCount >= qMap[tabKey].length && ref1.value.trim().length > 0 && ref2.value.trim().length > 0 && grat.value.trim().length > 0;
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.style.display = 'none';
+  } else {
+    btn.classList.remove('ready');
+    hint.style.display = 'block';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2', 'Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Impact of the Crusades',
+    l2: 'Genghis Khan and the Mongol Empire',
+    l3: 'Why the Mongols Were So Effective',
+    l4: 'Prosperity in Song China',
+    l5: 'Shoguns, Samurai and Medieval Japan'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  if (Object.keys(answers).length < questions.length) return;
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  if (!ref1 || !ref2 || !grat) return;
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — DAY 9\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + ref1 + '\n\n';
+  txt += 'Reflection 2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day9_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+ 
+ 
+function checkReadiness(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var ansMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var answeredCount = Object.keys(ansMap[tabKey]).length;
+  var ready = answeredCount >= qMap[tabKey].length && ref1.value.trim().length > 0 && ref2.value.trim().length > 0 && grat.value.trim().length > 0;
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.style.display = 'none';
+  } else {
+    btn.classList.remove('ready');
+    hint.style.display = 'block';
+  }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2', 'Grat'].forEach(function(sfx) {
+    var el = document.getElementById(tabKey + sfx);
+    if (el) el.addEventListener('input', function() { checkReadiness(tabKey); });
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+  var storeMap = { l1: l1Answers, l2: l2Answers, l3: l3Answers, l4: l4Answers, l5: l5Answers };
+  var qMap = { l1: L1_Q, l2: L2_Q, l3: L3_Q, l4: L4_Q, l5: L5_Q };
+  var labelMap = {
+    l1: 'Age of Exploration: Navigation & Global Trade',
+    l2: 'European Voyages & Conquest',
+    l3: 'Oceanic Empires & Plantation Economies',
+    l4: 'The Columbian Exchange',
+    l5: 'Indigenous Impact & the Origins of Slavery'
+  };
+  var answers = storeMap[tabKey];
+  var questions = qMap[tabKey];
+  if (Object.keys(answers).length < questions.length) return;
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  if (!ref1 || !ref2 || !grat) return;
+  var score = 0;
+  questions.forEach(function(q) { if (answers[q.id] === q.correct) score++; });
+  var now = new Date();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — Day 11\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + now.toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Leaves: ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '================================================================\n\n';
+  txt += 'QUIZ RESULTS:\n';
+  questions.forEach(function(q, i) {
+    var chosen = answers[q.id] || 'No answer';
+    var correct = q.correct;
+    var result = chosen === correct ? 'CORRECT' : 'INCORRECT';
+    txt += (i+1) + '. ' + result + ' | Selected: ' + chosen + ' | Correct: ' + correct + '\n';
+    txt += '   Q: ' + q.q + '\n\n';
+  });
+  txt += '================================================================\n\n';
+  txt += 'STUDENT REFLECTIONS:\n\n';
+  txt += 'Reflection 1:\n' + ref1 + '\n\n';
+  txt += 'Reflection 2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_Day_11_' + labelMap[tabKey].replace(/\s+/g,'_') + '_' + name.replace(/\s+/g,'_') + '_' + now.toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'quiz-l1', 'l1', l1Answers);
+  buildQuiz(L2_Q, 'quiz-l2', 'l2', l2Answers);
+  buildQuiz(L3_Q, 'quiz-l3', 'l3', l3Answers);
+  buildQuiz(L4_Q, 'quiz-l4', 'l4', l4Answers);
+  buildQuiz(L5_Q, 'quiz-l5', 'l5', l5Answers);
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  document.getElementById('l1DownloadBtn').addEventListener('click', function() { tryDownload('l1'); });
+  document.getElementById('l2DownloadBtn').addEventListener('click', function() { tryDownload('l2'); });
+  document.getElementById('l3DownloadBtn').addEventListener('click', function() { tryDownload('l3'); });
+  document.getElementById('l4DownloadBtn').addEventListener('click', function() { tryDownload('l4'); });
+  document.getElementById('l5DownloadBtn').addEventListener('click', function() { tryDownload('l5'); });
+  startTimer();
+  trackNavigation();
+});
+</script>
+ 
+</body>
+</html>
