@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 12 — Atlantic Slave Trade, Scientific Revolution & Reformation | 大西洋奴隶贸易、科学革命与宗教改革</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);min-height:100vh}
+.anticheat-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+.site-header{background:linear-gradient(135deg,var(--ml-green-dark) 0%,var(--ml-green) 100%);color:#fff;padding:18px 24px 14px}
+.header-title{font-family:'Literata',serif;font-size:1.3rem;font-weight:600;line-height:1.3}
+.header-sub{font-size:.78rem;opacity:.75;margin-top:3px}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.leave-badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 12px;font-size:.8rem;white-space:nowrap}
+.progress-row{display:flex;align-items:center;gap:10px;margin-top:12px}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;transition:width .4s ease;width:0%}
+.pip-row{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);transition:background .3s}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:42px;z-index:900}
+.tab-btn{flex:none;padding:12px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;color:#6b7280;cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s}
+.tab-btn:hover{color:var(--ml-green)}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);font-weight:700}
+.tab-content{display:none;padding:28px 24px;max-width:860px;margin:0 auto}
+.tab-content.active{display:block}
+.section-head{font-family:'Literata',serif;font-size:1.35rem;font-weight:600;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:8px;margin-bottom:18px}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.05rem;font-weight:700;color:var(--ml-green-dark)}
+.vocab-pos{font-size:.72rem;color:#9ca3af;font-style:italic;margin-left:6px}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;font-size:1rem;font-weight:500;color:var(--cobalt);margin-top:3px}
+.vocab-def{font-size:.85rem;color:var(--ink2);margin-top:6px;line-height:1.5}
+.vocab-example{font-size:.8rem;color:#6b7280;font-style:italic;margin-top:5px;line-height:1.4}
+.tts-btn{background:var(--ml-green-light);border:none;border-radius:6px;padding:4px 10px;font-size:.75rem;color:var(--ml-green-dark);cursor:pointer;margin-top:8px;font-weight:600}
+.tts-btn:hover{background:#b7e4c7}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.name-row label{font-size:.85rem;font-weight:600;color:var(--ink2)}
+.name-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.9rem;width:220px}
+.name-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.concept-card h3{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:10px}
+.concept-card p{font-size:.88rem;line-height:1.7;color:var(--ink2)}
+.cn{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+.callout{border-left:4px solid var(--ml-gold);background:var(--amber-light);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6}
+.callout strong{color:var(--amber)}
+.callout-blue{border-left:4px solid var(--cobalt);background:#e8f0fa;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6;color:var(--cobalt)}
+.callout-red{border-left:4px solid #c1121f;background:#fee2e2;padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;line-height:1.6;color:#7f1d1d}
+.compare-table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+.compare-table th{background:var(--ml-green);color:#fff;padding:8px 12px;text-align:left;font-weight:600}
+.compare-table td{padding:8px 12px;border:1px solid var(--border);vertical-align:top;line-height:1.5}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.quiz-section-head{font-family:'Literata',serif;font-size:1.05rem;font-weight:600;color:var(--cobalt);margin:28px 0 6px}
+.quiz-instruction{font-size:.82rem;color:#6b7280;margin-bottom:14px}
+.q-block{background:#fff;border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:14px}
+.q-passage{background:#f8faf8;border:1px solid var(--border);border-radius:7px;padding:12px 16px;font-size:.84rem;line-height:1.7;color:var(--ink2);margin-bottom:10px;font-family:'Literata',serif}
+.q-text{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5}
+.q-cn{font-family:'Noto Sans SC',sans-serif;font-size:.82rem;color:#6b7280;margin-bottom:10px}
+.opt-btn{display:block;width:100%;text-align:left;padding:9px 13px;margin-bottom:6px;border:1px solid var(--border);border-radius:7px;background:#fafafa;font-family:'DM Sans',sans-serif;font-size:.85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.opt-btn:hover:not(:disabled){background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.correct{background:#d1fae5;border-color:#059669;font-weight:600;color:#065f46}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.opt-btn:disabled{cursor:default}
+.rationale{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:.82rem;line-height:1.5;background:#f0fdf4;border-left:3px solid #059669;color:#065f46;display:none}
+.rationale.show{display:block}
+.reflect-section{background:#fff;border:1px solid var(--border);border-radius:10px;padding:22px;margin-top:26px}
+.reflect-section h3{font-family:'Literata',serif;font-size:1rem;font-weight:600;color:var(--ml-green-dark);margin-bottom:14px}
+.reflect-q{font-size:.87rem;font-weight:600;color:var(--ink2);margin-bottom:6px}
+.reflect-q .cn{font-size:.8rem;color:#6b7280;font-weight:400;display:block;margin-top:2px}
+textarea{width:100%;border:1px solid var(--border);border-radius:7px;padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;line-height:1.6;resize:vertical;min-height:80px;margin-bottom:14px}
+textarea:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.grat-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.grat-row label{font-size:.87rem;font-weight:600;color:var(--ink2)}
+.grat-row input{border:1px solid var(--border);border-radius:7px;padding:7px 12px;font-family:'DM Sans',sans-serif;font-size:.85rem;flex:1;min-width:160px}
+.grat-row input:focus{outline:2px solid var(--ml-green);border-color:transparent}
+.download-btn{display:block;width:100%;padding:12px;border-radius:8px;border:none;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;text-align:center;cursor:not-allowed;background:#d1d5db;color:#9ca3af;transition:all .3s;margin-top:4px}
+.download-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer}
+.download-btn.ready:hover{background:var(--ml-green-dark)}
+.hint-text{font-size:.78rem;color:#9ca3af;text-align:center;margin-top:6px}
+.timer-widget{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.82rem;font-weight:700;z-index:999;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+@media(max-width:600px){.tab-content{padding:16px 12px}.name-row input{width:100%}}
+</style>
+</head>
+<body>
+ 
+<!-- ANTI-CHEAT LAYER 1 -->
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+ 
+<!-- ANTI-CHEAT LAYER 2 -->
+<div class="leave-notice" id="leaveNotice">
+  🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">Day 12 — Atlantic Slave Trade, Scientific Revolution &amp; Reformation</div>
+      <div class="header-sub cn">大西洋奴隶贸易、科学革命与宗教改革 · MLWS Social Studies</div>
+    </div>
+    <span class="leave-badge" id="leaveBadge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <span id="progressText" style="font-size:.78rem;white-space:nowrap;opacity:.9">Progress: 0% · 进度：0%</span>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.7rem;opacity:.7">Downloads:</span>
+    <div class="pip" id="pip-tab1" title="Transatlantic Slave Trade"></div>
+    <div class="pip" id="pip-tab2" title="Through a Ghanaian Lens"></div>
+    <div class="pip" id="pip-tab3" title="Scientific Revolution"></div>
+    <div class="pip" id="pip-tab4" title="Protestant Reformation"></div>
+    <div class="pip" id="pip-tab5" title="Counter-Reformation"></div>
+  </div>
+</header>
+ 
+<!-- TAB BAR -->
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('vocab',this)">📚 Vocab / 词汇</button>
+  <button class="tab-btn" onclick="switchTab('tab1',this)">Transatlantic Slave Trade</button>
+  <button class="tab-btn" onclick="switchTab('tab2',this)">Through a Ghanaian Lens</button>
+  <button class="tab-btn" onclick="switchTab('tab3',this)">Scientific Revolution &amp; Enlightenment</button>
+  <button class="tab-btn" onclick="switchTab('tab4',this)">Protestant Reformation</button>
+  <button class="tab-btn" onclick="switchTab('tab5',this)">Counter-Reformation</button>
+</nav>
+ 
+<!-- ══════════════ TAB: VOCAB ══════════════ -->
+<div class="tab-content active" id="tab-vocab">
+  <h2 class="section-head">Key Vocabulary · 关键词汇</h2>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- ══════════════ TAB 1: TRANSATLANTIC SLAVE TRADE ══════════════ -->
+<div class="tab-content" id="tab-tab1">
+  <div class="name-row">
+    <label for="tab1Name">Your Name · 姓名:</label>
+    <input type="text" id="tab1Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Transatlantic Slave Trade · 大西洋奴隶贸易</h2>
+ 
+  <div class="concept-card">
+    <h3>What Was the Transatlantic Slave Trade? · 大西洋奴隶贸易是什么？</h3>
+    <p>The Transatlantic Slave Trade was a massive forced migration of African people across the Atlantic Ocean between approximately 1500 and 1900. European traders — mainly from Portugal, Britain, France, Spain, and the Netherlands — captured or bought enslaved African people and transported them to the Americas to work on plantations producing sugar, tobacco, cotton, and other cash crops.</p>
+    <p style="margin-top:10px" class="cn">大西洋奴隶贸易是大约1500年至1900年间，非洲人被强迫穿越大西洋迁移的大规模运动。欧洲商人——主要来自葡萄牙、英国、法国、西班牙和荷兰——捕获或购买被奴役的非洲人，将其运往美洲，在种植园从事蔗糖、烟草、棉花等经济作物的生产。</p>
+    <div class="callout-red" style="margin-top:12px">
+      <strong>Scale of Suffering · 苦难的规模：</strong> Historians estimate that approximately 12.5 million African people were transported across the Atlantic. Millions more died during capture, imprisonment, and the horrific ocean crossing known as the Middle Passage. · 历史学家估计约有1250万非洲人被运过大西洋。更多人在被捕、监禁以及被称为"中间航程"的可怕海上旅途中死亡。
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Cape Coast Castle — Evidence in Stone · 科斯特角城堡——石头中的证据</h3>
+    <p>Cape Coast Castle in present-day Ghana is one of the most important historical sites of the slave trade. Built by the Swedish in 1653 and later controlled by the British, the castle served as a holding station where enslaved Africans were imprisoned in dark, overcrowded dungeons before being loaded onto ships.</p>
+    <p style="margin-top:8px">The physical structure tells the story: narrow underground dungeons built to hold hundreds of people at a time, tiny ventilation holes, and a "Door of No Return" — the gateway through which enslaved people walked directly onto the slave ships, never to see Africa again.</p>
+    <p style="margin-top:10px" class="cn">位于今加纳的科斯特角城堡是奴隶贸易最重要的历史遗址之一。城堡建于1653年，后由英国控制，充当关押站，被奴役的非洲人在被装上船前被关押在黑暗、拥挤的地牢里。建筑本身就诉说着历史：狭窄的地下牢房一次关押数百人，通风孔极小，还有一扇"不归之门"——被奴役者从这里走上奴隶船，再也见不到非洲大陆。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Triangle Trade · 三角贸易</h3>
+    <table class="compare-table">
+      <tr><th>Leg / 航段</th><th>Route / 路线</th><th>Goods / 货物</th></tr>
+      <tr><td><strong>First Leg 第一程</strong></td><td>Europe → West Africa</td><td>Guns, cloth, alcohol, metals · 枪支、布料、酒精、金属</td></tr>
+      <tr><td><strong>Middle Passage 中间航程</strong></td><td>West Africa → Americas</td><td>Enslaved African people · 被奴役的非洲人</td></tr>
+      <tr><td><strong>Third Leg 第三程</strong></td><td>Americas → Europe</td><td>Sugar, tobacco, cotton, rum · 蔗糖、烟草、棉花、朗姆酒</td></tr>
+    </table>
+    <div class="callout">
+      <strong>Key Insight · 关键认识：</strong> Each leg of the triangle made profit for European merchants. The entire system was built on the suffering and forced labor of African people, who received nothing in return. · 三角贸易的每一程都为欧洲商人带来利润。整个体系建立在非洲人的苦难和强迫劳动之上，而他们什么回报都没有。
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Economic Impact on West Africa · 对西非的经济影响</h3>
+    <p>The slave trade devastated West African economies and societies. Coastal kingdoms that participated in slave trading gained European weapons, but this created arms races and inter-African warfare. Millions of young men and women — the most productive members of society — were removed from their communities. This caused long-term economic underdevelopment that lasted for centuries.</p>
+    <p style="margin-top:8px">Some African rulers resisted the trade, while others participated as intermediaries. The trade was so powerful economically that it reshaped political alliances across the continent.</p>
+    <p style="margin-top:10px" class="cn">奴隶贸易摧毁了西非的经济和社会。参与奴隶贸易的沿海王国获得了欧洲武器，但这导致了军备竞赛和非洲内部战争。数百万年轻男女——社会中最有生产力的成员——被从社区中带走，造成了持续数个世纪的长期经济落后。一些非洲统治者抵制奴隶贸易，另一些则作为中间人参与其中。这一贸易在经济上影响巨大，重塑了整个非洲大陆的政治联盟。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Chattel Slavery · 动产奴隶制</h3>
+    <p>The form of slavery practiced in the Americas was called <em>chattel slavery</em>. "Chattel" means property. Under this system, enslaved people were legally treated as objects — they could be bought, sold, inherited, and used as collateral for loans. This was a uniquely brutal form of slavery because enslaved status was inherited — the children of enslaved people were automatically enslaved too.</p>
+    <p style="margin-top:10px" class="cn">美洲实行的奴隶制度被称为"动产奴隶制"。"动产"意为财产。在这一制度下，被奴役者在法律上被当作物品对待——可以被买卖、继承，也可以作为贷款抵押品。这是一种极其残酷的奴隶制，因为奴役身份是世袭的——被奴役者的孩子也自动成为奴隶。</p>
+  </div>
+ 
+  <div class="quiz-section-head">📝 Check Your Understanding · 检测理解</div>
+  <div class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后无法更改。</div>
+  <div id="quiz-tab1"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">1. The Transatlantic Slave Trade lasted nearly 400 years. Why do you think it was so difficult to stop, even when many people knew it was wrong?
+      <span class="cn">大西洋奴隶贸易持续了将近400年。你认为为什么即使很多人知道这是错的，它仍然如此难以停止？</span>
+    </div>
+    <textarea id="tab1Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="reflect-q">2. Cape Coast Castle still stands today as a museum. Why is it important to preserve places like this, even when they represent painful history?
+      <span class="cn">科斯特角城堡至今仍作为博物馆保存。为什么保留这样的地方很重要，即使它们代表着痛苦的历史？</span>
+    </div>
+    <textarea id="tab1Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="tab1Grat" placeholder="...">
+    </div>
+    <button class="download-btn" id="tab1DownloadBtn">⬇ Download My Work · 下载我的作业</button>
+    <div class="hint-text" id="tab1Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段后即可解锁下载。</div>
+  </div>
+</div>
+ 
+<!-- ══════════════ TAB 2: THROUGH A GHANAIAN LENS ══════════════ -->
+<div class="tab-content" id="tab-tab2">
+  <div class="name-row">
+    <label for="tab2Name">Your Name · 姓名:</label>
+    <input type="text" id="tab2Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Impact of the Slave Trade: Through a Ghanaian Lens · 从加纳视角看奴隶贸易的影响</h2>
+ 
+  <div class="concept-card">
+    <h3>Why Perspective Matters in History · 为什么视角在历史中很重要</h3>
+    <p>Most accounts of the Transatlantic Slave Trade were written from a European perspective — focusing on trade profits, ship logs, and plantation records. But the people most affected were Africans. Studying the trade through a West African lens reveals a completely different picture: communities shattered, families destroyed, and economies disrupted for generations.</p>
+    <p style="margin-top:10px" class="cn">大多数关于大西洋奴隶贸易的记述都是从欧洲视角写成的——关注贸易利润、船只日志和种植园记录。但受影响最大的是非洲人。从西非视角研究这一贸易，揭示出完全不同的图景：社区被摧毁，家庭被破坏，经济数代受到冲击。</p>
+    <div class="callout-blue">
+      <strong>Historian's Lens · 历史学家的视角：</strong> Oral traditions, community memory, and African-authored sources are essential for understanding how the slave trade was experienced from the inside. Ghana's role as a major exporter of enslaved people makes it a critical case study. · 口述传统、社区记忆和非洲人自己写成的史料，对于从内部理解奴隶贸易的经历至关重要。加纳作为被奴役者的主要输出国，是一个关键的案例研究。
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>West African Regions in the Atlantic Slave Trade · 大西洋奴隶贸易中的西非地区</h3>
+    <p>Different regions of West and Central Africa supplied enslaved people at different times. Each region had distinct political systems, cultures, and responses to the trade.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Region · 地区</th><th>Modern Location · 现代地区</th><th>Key Feature · 主要特征</th></tr>
+      <tr><td>Senegambia · 塞内冈比亚</td><td>Senegal, Gambia</td><td>Early trade region; Islamic states resisted · 早期贸易区，伊斯兰国家抵制</td></tr>
+      <tr><td>Gold Coast · 黄金海岸</td><td>Ghana</td><td>Cape Coast Castle; Akan kingdoms · 科斯特角城堡；阿坎王国</td></tr>
+      <tr><td>Bight of Benin · 贝宁湾</td><td>Togo, Benin, Nigeria</td><td>Largest single source; Dahomey Kingdom · 最大单一来源；达荷美王国</td></tr>
+      <tr><td>Bight of Biafra · 比亚法拉湾</td><td>Nigeria, Cameroon</td><td>Igbo and other peoples · 伊博族及其他民族</td></tr>
+      <tr><td>West Central Africa · 西中部非洲</td><td>Angola, Congo</td><td>Largest overall source; Kingdom of Kongo · 最大总体来源；刚果王国</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Demographic Consequences · 人口后果</h3>
+    <p>The loss of millions of people — especially young men and women between ages 15 and 35 — had devastating long-term effects on West African communities:</p>
+    <ul style="margin:10px 0 0 18px;font-size:.87rem;line-height:1.8;color:var(--ink2)">
+      <li><strong>Labor shortage:</strong> Fewer people to farm, build, and maintain communities · <span class="cn">劳动力短缺：从事农业、建设和维护社区的人减少</span></li>
+      <li><strong>Gender imbalance:</strong> Loss of young adults disrupted family formation and community structure · <span class="cn">性别失衡：年轻成年人的消失破坏了家庭组建和社区结构</span></li>
+      <li><strong>Increased warfare:</strong> Competition among African states to capture people for trade intensified conflicts · <span class="cn">战争增加：非洲各国之间为捕获人口用于贸易而进行的竞争加剧了冲突</span></li>
+      <li><strong>Political instability:</strong> States that traded in enslaved people grew powerful; others were weakened · <span class="cn">政治不稳定：参与奴隶贸易的国家变得强大，而其他国家则被削弱</span></li>
+    </ul>
+    <div class="callout" style="margin-top:14px">
+      <strong>Historical Debate · 历史争论：</strong> Economists Walter Rodney and Nathan Nunn have argued that the regions most affected by the slave trade are still among the poorest in Africa today — showing that this history has consequences reaching into the present. · 经济学家沃尔特·罗德尼和纳森·纳恩认为，受奴隶贸易影响最严重的地区，今天仍是非洲最贫穷的地区之一——这表明这段历史的影响延续至今。
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>How African Communities Changed · 非洲社区如何改变</h3>
+    <p>The slave trade did not just remove people — it transformed entire societies. Coastal African kingdoms that cooperated with European traders gained access to guns, which they used to raid inland communities. This created cycles of violence: guns → raids → more enslaved people → more guns.</p>
+    <p style="margin-top:8px">Some inland communities built fortified villages, moved to difficult terrain, or developed new political alliances to protect themselves. Fear and distrust spread across regions. Social bonds that had held communities together for generations were broken.</p>
+    <p style="margin-top:10px" class="cn">奴隶贸易不仅带走了人，还改变了整个社会。与欧洲商人合作的沿海非洲王国获得了枪支，并用来突袭内陆社区。这造成了暴力循环：枪支→突袭→更多被奴役者→更多枪支。一些内陆社区建造了设防村庄，迁移到难以到达的地形，或建立新的政治联盟来保护自己。恐惧和不信任在各地区蔓延。维系社区数代人的社会纽带就此断裂。</p>
+  </div>
+ 
+  <div class="quiz-section-head">📝 Check Your Understanding · 检测理解</div>
+  <div class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后无法更改。</div>
+  <div id="quiz-tab2"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">1. Why is it important to study the slave trade through an African perspective rather than only a European one? What details do we miss if we only focus on European records?
+      <span class="cn">为什么从非洲视角研究奴隶贸易很重要，而不仅仅是欧洲视角？如果只关注欧洲记录，我们会错过哪些细节？</span>
+    </div>
+    <textarea id="tab2Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="reflect-q">2. The slave trade ended over 150 years ago. Do you think countries that participated in the slave trade have a responsibility to help the communities that were harmed? Why or why not?
+      <span class="cn">奴隶贸易结束已超过150年。你认为参与奴隶贸易的国家是否有责任帮助受到伤害的社区？为什么？</span>
+    </div>
+    <textarea id="tab2Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="tab2Grat" placeholder="...">
+    </div>
+    <button class="download-btn" id="tab2DownloadBtn">⬇ Download My Work · 下载我的作业</button>
+    <div class="hint-text" id="tab2Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段后即可解锁下载。</div>
+  </div>
+</div>
+ 
+<!-- ══════════════ TAB 3: SCIENTIFIC REVOLUTION & ENLIGHTENMENT ══════════════ -->
+<div class="tab-content" id="tab-tab3">
+  <div class="name-row">
+    <label for="tab3Name">Your Name · 姓名:</label>
+    <input type="text" id="tab3Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Scientific Revolution &amp; Enlightenment · 科学革命与启蒙运动</h2>
+ 
+  <div class="concept-card">
+    <h3>What Was the Scientific Revolution? · 科学革命是什么？</h3>
+    <p>The Scientific Revolution (roughly 1543–1700) was a period when European thinkers began to challenge traditional explanations of the natural world. Instead of accepting religious doctrine or ancient Greek texts as the final word, scientists began using <em>observation</em>, <em>experimentation</em>, and <em>mathematics</em> to understand how the universe works.</p>
+    <p style="margin-top:10px" class="cn">科学革命（大约1543—1700年）是欧洲思想家开始挑战对自然界传统解释的时期。科学家们不再接受宗教教义或古希腊典籍作为最终答案，而是开始用观察、实验和数学来理解宇宙的运作方式。</p>
+    <div class="callout">
+      <strong>Big Shift · 重大转变：</strong> Before the Scientific Revolution, most Europeans believed what the Church said: the Earth was the center of the universe. After it, the evidence showed otherwise — and that willingness to follow evidence, not authority, changed everything. · 在科学革命之前，大多数欧洲人相信教会所说的：地球是宇宙的中心。之后，证据表明并非如此——这种跟随证据而非权威的意愿改变了一切。
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Copernicus and Heliocentrism · 哥白尼与日心说</h3>
+    <p>In 1543, Polish astronomer Nicolaus Copernicus published <em>On the Revolutions of the Celestial Spheres</em>, arguing that the <strong>Sun — not the Earth — was at the center of the solar system</strong>. This was called the <em>heliocentric</em> model (helios = Greek for sun).</p>
+    <p style="margin-top:8px">Before Copernicus, most people believed in the <em>geocentric</em> model (geo = Earth at center), which the Catholic Church supported because it matched scripture. Copernicus's idea was so controversial that he waited until he was dying to publish it.</p>
+    <table class="compare-table" style="margin-top:10px">
+      <tr><th>Model · 模型</th><th>Center · 中心</th><th>Supported by · 支持者</th></tr>
+      <tr><td>Geocentric · 地心说</td><td>Earth · 地球</td><td>Catholic Church, Aristotle · 天主教会、亚里士多德</td></tr>
+      <tr><td>Heliocentric · 日心说</td><td>Sun · 太阳</td><td>Copernicus, Galileo, Kepler · 哥白尼、伽利略、开普勒</td></tr>
+    </table>
+    <p style="margin-top:10px" class="cn">1543年，波兰天文学家尼古拉·哥白尼出版了《天球运行论》，主张太阳——而非地球——是太阳系的中心。这被称为日心说模型（helios = 希腊语"太阳"）。在哥白尼之前，大多数人相信地心说，天主教会也支持这一观点，因为它符合圣经记载。哥白尼的想法极具争议，以至于他等到临终才将其发表。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Key Figures of the Scientific Revolution · 科学革命的关键人物</h3>
+    <table class="compare-table">
+      <tr><th>Scientist · 科学家</th><th>Contribution · 贡献</th><th>Impact · 影响</th></tr>
+      <tr><td>Copernicus (1473–1543)</td><td>Heliocentric model · 日心说</td><td>Challenged Church authority on astronomy · 挑战教会在天文学上的权威</td></tr>
+      <tr><td>Galileo (1564–1642)</td><td>Telescope observations · 望远镜观测</td><td>Proved heliocentric model; tried by Inquisition · 证实日心说；受宗教裁判所审判</td></tr>
+      <tr><td>Kepler (1571–1630)</td><td>Laws of planetary motion · 行星运动定律</td><td>Planets move in ellipses, not circles · 行星沿椭圆而非圆形轨道运行</td></tr>
+      <tr><td>Newton (1643–1727)</td><td>Laws of gravity and motion · 重力与运动定律</td><td>Unified earthly and cosmic physics · 统一了地球与宇宙物理学</td></tr>
+    </table>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Enlightenment · 启蒙运动</h3>
+    <p>The Enlightenment (1680s–1800s) applied scientific thinking to human society and politics. Enlightenment thinkers — called <em>philosophes</em> — argued that reason, not tradition or religion, should guide laws and government. Key ideas included: individual rights, religious tolerance, democracy, and separation of government powers.</p>
+    <p style="margin-top:8px">These ideas would directly inspire the American Revolution (1776), French Revolution (1789), and eventually the abolition of slavery movements across the Atlantic world.</p>
+    <p style="margin-top:10px" class="cn">启蒙运动（1680年代—1800年代）将科学思维运用于人类社会和政治。启蒙思想家——被称为"哲学家"——主张理性而非传统或宗教应当指导法律和政府。核心思想包括：个人权利、宗教宽容、民主以及政府权力的分立。这些思想直接启发了美国革命（1776年）、法国大革命（1789年），并最终在大西洋世界各地推动了废奴运动。</p>
+    <div class="callout-blue">
+      <strong>Connection · 联系：</strong> Notice the irony: European colonizers used Enlightenment ideas about "civilization" to justify colonizing other peoples — even while those same ideas about rights and freedom were being used to argue against slavery. · 注意其中的讽刺：欧洲殖民者用启蒙运动中关于"文明"的理念为殖民其他民族辩护——尽管同样的关于权利和自由的思想也被用来反对奴隶制。
+    </div>
+  </div>
+ 
+  <div class="quiz-section-head">📝 Check Your Understanding · 检测理解</div>
+  <div class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后无法更改。</div>
+  <div id="quiz-tab3"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">1. The Scientific Revolution taught people to follow evidence rather than authority. Can you think of a modern example where people need to choose between evidence and what they have always been told to believe?
+      <span class="cn">科学革命教导人们跟随证据而非权威。你能想到一个现代的例子，人们需要在证据和他们一直被告知要相信的事情之间做出选择吗？</span>
+    </div>
+    <textarea id="tab3Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="reflect-q">2. Enlightenment ideas about freedom and rights were used both to end slavery AND to justify colonialism. How is it possible for the same ideas to be used in opposite ways?
+      <span class="cn">启蒙运动关于自由和权利的思想既被用来废除奴隶制，又被用来为殖民主义辩护。同样的思想怎么可能被以相反的方式使用？</span>
+    </div>
+    <textarea id="tab3Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="tab3Grat" placeholder="...">
+    </div>
+    <button class="download-btn" id="tab3DownloadBtn">⬇ Download My Work · 下载我的作业</button>
+    <div class="hint-text" id="tab3Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段后即可解锁下载。</div>
+  </div>
+</div>
+ 
+<!-- ══════════════ TAB 4: PROTESTANT REFORMATION ══════════════ -->
+<div class="tab-content" id="tab-tab4">
+  <div class="name-row">
+    <label for="tab4Name">Your Name · 姓名:</label>
+    <input type="text" id="tab4Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Protestant Reformation · 新教改革</h2>
+ 
+  <div class="concept-card">
+    <h3>The Catholic Church in the Early 1500s · 16世纪初的天主教会</h3>
+    <p>In early 16th-century Europe, the Roman Catholic Church was the most powerful institution in European life. It controlled education, marriage, burial, and morality. Kings and emperors needed the Pope's approval for important decisions. The Church also collected taxes and fees from ordinary people throughout Europe.</p>
+    <p style="margin-top:8px">By 1500, many Europeans felt the Church had become too focused on money and politics, and too far from its spiritual mission. Corruption was widespread — bishops and cardinals often bought their positions, and priests sometimes lived lavishly while their parishioners lived in poverty.</p>
+    <p style="margin-top:10px" class="cn">在16世纪初的欧洲，罗马天主教会是欧洲生活中最强大的机构。它控制着教育、婚姻、葬礼和道德。国王和皇帝需要教皇批准重要决定。教会还向整个欧洲的普通人征收税款和费用。到1500年，许多欧洲人认为教会过于关注金钱和政治，偏离了其精神使命。腐败现象普遍——主教和红衣主教经常购买职位，神父有时过着奢侈的生活，而他们的教区居民却生活贫困。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Martin Luther and His Crisis · 马丁·路德与他的危机</h3>
+    <p>Martin Luther (1483–1546) was a German monk and theology professor who became deeply troubled by a theological question: <em>How does a sinful human being find acceptance from a holy God?</em></p>
+    <p style="margin-top:8px">Luther studied the Bible intensely and found his answer in the writings of Saint Paul: <strong><em>sola fide</em></strong> — "faith alone." He concluded that salvation came through personal faith in God's grace, NOT through good works, rituals, or payments to the Church. This directly contradicted official Catholic teaching, which held that salvation required faith AND good works.</p>
+    <p style="margin-top:10px" class="cn">马丁·路德（1483—1546年）是一位德国修道士和神学教授，他深深困扰于一个神学问题：一个有罪的人怎样才能被圣洁的上帝接受？路德深入研究圣经，在使徒保罗的著作中找到了答案：唯独信仰——"sola fide"。他得出结论：救赎来自对上帝恩典的个人信仰，而非善行、仪式或向教会付款。这与官方天主教教义直接矛盾——后者认为救赎需要信仰与善行共同作用。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The 95 Theses and Indulgences · 九十五条论纲与赎罪券</h3>
+    <p>In 1517, Luther nailed (or sent in a letter) his <em>95 Theses</em> to the door of a church in Wittenberg, Germany. This was a list of 95 arguments against the practice of selling <strong>indulgences</strong> — certificates the Church sold that supposedly reduced a person's time in Purgatory after death.</p>
+    <p style="margin-top:8px">The sale of indulgences had been massively expanded by Pope Leo X to raise money to rebuild St. Peter's Basilica in Rome. Luther called this corrupt: you cannot buy God's forgiveness. The printing press had just been invented, and Luther's Theses spread across Europe rapidly — beginning the Reformation.</p>
+    <div class="callout-red" style="margin-top:12px">
+      <strong>Key Consequence · 关键后果：</strong> Luther was excommunicated (officially expelled from the Church) by Pope Leo X in 1521. At the Diet of Worms, he refused to recant his beliefs, famously saying he could not go against his conscience. He was declared an outlaw. · 路德于1521年被教皇利奥十世逐出教会（正式开除）。在沃尔姆斯帝国议会，他拒绝放弃自己的信仰，据说说出了"我的良心不允许我这样做"。他被宣布为法外之人。
+    </div>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Calvinism and the Spread of Protestantism · 加尔文主义与新教的传播</h3>
+    <p>Luther's ideas inspired others across Europe to break with Rome. John Calvin (1509–1564) in Geneva developed a strict form of Protestant Christianity called <em>Calvinism</em>. Calvin believed in <strong>predestination</strong> — the idea that God had already determined before birth who would be saved and who would not.</p>
+    <p style="margin-top:8px">Calvinist churches spread to France (Huguenots), Scotland (Presbyterians), England (Puritans), and the Netherlands. By the mid-1500s, Europe was permanently divided between Catholic and Protestant regions — a division that would lead to decades of religious wars.</p>
+    <p style="margin-top:10px" class="cn">路德的思想激励了整个欧洲的人们与罗马决裂。日内瓦的约翰·加尔文（1509—1564年）发展出一种严格的新教基督教形式，称为加尔文主义。加尔文相信"预定论"——上帝在出生前就已决定谁会得救，谁不会。加尔文教派教会传播到法国（胡格诺派）、苏格兰（长老会）、英格兰（清教徒）和荷兰。到16世纪中期，欧洲被永久地分裂为天主教和新教地区——这一分裂将导致数十年的宗教战争。</p>
+  </div>
+ 
+  <div class="quiz-section-head">📝 Check Your Understanding · 检测理解</div>
+  <div class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后无法更改。</div>
+  <div id="quiz-tab4"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">1. Luther believed that people could read and interpret the Bible for themselves, without the Church telling them what it meant. How do you think this idea changed European society?
+      <span class="cn">路德认为人们可以自己阅读和解释圣经，而无需教会告诉他们其含义。你认为这一思想如何改变了欧洲社会？</span>
+    </div>
+    <textarea id="tab4Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="reflect-q">2. The Reformation began partly because people were angry about corruption in a powerful institution. Can you think of a modern situation where people have demanded change from a powerful institution they felt had become corrupt or unfair?
+      <span class="cn">宗教改革的部分原因是人们对一个强大机构中腐败行为的愤怒。你能想到一个现代情境，人们要求一个他们认为腐败或不公正的强大机构做出改变吗？</span>
+    </div>
+    <textarea id="tab4Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="tab4Grat" placeholder="...">
+    </div>
+    <button class="download-btn" id="tab4DownloadBtn">⬇ Download My Work · 下载我的作业</button>
+    <div class="hint-text" id="tab4Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段后即可解锁下载。</div>
+  </div>
+</div>
+ 
+<!-- ══════════════ TAB 5: COUNTER-REFORMATION ══════════════ -->
+<div class="tab-content" id="tab-tab5">
+  <div class="name-row">
+    <label for="tab5Name">Your Name · 姓名:</label>
+    <input type="text" id="tab5Name" placeholder="First Last">
+  </div>
+  <h2 class="section-head">Counter-Reformation · 反宗教改革</h2>
+ 
+  <div class="concept-card">
+    <h3>The Catholic Church Responds · 天主教会的回应</h3>
+    <p>When the Protestant Reformation began rapidly spreading across Europe, the Catholic Church did not simply accept the loss of its followers. Instead, it launched its own reform movement — the <strong>Counter-Reformation</strong> (also called the Catholic Reformation). This was an effort to correct genuine abuses within the Church, reaffirm Catholic doctrine against Protestant challenges, and win back believers.</p>
+    <p style="margin-top:10px" class="cn">当新教改革迅速在欧洲蔓延时，天主教会并没有简单地接受失去信徒的现实。相反，它发起了自己的改革运动——反宗教改革（也称天主教改革）。这是一次努力，旨在纠正教会内部的真正滥权行为，重申天主教教义以对抗新教挑战，并赢回信徒。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Council of Trent (1545–1563) · 特伦托会议（1545—1563年）</h3>
+    <p>The most important Catholic response was the Council of Trent — a series of meetings held in the Italian city of Trent over 18 years. The Council made major decisions that defined modern Catholicism:</p>
+    <ul style="margin:10px 0 0 18px;font-size:.87rem;line-height:1.9;color:var(--ink2)">
+      <li><strong>Confirmed:</strong> Salvation requires both faith AND good works (directly opposing Luther) · <span class="cn">确认：救赎需要信仰与善行（直接反对路德）</span></li>
+      <li><strong>Confirmed:</strong> The Pope and Church tradition have authority alongside the Bible · <span class="cn">确认：教皇和教会传统与圣经一样具有权威</span></li>
+      <li><strong>Banned:</strong> Sale of indulgences and other abusive practices · <span class="cn">禁止：出售赎罪券和其他滥权行为</span></li>
+      <li><strong>Required:</strong> Better education and training for priests · <span class="cn">要求：更好地教育和培训神父</span></li>
+      <li><strong>Promoted:</strong> Religious art, music, and architecture to inspire faith · <span class="cn">推广：宗教艺术、音乐和建筑以激励信仰</span></li>
+    </ul>
+    <p style="margin-top:10px" class="cn">最重要的天主教回应是特伦托会议——在意大利城市特伦托举行的一系列历时18年的会议。会议做出了定义现代天主教的重大决定。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Jesuits — Soldiers of the Pope · 耶稣会——教皇的战士</h3>
+    <p>In 1540, Ignatius of Loyola founded the <strong>Society of Jesus</strong>, known as the <em>Jesuits</em>. This was a new religious order designed specifically to counter the Reformation. Jesuits were highly educated, strictly disciplined, and committed to spreading Catholicism through education and missionary work.</p>
+    <p style="margin-top:8px">Jesuits established universities and schools across Europe and beyond — including in China, India, and the Americas. They became the Catholic Church's most powerful intellectual and missionary force, helping to keep southern Europe, Poland, and parts of Germany Catholic while also spreading the faith globally.</p>
+    <p style="margin-top:10px" class="cn">1540年，罗耀拉的依纳爵创立了耶稣会。这是一个专门为对抗宗教改革而设计的新宗教修会。耶稣会士受过高等教育，纪律严明，致力于通过教育和传教工作传播天主教。耶稣会在欧洲及世界各地——包括中国、印度和美洲——建立了大学和学校。他们成为天主教会最强大的知识和传教力量，帮助南欧、波兰和德国部分地区保持天主教信仰，同时在全球传播信仰。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Iconoclasm and Religious Art · 圣像破坏与宗教艺术</h3>
+    <p><strong>Iconoclasm</strong> was the Protestant practice of destroying religious images, statues, and artwork in churches. Protestant reformers believed that paintings and statues of saints and the Virgin Mary encouraged idol worship, which they saw as sinful. Protestant churches became plain and simple in decoration.</p>
+    <p style="margin-top:8px">The Catholic Church responded in the opposite direction: it dramatically <em>increased</em> the use of religious art, music, and elaborate church decoration. This new artistic style — the <strong>Baroque</strong> — was designed to inspire awe and emotional connection to the Church, demonstrating that Catholicism was beautiful, powerful, and worth belonging to.</p>
+    <p style="margin-top:10px" class="cn">圣像破坏是新教徒摧毁教堂中宗教图像、雕像和艺术品的做法。新教改革者认为对圣徒和圣母玛利亚图像的绘画和雕塑助长了偶像崇拜，这被他们视为罪恶。新教教堂的装饰变得朴素简单。天主教会则朝相反的方向回应：大幅增加宗教艺术、音乐和精心的教堂装饰的使用。这种新的艺术风格——巴洛克风格——旨在激发对教会的敬畏和情感联系，展示天主教的美丽、力量和归属价值。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Wars of Religion · 宗教战争</h3>
+    <p>The split between Catholicism and Protestantism did not end peacefully. Across 16th and 17th-century Europe, religious differences mixed with political rivalries to create devastating wars. France experienced the <strong>Wars of Religion</strong> (1562–1598), including the <strong>St. Bartholomew's Day Massacre</strong> (1572) when thousands of Protestant Huguenots were killed by Catholic mobs.</p>
+    <p style="margin-top:8px">The <strong>Thirty Years' War</strong> (1618–1648) was the most destructive — a massive conflict fought mainly in Germany that killed up to 8 million people and destroyed entire cities. It ended with the Peace of Westphalia, which established that each ruler could determine the religion of his territory.</p>
+    <div class="callout" style="margin-top:12px">
+      <strong>Week 2 Synthesis · 第二周综合：</strong> By the end of Week 2, we see how religion, trade, exploration, and science were all connected. The Reformation fractured European unity. The slave trade built European wealth. The Scientific Revolution challenged traditional authority. These forces together shaped the modern world. · 到第二周结束时，我们看到宗教、贸易、探索和科学是如何相互联系的。宗教改革打破了欧洲的统一。奴隶贸易积累了欧洲的财富。科学革命挑战了传统权威。这些力量共同塑造了现代世界。
+    </div>
+  </div>
+ 
+  <div class="quiz-section-head">📝 Check Your Understanding · 检测理解</div>
+  <div class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后无法更改。</div>
+  <div id="quiz-tab5"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">1. Both the Reformation and the Counter-Reformation led to positive changes (like ending corruption and improving education) but also terrible violence. What does this tell us about how major change often happens in history?
+      <span class="cn">宗教改革和反宗教改革都带来了积极的变化（如终止腐败和改善教育），但也带来了可怕的暴力。这告诉我们历史上重大变革通常是如何发生的？</span>
+    </div>
+    <textarea id="tab5Ref1" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="reflect-q">2. Looking back at everything you have studied this week — slave trade, exploration, scientific revolution, and reformation — which event or change do you think had the biggest long-term impact on the world today? Explain your thinking.
+      <span class="cn">回顾本周学习的所有内容——奴隶贸易、探索、科学革命和宗教改革——你认为哪个事件或变化对今天的世界影响最为深远？请解释你的思考。</span>
+    </div>
+    <textarea id="tab5Ref2" placeholder="Write your answer here... 在此写下你的答案..."></textarea>
+ 
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="tab5Grat" placeholder="...">
+    </div>
+    <button class="download-btn" id="tab5DownloadBtn">⬇ Download My Work · 下载我的作业</button>
+    <div class="hint-text" id="tab5Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段后即可解锁下载。</div>
+  </div>
+</div>
+ 
+<!-- TIMER -->
+<div class="timer-widget" id="timer-display">⏱ 00:00</div>
+ 
+<script>
+/* ═══════════════ DATA ═══════════════ */
+ 
+const VOCAB = [
+  { word:"Transatlantic Slave Trade", pos:"noun phrase", cn:"大西洋奴隶贸易", def:"The forced transportation of millions of African people across the Atlantic Ocean to work as enslaved laborers in the Americas, primarily from 1500 to 1900.", cn_def:"1500年至1900年间，数百万非洲人被强迫横渡大西洋，在美洲充当奴役劳动者的运输活动。", example:"The Transatlantic Slave Trade caused the forced migration of an estimated 12.5 million African people." },
+  { word:"Middle Passage", pos:"noun phrase", cn:"中间航程", def:"The horrific sea journey from West Africa to the Americas in which enslaved Africans were transported in extremely overcrowded and brutal conditions on slave ships.", cn_def:"被奴役的非洲人在极度拥挤和残酷的条件下被运送的从西非到美洲的可怕海上旅途。", example:"Millions of people died during the Middle Passage due to disease, starvation, and violence." },
+  { word:"Chattel slavery", pos:"noun phrase", cn:"动产奴隶制", def:"A system in which enslaved people are treated as property that can be bought, sold, and inherited, with enslaved status automatically passed on to their children.", cn_def:"一种将被奴役者视为可被买卖和继承的财产的制度，被奴役的身份自动传给其子女。", example:"Under chattel slavery in the American South, a child born to an enslaved woman was also enslaved from birth." },
+  { word:"Diaspora", pos:"noun", cn:"离散群体", def:"The spread of a people from their original homeland to many different parts of the world, often by force or necessity.", cn_def:"一个民族从其原始家园散布到世界各地的现象，通常是被迫或出于必要。", example:"The African diaspora, caused largely by the slave trade, created vibrant African-descended communities across the Americas." },
+  { word:"Heliocentrism", pos:"noun", cn:"日心说", def:"The astronomical model in which the Sun is at the center of the solar system, with the Earth and other planets orbiting around it.", cn_def:"以太阳为太阳系中心、地球和其他行星围绕太阳运转的天文学模型。", example:"Copernicus's heliocentric model replaced centuries of belief that the Earth was the center of the universe." },
+  { word:"Empiricism", pos:"noun", cn:"经验主义", def:"The idea that knowledge comes from observation and experience rather than from tradition, religious authority, or pure reasoning.", cn_def:"知识来源于观察和经验而非传统、宗教权威或纯粹推理的思想。", example:"The Scientific Revolution was built on empiricism — scientists tested their ideas through experiment rather than accepting what the Church taught." },
+  { word:"Indulgence", pos:"noun", cn:"赎罪券", def:"In the medieval Catholic Church, a document sold by the Church that supposedly reduced the punishment a soul would receive in purgatory after death.", cn_def:"中世纪天主教会出售的一种文件，据称可以减少灵魂死后在炼狱中受到的惩罚。", example:"Martin Luther condemned the sale of indulgences as corrupt because he believed salvation could not be purchased with money." },
+  { word:"Sola fide", pos:"Latin phrase", cn:"唯独信仰", def:"Latin for 'faith alone.' The central Protestant idea that salvation comes through personal faith in God's grace, not through good works or Church rituals.", cn_def:"拉丁语，意为「唯独信仰」。新教的核心思想：救赎来自对上帝恩典的个人信仰，而非善行或教会仪式。", example:"Luther's teaching of sola fide directly challenged the Catholic Church's position that faith and good works together were required for salvation." },
+  { word:"Excommunication", pos:"noun", cn:"逐出教会", def:"The official act of expelling a person from the Catholic Church, denying them access to the sacraments and declaring them outside the community of believers.", cn_def:"将一个人正式驱逐出天主教会的行为，拒绝他们接受圣事，并宣布他们不属于信徒群体。", example:"Pope Leo X excommunicated Martin Luther in 1521 after Luther refused to withdraw his criticisms of the Church." },
+  { word:"Counter-Reformation", pos:"noun phrase", cn:"反宗教改革", def:"The Catholic Church's response to the Protestant Reformation, involving internal reforms, clarification of doctrine, and efforts to win back Protestant converts.", cn_def:"天主教会对新教改革的回应，包括内部改革、教义澄清以及赢回新教皈依者的努力。", example:"The Council of Trent was the most important event of the Counter-Reformation, redefining Catholic doctrine and eliminating corruption." },
+  { word:"Iconoclasm", pos:"noun", cn:"圣像破坏", def:"The destruction of religious images, statues, and artworks, practiced by some Protestant reformers who believed such images led to idol worship.", cn_def:"一些新教改革者实施的摧毁宗教图像、雕像和艺术品的行为，他们认为这些图像会导致偶像崇拜。", example:"During the Reformation, iconoclasm swept through Protestant regions, and many medieval artworks in churches were destroyed." },
+  { word:"Predestination", pos:"noun", cn:"预定论", def:"The Calvinist belief that God determined before a person's birth whether they would be saved or condemned, and that humans cannot change this outcome.", cn_def:"加尔文主义的信仰：上帝在一个人出生前就决定了他们是得救还是受谴责，人类无法改变这一结果。", example:"John Calvin's doctrine of predestination taught that God's choice of who to save was made before creation, not based on human behavior." }
+];
+ 
+const TAB1_Q = [
+  { id:"t1q1", q:"Approximately how many African people were transported across the Atlantic during the Transatlantic Slave Trade?", q_cn:"大西洋奴隶贸易期间，大约有多少非洲人被运过大西洋？", options:["A. 1 million|A. 100万","B. 5 million|B. 500万","C. 12.5 million|C. 1250万","D. 25 million|D. 2500万"], correct:"C", rat_right:"Historians estimate approximately 12.5 million enslaved Africans were transported across the Atlantic, making it one of the largest forced migrations in human history.|历史学家估计约有1250万被奴役的非洲人被运过大西洋，这是人类历史上最大规模的强制迁移之一。", rat_wrong:{ A:"1 million is far too low — this figure does not account for the full scale of the trade over nearly 400 years.|100万远远太低——这个数字没有考虑近400年间贸易的全部规模。", B:"5 million is too low. The trade's scale was far larger, spanning multiple centuries and continents.|500万太低。这一贸易的规模要大得多，跨越了多个世纪和大洲。", D:"25 million is an overestimate. The scholarly consensus is approximately 12.5 million transported, with millions more dying before reaching ships.|2500万是高估。学术界共识约为1250万人被运送，另有数百万人在登船前死亡。" } },
+  { id:"t1q2", q:"What was the 'Middle Passage'?", q_cn:"「中间航程」是什么？", options:["A. The land route across Africa used to capture enslaved people|A. 穿越非洲用于捕获被奴役者的陆路","B. The sea journey from West Africa to the Americas on slave ships|B. 奴隶船从西非到美洲的海上旅程","C. The trade route from Europe to Asia for spices|C. 从欧洲到亚洲的香料贸易路线","D. The path from plantations to ports in the Americas|D. 美洲种植园到港口的路径"], correct:"B", rat_right:"The Middle Passage refers to the horrific second leg of the triangular trade — the ocean crossing from West Africa to the Americas in severely overcrowded slave ships.|中间航程指三角贸易中可怕的第二程——从西非到美洲在极度拥挤的奴隶船上的海上旅程。", rat_wrong:{ A:"The land route for capturing people was part of the first stage of the trade, not the Middle Passage itself.|捕获人口的陆路是贸易第一阶段的组成部分，不是中间航程本身。", C:"The spice route to Asia is completely unrelated to the Atlantic slave trade and the Middle Passage.|通往亚洲的香料路线与大西洋奴隶贸易和中间航程完全无关。", D:"The route from plantations to ports was part of the third leg of the trade, after the Middle Passage had already ended.|从种植园到港口的路线是贸易第三程的组成部分，发生在中间航程结束之后。" } },
+  { id:"t1q3", q:"Cape Coast Castle in Ghana served primarily as a:", q_cn:"加纳的科斯特角城堡主要用作：", options:["A. A royal palace for the Ghanaian king|A. 加纳国王的皇家宫殿","B. A Christian mission and school|B. 基督教传教站和学校","C. A holding station where enslaved people were imprisoned before being shipped|C. 被奴役者在被装运前被关押的关押站","D. A Portuguese trading post for gold and ivory|D. 葡萄牙人的黄金和象牙贸易站"], correct:"C", rat_right:"Cape Coast Castle functioned as a holding station (or barracoon) where enslaved Africans were imprisoned in dungeons before being loaded onto slave ships bound for the Americas.|科斯特角城堡作为关押站（或奴隶营）使用，被奴役的非洲人在被装上前往美洲的奴隶船之前被关押在地牢里。", rat_wrong:{ A:"Cape Coast Castle was never a royal palace. It was a European fortification used to imprison and export enslaved people.|科斯特角城堡从未是皇家宫殿。它是欧洲人用于监禁和出口被奴役者的防御工事。", B:"While missionaries did operate in the region, Cape Coast Castle's primary and documented function was as a slave-trading fort.|虽然传教士确实在该地区活动，但科斯特角城堡的主要有据可查的功能是奴隶贸易要塞。", D:"Although the Gold Coast was originally named for its gold trade, Cape Coast Castle became a major center specifically for the slave trade, not gold.|尽管黄金海岸最初以黄金贸易命名，但科斯特角城堡成为了专门从事奴隶贸易的主要中心，而非黄金。" } },
+  { id:"t1q4", q:"In the triangular trade, what did European ships bring FROM Europe TO West Africa?", q_cn:"在三角贸易中，欧洲船只从欧洲带到西非的是什么？", options:["A. Sugar, tobacco, and rum|A. 蔗糖、烟草和朗姆酒","B. Enslaved African people|B. 被奴役的非洲人","C. Guns, cloth, alcohol, and metals|C. 枪支、布料、酒精和金属","D. Spices, silk, and porcelain|D. 香料、丝绸和瓷器"], correct:"C", rat_right:"The first leg of the triangular trade carried European manufactured goods — guns, cloth, alcohol, and metals — to West Africa, where they were exchanged for enslaved people.|三角贸易的第一程将欧洲制成品——枪支、布料、酒精和金属——运往西非，在那里以这些物品换取被奴役者。", rat_wrong:{ A:"Sugar, tobacco, and rum were produced in the Americas and carried back to Europe on the third leg of the triangle, not from Europe to Africa.|蔗糖、烟草和朗姆酒在美洲生产，在三角贸易第三程运回欧洲，而非从欧洲运往非洲。", B:"Enslaved African people were transported from Africa to the Americas — this was the Middle Passage, not the first leg.|被奴役的非洲人从非洲被运到美洲——这是中间航程，不是第一程。", D:"Spices, silk, and porcelain were goods of the Asian trade routes, not the Atlantic triangular trade.|香料、丝绸和瓷器是亚洲贸易路线的商品，不是大西洋三角贸易的商品。" } },
+  { id:"t1q5", q:"What does 'chattel' mean in the term 'chattel slavery'?", q_cn:"「动产奴隶制」中「动产」是什么意思？", options:["A. Dangerous or violent|A. 危险或暴力的","B. Property or moveable goods|B. 财产或动产","C. Foreign or imported|C. 外来或进口的","D. Agricultural or rural|D. 农业或农村的"], correct:"B", rat_right:"Chattel means property or moveable goods. Under chattel slavery, enslaved people were legally classified as property — they could be bought, sold, and inherited like any other possession.|动产是指财产或可移动物品。在动产奴隶制下，被奴役者在法律上被归类为财产——他们可以像其他任何财产一样被买卖和继承。", rat_wrong:{ A:"Dangerous or violent describes behaviors, not legal status. The term chattel is specifically a legal and economic term meaning property.|危险或暴力描述的是行为，而非法律身份。动产一词专门是指财产的法律和经济术语。", C:"Foreign or imported relates to the origin of goods. Chattel specifically refers to the legal ownership status of enslaved people as property.|外来或进口与商品的来源有关。动产专指被奴役者作为财产的法律所有权状态。", D:"Agricultural or rural describes where enslaved people often worked, not what chattel means. The legal definition is about property status.|农业或农村描述的是被奴役者经常工作的地方，而非动产的含义。法律定义是关于财产状态的。" } },
+  { id:"t1q6", q:"Which countries were most responsible for operating the Transatlantic Slave Trade?", q_cn:"哪些国家在大西洋奴隶贸易中负有最大责任？", options:["A. China, Japan, and Korea|A. 中国、日本和韩国","B. Portugal, Britain, France, Spain, and the Netherlands|B. 葡萄牙、英国、法国、西班牙和荷兰","C. Russia, Austria, and Prussia|C. 俄国、奥地利和普鲁士","D. Egypt, Morocco, and Ethiopia|D. 埃及、摩洛哥和埃塞俄比亚"], correct:"B", rat_right:"The major European slave-trading nations were Portugal, Britain, France, Spain, and the Netherlands. These countries built the ships, financed the voyages, and operated the plantation economies that depended on enslaved labor.|主要的欧洲奴隶贸易国是葡萄牙、英国、法国、西班牙和荷兰。这些国家建造船只、为航程提供资金，并经营依赖奴役劳动的种植园经济。", rat_wrong:{ A:"China, Japan, and Korea were not involved in the Transatlantic Slave Trade. This was a specifically Atlantic and European-organized trade system.|中国、日本和韩国没有参与大西洋奴隶贸易。这是一个专门的大西洋和欧洲组织的贸易体系。", C:"Russia, Austria, and Prussia were largely focused on Eastern European politics and did not operate significant Atlantic slave trading operations.|俄国、奥地利和普鲁士主要专注于东欧政治，没有进行重要的大西洋奴隶贸易活动。", D:"African nations were the source of enslaved people, but the trade was organized, financed, and directed by European powers, not North or East African states.|非洲国家是被奴役者的来源，但贸易由欧洲强国组织、资助和指导，而非北非或东非国家。" } },
+  { id:"t1q7", q:"The 'Door of No Return' at Cape Coast Castle symbolizes:", q_cn:"科斯特角城堡的「不归之门」象征着：", options:["A. The entrance to the castle where traders negotiated prices|A. 商人谈判价格的城堡入口","B. The gateway through which enslaved people passed onto slave ships, leaving Africa forever|B. 被奴役者踏上奴隶船、永别非洲的大门","C. The border between British and Dutch trading territories|C. 英国和荷兰贸易领土之间的边界","D. A ceremonial door used in traditional Ghanaian rituals|D. 加纳传统仪式中使用的礼仪之门"], correct:"B", rat_right:"The Door of No Return was the literal exit of Cape Coast Castle's dungeons, where enslaved people walked directly onto waiting slave ships — the last point of contact with African soil before the Middle Passage.|不归之门是科斯特角城堡地牢的实际出口，被奴役者从这里直接走上等待中的奴隶船——这是他们在中间航程前与非洲土地最后的接触点。", rat_wrong:{ A:"Price negotiations happened in the castle's upper floors and trading rooms, not at the Door of No Return, which was in the dungeon area.|价格谈判发生在城堡上层和交易室，而非位于地牢区域的不归之门。", C:"The Door of No Return is a physical doorway in Cape Coast Castle's dungeon level opening to the sea, not a territorial border marker.|不归之门是科斯特角城堡地牢层通向大海的实体门道，不是领土边界标志。", D:"The Door of No Return has no connection to traditional Ghanaian rituals. It was built by European slave traders as a functional loading point.|不归之门与加纳传统仪式没有任何联系。它是由欧洲奴隶商人作为功能性装载点建造的。" } },
+  { id:"t1q8", q:"The Transatlantic Slave Trade lasted approximately:", q_cn:"大西洋奴隶贸易大约持续了：", options:["A. 50 years (1800–1850)|A. 50年（1800—1850年）","B. 100 years (1700–1800)|B. 100年（1700—1800年）","C. 400 years (1500–1900)|C. 400年（1500—1900年）","D. 200 years (1600–1800)|D. 200年（1600—1800年）"], correct:"C", rat_right:"The Transatlantic Slave Trade lasted approximately 400 years, from around 1500 when the Portuguese first began transporting enslaved Africans to the Americas, until the late 1800s when it was finally suppressed.|大西洋奴隶贸易持续了大约400年，从1500年左右葡萄牙人首次开始将被奴役的非洲人运往美洲，直到19世纪晚期才被最终压制。", rat_wrong:{ A:"50 years is far too short. The trade began in the early 1500s and continued through multiple centuries, ending only in the late 1800s.|50年太短了。这一贸易始于1500年代初，持续了数个世纪，直到19世纪晚期才结束。", B:"100 years (1700-1800) covers only one century of the trade. The trade was already well-established before 1700 and continued well after 1800.|100年（1700—1800年）仅涵盖贸易的一个世纪。贸易在1700年之前就已经成熟，并在1800年之后继续进行。", D:"200 years significantly underestimates the duration. Portuguese traders began transporting enslaved Africans in the early 1500s, nearly 100 years before 1600.|200年大大低估了持续时间。葡萄牙商人在1500年代初就开始运输被奴役的非洲人，比1600年早了近100年。" } },
+  { id:"t1q9", q:"What cash crops were primarily produced using enslaved labor on American plantations?", q_cn:"美洲种植园主要使用被奴役劳动力生产哪些经济作物？", options:["A. Wheat, rye, and potatoes|A. 小麦、黑麦和土豆","B. Rice, spices, and tea|B. 大米、香料和茶叶","C. Sugar, tobacco, and cotton|C. 蔗糖、烟草和棉花","D. Silk, wool, and linen|D. 丝绸、羊毛和亚麻布"], correct:"C", rat_right:"The major plantation crops produced using enslaved labor were sugar (Caribbean), tobacco (Virginia and Maryland), and cotton (the American South). These crops drove demand for enslaved workers.|使用被奴役劳动力生产的主要种植园作物是蔗糖（加勒比地区）、烟草（弗吉尼亚和马里兰州）和棉花（美国南部）。这些作物推动了对被奴役工人的需求。", rat_wrong:{ A:"Wheat, rye, and potatoes were staple crops grown primarily by free farmers in Europe and North America, not plantation crops requiring enslaved labor.|小麦、黑麦和土豆是欧洲和北美自由农民种植的主要粮食作物，不是需要奴役劳动力的种植园作物。", B:"Rice, spices, and tea were primarily Asian trade goods. While some rice was grown in the American South using enslaved labor, spices and tea were not plantation crops in the Americas.|大米、香料和茶叶主要是亚洲贸易商品。虽然美国南部也用奴役劳动力种植一些水稻，但香料和茶叶不是美洲的种植园作物。", D:"Silk, wool, and linen are textile fibers produced through different processes — silk in East Asia, wool from sheep, linen from flax. These were not American plantation crops.|丝绸、羊毛和亚麻布是通过不同工序生产的纺织纤维——丝绸产自东亚、羊毛来自羊、亚麻布来自亚麻。这些都不是美洲的种植园作物。" } },
+  { id:"t1q10", q:"One long-term economic impact of the Transatlantic Slave Trade on West Africa was:", q_cn:"大西洋奴隶贸易对西非的一个长期经济影响是：", options:["A. It made West African countries wealthy and powerful|A. 它使西非国家变得富裕而强大","B. It created labor shortages and long-term economic underdevelopment|B. 它造成劳动力短缺和长期经济落后","C. It had no lasting effect because the trade ended many centuries ago|C. 它没有持久影响，因为贸易已在许多世纪前结束","D. It encouraged European investment that modernized West African cities|D. 它鼓励了欧洲投资，使西非城市现代化"], correct:"B", rat_right:"The removal of millions of young adults — the most economically productive members of society — caused severe labor shortages and economic disruption that contributed to long-term underdevelopment in the affected regions.|数百万年轻成年人——社会中经济上最有生产力的成员——被带走，造成了严重的劳动力短缺和经济混乱，导致受影响地区长期经济落后。", rat_wrong:{ A:"The trade did not make West African nations wealthy. While some rulers temporarily gained weapons and goods, the overall effect was devastating economic loss and political destabilization.|这一贸易并未使西非国家富裕。虽然一些统治者暂时获得了武器和商品，但总体效果是毁灭性的经济损失和政治不稳定。", C:"This is incorrect. Historians have demonstrated clear statistical links between the regions most affected by the slave trade and current levels of poverty in Africa.|这是不正确的。历史学家已经证明了受奴隶贸易影响最严重的地区与非洲目前贫困水平之间的明确统计联系。", D:"European powers did not invest in modernizing West Africa. Instead, they extracted resources and people, leaving communities economically weakened for generations.|欧洲强国并没有投资使西非现代化。相反，他们提取资源和人力，使社区在数代人内经济上都处于弱势地位。" } }
+];
+ 
+const TAB2_Q = [
+  { id:"t2q1", q:"Why is it important to study the Transatlantic Slave Trade from a West African perspective?", q_cn:"为什么从西非视角研究大西洋奴隶贸易很重要？", options:["A. Because African sources are more accurate than European sources|A. 因为非洲资料比欧洲资料更准确","B. Because most European records of the trade were destroyed|B. 因为大多数欧洲贸易记录已被销毁","C. Because the people most affected were Africans, and their experience reveals a different and essential perspective|C. 因为受影响最大的是非洲人，他们的经历揭示了不同且重要的视角","D. Because West African historians invented the concept of the slave trade|D. 因为西非历史学家发明了奴隶贸易的概念"], correct:"C", rat_right:"Studying from a West African perspective reveals the human cost and community destruction that European ship logs and profit records do not show. The people most harmed deserve to be centered in the history.|从西非视角研究揭示了欧洲船只日志和利润记录所没有显示的人类代价和社区破坏。受伤害最深的人应该成为历史的中心。", rat_wrong:{ A:"Historical accuracy is not about which culture wrote the sources — both African and European sources have value and limitations. The issue is whose experience is centered.|历史准确性不在于哪种文化写了资料——非洲和欧洲的资料都有价值和局限性。问题在于谁的经历被置于中心。", B:"European records of the slave trade were not destroyed — shipping records, plantation logs, and trade documents survive in abundance. The issue is that they do not tell the African experience.|欧洲的奴隶贸易记录没有被销毁——航运记录、种植园日志和贸易文件大量保存下来。问题在于它们没有讲述非洲人的经历。", D:"The concept of the slave trade as a historical phenomenon was not invented by any single group. The trade itself was a documented reality experienced by millions of people.|奴隶贸易作为历史现象的概念并非任何单一群体发明的。这一贸易本身是数百万人亲历的有据可查的现实。" } },
+  { id:"t2q2", q:"Which West African region supplied the largest overall number of enslaved people to the Atlantic trade?", q_cn:"哪个西非地区向大西洋贸易提供的被奴役者总数最多？", options:["A. Senegambia (Senegal and Gambia)|A. 塞内冈比亚（塞内加尔和冈比亚）","B. The Gold Coast (Ghana)|B. 黄金海岸（加纳）","C. The Bight of Benin (Togo, Benin, Nigeria)|C. 贝宁湾（多哥、贝宁、尼日利亚）","D. West Central Africa (Angola and Congo)|D. 西中部非洲（安哥拉和刚果）"], correct:"D", rat_right:"West Central Africa — especially the regions corresponding to modern Angola and the Congo — supplied the largest single group of enslaved people across the entire history of the Atlantic trade.|西中部非洲——尤其是相当于现代安哥拉和刚果的地区——在大西洋贸易的整个历史中提供了最大单一群体的被奴役者。", rat_wrong:{ A:"Senegambia was an important early region of the trade but supplied far fewer people overall than West Central Africa. Some Senegambian Islamic states also resisted the trade.|塞内冈比亚是贸易的重要早期地区，但总体上提供的人数远少于西中部非洲。一些塞内冈比亚伊斯兰国家也抵制了这一贸易。", B:"The Gold Coast (Ghana) was a significant source and home to Cape Coast Castle, but it did not supply the largest overall numbers compared to West Central Africa.|黄金海岸（加纳）是重要的来源地，也是科斯特角城堡的所在地，但与西中部非洲相比，它提供的总体数量并不是最多的。", C:"The Bight of Benin was indeed a major source — home to the powerful Dahomey Kingdom that actively traded in enslaved people — but West Central Africa exceeded it in total numbers.|贝宁湾确实是主要来源地——强大的达荷美王国积极参与被奴役者贸易——但西中部非洲的总数超过了它。" } },
+  { id:"t2q3", q:"What was one major demographic consequence of the slave trade on West African communities?", q_cn:"奴隶贸易对西非社区的一个主要人口后果是什么？", options:["A. Population increase due to improved European medicine|A. 因欧洲医学改善而人口增加","B. Loss of young men and women, causing labor shortages and gender imbalance|B. 年轻男女的流失，导致劳动力短缺和性别失衡","C. Rapid urbanization as people moved to coastal cities|C. 人们迁往沿海城市导致快速城市化","D. Increased food production through European agricultural technology|D. 通过欧洲农业技术增加粮食生产"], correct:"B", rat_right:"The trade primarily removed people aged 15–35 — the most economically productive age group. This created severe labor shortages, disrupted family formation, and caused lasting gender imbalances in affected communities.|这一贸易主要带走了15至35岁的人——经济上最有生产力的年龄段。这造成了严重的劳动力短缺，破坏了家庭组建，并在受影响的社区造成了持久的性别失衡。", rat_wrong:{ A:"Europeans did not bring improved medicine to West Africa; instead, they brought diseases. The trade caused population decline, not growth.|欧洲人没有向西非带来改善的医学；相反，他们带来了疾病。这一贸易导致人口减少，而非增长。", C:"The slave trade did not cause urbanization. Most enslaved people were taken from rural inland communities, and coastal cities grew primarily as European trading posts, not African population centers.|奴隶贸易没有导致城市化。大多数被奴役者来自内陆农村社区，沿海城市主要作为欧洲贸易站而非非洲人口中心而发展。", D:"European powers extracted people and resources from West Africa; they did not invest in or share agricultural technology with African communities.|欧洲强国从西非提取人员和资源；他们没有向非洲社区投资或分享农业技术。" } },
+  { id:"t2q4", q:"The 'cycle of violence' created by the slave trade in West Africa refers to:", q_cn:"奴隶贸易在西非造成的「暴力循环」是指：", options:["A. Revolts by enslaved people on plantations in the Americas|A. 被奴役者在美洲种植园的起义","B. Wars between European nations over control of slave trade routes|B. 欧洲国家之间争夺奴隶贸易路线控制权的战争","C. Coastal kingdoms using European guns to raid inland communities for more enslaved people|C. 沿海王国用欧洲枪支突袭内陆社区以获取更多被奴役者","D. Resistance movements that eventually ended the trade|D. 最终终结贸易的抵抗运动"], correct:"C", rat_right:"Coastal African kingdoms received European guns in exchange for enslaved people. They used those guns to raid inland communities for more captives, who were then sold for more guns. This self-reinforcing cycle devastated interior regions.|沿海非洲王国以被奴役者换取欧洲枪支。他们用这些枪支突袭内陆社区以获取更多被俘者，然后将他们卖换更多枪支。这种自我强化的循环摧毁了内陆地区。", rat_wrong:{ A:"Plantation revolts did occur in the Americas but are a separate phenomenon. The cycle of violence described here refers specifically to what happened within Africa itself.|种植园起义确实发生在美洲，但这是一个单独的现象。这里描述的暴力循环专指发生在非洲内部的情况。", B:"European nations did compete over trade routes, but this is not the cycle of violence described in the context of how the trade transformed African societies.|欧洲国家确实争夺贸易路线，但这不是在非洲社会转变这一背景下所描述的暴力循环。", D:"Resistance movements eventually helped end the trade, but this is a separate development. The cycle of violence refers to the internal African dynamic created by the trade, not its eventual end.|抵抗运动最终帮助终结了贸易，但这是一个单独的发展。暴力循环指的是贸易在非洲内部造成的动态，而非其最终终结。" } },
+  { id:"t2q5", q:"Historians like Walter Rodney and Nathan Nunn have argued that:", q_cn:"沃尔特·罗德尼和纳森·纳恩等历史学家认为：", options:["A. The slave trade actually helped West African economies by introducing trade networks|A. 奴隶贸易实际上通过引入贸易网络帮助了西非经济","B. Regions most affected by the slave trade remain among the poorest in Africa today|B. 受奴隶贸易影响最严重的地区今天仍是非洲最贫穷的地区之一","C. West Africa had already been poor before the slave trade began|C. 西非在奴隶贸易开始之前就已经贫穷","D. The effects of the slave trade disappeared within one generation|D. 奴隶贸易的影响在一代人内就消失了"], correct:"B", rat_right:"Both Rodney and Nunn have provided statistical evidence showing that regions most heavily affected by the Atlantic slave trade are still disproportionately poor today, demonstrating that this historical trauma has lasting economic consequences.|罗德尼和纳恩都提供了统计证据，表明受大西洋奴隶贸易影响最严重的地区今天仍然不成比例地贫穷，表明这一历史创伤有着持久的经济后果。", rat_wrong:{ A:"This claim has no support in the historical record. The slave trade devastated West African economies by removing labor, creating warfare, and redirecting local economies toward supplying captives.|这一说法在历史记录中没有依据。奴隶贸易通过带走劳动力、造成战争并将当地经济重新定向为提供被俘者来摧毁西非经济。", C:"West Africa had complex, wealthy, and sophisticated civilizations before the slave trade — including the Mali Empire (with Mansa Musa) and the Kingdom of Benin. Poverty came later, in large part due to the slave trade.|在奴隶贸易之前，西非拥有复杂、富裕和成熟的文明——包括马里帝国（曼萨·穆萨时期）和贝宁王国。贫困是后来才出现的，很大程度上是由于奴隶贸易。", D:"Both Rodney and Nunn argue the opposite — that the effects of the slave trade have been long-lasting and can be measured in present-day economic data.|罗德尼和纳恩都持相反观点——奴隶贸易的影响是持久的，可以在当今的经济数据中得到衡量。" } },
+  { id:"t2q6", q:"What happened to inland African communities that did not participate in the slave trade?", q_cn:"不参与奴隶贸易的非洲内陆社区发生了什么？", options:["A. They grew wealthy from taxing passing trade caravans|A. 他们通过对过往商队征税而变得富裕","B. They were often raided and their people captured by coastal kingdoms armed with European guns|B. 他们经常被装备着欧洲枪支的沿海王国突袭，人们被俘","C. They were protected by European traders who needed their resources|C. 他们受到需要其资源的欧洲商人的保护","D. They were unaffected because the trade only involved coastal areas|D. 他们未受影响，因为贸易只涉及沿海地区"], correct:"B", rat_right:"Inland communities were frequent targets of raids by coastal kingdoms that had obtained European firearms. Many built fortified villages or moved to difficult terrain to protect themselves from capture.|内陆社区经常成为获得欧洲枪支的沿海王国突袭的目标。许多社区建造了设防村庄或迁移到难以到达的地形以保护自己免遭俘获。", rat_wrong:{ A:"Inland communities did not grow wealthy from the slave trade. They were more often victims — raided and captured — than participants who could extract economic benefit.|内陆社区并没有从奴隶贸易中致富。他们更多是受害者——被突袭和俘获——而非能够获取经济利益的参与者。", C:"European traders had no interest in protecting inland communities. They wanted enslaved people and were willing to arm coastal kingdoms to get them, regardless of the impact on inland populations.|欧洲商人对保护内陆社区没有兴趣。他们想要被奴役者，并愿意武装沿海王国来获取，不管对内陆人口的影响如何。", D:"The trade's effects extended far beyond the coast. Raids penetrated hundreds of miles inland, and the fear and disruption it created spread throughout the continent.|这一贸易的影响远不止于沿海地区。突袭深入内陆数百英里，它所造成的恐惧和混乱蔓延至整个非洲大陆。" } },
+  { id:"t2q7", q:"The Dahomey Kingdom in the Bight of Benin region was notable for:", q_cn:"贝宁湾地区的达荷美王国以什么著称？", options:["A. Strongly resisting the Atlantic slave trade|A. 强烈抵制大西洋奴隶贸易","B. Being the first African kingdom to abolish slavery|B. 是第一个废除奴隶制的非洲王国","C. Actively participating in the slave trade and supplying large numbers of enslaved people|C. 积极参与奴隶贸易并提供大量被奴役者","D. Forming an alliance with European nations to control trade prices|D. 与欧洲国家结盟以控制贸易价格"], correct:"C", rat_right:"The Dahomey Kingdom was one of the most active African participants in the Atlantic slave trade, conducting raids on neighboring peoples and selling captives to European traders at the coast.|达荷美王国是大西洋奴隶贸易中最活跃的非洲参与者之一，对邻近民族进行突袭，并在海岸将被俘者卖给欧洲商人。", rat_wrong:{ A:"Dahomey did not resist the slave trade — it actively participated and grew powerful through it. Some other West African rulers did resist, but Dahomey was not among them.|达荷美并没有抵制奴隶贸易——它积极参与并因此变得强大。一些其他西非统治者确实进行了抵制，但达荷美不在其中。", B:"Dahomey was not the first to abolish slavery. The abolition movement grew in Europe and America, and formal abolition in West African societies came later and through complex processes.|达荷美不是第一个废除奴隶制的国家。废奴运动在欧洲和美国兴起，西非社会的正式废奴来得更晚，经历了复杂的过程。", D:"There is no historical record of Dahomey forming a price-control alliance with European nations. The trade relationship was more complex and often exploitative of African suppliers.|没有历史记录表明达荷美与欧洲国家建立了价格控制联盟。这种贸易关系更为复杂，通常是对非洲供应商的剥削。" } },
+  { id:"t2q8", q:"What term describes the global spread of African people and their descendants due largely to the slave trade?", q_cn:"哪个术语描述了主要由奴隶贸易导致的非洲人及其后裔在全球的扩散？", options:["A. Migration|A. 移民","B. Colonization|B. 殖民化","C. African diaspora|C. 非洲离散","D. Mercantilism|D. 重商主义"], correct:"C", rat_right:"The African diaspora refers to the global spread of African people and their descendants, created largely by the Transatlantic Slave Trade. Today, large African-descended communities exist across the Americas, Europe, and beyond.|非洲离散指的是主要由大西洋奴隶贸易造成的非洲人及其后裔在全球的扩散。今天，美洲、欧洲及世界各地都有大量非洲裔社区。", rat_wrong:{ A:"Migration is a general term for people moving from one place to another. The African diaspora is a specific historical phenomenon with distinct causes and consequences that require the more precise term.|移民是人们从一个地方迁移到另一个地方的一般术语。非洲离散是一个具有独特原因和后果的特定历史现象，需要更精确的术语。", B:"Colonization refers to one group settling in and controlling another's territory. While related to the slave trade, colonization describes European expansion, not the forced movement of African people.|殖民化指一个群体定居并控制另一个群体的领土。虽然与奴隶贸易有关，但殖民化描述的是欧洲扩张，而非非洲人的强制迁移。", D:"Mercantilism is an economic theory about building national wealth through trade and colonies. It relates to why European nations engaged in the trade, not to the experience of African people.|重商主义是一种关于通过贸易和殖民地积累国家财富的经济理论。它与欧洲国家参与贸易的原因有关，而非非洲人的经历。" } },
+  { id:"t2q9", q:"Why did some West African rulers participate in the slave trade even though it harmed African communities overall?", q_cn:"为什么一些西非统治者参与了奴隶贸易，尽管它总体上伤害了非洲社区？", options:["A. They did not know their captives would become permanently enslaved|A. 他们不知道被俘者会成为永久奴隶","B. They gained European weapons and goods that gave them military and political advantages over rivals|B. 他们获得了欧洲武器和商品，这给了他们在与竞争对手的军事和政治上的优势","C. European traders forced all African rulers to participate or face destruction|C. 欧洲商人强迫所有非洲统治者参与，否则面临毁灭","D. They believed the people they sold would be treated fairly as workers in the Americas|D. 他们相信他们出售的人在美洲会被公平对待为工人"], correct:"B", rat_right:"African rulers who traded in enslaved people gained access to European guns, manufactured goods, and political prestige. In competitive regional politics, refusing to participate meant being at a military disadvantage against neighbors who did participate.|参与被奴役者贸易的非洲统治者获得了欧洲枪支、制成品和政治威望。在竞争激烈的地区政治中，拒绝参与意味着在军事上处于劣势，面对那些参与的邻国。", rat_wrong:{ A:"African rulers generally understood the nature of the trade they were participating in. Some may not have known the full brutality of the Middle Passage, but they knew captives were being permanently removed.|非洲统治者通常了解他们所参与的贸易的性质。一些人可能不知道中间航程的全部残酷性，但他们知道被俘者被永久带走了。", C:"Not all African rulers were forced to participate. Some strongly resisted, and their refusal is historically documented. The participation of many rulers was a response to political and military incentives, not pure coercion.|不是所有非洲统治者都被迫参与。一些人强烈抵制，他们的拒绝在历史上有记录。许多统治者的参与是对政治和军事激励的回应，而非纯粹的强制。", D:"The historical record shows that enslaved people in the Americas were treated as property under brutal conditions. While some African rulers may have had limited knowledge of plantation conditions, ignorance of consequences does not explain participation.|历史记录表明，美洲的被奴役者在残酷条件下被当作财产对待。虽然一些非洲统治者可能对种植园条件知之甚少，但对后果的无知并不能解释参与的原因。" } },
+  { id:"t2q10", q:"What type of historical source is particularly important for understanding the African experience of the slave trade, beyond European ship logs and records?", q_cn:"除欧洲船只日志和记录外，哪种历史资料对于理解非洲人的奴隶贸易经历特别重要？", options:["A. American plantation owner diaries|A. 美国种植园主日记","B. European government tax records|B. 欧洲政府税收记录","C. Oral traditions and community memory preserved in West African cultures|C. 西非文化中保存的口述传统和社区记忆","D. Scientific analyses of slave ship construction|D. 对奴隶船结构的科学分析"], correct:"C", rat_right:"Oral traditions — stories, songs, and histories passed down through generations — preserve African perspectives and experiences that written European records do not capture. They are essential for understanding the human impact of the slave trade from the inside.|口述传统——代代相传的故事、歌曲和历史——保存了欧洲书面记录所没有记录的非洲视角和经历。它们对于从内部理解奴隶贸易的人类影响至关重要。", rat_wrong:{ A:"Plantation owner diaries are European-American sources that document the enslaving class's perspective. They do not capture West African community experiences or the impact of the trade on African societies.|种植园主日记是欧美资料，记录了奴役阶级的视角。它们没有记录西非社区的经历或贸易对非洲社会的影响。", B:"European tax records document the economic value extracted from the trade for European governments. They do not contain African perspectives on the experience of losing community members to the trade.|欧洲税收记录记录了贸易为欧洲政府提取的经济价值。它们不包含关于社区成员在贸易中流失的非洲视角。", D:"Ship construction analysis can reveal conditions during the Middle Passage but tells us nothing about the African communities that lost people to the trade or how they understood and remembered the experience.|对船舶结构的分析可以揭示中间航程中的条件，但对于在贸易中失去人员的非洲社区，或他们如何理解和记忆这段经历，什么也说不了。" } }
+];
+ 
+const TAB3_Q = [
+  { id:"t3q1", q:"What did Nicolaus Copernicus argue in his 1543 publication?", q_cn:"尼古拉·哥白尼在其1543年的出版物中提出了什么主张？", options:["A. The Earth is flat and surrounded by ocean|A. 地球是平的，被海洋包围","B. The Sun, not the Earth, is at the center of the solar system|B. 太阳而非地球是太阳系的中心","C. The Moon controls the tides and seasons on Earth|C. 月球控制着地球的潮汐和季节","D. The stars are distant suns with their own planetary systems|D. 恒星是遥远的太阳，有自己的行星系统"], correct:"B", rat_right:"Copernicus argued for the heliocentric model — that the Sun is at the center of the solar system and the Earth orbits around it. This directly challenged centuries of geocentric thinking endorsed by the Church.|哥白尼主张日心说——太阳是太阳系的中心，地球围绕太阳运转。这直接挑战了教会认可的数百年的地心说思想。", rat_wrong:{ A:"Copernicus did not argue the Earth is flat. By his time, educated Europeans had long accepted that the Earth is spherical — the debate was about whether the Earth or Sun was at the center of the universe.|哥白尼没有主张地球是平的。在他的时代，受过教育的欧洲人早已接受地球是球形的——争论在于地球还是太阳在宇宙中心。", C:"While the Moon's influence on tides was understood in ancient times, this was not Copernicus's contribution. His work was specifically about the structure of the solar system.|虽然月球对潮汐的影响在古代就已被理解，但这不是哥白尼的贡献。他的工作专门关于太阳系的结构。", D:"The idea that stars are distant suns with their own planets was not proposed by Copernicus. He focused on showing that our Sun is at the center of our solar system.|恒星是遥远的太阳且拥有自己行星的思想并非哥白尼提出的。他专注于证明我们的太阳是太阳系的中心。" } },
+  { id:"t3q2", q:"What is the geocentric model of the universe?", q_cn:"宇宙的地心说是什么？", options:["A. The model in which the Sun is at the center of the solar system|A. 太阳位于太阳系中心的模型","B. The model in which the Earth is at the center of the universe|B. 地球位于宇宙中心的模型","C. The model in which gravity holds all planets in orbit|C. 重力使所有行星保持轨道的模型","D. The model in which the universe has no center|D. 宇宙没有中心的模型"], correct:"B", rat_right:"The geocentric model (geo = Earth) placed the Earth at the center of the universe, with the Sun, Moon, planets, and stars all orbiting around it. This model was supported by the Catholic Church because it matched their interpretation of scripture.|地心说（geo = 地球）将地球置于宇宙中心，太阳、月球、行星和恒星都围绕它运转。这一模型得到天主教会的支持，因为它符合他们对圣经的解释。", rat_wrong:{ A:"This describes the heliocentric model — the opposite of geocentric. Helios is Greek for sun, while geo is Greek for earth.|这描述的是日心说——地心说的对立面。Helios是希腊语「太阳」，而geo是希腊语「地球」。", C:"Gravity holding planets in orbit is Newton's contribution — it came over 100 years after Copernicus, and it describes a mechanism, not a model of what is at the center of the universe.|重力使行星保持轨道是牛顿的贡献——它比哥白尼晚了100多年，描述的是一种机制，而非宇宙中心是什么的模型。", D:"The idea that the universe has no center is a modern cosmological concept from the 20th century, completely separate from the geocentric vs. heliocentric debate of the Scientific Revolution.|宇宙没有中心的想法是20世纪的现代宇宙学概念，与科学革命中地心说与日心说的争论完全无关。" } },
+  { id:"t3q3", q:"Galileo Galilei was tried by the Inquisition because:", q_cn:"伽利略·伽利莱因何被宗教裁判所审判？", options:["A. He refused to pay Church taxes on his scientific publications|A. 他拒绝为其科学出版物缴纳教会税","B. He supported the heliocentric model, which contradicted Church teaching|B. 他支持日心说，这与教会教义相矛盾","C. He invented a weapon that the Church declared sinful|C. 他发明了一种教会宣称有罪的武器","D. He attempted to remove the Pope from political power|D. 他试图剥夺教皇的政治权力"], correct:"B", rat_right:"Galileo used telescopic observations to support the heliocentric model. The Church, which had endorsed geocentrism as consistent with scripture, put Galileo on trial for heresy and forced him to recant his support for Copernicus.|伽利略用望远镜观测支持日心说。教会认为地心说符合圣经，将伽利略以异端罪审判，并强迫他撤回对哥白尼的支持。", rat_wrong:{ A:"Galileo's conflict with the Church was theological and scientific, not financial. He was not persecuted for failing to pay taxes but for publishing ideas the Church considered heretical.|伽利略与教会的冲突是神学和科学上的，而非经济上的。他并非因未缴税款而受迫害，而是因发表教会认为是异端的观点。", C:"Galileo was a scientist and astronomer. His telescope was an observational tool, not a weapon. The Church's objection was to his astronomical conclusions, not to any technology.|伽利略是科学家和天文学家。他的望远镜是观测工具，不是武器。教会的反对针对的是他的天文学结论，而非任何技术。", D:"Galileo had no political agenda against the papacy. His conflict was entirely about scientific ideas — specifically his support for the Copernican heliocentric model.|伽利略没有反对教皇的政治议程。他的冲突完全关乎科学思想——具体是他对哥白尼日心说的支持。" } },
+  { id:"t3q4", q:"What was the key principle of the Scientific Revolution that replaced religious doctrine as the source of knowledge about nature?", q_cn:"科学革命的关键原则是什么，它取代了宗教教义作为自然知识来源的地位？", options:["A. Revelation — knowledge given directly by God to chosen individuals|A. 启示——上帝直接赐予选定个人的知识","B. Tradition — following methods used by ancient Greek philosophers|B. 传统——遵循古希腊哲学家使用的方法","C. Observation and experimentation — testing ideas against evidence|C. 观察和实验——用证据检验想法","D. Consensus — accepting ideas that most scholars agreed on|D. 共识——接受大多数学者同意的想法"], correct:"C", rat_right:"The Scientific Revolution established observation and experimentation as the foundation of knowledge. Instead of accepting what authority said was true, scientists designed experiments to test their ideas against real-world evidence — this became the scientific method.|科学革命确立了观察和实验作为知识的基础。科学家们没有接受权威说的是真实的，而是设计实验来用现实世界的证据检验他们的想法——这成为了科学方法。", rat_wrong:{ A:"Revelation is a religious concept — knowledge from God. The Scientific Revolution moved away from this approach toward empirical testing. These are opposite epistemologies.|启示是一个宗教概念——来自上帝的知识。科学革命从这种方法转向了实证检验。这些是对立的认识论。", B:"The Scientific Revolution actually challenged ancient Greek texts like Aristotle's, which the Church had adopted. Scientists found that observation often contradicted what ancient authorities had claimed.|科学革命实际上挑战了古希腊典籍，如亚里士多德的著作，这些著作已被教会采纳。科学家发现观察结果往往与古代权威的说法相矛盾。", D:"Scientific consensus matters, but it was not the founding principle of the Scientific Revolution. The revolution began with individuals (like Copernicus and Galileo) challenging the existing consensus through evidence.|科学共识很重要，但它不是科学革命的基础原则。这场革命始于个人（如哥白尼和伽利略）通过证据挑战现有共识。" } },
+  { id:"t3q5", q:"Isaac Newton's most famous contribution to the Scientific Revolution was:", q_cn:"艾萨克·牛顿对科学革命最著名的贡献是：", options:["A. Discovering that the Earth orbits the Sun|A. 发现地球绕太阳运转","B. Inventing the telescope and using it to observe Jupiter's moons|B. 发明望远镜并用它观测木星的卫星","C. Establishing the laws of gravity and motion that unified earthly and cosmic physics|C. 建立引力和运动定律，统一了地球和宇宙物理学","D. Creating the first accurate map of the solar system|D. 创建第一张精确的太阳系图"], correct:"C", rat_right:"Newton's laws of gravity and motion explained both how objects fall on Earth and how planets orbit the Sun, unifying physics in a single mathematical framework. This was one of the greatest intellectual achievements of the Scientific Revolution.|牛顿的引力和运动定律解释了物体在地球上如何下落以及行星如何绕太阳运转，在单一数学框架内统一了物理学。这是科学革命最伟大的智识成就之一。", rat_wrong:{ A:"The discovery that Earth orbits the Sun is credited to Copernicus, not Newton. Newton came over 100 years later and explained the mathematical reason why the Earth orbits the Sun.|发现地球绕太阳运转归功于哥白尼，而非牛顿。牛顿晚了100多年，解释了地球绕太阳运转的数学原因。", B:"The telescope was invented around 1608 (disputed, various claimants) and Galileo was the first to use it extensively for astronomical observation. Newton invented the reflecting telescope but is not credited with the original telescope.|望远镜大约发明于1608年（有争议，多方声索），伽利略是第一个将其广泛用于天文观测的人。牛顿发明了反射望远镜，但不被认定为最初望远镜的发明者。", D:"Creating accurate maps of the solar system was the work of multiple astronomers over time, including Kepler. Newton's contribution was mathematical — the laws governing motion, not cartography.|创建精确的太阳系图是包括开普勒在内的多位天文学家随时间完成的工作。牛顿的贡献是数学性的——控制运动的定律，而非制图。" } },
+  { id:"t3q6", q:"The Enlightenment built upon the Scientific Revolution by applying the principle of reason to:", q_cn:"启蒙运动建立在科学革命的基础上，将理性原则应用于：", options:["A. Astronomy and biology|A. 天文学和生物学","B. Church organization and ritual|B. 教会组织和仪式","C. Human society, politics, and government|C. 人类社会、政治和政府","D. Art, music, and architecture|D. 艺术、音乐和建筑"], correct:"C", rat_right:"The Enlightenment applied the Scientific Revolution's faith in reason and observation to human affairs — asking what form of government was rational, what rights humans naturally possessed, and how society should be organized.|启蒙运动将科学革命对理性和观察的信仰应用于人类事务——询问什么形式的政府是理性的、人类自然拥有哪些权利以及社会应如何组织。", rat_wrong:{ A:"The Scientific Revolution itself covered astronomy and biology. The Enlightenment's new contribution was applying reason specifically to society and politics, moving beyond natural science.|科学革命本身涵盖了天文学和生物学。启蒙运动的新贡献是将理性专门应用于社会和政治，超越了自然科学。", B:"The Enlightenment generally challenged Church authority rather than reforming Church organization from within. That was more the goal of the Counter-Reformation.|启蒙运动总体上挑战教会权威，而非从内部改革教会组织。后者更多是反宗教改革的目标。", D:"Enlightenment ideas influenced art (including the Baroque and Neoclassical periods), but the primary and defining contribution of the Enlightenment was to political philosophy and social theory.|启蒙运动思想影响了艺术（包括巴洛克和新古典主义时期），但启蒙运动的主要和决定性贡献是政治哲学和社会理论。" } },
+  { id:"t3q7", q:"Which of the following revolutions was most directly inspired by Enlightenment ideas about natural rights and government?", q_cn:"以下哪场革命最直接受到启蒙运动关于自然权利和政府思想的启发？", options:["A. The Industrial Revolution|A. 工业革命","B. The Agricultural Revolution|B. 农业革命","C. The American Revolution (1776)|C. 美国革命（1776年）","D. The Protestant Reformation|D. 新教改革"], correct:"C", rat_right:"The American Revolution was directly inspired by Enlightenment thinkers like John Locke, who argued that governments derive their authority from the consent of the governed and that people have natural rights to life, liberty, and property.|美国革命直接受到约翰·洛克等启蒙思想家的启发，他们认为政府的权威来自被统治者的同意，人们拥有生命、自由和财产的自然权利。", rat_wrong:{ A:"The Industrial Revolution was primarily driven by technological innovation and economic change, not Enlightenment political philosophy. It began in Britain with mechanized production.|工业革命主要由技术创新和经济变革驱动，而非启蒙政治哲学。它从英国的机械化生产开始。", B:"The Agricultural Revolution involved changes in farming methods and land use. It predates and is largely unrelated to Enlightenment political philosophy.|农业革命涉及农业方法和土地使用的变化。它早于启蒙运动政治哲学，且与之基本无关。", D:"The Protestant Reformation predates the Enlightenment. While it challenged Church authority (as the Enlightenment did), its motivation was religious faith, not rational analysis of natural rights and government.|新教改革早于启蒙运动。虽然它像启蒙运动一样挑战了教会权威，但其动机是宗教信仰，而非对自然权利和政府的理性分析。" } },
+  { id:"t3q8", q:"What is the main irony in how Enlightenment ideas were used during the age of colonialism?", q_cn:"在殖民主义时代，启蒙运动思想使用方式中的主要讽刺是什么？", options:["A. Enlightenment thinkers supported monarchy even while arguing for democracy|A. 启蒙思想家支持君主制，同时又主张民主","B. Ideas about freedom and rights were used to justify colonizing peoples who were denied those same freedoms|B. 关于自由和权利的思想被用来为殖民否定这些自由的民族辩护","C. Scientific methods were used to prove that European civilization was superior|C. 科学方法被用来证明欧洲文明的优越性","D. Enlightenment philosophers refused to travel to the colonies they wrote about|D. 启蒙哲学家拒绝前往他们所写的殖民地"], correct:"B", rat_right:"The central irony is that European thinkers arguing for liberty, equality, and natural rights were simultaneously living in societies that enslaved millions of Africans and colonized peoples around the world — often using those same ideas to justify superiority.|核心讽刺在于，主张自由、平等和自然权利的欧洲思想家，同时生活在奴役数百万非洲人并殖民世界各地民族的社会中——往往用同样的思想来为优越性辩护。", rat_wrong:{ A:"While some Enlightenment thinkers did support constitutional monarchy, this is not the main irony. The deeper contradiction is applying freedom arguments selectively — for Europeans but not colonized peoples.|虽然一些启蒙思想家确实支持君主立宪制，但这不是主要的讽刺。更深的矛盾是选择性地应用自由论点——适用于欧洲人，但不适用于被殖民的民族。", C:"While scientific racism did develop later, this was not what the lesson identifies as the main irony. The irony is about how freedom arguments coexisted with slavery and colonialism.|虽然科学种族主义后来确实发展起来，但这不是本课所指出的主要讽刺。讽刺在于自由论点如何与奴隶制和殖民主义共存。", D:"Some Enlightenment philosophers did travel to colonies. This is a minor biographical detail, not the central intellectual irony of Enlightenment thought.|一些启蒙哲学家确实前往了殖民地。这是一个次要的传记细节，而非启蒙思想的核心智识讽刺。" } },
+  { id:"t3q9", q:"Empiricism, as a core principle of the Scientific Revolution, means:", q_cn:"作为科学革命核心原则的经验主义意味着：", options:["A. Only scientists chosen by the Church can determine truth|A. 只有教会选定的科学家才能确定真理","B. Mathematical proof is the only valid source of knowledge|B. 数学证明是唯一有效的知识来源","C. Knowledge should come from observation and evidence, not authority or tradition alone|C. 知识应来自观察和证据，而非仅凭权威或传统","D. Ancient texts contain all knowledge needed for human progress|D. 古代典籍包含人类进步所需的全部知识"], correct:"C", rat_right:"Empiricism holds that real knowledge must be grounded in sensory experience — observation, measurement, and experiment. This was revolutionary because it challenged the authority of Church teachings and ancient texts that could not be verified through testing.|经验主义认为真正的知识必须建立在感官经验——观察、测量和实验的基础上。这是革命性的，因为它挑战了无法通过测试验证的教会教义和古代典籍的权威。", rat_wrong:{ A:"This is the opposite of empiricism. Empiricism is specifically about democratizing knowledge through evidence — anyone can observe and test. Church authority is precisely what empiricism challenged.|这与经验主义恰恰相反。经验主义专门关于通过证据使知识民主化——任何人都可以观察和测试。教会权威正是经验主义所挑战的。", B:"Mathematics is an important tool in science, but empiricism specifically refers to knowledge from observation and experience. Pure math (like geometry) can be done without empirical observation, while empiricism requires it.|数学是科学的重要工具，但经验主义专指来自观察和经验的知识。纯数学（如几何学）可以在没有实证观察的情况下完成，而经验主义则需要它。", D:"This describes the pre-Scientific Revolution approach — relying on ancient authorities like Aristotle. The Scientific Revolution rejected this in favor of fresh observation and experimentation.|这描述的是科学革命前的方法——依赖亚里士多德等古代权威。科学革命拒绝了这一点，转而支持新鲜的观察和实验。" } },
+  { id:"t3q10", q:"Johannes Kepler's contribution to the Scientific Revolution was:", q_cn:"约翰内斯·开普勒对科学革命的贡献是：", options:["A. Proving that the universe was infinite in size|A. 证明宇宙在大小上是无限的","B. Showing that planets travel in elliptical (oval) orbits, not perfect circles|B. 证明行星沿椭圆（卵形）轨道而非完美圆形轨道运行","C. Discovering that the Moon causes the Earth's ocean tides|C. 发现月球导致地球海洋潮汐","D. Identifying the chemical composition of the Sun|D. 确定太阳的化学成分"], correct:"B", rat_right:"Kepler discovered through careful mathematical analysis of astronomical data that planets follow elliptical orbits around the Sun — not the perfect circles that both geocentric and early heliocentric models assumed.|开普勒通过对天文数据的仔细数学分析发现，行星沿椭圆轨道绕太阳运行——而非地心说和早期日心说模型所假设的完美圆形。", rat_wrong:{ A:"The question of whether the universe is finite or infinite was debated by philosophers and later physicists, but this is not Kepler's contribution. His laws focused on the geometry of planetary motion.|宇宙是否有限的问题由哲学家和后来的物理学家讨论，但这不是开普勒的贡献。他的定律专注于行星运动的几何学。", C:"Understanding the relationship between the Moon and tides was developed over many centuries. While scientific understanding of tides improved during the Scientific Revolution (Newton connected gravity to tides), this is not specifically Kepler's contribution.|理解月球与潮汐之间的关系历经数个世纪。虽然科学革命期间对潮汐的科学理解有所提高（牛顿将引力与潮汐联系起来），但这不是开普勒的具体贡献。", D:"Identifying the chemical composition of the Sun required spectroscopy, which was not developed until the 19th century — long after Kepler's lifetime (1571-1630).|确定太阳的化学成分需要光谱学，这门学科直到19世纪才发展起来——远在开普勒（1571—1630年）去世之后。" } }
+];
+ 
+const TAB4_Q = [
+  { id:"t4q1", q:"Martin Luther's central theological teaching was called 'sola fide,' which means:", q_cn:"马丁·路德的核心神学教义被称为「唯独信仰」，这意味着：", options:["A. Faith and good works together are required for salvation|A. 信仰和善行共同是得救的必要条件","B. Salvation comes through personal faith in God's grace alone, not through works or rituals|B. 救赎只通过对上帝恩典的个人信仰实现，而非通过行为或仪式","C. The Pope alone has the authority to grant salvation|C. 只有教皇有权授予救赎","D. Good works are more important than faith for reaching heaven|D. 善行比信仰更重要以达到天堂"], correct:"B", rat_right:"Sola fide (Latin: faith alone) was Luther's core teaching — that salvation is a free gift from God received through personal faith, not earned through good works, rituals, buying indulgences, or Church mediation.|唯独信仰（拉丁语：唯独信仰）是路德的核心教义——救赎是上帝通过个人信仰给予的免费礼物，不是通过善行、仪式、购买赎罪券或教会中介获得的。", rat_wrong:{ A:"Faith AND good works is the Catholic position that Luther specifically rejected. Luther believed the Bible taught that faith alone was sufficient for salvation — works were a result of faith, not a cause of salvation.|信仰和善行共同是路德明确拒绝的天主教立场。路德认为圣经教导唯独信仰足以获得救赎——善行是信仰的结果，而非得救的原因。", C:"Luther actively rejected papal authority over salvation. His whole argument was that the relationship between God and the believer was direct — no Church intermediary required.|路德积极拒绝教皇对救赎的权威。他的整个论点是上帝与信徒之间的关系是直接的——不需要教会中介。", D:"Luther's position is precisely the opposite — he argued that faith is MORE important than works, and that works cannot earn salvation at all. Good works are evidence of faith, not the path to heaven.|路德的立场恰恰相反——他认为信仰比善行更重要，善行根本无法赢得救赎。善行是信仰的证据，而非通往天堂的道路。" } },
+  { id:"t4q2", q:"What were indulgences, and why did Luther condemn them?", q_cn:"赎罪券是什么，路德为什么谴责它们？", options:["A. Documents granting land to the Church; Luther said they were illegal|A. 向教会授予土地的文件；路德说它们是非法的","B. Church certificates sold to reduce punishment in purgatory; Luther said forgiveness cannot be purchased|B. 为减少炼狱惩罚而出售的教会证书；路德说宽恕不能被购买","C. Tax records used to track Church income; Luther said they were inaccurate|C. 用于追踪教会收入的税务记录；路德说它们不准确","D. Prayers said for the dead; Luther said they were ineffective|D. 为死者祈祷；路德说它们无效"], correct:"B", rat_right:"Indulgences were certificates sold by the Church promising to reduce a soul's time in purgatory after death. Luther condemned them because his theology taught that God's forgiveness is a free gift through faith — it cannot be bought.|赎罪券是教会出售的证书，承诺减少灵魂死后在炼狱中度过的时间。路德谴责它们，因为他的神学教导上帝的宽恕是通过信仰给予的免费礼物——不能被购买。", rat_wrong:{ A:"Indulgences were not land documents. They were spiritual certificates specifically related to reducing the punishment of sin in purgatory. Luther's objection was theological, not about land or legality.|赎罪券不是土地文件。它们是专门与减少炼狱中罪的惩罚相关的精神证书。路德的反对是神学上的，而非关于土地或合法性。", C:"Indulgences were not tax records. They were religious documents sold to individual believers. Luther's objection was that they corrupted the concept of divine grace by making it something you could buy.|赎罪券不是税务记录。它们是向个人信徒出售的宗教文件。路德的反对是它们通过使神圣恩典变成可购买的东西而败坏了这一概念。", D:"While Luther did object to some Church practices related to prayers for the dead, the indulgence issue was specifically about paying to reduce time in purgatory — and Luther's main objection was that grace cannot be purchased.|虽然路德确实反对一些与为死者祈祷相关的教会做法，但赎罪券问题专门关于付费减少炼狱时间——路德的主要反对是恩典不能被购买。" } },
+  { id:"t4q3", q:"What happened to Luther at the Diet of Worms (1521)?", q_cn:"路德在沃尔姆斯帝国议会（1521年）发生了什么？", options:["A. He was arrested and executed for heresy|A. 他因异端罪被逮捕并处决","B. He reconciled with the Pope and withdrew his criticisms|B. 他与教皇和解并撤回了批评","C. He refused to recant his beliefs and was declared an outlaw|C. 他拒绝放弃信仰并被宣布为法外之人","D. He was elected as the first Protestant bishop|D. 他被选为第一位新教主教"], correct:"C", rat_right:"At the Diet of Worms, Luther was commanded by Holy Roman Emperor Charles V to recant his writings. Luther refused, saying he could not go against scripture or his conscience. He was declared a heretic and an outlaw of the Empire.|在沃尔姆斯帝国议会，路德被神圣罗马帝国皇帝查理五世命令撤回他的著作。路德拒绝，说他不能违背圣经或自己的良心。他被宣布为异端和帝国的法外之人。", rat_wrong:{ A:"Luther was not executed. He was protected by Frederick the Wise, Elector of Saxony, who hid him at Wartburg Castle. There, Luther translated the New Testament into German.|路德没有被处决。他受到萨克森选帝侯腓特烈三世的保护，被藏在瓦尔特堡城堡。在那里，路德将新约翻译成德语。", B:"Luther did not reconcile with the Pope. He maintained his positions to the end of his life. The split between Lutheranism and Catholicism was permanent.|路德没有与教皇和解。他终其一生都坚持自己的立场。路德教与天主教之间的分裂是永久性的。", D:"Luther did not become a bishop in the traditional sense. He remained a theologian and pastor. Protestant churches developed their own organizational structures that were very different from the Catholic hierarchy.|路德没有成为传统意义上的主教。他仍然是一位神学家和牧师。新教教会发展出了与天主教等级制度截然不同的组织结构。" } },
+  { id:"t4q4", q:"Why was Pope Leo X selling indulgences on a massive scale in the early 1500s?", q_cn:"为什么教皇利奥十世在1500年代初大规模出售赎罪券？", options:["A. To fund military campaigns against the Ottoman Empire|A. 为对抗奥斯曼帝国的军事行动提供资金","B. To rebuild St. Peter's Basilica in Rome|B. 为重建罗马的圣彼得大教堂筹款","C. To pay debts from the Crusades|C. 偿还十字军东征的债务","D. To finance Catholic missionary expeditions to the Americas|D. 为天主教传教士前往美洲的远征提供资金"], correct:"B", rat_right:"Pope Leo X greatly expanded indulgence sales to raise money for the ambitious construction of St. Peter's Basilica in Rome. Luther found this use of spiritual power for fundraising deeply corrupt.|教皇利奥十世大幅扩大赎罪券销售，为雄心勃勃的罗马圣彼得大教堂建设筹款。路德认为这种将精神权力用于筹款的做法极度腐败。", rat_wrong:{ A:"While the Ottoman Empire was indeed a major threat in this period, the specific expansion of indulgence sales that triggered Luther's protest was connected to fundraising for St. Peter's Basilica, not military campaigns.|虽然奥斯曼帝国在这一时期确实是主要威胁，但触发路德抗议的赎罪券销售的具体扩大与为圣彼得大教堂筹款有关，而非军事行动。", C:"By the early 1500s, the Crusades had largely ended. The Church's debt issues were new ones, primarily related to the enormous cost of rebuilding and decorating St. Peter's.|到1500年代初，十字军东征基本已结束。教会的债务问题是新问题，主要与重建和装饰圣彼得大教堂的巨大费用有关。", D:"Catholic missionary expeditions were funded through other means. The specific trigger for Luther's 95 Theses was the indulgence campaign to fund St. Peter's construction in Rome.|天主教传教士远征通过其他方式筹资。路德《九十五条论纲》的具体导火索是为罗马圣彼得大教堂建设筹资的赎罪券活动。" } },
+  { id:"t4q5", q:"John Calvin's doctrine of predestination teaches that:", q_cn:"约翰·加尔文的预定论教义认为：", options:["A. People can earn salvation through prayer and fasting|A. 人们可以通过祈祷和斋戒赢得救赎","B. God determined before a person's birth who would be saved and who would not|B. 上帝在一个人出生前就决定了谁会得救，谁不会","C. Salvation is available to everyone who performs enough good works|C. 救赎对所有做了足够善行的人都可获得","D. The Church has the power to save or condemn any soul|D. 教会有权拯救或谴责任何灵魂"], correct:"B", rat_right:"Predestination is the Calvinist belief that God, in his infinite knowledge, determined before creation who would be saved (the 'elect') and who would be condemned. This divine decision cannot be changed by human actions.|预定论是加尔文主义的信仰：上帝凭借其无限的知识，在创造之前就决定了谁会得救（「选民」）以及谁会受到谴责。这一神圣决定不能被人类行为改变。", rat_wrong:{ A:"Earning salvation through prayer and fasting is a concept associated with other religious traditions. Calvin specifically rejected the idea that any human action could affect God's predetermined choice.|通过祈祷和斋戒赢得救赎是与其他宗教传统相关的概念。加尔文明确拒绝任何人类行为能影响上帝预定选择的想法。", C:"Universal salvation through good works is the Catholic position that both Luther and Calvin rejected. Calvin's view was even more restrictive — only the elect (pre-chosen by God) could be saved, regardless of their works.|通过善行获得普遍救赎是天主教立场，路德和加尔文都拒绝了这一立场。加尔文的观点更为严格——只有选民（上帝预先选择的人）才能得救，不论他们的行为。", D:"Predestination is precisely the belief that removes this power from the Church. Only God determines salvation — not the Pope, priests, sacraments, or any human institution.|预定论恰恰是消除教会这一权力的信仰。只有上帝决定救赎——而非教皇、神父、圣事或任何人类机构。" } },
+  { id:"t4q6", q:"What role did the printing press play in the Protestant Reformation?", q_cn:"印刷机在新教改革中扮演了什么角色？", options:["A. It allowed the Church to publish official responses faster than Luther could write|A. 它使教会能够比路德写作更快地发布官方回应","B. It had no significant effect — the Reformation spread mostly through sermons|B. 它没有显著影响——宗教改革主要通过布道传播","C. It allowed Luther's ideas to spread rapidly across Europe before the Church could suppress them|C. 它使路德的思想能够在教会镇压之前迅速传播到整个欧洲","D. It was used only by scholars to translate the Bible into Latin|D. 它只被学者用于将圣经翻译成拉丁语"], correct:"C", rat_right:"The printing press (invented by Gutenberg around 1440) allowed Luther's 95 Theses and other writings to be copied and distributed across Europe in weeks, reaching thousands of people before Church or imperial authorities could respond.|印刷机（约1440年由古腾堡发明）使路德的《九十五条论纲》和其他著作能够在数周内被复制并分发到整个欧洲，在教会或帝国当局能够回应之前就到达了成千上万的人。", rat_wrong:{ A:"The printing press helped Luther more than the Church. The Church was a slower-moving institution relying on established channels. Luther's ideas were new, provocative, and spread faster through print than official responses.|印刷机帮助路德更多于教会。教会是一个依赖既定渠道的行动迟缓的机构。路德的思想是新颖的、挑衅性的，通过印刷传播比官方回应更快。", B:"Sermons were important, but the printing press massively amplified the Reformation's spread. Luther himself credited print as crucial to his movement reaching people far beyond Wittenberg.|布道很重要，但印刷机极大地放大了宗教改革的传播。路德本人将印刷视为他的运动到达沃尔姆斯以外人群的关键因素。", D:"The Bible had been in Latin (the Vulgate) for centuries before the printing press. Luther actually translated the New Testament into German — the vernacular language — so ordinary people could read it. Print then spread his German translation widely.|圣经在印刷机出现之前就已经是拉丁文（武加大版）了几个世纪。路德实际上将新约翻译成了德语——本地语言——以便普通人能够阅读。印刷随后广泛传播了他的德语译本。" } },
+  { id:"t4q7", q:"Where did Calvinism spread after developing in Geneva, Switzerland?", q_cn:"加尔文主义在瑞士日内瓦发展后传播到了哪里？", options:["A. Only within Switzerland, as other countries rejected it|A. 只在瑞士境内，因为其他国家拒绝了它","B. To France, Scotland, England, and the Netherlands|B. 传播到法国、苏格兰、英格兰和荷兰","C. Primarily to Italy and Spain|C. 主要传播到意大利和西班牙","D. To the Ottoman Empire and parts of Asia|D. 传播到奥斯曼帝国和亚洲部分地区"], correct:"B", rat_right:"Calvinist churches spread widely: Huguenots in France, Presbyterians in Scotland, Puritans in England, and the Dutch Reformed Church in the Netherlands. These movements had enormous long-term political consequences.|加尔文教派教会广泛传播：法国的胡格诺派、苏格兰的长老会、英格兰的清教徒以及荷兰的荷兰归正宗。这些运动产生了巨大的长期政治后果。", rat_wrong:{ A:"Calvinism spread far beyond Switzerland. It became one of the most internationally influential Protestant denominations, particularly in France, Scotland, England, and the Netherlands.|加尔文主义远不止于瑞士。它成为最具国际影响力的新教教派之一，尤其是在法国、苏格兰、英格兰和荷兰。", C:"Italy and Spain remained strongly Catholic throughout the Reformation period. The Inquisition was particularly active in Spain in suppressing Protestant ideas. Calvinism had minimal presence in these countries.|意大利和西班牙在整个宗教改革时期保持强烈的天主教信仰。宗教裁判所在西班牙镇压新教思想方面特别活跃。加尔文主义在这些国家的影响极小。", D:"The Ottoman Empire was a Muslim state and was not significantly affected by the Christian Reformation debates. Asian countries were not directly involved in the Protestant-Catholic divisions of European Christianity.|奥斯曼帝国是伊斯兰国家，没有受到基督教改革辩论的重大影响。亚洲国家没有直接参与欧洲基督教的新教-天主教分裂。" } },
+  { id:"t4q8", q:"What problem within the Catholic Church most angered ordinary Europeans before the Reformation?", q_cn:"在宗教改革之前，天主教会内部的什么问题最让普通欧洲人愤怒？", options:["A. The Church's refusal to allow any translations of the Bible|A. 教会拒绝允许任何圣经翻译","B. The Church's support for the heliocentric model of the universe|B. 教会对日心说宇宙模型的支持","C. Widespread corruption — clergy buying positions, living lavishly while the poor suffered|C. 普遍腐败——神职人员购买职位，在穷人受苦时过着奢侈的生活","D. The Church's ban on all forms of art and music|D. 教会对所有形式艺术和音乐的禁止"], correct:"C", rat_right:"Corruption was the major grievance. Bishops and cardinals purchased their Church offices (simony), popes used Church funds for personal enrichment, and many clergy lived in wealth while teaching the poor to accept suffering patiently.|腐败是主要不满。主教和红衣主教购买教会职位（买卖圣职），教皇将教会资金用于个人致富，许多神职人员过着富裕的生活，同时教导穷人耐心接受苦难。", rat_wrong:{ A:"The Church did restrict Bible translation into vernacular languages (insisting on Latin), but this was more an issue for scholars and clergy than ordinary people. The corruption issue was more universally felt.|教会确实限制将圣经翻译成本地语言（坚持使用拉丁语），但这对学者和神职人员的影响大于普通人。腐败问题更具普遍性。", B:"The Church actually supported geocentrism, not heliocentrism — this was a later scientific controversy separate from the Reformation's primary causes.|教会实际上支持地心说，而非日心说——这是一个独立于宗教改革主要原因的后来的科学争议。", D:"The Catholic Church did not ban art and music — in fact, it was one of the greatest patrons of art, music, and architecture in European history. It was some Protestant reformers who rejected art in churches.|天主教会没有禁止艺术和音乐——事实上，它是欧洲历史上最伟大的艺术、音乐和建筑赞助人之一。是一些新教改革者拒绝了教堂中的艺术。" } },
+  { id:"t4q9", q:"Martin Luther's act of posting or sending his 95 Theses in 1517 was primarily a protest against:", q_cn:"马丁·路德1517年张贴或发送《九十五条论纲》的行为主要是对以下哪项的抗议？", options:["A. The Pope's political alliances with European kings|A. 教皇与欧洲国王的政治联盟","B. The sale of indulgences|B. 赎罪券的出售","C. The Catholic Church's involvement in the Crusades|C. 天主教会参与十字军东征","D. The Church's use of Latin in religious services|D. 教会在宗教仪式中使用拉丁语"], correct:"B", rat_right:"Luther's 95 Theses were specifically a theological argument against the practice of selling indulgences. The document challenged whether the Pope had the authority to grant remission of sins through a paid certificate.|路德的《九十五条论纲》专门是反对出售赎罪券做法的神学论证。该文件质疑教皇是否有权通过有偿证书授予赦免罪过。", rat_wrong:{ A:"Luther's 95 Theses did not address political alliances. His protest was specifically theological — about the nature of salvation and the Church's corrupt use of spiritual authority for financial gain.|路德的《九十五条论纲》没有涉及政治联盟。他的抗议专门是神学性的——关于救赎的本质以及教会将精神权威腐败地用于经济利益。", C:"The Crusades had largely ended by 1517. Luther's protest was not about the Crusades but about the specific practice of selling indulgences that was happening in his own time and place.|到1517年，十字军东征基本已结束。路德的抗议不是关于十字军东征，而是关于他那个时代和地方正在发生的出售赎罪券的具体做法。", D:"While Luther did later argue for Bible translation into vernacular languages, his 95 Theses were not about the language of services. The Church's use of Latin in worship was a different issue.|虽然路德后来确实主张将圣经翻译成本地语言，但他的《九十五条论纲》不是关于礼拜语言的。教会在礼拜中使用拉丁语是一个不同的问题。" } },
+  { id:"t4q10", q:"What year did Luther publish his 95 Theses, marking the traditional start of the Protestant Reformation?", q_cn:"路德哪年发表《九十五条论纲》，标志着新教改革的传统起点？", options:["A. 1492|A. 1492年","B. 1517|B. 1517年","C. 1545|C. 1545年","D. 1618|D. 1618年"], correct:"B", rat_right:"1517 is the traditional date marking the start of the Protestant Reformation, when Luther posted or sent his 95 Theses challenging the sale of indulgences. This was his first major public challenge to Church authority.|1517年是新教改革传统起点的标志性日期，当时路德张贴或发送了挑战赎罪券销售的《九十五条论纲》。这是他对教会权威的第一次重大公开挑战。", rat_wrong:{ A:"1492 is the year Columbus reached the Americas — a significant date in world history, but it is the start of European expansion in the Americas, not the Protestant Reformation.|1492年是哥伦布到达美洲的年份——世界历史上的一个重要日期，但它是欧洲在美洲扩张的起点，而非新教改革的起点。", C:"1545 was the opening year of the Council of Trent — the Catholic Church's response to the Reformation. By 1545, the Reformation had already been underway for nearly 30 years.|1545年是特伦托会议的开幕年——天主教会对宗教改革的回应。到1545年，宗教改革已经进行了将近30年。", D:"1618 is the start date of the Thirty Years' War, one of the devastating religious wars that resulted from the Reformation. It came over 100 years after Luther's 95 Theses.|1618年是三十年战争的开始日期，这是宗教改革导致的毁灭性宗教战争之一。它比路德《九十五条论纲》晚了100多年。" } }
+];
+ 
+const TAB5_Q = [
+  { id:"t5q1", q:"What was the Counter-Reformation?", q_cn:"反宗教改革是什么？", options:["A. A Protestant movement to counter Catholic missionary work in Asia|A. 对抗天主教在亚洲传教工作的新教运动","B. The Catholic Church's effort to reform itself and respond to the Protestant challenge|B. 天主教会自我改革并回应新教挑战的努力","C. A military campaign by Catholic kings to destroy Protestant churches|C. 天主教国王摧毁新教教堂的军事行动","D. The scientific movement that challenged both Catholic and Protestant teachings|D. 挑战天主教和新教教义的科学运动"], correct:"B", rat_right:"The Counter-Reformation was the Catholic Church's official response to the Protestant Reformation. It involved internal reforms (eliminating corruption), clarifying doctrine at the Council of Trent, and efforts to win back Protestants.|反宗教改革是天主教会对新教改革的官方回应。它涉及内部改革（消除腐败）、在特伦托会议上阐明教义以及赢回新教徒的努力。", rat_wrong:{ A:"The Counter-Reformation was a Catholic movement, not a Protestant one. While Protestant missionaries did go to Asia, this describes the opposite — the Catholic Church's response to Protestantism in Europe.|反宗教改革是天主教运动，而非新教运动。虽然新教传教士确实去了亚洲，但这描述的恰恰相反——天主教会对欧洲新教的回应。", C:"While religious wars did occur (like the Thirty Years' War), the Counter-Reformation was primarily a theological and institutional reform movement, not just a military campaign.|虽然宗教战争确实发生了（如三十年战争），但反宗教改革主要是神学和制度改革运动，而非仅仅是军事行动。", D:"The Counter-Reformation was specifically a Catholic religious reform movement. While it existed at the same time as the Scientific Revolution, the two were separate phenomena with different goals.|反宗教改革专门是天主教宗教改革运动。虽然它与科学革命同时存在，但两者是具有不同目标的独立现象。" } },
+  { id:"t5q2", q:"The Council of Trent (1545–1563) was important because it:", q_cn:"特伦托会议（1545—1563年）很重要，因为它：", options:["A. Accepted Luther's teaching of sola fide and agreed to reform Church finances|A. 接受了路德的唯独信仰教义并同意改革教会财政","B. Redefined Catholic doctrine, eliminated corrupt practices, and established training standards for clergy|B. 重新定义了天主教教义，消除了腐败行为，并为神职人员建立了培训标准","C. Banned all forms of religious art throughout the Catholic world|C. 在整个天主教世界禁止所有形式的宗教艺术","D. Made the Pope the political ruler of all Catholic nations|D. 使教皇成为所有天主教国家的政治统治者"], correct:"B", rat_right:"The Council of Trent clarified Catholic doctrine (reaffirming that salvation requires faith AND good works), banned corrupt practices like selling indulgences, and required better education and training for priests.|特伦托会议澄清了天主教教义（重申救赎需要信仰和善行），禁止了出售赎罪券等腐败行为，并要求对神父进行更好的教育和培训。", rat_wrong:{ A:"The Council of Trent specifically rejected sola fide and reaffirmed that faith AND good works were required for salvation. The Council was a defense of Catholic doctrine against Protestant challenges, not an acceptance of them.|特伦托会议明确拒绝了唯独信仰，并重申了救赎需要信仰和善行。会议是对天主教教义的捍卫，对抗新教挑战，而非接受它们。", C:"The Council of Trent did not ban religious art — it did exactly the opposite, encouraging the use of religious images and art to inspire faith. Banning art was something Protestant iconoclasts did.|特伦托会议没有禁止宗教艺术——它恰恰相反，鼓励使用宗教图像和艺术来激励信仰。禁止艺术是新教圣像破坏者所做的事情。", D:"The Council of Trent was a religious council concerned with doctrine and Church reform. Making the Pope the political ruler of Catholic nations was not on its agenda — the papacy's political role had been declining for centuries.|特伦托会议是关注教义和教会改革的宗教会议。使教皇成为天主教国家的政治统治者不在其议程上——教皇的政治角色已经下降了几个世纪。" } },
+  { id:"t5q3", q:"The Jesuits (Society of Jesus) were founded specifically to:", q_cn:"耶稣会（耶稣连人会）的成立专门是为了：", options:["A. Protect the Pope from Protestant assassination attempts|A. 保护教皇免遭新教刺杀企图","B. Counter the Reformation through education and missionary work|B. 通过教育和传教工作对抗宗教改革","C. Collect taxes from Protestant countries on behalf of the Pope|C. 代表教皇向新教国家征收税款","D. Write new scripture to replace the Bible|D. 撰写新经文取代圣经"], correct:"B", rat_right:"The Jesuits, founded by Ignatius of Loyola in 1540, were designed specifically to counter the Reformation. They established universities, ran schools, and conducted missionary work in Europe and beyond — including China, India, and the Americas.|耶稣会由罗耀拉的依纳爵于1540年创立，专门为对抗宗教改革而设计。他们在欧洲及世界各地——包括中国、印度和美洲——建立大学、开办学校并开展传教工作。", rat_wrong:{ A:"While the papacy did have security concerns, the Jesuits were not a security force. They were an intellectual and missionary order — educators, scholars, and missionaries — not guards.|虽然教皇确实有安全方面的担忧，但耶稣会不是安全力量。他们是知识和传教修会——教育者、学者和传教士——而非警卫。", C:"Tax collection was not the Jesuits' purpose. Their mission was education, scholarship, and missionary work to spread Catholicism and counter Protestant influence through persuasion and intellectual engagement.|征税不是耶稣会的目的。他们的使命是通过劝说和知识参与进行教育、学术研究和传教工作，以传播天主教并对抗新教影响。", D:"The Jesuits accepted the Bible as the authoritative text of Christianity. Writing new scripture would have been heresy by Catholic standards. They focused on interpreting and teaching the existing scriptures, not replacing them.|耶稣会接受圣经作为基督教的权威文本。撰写新经文按天主教标准将是异端。他们专注于解释和教授现有经文，而非取代它们。" } },
+  { id:"t5q4", q:"What was 'iconoclasm' as practiced by some Protestant reformers?", q_cn:"一些新教改革者所实践的「圣像破坏」是什么？", options:["A. The translation of the Bible into local languages|A. 将圣经翻译成本地语言","B. The destruction of religious images, statues, and artworks in churches|B. 摧毁教堂中的宗教图像、雕像和艺术品","C. The practice of closing monasteries and convents|C. 关闭修道院和修女院的做法","D. The refusal to baptize children|D. 拒绝为儿童施洗"], correct:"B", rat_right:"Iconoclasm involved destroying religious images, statues, stained glass, and other artwork in churches. Protestant reformers believed these objects led believers toward idol worship — treating images of saints as divine — which they considered sinful.|圣像破坏涉及摧毁教堂中的宗教图像、雕像、彩色玻璃和其他艺术品。新教改革者认为这些物品引导信徒走向偶像崇拜——将圣徒图像视为神圣——他们认为这是有罪的。", rat_wrong:{ A:"Bible translation is a separate reform associated primarily with Luther and Tyndale. Iconoclasm specifically refers to the physical destruction of religious imagery, not textual work.|圣经翻译是一个独立的改革，主要与路德和廷代尔相关。圣像破坏专指宗教图像的物理破坏，而非文字工作。", C:"While some Protestant regions did close Catholic monasteries and convents (especially in England under Henry VIII), this is a separate action from iconoclasm, which specifically refers to destruction of religious art.|虽然一些新教地区确实关闭了天主教修道院和修女院（尤其是在亨利八世统治下的英格兰），但这与圣像破坏是不同的行为，后者专指宗教艺术的破坏。", D:"The question of infant baptism was a debate within Protestantism (the Anabaptists rejected it), but this is completely separate from iconoclasm, which is about the destruction of religious images.|婴儿洗礼问题是新教内部的争论（再洗礼派反对它），但这与圣像破坏完全无同，后者是关于宗教图像的破坏。" } },
+  { id:"t5q5", q:"How did the Catholic Counter-Reformation respond to Protestant iconoclasm?", q_cn:"天主教反宗教改革是如何回应新教圣像破坏的？", options:["A. The Church also banned religious art from churches|A. 教会也禁止了教堂中的宗教艺术","B. The Church dramatically increased the use of art, music, and elaborate decoration — developing the Baroque style|B. 教会大幅增加了艺术、音乐和精心装饰的使用——发展出巴洛克风格","C. The Church commissioned simplified, minimal art without any saints or figures|C. 教会委托创作了没有圣徒或人物形象的简化、极简艺术","D. The Church moved all religious art into private museums away from churches|D. 教会将所有宗教艺术移至远离教堂的私人博物馆"], correct:"B", rat_right:"The Counter-Reformation responded to Protestant simplicity with the Baroque style — elaborate, emotional, dramatic art and architecture designed to inspire awe, devotion, and demonstrate the power and beauty of the Catholic Church.|反宗教改革以巴洛克风格回应新教的简朴——精心设计、情感丰富、戏剧性的艺术和建筑，旨在激发敬畏、虔诚，并展示天主教会的力量和美丽。", rat_wrong:{ A:"Banning religious art is what the Protestant iconoclasts did. The Catholic response was the exact opposite — a deliberate increase in religious art as a tool to inspire faith and demonstrate the richness of Catholic tradition.|禁止宗教艺术是新教圣像破坏者所做的事情。天主教的回应恰恰相反——故意增加宗教艺术，作为激励信仰和展示天主教传统丰富性的工具。", C:"Simplified, minimal art without figures was the Protestant aesthetic. The Counter-Reformation deliberately chose dramatic, figure-rich, emotional art (Baroque) to contrast with Protestant minimalism.|没有人物形象的简化极简艺术是新教美学。反宗教改革故意选择了戏剧性的、人物丰富的、情感性的艺术（巴洛克），以与新教极简主义形成对比。", D:"The Counter-Reformation was specifically about making churches MORE visually impressive, not removing art from them. The goal was to inspire faith through beauty and emotional impact in the worship space itself.|反宗教改革专门是使教堂在视觉上更令人印象深刻，而非从中移除艺术。目标是通过礼拜空间本身的美和情感冲击来激励信仰。" } },
+  { id:"t5q6", q:"The St. Bartholomew's Day Massacre (1572) is significant because it shows:", q_cn:"圣巴托洛缪大屠杀（1572年）很重要，因为它表明：", options:["A. Protestant forces defeated the Catholic army in France|A. 新教军队在法国击败了天主教军队","B. The religious divide in Europe led to horrific violence, with thousands of Protestants killed by Catholic mobs|B. 欧洲的宗教分裂导致了可怕的暴力，数千名新教徒被天主教暴徒杀害","C. France became officially Protestant after the massacre|C. 法国在大屠杀后成为正式的新教国家","D. The Pope ordered the direct killing of French Huguenots|D. 教皇下令直接杀死法国胡格诺派"], correct:"B", rat_right:"The St. Bartholomew's Day Massacre occurred in 1572 when Catholic mobs, with royal support, killed thousands of Protestant Huguenots in France. It demonstrates how religious difference combined with political rivalry could produce mass violence.|圣巴托洛缪大屠杀发生于1572年，当时天主教暴徒在王室支持下在法国杀害了数千名新教胡格诺派。它表明宗教差异与政治对立结合可以产生大规模暴力。", rat_wrong:{ A:"The massacre was a Catholic attack on Protestant Huguenots — the opposite of Protestant forces defeating a Catholic army. It was a devastating defeat for French Protestants.|大屠杀是天主教对新教胡格诺派的攻击——与新教军队击败天主教军队恰恰相反。这是法国新教徒的毁灭性失败。", C:"France did not become Protestant after the massacre. It remained officially Catholic, and the religious wars continued until the Edict of Nantes (1598) granted Huguenots limited religious freedoms.|法国在大屠杀后并未成为新教国家。它保持官方天主教信仰，宗教战争持续到南特敕令（1598年）授予胡格诺派有限的宗教自由。", D:"While the Pope celebrated the news of the massacre, historical records do not show a direct papal order causing the event. It was carried out by French Catholic forces under the influence of the royal court, not as a direct papal military command.|虽然教皇庆祝了大屠杀的消息，但历史记录并未显示是直接的教皇命令导致了这一事件。它是由受王室影响的法国天主教力量执行的，而非作为直接的教皇军事命令。" } },
+  { id:"t5q7", q:"The Thirty Years' War (1618–1648) was primarily:", q_cn:"三十年战争（1618—1648年）主要是：", options:["A. A conflict between Christian Europe and the Ottoman Empire|A. 基督教欧洲与奥斯曼帝国之间的冲突","B. A devastating religious and political war fought mainly in Germany|B. 一场主要在德国进行的毁灭性宗教和政治战争","C. A naval war between England and Spain over trade routes|C. 英国和西班牙之间为争夺贸易路线而进行的海战","D. A peasant revolt against both Catholic and Protestant landlords|D. 针对天主教和新教地主的农民起义"], correct:"B", rat_right:"The Thirty Years' War was a catastrophic conflict fought mainly on German soil, beginning as a religious war between Catholic and Protestant princes and becoming a wider political struggle. It killed an estimated 8 million people through combat, famine, and disease.|三十年战争是主要在德国土地上进行的灾难性冲突，起初是天主教和新教诸侯之间的宗教战争，后来演变为更广泛的政治斗争。它通过战斗、饥荒和疾病造成约800万人死亡。", rat_wrong:{ A:"The Ottoman Empire was not the primary adversary in the Thirty Years' War, though it existed as a threat on Europe's southeastern border. The war was primarily between Catholic and Protestant European states.|奥斯曼帝国不是三十年战争的主要对手，尽管它作为威胁存在于欧洲东南边界。这场战争主要发生在天主教和新教欧洲国家之间。", C:"The conflict between England and Spain (including the famous Armada of 1588) was a separate earlier conflict. The Thirty Years' War was a continental land war centered in the Holy Roman Empire (Germany).|英国和西班牙之间的冲突（包括1588年著名的无敌舰队）是一个独立的早期冲突。三十年战争是以神圣罗马帝国（德国）为中心的大陆陆地战争。", D:"While peasant revolts did occur in this era, the Thirty Years' War was primarily between rulers and states (Catholic vs. Protestant princes and their allies), not a peasant revolt.|虽然农民起义确实在这个时代发生，但三十年战争主要发生在统治者和国家之间（天主教与新教诸侯及其盟友），而非农民起义。" } },
+  { id:"t5q8", q:"The Peace of Westphalia (1648), which ended the Thirty Years' War, established that:", q_cn:"结束三十年战争的《威斯特伐利亚和约》（1648年）确立了：", options:["A. The Pope would be the final arbiter of all European religious disputes|A. 教皇将是所有欧洲宗教争端的最终仲裁者","B. Europe would become entirely Protestant|B. 欧洲将成为完全的新教地区","C. Each ruler could determine the religion of his own territory|C. 每位统治者可以决定自己领土的宗教","D. Religious freedom was guaranteed to all individuals in Europe|D. 宗教自由对欧洲所有人都有保障"], correct:"C", rat_right:"The Peace of Westphalia established the principle that each sovereign ruler could determine the official religion of his territory (cuius regio, eius religio — whose realm, his religion). This helped end the wars of religion and established the foundation of modern state sovereignty.|《威斯特伐利亚和约》确立了每位主权统治者可以决定其领土官方宗教的原则（cuius regio, eius religio——谁的领土，谁的宗教）。这有助于结束宗教战争，并奠定了现代国家主权的基础。", rat_wrong:{ A:"The Peace of Westphalia actually reduced papal authority in political affairs. It established state sovereignty as the organizing principle of European politics, moving away from Church-directed authority.|《威斯特伐利亚和约》实际上减少了教皇在政治事务中的权威。它确立了国家主权作为欧洲政治的组织原则，脱离了教会主导的权威。", B:"Europe did not become entirely Protestant. The Peace confirmed existing religious divisions — some regions remained Catholic, others became Protestant — and gave rulers the authority to set their territory's religion.|欧洲并未成为完全的新教地区。和约确认了现有的宗教分裂——一些地区保持天主教，其他地区成为新教——并赋予统治者为其领土设定宗教的权力。", D:"The Peace did not guarantee individual religious freedom. It guaranteed rulers' rights to set state religion, not individual conscience. True religious tolerance for individuals developed much later.|和约没有保障个人宗教自由。它保障了统治者设定国家宗教的权利，而非个人良心的权利。个人真正的宗教宽容要晚得多才发展起来。" } },
+  { id:"t5q9", q:"Which of the following was NOT a result of the Council of Trent?", q_cn:"以下哪项不是特伦托会议的结果？", options:["A. Elimination of indulgence sales|A. 取消赎罪券销售","B. Requirement for better training of priests in seminaries|B. 要求在神学院对神父进行更好的培训","C. Acceptance of the Protestant doctrine of sola fide|C. 接受新教的唯独信仰教义","D. Reaffirmation that both faith and good works are needed for salvation|D. 重申信仰和善行对救赎都是必要的"], correct:"C", rat_right:"The Council of Trent explicitly rejected sola fide. It reaffirmed the traditional Catholic teaching that both faith AND good works are necessary for salvation — directly opposing Luther's central teaching.|特伦托会议明确拒绝了唯独信仰。它重申了传统天主教教义，即信仰和善行对救赎都是必要的——直接反对路德的核心教义。", rat_wrong:{ A:"The Council of Trent DID eliminate indulgence sales — this was one of the genuine reforms it made, acknowledging that the practice had become corrupt.|特伦托会议确实取消了赎罪券销售——这是它所做的真正改革之一，承认这一做法已经腐败。", B:"Requiring better training for priests in seminaries was indeed a result of Trent. This was one of the most important institutional reforms, aimed at ensuring clergy were educated and morally serious.|要求在神学院对神父进行更好的培训确实是特伦托会议的结果。这是最重要的制度改革之一，旨在确保神职人员受过良好教育并在道德上认真。", D:"Reaffirming that both faith and good works are needed was exactly what Trent did — it rejected the Protestant position and confirmed traditional Catholic teaching on salvation.|重申信仰和善行对救赎都是必要的正是特伦托会议所做的——它拒绝了新教立场并确认了传统天主教关于救赎的教义。" } },
+  { id:"t5q10", q:"Looking at the whole Week 2 synthesis, which of the following best describes how the slave trade, exploration, scientific revolution, and reformation were connected?", q_cn:"纵观第二周的综合内容，以下哪项最好地描述了奴隶贸易、探索、科学革命和宗教改革之间的联系？", options:["A. They were completely separate events happening by coincidence at the same time|A. 它们是在同一时间偶然发生的完全独立的事件","B. They were all caused by the invention of the printing press|B. 它们都是由印刷机的发明引起的","C. They were interconnected forces that together ended European civilization|C. 它们是共同结束欧洲文明的相互关联的力量","D. They were all forces that transformed European society and created the foundations of the modern world|D. 它们都是改变欧洲社会并奠定现代世界基础的力量"], correct:"D", rat_right:"These four forces were deeply interconnected: exploration created wealth through the slave trade and colonies; the Reformation fractured religious unity; the Scientific Revolution challenged traditional authority; and together they reshaped European society and laid the foundations for the modern world — for better and worse.|这四种力量深度相互关联：探索通过奴隶贸易和殖民地创造了财富；宗教改革打碎了宗教统一；科学革命挑战了传统权威；它们共同重塑了欧洲社会，为现代世界——无论好坏——奠定了基础。", rat_wrong:{ A:"These events were not coincidental or separate. They were interconnected through shared causes (trade networks, printing press, questioning of authority) and mutual influences. Historians study them together for good reason.|这些事件不是偶然的或独立的。它们通过共同原因（贸易网络、印刷机、对权威的质疑）和相互影响而相互关联。历史学家有充分理由将它们放在一起研究。", B:"The printing press was an important enabling technology for the Reformation, but it was not the cause of exploration, the slave trade, or the scientific revolution. These had separate and complex causes.|印刷机是宗教改革的重要使能技术，但它不是探索、奴隶贸易或科学革命的原因。这些有独立而复杂的原因。", C:"These forces transformed European civilization but did not end it. European civilization continued — often through expansion and dominance over others. The changes created the modern world, not the end of Europe.|这些力量改变了欧洲文明，但没有终结它。欧洲文明继续存在——往往通过扩张和对他人的统治。这些变化创造了现代世界，而非欧洲的终结。" } }
+];
+ 
+/* ═══════════════ STATE ═══════════════ */
+var secondsElapsed = 0;
+var leaveCount = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var tabState = {
+  tab1: { answered: 0, done: false },
+  tab2: { answered: 0, done: false },
+  tab3: { answered: 0, done: false },
+  tab4: { answered: 0, done: false },
+  tab5: { answered: 0, done: false }
+};
+ 
+/* ═══════════════ BUILD VOCAB ═══════════════ */
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+ 
+    var word = document.createElement('div');
+    word.className = 'vocab-word';
+    word.textContent = v.word;
+ 
+    var pos = document.createElement('span');
+    pos.className = 'vocab-pos';
+    pos.textContent = v.pos;
+    word.appendChild(pos);
+ 
+    var cn = document.createElement('div');
+    cn.className = 'vocab-cn cn';
+    cn.textContent = v.cn;
+ 
+    var def = document.createElement('div');
+    def.className = 'vocab-def';
+    def.textContent = v.def;
+ 
+    var cnDef = document.createElement('div');
+    cnDef.className = 'vocab-def cn';
+    cnDef.style.marginTop = '4px';
+    cnDef.textContent = v.cn_def;
+ 
+    var ex = document.createElement('div');
+    ex.className = 'vocab-example';
+    ex.textContent = '"' + v.example + '"';
+ 
+    var ttsBtn = document.createElement('button');
+    ttsBtn.className = 'tts-btn';
+    ttsBtn.textContent = '🔊 Pronounce';
+    ttsBtn.addEventListener('click', (function(w){ return function(){ speak(w); }; })(v.word));
+ 
+    card.appendChild(word);
+    card.appendChild(cn);
+    card.appendChild(def);
+    card.appendChild(cnDef);
+    card.appendChild(ex);
+    card.appendChild(ttsBtn);
+    grid.appendChild(card);
+  });
+}
+ 
+function speak(text) {
+  if ('speechSynthesis' in window) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    window.speechSynthesis.speak(u);
+  }
+}
+ 
+/* ═══════════════ BUILD QUIZ ═══════════════ */
+function buildQuiz(questions, containerId, tabKey) {
+  var container = document.getElementById(containerId);
+  questions.forEach(function(q, idx) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+ 
+    var num = document.createElement('div');
+    num.style.fontSize = '.75rem';
+    num.style.color = '#9ca3af';
+    num.style.marginBottom = '4px';
+    num.textContent = 'Question ' + (idx+1) + ' of 10 · 第' + (idx+1) + '题';
+    block.appendChild(num);
+ 
+    if (q.passage) {
+      var pass = document.createElement('div');
+      pass.className = 'q-passage';
+      pass.textContent = q.passage;
+      block.appendChild(pass);
+    }
+ 
+    var qText = document.createElement('div');
+    qText.className = 'q-text';
+    qText.textContent = q.q;
+    block.appendChild(qText);
+ 
+    var qCn = document.createElement('div');
+    qCn.className = 'q-cn';
+    qCn.textContent = q.q_cn;
+    block.appendChild(qCn);
+ 
+    var answered = false;
+    var allBtns = [];
+ 
+    var rationale = document.createElement('div');
+    rationale.className = 'rationale';
+ 
+    q.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var enText = parts[0] || opt;
+      var cnText = parts[1] || '';
+      var letter = enText.trim().charAt(0);
+ 
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+ 
+      var enSpan = document.createElement('span');
+      enSpan.textContent = enText;
+      btn.appendChild(enSpan);
+ 
+      if (cnText) {
+        var cnSpan = document.createElement('span');
+        cnSpan.className = 'cn';
+        cnSpan.style.display = 'block';
+        cnSpan.style.fontSize = '.78rem';
+        cnSpan.style.color = '#6b7280';
+        cnSpan.style.marginTop = '2px';
+        cnSpan.textContent = cnText;
+        btn.appendChild(cnSpan);
+      }
+ 
+      btn.addEventListener('click', (function(l, b, r){
+        return function() {
+          if (answered) return;
+          answered = true;
+          allBtns.forEach(function(ab){ ab.disabled = true; });
+ 
+          allBtns.forEach(function(ab){
+            var abLetter = ab.querySelector('span').textContent.trim().charAt(0);
+            if (abLetter === q.correct) ab.classList.add('correct');
+          });
+ 
+          if (l === q.correct) {
+            b.classList.add('correct');
+            var ratParts = q.rat_right.split('|');
+            r.innerHTML = '<strong>✓ Correct · 正确</strong><br>' + (ratParts[0]||'') + '<br><span class="cn">' + (ratParts[1]||'') + '</span>';
+          } else {
+            b.classList.add('wrong');
+            var wrongRat = q.rat_wrong[l] || q.rat_right;
+            var wParts = wrongRat.split('|');
+            r.innerHTML = '<strong>✗ Not quite · 再想想</strong><br>' + (wParts[0]||'') + '<br><span class="cn">' + (wParts[1]||'') + '</span>';
+          }
+          r.classList.add('show');
+ 
+          tabState[tabKey].answered++;
+          addProgress(1);
+          checkReadiness(tabKey);
+        };
+      })(letter, btn, rationale));
+ 
+      allBtns.push(btn);
+      block.appendChild(btn);
+    });
+ 
+    block.appendChild(rationale);
+    container.appendChild(block);
+  });
+}
+ 
+/* ═══════════════ READINESS ═══════════════ */
+function checkReadiness(tabKey) {
+  var state = tabState[tabKey];
+  var ref1 = document.getElementById(tabKey + 'Ref1');
+  var ref2 = document.getElementById(tabKey + 'Ref2');
+  var grat = document.getElementById(tabKey + 'Grat');
+  var btn  = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+ 
+  var allAnswered = (state.answered >= 10);
+  var r1 = ref1 && ref1.value.trim().length > 0;
+  var r2 = ref2 && ref2.value.trim().length > 0;
+  var g  = grat && grat.value.trim().length > 0;
+ 
+  if (allAnswered && r1 && r2 && g) {
+    btn.classList.add('ready');
+    hint.style.display = 'none';
+  } else {
+    btn.classList.remove('ready');
+    hint.style.display = 'block';
+  }
+}
+ 
+/* ═══════════════ WIRE LISTENERS ═══════════════ */
+function wireListeners() {
+  ['tab1','tab2','tab3','tab4','tab5'].forEach(function(tk) {
+    ['Ref1','Ref2'].forEach(function(field) {
+      var el = document.getElementById(tk + field);
+      if (el) el.addEventListener('input', function(){ checkReadiness(tk); });
+    });
+    var g = document.getElementById(tk + 'Grat');
+    if (g) g.addEventListener('input', function(){ checkReadiness(tk); });
+  });
+}
+ 
+/* ═══════════════ DOWNLOAD ═══════════════ */
+function tryDownload(tabKey) {
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  if (!btn.classList.contains('ready')) return;
+ 
+  var nameEl = document.getElementById(tabKey + 'Name');
+  var name = nameEl ? nameEl.value.trim() : 'Student';
+  if (!name) name = 'Student';
+ 
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+ 
+  var tabLabels = {
+    tab1: 'Transatlantic Slave Trade',
+    tab2: 'Through a Ghanaian Lens',
+    tab3: 'Scientific Revolution & Enlightenment',
+    tab4: 'Protestant Reformation',
+    tab5: 'Counter-Reformation'
+  };
+ 
+  var qArrays = { tab1: TAB1_Q, tab2: TAB2_Q, tab3: TAB3_Q, tab4: TAB4_Q, tab5: TAB5_Q };
+  var questions = qArrays[tabKey];
+ 
+  var mins = Math.floor(secondsElapsed / 60);
+  var secs = secondsElapsed % 60;
+  var sessionTime = mins + 'm ' + secs + 's';
+ 
+  var score = 0;
+  var breakdown = '';
+  var answered = document.querySelectorAll('#quiz-' + tabKey + ' .opt-btn.correct');
+ 
+  questions.forEach(function(q, i) {
+    var block = document.querySelectorAll('#quiz-' + tabKey + ' .q-block')[i];
+    if (!block) return;
+    var correctBtn = block.querySelector('.opt-btn.correct');
+    var wrongBtn = block.querySelector('.opt-btn.wrong');
+    var isCorrect = correctBtn && !wrongBtn;
+    if (isCorrect) score++;
+    breakdown += 'Q' + (i+1) + ': ' + (isCorrect ? 'Correct ✓' : 'Incorrect ✗') + ' (Correct answer: ' + q.correct + ')\n';
+  });
+ 
+  var txt = '';
+  txt += '================================================================\n';
+  txt += 'MLWS Social Studies — Day 12 · ' + tabLabels[tabKey] + '\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date: ' + new Date().toLocaleDateString() + '\n';
+  txt += 'Session Time: ' + sessionTime + '\n';
+  txt += 'Tab Switches (Leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + score + '/10\n';
+  txt += '----------------------------------------------------------------\n';
+  txt += 'QUESTION BREAKDOWN:\n' + breakdown;
+  txt += '================================================================\n';
+  txt += 'STUDENT REFLECTION:\n\n';
+  txt += 'Question 1:\n' + ref1 + '\n\n';
+  txt += 'Question 2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+ 
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+ 
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+/* ═══════════════ UTILITIES ═══════════════ */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+ 
+/* ═══════════════ INIT ═══════════════ */
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(TAB1_Q, 'quiz-tab1', 'tab1');
+  buildQuiz(TAB2_Q, 'quiz-tab2', 'tab2');
+  buildQuiz(TAB3_Q, 'quiz-tab3', 'tab3');
+  buildQuiz(TAB4_Q, 'quiz-tab4', 'tab4');
+  buildQuiz(TAB5_Q, 'quiz-tab5', 'tab5');
+  wireListeners();
+  startTimer();
+  trackNavigation();
+ 
+  document.getElementById('tab1DownloadBtn').addEventListener('click', function(){ tryDownload('tab1'); });
+  document.getElementById('tab2DownloadBtn').addEventListener('click', function(){ tryDownload('tab2'); });
+  document.getElementById('tab3DownloadBtn').addEventListener('click', function(){ tryDownload('tab3'); });
+  document.getElementById('tab4DownloadBtn').addEventListener('click', function(){ tryDownload('tab4'); });
+  document.getElementById('tab5DownloadBtn').addEventListener('click', function(){ tryDownload('tab5'); });
+});
+</script>
+</body>
+</html>
