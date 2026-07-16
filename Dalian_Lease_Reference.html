@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dalian Lease Reference · 民院北10-1-21-1</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F5EF;
+  --card:#FFFFFF;
+  --ink:#1E2A3A;
+  --ink-soft:#5A6678;
+  --seal:#B5382C;
+  --seal-soft:#F6E4E1;
+  --jade:#2E6E5E;
+  --jade-soft:#E2EFEA;
+  --line:#E4E0D5;
+  --gold:#8A6D2F;
+  --gold-soft:#F3ECDB;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.55;
+  padding-bottom:80px;
+}
+.zh{font-family:'Noto Serif SC','PingFang SC','Microsoft YaHei',serif}
+
+/* ===== Header ===== */
+header{
+  background:var(--ink);
+  color:#F4F1E8;
+  padding:28px 20px 22px;
+}
+.header-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;gap:18px}
+.chop{
+  width:64px;height:64px;flex-shrink:0;border-radius:50%;
+  border:3px solid var(--seal);
+  display:flex;align-items:center;justify-content:center;
+  color:#E8564A;font-family:'Noto Serif SC',serif;font-weight:900;font-size:20px;
+  transform:rotate(-8deg);
+  background:rgba(181,56,44,.12);
+  letter-spacing:1px;
+}
+header h1{font-family:'Noto Serif SC',serif;font-weight:900;font-size:24px;line-height:1.25}
+header .sub{color:#B8BFCB;font-size:13px;margin-top:4px}
+header .sub b{color:#E8D9A0;font-weight:600}
+
+/* ===== Tabs ===== */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.tabs{max-width:920px;margin:0 auto;display:flex;gap:4px;padding:10px 16px}
+.tab{
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--ink-soft);
+  padding:9px 16px;border-radius:999px;
+  font-family:inherit;font-size:14px;font-weight:600;
+  cursor:pointer;white-space:nowrap;
+  transition:all .15s;
+}
+.tab .zh{font-size:12px;margin-left:5px;opacity:.7}
+.tab:hover{border-color:var(--ink-soft)}
+.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab.active .zh{opacity:.85}
+
+/* ===== Layout ===== */
+main{max-width:920px;margin:0 auto;padding:24px 16px}
+.panel{display:none;animation:fade .2s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+h2{font-family:'Noto Serif SC',serif;font-weight:700;font-size:20px;margin:26px 0 12px}
+h2:first-child{margin-top:0}
+h2 .zh{color:var(--ink-soft);font-size:15px;font-weight:500;margin-left:8px}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px 20px;
+  margin-bottom:12px;
+}
+
+/* ===== Next-due banner ===== */
+.next-due{
+  background:var(--seal);color:#fff;
+  border-radius:var(--radius);
+  padding:20px 22px;margin-bottom:20px;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.next-due .label{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;opacity:.85;font-weight:600}
+.next-due .amt{font-family:'Noto Serif SC',serif;font-weight:900;font-size:30px;margin-top:2px}
+.next-due .when{text-align:right}
+.next-due .date{font-weight:700;font-size:17px}
+.next-due .days{font-size:13px;opacity:.9}
+.next-due.done{background:var(--jade)}
+
+/* ===== Key facts grid ===== */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.fact .k{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink-soft);font-weight:600}
+.fact .k .zh{text-transform:none;letter-spacing:0;margin-left:4px}
+.fact .v{font-weight:700;font-size:16px;margin-top:3px}
+.fact .v small{display:block;font-weight:400;color:var(--ink-soft);font-size:12.5px;margin-top:2px}
+
+/* ===== Payment timeline ===== */
+.pay-row{
+  display:flex;align-items:center;gap:16px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px 18px;margin-bottom:10px;
+}
+.pay-row.next{border:2px solid var(--seal);background:#FFF9F8}
+.pay-row.past{opacity:.62}
+.pay-num{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Noto Serif SC',serif;font-weight:900;font-size:17px;
+  background:var(--ink);color:#fff;
+}
+.pay-row.next .pay-num{background:var(--seal)}
+.pay-row.past .pay-num{background:var(--jade)}
+.pay-info{flex:1;min-width:0}
+.pay-date{font-weight:700;font-size:16px}
+.pay-covers{font-size:13px;color:var(--ink-soft);margin-top:1px}
+.pay-amt{font-family:'Noto Serif SC',serif;font-weight:900;font-size:19px;white-space:nowrap}
+.badge{
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;
+  text-transform:uppercase;letter-spacing:.8px;white-space:nowrap;
+}
+.badge.paid{background:var(--jade-soft);color:var(--jade)}
+.badge.next-b{background:var(--seal-soft);color:var(--seal)}
+.badge.later{background:#EEECE4;color:var(--ink-soft)}
+.badge.watch{background:var(--gold-soft);color:var(--gold)}
+
+/* ===== Fee table ===== */
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{
+  text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;
+  color:var(--ink-soft);padding:8px 10px;border-bottom:2px solid var(--line);
+}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.who{font-weight:700;white-space:nowrap}
+.who.you{color:var(--seal)}
+.who.ll{color:var(--jade)}
+
+/* ===== Alert / rule cards ===== */
+.rule{
+  display:flex;gap:14px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:15px 18px;margin-bottom:10px;
+}
+.rule.warn{border-left:4px solid var(--seal)}
+.rule.ok{border-left:4px solid var(--jade)}
+.rule.note{border-left:4px solid var(--gold)}
+.rule .icon{font-size:20px;flex-shrink:0;line-height:1.4}
+.rule b{display:block;margin-bottom:2px}
+.rule .zh-sub{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+
+/* ===== Contract accordion ===== */
+.lang-toggle{display:flex;gap:6px;margin-bottom:16px}
+.lang-btn{
+  border:1px solid var(--line);background:var(--card);border-radius:999px;
+  padding:8px 20px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;color:var(--ink-soft);
+}
+.lang-btn.active{background:var(--seal);border-color:var(--seal);color:#fff}
+details{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  margin-bottom:8px;overflow:hidden;
+}
+details[open]{border-color:var(--ink-soft)}
+summary{
+  cursor:pointer;padding:14px 18px;font-weight:700;font-size:15px;
+  list-style:none;display:flex;align-items:center;gap:10px;user-select:none;
+}
+summary::-webkit-details-marker{display:none}
+summary .cnum{
+  font-family:'Noto Serif SC',serif;font-size:12px;font-weight:700;color:var(--seal);
+  border:1px solid var(--seal);border-radius:6px;padding:2px 7px;flex-shrink:0;
+}
+summary::after{content:"+";margin-left:auto;color:var(--ink-soft);font-size:18px;font-weight:400}
+details[open] summary::after{content:"−"}
+.cbody{padding:0 18px 16px;font-size:14.5px;color:#2B3648}
+.cbody p{margin-bottom:9px}
+.cbody ul{margin:0 0 9px 20px}
+.cbody li{margin-bottom:5px}
+.cbody .zh-text{font-family:'Noto Serif SC','PingFang SC',serif;line-height:1.8}
+.hl{background:var(--gold-soft);padding:0 3px;border-radius:3px;font-weight:600}
+body[data-lang="en"] .zh-text{display:none}
+body[data-lang="zh"] .en-text{display:none}
+
+.footnote{font-size:12.5px;color:var(--ink-soft);margin-top:18px;padding:0 4px}
+
+@media(max-width:600px){
+  .header-inner{gap:12px}
+  .chop{width:52px;height:52px;font-size:16px}
+  header h1{font-size:19px}
+  .pay-row{flex-wrap:wrap}
+  .next-due .when{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body data-lang="en">
+
+<header>
+  <div class="header-inner">
+    <div class="chop zh">租约</div>
+    <div>
+      <h1>Dalian Lease Reference <span class="zh" style="font-weight:500;font-size:16px">房屋租赁合同</span></h1>
+      <div class="sub">民院北10栋-1-21-1号 · DDA (开发区) · <b>Jun 15, 2026 → Jun 14, 2027</b> · ¥5,000/mo</div>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="tabs">
+    <button class="tab active" data-panel="overview">Overview<span class="zh">概览</span></button>
+    <button class="tab" data-panel="payments">Payments<span class="zh">付款</span></button>
+    <button class="tab" data-panel="fees">Who Pays What<span class="zh">费用</span></button>
+    <button class="tab" data-panel="rules">Rules & Risks<span class="zh">规则</span></button>
+    <button class="tab" data-panel="contract">Full Contract<span class="zh">合同全文</span></button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="panel active" id="overview">
+
+  <div class="next-due" id="nextDueBanner">
+    <div>
+      <div class="label">Next payment due · 下次付款</div>
+      <div class="amt" id="ndAmt">—</div>
+    </div>
+    <div class="when">
+      <div class="date" id="ndDate">—</div>
+      <div class="days" id="ndDays"></div>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div class="fact"><div class="k">Address <span class="zh">地址</span></div><div class="v">民院北10栋-1-21-1号<small>Dalian Economic & Technological Development Zone (开发区) · 254.45 m²</small></div></div>
+    <div class="fact"><div class="k">Term <span class="zh">租期</span></div><div class="v">Jun 15, 2026 – Jun 14, 2027<small>12 months · renew ≥30 days before end (by May 15, 2027)</small></div></div>
+    <div class="fact"><div class="k">Rent <span class="zh">租金</span></div><div class="v">¥5,000 / month<small>Paid quarterly (¥15,000) · 押一付三</small></div></div>
+    <div class="fact"><div class="k">Deposit <span class="zh">押金</span></div><div class="v">¥5,000<small>Refundable at move-out, minus any deductions</small></div></div>
+    <div class="fact"><div class="k">Landlord <span class="zh">房东</span></div><div class="v">黄春元 (Huáng Chūnyuán)<small>Rent paid via WeChat 微信</small></div></div>
+    <div class="fact"><div class="k">Agency <span class="zh">中介</span></div><div class="v">德佑 · 大连沐加恩房产经纪<small>Tel 134-7868-2417 · Agency fee ¥0 for tenant</small></div></div>
+    <div class="fact"><div class="k">Tenant of record <span class="zh">承租方</span></div><div class="v">ALEXANDER<small>Passport A60470782 · Occupants: 5 (max 10)</small></div></div>
+    <div class="fact"><div class="k">Late penalty <span class="zh">违约金</span></div><div class="v">¥200 / day<small>3+ days late without reason → landlord may terminate & keep deposit</small></div></div>
+  </div>
+
+  <h2>The three dates that matter <span class="zh">关键日期</span></h2>
+  <div class="rule warn"><div class="icon">💸</div><div><b>Rent: quarterly, paid one month early</b>Each ¥15,000 payment is due roughly a month before the quarter it covers begins. Next dates: Aug 15 · Nov 15 · Feb 15.<span class="zh-sub zh">租金按季度付款，提前一个月支付下一季度房费。</span></div></div>
+  <div class="rule note"><div class="icon">🏢</div><div><b>Property management fee (物业费): due Aug 5</b>Annual property fee paid directly, date fixed in the handwritten terms.<span class="zh-sub zh">物业费付款时间：8月5日。</span></div></div>
+  <div class="rule note"><div class="icon">🔥</div><div><b>Heating fee (供暖费): due end of September</b>Watch for the heating notice (供暖通知) — exact amount and deadline come from the heating company.<span class="zh-sub zh">供暖费付款时间：9月末，具体看供暖通知。</span></div></div>
+
+  <h2>Registration to-dos <span class="zh">备案登记</span></h2>
+  <div class="rule ok"><div class="icon">📋</div><div><b>Police registration (派出所备案)</b>The lease must be registered at the local police station, and the rental contract filed with the housing bureau (网签备案). The agency is jointly authorized to handle the filing — confirm it's been done.<span class="zh-sub zh">签约后须到房屋所在地公安（边防）派出所办理房屋租赁信息备案；租赁合同须网签备案，已授权中介方代办。</span></div></div>
+</section>
+
+<!-- ============ PAYMENTS ============ -->
+<section class="panel" id="payments">
+  <h2>Rent schedule <span class="zh">租金结算时间</span></h2>
+  <p style="font-size:14px;color:var(--ink-soft);margin-bottom:14px">Four quarterly payments of ¥15,000 each, paid to 黄春元 via <b>WeChat</b>. Landlord must provide a receipt (收款凭证) for every payment — ask for it each time.</p>
+
+  <div id="payList"></div>
+
+  <h2>Other bills <span class="zh">其他费用</span></h2>
+  <div class="pay-row" data-due="2026-08-05">
+    <div class="pay-num zh" style="background:var(--gold)">物</div>
+    <div class="pay-info"><div class="pay-date">Aug 5, 2026 — Property management fee 物业费</div><div class="pay-covers">Amount per property office; paid directly by tenant</div></div>
+    <span class="badge watch">Fixed date</span>
+  </div>
+  <div class="pay-row" data-due="2026-09-30">
+    <div class="pay-num zh" style="background:var(--gold)">暖</div>
+    <div class="pay-info"><div class="pay-date">Late Sept 2026 — Heating fee 供暖费</div><div class="pay-covers">Exact date & amount per the heating notice 供暖通知</div></div>
+    <span class="badge watch">Watch notice</span>
+  </div>
+
+  <div class="rule warn" style="margin-top:16px"><div class="icon">⚠️</div><div><b>Missing a rent date is expensive</b>¥200/day penalty per day overdue. If payment is 3+ days late without valid reason — or if you don't pay by the stated dates — the landlord may terminate the lease, reclaim the house, and <span class="hl">keep the remaining rent and the deposit</span>.<span class="zh-sub zh">每逾期一日按200元支付违约金；无故拖延3日，甲方有权解除合同并收回房屋，剩下房租、押金不予退还。</span></div></div>
+</section>
+
+<!-- ============ FEES ============ -->
+<section class="panel" id="fees">
+  <h2>Who pays what <span class="zh">费用分担</span></h2>
+  <div class="card">
+    <table>
+      <thead><tr><th>Item 费用项</th><th>Who pays 承担方</th></tr></thead>
+      <tbody>
+        <tr><td>Water 水费</td><td class="who you">Tenant 乙方</td></tr>
+        <tr><td>Electricity 电费</td><td class="who you">Tenant 乙方</td></tr>
+        <tr><td>Gas 煤气（燃气）费</td><td class="who you">Tenant 乙方</td></tr>
+        <tr><td>Heating 供暖费</td><td class="who you">Tenant 乙方</td></tr>
+        <tr><td>Property management 物业管理费</td><td class="who you">Tenant 乙方</td></tr>
+        <tr><td>Broadband install + monthly 宽带初装/上网费</td><td class="who you">Tenant 乙方</td></tr>
+        <tr><td>Cable TV viewing 有线电视收视费</td><td class="who you">Tenant 乙方</td></tr>
+        <tr><td>Indoor facilities repair 室内设施维修费</td><td class="who you">Tenant 乙方</td></tr>
+        <tr><td>Phone 电话费 · Cable install 有线初装 · Rental tax 租赁税费 · Sanitation 卫生费 · Parking 车位费 · Elevator 电梯费 · Gas install 燃气初装费</td><td class="who ll">Landlord 甲方</td></tr>
+        <tr><td>Agency fee 中介费 (¥4,000)</td><td class="who ll">Landlord 甲方 (tenant: ¥0)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Repairs <span class="zh">房屋维修</span></h2>
+  <div class="rule ok"><div class="icon">🔧</div><div><b>Normal wear & tear → landlord fixes, within 7 days</b>Notify the landlord promptly; he must repair within 7 days of notice. If he doesn't, you may repair and bill him — and rent can be reduced or the term extended if repairs disrupt your use.<span class="zh-sub zh">因自然属性或合理使用导致的损耗，甲方应在接到通知后七日内维修；逾期不维修的，乙方可代为维修，费用由甲方承担。</span></div></div>
+  <div class="rule warn"><div class="icon">🧰</div><div><b>Damage you cause → you fix or compensate</b>Includes improper storage/use. Note the handwritten term: all indoor appliances were tested at handover and confirmed working — damage during use or at move-out is on the tenant.<span class="zh-sub zh">因乙方原因致使房屋及物品损坏的，乙方负责维修或赔偿。交接时室内电器已全试一遍，如有损坏需乙方自己维修或照价赔偿。</span></div></div>
+</section>
+
+<!-- ============ RULES ============ -->
+<section class="panel" id="rules">
+  <h2>Money rules <span class="zh">违约与赔偿</span></h2>
+  <div class="rule warn"><div class="icon">🚪</div><div><b>Tenant early termination costs 2 months' rent (¥10,000)</b>If the contract ends because of you, you owe the landlord compensation equal to 2 months' rent.<span class="zh-sub zh">如因乙方原因导致本合同解除的，乙方须向甲方支付相当于2个月租金的违约赔偿金。</span></div></div>
+  <div class="rule ok"><div class="icon">⚖️</div><div><b>Landlord breach also costs 2 months' rent</b>If the landlord's actions block your use of the home or cause termination, he owes you the same 2 months' rent.<span class="zh-sub zh">如因甲方原因影响乙方使用或导致合同解除的，甲方须向乙方支付相当于2个月租金的赔偿金。</span></div></div>
+  <div class="rule warn"><div class="icon">🕐</div><div><b>Holdover after Jun 14, 2027 = ¥200/day</b>Return the house by the end date (or renew ≥30 days before). Staying past it without renewal costs ¥200 per day.<span class="zh-sub zh">乙方逾期未返还的，除支付租金外，应按每日200元向甲方支付违约金。</span></div></div>
+  <div class="rule warn"><div class="icon">📦</div><div><b>Anything left behind can be disposed of</b>If you're required to move out and leave property behind past the written deadline, the landlord is pre-authorized to dispose of it — loss or damage is your risk.<span class="zh-sub zh">对于乙方遗留在该房屋内的任何财产、物品，甲方应书面告知乙方及时处置，逾期未处理的，授权甲方代为处置。</span></div></div>
+
+  <h2>Use of the home <span class="zh">房屋使用</span></h2>
+  <div class="rule warn"><div class="icon">🔒</div><div><b>No subletting — box checked "not agreed"</b>The landlord did <span class="hl">not</span> consent to subletting. Subletting without written consent lets him terminate and claim damages.<span class="zh-sub zh">甲方☑不同意乙方将承租的房屋转租。未经甲方同意擅自转租的，甲方有权解除合同并要求赔偿损失。</span></div></div>
+  <div class="rule warn"><div class="icon">🔥</div><div><b>You carry liability for safety incidents inside the home</b>An underlined clause makes the tenant the "actual manager" of the property: gas leaks, fire, objects falling from height, injuries inside the home — full responsibility sits with the tenant. Be vigilant on fire/water/gas/electric safety.<span class="zh-sub zh">在租赁期间内，乙方为该房屋的实际管理人，房屋内发生的所有安全事故（包括煤气泄漏、火灾、高空抛物等）由乙方承担全部责任。</span></div></div>
+  <div class="rule note"><div class="icon">🏗️</div><div><b>No structural changes or unapproved renovation</b>Written consent required before decorating or adding equipment. Keep the home in its original condition; repair or compensate damage at move-out.<span class="zh-sub zh">未经甲方书面同意，乙方不得擅自装修；搬走时要保持房屋原有样子，不得改变房屋结构与用途。</span></div></div>
+  <div class="rule note"><div class="icon">👥</div><div><b>Occupancy: 5 declared, 10 maximum</b><span class="zh-sub zh">居住人数为5人，最多不超过10人。</span></div></div>
+
+  <h2>Protections you have <span class="zh">乙方权利</span></h2>
+  <div class="rule ok"><div class="icon">🏠</div><div><b>If the landlord sells: 15-day notice + your lease continues</b>He must give 15 days' written notice, the lease survives the sale, and you have right of first refusal to buy. Silence for 15 days = waiving the purchase right (lease still stands).<span class="zh-sub zh">甲方出售房屋应提前15天书面通知乙方并保证本合同继续履行，乙方享有优先购买权。</span></div></div>
+  <div class="rule ok"><div class="icon">🤝</div><div><b>Renewal priority</b>Equal terms, you have first right to renew. Start the conversation ≥30 days before Jun 14, 2027.<span class="zh-sub zh">租赁期满，同等条件下乙方享有优先承租权，须在租期届满前30日内与甲方协商。</span></div></div>
+  <div class="rule ok"><div class="icon">📃</div><div><b>Deposit must be returned same-day at move-out</b>After deducting legitimate charges, the remainder of the ¥5,000 is refunded (without interest) the day the house is handed back.<span class="zh-sub zh">合同期满或提前终止时，甲方扣除相应费用后，应将剩余押金自房屋交还之日如数无息返还乙方。</span></div></div>
+  <div class="rule ok"><div class="icon">✅</div><div><b>Landlord certified no "abnormal death" in the unit</b>The contract box confirming no suicide/homicide/fatal fall occurred is checked "否" (no). If that's later found false, you can void the contract and claim all losses.<span class="zh-sub zh">甲方确认房屋本体结构范围内☑否发生过非正常死亡事件；如隐瞒，乙方有权依法撤销本合同并要求赔偿。</span></div></div>
+</section>
+
+<!-- ============ CONTRACT ============ -->
+<section class="panel" id="contract">
+  <div class="lang-toggle">
+    <button class="lang-btn active" data-lang="en">English</button>
+    <button class="lang-btn zh" data-lang="zh">中文原文</button>
+  </div>
+  <p style="font-size:13px;color:var(--ink-soft);margin-bottom:14px" class="en-text">Working translation of the signed 德佑 (Deyou) lease. The Chinese original governs — tap 中文原文 to compare. Blanks and checkboxes reflect what was actually filled in.</p>
+  <p style="font-size:13px;color:var(--ink-soft);margin-bottom:14px" class="zh-text zh">以下为合同中文原文整理版。以签署的纸质合同为准。</p>
+
+  <details open>
+    <summary><span class="cnum">头部</span>Parties · 合同当事人</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p><b>Lessor (Party A 甲方):</b> Huang Chunyuan 黄春元 — male, Chinese national, b. Feb 8, 1978, ID 232330197802084711. Address: Liaoning, Dalian Economic & Technological Development Zone, Minyuan Bei No. 10, 1-21-1.</p>
+        <p><b>Lessee (Party B 乙方):</b> ALEXANDER — US national, b. Dec 29, 1988, Passport A60470782.</p>
+        <p><b>Agency (Party C 丙方):</b> Dalian Mujia'en Real Estate Brokerage Co., Ltd. (大连沐加恩房产经纪有限公司), a 德佑 franchise. Agent registration nos. 1000399949 / 30781520 · Tel 13478682417.</p>
+        <p>Signed under the PRC Civil Code and Urban Real Estate Administration Law, on principles of voluntariness, equality, fairness, honesty, and good faith.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>房屋出租方（甲方）：黄春元，男，中国籍，1978年2月8日生，身份证 232330197802084711，通讯地址：辽宁省大连经济技术开发区民院北10号1-21-1。</p>
+        <p>房屋承租方（乙方）：ALEXANDER，美国籍，1988年12月29日生，护照 A60470782。</p>
+        <p>中介方（丙方）：大连沐加恩房产经纪有限公司（德佑加盟店）。资格注册证书编号 1000399949 / 30781520，联系电话 13478682417。</p>
+        <p>根据《中华人民共和国民法典》和《中华人民共和国城市房地产管理法》等有关法律法规规章，遵循自愿、平等、公平、诚实、信用的原则，经协商一致，签订本合同。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第一条</span>Art. 1 — The Property · 房屋基本情况</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>1. The property is at <b>Dalian Economic & Technological Development Zone, Minyuan Bei Building 10-1-21-1</b> ("the Property"), floor area <b>254.45 m²</b>; exact area and address per the property certificate. Fixtures, furniture, appliances, and decoration condition per the handover checklist, which is the acceptance basis at delivery and return.</p>
+        <p>2. Ownership: <b>joint ownership (共同共有)</b>, property certificate no. 01038837.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）房屋坐落于大连市大连经济技术开发区民院北10栋-1-21-1号（以下简称"该房屋"），建筑面积254.45平方米，房屋具体面积与地址以房产证及相关正式法律文书上的记载为准。房屋的设施设备及附属家具、电器、装修等状况详见交接单，作为甲方交付该房屋和乙方返还该房屋的验收依据。</p>
+        <p>（二）房屋权属状况：权属共同共有，房屋所有权证书编号：01038837号。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第二条</span>Art. 2 — Purpose · 房屋租赁用途</summary>
+    <div class="cbody">
+      <div class="en-text"><p>Residential use. Declared occupants: <b>5</b>; maximum <b>10</b>.</p></div>
+      <div class="zh-text zh"><p>租赁用途为居住；居住人数为5，最多不超过10人。</p></div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第三条</span>Art. 3 — Term & Delivery · 租赁期限和交付期限</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>1. Term: <b>Jun 15, 2026 – Jun 14, 2027</b> (12 months). Party A delivers the property in agreed condition and signs the handover checklist by Jun 15, 2026. If delivery is late: contract continues, with a penalty of double the daily rent per day late (≤7 days); beyond 7 days, Party B may terminate.</p>
+        <p>2. At term end, Party B has priority to re-rent on equal terms; renewal must be negotiated within <b>30 days before expiry</b>. If Party A won't re-rent, he gives ≥30 days' written notice; Party B must return the property by <b>Jun 14, 2027</b>, or pay <b>¥200/day</b> plus rent until actual return.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）房屋租赁期自2026年06月15日至2027年06月14日，共计12个月。甲方应于2026年06月15日前将房屋按约定条件交付给乙方并签署交接单。逾期7日内交付的，每逾期一日，甲方需向乙方支付双倍日租金违约金；逾期7日以上交付的，乙方有权解除合同。</p>
+        <p>（二）租赁期满，甲方继续出租的，同等条件下乙方享有优先承租权；如乙方欲继续承租，须在租期届满前30日内与甲方协商。若甲方不再继续出租的，应当至少提前30日书面通知乙方，并要求乙方2027年06月14日前返还房屋。乙方逾期未返还的，自约定到期次日起至实际返还房屋之日止，乙方除支付租金外，还应按每日200.00元向甲方支付违约金。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第四条</span>Art. 4 — Rent & Payment · 租金及支付方式</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>1. Monthly rent: <b>¥5,000.00</b> (伍仟元整).</p>
+        <p>2. Payment: <b>quarterly</b>, via third-party platform (<b>WeChat</b>) to Party A (payee: 黄春元). Party A must issue a payment receipt for every payment received.</p>
+        <p>3. Settlement schedule (each ¥15,000):</p>
+        <ul>
+          <li><b>Jun 15, 2026</b> → rent for Jun 15 – Sep 14, 2026</li>
+          <li><b>Aug 15, 2026</b> → rent for Sep 15 – Dec 14, 2026</li>
+          <li><b>Nov 15, 2026</b> → rent for Dec 15, 2026 – Mar 14, 2027</li>
+          <li><b>Feb 15, 2027</b> → rent for Mar 15 – Jun 14, 2027</li>
+        </ul>
+        <p>Government-imposed fees arising during the term that relate to Party B's use are borne by Party B; other new charges by Party A. Invoices (fapiao) for rent, if requested by Party B, are at Party B's cost.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）月租金标准：人民币5,000.00元（伍仟元整）。</p>
+        <p>（二）租金付款方式为季付，以第三方平台支付（微信）方式支付。甲方收款账户：户名黄春元，平台微信。甲方在收取乙方租金时，应当向乙方提供收款凭证。</p>
+        <p>（三）租金的结算时间：2026年06月15日支付2026年06月15日至09月14日租金15,000元；2026年08月15日支付09月15日至12月14日租金15,000元；2026年11月15日支付12月15日至2027年03月14日租金15,000元；2027年02月15日支付03月15日至06月14日租金15,000元。</p>
+        <p>在本合同履行期内，如发生政府有关部门征收本合同未约定的费用项目，与乙方使用、居住或经营该房屋有关的费用，均由乙方承担；除此之外的费用由甲方承担。租赁期间乙方如需开具租赁等相关发票，费用由乙方承担。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第五条</span>Art. 5 — Deposit & Fees · 押金及其他费用</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>1. Deposit: <b>¥5,000.00</b> paid at signing as performance security.</p>
+        <p>2. If Party B breaches, Party A may deduct rent, penalties, compensation, and related fees from the deposit and require top-up with written notice; failure to top up within 10 days of written notice lets Party A terminate without compensation.</p>
+        <p>3. At expiry or early termination, after lawful deductions, the remaining deposit is returned <b>in full, without interest, on the day the property is returned</b> — it may not be withheld for other reasons absent special agreement.</p>
+        <p>4. Fees borne by <b>Party B (tenant)</b> — items 1, 2, 6, 7, 10, 11, 13, 15: water, electricity, heating, property management, broadband installation, broadband/internet usage, indoor facilities repair, gas. All other listed items (phone, cable install, cable viewing*, rental taxes, sanitation, parking, elevator, gas installation) are not assigned to Party B. If fees must be paid through the owner's payment account at Dalian's unified fee office, Party B transfers his share to Party A to pay on his behalf.</p>
+        <p>5. Deposit and fees are transferred directly between Parties A and B; the agency does not handle funds.</p>
+        <p style="font-size:12.5px;color:var(--ink-soft)">*Note: the fee tab in this tool lists cable viewing (item 5 on the printed form) with tenant per the numbering as printed; verify against your paper copy — the form's item numbering is cramped in the scan.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）乙方签署本合同时须向甲方支付押金人民币5,000.00元（伍仟元整），作为履约保证金。</p>
+        <p>（二）押金用做乙方履行本合同约定义务的担保。如乙方违反合同约定，甲方可于押金中直接扣除应由乙方承担的租金、违约金、赔偿金和相关费用并要求乙方补足押金，但应书面通知乙方。押金不足以抵扣时，乙方须在接到甲方书面通知后十日内补足差额部分以及全部的押金，否则甲方有权解除本合同并无需给予乙方任何赔偿、补偿。</p>
+        <p>（三）本合同期满或提前终止时，甲方在扣除应由乙方承担的违约金、赔偿金和相关费用后，应将剩余部分押金自房屋交还之日如数无息返还乙方，不得以其他任何理由拒绝返还，特殊约定除外。</p>
+        <p>（四）租赁期间，下列费用中 1.2.6.7.10.11.13.15 项由乙方承担。1.水费 2.电费 3.电话费 4.有线电视初装费 5.有线电视收视费 6.供暖费 7.物业管理费 8.房屋租赁税费 9.卫生费 10.宽带初装费 11.宽带使用/上网费 12.车位费 13.室内设施维修费 14.电梯费 15.煤气（燃气）费 16.煤气（燃气）初装费。若上述相关费用需通过产权人在大连联合收费处开设的缴费账户进行缴纳的，则由乙方将其承担的费用转付给甲方由甲方代缴。</p>
+        <p>（五）房屋押金及各项费用，甲乙双方自行转付，丙方不代收代转。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第六条</span>Art. 6 — Use & Repairs · 房屋使用及维修</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>1. Party A guarantees the structure and facilities meet building, fire, security, sanitation, and environmental safety standards. Party B must follow national law and the community's property management rules, use the property reasonably, and not alter the structure or dismantle fixtures.</p>
+        <p>2. Wear from natural causes or reasonable use: Party B notifies Party A promptly; <b>Party A repairs within 7 days of notice</b>. If he doesn't, Party B may repair on his behalf — costs and losses from delay fall on Party A. If repairs disrupt use, rent is reduced or the term extended accordingly. Damage from Party B's causes (improper storage, unreasonable use): Party B repairs, replaces, or compensates.</p>
+        <p>3. No change of use, no illegal/immoral activity, no storage of contraband, flammables, or explosives.</p>
+        <p>4. Decoration or added equipment requires Party A's prior written consent, with ownership and maintenance agreed in advance.</p>
+        <p>5. Party A cooperates with any street/community utility upgrades to avoid disrupting Party B.</p>
+        <p>6. <b>Party A certifies the box "No" is checked</b>: no abnormal death (suicide, homicide, fatal fall, accidental death, etc.) occurred within the property's structure while held by him or close relatives. Concealment = fraud; Party B may void the contract and Party A compensates all resulting losses of Parties B and C.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）租赁期内，甲方应保证出租房屋的建筑结构和设备设施符合建筑、消防、治安、卫生、环保等方面的安全条件，不得危及人身安全；乙方保证遵守国家相关的法律法规规定以及房屋所在小区的物业管理规约等相关管理规定，合理使用房屋及其附属设备，不得擅自变动房屋建筑主体及承重结构，不得擅自拆改室内设施设备。</p>
+        <p>（二）1. 因自然属性或合理使用而导致的损耗，乙方应及时通知甲方修复并积极协助配合。甲方应在接到乙方通知后的七日内进行维修。逾期不维修的，乙方可代为维修，维修费用及因迟延维修造成的损失均由甲方承担。因维修房屋影响乙方使用的，应相应减少租金或延长租赁期限。2. 因乙方原因致使房屋及其附属物品、设备设施发生损坏或故障的，乙方应负责维修或更换或承担赔偿责任。</p>
+        <p>3. 乙方在租赁期内，未经甲方书面同意，不得改变该房屋的用途；不得利用该房屋从事任何违法、非法、不道德、不恰当或违背公序良俗、损害公共利益的活动；不得储存任何违禁品、易燃品、爆炸品等物品。4. 乙方装修房屋、增加设备的，应预先征得甲方书面同意，并商定增加的装修、设备的归属及维修责任。5. 租赁期内，甲方应积极配合房屋所在街道、小区统一进行设施改造（如水电改造等），避免影响乙方的正常使用。</p>
+        <p>（三）甲方承诺，出租房屋在其本人或其近亲属持有期间，在房屋本体结构范围内☑是☑<b>否</b>发生过非正常死亡事件（包括但不限于自杀、他杀、从该房屋内坠出死亡、意外死亡等）。如甲方在签署本合同前就前述事项隐瞒真实情况的，甲方构成欺诈，乙方有权依法撤销本合同，且甲方应赔偿乙方、丙方因此产生的全部损失。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第七条</span>Art. 7 — Subletting & Sale · 房屋转租及出售</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>1. Subletting: Party A checked <b>"does not agree"</b>. Unauthorized subletting lets Party A terminate and claim damages. (Art. 10 adds: any sublet requires prior written consent and a sublease contract.)</p>
+        <p>2. Sale: if Party A sells during the term, he gives <b>15 days' written notice</b> and guarantees the lease continues. Party B has right of first refusal on equal terms (except sales to close relatives or a co-owner exercising priority). No clear response within 15 days = purchase right waived.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）转租：甲方☑不同意乙方将承租的房屋转租。未经甲方同意，乙方擅自转租的，甲方有权解除合同，并要求乙方赔偿损失。（第十条另规定：如将该房屋转租，必须征得甲方书面同意，并签订转租合同。）</p>
+        <p>（二）出售：在租赁期间，甲方如需将该房屋出售时，甲方应提前15天书面通知乙方并保证本合同的继续履行，乙方享有同等条件优先购买的权利；房屋共有人行使优先购买权或甲方将房屋出售给近亲属的除外。乙方接到甲方通知后15天内未明确表示购买的，视为乙方放弃优先购买权。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第八条</span>Art. 8 — Landlord Obligations · 甲方承担责任及权利义务</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>1. Party A guarantees clear title, co-owner consent, and that the property is free of prior leases, transfers, seizures, or encumbrances before signing; he compensates any resulting losses.</p>
+        <p>2. All water/electric/gas/heating/property fees before handover are Party A's to settle; after handover they follow Art. 5. Unpaid tenant fees during the term = tenant breach, handled per the deposit clause.</p>
+        <p>3. If Party B misuses the property (illegal/immoral use, storing contraband/flammables/explosives), Party A may demand written rectification; failure to fix within <b>1 day</b> lets Party A terminate and reclaim the property.</p>
+        <p>4. On late rent: <b>¥200/day penalty</b>. If Party B delays payment ≥<b>3 days</b> without proper reason, or fails to vacate at term end, Party A may terminate, reclaim the property, keep the performance deposit, owe no compensation — and (underlined) may dispose of any property Party B leaves behind after written notice and a reasonable deadline, with loss/damage risk on Party B.</p>
+        <p>5. If Party A's own causes disrupt Party B's use or end the contract: Party A pays <b>2 months' rent</b> as penalty.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）甲方须保证该房屋权属清楚，并保证共有人同意出租该房屋。同时，甲方须保证在签订本合同之前该房屋不存在出租、转让、查封等权利限制和相关债务，如有纠纷，由甲方负责处理。如影响乙方使用或给乙方造成损失的，甲方负责赔偿。</p>
+        <p>（二）甲、乙双方确认，该房屋交付乙方前，与该房屋有关的水、电、煤气、采暖、物业等费用由甲方承担并负责结清；交付后按第五条约定执行。租赁期内若乙方欠缴各项费用，视为乙方违约，甲方有权按照本合同第五条第二款处理。</p>
+        <p>（三）租赁期间内，若乙方存在不当使用租赁房屋行为（包括但不限于利用该房屋从事任何违法、非法、不道德、不恰当或违背公序良俗的活动；储存任何违禁品、易燃品、爆炸品等物品的行为），甲方有权以书面通知形式对乙方提出整改要求，自甲方提出限期整改之日起1日内乙方仍未改正的，甲方有权要求解除本合同并收回该房屋。</p>
+        <p>（四）在租赁期间，如乙方违反本合同第四条约定的租金支付义务，每逾期一日，乙方应按照200元标准向甲方支付违约赔偿金；乙方无故拖延支付下一期租金（甲、乙双方另有约定除外），逾期3日或租赁期满后无正当理由未搬离该房屋时，甲方有权要求解除本合同并采取相关措施收回该房屋，且无需给予乙方任何赔偿、补偿，同时履约保证金不予退还。对于乙方遗留在该房屋内的任何财产、物品、文件、资料、设备等，甲方应书面告知乙方及时处置，乙方逾期未及时处理的，授权甲方代为处置（该授权自乙方未按照甲方书面通知的合理时间内自行处理之后生效），上述物品毁损灭失等风险由乙方自行承担，与甲方无关，乙方知晓并认可。</p>
+        <p>（五）如因甲方原因影响乙方使用或导致本合同解除的，甲方须向乙方支付违约赔偿金，赔偿金额为相当于本合同约定的2个月租金的金额。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第九条</span>Art. 9 — Tenant Obligations · 乙方承担责任及权利义务</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>1. Party B is responsible for disputes involving co-residents, and compensates Party A's actual losses if they damage the property.</p>
+        <p>2. Party B pays the utilities/fees per Art. 5 on time; late-payment surcharges from those fees are Party B's, and Party B authorizes deduction from the deposit or direct payment to fee collectors.</p>
+        <p>3. If Party B fails to rectify after written notice, that's breach; on receiving termination/vacate/collect-belongings notices, Party B must act promptly — items not collected in time are deemed abandoned (Party A handling them creates no liability), and Party B compensates any resulting losses.</p>
+        <p>4. On rent breach, Party B pays the contractual penalties and must actively cooperate; all resulting costs are Party B's. If Party B needs rental invoices issued, the cost is Party B's.</p>
+        <p>5. Any sublet requires Party A's written consent and a sublease contract; no transfer of the lease without consent.</p>
+        <p>6. <b>(Underlined)</b> During the term, Party B is the property's actual manager: <b>all safety incidents inside the home</b> — including personal injury/death or other damage from gas leaks, fire, objects thrown/falling from height, improper use — are <b>entirely Party B's responsibility</b>.</p>
+        <p>7. If the contract is terminated due to Party B: Party B pays Party A <b>2 months' rent</b> as penalty.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）乙方承诺在乙方及共同居住人（如有）居住期间，积极履行合同义务，若因为乙方与其共同居住人产生纠纷，由乙方自行处理，若因此造成租赁房屋损毁或者给甲方带来损失的，由乙方负责赔偿甲方的实际损失。</p>
+        <p>（二）乙方确认，该房屋交付乙方后的租赁期内，与该房屋有关的水、电、煤气、采暖、物业等相关费用按本合同的第五条约定执行。乙方承诺在租赁期内及时履行费用支付义务，如乙方违反本合同约定怠于履行上述费用支付义务产生相关滞纳金的，均由乙方承担，乙方同意并授权甲方从押金中扣除并代为向收费方进行支付。</p>
+        <p>（三）乙方若在甲方发出书面整改通知之日起在限定期限内仍未改正的，视为乙方违约，乙方应承担相应的违约责任。在收到甲方书面的解除、腾退房屋、限期取走个人物品等相关通知时，应及时按照通知内容积极处理，若逾期未处理的，自行承担相应的不利后果（包括但不限于逾期未取走个人物品的，视为乙方放弃其物品的所有权，若甲方代为处理的，乙方承诺不会因此向甲方主张任何责任），若给甲方带来损失，应赔偿甲方遭受的全部实际损失。</p>
+        <p>（四）在租赁期间，如乙方违反本合同第四条约定的租金支付义务，应按照合同约定向甲方支付违约赔偿金；乙方无故拖延支付下一期租金（甲、乙双方另有约定除外），或租赁期满未搬离该房屋导致甲方要求解除本合同时，乙方应当积极配合处理，均由乙方承担，除此之外的费用由甲方承担。租赁期间乙方如需开具租赁等相关发票，费用由乙方承担。</p>
+        <p>（五）如将该房屋转租，必须征得甲方书面同意，并签订转租合同；未经甲方书面同意，乙方不得将租赁房屋进行转租或转让。</p>
+        <p>（六）在租赁期间内，乙方为该房屋的实际管理人，该房屋内发生的所有安全事故，包括但不限于因乙方不当使用导致的：煤气（天然气）泄漏、火灾、高空抛物等情况造成的人身伤亡或其他损害，由乙方承担全部责任。</p>
+        <p>（七）如因乙方原因导致本合同解除的，乙方须向甲方支付违约赔偿金，赔偿金额相当于本合同约定的2个月租金。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第十条</span>Art. 10 — Termination · 解除合同</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p><b>No-fault termination:</b> force majeure; the property is certified dangerous/unusable by a housing safety appraisal unit; government-mandated demolition or reconstruction. Advance notice required.</p>
+        <p><b>Other termination:</b> by mutual agreement; or by either party if the other deliberately concealed material facts or provided false information.</p>
+        <p><b>Party B may terminate if Party A:</b> fails to deliver as agreed; delivers a property unfit for safe habitation; or otherwise obstructs Party B's use; or per other legal/agreed grounds.</p>
+        <p><b>Party A may terminate if Party B:</b> sublets without consent; fails to top up the deposit after notice; delays rent without reason; changes the property's use; alters/damages the structure; uses it for illegal or disruptive activity; or per other legal/agreed grounds.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）免责解除情形：1. 因不可抗力（包括但不限于自然灾害、社会异常事件等不能预见、不能避免且不能克服的客观情况）的原因须提前解除的；2. 该房屋经房屋安全鉴定单位鉴定为危险房屋不能继续使用的；3. 因国家政策需要对该房屋进行拆迁或改造的。</p>
+        <p>（二）其他解除情形：1. 经甲乙双方协商一致，可以解除本合同；2. 因一方当事人故意隐瞒与订立合同有关的重要事实或者提供虚假情况的，另一方当事人有权解除合同。</p>
+        <p>3. 甲方有下列情形之一的，乙方有权要求解除合同：（1）未按约交付租赁房屋的；（2）提供的租赁房屋不符合安全居住条件的；（3）因甲方原因影响乙方使用该租赁房屋的；（4）其他法定或约定的合同解除情形。</p>
+        <p>4. 乙方有下列情形之一的，甲方有权要求解除合同：（1）未经甲方同意并签订转租合同而擅自转租的；（2）押金不足以抵扣合同约定的相关费用且乙方未按照甲方通知在合理期限内及时补足押金的；（3）乙方无故拖延支付下一期租金的；（4）擅自改变房屋用途的；（5）拆改变动、损坏房屋建筑主体、承重结构或擅自改变房屋内部结构的；（6）利用房屋从事违法、违反公序良俗或损害公共利益等活动或严重妨碍他人正常工作、生活的；（7）其他法定或约定的合同解除情形。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第十一条</span>Art. 11 — Agency Fee · 丙方报酬与责任</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>Agency fee: Party A pays <b>¥4,000</b> at signing; Party B pays <b>¥0</b>. The fee is earned once the contract is signed and is <b>non-refundable</b> if the contract later fails for any reason not the agency's fault — such disputes are resolved between A and B. The agency only provides copies of the original contract and related certificates (with rights-holder written consent).</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）丙方报酬：基于丙方已提供中介服务，甲方须于本合同签订之日一次性向丙方支付中介服务费用人民币4,000.00元（肆仟元整）；乙方须于本合同签订之日一次性向丙方支付中介服务费用人民币0.00元（零元整）。</p>
+        <p>（二）服务标准：丙方在促成甲、乙双方签署本合同后即履行完毕对甲、乙双方的中介服务，有权收取中介服务费用。甲、乙双方无论任何原因致使本合同不能正常履行（除丙方有过错外），由甲、乙双方自行解决，丙方服务费用将不予退还。丙方只负责提供原始合同文本证明及双方其它相关证明的复印件（必须经得权利方书面同意）。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第十二条</span>Art. 12 — Miscellaneous · 其它</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>1. If Party A mortgages the property during the term, written notice to Party B is required.</p>
+        <p>2. PRC law governs; disputes go to the People's Court where the property sits if negotiation fails.</p>
+        <p>3. This signed contract supersedes any statements or promises made during negotiation.</p>
+        <p>4. Three counterparts (A, B, C), equal legal force; effective on signing/sealing by all three.</p>
+        <p>5. The addresses confirmed at signing are valid service addresses, including for judicial documents.</p>
+        <p>6. If either party signs via an agent, the other must verify the power of attorney and agent ID; agent-related disputes are between A and B, not the agency.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）租赁期间，甲方抵押该房屋，须书面通知乙方。（二）本合同的订立、生效、解释及争议，均适用中国法律。发生争议协商不成时，任何一方可向该房屋所在地人民法院起诉。（三）本合同签署前三方在谈判中的声称、理解、承诺以及相关协议内容，如有与本合同不相符之处，以本合同为准。（四）合同一式叁份，甲方、乙方、丙方各执壹份，具备同等法律效力。本合同自三方签字盖章之日起成立并生效。（五）甲乙双方保证在签署本合同时所确认的通讯地址真实有效，如日后需送达相关材料，以该地址为送达地址，相关材料邮寄该地址则视为送达对方，同时视为司法机关送达文书的依据。（六）若甲乙双方一方为代理人签约，则请另一方务必仔细审查代理人的证件……如因为代理人问题出现各项纠纷由甲乙双方自行处理，与中介方无关。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第十三条</span>Art. 13 — Agency Disclosures · 丙方提醒</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>Both parties acknowledge: get official receipts for all payments; register the lease with the local housing rental authority; complete <b>public-security responsibility registration at the local police station</b>; pay applicable taxes; reconcile utility balances before each rent date; the certificates provided (property/ID) are warranted true; both parties verified each other's signing authority in person; overseas formalities are each party's own responsibility; never leave funds with individual agency employees.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>（一）甲乙双方向丙方交付的款项，丙方均出具正式的收据或发票，请向收取人索取；（二）甲乙双方对合同约定的权利与义务已充分知晓并认可；（三）甲乙双方应向当地房屋租赁部门办理登记备案手续；（四）甲乙双方应向当地派出所办理治安责任登记；（五）甲乙双方应根据国家有关法律、法规交纳税费；（六）每次缴租日之前，甲乙双方应对房屋各项使用费用的阶段费用进行核对，以免造成长时间欠缴；（七）甲乙双方承诺就本合同提供的相关证明真实有效；（八）甲乙双方在签约时已见过对方本人或有授权书的代理人并认可对方的签约权利；（九）甲乙双方涉及境外手续的，由当事人自行办理；（十）甲乙双方不要将款项交由丙方员工个人处保管。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第十四/十五条</span>Arts. 14–15 — Documents & Title Check · 备件与查封情况</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p><b>Art. 14:</b> At signing, Party A presented original ID card and property ownership certificate; Party B presented original passport. The agency retains copies of these (ID for A, passport for B, property certificate for A).</p>
+        <p><b>Art. 15 (title/seizure check):</b> Both option boxes appear marked on the scan. The second states the Dalian housing registration report (产调) was <b>not</b> provided at signing, so the agency could not verify seizure/transfer status; Party A personally warrants the property is unseized and untransferred. If that later proves false, it's Party A's breach — Party B may terminate and claim the contractual penalty, and the agency bears no responsibility. Verify on your paper copy which option was intended.</p>
+      </div>
+      <div class="zh-text zh">
+        <p><b>第十四条：</b>签约当日甲方提供的证件原件有：身份证☑、产权证☑；乙方提供：护照☑。甲乙双方同意由丙方留存的复印件：甲方身份证、产权证；乙方护照。</p>
+        <p><b>第十五条 查封情况：</b>☑ 签约当日甲方未提供大连房屋登记信息表（产调），故丙方无法核定该房屋是否存在被查封等问题。现甲方自行承诺该房屋未查封、未转let等有影响乙方承租/居住问题，若后续发现房屋已查封或被查封等影响乙方承租/居住情形，则视甲方违约，乙方有权解除本合同且甲方需承按合同约定承担违约责任，丙方已尽如实告知义务，因上述原因产生的责任由甲方承担，丙方不承担责任，甲乙双方知晓并认可。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">第十六条</span>Art. 16 — Handwritten Terms · 其他约定事项 ⚠️</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>These handwritten terms are the sharpest teeth in the contract:</p>
+        <ul>
+          <li><b>One-year term, quarterly payment, next quarter paid one month in advance. Deposit 1 + rent 3 (押一付三).</b></li>
+          <li><b>If rent, property fees, or other charges aren't paid by the stated dates: move out immediately, and remaining rent + deposit are forfeited.</b></li>
+          <li>Payment dates restated: Jun 15 / Aug 15 / Nov 15, 2026 and Feb 15, 2027 — ¥15,000 each.</li>
+          <li>Property fee due <b>Aug 5</b>; heating fee due <b>end of September</b> per heating notice.</li>
+          <li>All utilities/property/heating during the term are the tenant's. All indoor appliances were tested working at handover; damage during use or at move-out is repaired or compensated at price by the tenant.</li>
+          <li>Return the home in original condition; no changes to structure or use.</li>
+          <li>Tenant is the actual manager: mind fire, water, theft, and electrical safety; all safety incidents inside the home (incl. objects from height, improper utility use, falls inside the home) are the tenant's responsibility, not the landlord's. Improper business or illegal activity = landlord may take the home back unconditionally, with compensation for actual losses.</li>
+          <li>If either side breaches, the breaching party pays the other side's full enforcement costs: lawyer fees, litigation fees, preservation fees, appraisal fees, travel.</li>
+        </ul>
+      </div>
+      <div class="zh-text zh">
+        <p>租期一年，按季度付款，提前一个月支付下一季度房费，押一付三。如不在规定日期内交房租费、物业费、等各项费用立即搬离该房屋，甲方有权解除合同，剩下房租、押金不予退还。</p>
+        <p>第一次付款时间2026年6月15日：支付2026年6月15日至2026年9月14日房租费，共计15000元。第二次付款时间2026年8月15日：支付2026年9月15日至2026年12月14日房租费，共计15000元。第三次付款时间2026年11月15日：支付2026年12月15日至2027年3月14日房租费，共计15000元。第四次付款时间2027年2月15日：支付2027年3月15日至2027年6月14日房租费，共计15000元。</p>
+        <p>物业费付款时间：8月5日。供暖费付款时间：9月末，具体看供暖通知。</p>
+        <p>1. 租赁期间，使用该房屋所需的水、电、燃气、通讯、物业管理费供暖费等一切费用由乙方承担。甲乙双方交接时，室内电器已全试一遍，甲方交到乙方手中保证好用，如使用过程中或退房时，有损坏需乙方自己维修或照价赔偿。2. 乙方搬走时，要保持房屋原有样子，损坏的维修好或照价赔偿，不得改变房屋结构与用途。3. 在租赁期间，乙方为该房屋的实际管理人，承租人需要时刻注意防火、防水、防盗和防触电，并且不做危及自身安全的活动。在房屋内发生一切安全事故，都由承租人来承担，和出租人无关，包括但不限于高空抛物，水电燃气等使用不当，在房屋内摔倒等造成的人身伤亡。如果承租人利用此房进行不正当的经营或者违法活动，出租方有权无条件的立刻收回房屋，如果给出租方造成损失的，按照实际损失进行赔偿。4. 本合同生效后，如任何一方违约，守约方为维护权益，向违约方追偿的一切费用包括律师费、诉讼费、保全费、鉴定费、差旅费由违约方承担。</p>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="cnum">风险告知</span>Risk Notice · 风险告知书</summary>
+    <div class="cbody">
+      <div class="en-text">
+        <p>Separate signed notice confirming: (1) per Dalian's residential rental security regulations, the lease must be <b>registered at the local police station</b> after signing; (2) per the Dalian Housing & Construction Bureau, the contract requires <b>online filing (网签备案)</b> — both parties jointly authorized the agency to handle filing, including submitting ID information; (3) applicable taxes must be paid; (4) the landlord must report any criminal use of the property; (5) group-rental fire-safety rules apply at 10+ rooms or 15+ residents. Losses caused by a party's failure to complete these formalities are borne entirely by that party.</p>
+      </div>
+      <div class="zh-text zh">
+        <p>1. 根据《大连市居住房屋租赁治安管理规定》等有关规定，签约后须到房屋所在地公安（边防）派出所办理房屋租赁相关信息备案。2. 根据大连市住建局《关于联网进行住房租赁合同网签备案的通知》，租赁合同须进行备案，甲乙双方须配合租赁合同备案。3. 如需缴纳相关税款，须履行相应的纳税义务。4. 若甲方发现乙方利用出租房屋进行犯罪活动，应当及时向公安机关报告。5. 若甲方集中出租房屋供他人居住，房间达到十间以上或者居住人员达到十五人以上的，应当建立管理制度，确定管理人员，设置监控、灭火等治安防范、消防设施设备和疏散通道。关于上述备案等事宜，甲乙双方已经知晓并确认，且共同授权委托中介方代为办理备案事宜。若甲乙双方未及时办理上述事宜导致相对方或中介方任一方损失，由未及时配合办理一方承担全部责任。</p>
+      </div>
+    </div>
+  </details>
+
+  <p class="footnote">Unofficial working translation for personal reference. The signed Chinese original controls in any dispute (合同以中文原件为准). One clause on the scan is partially obscured; verify against the paper copy where flagged.</p>
+</section>
+
+</main>
+
+<script>
+// ---- Tabs ----
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+tabs.forEach(t => t.addEventListener('click', () => {
+  tabs.forEach(x => x.classList.remove('active'));
+  panels.forEach(p => p.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(t.dataset.panel).classList.add('active');
+  window.scrollTo({top:0});
+}));
+
+// ---- Language toggle (contract tab) ----
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.lang-btn').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.body.dataset.lang = b.dataset.lang;
+}));
+
+// ---- Payment schedule with live status ----
+const payments = [
+  {n:1, due:'2026-06-15', covers:'Jun 15 – Sep 14, 2026', label:'Jun 15, 2026'},
+  {n:2, due:'2026-08-15', covers:'Sep 15 – Dec 14, 2026', label:'Aug 15, 2026'},
+  {n:3, due:'2026-11-15', covers:'Dec 15, 2026 – Mar 14, 2027', label:'Nov 15, 2026'},
+  {n:4, due:'2027-02-15', covers:'Mar 15 – Jun 14, 2027', label:'Feb 15, 2027'}
+];
+const today = new Date(); today.setHours(0,0,0,0);
+const fmt = n => n.toLocaleString();
+let nextFound = false;
+const list = document.getElementById('payList');
+
+payments.forEach(p => {
+  const d = new Date(p.due + 'T00:00:00');
+  const diff = Math.round((d - today) / 86400000);
+  const isPast = diff < 0;
+  const isNext = !isPast && !nextFound;
+  if (isNext) {
+    nextFound = true;
+    document.getElementById('ndAmt').textContent = '¥15,000';
+    document.getElementById('ndDate').textContent = p.label;
+    document.getElementById('ndDays').textContent = diff === 0 ? 'Due TODAY 今天到期' : `in ${diff} day${diff===1?'':'s'} · covers ${p.covers}`;
+  }
+  const row = document.createElement('div');
+  row.className = 'pay-row' + (isNext ? ' next' : isPast ? ' past' : '');
+  row.innerHTML = `
+    <div class="pay-num">${p.n}</div>
+    <div class="pay-info">
+      <div class="pay-date">${p.label}</div>
+      <div class="pay-covers">Covers rent for ${p.covers}</div>
+    </div>
+    <div class="pay-amt">¥15,000</div>
+    <span class="badge ${isNext ? 'next-b' : isPast ? 'paid' : 'later'}">${isNext ? (diff===0?'Due today':'Next · '+diff+'d') : isPast ? 'Past due date' : 'Upcoming'}</span>`;
+  list.appendChild(row);
+});
+
+if (!nextFound) {
+  const banner = document.getElementById('nextDueBanner');
+  banner.classList.add('done');
+  document.getElementById('ndAmt').textContent = 'All rent paid';
+  document.getElementById('ndDate').textContent = 'Lease ends Jun 14, 2027';
+  document.getElementById('ndDays').textContent = 'Renew by May 15, 2027 if staying';
+}
+</script>
+</body>
+</html>
