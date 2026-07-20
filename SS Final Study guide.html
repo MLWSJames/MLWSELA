@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLWS Social Studies — Final Assessment Study Guide | 期末考试学习指南</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+  --cobalt:         #1e3a5f;
+  --red-dark:       #7f1d1d;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--ink);font-size:15px;}
+.cn{font-family:'Noto Sans SC',sans-serif;}
+ 
+/* ── BANNER ── */
+.anticheat-banner{background:var(--red-dark);color:#fff;padding:9px 18px;font-size:0.82rem;
+  font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid #c1121f;
+  padding:8px 16px;font-size:0.82rem;color:var(--red-dark);font-weight:600;text-align:center;}
+ 
+/* ── HEADER ── */
+.site-header{background:var(--ml-green-dark);padding:18px 28px 14px;color:#fff;}
+.site-header h1{font-size:1.35rem;font-weight:700;letter-spacing:.5px;}
+.site-header .sub{font-size:0.9rem;color:var(--ml-gold);margin-top:4px;}
+.progress-bar-wrap{background:rgba(255,255,255,.2);border-radius:6px;height:8px;margin-top:12px;}
+.progress-bar{background:var(--ml-gold);height:8px;border-radius:6px;width:0%;transition:width .4s;}
+.progress-text{font-size:0.78rem;color:#cde;margin-top:4px;}
+.header-meta{display:flex;justify-content:space-between;align-items:flex-end;}
+.leave-badge{font-size:0.78rem;color:#fca5a5;font-weight:700;}
+ 
+/* ── TABS ── */
+.tabs-nav{background:var(--ml-green);display:flex;flex-wrap:wrap;gap:3px;padding:10px 16px 0;}
+.tab-btn{background:rgba(255,255,255,.15);border:none;color:#fff;padding:8px 16px;
+  font-size:0.82rem;font-family:'DM Sans',sans-serif;font-weight:600;border-radius:6px 6px 0 0;
+  cursor:pointer;transition:background .2s;}
+.tab-btn:hover{background:rgba(255,255,255,.28);}
+.tab-btn.active{background:#fff;color:var(--ml-green-dark);}
+ 
+/* ── TAB CONTENT ── */
+.tab-content{display:none;padding:24px 28px;max-width:960px;margin:0 auto;}
+.tab-content.active{display:block;}
+ 
+/* ── WEEK BANNER ── */
+.week-banner{background:var(--ml-green-dark);color:#fff;border-radius:8px;
+  padding:14px 20px;margin-bottom:22px;display:flex;align-items:center;gap:16px;}
+.week-banner .wk-num{font-size:2rem;font-weight:700;color:var(--ml-gold);line-height:1;}
+.week-banner .wk-title{font-size:1.1rem;font-weight:700;}
+.week-banner .wk-cn{font-size:0.9rem;color:var(--ml-gold);}
+ 
+/* ── LESSON CARDS ── */
+.lesson-card{background:#fff;border-radius:10px;border:1.5px solid var(--border);
+  margin-bottom:20px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.lesson-header{background:var(--ml-green);color:#fff;padding:12px 20px;display:flex;
+  align-items:center;justify-content:space-between;}
+.lesson-title{font-size:1rem;font-weight:700;}
+.lesson-cn{font-size:0.85rem;color:var(--ml-gold);}
+.lesson-body{padding:18px 22px;}
+ 
+/* ── CONCEPT BLOCKS ── */
+.concept-block{background:var(--mist);border-left:4px solid var(--ml-green);border-radius:0 8px 8px 0;
+  padding:14px 18px;margin-bottom:14px;}
+.concept-block h3{font-size:0.92rem;font-weight:700;color:var(--ml-green-dark);margin-bottom:6px;}
+.concept-block .cn-label{font-size:0.82rem;color:#555;margin-bottom:8px;}
+.concept-block p{font-size:0.88rem;line-height:1.65;color:var(--ink2);}
+.concept-block p+p{margin-top:6px;}
+ 
+/* ── KEY FACT BOXES ── */
+.key-facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:14px;}
+.key-fact{background:var(--ml-green-light);border-radius:8px;padding:12px 14px;}
+.key-fact .kf-label{font-size:0.72rem;font-weight:700;color:var(--ml-green-dark);text-transform:uppercase;letter-spacing:.5px;}
+.key-fact .kf-val{font-size:0.9rem;font-weight:600;color:var(--ink);margin-top:3px;}
+.key-fact .kf-cn{font-size:0.78rem;color:#555;margin-top:2px;}
+ 
+/* ── CALLOUT BOXES ── */
+.callout{border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:0.87rem;line-height:1.6;}
+.callout.gold{background:var(--amber-light);border-left:4px solid var(--amber);}
+.callout.blue{background:#ebf3fb;border-left:4px solid var(--cobalt);}
+.callout.green{background:var(--ml-green-light);border-left:4px solid var(--ml-green);}
+.callout strong{display:block;font-size:0.82rem;font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:.4px;}
+.callout .cn{font-size:0.82rem;color:#555;margin-top:4px;display:block;}
+ 
+/* ── COMPARISON TABLE ── */
+.comp-table{width:100%;border-collapse:collapse;font-size:0.84rem;margin-bottom:14px;border-radius:8px;overflow:hidden;}
+.comp-table th{background:var(--ml-green);color:#fff;padding:9px 14px;text-align:left;font-weight:700;}
+.comp-table td{padding:9px 14px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5;}
+.comp-table tr:nth-child(even) td{background:#f6faf6;}
+.comp-table .cn{font-size:0.77rem;color:#666;display:block;margin-top:2px;}
+ 
+/* ── FILL-IN HINT ── */
+.fill-hint{background:#fffde7;border:1.5px dashed var(--ml-gold);border-radius:8px;
+  padding:12px 18px;margin-bottom:18px;font-size:0.86rem;line-height:1.6;color:#5a4300;}
+.fill-hint strong{color:var(--ml-green-dark);}
+ 
+/* ── TIMER ── */
+#timer{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;
+  padding:8px 14px;border-radius:20px;font-size:0.85rem;font-weight:700;z-index:900;box-shadow:0 2px 8px rgba(0,0,0,.25);}
+</style>
+</head>
+<body>
+ 
+<!-- ANTI-CHEAT BANNER -->
+<div class="anticheat-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div class="leave-notice" id="leaveNotice">
+  🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span>
+</div>
+ 
+<!-- HEADER -->
+<div class="site-header">
+  <div class="header-meta">
+    <div>
+      <h1>MLWS Social Studies — Final Assessment Study Guide</h1>
+      <div class="sub cn">期末考试学习指南 · Weeks 1–3 · 第一至三周</div>
+    </div>
+    <span class="leave-badge" id="leaveBadge"></span>
+  </div>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+  <div class="progress-text" id="progressText">Use the tabs below to review each topic and fill in your printed study guide. · 使用下方标签复习每个主题并填写你的学习指南。</div>
+</div>
+ 
+<!-- TABS -->
+<div class="tabs-nav">
+  <button class="tab-btn active" onclick="switchTab('w1a',this)">Week 1A<br><span class="cn" style="font-size:.7rem">第1周上</span></button>
+  <button class="tab-btn" onclick="switchTab('w1b',this)">Week 1B<br><span class="cn" style="font-size:.7rem">第1周下</span></button>
+  <button class="tab-btn" onclick="switchTab('w2a',this)">Week 2A<br><span class="cn" style="font-size:.7rem">第2周上</span></button>
+  <button class="tab-btn" onclick="switchTab('w2b',this)">Week 2B<br><span class="cn" style="font-size:.7rem">第2周下</span></button>
+  <button class="tab-btn" onclick="switchTab('w3a',this)">Week 3A<br><span class="cn" style="font-size:.7rem">第3周上</span></button>
+  <button class="tab-btn" onclick="switchTab('w3b',this)">Week 3B<br><span class="cn" style="font-size:.7rem">第3周下</span></button>
+  <button class="tab-btn" onclick="switchTab('big',this)">Big Ideas<br><span class="cn" style="font-size:.7rem">重大主题</span></button>
+</div>
+ 
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: WEEK 1A  Days 1–3 -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab-w1a">
+  <div class="week-banner">
+    <div class="wk-num">W1</div>
+    <div><div class="wk-title">Days 1–3: Human Origins, Ancient Civilizations</div><div class="wk-cn cn">第1–3天：人类起源与古代文明</div></div>
+  </div>
+ 
+  <div class="fill-hint">
+    📋 <strong>How to use this page:</strong> Read each section carefully. Find the answers to fill in the blanks on your <strong>printed study guide</strong>. The key facts and highlighted terms are exactly what you need.
+    <span class="cn" style="display:block;margin-top:4px;">📋 如何使用本页：仔细阅读每个部分。找到答案填写在你的<strong>印刷版学习指南</strong>上。重要事实和高亮词汇正是你需要的。</span>
+  </div>
+ 
+  <!-- DAY 1 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 1: Origins of Humanity &amp; the Neolithic Revolution</div>
+      <div class="lesson-cn cn">人类起源与新石器时代革命</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Modern Human Species</div><div class="kf-val">Homo sapiens</div><div class="kf-cn cn">智人</div></div>
+        <div class="key-fact"><div class="kf-label">Origin Continent</div><div class="kf-val">Africa</div><div class="kf-cn cn">非洲</div></div>
+        <div class="kf-label" style="display:none"></div>
+        <div class="key-fact"><div class="kf-label">Paleolithic Food</div><div class="kf-val">Hunting &amp; gathering</div><div class="kf-cn cn">狩猎与采集</div></div>
+        <div class="key-fact"><div class="kf-label">Paleolithic Tool</div><div class="kf-val">Flint hand axe</div><div class="kf-cn cn">燧石手斧</div></div>
+      </div>
+      <div class="concept-block">
+        <h3>History vs. Prehistory · 历史与史前</h3>
+        <p><strong>History</strong> uses written records. <strong>Prehistory</strong> has no written records — we learn from tools, bones, and cave paintings.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">历史使用文字记录。史前没有文字记录——我们通过工具、骨骼和洞穴壁画来了解。</p>
+      </div>
+      <div class="concept-block">
+        <h3>The Neolithic Revolution · 新石器时代革命</h3>
+        <p>A major turning point: humans changed from <strong>nomadic hunter-gathering</strong> to <strong>settled farming</strong>. This led to permanent settlements, population growth, and eventually civilization.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">重大转折点：人类从游牧狩猎采集转变为定居农耕。这导致了永久定居点、人口增长，最终产生了文明。</p>
+      </div>
+      <div class="callout gold">
+        <strong>📌 Key for Study Guide / 学习指南要点</strong>
+        The Neolithic Revolution changed humans from <em>nomadic hunter-gatherers</em> → <em>settled farmers</em>. Homo sapiens first evolved in <em>Africa</em>.
+        <span class="cn">新石器时代革命使人类从游牧狩猎采集者变为定居农民。智人最早在非洲进化。</span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 2 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 2: Mesopotamia, Egypt &amp; the Hittites</div>
+      <div class="lesson-cn cn">美索不达米亚、埃及与赫梯</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Mesopotamia Rivers</div><div class="kf-val">Tigris &amp; Euphrates</div><div class="kf-cn cn">底格里斯河与幼发拉底河</div></div>
+        <div class="key-fact"><div class="kf-label">Pharaoh's Role</div><div class="kf-val">Political ruler + living god</div><div class="kf-cn cn">政治统治者+活神</div></div>
+        <div class="key-fact"><div class="kf-label">Hittite Strength</div><div class="kf-val">Iron weapons + chariot warfare</div><div class="kf-cn cn">铁器+战车战术</div></div>
+        <div class="key-fact"><div class="kf-label">Notable Female Pharaoh</div><div class="kf-val">Hatshepsut</div><div class="kf-cn cn">哈特谢普苏特</div></div>
+      </div>
+      <div class="concept-block">
+        <h3>Mesopotamia — "Land Between the Rivers" · 两河之间的土地</h3>
+        <p>Developed between the <strong>Tigris and Euphrates rivers</strong>. The <em>Epic of Gilgamesh</em> is one of the world's earliest surviving pieces of literature.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">在底格里斯河和幼发拉底河之间发展。《吉尔伽美什史诗》是世界上最早留存的文学作品之一。</p>
+      </div>
+      <div class="concept-block">
+        <h3>Battle of Kadesh &amp; Peace Treaty · 卡迭石战役与和约</h3>
+        <p>Fought between <strong>Egypt and the Hittites</strong> (c. 1274 BCE). The resulting peace treaty is considered <strong>one of the earliest surviving peace treaties</strong> in recorded history.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">发生在埃及与赫梯之间（约公元前1274年）。由此产生的和约被认为是历史上最早留存的和约之一。</p>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 3 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 3: India, China &amp; the Americas</div>
+      <div class="lesson-cn cn">印度、中国与美洲</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Indus Valley Cities</div><div class="kf-val">Mohenjo-daro &amp; Harappa</div><div class="kf-cn cn">摩亨佐·达罗与哈拉帕</div></div>
+        <div class="key-fact"><div class="kf-label">Shang Dynasty Known For</div><div class="kf-val">Early writing + bronze technology</div><div class="kf-cn cn">早期文字+青铜技术</div></div>
+        <div class="key-fact"><div class="kf-label">Oracle Bones Used For</div><div class="kf-val">Asking ancestors / gods questions</div><div class="kf-cn cn">向祖先/神灵提问</div></div>
+        <div class="key-fact"><div class="kf-label">Mesoamerica "Mother Culture"</div><div class="kf-val">The Olmec</div><div class="kf-cn cn">奥尔梅克文明</div></div>
+      </div>
+      <div class="concept-block">
+        <h3>Connecting Pattern — River Civilizations · 联系模式——河流文明</h3>
+        <p>The most significant pattern connecting Mesopotamia, Egypt, Indus Valley, and China: <strong>all developed near major rivers</strong> that supported agriculture and population growth.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">连接美索不达米亚、埃及、印度河流域和中国的最重要模式：所有文明都在支持农业和人口增长的大河附近发展。</p>
+      </div>
+      <div class="callout blue">
+        <strong>🌏 Americas · 美洲</strong>
+        Pre-contact civilizations (Olmec, Maya, Mississippian) developed complex societies <em>independently</em>. They were NOT simple or primitive.
+        <span class="cn">接触前的文明（奥尔梅克、玛雅、密西西比）独立发展了复杂社会，并非简单或原始。</span>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: WEEK 1B  Days 4–6 -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-w1b">
+  <div class="week-banner">
+    <div class="wk-num">W1</div>
+    <div><div class="wk-title">Days 4–6: Persia, Greece, Rome, Silk Road</div><div class="wk-cn cn">第4–6天：波斯、希腊、罗马、丝绸之路</div></div>
+  </div>
+ 
+  <!-- DAY 4 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 4: Persia, Greece &amp; Alexander the Great</div>
+      <div class="lesson-cn cn">波斯、希腊与亚历山大大帝</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Cyrus the Great Known For</div><div class="kf-val">Religious tolerance of conquered peoples</div><div class="kf-cn cn">对被征服民族的宗教宽容</div></div>
+        <div class="key-fact"><div class="kf-label">Classical Greece</div><div class="kf-val">Independent city-states (poleis)</div><div class="kf-cn cn">独立城邦（波利斯）</div></div>
+        <div class="key-fact"><div class="kf-label">Alexander's Empire Extent</div><div class="kf-val">Greece → Pakistan / NW India</div><div class="kf-cn cn">希腊→巴基斯坦/西北印度</div></div>
+        <div class="key-fact"><div class="kf-label">"Hellenistic" Means</div><div class="kf-val">Spread of Greek culture after Alexander</div><div class="kf-cn cn">亚历山大之后希腊文化的传播</div></div>
+      </div>
+      <div class="concept-block">
+        <h3>Greek Philosophers · 希腊哲学家</h3>
+        <p><strong>Socrates, Plato, and Aristotle</strong> developed philosophical methods of reasoning that <strong>shaped Western thought</strong> for thousands of years.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">苏格拉底、柏拉图和亚里士多德发展了影响西方思想数千年的哲学推理方法。</p>
+      </div>
+      <div class="concept-block">
+        <h3>After Alexander's Death · 亚历山大死后</h3>
+        <p>His empire was <strong>divided among his generals</strong> (the Diadochi / 继业者). It was NOT peacefully inherited or conquered by Rome immediately.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">他的帝国被他的将领们（继业者）瓜分。并非和平继承，也不是立即被罗马征服。</p>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 5 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 5: Rome — Republic, Empire &amp; Legacy</div>
+      <div class="lesson-cn cn">罗马——共和国、帝国与遗产</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Roman Republic Power Split</div><div class="kf-val">Elected consuls + the Senate</div><div class="kf-cn cn">选举产生的执政官+元老院</div></div>
+        <div class="key-fact"><div class="kf-label">First Emperor</div><div class="kf-val">Augustus Caesar</div><div class="kf-cn cn">奥古斯都·凯撒</div></div>
+        <div class="key-fact"><div class="kf-label">Pax Romana Duration</div><div class="kf-val">~200 years (27 BCE–180 CE)</div><div class="kf-cn cn">约200年（公元前27年—公元180年）</div></div>
+        <div class="key-fact"><div class="kf-label">Roman Roads Purpose</div><div class="kf-val">Move armies, goods &amp; communication</div><div class="kf-cn cn">移动军队、货物与通讯</div></div>
+      </div>
+      <div class="concept-block">
+        <h3>Fall of Rome — Internal Causes · 罗马衰落——内部原因</h3>
+        <p>Political instability, <strong>corruption</strong>, economic troubles, and <strong>military overextension</strong> weakened Rome from within. External invasions delivered the final blow.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">政治不稳定、腐败、经济困难和军事过度扩张从内部削弱了罗马。外部入侵给予了最后一击。</p>
+      </div>
+      <div class="callout green">
+        <strong>⚖️ Patricians vs. Plebeians · 贵族与平民</strong>
+        The two main social classes of Rome: wealthy elite (patricians) and the common people (plebeians). Not military ranks or types of priests.
+        <span class="cn">罗马两大主要社会阶层：富裕精英（贵族）和普通民众（平民）。不是军衔或祭司类型。</span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 6 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 6: Chinese Dynasties, World Religions &amp; the Silk Road</div>
+      <div class="lesson-cn cn">中国朝代、世界宗教与丝绸之路</div>
+    </div>
+    <div class="lesson-body">
+      <table class="comp-table">
+        <thead><tr><th>Philosophy / 哲学</th><th>Core Idea / 核心思想</th><th>Key Figure / 代表人物</th></tr></thead>
+        <tbody>
+          <tr><td>Confucianism<span class="cn">儒家</span></td><td>Respect hierarchy, family loyalty, moral virtue (ren)<span class="cn">尊重等级、家庭忠诚、仁义道德</span></td><td>Confucius / 孔子</td></tr>
+          <tr><td>Legalism<span class="cn">法家</span></td><td>Strict laws + harsh punishments maintain order<span class="cn">严格法律+严酷惩罚维持秩序</span></td><td>Qin Dynasty / 秦朝</td></tr>
+          <tr><td>Daoism<span class="cn">道家</span></td><td>Live in harmony with the Dao (natural way)<span class="cn">与道（自然之道）和谐相处</span></td><td>Laozi / 老子</td></tr>
+          <tr><td>Buddhism<span class="cn">佛教</span></td><td>Four Noble Truths; Eightfold Path to enlightenment<span class="cn">四圣谛；八正道达到启蒙</span></td><td>Siddhartha Gautama</td></tr>
+        </tbody>
+      </table>
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Qin Shi Huangdi Did</div><div class="kf-val">First unified China; standardized weights, measures, writing</div><div class="kf-cn cn">首次统一中国；统一度量衡和文字</div></div>
+        <div class="key-fact"><div class="kf-label">Silk Road Spread</div><div class="kf-val">Goods + diseases, religions, technologies, cultural ideas</div><div class="kf-cn cn">货物+疾病、宗教、技术、文化思想</div></div>
+        <div class="key-fact"><div class="kf-label">Emperor Ashoka</div><div class="kf-val">Converted to Buddhism after Kalinga War; promoted non-violence</div><div class="kf-cn cn">羯陵伽战争后皈依佛教；提倡非暴力</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: WEEK 2A  Days 7–9 -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-w2a">
+  <div class="week-banner">
+    <div class="wk-num">W2</div>
+    <div><div class="wk-title">Days 7–9: Mongols, Medieval World, Renaissance &amp; Exploration</div><div class="wk-cn cn">第7–9天：蒙古、中世纪、文艺复兴与大探索时代</div></div>
+  </div>
+ 
+  <!-- DAY 7 REVIEW -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 7: Ancient Civilizations &amp; Early World Religions (Review)</div>
+      <div class="lesson-cn cn">古代文明与早期世界宗教（复习）</div>
+    </div>
+    <div class="lesson-body">
+      <div class="callout gold">
+        <strong>📌 Key Review Facts / 重要复习事实</strong>
+        Cuneiform = Mesopotamia (Sumer). Silk Road = network of trade routes (NOT a single road). Caste system = social hierarchy based on birth. Buddhism's path = Eightfold Path. Great Wall = protection against nomadic invasions from the north. Pharaoh = divine ruler (both god and political leader).
+        <span class="cn">楔形文字=美索不达米亚（苏美尔）。丝绸之路=贸易路线网络（不是一条路）。种姓制度=基于出生的社会等级。佛教之路=八正道。长城=抵御北方游牧民族入侵。法老=神圣统治者（既是神又是政治领袖）。</span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 8 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 8: The Mongol Empire &amp; the Medieval World</div>
+      <div class="lesson-cn cn">蒙古帝国与中世纪世界</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Pax Mongolica</div><div class="kf-val">Period of stability &amp; safe trade across the empire</div><div class="kf-cn cn">帝国范围内稳定与安全贸易时期</div></div>
+        <div class="key-fact"><div class="kf-label">Black Death Killed</div><div class="kf-val">1/3 to 1/2 of Europe's population</div><div class="kf-cn cn">欧洲人口的1/3到1/2</div></div>
+        <div class="key-fact"><div class="kf-label">Mongol Success Factor</div><div class="kf-val">Mobile cavalry + psychological terror + meritocracy</div><div class="kf-cn cn">机动骑兵+心理恐吓+精英制度</div></div>
+        <div class="key-fact"><div class="kf-label">Region NOT Controlled</div><div class="kf-val">Western Europe</div><div class="kf-cn cn">西欧</div></div>
+      </div>
+      <div class="concept-block">
+        <h3>Medieval Feudalism · 中世纪封建主义</h3>
+        <p>A hierarchy of <strong>lords and vassals</strong> exchanging <strong>land (fiefs)</strong> for military service and loyalty. The Catholic Church was the most powerful institution in medieval society.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">领主和封臣之间用土地（采邑）换取军事服务和忠诚的等级制度。天主教会是中世纪社会最强大的机构。</p>
+      </div>
+      <div class="callout blue">
+        <strong>💡 Crusades Unintended Consequence / 十字军东征的意外后果</strong>
+        European exposure to Islamic science, philosophy, and goods → contributed to the Renaissance.
+        <span class="cn">欧洲接触到伊斯兰科学、哲学和商品→促进了文艺复兴。</span>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 9 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 9: The Renaissance &amp; Age of Exploration</div>
+      <div class="lesson-cn cn">文艺复兴与大探索时代</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Why Italy First</div><div class="kf-val">Wealthy trading city-states + access to ancient texts</div><div class="kf-cn cn">富裕的贸易城邦+获取古代典籍</div></div>
+        <div class="key-fact"><div class="kf-label">Humanism</div><div class="kf-val">Human potential, reason, classical study</div><div class="kf-cn cn">人类潜能、理性、古典研究</div></div>
+        <div class="key-fact"><div class="kf-label">Columbus Thought</div><div class="kf-val">He had reached Asia (the Indies)</div><div class="kf-cn cn">他认为到达了亚洲（印度群岛）</div></div>
+        <div class="key-fact"><div class="kf-label">Magellan's Crew Did</div><div class="kf-val">First circumnavigation of the Earth</div><div class="kf-cn cn">首次环球航行</div></div>
+      </div>
+      <div class="concept-block">
+        <h3>Columbian Exchange · 哥伦布大交换</h3>
+        <p>Transfer of <strong>plants, animals, diseases, and ideas</strong> between the Old World and the Americas after 1492. Most devastating consequence for Indigenous peoples: <strong>European diseases</strong> killed millions who had no immunity.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">1492年后旧世界与美洲之间动植物、疾病和思想的交流。对原住民最具破坏性的后果：欧洲疾病杀死了数百万没有免疫力的人。</p>
+      </div>
+      <div class="callout gold">
+        <strong>📌 3 G's of Exploration / 探索的三个G</strong>
+        God (religious mission) + Glory (national prestige) + Gold (economic profit) = why Europe explored.
+        <span class="cn">上帝（宗教使命）+荣耀（国家声望）+黄金（经济利益）=欧洲探索的原因。</span>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: WEEK 2B  Days 10–12 -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-w2b">
+  <div class="week-banner">
+    <div class="wk-num">W2</div>
+    <div><div class="wk-title">Days 10–12: Americas, Africa, Slave Trade, Reformation</div><div class="wk-cn cn">第10–12天：美洲、非洲、奴隶贸易、宗教改革</div></div>
+  </div>
+ 
+  <!-- DAY 10 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 10: The Americas, Black Death &amp; African Empires</div>
+      <div class="lesson-cn cn">美洲、黑死病与非洲帝国</div>
+    </div>
+    <div class="lesson-body">
+      <table class="comp-table">
+        <thead><tr><th>Civilization / 文明</th><th>Known For / 以此著称</th></tr></thead>
+        <tbody>
+          <tr><td>Aztec / 阿兹特克</td><td>Tenochtitlan — island city as large as Europe's biggest cities<span class="cn">特诺奇蒂特兰——岛上城市，规模媲美欧洲最大城市</span></td></tr>
+          <tr><td>Inca / 印加</td><td>Extensive roads, terraced farming, complex administration without a writing system<span class="cn">广泛的道路、梯田农业、无文字的复杂行政管理</span></td></tr>
+          <tr><td>Maya / 玛雅</td><td>Writing system, accurate astronomical calendar, advanced math (including zero)<span class="cn">书写系统、精准天文历法、高等数学（包括零的概念）</span></td></tr>
+          <tr><td>Mali / 马里</td><td>Mansa Musa's gold pilgrimage caused inflation; Timbuktu = Islamic scholarship center<span class="cn">曼萨·穆萨的黄金朝圣引发通货膨胀；廷巴克图=伊斯兰学术中心</span></td></tr>
+        </tbody>
+      </table>
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Black Death Spread Via</div><div class="kf-val">Mongol trade routes; fleas on rats</div><div class="kf-cn cn">蒙古贸易路线；老鼠身上的跳蚤</div></div>
+        <div class="key-fact"><div class="kf-label">Black Death Positive Effect</div><div class="kf-val">Labor shortage → workers got more power &amp; higher wages</div><div class="kf-cn cn">劳动力短缺→工人获得更多权力和更高工资</div></div>
+        <div class="key-fact"><div class="kf-label">Songhai Peak Under</div><div class="kf-val">Askia Muhammad</div><div class="kf-cn cn">阿斯基亚·穆罕默德</div></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 11 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 11: Age of Exploration, Columbian Exchange &amp; Indigenous Impact</div>
+      <div class="lesson-cn cn">大航海时代、哥伦布大交换与原住民影响</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Encomienda System</div><div class="kf-val">Forced labor system — Spanish demanded labor &amp; tribute from Indigenous people</div><div class="kf-cn cn">强迫劳役制度——西班牙人要求原住民提供劳动和贡品</div></div>
+        <div class="key-fact"><div class="kf-label">Americas → Europe Crops</div><div class="kf-val">Potatoes, tomatoes, maize (corn)</div><div class="kf-cn cn">土豆、番茄、玉米</div></div>
+        <div class="key-fact"><div class="kf-label">Disease Death Toll</div><div class="kf-val">50–90% of some Indigenous populations</div><div class="kf-cn cn">某些原住民人口的50–90%</div></div>
+        <div class="key-fact"><div class="kf-label">Treaty of Tordesillas</div><div class="kf-val">Spain &amp; Portugal divided the world along a line of longitude</div><div class="kf-cn cn">西班牙和葡萄牙按经线划分世界</div></div>
+      </div>
+      <div class="concept-block">
+        <h3>Triangular Trade · 三角贸易</h3>
+        <p>Linked <strong>Europe, West Africa, and the Americas</strong> — forming the foundation of the Atlantic economy. Bartolomé de las Casas documented and condemned Spanish atrocities against Indigenous peoples.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">连接欧洲、西非和美洲——构成大西洋经济的基础。巴托洛梅·德拉斯·卡萨斯记录并谴责了西班牙对原住民的暴行。</p>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 12 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 12: Atlantic Slave Trade, Scientific Revolution &amp; Reformation</div>
+      <div class="lesson-cn cn">大西洋奴隶贸易、科学革命与宗教改革</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Slave Trade Total</div><div class="kf-val">~12.5 million Africans transported</div><div class="kf-cn cn">约1250万非洲人被运输</div></div>
+        <div class="key-fact"><div class="kf-label">Copernicus Argued</div><div class="kf-val">Heliocentric — Sun at center, NOT Earth</div><div class="kf-cn cn">日心说——太阳在中心，而非地球</div></div>
+        <div class="key-fact"><div class="kf-label">Luther's "Sola Fide"</div><div class="kf-val">Salvation through personal faith alone</div><div class="kf-cn cn">唯独通过个人信仰获得救赎</div></div>
+        <div class="key-fact"><div class="kf-label">Jesuits Founded To</div><div class="kf-val">Counter Reformation through education &amp; missionary work</div><div class="kf-cn cn">通过教育和传教工作对抗宗教改革</div></div>
+      </div>
+      <div class="callout gold">
+        <strong>📌 Lasting Slave Trade Impact / 奴隶贸易的持久影响</strong>
+        Historians Rodney and Nunn argue regions most affected by the slave trade are still among the poorest in Africa today — demonstrating the trade's lasting economic consequences.
+        <span class="cn">历史学家罗德尼和纳恩认为，受奴隶贸易影响最严重的地区今天仍是非洲最贫穷的地区——体现了贸易持久的经济后果。</span>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: WEEK 3A  Days 13–14 -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-w3a">
+  <div class="week-banner">
+    <div class="wk-num">W3</div>
+    <div><div class="wk-title">Days 13–14: WWI Causes &amp; the Treaty of Versailles</div><div class="wk-cn cn">第13–14天：第一次世界大战的起因与《凡尔赛条约》</div></div>
+  </div>
+ 
+  <!-- DAY 13 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 13: WWI — Causes &amp; the Alliance System (M.A.I.N.)</div>
+      <div class="lesson-cn cn">第一次世界大战——起因与同盟体系（M.A.I.N.）</div>
+    </div>
+    <div class="lesson-body">
+      <table class="comp-table">
+        <thead><tr><th>M.A.I.N. Factor / 因素</th><th>How It Contributed / 如何促成战争</th></tr></thead>
+        <tbody>
+          <tr><td><strong>M</strong>ilitarism<span class="cn">军国主义</span></td><td>Military buildup created capability for massive war; culture that viewed war as acceptable<span class="cn">军事扩张创造了大规模战争的能力；认为战争可接受的文化</span></td></tr>
+          <tr><td><strong>A</strong>lliances<span class="cn">同盟</span></td><td>Alliance system meant one conflict pulled in all members automatically<span class="cn">同盟体系意味着一个冲突自动将所有成员卷入</span></td></tr>
+          <tr><td><strong>I</strong>mperialism<span class="cn">帝国主义</span></td><td>Competition over colonies created tension and rivalry between powers<span class="cn">对殖民地的竞争在大国之间制造了紧张与对立</span></td></tr>
+          <tr><td><strong>N</strong>ationalism<span class="cn">民族主义</span></td><td>Serbia's growth alarmed Austria-Hungary; Slavic peoples wanted independence<span class="cn">塞尔维亚的壮大令奥匈帝国警觉；斯拉夫民族渴望独立</span></td></tr>
+        </tbody>
+      </table>
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Alliance Intended Purpose</div><div class="kf-val">Deter war by making aggression too costly</div><div class="kf-cn cn">通过使侵略代价过高来威慑战争</div></div>
+        <div class="key-fact"><div class="kf-label">Why Belgium Mattered</div><div class="kf-val">German invasion violated 1839 Treaty of London → Britain declared war</div><div class="kf-cn cn">德国入侵违反了1839年《伦敦条约》→英国宣战</div></div>
+        <div class="key-fact"><div class="kf-label">WWI Global Because</div><div class="kf-val">Colonial empires mobilized troops from Asia, Africa &amp; Pacific</div><div class="kf-cn cn">殖民帝国从亚洲、非洲和太平洋调兵</div></div>
+        <div class="key-fact"><div class="kf-label">Irony of "War to End All Wars"</div><div class="kf-val">Harsh peace terms created conditions for WWII just 21 years later</div><div class="kf-cn cn">严苛的和平条款在仅21年后制造了第二次世界大战的条件</div></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 14 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 14: The Treaty of Versailles &amp; Its Consequences</div>
+      <div class="lesson-cn cn">《凡尔赛条约》及其后果</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">War Guilt Clause</div><div class="kf-val">Forced Germany to accept SOLE responsibility for WWI</div><div class="kf-cn cn">强迫德国接受对第一次世界大战的唯一责任</div></div>
+        <div class="key-fact"><div class="kf-label">League of Nations Weakness</div><div class="kf-val">USA never joined — creator's own country absent</div><div class="kf-cn cn">美国从未加入——创建者的国家缺席</div></div>
+        <div class="key-fact"><div class="kf-label">Wilson's 14 Points Goal</div><div class="kf-val">Fair peace + self-determination = prevent future wars</div><div class="kf-cn cn">公平和平+民族自决=防止未来战争</div></div>
+        <div class="key-fact"><div class="kf-label">Polish Corridor</div><div class="kf-val">Separated East Prussia from rest of Germany — humiliating</div><div class="kf-cn cn">将东普鲁士与德国其余部分分开——屈辱</div></div>
+      </div>
+      <div class="callout blue">
+        <strong>💡 Why Versailles Made Germany MORE Dangerous / 为何凡尔赛条约使德国更危险</strong>
+        The treaty humiliated and impoverished a powerful nation WITHOUT destroying its potential. This created rage without removing capability — a recipe for revenge.
+        <span class="cn">该条约羞辱并使一个强大国家贫困，但没有摧毁其潜力。这在不消除能力的情况下制造了愤怒——是复仇的配方。</span>
+      </div>
+      <div class="callout gold">
+        <strong>📌 Pattern After 1931 / 1931年后的模式</strong>
+        Each act of aggression that went unchallenged by the League <em>emboldened</em> the aggressors to attempt larger ones. This made WWII increasingly inevitable.
+        <span class="cn">国联每一次对侵略行为的不作为都使侵略者更加大胆，尝试更大的行动。这使第二次世界大战越来越不可避免。</span>
+      </div>
+      <div class="callout green">
+        <strong>🇮🇹 Italy's "Mutilated Victory" / 意大利的「残缺的胜利」</strong>
+        Italy won WWI but received far less territory than promised. This humiliation fed the rise of fascism in Italy.
+        <span class="cn">意大利赢得了一战，但获得的领土远少于承诺。这种屈辱助长了意大利法西斯主义的兴起。</span>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: WEEK 3B  Days 15–16 -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-w3b">
+  <div class="week-banner">
+    <div class="wk-num">W3</div>
+    <div><div class="wk-title">Days 15–16: Rise of Hitler, China 1911–1949, Communism</div><div class="wk-cn cn">第15–16天：希特勒崛起、中国1911—1949年、共产主义</div></div>
+  </div>
+ 
+  <!-- DAY 15 -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 15: Rise of Hitler &amp; the Nazi Party</div>
+      <div class="lesson-cn cn">希特勒的崛起与纳粹党</div>
+    </div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Stab-in-the-Back Myth</div><div class="kf-val">Gave Germans someone to blame; made scapegoating politically attractive</div><div class="kf-cn cn">给了德国人一个可以责怪的对象；使寻找替罪羊在政治上有吸引力</div></div>
+        <div class="key-fact"><div class="kf-label">Nazi Vote Jump</div><div class="kf-val">2.6% → 37.4% as Great Depression deepened</div><div class="kf-cn cn">随着大萧条加深，从2.6%跳升至37.4%</div></div>
+        <div class="key-fact"><div class="kf-label">Weimar Weakness Exploited</div><div class="kf-val">Article 48 — president could bypass parliament with emergency decrees</div><div class="kf-cn cn">第48条——总统可通过紧急法令绕过议会</div></div>
+        <div class="key-fact"><div class="kf-label">Conservative Politicians' Mistake</div><div class="kf-val">Thought they could control Hitler — he outmaneuvered them</div><div class="kf-cn cn">认为可以控制希特勒——他智胜了他们</div></div>
+      </div>
+      <div class="concept-block">
+        <h3>Fuhrerprinzip · 元首原则</h3>
+        <p>The principle of Hitler's <strong>absolute leadership</strong>. Every level of the Nazi Party obeyed orders from above without question. NOT a democratic voting system.</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">希特勒绝对领导的原则。纳粹党每个层级毫无疑问地服从上级命令。不是民主投票制度。</p>
+      </div>
+      <div class="concept-block">
+        <h3>Beer Hall Putsch (1923) · 啤酒馆暴动（1923年）</h3>
+        <p>Failed because: police and army <strong>did NOT join</strong> — they opened fire. Hitler's trial then gave him a national platform (sympathetic judge let him speak freely).</p>
+        <p class="cn" style="margin-top:6px;font-size:.84rem;">失败原因：警察和军队没有加入——他们开枪了。希特勒的审判随后给了他一个全国性的平台（同情他的法官让他自由发言）。</p>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 16 CHINA -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 16: China 1911–1949</div>
+      <div class="lesson-cn cn">中国1911—1949年</div>
+    </div>
+    <div class="lesson-body">
+      <table class="comp-table">
+        <thead><tr><th>Event / 事件</th><th>Significance / 意义</th></tr></thead>
+        <tbody>
+          <tr><td>Oct 10, 1911 Wuchang Uprising<span class="cn">武昌起义</span></td><td>Started the revolution that ended Qing Dynasty and imperial rule<span class="cn">开始了推翻清朝和帝制的革命</span></td></tr>
+          <tr><td>Warlord Era<span class="cn">军阀时代</span></td><td>Regional military commanders controlled territories and fought each other<span class="cn">地方军阀控制领土并相互争斗</span></td></tr>
+          <tr><td>The Long March<span class="cn">长征</span></td><td>Survivors formed hardened revolutionary core; Mao emerged as undisputed leader<span class="cn">幸存者形成坚韧的革命核心；毛泽东成为无争议的领导人</span></td></tr>
+          <tr><td>KMT-CPC Truce 1937<span class="cn">1937年国共停战</span></td><td>Japan's full invasion made fighting Japan the priority over civil war<span class="cn">日本全面入侵使对抗日本成为优先于内战的任务</span></td></tr>
+          <tr><td>Oct 1, 1949<span class="cn">1949年10月1日</span></td><td>Mao proclaimed PRC; declared end of the "Century of Humiliation"<span class="cn">毛泽东宣布建立中华人民共和国；宣告「百年屈辱」结束</span></td></tr>
+        </tbody>
+      </table>
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Why Mao Won</div><div class="kf-val">Gained support of China's 400 million peasants with land redistribution</div><div class="kf-cn cn">通过土地再分配赢得中国4亿农民的支持</div></div>
+        <div class="key-fact"><div class="kf-label">Why KMT Lost</div><div class="kf-val">Lacked popular support among peasants despite massive US aid</div><div class="kf-cn cn">尽管获得大量美国援助，却缺乏农民的支持</div></div>
+        <div class="key-fact"><div class="kf-label">Versailles Outrage in China</div><div class="kf-val">German-seized territories given to Japan instead of returned to China</div><div class="kf-cn cn">德国占据的领土给了日本而非归还中国</div></div>
+        <div class="key-fact"><div class="kf-label">Sun Yat-sen Respected By Both</div><div class="kf-val">Represents shared aspiration for modern, independent China</div><div class="kf-cn cn">代表对现代、独立中国的共同愿望</div></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- DAY 16 COMMUNISM -->
+  <div class="lesson-card">
+    <div class="lesson-header">
+      <div class="lesson-title">Day 16: Marxism, Communism &amp; the Bolshevik Revolution</div>
+      <div class="lesson-cn cn">马克思主义、共产主义与布尔什维克革命</div>
+    </div>
+    <div class="lesson-body">
+      <table class="comp-table">
+        <thead><tr><th>Thinker / 思想家</th><th>Key Idea / 核心思想</th></tr></thead>
+        <tbody>
+          <tr><td>Karl Marx<span class="cn">卡尔·马克思</span></td><td>Capitalists keep workers' <strong>surplus value</strong> (difference between value created and wages paid) as profit. History moves toward communism inevitably.<span class="cn">资本家将工人的剩余价值（创造价值与工资的差额）作为利润。历史不可避免地走向共产主义。</span></td></tr>
+          <tr><td>Lenin<span class="cn">列宁</span></td><td>Modified Marx: workers need a small, disciplined <strong>vanguard party</strong> to lead revolution. History must be actively directed, not just waited for.<span class="cn">修正马克思：工人需要一个小型、纪律严明的先锋党来领导革命。历史必须积极引导，而不是等待。</span></td></tr>
+        </tbody>
+      </table>
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Bolsheviks' Winning Slogan</div><div class="kf-val">"Peace, Land, Bread" — addressed what Russians desperately needed</div><div class="kf-cn cn">「和平、土地、面包」——解决了俄国人迫切需要的三件事</div></div>
+        <div class="key-fact"><div class="kf-label">Communist Theory vs Reality</div><div class="kf-val">Theory: equality + state withering away. Reality: authoritarian states + new elites + suppressed freedoms</div><div class="kf-cn cn">理论：平等+国家消亡。现实：威权国家+新精英阶层+压制自由</div></div>
+        <div class="key-fact"><div class="kf-label">Who Communism Appealed To</div><div class="kf-val">Workers, colonized peoples, peasants, disillusioned intellectuals</div><div class="kf-cn cn">工人、被殖民民族、农民、幻想破灭的知识分子</div></div>
+        <div class="key-fact"><div class="kf-label">Communist Manifesto Purpose</div><div class="kf-val">Call workers to unite and overthrow capitalism</div><div class="kf-cn cn">号召工人团结起来推翻资本主义</div></div>
+      </div>
+      <div class="callout blue">
+        <strong>💡 Legacy of Communism / 共产主义的遗产</strong>
+        Real gains in industrialization and welfare — but at enormous human cost through political violence. NOT entirely positive OR entirely negative.
+        <span class="cn">在工业化和福利方面取得了实际成就——但通过政治暴力付出了巨大的人力代价。不是完全积极，也不是完全消极。</span>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- TAB: BIG IDEAS -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-big">
+  <div class="week-banner">
+    <div class="wk-num">💡</div>
+    <div><div class="wk-title">Big Picture Connections &amp; Patterns</div><div class="wk-cn cn">重大主题联系与历史规律</div></div>
+  </div>
+ 
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-title">Turning Points in History / 历史转折点</div></div>
+    <div class="lesson-body">
+      <table class="comp-table">
+        <thead><tr><th>Turning Point / 转折点</th><th>Changed From → To / 从……变为……</th></tr></thead>
+        <tbody>
+          <tr><td>Neolithic Revolution<span class="cn">新石器时代革命</span></td><td>Nomadic hunter-gathering → Settled farming + civilization<span class="cn">游牧狩猎采集→定居农耕+文明</span></td></tr>
+          <tr><td>Treaty of Versailles<span class="cn">凡尔赛条约</span></td><td>WWI ends → Created conditions for WWII<span class="cn">一战结束→制造了二战的条件</span></td></tr>
+          <tr><td>Columbian Exchange<span class="cn">哥伦布大交换</span></td><td>Separate worlds → Permanent global connection (and devastation)<span class="cn">分离的世界→永久的全球联系（以及破坏）</span></td></tr>
+          <tr><td>Oct 1, 1949<span class="cn">1949年10月1日</span></td><td>Century of Humiliation → Modern People's Republic of China<span class="cn">百年屈辱→现代中华人民共和国</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+ 
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-title">How Empires Rise and Fall / 帝国如何兴衰</div></div>
+    <div class="lesson-body">
+      <div class="key-facts">
+        <div class="key-fact"><div class="kf-label">Empires Rise Through</div><div class="kf-val">Military conquest, economic strength, centralized political control</div><div class="kf-cn cn">军事征服、经济实力、中央集权控制</div></div>
+        <div class="key-fact"><div class="kf-label">Empires Fall Because Of</div><div class="kf-val">Political instability, economic strain, military overextension, external invasions</div><div class="kf-cn cn">政治不稳定、经济压力、军事过度扩张、外部入侵</div></div>
+      </div>
+      <div class="callout green">
+        <strong>🔗 Examples / 例子</strong>
+        Rome, Persia (Achaemenid), Mongols, Austria-Hungary — all share this pattern of internal weakness + external pressure leading to decline.
+        <span class="cn">罗马、波斯（阿契美尼德）、蒙古、奥匈帝国——都有内部软弱+外部压力导致衰落的模式。</span>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-title">Trade as a Force of Change / 贸易作为变革力量</div></div>
+    <div class="lesson-body">
+      <table class="comp-table">
+        <thead><tr><th>Trade Network / 贸易网络</th><th>Spread / 传播</th><th>Consequence / 后果</th></tr></thead>
+        <tbody>
+          <tr><td>Silk Road<span class="cn">丝绸之路</span></td><td>Goods, religions (Buddhism/Islam), technologies, ideas<span class="cn">商品、宗教（佛教/伊斯兰）、技术、思想</span></td><td>Connected East and West; spread Buddhism &amp; Islam<span class="cn">连接东西方；传播佛教和伊斯兰教</span></td></tr>
+          <tr><td>Columbian Exchange<span class="cn">哥伦布大交换</span></td><td>Crops, animals, diseases, ideas<span class="cn">农作物、动物、疾病、思想</span></td><td>Population growth in Europe (potatoes); catastrophic disease for Indigenous peoples<span class="cn">欧洲人口增长（土豆）；原住民灾难性疾病</span></td></tr>
+          <tr><td>Pax Mongolica<span class="cn">蒙古和平</span></td><td>Safe travel across Eurasia; Black Death<span class="cn">跨欧亚安全旅行；黑死病</span></td><td>Facilitated Renaissance; devastated Europe's population<span class="cn">促进文艺复兴；重创欧洲人口</span></td></tr>
+          <tr><td>Triangular Trade<span class="cn">三角贸易</span></td><td>Enslaved people, crops, manufactured goods<span class="cn">被奴役的人、农作物、制成品</span></td><td>Built Atlantic economy; lasting poverty in Africa<span class="cn">建立大西洋经济；非洲持久贫困</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+ 
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-title">The Power of Ideas / 思想的力量</div></div>
+    <div class="lesson-body">
+      <table class="comp-table">
+        <thead><tr><th>Idea / 思想</th><th>Spread By / 传播方式</th><th>Changed / 改变了</th></tr></thead>
+        <tbody>
+          <tr><td>Humanism<span class="cn">人文主义</span></td><td>Renaissance artists, scholars, printing press<span class="cn">文艺复兴艺术家、学者、印刷机</span></td><td>How Europeans thought about human potential and reason<span class="cn">欧洲人对人类潜能和理性的看法</span></td></tr>
+          <tr><td>Communism<span class="cn">共产主义</span></td><td>Communist Manifesto, Lenin's vanguard party<span class="cn">《共产党宣言》、列宁的先锋党</span></td><td>Appealed to workers, peasants, colonized peoples seeking justice<span class="cn">吸引了寻求公正的工人、农民和被殖民民族</span></td></tr>
+          <tr><td>Nationalism<span class="cn">民族主义</span></td><td>Revolutions, newspapers, leaders<span class="cn">革命、报纸、领导者</span></td><td>Triggered WWI; drove Chinese revolution; fueled Nazi Germany<span class="cn">引发一战；推动中国革命；助燃纳粹德国</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+ 
+  <!-- Master Vocab Quick Reference -->
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-title">Master Vocabulary Quick Reference / 核心词汇快速查阅</div></div>
+    <div class="lesson-body">
+      <table class="comp-table">
+        <thead><tr><th>Term / 词汇</th><th>Chinese / 中文</th><th>Definition / 定义</th></tr></thead>
+        <tbody>
+          <tr><td>Homo sapiens</td><td class="cn">智人</td><td>The species name for modern humans</td></tr>
+          <tr><td>Neolithic Revolution</td><td class="cn">新石器时代革命</td><td>Shift from hunter-gathering to farming</td></tr>
+          <tr><td>Cuneiform</td><td class="cn">楔形文字</td><td>Earliest writing system (Mesopotamia/Sumer)</td></tr>
+          <tr><td>Hellenistic</td><td class="cn">希腊化的</td><td>Spread of Greek culture after Alexander</td></tr>
+          <tr><td>Pax Romana</td><td class="cn">罗马和平</td><td>~200 years of Roman peace &amp; prosperity</td></tr>
+          <tr><td>Pax Mongolica</td><td class="cn">蒙古和平</td><td>Stability &amp; safe trade across Mongol Empire</td></tr>
+          <tr><td>Humanism</td><td class="cn">人文主义</td><td>Renaissance philosophy emphasizing human potential &amp; reason</td></tr>
+          <tr><td>Columbian Exchange</td><td class="cn">哥伦布大交换</td><td>Transfer of plants, animals, diseases after 1492</td></tr>
+          <tr><td>Encomienda</td><td class="cn">监护征赋制度</td><td>Spanish forced labor system over Indigenous people</td></tr>
+          <tr><td>Sola fide</td><td class="cn">唯独信仰</td><td>Luther's teaching: salvation through faith alone</td></tr>
+          <tr><td>M.A.I.N.</td><td class="cn">主战因素</td><td>Militarism, Alliances, Imperialism, Nationalism — WWI causes</td></tr>
+          <tr><td>War Guilt Clause</td><td class="cn">战争罪责条款</td><td>Forced Germany to accept sole responsibility for WWI</td></tr>
+          <tr><td>Fuhrerprinzip</td><td class="cn">元首原则</td><td>Hitler's principle of absolute, unquestioned leadership</td></tr>
+          <tr><td>Surplus value</td><td class="cn">剩余价值</td><td>Marx: difference between value workers create and wages paid</td></tr>
+          <tr><td>Vanguard party</td><td class="cn">先锋党</td><td>Lenin's idea: small disciplined party leads workers to revolution</td></tr>
+          <tr><td>Long March</td><td class="cn">长征</td><td>CPC's retreat that created hardened revolutionary core; Mao rose to power</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+ 
+<!-- TIMER -->
+<div id="timer">⏱ 00:00</div>
+ 
+<script>
+let leaveCount = 0;
+let secondsElapsed = 0;
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
