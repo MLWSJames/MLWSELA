@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 3 Day 1 | 第三周第一天</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;
+  --ml-red:#c1121f;--ml-gold:#e9c46a;--ink:#1a2a1a;--ink2:#2d3748;
+  --mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--ink);min-height:100vh;}
+h1,h2,h3{font-family:'Literata',serif;}
+.cn{font-family:'Noto Sans SC',sans-serif;}
+.site-header{background:var(--ml-green-dark);color:#fff;padding:14px 20px 10px;}
+.header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.header-title{font-size:1.18rem;font-weight:700;letter-spacing:.01em;}
+.header-sub{font-size:.82rem;opacity:.8;font-family:'Noto Sans SC',sans-serif;}
+#leaveBadge{font-size:.78rem;background:rgba(255,255,255,.15);border-radius:20px;padding:3px 10px;white-space:nowrap;}
+.progress-row{margin-top:8px;display:flex;align-items:center;gap:10px;}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.2);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;width:0%;transition:width .4s;}
+#progressText{font-size:.75rem;color:rgba(255,255,255,.85);white-space:nowrap;}
+.pip-row{display:flex;gap:6px;align-items:center;margin-top:6px;}
+.pip{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.25);transition:background .4s;}
+.pip.done{background:var(--ml-gold);}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);padding:0 8px;gap:2px;}
+.tab-btn{border:none;background:transparent;padding:11px 18px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;color:#555;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--ml-green);}
+.tab-btn.active{color:var(--ml-green-dark);border-bottom-color:var(--ml-green-dark);font-weight:700;}
+.tab-content{display:none;padding:20px 16px 80px;max-width:860px;margin:0 auto;}
+.tab-content.active{display:block;}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:16px;}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.vocab-word{font-size:1.25rem;font-weight:700;color:var(--ml-green-dark);font-family:'Literata',serif;}
+.vocab-pos{font-size:.75rem;color:#888;font-style:italic;margin-bottom:6px;}
+.vocab-cn-word{font-size:1rem;font-weight:700;color:var(--cobalt);font-family:'Noto Sans SC',sans-serif;margin-bottom:6px;}
+.vocab-def{font-size:.88rem;color:var(--ink2);line-height:1.5;margin-bottom:4px;}
+.vocab-cn-def{font-size:.83rem;color:#555;font-family:'Noto Sans SC',sans-serif;line-height:1.5;margin-bottom:8px;}
+.vocab-example{font-size:.83rem;color:var(--cobalt);font-style:italic;border-left:3px solid var(--ml-gold);padding-left:8px;margin-bottom:8px;}
+.speak-btn{border:none;background:var(--ml-green-light);color:var(--ml-green-dark);border-radius:6px;padding:4px 10px;font-size:.8rem;cursor:pointer;font-weight:600;}
+.speak-btn:hover{background:var(--ml-green);color:#fff;}
+.section-head{font-size:1.15rem;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:6px;margin:24px 0 12px;}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.concept-card h3{font-size:1rem;color:var(--cobalt);margin-bottom:6px;}
+.concept-card p{font-size:.9rem;color:var(--ink2);line-height:1.6;margin-bottom:6px;}
+.concept-card .cn{font-size:.85rem;color:#555;line-height:1.6;}
+.callout{background:var(--amber-light);border-left:4px solid var(--amber);border-radius:8px;padding:12px 16px;margin:14px 0;}
+.callout strong{color:var(--amber);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;}
+.callout p{font-size:.88rem;color:var(--ink2);margin-top:4px;line-height:1.55;}
+.callout .cn{font-size:.83rem;color:#666;margin-top:3px;}
+.info-box{background:var(--ml-green-light);border:1px solid #b7e4c7;border-radius:8px;padding:12px 16px;margin:14px 0;}
+.info-box p{font-size:.88rem;color:var(--ml-green-dark);line-height:1.55;}
+.info-box .cn{font-size:.83rem;color:#276749;margin-top:4px;}
+.cobalt-box{background:#e8eef7;border:1px solid #c3d0e8;border-radius:8px;padding:12px 16px;margin:14px 0;}
+.cobalt-box p{font-size:.88rem;color:var(--cobalt);line-height:1.55;}
+.cobalt-box .cn{font-size:.83rem;color:#365080;margin-top:4px;}
+table.concept-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.86rem;}
+table.concept-table th{background:var(--ml-green-dark);color:#fff;padding:8px 10px;text-align:left;font-weight:600;}
+table.concept-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--ink2);vertical-align:top;}
+table.concept-table tr:nth-child(even) td{background:#f4f8f5;}
+table.concept-table .cn{font-size:.8rem;color:#555;display:block;margin-top:2px;}
+.color-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.color-cell{border-radius:8px;padding:12px;font-size:.85rem;line-height:1.5;}
+.color-cell.green{background:var(--ml-green-light);border:1px solid #b7e4c7;color:var(--ml-green-dark);}
+.color-cell.cobalt{background:#e8eef7;border:1px solid #c3d0e8;color:var(--cobalt);}
+.color-cell.amber{background:var(--amber-light);border:1px solid #fcd34d;color:var(--amber);}
+.color-cell.red{background:#fee2e2;border:1px solid #fca5a5;color:#991b1b;}
+.color-cell strong{display:block;font-weight:700;margin-bottom:3px;}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.name-row label{font-size:.88rem;font-weight:600;color:var(--ml-green-dark);}
+.name-input{border:2px solid var(--border);border-radius:8px;padding:7px 12px;font-size:.9rem;font-family:'DM Sans',sans-serif;width:220px;}
+.name-input:focus{outline:none;border-color:var(--ml-green);}
+.quiz-section-head{font-size:1rem;font-weight:700;color:var(--ink2);margin:28px 0 4px;}
+.quiz-instruction{font-size:.84rem;color:#666;margin-bottom:14px;}
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.q-num{font-size:.75rem;font-weight:700;color:#888;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;}
+.passage-box{background:#f8f9fa;border-left:3px solid var(--ml-gold);border-radius:6px;padding:12px 14px;font-size:.87rem;color:var(--ink2);line-height:1.65;margin-bottom:10px;font-family:'Literata',serif;}
+.q-text{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5;}
+.q-cn{font-size:.85rem;color:#555;margin-bottom:10px;}
+.opts-wrap{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+.opt-btn{background:#f8faf8;border:2px solid var(--border);border-radius:8px;padding:9px 13px;text-align:left;cursor:pointer;font-size:.87rem;font-family:'DM Sans',sans-serif;color:var(--ink2);transition:all .18s;line-height:1.45;}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:var(--ml-green-light);}
+.opt-btn:disabled{cursor:default;}
+.opt-btn.show-correct{background:#d1fae5;border-color:#059669;color:#065f46;}
+.opt-btn.selected-correct{background:#d1fae5;border-color:#059669;color:#065f46;}
+.opt-btn.selected-wrong{background:#fee2e2;border-color:#ef4444;color:#7f1d1d;}
+.rationale{display:none;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:10px 13px;font-size:.84rem;color:var(--cobalt);line-height:1.55;margin-top:4px;}
+.rationale.show{display:block;}
+.rationale.correct-rat{background:#d1fae5;border-color:#6ee7b7;color:#065f46;}
+.rationale.wrong-rat{background:#fef2f2;border-color:#fca5a5;color:#7f1d1d;}
+.reflect-section{margin-top:28px;border-top:2px solid var(--border);padding-top:20px;}
+.reflect-section h3{font-size:1rem;color:var(--ml-green-dark);margin-bottom:14px;font-family:'Literata',serif;}
+.reflect-q{margin-bottom:16px;}
+.reflect-q label{font-size:.88rem;font-weight:600;color:var(--ink2);display:block;margin-bottom:6px;}
+.reflect-q .cn{font-size:.82rem;color:#666;display:block;margin-bottom:6px;}
+.reflect-textarea{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px 12px;font-size:.88rem;font-family:'DM Sans',sans-serif;color:var(--ink2);resize:vertical;min-height:80px;transition:border-color .2s;}
+.reflect-textarea:focus{outline:none;border-color:var(--ml-green);}
+.reflect-textarea.filled{border-color:var(--ml-green);}
+.grat-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.grat-row label{font-size:.88rem;font-weight:600;color:var(--ink2);}
+.grat-input{border:2px solid var(--border);border-radius:8px;padding:7px 12px;font-size:.88rem;font-family:'DM Sans',sans-serif;color:var(--ink2);width:220px;transition:border-color .2s;}
+.grat-input:focus{outline:none;border-color:var(--ml-gold);}
+.grat-input.filled{border-color:var(--ml-gold);}
+.dl-btn{display:block;width:100%;padding:12px;background:#ccc;border:none;border-radius:10px;font-size:.95rem;font-weight:700;font-family:'DM Sans',sans-serif;color:#fff;cursor:not-allowed;transition:all .3s;margin-top:10px;}
+.dl-btn.ready{background:var(--ml-green-dark);cursor:pointer;}
+.dl-btn.ready:hover{background:var(--ml-green);}
+.hint-text{font-size:.8rem;color:#888;text-align:center;margin-top:6px;}
+.hint-text.hidden{display:none;}
+#timer-display{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.85rem;font-weight:600;z-index:500;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+@media(max-width:600px){.color-row{grid-template-columns:1fr;}.name-input{width:100%;}.tab-btn{padding:10px 12px;font-size:.82rem;}}
+</style>
+</head>
+<body>
+ 
+<!-- ANTI-CHEAT BANNER -->
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+ 
+<!-- LEAVE FLASH -->
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  🚨 Tab switch recorded! Your teacher will see this. · <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span>
+</div>
+ 
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">MLWS Social Studies · Week 3 Day 1</div>
+      <div class="header-sub cn">枫叶世界学校 · 社会研究 · 第三周第一天</div>
+    </div>
+    <div id="leaveBadge">🚪 Leaves: 0</div>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <div id="progressText">Progress: 0% · 进度：0%</div>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.7;">Tabs:</span>
+    <div class="pip" id="pip-l1" title="Mughal Rule"></div>
+    <div class="pip" id="pip-l2" title="Islamic Empires"></div>
+    <div class="pip" id="pip-l3" title="Origins of Russia"></div>
+    <div class="pip" id="pip-l4" title="Women in History"></div>
+  </div>
+</header>
+ 
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">📚 Vocab · 词汇</button>
+  <button class="tab-btn" onclick="switchTab('l1', this)">Mughal Rule in India</button>
+  <button class="tab-btn" onclick="switchTab('l2', this)">Islamic Empires Compared</button>
+  <button class="tab-btn" onclick="switchTab('l3', this)">Origins of Russia</button>
+  <button class="tab-btn" onclick="switchTab('l4', this)">Women in Rome &amp; Han China</button>
+</div>
+ 
+<!-- ===== VOCAB TAB ===== -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Vocabulary · 词汇表</h2>
+  <div class="info-box">
+    <p>Learn these 12 key terms before exploring the lessons. Click 🔊 to hear pronunciation.</p>
+    <p class="cn">在学习课程之前，先学习这12个关键词汇。点击 🔊 听发音。</p>
+  </div>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- ===== LESSON 1: MUGHAL RULE IN INDIA ===== -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · 你的姓名:</label>
+    <input type="text" id="l1Name" class="name-input" placeholder="Type your name here...">
+  </div>
+ 
+  <h2 class="section-head">Mughal Rule in India · 莫卧儿王朝统治印度</h2>
+ 
+  <div class="concept-card">
+    <h3>What Was the Mughal Empire? · 什么是莫卧儿帝国？</h3>
+    <p>The Mughal Empire was one of the most powerful empires in world history. It ruled most of the Indian subcontinent from 1526 to 1857. The word "Mughal" comes from "Mongol" — the Mughals were descendants of the great Mongol and Turkic conquerors of Central Asia.</p>
+    <p class="cn">莫卧儿帝国是世界历史上最强大的帝国之一。它从1526年到1857年统治了印度次大陆的大部分地区。"莫卧儿"这个词来自"蒙古"——莫卧儿人是中亚伟大的蒙古和突厥征服者的后裔。</p>
+  </div>
+ 
+  <h3 class="section-head">The Delhi Sultanate: Before the Mughals · 德里苏丹国：莫卧儿之前</h3>
+  <div class="concept-card">
+    <p>Before the Mughals, India was ruled by the Delhi Sultanate (1206–1526). This was a series of Muslim kingdoms based in Delhi. The Sultanate brought Islam to northern India and built grand mosques and architecture. However, it was weakened by internal conflicts and was eventually defeated by Babur, the first Mughal emperor.</p>
+    <p class="cn">在莫卧儿人之前，印度由德里苏丹国（1206-1526年）统治。这是一系列以德里为基地的穆斯林王国。苏丹国将伊斯兰教带到印度北部，建造了宏伟的清真寺和建筑。然而，它因内部冲突而被削弱，最终被第一位莫卧儿皇帝巴布尔击败。</p>
+  </div>
+ 
+  <h3 class="section-head">The Six Great Mughal Emperors · 六位伟大的莫卧儿皇帝</h3>
+  <table class="concept-table">
+    <thead>
+      <tr><th>Emperor · 皇帝</th><th>Reign · 统治时期</th><th>Key Achievement · 主要成就</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Babur</strong><span class="cn">巴布尔</span></td>
+        <td>1526–1530</td>
+        <td>Defeated the Delhi Sultanate; founded the empire<span class="cn">击败德里苏丹国；建立帝国</span></td>
+      </tr>
+      <tr>
+        <td><strong>Humayun</strong><span class="cn">胡马雍</span></td>
+        <td>1530–1556</td>
+        <td>Lost and recaptured the empire; expanded into Persia<span class="cn">失去并夺回帝国；扩张至波斯</span></td>
+      </tr>
+      <tr>
+        <td><strong>Akbar</strong><span class="cn">阿克巴</span></td>
+        <td>1556–1605</td>
+        <td>Greatest emperor; promoted religious tolerance; unified India<span class="cn">最伟大的皇帝；倡导宗教宽容；统一印度</span></td>
+      </tr>
+      <tr>
+        <td><strong>Jahangir</strong><span class="cn">贾汉吉尔</span></td>
+        <td>1605–1627</td>
+        <td>Art and culture flourished; empire stable<span class="cn">艺术文化繁荣；帝国稳定</span></td>
+      </tr>
+      <tr>
+        <td><strong>Shah Jahan</strong><span class="cn">沙贾汗</span></td>
+        <td>1628–1658</td>
+        <td>Built the Taj Mahal; great architecture<span class="cn">建造泰姬陵；伟大的建筑成就</span></td>
+      </tr>
+      <tr>
+        <td><strong>Aurangzeb</strong><span class="cn">奥朗则布</span></td>
+        <td>1658–1707</td>
+        <td>Expanded empire to largest size; strict Islamic rule caused conflict<span class="cn">将帝国扩张至最大规模；严格的伊斯兰统治引发冲突</span></td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout">
+    <strong>Key Contrast · 关键对比</strong>
+    <p>Akbar allowed Hindus and Muslims to live peacefully together. Aurangzeb reversed this — he taxed Hindus and destroyed some Hindu temples. This religious conflict weakened the empire after Aurangzeb's death.</p>
+    <p class="cn">阿克巴允许印度教徒和穆斯林和平共处。奥朗则布颠覆了这一做法——他对印度教徒征税并摧毁了一些印度教寺庙。这种宗教冲突在奥朗则布去世后削弱了帝国。</p>
+  </div>
+ 
+  <h3 class="section-head">Geographic Expansion · 地理扩张</h3>
+  <div class="concept-card">
+    <p>The Mughal Empire began in Kabul and Lahore (modern Pakistan/Afghanistan). Over 200 years, it expanded south and east across the entire Indian subcontinent. Under Aurangzeb, it reached deep into the Deccan (southern India). At its peak, the Mughal Empire controlled about 150 million people — more than 25% of the world's population at the time.</p>
+    <p class="cn">莫卧儿帝国始于喀布尔和拉合尔（今巴基斯坦/阿富汗）。在200多年的时间里，它向南向东扩展到整个印度次大陆。在奥朗则布统治下，帝国深入德干高原（印度南部）。在鼎盛时期，莫卧儿帝国控制了约1.5亿人——占当时世界人口的25%以上。</p>
+  </div>
+ 
+  <div class="color-row">
+    <div class="color-cell green">
+      <strong>Strengths · 优势</strong>
+      Religious tolerance under Akbar · 阿克巴时期的宗教宽容<br>
+      Massive trade wealth · 巨大的贸易财富<br>
+      Beautiful art and architecture · 精美的艺术与建筑
+    </div>
+    <div class="color-cell red">
+      <strong>Weaknesses · 弱点</strong>
+      Religious conflict under Aurangzeb · 奥朗则布时期的宗教冲突<br>
+      Too large to govern · 领土过大难以管理<br>
+      British East India Company pressure · 英国东印度公司的压力
+    </div>
+  </div>
+ 
+  <h3 class="section-head">Quiz · 测验 — Mughal Rule in India</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="l1QuizContainer"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">
+      <label>1. Akbar and Aurangzeb had very different styles of leadership. Which ruler do you think made the Mughal Empire stronger in the long run, and why?</label>
+      <span class="cn">阿克巴和奥朗则布的领导风格非常不同。你认为从长远来看，哪位统治者使莫卧儿帝国更强大？为什么？</span>
+      <textarea id="l1Ref1" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. The Mughal Empire lasted over 300 years. What do you think is the most important reason it eventually ended?</label>
+      <span class="cn">莫卧儿帝国延续了300多年。你认为它最终终结的最重要原因是什么？</span>
+      <textarea id="l1Ref2" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="l1Grat" class="grat-input" placeholder="...">
+    </div>
+    <button class="dl-btn" id="l1DownloadBtn" onclick="tryDownload('l1')">⬇ Download My Work · 下载我的作业</button>
+    <p class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思栏后解锁下载。</p>
+  </div>
+</div>
+ 
+<!-- ===== LESSON 2: ISLAMIC EMPIRES COMPARED ===== -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · 你的姓名:</label>
+    <input type="text" id="l2Name" class="name-input" placeholder="Type your name here...">
+  </div>
+ 
+  <h2 class="section-head">Islamic Empires Compared · 伊斯兰帝国比较</h2>
+ 
+  <div class="concept-card">
+    <h3>Three Great Islamic Empires · 三大伊斯兰帝国</h3>
+    <p>Between 1300 and 1700 CE, three powerful Islamic empires ruled large parts of the world: the Ottoman Empire, the Safavid Empire, and the Mughal Empire. Together they are called the "Gunpowder Empires" because all three used gunpowder weapons — cannons and muskets — to conquer territory and maintain power.</p>
+    <p class="cn">公元1300年至1700年间，三个强大的伊斯兰帝国统治着世界的大部分地区：奥斯曼帝国、萨法维帝国和莫卧儿帝国。它们合称"火药帝国"，因为这三个帝国都使用火药武器——大炮和火枪——来征服领土并维持权力。</p>
+  </div>
+ 
+  <h3 class="section-head">The Mongol Legacy · 蒙古帝国的遗产</h3>
+  <div class="concept-card">
+    <p>All three Islamic empires were heavily influenced by the collapse of the Mongol Empire. When the great Mongol Empire broke apart, it split into smaller successor states:</p>
+    <p class="cn">这三个伊斯兰帝国都深受蒙古帝国崩溃的影响。当伟大的蒙古帝国分裂时，它分裂成几个较小的继承国：</p>
+  </div>
+  <div class="color-row">
+    <div class="color-cell cobalt">
+      <strong>Ilkhanate · 伊利汗国</strong>
+      Ruled Persia/Iraq · 统治波斯/伊拉克<br>
+      Later became Muslim · 后来皈依伊斯兰教
+    </div>
+    <div class="color-cell amber">
+      <strong>Chagatai Khanate · 察合台汗国</strong>
+      Ruled Central Asia · 统治中亚<br>
+      Ancestor of Mughals · 莫卧儿先祖
+    </div>
+  </div>
+  <div class="color-row">
+    <div class="color-cell green">
+      <strong>Yuan Dynasty · 元朝</strong>
+      Ruled China · 统治中国<br>
+      Founded by Kublai Khan · 忽必烈建立
+    </div>
+    <div class="color-cell cobalt">
+      <strong>Timurid Empire · 帖木儿帝国</strong>
+      Ruled Central Asia (1370–1507) · 统治中亚<br>
+      Led to Mughal founding · 导致莫卧儿建立
+    </div>
+  </div>
+ 
+  <h3 class="section-head">Side-by-Side Comparison · 并排比较</h3>
+  <table class="concept-table">
+    <thead>
+      <tr><th>Feature · 特征</th><th>Ottoman · 奥斯曼</th><th>Safavid · 萨法维</th><th>Mughal · 莫卧儿</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Location · 位置</td>
+        <td>Turkey, Middle East, N. Africa · 土耳其、中东、北非</td>
+        <td>Persia (Iran) · 波斯（伊朗）</td>
+        <td>India · 印度</td>
+      </tr>
+      <tr>
+        <td>Dates · 年份</td>
+        <td>1299–1922</td>
+        <td>1501–1736</td>
+        <td>1526–1857</td>
+      </tr>
+      <tr>
+        <td>Islam branch · 伊斯兰派别</td>
+        <td>Sunni · 逊尼派</td>
+        <td>Shia · 什叶派</td>
+        <td>Sunni · 逊尼派</td>
+      </tr>
+      <tr>
+        <td>Language · 语言</td>
+        <td>Turkish · 土耳其语</td>
+        <td>Persian · 波斯语</td>
+        <td>Persian + Urdu · 波斯语+乌尔都语</td>
+      </tr>
+      <tr>
+        <td>Famous building · 著名建筑</td>
+        <td>Hagia Sophia · 圣索菲亚大教堂</td>
+        <td>Isfahan Mosques · 伊斯法罕清真寺</td>
+        <td>Taj Mahal · 泰姬陵</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout">
+    <strong>Sunni vs. Shia · 逊尼派与什叶派</strong>
+    <p>The Ottoman and Mughal empires followed Sunni Islam. The Safavid Empire followed Shia Islam. This religious difference caused frequent wars between the Ottomans and Safavids. The Mughal Empire sat between these two powers geographically and had to manage diplomatic relationships carefully.</p>
+    <p class="cn">奥斯曼和莫卧儿帝国信奉逊尼派伊斯兰教。萨法维帝国信奉什叶派伊斯兰教。这种宗教差异导致奥斯曼人和萨法维人之间频繁发生战争。莫卧儿帝国在地理上位于这两股势力之间，必须谨慎处理外交关系。</p>
+  </div>
+ 
+  <h3 class="section-head">Quiz · 测验 — Islamic Empires Compared</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="l2QuizContainer"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">
+      <label>1. All three empires used gunpowder weapons to gain power. How do you think new technology changes the balance of power between nations? Use evidence from the lesson.</label>
+      <span class="cn">三个帝国都使用火药武器来获取权力。你认为新技术如何改变国家之间的力量平衡？请用课程中的证据支持你的观点。</span>
+      <textarea id="l2Ref1" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. The Sunni-Shia divide caused wars between neighboring empires. Can you think of a modern example where religious or cultural differences cause conflict between neighbors?</label>
+      <span class="cn">逊尼派与什叶派的分歧导致了邻近帝国之间的战争。你能想到现代的例子，宗教或文化差异导致邻居之间的冲突吗？</span>
+      <textarea id="l2Ref2" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="l2Grat" class="grat-input" placeholder="...">
+    </div>
+    <button class="dl-btn" id="l2DownloadBtn" onclick="tryDownload('l2')">⬇ Download My Work · 下载我的作业</button>
+    <p class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思栏后解锁下载。</p>
+  </div>
+</div>
+ 
+<!-- ===== LESSON 3: ORIGINS OF RUSSIA ===== -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · 你的姓名:</label>
+    <input type="text" id="l3Name" class="name-input" placeholder="Type your name here...">
+  </div>
+ 
+  <h2 class="section-head">Origins of Russia · 俄罗斯的起源</h2>
+ 
+  <div class="concept-card">
+    <h3>Where Did Russia Come From? · 俄罗斯从哪里来？</h3>
+    <p>Russia is the largest country in the world today, but it began as a small group of Slavic people living near rivers in Eastern Europe. The first Russian state grew from a trading city called Novgorod and later the city of Kiev (modern-day Ukraine). These early states are called "Kievan Rus" — the ancestor of Russia, Ukraine, and Belarus.</p>
+    <p class="cn">俄罗斯是今天世界上最大的国家，但它起源于生活在东欧河流附近的一小群斯拉夫人。第一个俄罗斯国家从一个叫诺夫哥罗德的贸易城市发展而来，后来发展到基辅（今乌克兰）。这些早期国家被称为"基辅罗斯"——俄罗斯、乌克兰和白俄罗斯的祖先。</p>
+  </div>
+ 
+  <h3 class="section-head">Key Stages of Russian Development · 俄罗斯发展的关键阶段</h3>
+  <div class="concept-card">
+    <h3>Stage 1: The Varangians (Vikings) · 阶段1：瓦良格人（维京人）</h3>
+    <p>Around 862 CE, Slavic tribes invited a Viking leader named Rurik to rule over them. Rurik and his descendants (the Rurikid dynasty) built the first organized Russian state. The Vikings, called Varangians in Russia, were skilled traders and warriors who helped connect Russia to Byzantium (Constantinople) and the Middle East through river trade routes.</p>
+    <p class="cn">约公元862年，斯拉夫部落邀请一位名叫留里克的维京领袖来统治他们。留里克及其后裔（留里克王朝）建立了第一个有组织的俄罗斯国家。在俄罗斯被称为瓦良格人的维京人是技艺精湛的商人和战士，他们通过河流贸易路线将俄罗斯与拜占庭（君士坦丁堡）和中东连接起来。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Stage 2: Kievan Rus and Christianity · 阶段2：基辅罗斯与基督教</h3>
+    <p>Kiev became the most important city. In 988 CE, Prince Vladimir of Kiev converted to Orthodox Christianity — the religion of the Byzantine Empire. This was one of the most important decisions in Russian history. It made Russia a Christian nation and connected it deeply to Byzantine culture, art, and law. The famous onion-dome churches of Russia come from this Byzantine influence.</p>
+    <p class="cn">基辅成为最重要的城市。公元988年，基辅王子弗拉基米尔皈依了东正教——拜占庭帝国的宗教。这是俄罗斯历史上最重要的决定之一。它使俄罗斯成为一个基督教国家，并将其与拜占庭文化、艺术和法律紧密联系在一起。俄罗斯著名的洋葱顶教堂就来自这种拜占庭影响。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Stage 3: The Mongol Invasion · 阶段3：蒙古入侵</h3>
+    <p>In the 1230s–1240s, the Mongols under Batu Khan swept across Russia and destroyed most major cities, including Kiev. For about 240 years, Russian princes had to pay taxes and obey the Mongol Golden Horde. This period of Mongol rule, called the "Tatar Yoke," left a deep mark on Russia. Some historians argue it made Russian rulers more authoritarian and isolated Russia from Western European development.</p>
+    <p class="cn">13世纪30至40年代，拔都汗率领的蒙古人横扫俄罗斯，摧毁了包括基辅在内的大多数主要城市。约240年间，俄罗斯王公不得不向蒙古金帐汗国纳税并服从其统治。这段蒙古统治时期被称为"鞑靼枷锁"，在俄罗斯留下了深刻印记。一些历史学家认为，这使俄罗斯统治者更加专制，并使俄罗斯与西欧的发展相隔离。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Stage 4: Moscow Rises · 阶段4：莫斯科的崛起</h3>
+    <p>While Kiev was destroyed, a small city called Moscow slowly grew in power. By the 1400s, Moscow's rulers — called Grand Princes — began uniting Russian lands and pushing back the Mongols. Ivan III ("Ivan the Great") in the 1460s–1505 refused to pay the Mongol tribute and declared Russia independent. He married a Byzantine princess and called Moscow the "Third Rome" — the new center of Christian civilization after Constantinople fell to the Ottomans in 1453.</p>
+    <p class="cn">基辅被摧毁时，一座叫莫斯科的小城市慢慢崛起。到15世纪，莫斯科的统治者——被称为大公——开始统一俄罗斯土地并抵抗蒙古人。伊凡三世（"伊凡大帝"）在1460至1505年间拒绝向蒙古人纳贡并宣布俄罗斯独立。他娶了一位拜占庭公主，并将莫斯科称为"第三罗马"——1453年君士坦丁堡落入奥斯曼人手中后基督教文明的新中心。</p>
+  </div>
+ 
+  <div class="callout">
+    <strong>Big Idea · 核心概念</strong>
+    <p>Russia's identity was shaped by three forces: Slavic roots, Orthodox Christianity, and Mongol rule. Each left a lasting mark on Russian government, culture, and relations with the outside world.</p>
+    <p class="cn">俄罗斯的身份认同由三种力量塑造：斯拉夫根源、东正教和蒙古统治。每一种都在俄罗斯的政府、文化和对外关系上留下了持久的印记。</p>
+  </div>
+ 
+  <h3 class="section-head">Quiz · 测验 — Origins of Russia</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="l3QuizContainer"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">
+      <label>1. Prince Vladimir chose Orthodox Christianity in 988. How do you think a ruler's choice of religion can shape a country's culture and identity for hundreds of years?</label>
+      <span class="cn">弗拉基米尔王子在988年选择了东正教。你认为统治者对宗教的选择如何能够在数百年内塑造一个国家的文化和身份？</span>
+      <textarea id="l3Ref1" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. The Mongol invasion changed Russia deeply. Think about a time when something difficult happened that changed how you or your community behaved. What changed, and why?</label>
+      <span class="cn">蒙古入侵深刻改变了俄罗斯。想想你或你的社区经历了困难而改变行为的时候。什么发生了改变，为什么？</span>
+      <textarea id="l3Ref2" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="l3Grat" class="grat-input" placeholder="...">
+    </div>
+    <button class="dl-btn" id="l3DownloadBtn" onclick="tryDownload('l3')">⬇ Download My Work · 下载我的作业</button>
+    <p class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思栏后解锁下载。</p>
+  </div>
+</div>
+ 
+<!-- ===== LESSON 4: WOMEN IN ROME & HAN CHINA ===== -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · 你的姓名:</label>
+    <input type="text" id="l4Name" class="name-input" placeholder="Type your name here...">
+  </div>
+ 
+  <h2 class="section-head">Women in Rome &amp; Han China · 罗马与汉朝的女性</h2>
+ 
+  <div class="concept-card">
+    <h3>Why Compare? · 为什么要比较？</h3>
+    <p>Ancient Rome and Han China were the two greatest civilizations of their time — both existed roughly 200 BCE to 200 CE. Both had powerful governments, large armies, and complex social systems. But how did these civilizations treat women? By comparing them, we can learn how different cultures define gender roles and what factors shape women's lives.</p>
+    <p class="cn">古罗马和汉朝是同时代两个最伟大的文明——两者大约都存在于公元前200年至公元200年。两者都有强大的政府、庞大的军队和复杂的社会制度。但这些文明如何对待女性？通过比较，我们可以了解不同文化如何定义性别角色，以及哪些因素塑造了女性的生活。</p>
+  </div>
+ 
+  <h3 class="section-head">Confucianism and Women in Han China · 儒学与汉朝女性</h3>
+  <div class="concept-card">
+    <p>Han China (206 BCE – 220 CE) was deeply shaped by Confucianism — the philosophy of Confucius (551–479 BCE). Confucius taught a system of social order based on relationships. Women were expected to follow the "Three Obediences": obey their father before marriage, obey their husband after marriage, and obey their son in widowhood.</p>
+    <p class="cn">汉朝（公元前206年—公元220年）深受儒学影响——即孔子（公元前551—479年）的哲学。孔子教导了一种基于关系的社会秩序体系。女性被要求遵循"三从"：未嫁从父，既嫁从夫，夫死从子。</p>
+  </div>
+ 
+  <div class="info-box">
+    <p><strong>Key Confucian Teaching for Women:</strong> "Women's work" = weaving, cooking, raising children. Education was rare for women. Most women could not own property or hold government positions.</p>
+    <p class="cn"><strong>儒学对女性的主要教导：</strong>"妇道"=纺织、烹饪、养育孩子。女性受教育的机会很少。大多数女性不能拥有财产或担任政府职位。</p>
+  </div>
+ 
+  <h3 class="section-head">Women in the Roman Kingdom, Republic, and Empire · 罗马王国、共和国和帝国时期的女性</h3>
+  <table class="concept-table">
+    <thead>
+      <tr><th>Period · 时期</th><th>Women's Status · 女性地位</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Roman Kingdom</strong> (753–509 BCE)<br><span class="cn">罗马王国</span></td>
+        <td>Women under patria potestas (father's complete legal control). No political rights.<br><span class="cn">女性处于家父权（父亲的完全法律控制）之下。没有政治权利。</span></td>
+      </tr>
+      <tr>
+        <td><strong>Roman Republic</strong> (509–27 BCE)<br><span class="cn">罗马共和国</span></td>
+        <td>Some upper-class women gained influence through family connections. Could own property with male guardian. No voting.<br><span class="cn">一些上层阶级女性通过家庭关系获得影响力。可以在男性监护人的帮助下拥有财产。不能投票。</span></td>
+      </tr>
+      <tr>
+        <td><strong>Roman Empire</strong> (27 BCE–476 CE)<br><span class="cn">罗马帝国</span></td>
+        <td>Gradual improvement: women could own property, run businesses, divorce. Elite women had real political influence (e.g., Livia, wife of Augustus).<br><span class="cn">逐步改善：女性可以拥有财产、经营生意、离婚。精英女性具有真正的政治影响力（如奥古斯都的妻子利维娅）。</span></td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout">
+    <strong>Important Comparison · 重要比较</strong>
+    <p>In both Rome and Han China, most women had few legal rights. However, Roman women — especially in the Empire — had more freedom than women in Han China. They could run businesses, own property without a guardian, and even appear in public. Han women faced stronger restrictions based on Confucian ideals of obedience and hierarchy.</p>
+    <p class="cn">在罗马和汉朝，大多数女性的法律权利都很少。然而，罗马女性——尤其是帝国时期——比汉朝女性拥有更多自由。她们可以经营生意、无需监护人拥有财产，甚至可以在公共场合出现。汉朝女性面临着更严格的限制，这些限制基于儒家对服从和等级的理想。</p>
+  </div>
+ 
+  <div class="color-row">
+    <div class="color-cell green">
+      <strong>Roman Women (Empire) · 罗马女性（帝国）</strong>
+      Could own property · 可拥有财产<br>
+      Could run businesses · 可经营生意<br>
+      Could divorce · 可离婚<br>
+      Some political influence · 部分政治影响力
+    </div>
+    <div class="color-cell cobalt">
+      <strong>Han Chinese Women · 汉朝女性</strong>
+      Three Obediences · 三从<br>
+      Rarely educated · 很少受教育<br>
+      Limited to home duties · 局限于家务<br>
+      Some imperial women had power · 部分皇室女性有权力
+    </div>
+  </div>
+ 
+  <h3 class="section-head">Quiz · 测验 — Women in Rome &amp; Han China</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="l4QuizContainer"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">
+      <label>1. Both Rome and Han China restricted women's rights, but in different ways. What do you think is the biggest difference between how the two societies treated women? Why does this difference matter?</label>
+      <span class="cn">罗马和汉朝都限制了女性的权利，但方式不同。你认为两个社会对待女性的最大区别是什么？为什么这种区别很重要？</span>
+      <textarea id="l4Ref1" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Confucianism taught that women should obey fathers, husbands, and sons. Do you think philosophy and religion still influence how women are treated in society today? Give an example.</label>
+      <span class="cn">儒学教导女性应该服从父亲、丈夫和儿子。你认为哲学和宗教今天仍然影响社会对待女性的方式吗？举一个例子。</span>
+      <textarea id="l4Ref2" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="l4Grat" class="grat-input" placeholder="...">
+    </div>
+    <button class="dl-btn" id="l4DownloadBtn" onclick="tryDownload('l4')">⬇ Download My Work · 下载我的作业</button>
+    <p class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思栏后解锁下载。</p>
+  </div>
+</div>
+ 
+<!-- TIMER -->
+<div id="timer-display">⏱ 00:00</div>
+ 
+<script>
+// ===== STATE =====
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 40;
+ 
+var l1Answers = {}, l1Score = {val:0}, l1Done = {val:0};
+var l2Answers = {}, l2Score = {val:0}, l2Done = {val:0};
+var l3Answers = {}, l3Score = {val:0}, l3Done = {val:0};
+var l4Answers = {}, l4Score = {val:0}, l4Done = {val:0};
+ 
+// ===== VOCAB DATA =====
+var VOCAB = [
+  {word:"empire",pos:"noun",cn:"帝国",def:"A large territory ruled by one powerful leader or government.",cn_def:"由一位强大的领导人或政府统治的广大领土。",example:"The Mughal Empire ruled most of India for over 300 years."},
+  {word:"dynasty",pos:"noun",cn:"王朝",def:"A series of rulers from the same family who rule a country for many years.",cn_def:"统治一个国家多年的同一家族的一系列统治者。",example:"The Rurikid dynasty founded the first Russian state."},
+  {word:"sultan",pos:"noun",cn:"苏丹",def:"A Muslim ruler or king, especially in the Ottoman Empire or Delhi Sultanate.",cn_def:"穆斯林统治者或国王，尤指奥斯曼帝国或德里苏丹国的统治者。",example:"The sultan of the Delhi Sultanate controlled northern India before the Mughals."},
+  {word:"tolerance",pos:"noun",cn:"宽容",def:"Accepting people who are different from you in religion, culture, or ideas.",cn_def:"接受在宗教、文化或观念上与你不同的人。",example:"Akbar was famous for his religious tolerance of both Hindus and Muslims."},
+  {word:"Confucianism",pos:"noun",cn:"儒学",def:"A Chinese philosophy based on the teachings of Confucius, emphasizing social order, family, and loyalty.",cn_def:"基于孔子教义的中国哲学，强调社会秩序、家庭和忠诚。",example:"Confucianism shaped women's roles in Han China for centuries."},
+  {word:"Orthodox Christianity",pos:"noun",cn:"东正教",def:"A branch of Christianity that developed in the Byzantine Empire, still practiced in Russia and Greece today.",cn_def:"在拜占庭帝国发展起来的基督教分支，今天仍在俄罗斯和希腊实践。",example:"Prince Vladimir adopted Orthodox Christianity in 988, shaping Russia's identity."},
+  {word:"successor state",pos:"noun",cn:"继承国",def:"A new country or government that takes control after an older one collapses.",cn_def:"在旧国家或政府崩溃后接管控制权的新国家或政府。",example:"The Ilkhanate was a successor state of the Mongol Empire."},
+  {word:"gunpowder empire",pos:"noun",cn:"火药帝国",def:"One of the three great Islamic empires (Ottoman, Safavid, Mughal) that used gunpowder weapons to conquer territory.",cn_def:"三大伊斯兰帝国（奥斯曼、萨法维、莫卧儿）之一，使用火药武器征服领土。",example:"All three gunpowder empires used cannons to defeat their enemies."},
+  {word:"tribute",pos:"noun",cn:"贡品/税",def:"Money or goods that a weaker group is forced to pay to a more powerful ruler.",cn_def:"弱势群体被迫向更强大的统治者支付的金钱或物品。",example:"Russian princes paid tribute to the Mongol Golden Horde for 240 years."},
+  {word:"patria potestas",pos:"noun",cn:"家父权",def:"In ancient Rome, the absolute legal authority of a father over his entire family, including life and death.",cn_def:"在古罗马，父亲对整个家庭（包括生死）的绝对法律权威。",example:"Under patria potestas, Roman women had few legal rights of their own."},
+  {word:"Shia",pos:"adjective",cn:"什叶派",def:"A branch of Islam that believes leadership should follow the family of the Prophet Muhammad.",cn_def:"伊斯兰教的一个分支，认为领导权应该传给先知穆罕默德的家族。",example:"The Safavid Empire followed Shia Islam, unlike the Sunni Ottomans."},
+  {word:"Sunni",pos:"adjective",cn:"逊尼派",def:"The largest branch of Islam, which accepts the first four caliphs as legitimate successors to the Prophet.",cn_def:"伊斯兰教最大的分支，承认最初的四位哈里发为先知的合法继承人。",example:"Both the Ottoman and Mughal empires practiced Sunni Islam."}
+];
+ 
+// ===== QUIZ DATA =====
+var L1_Q = [
+  {id:"l1q1",title:"Delhi Sultanate",passage:"Before the Mughal Empire, the Delhi Sultanate ruled northern India from 1206 to 1526. It was a series of Muslim kingdoms that brought Islam to India and built grand mosques and architecture. The Sultanate was eventually weakened by internal conflicts and defeated by Babur, a Central Asian ruler who founded the Mughal Empire.",q:"What caused the Delhi Sultanate to fall?",q_cn:"德里苏丹国灭亡的原因是什么？",options:["A. It was destroyed by a flood|A. 它被洪水摧毁","B. It was weakened by internal conflicts and defeated by Babur|B. 它因内部冲突而被削弱，并被巴布尔击败","C. The British East India Company took over|C. 英国东印度公司接管了它","D. Akbar conquered it peacefully|D. 阿克巴和平征服了它"],correct:"B",rat_right:"The passage states the Sultanate was weakened by internal conflicts and defeated by Babur.|文章指出苏丹国因内部冲突而被削弱，并被巴布尔击败。",rat_wrong:{A:"There is no mention of a flood destroying the Sultanate.|没有提到洪水摧毁苏丹国。",C:"The British East India Company came much later in history.|英国东印度公司在历史上出现得晚得多。",D:"Babur defeated the Sultanate in battle, not peacefully.|巴布尔在战斗中击败了苏丹国，而不是和平地。"}},
+  {id:"l1q2",title:"Babur",passage:"Babur was the founder of the Mughal Empire. He was descended from both Timur and Genghis Khan, making him a powerful Central Asian warrior-king. In 1526, Babur defeated the last Delhi Sultan at the Battle of Panipat using cannons — a new technology that gave him a decisive advantage. He then established his capital in northern India.",q:"How did Babur defeat the Delhi Sultan?",q_cn:"巴布尔是如何击败德里苏丹的？",options:["A. He used a large navy to attack from the sea|A. 他使用大型海军从海上进攻","B. He signed a peace treaty and took over gradually|B. 他签署了和平条约并逐渐接管","C. He used cannons, which gave him a decisive military advantage|C. 他使用了大炮，这给了他决定性的军事优势","D. He bribed the Sultan's generals to switch sides|D. 他贿赂苏丹的将领倒戈"],correct:"C",rat_right:"The passage states Babur used cannons, a new technology that gave him a decisive advantage.|文章指出巴布尔使用了大炮，这是一种给他决定性优势的新技术。",rat_wrong:{A:"Babur fought on land at the Battle of Panipat, not at sea.|巴布尔在帕尼帕特战役中在陆地上作战，而不是海上。",B:"Babur won through military battle, not a treaty.|巴布尔通过军事战争获胜，而不是条约。",D:"There is no evidence of bribery in this account.|这段记述中没有贿赂的证据。"}},
+  {id:"l1q3",title:"Akbar the Great",passage:"Akbar ruled from 1556 to 1605 and is considered the greatest Mughal emperor. He was known for his policy of religious tolerance — he allowed Hindus and Muslims to worship freely and even abolished the special tax on non-Muslims (the jizya). Akbar also married a Hindu princess, which helped unite Hindu and Muslim communities under his rule.",q:"Why is Akbar considered the greatest Mughal emperor?",q_cn:"为什么阿克巴被认为是最伟大的莫卧儿皇帝？",options:["A. He conquered the most territory and expanded the empire to its largest size|A. 他征服了最多的领土，将帝国扩张到最大规模","B. He built the Taj Mahal, the most famous Mughal monument|B. 他建造了泰姬陵，最著名的莫卧儿纪念碑","C. He was tolerant of all religions and united Hindu and Muslim communities|C. 他对所有宗教宽容，并将印度教和穆斯林社区团结起来","D. He never lost a battle in his entire reign|D. 他在整个统治期间从未输过一场战役"],correct:"C",rat_right:"The passage emphasizes Akbar's religious tolerance and his efforts to unite Hindu and Muslim communities.|文章强调了阿克巴的宗教宽容和他统一印度教与穆斯林社区的努力。",rat_wrong:{A:"Aurangzeb, not Akbar, expanded the empire to its largest size.|奥朗则布，而不是阿克巴，将帝国扩张到最大规模。",B:"Shah Jahan, not Akbar, built the Taj Mahal.|沙贾汗，而不是阿克巴，建造了泰姬陵。",D:"Military record alone does not explain why he is called greatest.|仅军事记录不能解释为什么他被称为最伟大的。"}},
+  {id:"l1q4",title:"Shah Jahan",passage:"Shah Jahan ruled from 1628 to 1658 and is best remembered for building the Taj Mahal — a magnificent marble tomb he constructed for his beloved wife Mumtaz Mahal, who died in childbirth. The Taj Mahal is considered one of the greatest architectural achievements in human history and is now a UNESCO World Heritage Site visited by millions each year.",q:"Why did Shah Jahan build the Taj Mahal?",q_cn:"沙贾汗为什么建造泰姬陵？",options:["A. As a symbol of military power to impress his enemies|A. 作为军事力量的象征来震慑敌人","B. As a tomb for his wife Mumtaz Mahal who died in childbirth|B. 作为他在生育时去世的妻子穆姆塔兹·马哈尔的陵墓","C. As a new capital city for the empire|C. 作为帝国的新首都","D. To celebrate his military victory over the Delhi Sultanate|D. 为庆祝他对德里苏丹国的军事胜利"],correct:"B",rat_right:"The passage clearly states Shah Jahan built the Taj Mahal as a tomb for his wife Mumtaz Mahal.|文章明确指出沙贾汗建造泰姬陵作为他妻子穆姆塔兹·马哈尔的陵墓。",rat_wrong:{A:"The Taj Mahal was built for love, not military intimidation.|泰姬陵是为爱而建，而不是军事恐吓。",C:"It was a tomb, not a capital city.|它是陵墓，而不是首都。",D:"The Delhi Sultanate ended more than 100 years before Shah Jahan's reign.|德里苏丹国在沙贾汗统治前100多年就结束了。"}},
+  {id:"l1q5",title:"Aurangzeb's Policy",passage:"Aurangzeb ruled from 1658 to 1707 and expanded the Mughal Empire to its largest size, reaching deep into southern India. However, he reversed Akbar's policy of religious tolerance. He reimposed the jizya tax on non-Muslims, destroyed some Hindu temples, and enforced strict Islamic law. These policies created widespread resentment among his Hindu subjects and contributed to the empire's decline after his death.",q:"How did Aurangzeb's religious policies affect the empire?",q_cn:"奥朗则布的宗教政策如何影响了帝国？",options:["A. They made the empire stronger by uniting all people under one religion|A. 通过将所有人团结在一种宗教下，使帝国更强大","B. They had no effect because most people agreed with him|B. 没有效果，因为大多数人同意他的做法","C. They created resentment among Hindu subjects and contributed to the empire's later decline|C. 在印度教臣民中造成不满，助长了帝国后来的衰落","D. They helped the empire build better trade relations with Europe|D. 它们帮助帝国与欧洲建立了更好的贸易关系"],correct:"C",rat_right:"The passage states Aurangzeb's policies created widespread resentment and contributed to the empire's decline.|文章指出奥朗则布的政策造成了广泛不满，并助长了帝国的衰落。",rat_wrong:{A:"The policies divided rather than united the population.|这些政策使人口分裂而不是团结。",B:"The text specifically says the policies caused widespread resentment.|文本专门说这些政策引起了广泛的怨恨。",D:"Religious intolerance damaged internal stability, not European trade.|宗教不宽容损害了内部稳定，而不是与欧洲的贸易。"}},
+  {id:"l1q6",title:"Geographic Expansion",passage:"The Mughal Empire began in Kabul and Lahore, in modern-day Afghanistan and Pakistan. Over 200 years, Mughal rulers expanded southward and eastward across the entire Indian subcontinent. Under Aurangzeb, the empire extended deep into the Deccan plateau in southern India. At its peak, the Mughal Empire controlled approximately 150 million people — about 25% of the world's population at that time.",q:"At its peak, what percentage of the world's population did the Mughal Empire control?",q_cn:"在鼎盛时期，莫卧儿帝国控制了世界人口的百分之多少？",options:["A. About 10% of the world's population|A. 约占世界人口的10%","B. About 50% of the world's population|B. 约占世界人口的50%","C. About 25% of the world's population|C. 约占世界人口的25%","D. About 5% of the world's population|D. 约占世界人口的5%"],correct:"C",rat_right:"The passage states the empire controlled approximately 150 million people, about 25% of the world's population.|文章指出帝国控制了约1.5亿人，约占世界人口的25%。",rat_wrong:{A:"10% is too low — the passage says 25%.|10%太低——文章说25%。",B:"50% is far too high — no empire ever controlled that much.|50%太高了——没有任何帝国控制过那么多。",D:"5% would be far smaller than what the text states.|5%远小于文本所述。"}},
+  {id:"l1q7",title:"Mughal Architecture",passage:"The Mughal Empire produced some of the most stunning architecture in human history. Emperor Shah Jahan is credited with constructing the Taj Mahal, the Red Fort in Delhi, and the Jama Masjid mosque. Mughal architecture blended Persian, Central Asian, and Indian styles — creating a unique fusion that used white marble, intricate geometric patterns, and large garden courtyards called charbaghs.",q:"What was unique about Mughal architecture?",q_cn:"莫卧儿建筑有什么独特之处？",options:["A. It only used local Indian materials with no outside influences|A. 它只使用本地印度材料，没有外部影响","B. It blended Persian, Central Asian, and Indian styles into a unique fusion|B. 它将波斯、中亚和印度风格融合成独特的风格","C. It was identical to Byzantine architecture|C. 它与拜占庭建筑完全相同","D. It focused only on military fortifications, not beauty|D. 它只专注于军事防御工事，而不是美感"],correct:"B",rat_right:"The passage states Mughal architecture blended Persian, Central Asian, and Indian styles into a unique fusion.|文章指出莫卧儿建筑将波斯、中亚和印度风格融合成独特的风格。",rat_wrong:{A:"The passage explicitly says it blended multiple cultural influences.|文章明确说它融合了多种文化影响。",C:"Byzantine architecture is not mentioned — Mughal style was its own unique blend.|没有提到拜占庭建筑——莫卧儿风格是其独特的融合。",D:"The Taj Mahal shows the empire focused heavily on beauty.|泰姬陵表明帝国非常注重美感。"}},
+  {id:"l1q8",title:"Humayun",passage:"Humayun was the second Mughal emperor, ruling from 1530 to 1556 (with a break in the middle). He was not as strong a military leader as his father Babur. He lost the empire to an Afghan ruler named Sher Shah Suri in 1540 and spent years in exile in Persia. With Persian help, he recaptured the empire in 1555, just one year before his death. His son Akbar went on to become the greatest Mughal ruler.",q:"What happened to Humayun during his reign?",q_cn:"胡马雍在位期间发生了什么？",options:["A. He expanded the empire all the way to Europe|A. 他将帝国扩张到欧洲","B. He lost and then recaptured the empire, spending years in exile in Persia|B. 他失去了帝国，然后重新夺回，在波斯流亡多年","C. He built the Taj Mahal for his mother|C. 他为母亲建造了泰姬陵","D. He was the longest-reigning Mughal emperor|D. 他是统治时间最长的莫卧儿皇帝"],correct:"B",rat_right:"The passage describes how Humayun lost the empire in 1540 and spent years in exile before recapturing it in 1555.|文章描述了胡马雍如何在1540年失去帝国，并在流亡多年后于1555年重新夺回。",rat_wrong:{A:"There is no mention of European expansion under Humayun.|没有提到胡马雍时期的欧洲扩张。",C:"Shah Jahan built the Taj Mahal for his wife, not mother.|沙贾汗为妻子建造了泰姬陵，而不是母亲。",D:"Akbar ruled 49 years, much longer than Humayun.|阿克巴统治了49年，远比胡马雍长。"}},
+  {id:"l1q9",title:"Legacy of the Mughals",passage:"The Mughal Empire left a lasting legacy on South Asia. It helped spread Persian culture and the Urdu language throughout India. Mughal administrative systems, including land taxation and provincial government, influenced how India was governed for centuries. When the British East India Company took over India in the 1700s and 1800s, they often used Mughal administrative structures as a foundation.",q:"Which statement best describes the Mughal Empire's lasting legacy?",q_cn:"哪个陈述最能描述莫卧儿帝国的持久遗产？",options:["A. It had little impact — India returned to exactly how it was before the Mughals|A. 影响不大——印度回到了莫卧儿之前的状态","B. It spread Persian culture, the Urdu language, and administrative systems that lasted for centuries|B. 它传播了波斯文化、乌尔都语和延续数百年的行政制度","C. It converted all of India to Islam permanently|C. 它使整个印度永久皈依伊斯兰教","D. It established direct connections to Europe through Mughal trade ships|D. 它通过莫卧儿贸易船与欧洲建立了直接联系"],correct:"B",rat_right:"The passage describes how Mughal culture, language, and administration had a lasting impact on South Asia.|文章描述了莫卧儿文化、语言和行政对南亚的持久影响。",rat_wrong:{A:"The passage clearly shows significant, lasting Mughal influence.|文章清楚地显示了显著而持久的莫卧儿影响。",C:"India today has a Hindu majority — not all converted.|印度今天有印度教徒多数——并非全部皈依。",D:"The passage mentions land trade routes, not Mughal ships to Europe.|文章提到陆上贸易路线，而不是莫卧儿去欧洲的船只。"}},
+  {id:"l1q10",title:"Decline of the Mughal Empire",passage:"After Aurangzeb's death in 1707, the Mughal Empire rapidly declined. Aurangzeb's wars had drained the treasury. His religious policies had created internal rebellion. Weak emperors followed, unable to control powerful regional governors called nawabs. The British East India Company took advantage of this weakness, gradually taking over Indian territory. By 1857, after the Indian Rebellion, the British Crown formally ended the Mughal Empire.",q:"Which factor did NOT contribute to the decline of the Mughal Empire?",q_cn:"哪个因素没有导致莫卧儿帝国的衰落？",options:["A. Aurangzeb's wars draining the treasury|A. 奥朗则布的战争耗尽了国库","B. Religious policies creating internal rebellion|B. 宗教政策导致内部叛乱","C. Akbar's policy of religious tolerance making the empire weak|C. 阿克巴的宗教宽容政策使帝国变弱","D. Weak emperors who could not control regional governors|D. 无法控制地方长官的软弱皇帝"],correct:"C",rat_right:"Akbar's religious tolerance made the empire stronger and more unified — it did not contribute to decline.|阿克巴的宗教宽容使帝国更强大、更统一——这并没有导致衰落。",rat_wrong:{A:"Aurangzeb's wars are explicitly mentioned as draining the treasury.|奥朗则布的战争被明确提及为耗尽国库。",B:"Religious conflict is directly linked to internal rebellion in the passage.|宗教冲突与文章中的内部叛乱直接相关。",D:"Weak emperors after Aurangzeb are clearly identified as a cause of decline.|奥朗则布之后的软弱皇帝被明确认定为衰落的原因。"}}
+];
+ 
+var L2_Q = [
+  {id:"l2q1",title:"Gunpowder Empires",passage:"Historians call the Ottoman, Safavid, and Mughal empires the 'Gunpowder Empires' because all three used gunpowder weapons — cannons and muskets — to conquer territory and maintain power. These empires rose between approximately 1300 and 1500 CE. The use of gunpowder technology gave them a decisive military advantage over rivals who still relied on traditional weapons like swords and spears.",q:"Why are the Ottoman, Safavid, and Mughal empires called the 'Gunpowder Empires'?",q_cn:"为什么奥斯曼、萨法维和莫卧儿帝国被称为'火药帝国'？",options:["A. Because they all discovered gunpowder at the same time|A. 因为它们同时发现了火药","B. Because they all used gunpowder weapons to conquer territory and maintain power|B. 因为它们都使用火药武器征服领土并维持权力","C. Because they were all located near gunpowder mines|C. 因为它们都位于火药矿附近","D. Because they used gunpowder for festivals and celebrations|D. 因为它们使用火药进行节日庆典"],correct:"B",rat_right:"The passage explicitly states all three empires used cannons and muskets to conquer territory and maintain power.|文章明确指出这三个帝国都使用大炮和火枪来征服领土并维持权力。",rat_wrong:{A:"They did not discover gunpowder simultaneously — China invented it centuries earlier.|它们并非同时发现火药——中国在几个世纪前就发明了火药。",C:"Gunpowder mines are not the reason for this name.|火药矿不是这个名称的原因。",D:"The passage says they used gunpowder militarily, not for celebrations.|文章说他们在军事上使用火药，而不是用于庆典。"}},
+  {id:"l2q2",title:"Mongol Successor States",passage:"After the great Mongol Empire collapsed, it broke into several smaller successor states. The Ilkhanate ruled Persia and Iraq and later converted to Islam. The Chagatai Khanate controlled Central Asia and was the ancestor of the Mughal dynasty. The Yuan Dynasty ruled China, founded by Kublai Khan, until it was overthrown by the Ming Dynasty in 1368. The Timurid Empire, led by the conqueror Timur (Tamerlane), briefly reunited much of Central Asia.",q:"Which Mongol successor state eventually led to the founding of the Mughal Empire?",q_cn:"哪个蒙古继承国最终导致了莫卧儿帝国的建立？",options:["A. The Ilkhanate|A. 伊利汗国","B. The Yuan Dynasty|B. 元朝","C. The Chagatai Khanate|C. 察合台汗国","D. The Golden Horde|D. 金帐汗国"],correct:"C",rat_right:"The passage states the Chagatai Khanate was the ancestor of the Mughal dynasty.|文章指出察合台汗国是莫卧儿王朝的祖先。",rat_wrong:{A:"The Ilkhanate ruled Persia and Iraq — it did not lead to the Mughals.|伊利汗国统治波斯和伊拉克——它没有导致莫卧儿。",B:"The Yuan Dynasty ruled China, not India.|元朝统治中国，而不是印度。",D:"The Golden Horde is not mentioned in this passage.|金帐汗国在这段文章中没有提到。"}},
+  {id:"l2q3",title:"The Ottoman Empire",passage:"The Ottoman Empire was the largest and longest-lasting of the three gunpowder empires. Founded around 1299, it lasted until 1922 — over 600 years. At its peak, it controlled Turkey, much of the Middle East, North Africa, and southeastern Europe. The Ottomans followed Sunni Islam and their rulers held the title of 'Sultan.' The empire's capital was Constantinople (renamed Istanbul after the Ottomans conquered it in 1453).",q:"Which religion did the Ottoman Empire officially follow?",q_cn:"奥斯曼帝国官方信奉哪种宗教？",options:["A. Shia Islam|A. 什叶派伊斯兰教","B. Orthodox Christianity|B. 东正教","C. Sunni Islam|C. 逊尼派伊斯兰教","D. Buddhism|D. 佛教"],correct:"C",rat_right:"The passage clearly states the Ottomans followed Sunni Islam.|文章明确指出奥斯曼人信奉逊尼派伊斯兰教。",rat_wrong:{A:"Shia Islam was the religion of the Safavids, not the Ottomans.|什叶派伊斯兰教是萨法维人的宗教，而不是奥斯曼人的。",B:"Orthodox Christianity was the religion of the Byzantine Empire they conquered.|东正教是他们征服的拜占庭帝国的宗教。",D:"Buddhism was not associated with the Ottoman Empire.|佛教与奥斯曼帝国无关。"}},
+  {id:"l2q4",title:"The Safavid Empire",passage:"The Safavid Empire (1501–1736) ruled Persia, the region that is now Iran. It was founded by Shah Ismail I, who declared Shia Islam the official religion of the state. This was a dramatic choice — most Muslims in the region were Sunni. The Safavids forced Sunni populations to convert, which created lasting conflict with the Sunni Ottoman Empire to their west. Despite constant conflict, the Safavid capital Isfahan became one of the most beautiful cities in the world.",q:"What was the most significant religious decision made by the Safavid Empire?",q_cn:"萨法维帝国做出的最重要的宗教决定是什么？",options:["A. They converted all of Persia to Buddhism|A. 他们将整个波斯转变为佛教","B. They declared Shia Islam the official state religion, creating conflict with Sunni neighbors|B. 他们宣布什叶派伊斯兰教为官方国教，与逊尼派邻国产生冲突","C. They adopted Orthodox Christianity from the Byzantines|C. 他们从拜占庭人那里采纳了东正教","D. They allowed total religious freedom with no official religion|D. 他们允许完全的宗教自由，没有官方宗教"],correct:"B",rat_right:"The passage explains the Safavids declared Shia Islam the state religion, creating lasting conflict with Sunni Ottomans.|文章解释了萨法维人宣布什叶派伊斯兰教为国教，与逊尼派奥斯曼人产生了持久冲突。",rat_wrong:{A:"Persia was already Muslim — Buddhism was not adopted.|波斯已经是穆斯林——没有采纳佛教。",C:"The Safavids were Muslim, not Christian.|萨法维人是穆斯林，不是基督徒。",D:"The passage states they forced Sunnis to convert, not allowed religious freedom.|文章指出他们强迫逊尼派改宗，而不是允许宗教自由。"}},
+  {id:"l2q5",title:"Sunni vs. Shia Conflict",passage:"The split between Sunni and Shia Islam dates back to the 7th century CE, after the Prophet Muhammad's death. The question was: who should lead the Muslim community? Sunnis believed any qualified leader could rule. Shia Muslims believed only Ali (Muhammad's cousin and son-in-law) and his descendants had the right to lead. This theological disagreement produced real political conflict between the Sunni Ottoman Empire and the Shia Safavid Empire for over 200 years.",q:"What was the original cause of the Sunni-Shia split?",q_cn:"逊尼派-什叶派分裂的原始原因是什么？",options:["A. A dispute over who should lead the Muslim community after Muhammad's death|A. 关于穆罕默德去世后谁应该领导穆斯林社区的争论","B. A disagreement about whether Muslims should use gunpowder weapons|B. 关于穆斯林是否应该使用火药武器的分歧","C. A conflict about whether Istanbul or Baghdad should be the Muslim capital|C. 关于伊斯坦布尔还是巴格达应该是穆斯林首都的冲突","D. A debate about which language Muslims should use for prayer|D. 关于穆斯林祈祷应该使用哪种语言的辩论"],correct:"A",rat_right:"The passage explains the split began over who should lead the Muslim community after Muhammad's death.|文章解释了分裂始于穆罕默德去世后谁应该领导穆斯林社区的问题。",rat_wrong:{B:"Gunpowder was not part of the original religious split.|火药不是原始宗教分裂的一部分。",C:"The dispute was about religious leadership, not capital cities.|争议是关于宗教领导权，而不是首都城市。",D:"Language of prayer is not mentioned as the cause of the split.|祈祷语言没有被提及为分裂的原因。"}},
+  {id:"l2q6",title:"Persian Language",passage:"All three gunpowder empires were heavily influenced by Persian culture and language, even though the Safavid Empire was the only one based in Persia. The Mughals used Persian as their official court language. The Ottomans incorporated many Persian words into their own Turkish language. Persian poetry, art, and architecture became the gold standard of Islamic high culture during this period.",q:"Why was Persian important to all three gunpowder empires?",q_cn:"为什么波斯语对三个火药帝国都很重要？",options:["A. All three empires were located in Persia|A. 三个帝国都位于波斯","B. Persian culture and language became the gold standard of Islamic high culture|B. 波斯文化和语言成为伊斯兰高等文化的金标准","C. Persian was required by Islamic religious law|C. 伊斯兰宗教法律要求使用波斯语","D. Persian was the only language their populations understood|D. 波斯语是他们的人民唯一能理解的语言"],correct:"B",rat_right:"The passage states Persian poetry, art, and architecture became the gold standard of Islamic high culture, influencing all three empires.|文章指出波斯诗歌、艺术和建筑成为伊斯兰高等文化的金标准，影响了三个帝国。",rat_wrong:{A:"Only the Safavids were based in Persia — the others were in Turkey and India.|只有萨法维人以波斯为基地——其他帝国在土耳其和印度。",C:"Persian was not required by Islamic law — it was a cultural preference.|伊斯兰法律不要求使用波斯语——这是一种文化偏好。",D:"The Ottoman Empire spoke Turkish and the Mughal Empire also used Urdu.|奥斯曼帝国说土耳其语，莫卧儿帝国也使用乌尔都语。"}},
+  {id:"l2q7",title:"Ottoman Conquest of Constantinople",passage:"In 1453, the Ottoman Sultan Mehmed II conquered Constantinople, the capital of the Byzantine Empire. This was one of the most significant events of the 15th century. Constantinople had stood as a Christian city for over 1,000 years. After its fall, the Ottomans renamed it Istanbul and converted the famous Hagia Sophia church into a mosque. This conquest marked the end of the Byzantine Empire and changed the balance of power in Europe and the Middle East.",q:"What was the significance of the Ottoman conquest of Constantinople in 1453?",q_cn:"1453年奥斯曼帝国征服君士坦丁堡有什么意义？",options:["A. It gave the Ottomans control of the entire African continent|A. 它使奥斯曼人控制了整个非洲大陆","B. It marked the end of the Byzantine Empire and changed the balance of power|B. 它标志着拜占庭帝国的终结，改变了力量平衡","C. It allowed the Ottomans to begin trading with China for the first time|C. 它使奥斯曼人首次开始与中国贸易","D. It converted all of Europe to Islam|D. 它使整个欧洲皈依伊斯兰教"],correct:"B",rat_right:"The passage states the conquest marked the end of the Byzantine Empire and changed the balance of power in Europe and the Middle East.|文章指出这次征服标志着拜占庭帝国的终结，改变了欧洲和中东的力量平衡。",rat_wrong:{A:"The Ottomans did not conquer all of Africa.|奥斯曼人没有征服整个非洲。",C:"China trade is not mentioned in this context.|中国贸易在这里没有提到。",D:"Europe did not convert to Islam — it remained predominantly Christian.|欧洲没有皈依伊斯兰教——它仍然以基督教为主。"}},
+  {id:"l2q8",title:"Timurid Empire",passage:"The Timurid Empire was founded by Timur, also called Tamerlane, a fearsome Central Asian conqueror who claimed descent from Genghis Khan. Between 1370 and 1405, Timur conquered an enormous territory from Turkey to India, sacking Delhi in 1398 and briefly defeating the Ottoman Sultan. However, Timur's empire did not last long after his death. His descendants, the Timurids, became great patrons of art and culture — and one of them, Babur, founded the Mughal Empire.",q:"What is the connection between the Timurid Empire and the Mughal Empire?",q_cn:"帖木儿帝国与莫卧儿帝国之间有什么联系？",options:["A. There is no connection — they were completely separate empires|A. 没有联系——它们是完全独立的帝国","B. The Timurid Empire conquered the Mughals and absorbed them|B. 帖木儿帝国征服了莫卧儿并吸收了他们","C. Babur, a Timurid descendant, founded the Mughal Empire|C. 帖木儿后裔巴布尔建立了莫卧儿帝国","D. Both empires were founded by the same man at the same time|D. 两个帝国由同一个人同时建立"],correct:"C",rat_right:"The passage states that Babur, a Timurid descendant, founded the Mughal Empire.|文章指出帖木儿后裔巴布尔建立了莫卧儿帝国。",rat_wrong:{A:"The passage directly describes the connection between the two empires.|文章直接描述了两个帝国之间的联系。",B:"It was the opposite — a Timurid founded the Mughals, not conquered them.|恰恰相反——一位帖木儿后裔建立了莫卧儿，而不是征服了他们。",D:"Timur and Babur lived in different centuries.|帖木儿和巴布尔生活在不同的世纪。"}},
+  {id:"l2q9",title:"Safavid Art and Culture",passage:"Despite constant wars with the Ottomans, the Safavid Empire produced remarkable achievements in art, architecture, and scholarship. The city of Isfahan, Safavid capital, was redesigned by Shah Abbas I in the early 1600s into one of the most beautiful cities in the world. The Royal Mosque of Isfahan, with its stunning blue tile work, represents the peak of Safavid architecture. Persian miniature painting also flourished under Safavid patronage.",q:"What was Shah Abbas I's most famous cultural achievement?",q_cn:"沙阿·阿巴斯一世最著名的文化成就是什么？",options:["A. He defeated the Ottoman Empire and ended the Sunni-Shia conflict|A. 他击败了奥斯曼帝国并结束了逊尼派-什叶派冲突","B. He redesigned Isfahan into one of the most beautiful cities in the world|B. 他将伊斯法罕重新设计成世界上最美丽的城市之一","C. He wrote the most important book of Islamic law|C. 他写了最重要的伊斯兰法律书籍","D. He conquered India and merged the Safavid and Mughal empires|D. 他征服了印度并合并了萨法维和莫卧儿帝国"],correct:"B",rat_right:"The passage states Shah Abbas I redesigned Isfahan into one of the most beautiful cities in the world.|文章指出沙阿·阿巴斯一世将伊斯法罕重新设计成世界上最美丽的城市之一。",rat_wrong:{A:"The Sunni-Shia conflict continued long after Shah Abbas.|逊尼派-什叶派冲突在沙阿·阿巴斯之后很久仍在继续。",C:"Writing Islamic law is not mentioned in this passage.|撰写伊斯兰法律在这段文章中没有提到。",D:"The Safavid and Mughal empires were never merged.|萨法维和莫卧儿帝国从未合并。"}},
+  {id:"l2q10",title:"Comparing the Three Empires",passage:"All three gunpowder empires shared certain features: they were Muslim-ruled, they used gunpowder weapons, they valued Persian culture, and they maintained complex trade networks. However, they also had important differences. The Ottomans ruled from Europe into the Middle East. The Safavids were located in Persia and were the only Shia empire. The Mughals ruled the Indian subcontinent with its predominantly Hindu population — requiring them to manage a multi-religious society unlike the other two.",q:"What made the Mughal Empire unique compared to the Ottoman and Safavid empires?",q_cn:"与奥斯曼和萨法维帝国相比，莫卧儿帝国有什么独特之处？",options:["A. It was the only one that used Persian culture|A. 它是唯一使用波斯文化的帝国","B. It ruled a predominantly Hindu population, requiring management of a multi-religious society|B. 它统治着以印度教为主的人口，需要管理多宗教社会","C. It was the only gunpowder empire to use cannons|C. 它是唯一使用大炮的火药帝国","D. It conquered the most territory of all three empires|D. 它征服了三个帝国中最多的领土"],correct:"B",rat_right:"The passage states the Mughals ruled a predominantly Hindu population, unlike the other two, requiring different governance.|文章指出莫卧儿人统治着以印度教为主的人口，与其他两个不同，需要不同的治理方式。",rat_wrong:{A:"All three empires valued Persian culture, not just the Mughals.|三个帝国都重视波斯文化，而不仅仅是莫卧儿。",C:"All three gunpowder empires used cannons.|三个火药帝国都使用大炮。",D:"The Ottoman Empire lasted 600+ years and controlled enormous territory too.|奥斯曼帝国持续了600多年，也控制着巨大的领土。"}}
+];
+ 
+var L3_Q = [
+  {id:"l3q1",title:"Slavic Origins",passage:"The first people to settle in what is now Russia were Slavic tribes. These were farmers and traders who lived along rivers in Eastern Europe. Around the 7th and 8th centuries CE, various Slavic groups formed small kingdoms and trading settlements. The key rivers — the Volga, Dnieper, and Don — connected Slavic communities to each other and to distant trading partners in Byzantium and the Islamic world.",q:"What was the main economic activity of the early Slavic people?",q_cn:"早期斯拉夫人的主要经济活动是什么？",options:["A. Building great naval fleets to control the seas|A. 建造伟大的海军舰队控制海洋","B. Farming and trading along river routes|B. 沿河流路线耕种和贸易","C. Mining gold from the Ural Mountains|C. 在乌拉尔山脉挖掘黄金","D. Conquering Persia and the Byzantine Empire|D. 征服波斯和拜占庭帝国"],correct:"B",rat_right:"The passage states the Slavs were farmers and traders who connected through river routes to trading partners.|文章指出斯拉夫人是农民和商人，通过河流路线与贸易伙伴相连。",rat_wrong:{A:"There is no mention of Slavic naval power.|没有提到斯拉夫的海军力量。",C:"Gold mining in the Urals is not mentioned in this passage.|这段文章没有提到在乌拉尔山脉挖掘黄金。",D:"The Slavs were traders, not conquerors of Persia or Byzantium.|斯拉夫人是商人，而不是波斯或拜占庭的征服者。"}},
+  {id:"l3q2",title:"Rurik and the Varangians",passage:"Around 862 CE, according to the Russian Primary Chronicle, Slavic tribes invited a Varangian (Viking) leader named Rurik to come and rule over them. The chronicle says the tribes were fighting among themselves and could not establish order. Rurik settled in Novgorod and founded the Rurikid dynasty. His descendants expanded south to Kiev, creating the Kievan Rus state.",q:"Why did the Slavic tribes invite Rurik to rule them?",q_cn:"斯拉夫部落为什么邀请留里克来统治他们？",options:["A. Because Rurik had the largest army in Europe|A. 因为留里克拥有欧洲最大的军队","B. Because they were fighting among themselves and needed someone to establish order|B. 因为他们内部互相争斗，需要有人来建立秩序","C. Because Rurik was a Christian and they wanted to become Christian|C. 因为留里克是基督徒，他们想成为基督徒","D. Because Rurik promised to help them conquer Byzantium|D. 因为留里克承诺帮助他们征服拜占庭"],correct:"B",rat_right:"The passage states the tribes were fighting among themselves and could not establish order, so they invited Rurik.|文章指出部落之间互相争斗，无法建立秩序，因此邀请了留里克。",rat_wrong:{A:"Rurik's army size is not mentioned as the reason for his invitation.|留里克军队规模没有被提及为邀请他的原因。",C:"Religion is not mentioned as the reason for Rurik's invitation.|宗教没有被提及为邀请留里克的原因。",D:"Conquering Byzantium is not mentioned as Rurik's promise.|征服拜占庭没有被提及为留里克的承诺。"}},
+  {id:"l3q3",title:"Prince Vladimir and Christianity",passage:"In 988 CE, Prince Vladimir of Kiev made a decision that would shape Russia for over a thousand years: he converted to Orthodox Christianity, the religion of the Byzantine Empire. According to legend, Vladimir sent envoys to study different religions — Islam, Judaism, Western Christianity, and Orthodox Christianity. He chose Orthodoxy partly because of the beauty of the Byzantine Hagia Sophia church in Constantinople. Vladimir then baptized the city of Kiev in the Dnieper River.",q:"What was the long-term significance of Vladimir's conversion to Christianity?",q_cn:"弗拉基米尔皈依基督教的长期意义是什么？",options:["A. It had little effect — Russia quickly changed religions again after Vladimir died|A. 影响不大——弗拉基米尔去世后俄罗斯很快再次更换宗教","B. It shaped Russian identity for over a thousand years and connected Russia to Byzantine culture|B. 它塑造了俄罗斯的身份超过一千年，并将俄罗斯与拜占庭文化连接起来","C. It caused immediate conflict with all Muslim neighbors|C. 它立即引发了与所有穆斯林邻居的冲突","D. It gave Vladimir direct control over the Byzantine Empire|D. 它给了弗拉基米尔对拜占庭帝国的直接控制"],correct:"B",rat_right:"The passage states Vladimir's decision shaped Russia for over a thousand years and connected it to Byzantine culture.|文章指出弗拉基米尔的决定塑造了俄罗斯超过一千年，并将其与拜占庭文化连接起来。",rat_wrong:{A:"Orthodoxy remained Russia's dominant religion for centuries.|东正教在几个世纪内仍然是俄罗斯的主要宗教。",C:"Immediate conflict with Muslim neighbors is not described in the passage.|文章没有描述与穆斯林邻居的即时冲突。",D:"Conversion to Christianity did not give Vladimir control of Byzantium.|皈依基督教并没有给弗拉基米尔对拜占庭的控制。"}},
+  {id:"l3q4",title:"The Mongol Invasion",passage:"In 1237–1242 CE, Mongol forces under Batu Khan (grandson of Genghis Khan) invaded and conquered most of Russia. City after city was burned to the ground. Kiev, the most important city, was completely destroyed in 1240. Russian princes who survived had to travel to the Mongol headquarters and bow before the khan, pledging loyalty and paying heavy tribute. This period of Mongol domination is known as the 'Tatar Yoke.'",q:"What was the 'Tatar Yoke'?",q_cn:"什么是'鞑靼枷锁'？",options:["A. A type of agricultural tool used by Russian farmers|A. 俄罗斯农民使用的一种农业工具","B. The period of Mongol domination over Russia where princes paid tribute|B. 俄罗斯王公须缴纳贡品的蒙古统治时期","C. A Russian military alliance against the Ottoman Empire|C. 俄罗斯对抗奥斯曼帝国的军事联盟","D. A nickname for Ivan the Great's government|D. 伊凡大帝政府的绰号"],correct:"B",rat_right:"The passage defines the Tatar Yoke as the period of Mongol domination over Russia where princes paid tribute.|文章将鞑靼枷锁定义为俄罗斯王公须缴纳贡品的蒙古统治时期。",rat_wrong:{A:"Tatar Yoke refers to political domination, not a farming tool.|鞑靼枷锁指政治统治，而不是农业工具。",C:"It has nothing to do with an anti-Ottoman alliance.|它与反奥斯曼联盟无关。",D:"The Tatar Yoke preceded Ivan the Great — it was Mongol rule, not his nickname.|鞑靼枷锁早于伊凡大帝——它是蒙古统治，而不是他的绰号。"}},
+  {id:"l3q5",title:"Rise of Moscow",passage:"While Kiev lay in ruins after the Mongol invasion, a small city called Moscow began to grow. Moscow's location at the center of river trade routes made it valuable. Moscow's princes were clever politicians — they often worked with the Mongols rather than fighting them, which allowed them to grow stronger. By the 1300s, Moscow had become the most powerful Russian city.",q:"How did Moscow's princes grow powerful under Mongol rule?",q_cn:"莫斯科王公如何在蒙古统治下变得强大？",options:["A. They secretly built a huge army and defeated the Mongols in battle|A. 他们秘密建立了一支庞大的军队并在战斗中击败了蒙古人","B. They worked with the Mongols rather than fighting them, allowing them to grow stronger|B. 他们与蒙古人合作而不是对抗，从而变得更强大","C. They moved the Russian capital to a new location away from Mongol control|C. 他们将俄罗斯首都迁移到远离蒙古控制的新地点","D. They converted the Mongols to Christianity|D. 他们将蒙古人转变为基督徒"],correct:"B",rat_right:"The passage states Moscow's princes worked with the Mongols rather than fighting them, which allowed them to grow stronger.|文章指出莫斯科王公与蒙古人合作而不是对抗，从而变得更强大。",rat_wrong:{A:"They did not immediately defeat the Mongols in battle — that came later.|他们没有立即在战斗中击败蒙古人——那是后来的事。",C:"Moscow remained in its original location.|莫斯科保持在其原来的位置。",D:"Converting the Mongols to Christianity is not mentioned as Moscow's strategy.|将蒙古人转变为基督徒没有被提及为莫斯科的策略。"}},
+  {id:"l3q6",title:"Ivan III — Ivan the Great",passage:"Ivan III, known as Ivan the Great, ruled Moscow from 1462 to 1505. He is considered the true founder of the Russian state as we know it. Ivan refused to continue paying tribute to the Mongols and declared Russia's independence. He conquered several rival Russian principalities, tripling Moscow's territory. Ivan married Sophia Paleologa, a Byzantine princess, connecting Russia symbolically to the Byzantine Empire. He called Moscow the 'Third Rome.'",q:"Why did Ivan III call Moscow the 'Third Rome'?",q_cn:"为什么伊凡三世称莫斯科为'第三罗马'？",options:["A. Because Moscow had the largest population of any city in Europe|A. 因为莫斯科是欧洲人口最多的城市","B. Because Moscow was the third city to be called Rome|B. 因为莫斯科是第三个被称为罗马的城市","C. Because Moscow saw itself as the heir to Christian civilization after Rome and Constantinople fell|C. 因为莫斯科将自己视为罗马和君士坦丁堡衰落后基督教文明的继承者","D. Because Ivan III had conquered both Rome and Constantinople|D. 因为伊凡三世征服了罗马和君士坦丁堡"],correct:"C",rat_right:"Moscow claimed to be the new center of Christian civilization, following the original Rome and then Constantinople.|莫斯科声称自己是基督教文明的新中心，继承了原来的罗马，然后是君士坦丁堡。",rat_wrong:{A:"Population size was not the reason for the 'Third Rome' claim.|人口规模不是'第三罗马'主张的原因。",B:"It was not literally the third city named Rome — it was a symbolic claim of succession.|这并不是字面上第三个名为罗马的城市——它是一种象征性的继承主张。",D:"Ivan III did not conquer Rome or Constantinople.|伊凡三世没有征服罗马或君士坦丁堡。"}},
+  {id:"l3q7",title:"Kievan Rus",passage:"Kievan Rus was the first major political entity of the Eastern Slavs, centered on the city of Kiev. It existed roughly from the 9th century to the 13th century. At its height, Kievan Rus stretched from the Baltic Sea to the Black Sea. Kiev became a major center of trade, Christianity, and Slavic culture. Modern Russia, Ukraine, and Belarus all trace their origins to Kievan Rus.",q:"Which modern countries trace their origins to Kievan Rus?",q_cn:"哪些现代国家追溯其起源到基辅罗斯？",options:["A. Poland, Hungary, and Romania|A. 波兰、匈牙利和罗马尼亚","B. Russia, Ukraine, and Belarus|B. 俄罗斯、乌克兰和白俄罗斯","C. Germany, Austria, and Switzerland|C. 德国、奥地利和瑞士","D. Turkey, Greece, and Bulgaria|D. 土耳其、希腊和保加利亚"],correct:"B",rat_right:"The passage directly states that Russia, Ukraine, and Belarus all trace their origins to Kievan Rus.|文章直接指出俄罗斯、乌克兰和白俄罗斯都追溯其起源到基辅罗斯。",rat_wrong:{A:"Poland, Hungary, and Romania have different historical origins.|波兰、匈牙利和罗马尼亚有不同的历史起源。",C:"Germany, Austria, and Switzerland developed from different civilizations.|德国、奥地利和瑞士由不同的文明发展而来。",D:"Turkey, Greece, and Bulgaria are not descendants of Kievan Rus.|土耳其、希腊和保加利亚不是基辅罗斯的后裔。"}},
+  {id:"l3q8",title:"Byzantine Influence on Russia",passage:"When Russia adopted Orthodox Christianity from Byzantium in 988, it did not just adopt a religion — it adopted an entire cultural package. Byzantine art, with its gold-backed religious icons and formal mosaics, became the foundation of Russian art. Byzantine law influenced Russian legal codes. The Cyrillic alphabet, used to write Russian today, was created by Byzantine missionaries to help Slavic peoples write their language.",q:"Which of the following was created by Byzantine missionaries to help Slavic peoples?",q_cn:"以下哪项是拜占庭传教士为帮助斯拉夫人创建的？",options:["A. The Arabic numeral system (0–9)|A. 阿拉伯数字系统（0-9）","B. The Cyrillic alphabet used to write Russian|B. 用于书写俄语的西里尔字母","C. The Russian Orthodox calendar|C. 俄罗斯东正教历法","D. The Russian system of river trade routes|D. 俄罗斯河流贸易路线系统"],correct:"B",rat_right:"The passage states the Cyrillic alphabet was created by Byzantine missionaries to help Slavic peoples write their language.|文章指出西里尔字母是由拜占庭传教士创建的，以帮助斯拉夫人书写他们的语言。",rat_wrong:{A:"Arabic numerals came from South Asia via Arab mathematicians, not Byzantine missionaries.|阿拉伯数字来自南亚，经过阿拉伯数学家，而不是拜占庭传教士。",C:"The passage does not mention the Orthodox calendar as Byzantine missionaries' creation.|文章没有提到东正教历法是拜占庭传教士的创造。",D:"River trade routes predated Byzantine influence.|河流贸易路线早于拜占庭的影响。"}},
+  {id:"l3q9",title:"Impact of Mongol Rule",passage:"Historians debate the impact of the Mongol 'Tatar Yoke' on Russia. Some argue the 240 years of Mongol rule made Russia more authoritarian — Russian rulers adopted Mongol-style absolute power and harsh methods of control. Others argue Russia would have developed similarly anyway. What is clear is that during the Mongol period, Russia was cut off from Western Europe's Renaissance and early scientific development, creating a cultural gap that lasted centuries.",q:"What is one argued negative consequence of Mongol rule on Russia?",q_cn:"蒙古统治对俄罗斯的一个有争议的负面后果是什么？",options:["A. Russia permanently lost all of its rivers to the Mongols|A. 俄罗斯将其所有河流永久失去给蒙古人","B. Russia was cut off from Western Europe's Renaissance and scientific development|B. 俄罗斯与西欧的文艺复兴和科学发展隔绝","C. Russia was forced to convert to Islam|C. 俄罗斯被迫皈依伊斯兰教","D. All Russian language and culture was completely destroyed|D. 所有俄罗斯语言和文化完全被摧毁"],correct:"B",rat_right:"The passage states Russia was cut off from Western Europe's Renaissance and early scientific development during the Mongol period.|文章指出在蒙古时期，俄罗斯与西欧的文艺复兴和早期科学发展隔绝。",rat_wrong:{A:"Russia retained its rivers — Mongols taxed trade but did not permanently take the rivers.|俄罗斯保留了其河流——蒙古人对贸易征税，但没有永久夺取河流。",C:"Russia remained Christian under Mongol rule.|俄罗斯在蒙古统治下仍然是基督教国家。",D:"Russian language and culture survived — Slavic identity persisted.|俄罗斯语言和文化幸存——斯拉夫身份得以延续。"}},
+  {id:"l3q10",title:"Russia Declares Independence",passage:"In 1480, Ivan III refused to pay tribute to the Mongol Khan. He stood his army on the Ugra River, facing the Mongol forces. After weeks of standoff, the Mongols retreated without a battle. This event, called the 'Great Stand on the Ugra River,' effectively ended 240 years of Mongol domination over Russia. Ivan III then consolidated power over all Russian lands and created a centralized Russian state with Moscow as its capital.",q:"What was the significance of the 'Great Stand on the Ugra River' in 1480?",q_cn:"1480年'乌格拉河大对峙'有什么意义？",options:["A. It was the largest battle ever fought in Russian history|A. 这是俄罗斯历史上规模最大的战役","B. It effectively ended 240 years of Mongol domination over Russia|B. 它有效地结束了蒙古对俄罗斯240年的统治","C. It marked Russia's first victory over the Ottoman Empire|C. 它标志着俄罗斯首次战胜奥斯曼帝国","D. It forced the Mongols to convert to Christianity|D. 它迫使蒙古人皈依基督教"],correct:"B",rat_right:"The passage states this event effectively ended 240 years of Mongol domination over Russia.|文章指出这一事件有效地结束了蒙古对俄罗斯240年的统治。",rat_wrong:{A:"The passage describes it as a standoff, not a battle.|文章将其描述为对峙，而不是战斗。",C:"This event was about Mongols, not the Ottoman Empire.|这一事件与蒙古人有关，而不是奥斯曼帝国。",D:"The Mongols retreated — they did not convert to Christianity.|蒙古人撤退了——他们没有皈依基督教。"}}
+];
+ 
+var L4_Q = [
+  {id:"l4q1",title:"Confucius and Social Order",passage:"Confucius (551–479 BCE) was a Chinese philosopher whose ideas shaped Chinese society for over 2,000 years. He believed that social harmony came from everyone knowing and fulfilling their proper role. He identified five key relationships: ruler-subject, parent-child, husband-wife, elder brother-younger brother, and friend-friend. In all relationships except friendship, one person was superior and owed respect and obedience from the other.",q:"According to Confucius, what was the foundation of social harmony?",q_cn:"根据孔子的观点，社会和谐的基础是什么？",options:["A. Everyone having equal rights and voting in government|A. 每个人都有平等权利并在政府中投票","B. Military strength and conquest of weaker neighbors|B. 军事力量和征服弱小邻居","C. Everyone knowing and fulfilling their proper role in society|C. 每个人了解并履行自己在社会中的适当角色","D. Individual freedom to choose one's own path in life|D. 个人自由选择自己的人生道路"],correct:"C",rat_right:"The passage states Confucius believed social harmony came from everyone knowing and fulfilling their proper role.|文章指出孔子认为社会和谐来自每个人了解并履行自己的适当角色。",rat_wrong:{A:"Confucianism emphasized hierarchy and obedience, not equal voting rights.|儒学强调等级和服从，而不是平等投票权。",B:"Military conquest is not a Confucian value for social harmony.|军事征服不是儒家社会和谐的价值观。",D:"Individual freedom contradicts Confucian emphasis on role fulfillment.|个人自由与儒家对角色履行的强调相矛盾。"}},
+  {id:"l4q2",title:"Three Obediences",passage:"In Confucian thought, women were expected to follow the 'Three Obediences': before marriage, obey your father; after marriage, obey your husband; after your husband's death, obey your son. This created a system where women were always under male authority, no matter their age or social status. Even a widow with grown sons had no independent legal authority — she was expected to defer to her son's judgment.",q:"According to the Three Obediences, what should a widow do?",q_cn:"根据'三从'，寡妇应该怎么做？",options:["A. Take control of the household and make all decisions independently|A. 掌控家庭并独立做出所有决定","B. Remarry immediately to gain a new male protector|B. 立即再婚以获得新的男性保护者","C. Obey her son|C. 服从她的儿子","D. Seek advice from the local village council|D. 寻求当地村庄委员会的建议"],correct:"C",rat_right:"The passage states that after her husband's death, a woman was expected to obey her son.|文章指出丈夫去世后，女性应该服从她的儿子。",rat_wrong:{A:"The Three Obediences specifically deny women independent authority.|三从专门否认女性的独立权威。",B:"Remarriage is not mentioned as the expected response in the Three Obediences.|再婚没有被提及为三从中期望的回应。",D:"Village councils are not mentioned in the Confucian Three Obediences.|村庄委员会在儒家三从中没有提到。"}},
+  {id:"l4q3",title:"Patria Potestas in Rome",passage:"In ancient Rome, the father held absolute legal authority over his family — a concept called patria potestas, meaning 'power of the father.' This authority was total: a Roman father could legally decide whether a newborn child would be accepted into the family or abandoned. He controlled all property. A wife who married under the traditional manus system passed from her father's authority to her husband's authority.",q:"What was patria potestas?",q_cn:"什么是家父权？",options:["A. A Roman law that gave women equal rights to men|A. 给予女性与男性平等权利的罗马法律","B. A Roman religious ceremony for welcoming new children|B. 欢迎新孩子的罗马宗教仪式","C. The absolute legal authority of a Roman father over his entire family|C. 罗马父亲对整个家庭的绝对法律权威","D. A system of elected leaders who governed Roman cities|D. 统治罗马城市的选举领导人制度"],correct:"C",rat_right:"The passage defines patria potestas as the absolute legal authority of a father over his entire family.|文章将家父权定义为父亲对整个家庭的绝对法律权威。",rat_wrong:{A:"Patria potestas was the opposite — it gave men total power over women.|家父权恰恰相反——它给了男性对女性的全部权力。",B:"It was a legal concept, not a religious ceremony.|它是一个法律概念，而不是宗教仪式。",D:"It described family authority, not an elected city government.|它描述了家庭权威，而不是选举产生的城市政府。"}},
+  {id:"l4q4",title:"Women in the Roman Empire",passage:"By the time of the Roman Empire (27 BCE onward), women's legal position had improved significantly compared to the early Republic. Women could own property without a guardian. They could run businesses, manage slaves, and participate in economic life. Upper-class women like Livia, wife of Emperor Augustus, had tremendous informal political influence. However, women still could not vote, hold office, serve in the military, or be senators.",q:"What was NOT something Roman women could do during the Empire?",q_cn:"罗马帝国时期，罗马女性不能做什么？",options:["A. Own property|A. 拥有财产","B. Run businesses|B. 经营生意","C. Hold political office or vote|C. 担任政治职位或投票","D. Manage slaves|D. 管理奴隶"],correct:"C",rat_right:"The passage states women still could not vote, hold office, serve in the military, or be senators, even during the Empire.|文章指出即使在帝国时期，女性仍然不能投票、担任职位、服役或成为参议员。",rat_wrong:{A:"The passage explicitly states women could own property.|文章明确指出女性可以拥有财产。",B:"The passage says women could run businesses.|文章说女性可以经营生意。",D:"The passage says women could manage slaves.|文章说女性可以管理奴隶。"}},
+  {id:"l4q5",title:"Livia and Political Influence",passage:"Livia Drusilla was the wife of Rome's first emperor, Augustus, and one of the most powerful women in Roman history. She had no formal political title, but her influence was enormous. She advised Augustus on important decisions, intervened in political disputes, and was deeply respected by the Roman Senate. After Augustus died, she was given the title 'Augusta' — the female equivalent of 'Augustus' — and was even deified (declared a goddess) after her death.",q:"How did Livia exercise political power in Rome?",q_cn:"利维娅如何在罗马行使政治权力？",options:["A. She was elected as a senator and voted on laws|A. 她被选为参议员并对法律进行投票","B. She commanded the Roman army in battle|B. 她在战斗中指挥罗马军队","C. She used informal influence, advising Augustus and intervening in political disputes|C. 她使用非正式影响力，为奥古斯都提供建议并干预政治争端","D. She ruled as co-emperor with equal legal authority to Augustus|D. 她作为联合皇帝与奥古斯都拥有平等的法律权威"],correct:"C",rat_right:"The passage describes Livia's power as informal — advising, intervening, and being respected, but without formal title or legal authority.|文章将利维娅的权力描述为非正式的——提供建议、干预并受到尊重，但没有正式头衔或法律权威。",rat_wrong:{A:"Women could not be senators in Rome.|女性不能成为罗马参议员。",B:"Roman women did not command armies.|罗马女性不指挥军队。",D:"She had no formal legal co-emperor status.|她没有正式的联合皇帝法律地位。"}},
+  {id:"l4q6",title:"Comparing Education",passage:"In Han China, formal education was almost entirely reserved for men. The civil service examination — a path to government positions — was closed to women. Elite women might learn to read and write at home, but their education focused on household management and moral instruction based on Confucian texts. In Rome, upper-class girls received some formal education, especially in reading, writing, and music. Girls from wealthy families could study alongside boys with private tutors.",q:"How did education for girls differ between Han China and Rome?",q_cn:"汉朝和罗马的女孩教育有何不同？",options:["A. In both societies, girls received identical education to boys|A. 在两个社会中，女孩接受与男孩相同的教育","B. In Han China, girls could take the civil service exam; in Rome, they could not|B. 在汉朝，女孩可以参加科举考试；在罗马，她们不能","C. In Rome, upper-class girls could study with private tutors; in Han China, formal education was almost entirely for men|C. 在罗马，上层阶级的女孩可以与私人教师一起学习；在汉朝，正式教育几乎完全是针对男性的","D. Neither society allowed any education for women at all|D. 两个社会都不允许女性接受任何教育"],correct:"C",rat_right:"The passage contrasts Roman girls' access to private tutors with Han China's near-total exclusion of women from formal education.|文章对比了罗马女孩接受私人教师教育与汉朝几乎完全排除女性接受正式教育的情况。",rat_wrong:{A:"Education was not identical — both societies limited girls' access.|教育并不相同——两个社会都限制女孩的受教育机会。",B:"The civil service exam in Han China was closed to women, not open.|汉朝的科举考试对女性是封闭的，而不是开放的。",D:"Elite women in both societies did receive some education.|两个社会的精英女性确实接受了一些教育。"}},
+  {id:"l4q7",title:"Zhou Dynasty and Confucius",passage:"Confucius lived during the Zhou Dynasty (1046–256 BCE), a period of great social change and instability in China. As the central Zhou government weakened, regional lords fought for power. Confucius believed this chaos resulted from people forgetting their proper social roles. He looked back to the early Zhou period as a golden age of proper order and relationships. His philosophy aimed to restore that order by teaching people to fulfill their roles with virtue and sincerity.",q:"Why did Confucius look to the early Zhou Dynasty as a model?",q_cn:"为什么孔子将早期周朝视为榜样？",options:["A. Because the early Zhou period had democratic elections and individual rights|A. 因为早期周朝有民主选举和个人权利","B. Because the early Zhou period represented proper social order and relationships|B. 因为早期周朝代表了适当的社会秩序和关系","C. Because the early Zhou period was when China first defeated its neighbors|C. 因为早期周朝是中国首次击败邻居的时期","D. Because Confucius was born during the early Zhou and felt nostalgic|D. 因为孔子出生于早期周朝并感到怀旧"],correct:"B",rat_right:"The passage states Confucius saw the early Zhou period as a golden age of proper order and relationships that he wanted to restore.|文章指出孔子将早期周朝视为适当秩序和关系的黄金时代，他想恢复这种状态。",rat_wrong:{A:"The early Zhou period did not have democracy — Confucianism emphasizes hierarchy.|早期周朝没有民主——儒学强调等级制度。",C:"Military conquest is not described as the reason Confucius admired the early Zhou.|军事征服没有被描述为孔子欣赏早期周朝的原因。",D:"Confucius was born during the later, chaotic Zhou period — not the early one he admired.|孔子出生于后期混乱的周朝——而不是他欣赏的早期。"}},
+  {id:"l4q8",title:"Property Rights Comparison",passage:"One of the clearest differences between Roman and Han women was property rights. In the later Roman Empire, women could own property, inherit wealth, and conduct business without a male guardian's approval. A Roman widow could control her own estate. In Han China, property passed through the male line. Women generally did not inherit property directly. A widow's estate was managed by her husband's male relatives, not by herself.",q:"What was the main difference in property rights between Roman and Han women?",q_cn:"罗马和汉朝女性的财产权有什么主要区别？",options:["A. Roman women could own and inherit property freely; Han women generally could not|A. 罗马女性可以自由拥有和继承财产；汉朝女性通常不能","B. Han women could own more property than Roman women|B. 汉朝女性可以拥有比罗马女性更多的财产","C. Neither Roman nor Han women could own any property|C. 罗马和汉朝女性都不能拥有任何财产","D. Both Roman and Han women had identical property rights|D. 罗马和汉朝女性有相同的财产权"],correct:"A",rat_right:"The passage contrasts Roman women freely owning property with Han women who generally did not inherit directly.|文章对比了罗马女性自由拥有财产与汉朝女性通常不能直接继承的情况。",rat_wrong:{B:"The passage describes the opposite — Roman women had more property rights.|文章描述的恰恰相反——罗马女性有更多的财产权。",C:"Roman women explicitly could own property according to the passage.|根据文章，罗马女性明确可以拥有财产。",D:"The passage highlights the difference, not similarity, in property rights.|文章强调了财产权的差异，而不是相似之处。"}},
+  {id:"l4q9",title:"Gender and Religion",passage:"Both Confucianism and Roman religion reinforced gender hierarchy, but in different ways. Confucianism taught that women were naturally inferior in the social hierarchy and that their virtue came from obedience and domestic roles. Roman religion assigned women important religious roles — the Vestal Virgins, for example, were powerful priestesses who maintained Rome's sacred fire. Their religious importance gave elite Roman women more public presence than most Han Chinese women had.",q:"How did the Vestal Virgins give some Roman women more public status?",q_cn:"灶神贞女如何给予一些罗马女性更多的公共地位？",options:["A. They were elected by the Roman Senate to govern the city|A. 她们被罗马元老院选举管理城市","B. Their important religious role as priestesses gave them public presence and respect|B. 她们作为女祭司的重要宗教角色给了她们公共形象和尊重","C. They were given military command over the Roman army|C. 她们被赋予对罗马军队的军事指挥权","D. They were allowed to vote in Roman elections|D. 她们被允许在罗马选举中投票"],correct:"B",rat_right:"The passage states the Vestal Virgins' religious importance gave elite Roman women more public presence.|文章指出灶神贞女的宗教重要性给予精英罗马女性更多的公共形象。",rat_wrong:{A:"The Vestal Virgins were not elected senators or city governors.|灶神贞女不是选举产生的参议员或城市长官。",C:"Women did not command the Roman military.|女性不指挥罗马军队。",D:"Roman women, including Vestal Virgins, could not vote.|罗马女性，包括灶神贞女，不能投票。"}},
+  {id:"l4q10",title:"Long-term Legacy",passage:"The gender norms of ancient Rome and Han China left very different legacies. Roman women's gradually expanding legal rights set a precedent that influenced later European legal traditions. The concept that women could own property and conduct business independently became part of Roman law and later influenced medieval and modern European law. In China, Confucian gender norms remained powerful for nearly 2,000 years, restricting women's public roles until the 20th century.",q:"Which statement best describes the long-term legacy of gender norms in Rome and Han China?",q_cn:"哪个陈述最能描述罗马和汉朝性别规范的长期遗产？",options:["A. Both societies had identical effects on later civilizations|A. 两个社会对后来文明有相同的影响","B. Roman women's legal rights influenced later European law; Confucian gender norms restricted Chinese women for nearly 2,000 years|B. 罗马女性的法律权利影响了后来的欧洲法律；儒家性别规范限制中国女性近2000年","C. Neither society's gender norms had any lasting impact on history|C. 两个社会的性别规范对历史都没有持久影响","D. Han China's gender equality was more advanced than Rome's|D. 汉朝的性别平等比罗马更先进"],correct:"B",rat_right:"The passage contrasts Roman women's influence on European law with Confucian norms restricting Chinese women for nearly 2,000 years.|文章对比了罗马女性对欧洲法律的影响与儒家规范限制中国女性近2000年的情况。",rat_wrong:{A:"The passage highlights very different legacies, not identical ones.|文章强调非常不同的遗产，而不是相同的遗产。",C:"The passage explicitly describes lasting impacts on European and Chinese history.|文章明确描述了对欧洲和中国历史的持久影响。",D:"The passage describes Han China as having more restrictions, not greater equality.|文章描述汉朝有更多限制，而不是更大的平等。"}}
+];
+ 
+// ===== BUILD VOCAB =====
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML = '<div class="vocab-word">' + v.word + '</div>' +
+      '<div class="vocab-pos">' + v.pos + '</div>' +
+      '<div class="vocab-cn-word">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-cn-def">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">' + v.example + '</div>';
+    var btn = document.createElement('button');
+    btn.className = 'speak-btn';
+    btn.textContent = '🔊 Pronounce';
+    btn.addEventListener('click', (function(word) {
+      return function() {
+        var u = new SpeechSynthesisUtterance(word);
+        u.lang = 'en-US';
+        speechSynthesis.speak(u);
+      };
+    })(v.word));
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+// ===== BUILD QUIZ =====
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx+1) + ' of ' + data.length;
+    card.appendChild(num);
+    if (item.passage) {
+      var pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+    var qEl = document.createElement('div'); qEl.className = 'q-text'; qEl.textContent = item.q;
+    var qCn = document.createElement('div'); qCn.className = 'q-cn cn'; qCn.textContent = item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+    var optsWrap = document.createElement('div'); optsWrap.className = 'opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className = 'rationale';
+    var answered = false;
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/,'');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/,'') : '';
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.dataset.letter = letter;
+      var strong = document.createElement('strong'); strong.textContent = letter + '. ';
+      var enS = document.createElement('span'); enS.textContent = enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className = 'cn'; cnS.textContent = cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+      btn.addEventListener('click', (function(it, lb, ow, rd, sc, dn, oc) {
+        return function() {
+          if (answered) return;
+          answered = true;
+          answers[it.id] = lb;
+          ow.querySelectorAll('.opt-btn').forEach(function(b) {
+            b.disabled = true;
+            if (b.dataset.letter === it.correct) b.classList.add('show-correct');
+          });
+          var ratText, ratCn, ratParts;
+          if (lb === it.correct) {
+            this.classList.add('selected-correct');
+            ratParts = it.rat_right.split('|');
+            ratText = '✅ ' + ratParts[0];
+            ratCn = ratParts[1] || '';
+            rd.className = 'rationale show correct-rat';
+            addProgress(1);
+            sc.val++;
+          } else {
+            this.classList.add('selected-wrong');
+            var wr = it.rat_wrong[lb] || '';
+            ratParts = wr.split('|');
+            ratText = '❌ ' + ratParts[0] + ' (Correct: ' + it.correct + ')';
+            ratCn = ratParts[1] || '';
+            rd.className = 'rationale show wrong-rat';
+          }
+          var rDiv = document.createElement('div'); rDiv.textContent = ratText;
+          if (ratCn) {
+            var rBr = document.createElement('br');
+            var rCnS = document.createElement('span'); rCnS.className = 'cn'; rCnS.textContent = ratCn;
+            rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+          }
+          rd.appendChild(rDiv);
+          dn.val++;
+          if (dn.val >= it.total) oc();
+        };
+      })(item, letter, optsWrap, ratDiv, scoreObj, doneObj, onComplete));
+      optsWrap.appendChild(btn);
+    });
+    card.appendChild(optsWrap); card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+  // patch total
+  data.forEach(function(it) { it.total = data.length; });
+}
+ 
+// ===== CHECK READINESS =====
+function checkReadiness(tabKey) {
+  var doneMap = {l1:l1Done, l2:l2Done, l3:l3Done, l4:l4Done};
+  var doneObj = doneMap[tabKey];
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey+'DownloadBtn');
+  var hint = document.getElementById(tabKey+'Hint');
+  if (ready) { btn.classList.add('ready'); hint.classList.add('hidden'); }
+  else { btn.classList.remove('ready'); hint.classList.remove('hidden'); }
+}
+ 
+// ===== WIRE LISTENERS =====
+function wireListeners(tabKey) {
+  ['Ref1','Ref2'].forEach(function(fld) {
+    document.getElementById(tabKey+fld).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey+'Grat').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+ 
+// ===== DOWNLOAD =====
+function tryDownload(tabKey) {
+  var doneMap = {l1:l1Done, l2:l2Done, l3:l3Done, l4:l4Done};
+  var scoreMap = {l1:l1Score, l2:l2Score, l3:l3Score, l4:l4Score};
+  var qMap = {l1:L1_Q, l2:L2_Q, l3:L3_Q, l4:L4_Q};
+  var ansMap = {l1:l1Answers, l2:l2Answers, l3:l3Answers, l4:l4Answers};
+  var labelMap = {l1:'Mughal Rule in India', l2:'Islamic Empires Compared', l3:'Origins of Russia', l4:'Women in Rome and Han China'};
+  var doneObj = doneMap[tabKey], scoreObj = scoreMap[tabKey];
+  var qData = qMap[tabKey], ansData = ansMap[tabKey];
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+  var name = document.getElementById(tabKey+'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+  qData.forEach(function(item, i) {
+    var sel = ansData[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'MLWS_W3D1_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click(); URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+// ===== UTILITIES =====
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+ 
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'l1QuizContainer', l1Answers, l1Score, l1Done, function(){ checkReadiness('l1'); });
+  buildQuiz(L2_Q, 'l2QuizContainer', l2Answers, l2Score, l2Done, function(){ checkReadiness('l2'); });
+  buildQuiz(L3_Q, 'l3QuizContainer', l3Answers, l3Score, l3Done, function(){ checkReadiness('l3'); });
+  buildQuiz(L4_Q, 'l4QuizContainer', l4Answers, l4Score, l4Done, function(){ checkReadiness('l4'); });
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
