@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 3 Day 2 | 第三周第二天</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;
+  --ml-red:#c1121f;--ml-gold:#e9c46a;--ink:#1a2a1a;--ink2:#2d3748;
+  --mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:#f0f4f0;color:var(--ink);min-height:100vh;}
+h1,h2,h3{font-family:'Literata',serif;}
+.cn{font-family:'Noto Sans SC',sans-serif;}
+.site-header{background:var(--ml-green-dark);color:#fff;padding:14px 20px 10px;}
+.header-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.header-title{font-size:1.18rem;font-weight:700;letter-spacing:.01em;}
+.header-sub{font-size:.82rem;opacity:.8;font-family:'Noto Sans SC',sans-serif;}
+#leaveBadge{font-size:.78rem;background:rgba(255,255,255,.15);border-radius:20px;padding:3px 10px;white-space:nowrap;}
+.progress-row{margin-top:8px;display:flex;align-items:center;gap:10px;}
+.progress-track{flex:1;height:8px;background:rgba(255,255,255,.2);border-radius:4px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--ml-gold);border-radius:4px;width:0%;transition:width .4s;}
+#progressText{font-size:.75rem;color:rgba(255,255,255,.85);white-space:nowrap;}
+.pip-row{display:flex;gap:6px;align-items:center;margin-top:6px;}
+.pip{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.25);transition:background .4s;}
+.pip.done{background:var(--ml-gold);}
+.tab-bar{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--border);padding:0 8px;gap:2px;}
+.tab-btn{border:none;background:transparent;padding:11px 18px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:500;color:#555;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;}
+.tab-btn:hover{color:var(--ml-green);}
+.tab-btn.active{color:var(--ml-green-dark);border-bottom-color:var(--ml-green-dark);font-weight:700;}
+.tab-content{display:none;padding:20px 16px 80px;max-width:860px;margin:0 auto;}
+.tab-content.active{display:block;}
+#vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:16px;}
+.vocab-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.vocab-word{font-size:1.25rem;font-weight:700;color:var(--ml-green-dark);font-family:'Literata',serif;}
+.vocab-pos{font-size:.75rem;color:#888;font-style:italic;margin-bottom:6px;}
+.vocab-cn-word{font-size:1rem;font-weight:700;color:var(--cobalt);font-family:'Noto Sans SC',sans-serif;margin-bottom:6px;}
+.vocab-def{font-size:.88rem;color:var(--ink2);line-height:1.5;margin-bottom:4px;}
+.vocab-cn-def{font-size:.83rem;color:#555;font-family:'Noto Sans SC',sans-serif;line-height:1.5;margin-bottom:8px;}
+.vocab-example{font-size:.83rem;color:var(--cobalt);font-style:italic;border-left:3px solid var(--ml-gold);padding-left:8px;margin-bottom:8px;}
+.speak-btn{border:none;background:var(--ml-green-light);color:var(--ml-green-dark);border-radius:6px;padding:4px 10px;font-size:.8rem;cursor:pointer;font-weight:600;}
+.speak-btn:hover{background:var(--ml-green);color:#fff;}
+.section-head{font-size:1.15rem;color:var(--ml-green-dark);border-bottom:2px solid var(--ml-green-light);padding-bottom:6px;margin:24px 0 12px;}
+.concept-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.concept-card h3{font-size:1rem;color:var(--cobalt);margin-bottom:6px;}
+.concept-card p{font-size:.9rem;color:var(--ink2);line-height:1.6;margin-bottom:6px;}
+.concept-card .cn{font-size:.85rem;color:#555;line-height:1.6;}
+.callout{background:var(--amber-light);border-left:4px solid var(--amber);border-radius:8px;padding:12px 16px;margin:14px 0;}
+.callout strong{color:var(--amber);font-size:.85rem;text-transform:uppercase;letter-spacing:.04em;}
+.callout p{font-size:.88rem;color:var(--ink2);margin-top:4px;line-height:1.55;}
+.callout .cn{font-size:.83rem;color:#666;margin-top:3px;}
+.info-box{background:var(--ml-green-light);border:1px solid #b7e4c7;border-radius:8px;padding:12px 16px;margin:14px 0;}
+.info-box p{font-size:.88rem;color:var(--ml-green-dark);line-height:1.55;}
+.info-box .cn{font-size:.83rem;color:#276749;margin-top:4px;}
+.cobalt-box{background:#e8eef7;border:1px solid #c3d0e8;border-radius:8px;padding:12px 16px;margin:14px 0;}
+.cobalt-box p{font-size:.88rem;color:var(--cobalt);line-height:1.55;}
+.cobalt-box .cn{font-size:.83rem;color:#365080;margin-top:4px;}
+table.concept-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.86rem;}
+table.concept-table th{background:var(--ml-green-dark);color:#fff;padding:8px 10px;text-align:left;font-weight:600;}
+table.concept-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--ink2);vertical-align:top;}
+table.concept-table tr:nth-child(even) td{background:#f4f8f5;}
+table.concept-table .cn{font-size:.8rem;color:#555;display:block;margin-top:2px;}
+.color-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.color-cell{border-radius:8px;padding:12px;font-size:.85rem;line-height:1.5;}
+.color-cell.green{background:var(--ml-green-light);border:1px solid #b7e4c7;color:var(--ml-green-dark);}
+.color-cell.cobalt{background:#e8eef7;border:1px solid #c3d0e8;color:var(--cobalt);}
+.color-cell.amber{background:var(--amber-light);border:1px solid #fcd34d;color:var(--amber);}
+.color-cell.red{background:#fee2e2;border:1px solid #fca5a5;color:#991b1b;}
+.color-cell strong{display:block;font-weight:700;margin-bottom:3px;}
+.name-row{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.name-row label{font-size:.88rem;font-weight:600;color:var(--ml-green-dark);}
+.name-input{border:2px solid var(--border);border-radius:8px;padding:7px 12px;font-size:.9rem;font-family:'DM Sans',sans-serif;width:220px;}
+.name-input:focus{outline:none;border-color:var(--ml-green);}
+.quiz-section-head{font-size:1rem;font-weight:700;color:var(--ink2);margin:28px 0 4px;}
+.quiz-instruction{font-size:.84rem;color:#666;margin-bottom:14px;}
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.q-num{font-size:.75rem;font-weight:700;color:#888;letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px;}
+.passage-box{background:#f8f9fa;border-left:3px solid var(--ml-gold);border-radius:6px;padding:12px 14px;font-size:.87rem;color:var(--ink2);line-height:1.65;margin-bottom:10px;font-family:'Literata',serif;}
+.q-text{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.5;}
+.q-cn{font-size:.85rem;color:#555;margin-bottom:10px;}
+.opts-wrap{display:flex;flex-direction:column;gap:7px;margin-bottom:10px;}
+.opt-btn{background:#f8faf8;border:2px solid var(--border);border-radius:8px;padding:9px 13px;text-align:left;cursor:pointer;font-size:.87rem;font-family:'DM Sans',sans-serif;color:var(--ink2);transition:all .18s;line-height:1.45;}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:var(--ml-green-light);}
+.opt-btn:disabled{cursor:default;}
+.opt-btn.show-correct{background:#d1fae5;border-color:#059669;color:#065f46;}
+.opt-btn.selected-correct{background:#d1fae5;border-color:#059669;color:#065f46;}
+.opt-btn.selected-wrong{background:#fee2e2;border-color:#ef4444;color:#7f1d1d;}
+.rationale{display:none;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:10px 13px;font-size:.84rem;color:var(--cobalt);line-height:1.55;margin-top:4px;}
+.rationale.show{display:block;}
+.rationale.correct-rat{background:#d1fae5;border-color:#6ee7b7;color:#065f46;}
+.rationale.wrong-rat{background:#fef2f2;border-color:#fca5a5;color:#7f1d1d;}
+.reflect-section{margin-top:28px;border-top:2px solid var(--border);padding-top:20px;}
+.reflect-section h3{font-size:1rem;color:var(--ml-green-dark);margin-bottom:14px;font-family:'Literata',serif;}
+.reflect-q{margin-bottom:16px;}
+.reflect-q label{font-size:.88rem;font-weight:600;color:var(--ink2);display:block;margin-bottom:6px;}
+.reflect-q .cn{font-size:.82rem;color:#666;display:block;margin-bottom:6px;}
+.reflect-textarea{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px 12px;font-size:.88rem;font-family:'DM Sans',sans-serif;color:var(--ink2);resize:vertical;min-height:80px;transition:border-color .2s;}
+.reflect-textarea:focus{outline:none;border-color:var(--ml-green);}
+.reflect-textarea.filled{border-color:var(--ml-green);}
+.grat-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.grat-row label{font-size:.88rem;font-weight:600;color:var(--ink2);}
+.grat-input{border:2px solid var(--border);border-radius:8px;padding:7px 12px;font-size:.88rem;font-family:'DM Sans',sans-serif;color:var(--ink2);width:220px;transition:border-color .2s;}
+.grat-input:focus{outline:none;border-color:var(--ml-gold);}
+.grat-input.filled{border-color:var(--ml-gold);}
+.dl-btn{display:block;width:100%;padding:12px;background:#ccc;border:none;border-radius:10px;font-size:.95rem;font-weight:700;font-family:'DM Sans',sans-serif;color:#fff;cursor:not-allowed;transition:all .3s;margin-top:10px;}
+.dl-btn.ready{background:var(--ml-green-dark);cursor:pointer;}
+.dl-btn.ready:hover{background:var(--ml-green);}
+.hint-text{font-size:.8rem;color:#888;text-align:center;margin-top:6px;}
+.hint-text.hidden{display:none;}
+#timer-display{position:fixed;bottom:18px;right:18px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-size:.85rem;font-weight:600;z-index:500;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+@media(max-width:600px){.color-row{grid-template-columns:1fr;}.name-input{width:100%;}.tab-btn{padding:10px 12px;font-size:.82rem;}}
+</style>
+</head>
+<body>
+ 
+<!-- ANTI-CHEAT BANNER -->
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+ 
+<!-- LEAVE FLASH -->
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  🚨 Tab switch recorded! Your teacher will see this. · <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span>
+</div>
+ 
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">MLWS Social Studies · Week 3 Day 2</div>
+      <div class="header-sub cn">枫叶世界学校 · 社会研究 · 第三周第二天</div>
+    </div>
+    <div id="leaveBadge">🚪 Leaves: 0</div>
+  </div>
+  <div class="progress-row">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <div id="progressText">Progress: 0% · 进度：0%</div>
+  </div>
+  <div class="pip-row">
+    <span style="font-size:.72rem;opacity:.7;">Tabs:</span>
+    <div class="pip" id="pip-l1" title="American Revolution"></div>
+    <div class="pip" id="pip-l2" title="French Revolution Part 1"></div>
+    <div class="pip" id="pip-l3" title="French Revolution Part 2"></div>
+    <div class="pip" id="pip-l4" title="Reign of Terror"></div>
+    <div class="pip" id="pip-l5" title="Haitian Revolution"></div>
+  </div>
+</header>
+ 
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">📚 Vocab · 词汇</button>
+  <button class="tab-btn" onclick="switchTab('l1', this)">American Revolution &amp; Independence</button>
+  <button class="tab-btn" onclick="switchTab('l2', this)">French Revolution Part 1</button>
+  <button class="tab-btn" onclick="switchTab('l3', this)">French Revolution Part 2</button>
+  <button class="tab-btn" onclick="switchTab('l4', this)">Reign of Terror</button>
+  <button class="tab-btn" onclick="switchTab('l5', this)">Haitian Revolution</button>
+</div>
+ 
+<!-- ===== VOCAB TAB ===== -->
+<div id="tab-vocab" class="tab-content active">
+  <h2 class="section-head">Vocabulary · 词汇表</h2>
+  <div class="info-box">
+    <p>Learn these 12 key terms before exploring the lessons. Click 🔊 to hear pronunciation.</p>
+    <p class="cn">在学习课程之前，先学习这12个关键词汇。点击 🔊 听发音。</p>
+  </div>
+  <div id="vocab-grid"></div>
+</div>
+ 
+<!-- ===== LESSON 1: AMERICAN REVOLUTION & INDEPENDENCE ===== -->
+<div id="tab-l1" class="tab-content">
+  <div class="name-row">
+    <label for="l1Name">Your Name · 你的姓名:</label>
+    <input type="text" id="l1Name" class="name-input" placeholder="Type your name here...">
+  </div>
+ 
+  <h2 class="section-head">American Revolution &amp; Independence · 美国革命与独立</h2>
+ 
+  <div class="concept-card">
+    <h3>What Was the American Revolution? · 什么是美国革命？</h3>
+    <p>The American Revolution (1775–1783) was the war in which thirteen British colonies in North America broke free from British rule and formed the United States of America. It was driven by Enlightenment ideas — the belief that people have natural rights and that governments only have power when the people agree to be governed.</p>
+    <p class="cn">美国革命（1775-1783年）是北美十三个英国殖民地摆脱英国统治、建立美利坚合众国的战争。它由启蒙思想驱动——即人们拥有天赋权利，政府只有在人民同意被治理时才拥有权力。</p>
+  </div>
+ 
+  <h3 class="section-head">Enlightenment Ideas That Sparked Revolution · 引发革命的启蒙思想</h3>
+  <table class="concept-table">
+    <thead>
+      <tr><th>Thinker · 思想家</th><th>Key Idea · 核心思想</th><th>Influence on America · 对美国的影响</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>John Locke</strong><span class="cn">约翰·洛克</span></td>
+        <td>Natural rights: life, liberty, property<span class="cn">天赋权利：生命、自由、财产</span></td>
+        <td>Directly inspired the Declaration of Independence<span class="cn">直接启发了《独立宣言》</span></td>
+      </tr>
+      <tr>
+        <td><strong>Montesquieu</strong><span class="cn">孟德斯鸠</span></td>
+        <td>Separation of powers (executive, legislative, judicial)<span class="cn">三权分立（行政、立法、司法）</span></td>
+        <td>Shaped the US Constitution<span class="cn">塑造了美国宪法</span></td>
+      </tr>
+      <tr>
+        <td><strong>Jean-Jacques Rousseau</strong><span class="cn">让-雅克·卢梭</span></td>
+        <td>Social contract — government gets power from the people<span class="cn">社会契约——政府权力来自人民</span></td>
+        <td>Justified the right to revolution<span class="cn">为革命权利提供了依据</span></td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <h3 class="section-head">Colonial Grievances · 殖民地的不满</h3>
+  <div class="concept-card">
+    <p>Britain taxed its American colonies heavily after the Seven Years' War (1756–1763) to pay war debts. The colonists were furious because they had no representatives in the British Parliament. Their slogan became: <strong>"No taxation without representation."</strong> Key events that escalated tensions included the Stamp Act (1765), the Boston Massacre (1770), and the Boston Tea Party (1773).</p>
+    <p class="cn">七年战争（1756-1763年）后，英国对美洲殖民地征收重税以偿还战争债务。殖民者非常愤怒，因为他们在英国议会中没有代表。他们的口号变成了：<strong>"无代表，不纳税。"</strong>使紧张局势升级的关键事件包括《印花税法》（1765年）、波士顿大屠杀（1770年）和波士顿倾茶事件（1773年）。</p>
+  </div>
+ 
+  <h3 class="section-head">The Declaration of Independence · 《独立宣言》</h3>
+  <div class="concept-card">
+    <h3>July 4, 1776 · 1776年7月4日</h3>
+    <p>Thomas Jefferson wrote the Declaration of Independence, which formally announced the colonies' separation from Britain. It was based on Locke's ideas of natural rights. The key sentence declared that all men are created equal and possess the rights to life, liberty, and the pursuit of happiness — and that if a government destroys these rights, the people have the right to overthrow it.</p>
+    <p class="cn">托马斯·杰斐逊起草了《独立宣言》，正式宣布殖民地与英国分离。它基于洛克的天赋权利思想。关键句子宣称所有人生而平等，拥有生命、自由和追求幸福的权利——如果政府破坏这些权利，人民有权推翻它。</p>
+  </div>
+ 
+  <div class="callout">
+    <strong>Consent of the Governed · 被统治者的同意</strong>
+    <p>The Declaration's most revolutionary idea was "consent of the governed" — governments are only legitimate when the people agree to be ruled. This directly challenged the idea of kings ruling by divine right. It inspired revolutions in France, Haiti, and Latin America for decades.</p>
+    <p class="cn">《独立宣言》最具革命性的思想是"被统治者的同意"——只有当人民同意被统治时，政府才是合法的。这直接挑战了国王以神圣权利统治的观念，并在此后数十年激励了法国、海地和拉丁美洲的革命。</p>
+  </div>
+ 
+  <div class="color-row">
+    <div class="color-cell green">
+      <strong>Enlightenment Causes · 启蒙思想原因</strong>
+      Natural rights philosophy · 天赋权利哲学<br>
+      Social contract theory · 社会契约论<br>
+      Separation of powers · 三权分立
+    </div>
+    <div class="color-cell cobalt">
+      <strong>Political/Economic Causes · 政治/经济原因</strong>
+      Taxation without representation · 无代表征税<br>
+      British trade restrictions · 英国贸易限制<br>
+      No colonial voice in Parliament · 殖民地在议会无发言权
+    </div>
+  </div>
+ 
+  <h3 class="section-head">Quiz · 测验 — American Revolution &amp; Independence</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="l1QuizContainer"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">
+      <label>1. The Declaration of Independence said people have the right to overthrow a government that destroys their rights. Do you think this is always a good idea? What problems could it cause?</label>
+      <span class="cn">《独立宣言》说人们有权推翻破坏其权利的政府。你认为这总是一个好主意吗？它可能会带来什么问题？</span>
+      <textarea id="l1Ref1" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. The American Revolution was inspired by Enlightenment thinkers from Europe. How does one country's ideas spread to change another country's government?</label>
+      <span class="cn">美国革命受到欧洲启蒙思想家的启发。一个国家的思想如何传播并改变另一个国家的政府？</span>
+      <textarea id="l1Ref2" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="l1Grat" class="grat-input" placeholder="...">
+    </div>
+    <button class="dl-btn" id="l1DownloadBtn" onclick="tryDownload('l1')">⬇ Download My Work · 下载我的作业</button>
+    <p class="hint-text" id="l1Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思栏后解锁下载。</p>
+  </div>
+</div>
+ 
+<!-- ===== LESSON 2: FRENCH REVOLUTION PART 1 ===== -->
+<div id="tab-l2" class="tab-content">
+  <div class="name-row">
+    <label for="l2Name">Your Name · 你的姓名:</label>
+    <input type="text" id="l2Name" class="name-input" placeholder="Type your name here...">
+  </div>
+ 
+  <h2 class="section-head">French Revolution Part 1 · 法国大革命 第一部分</h2>
+ 
+  <div class="concept-card">
+    <h3>France Before the Revolution · 革命前的法国</h3>
+    <p>In the late 1700s, France was one of the most powerful kingdoms in Europe — but it was deeply unfair. King Louis XVI lived in the magnificent Palace of Versailles with his queen Marie Antoinette, while most French people were desperately poor and hungry. The country was almost bankrupt from fighting wars, including helping the American Revolution.</p>
+    <p class="cn">18世纪末，法国是欧洲最强大的王国之一——但它极度不公平。国王路易十六和王后玛丽·安托瓦内特住在宏伟的凡尔赛宫，而大多数法国人却极度贫困和饥饿。这个国家因参加战争——包括帮助美国革命——而几乎破产。</p>
+  </div>
+ 
+  <h3 class="section-head">The Three Estates · 三个等级</h3>
+  <div class="concept-card">
+    <p>French society was divided into three legal classes called "estates." This system was deeply unequal:</p>
+    <p class="cn">法国社会被分为三个法律阶层，称为"等级"。这个制度极度不平等：</p>
+  </div>
+  <table class="concept-table">
+    <thead>
+      <tr><th>Estate · 等级</th><th>Who? · 是谁？</th><th>Taxes? · 纳税？</th><th>% of Population · 人口占比</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>First Estate · 第一等级</strong></td>
+        <td>The Catholic clergy (priests, bishops)<span class="cn">天主教神职人员（神父、主教）</span></td>
+        <td>No · 不纳税</td>
+        <td>~0.5%</td>
+      </tr>
+      <tr>
+        <td><strong>Second Estate · 第二等级</strong></td>
+        <td>The nobility (lords, aristocrats)<span class="cn">贵族（领主、贵族）</span></td>
+        <td>No · 不纳税</td>
+        <td>~1.5%</td>
+      </tr>
+      <tr>
+        <td><strong>Third Estate · 第三等级</strong></td>
+        <td>Everyone else: merchants, lawyers, farmers, workers<span class="cn">其他所有人：商人、律师、农民、工人</span></td>
+        <td>Yes — all taxes · 是，缴纳所有税</td>
+        <td>~98%</td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="callout">
+    <strong>The Crisis · 危机</strong>
+    <p>By 1789, France faced a catastrophic food crisis. Bad harvests meant bread prices skyrocketed. Poor people in cities spent 80–90% of their income just on bread. Meanwhile, the nobility and clergy paid no taxes at all. Louis XVI called the Estates-General — a rare political meeting of all three estates — to solve the financial crisis. This meeting triggered the revolution.</p>
+    <p class="cn">到1789年，法国面临灾难性的粮食危机。歉收导致面包价格飙升。城市贫民将80-90%的收入用于购买面包。与此同时，贵族和神职人员根本不纳税。路易十六召开了三级会议——一个罕见的三个等级全体政治会议——以解决财政危机。这次会议引发了革命。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>Louis XVI and Marie Antoinette · 路易十六与玛丽·安托瓦内特</h3>
+    <p>Louis XVI was a weak king who could not make firm decisions. He was kind but indecisive at the worst possible time. Marie Antoinette was Austrian-born and was deeply unpopular with French people, who saw her as a symbol of royal extravagance. She was nicknamed "Madame Deficit" because she spent enormous amounts of money on clothing, gambling, and parties while the country starved.</p>
+    <p class="cn">路易十六是一位软弱的国王，无法做出坚定的决定。他善良但在最糟糕的时候优柔寡断。玛丽·安托瓦内特出生于奥地利，极不受法国人欢迎，人们视她为皇家奢靡的象征。她被称为"赤字夫人"，因为当国家饥寒交迫时，她在服装、赌博和聚会上挥霍了大量金钱。</p>
+  </div>
+ 
+  <h3 class="section-head">Quiz · 测验 — French Revolution Part 1</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="l2QuizContainer"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">
+      <label>1. The Three Estates system meant 98% of people paid all the taxes while the richest 2% paid nothing. Do you think economic inequality like this always leads to revolution? Why or why not?</label>
+      <span class="cn">三个等级制度意味着98%的人缴纳所有税款，而最富有的2%什么都不用缴。你认为这种经济不平等总会导致革命吗？为什么？</span>
+      <textarea id="l2Ref1" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Marie Antoinette was Austrian, not French. How do you think her foreign background made the French people distrust her more during a crisis?</label>
+      <span class="cn">玛丽·安托瓦内特是奥地利人，不是法国人。你认为她的外国背景如何在危机期间使法国人更加不信任她？</span>
+      <textarea id="l2Ref2" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="l2Grat" class="grat-input" placeholder="...">
+    </div>
+    <button class="dl-btn" id="l2DownloadBtn" onclick="tryDownload('l2')">⬇ Download My Work · 下载我的作业</button>
+    <p class="hint-text" id="l2Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思栏后解锁下载。</p>
+  </div>
+</div>
+ 
+<!-- ===== LESSON 3: FRENCH REVOLUTION PART 2 ===== -->
+<div id="tab-l3" class="tab-content">
+  <div class="name-row">
+    <label for="l3Name">Your Name · 你的姓名:</label>
+    <input type="text" id="l3Name" class="name-input" placeholder="Type your name here...">
+  </div>
+ 
+  <h2 class="section-head">French Revolution Part 2 · 法国大革命 第二部分</h2>
+ 
+  <div class="concept-card">
+    <h3>From Meeting to Revolution: 1789 · 从会议到革命：1789年</h3>
+    <p>The Estates-General meeting in May 1789 quickly became a crisis. The Third Estate — representing 98% of the population — demanded more voting power. When the king refused, the Third Estate broke away and declared itself the National Assembly, claiming to represent all French people. This was an act of revolution: ordinary citizens were claiming the right to govern France.</p>
+    <p class="cn">1789年5月的三级会议迅速演变成危机。代表98%人口的第三等级要求更多投票权。当国王拒绝时，第三等级脱离并宣布自己为国民议会，声称代表所有法国人。这是一次革命行动：普通公民在主张治理法国的权利。</p>
+  </div>
+ 
+  <h3 class="section-head">The Tennis Court Oath · 网球场宣誓</h3>
+  <div class="concept-card">
+    <p>On June 20, 1789, Louis XVI locked the Third Estate out of their meeting hall. They found a nearby indoor tennis court and gathered there. The members solemnly swore they would not leave until France had a new constitution. This is called the Tennis Court Oath. It was a direct challenge to royal authority and showed that the revolution had begun in earnest.</p>
+    <p class="cn">1789年6月20日，路易十六将第三等级锁在会议厅外。他们找到附近的一个室内网球场并在那里集会。成员们庄严宣誓，在法国拥有新宪法之前不会离开。这被称为网球场宣誓。这是对王权的直接挑战，表明革命已经认真开始了。</p>
+  </div>
+ 
+  <h3 class="section-head">The Storming of the Bastille — July 14, 1789 · 攻占巴士底狱——1789年7月14日</h3>
+  <div class="concept-card">
+    <h3>The Spark · 导火索</h3>
+    <p>Louis XVI dismissed his popular financial advisor Necker on July 11, 1789. Parisians saw this as proof the king was preparing to crush the revolution by force — troops were gathering outside Paris. Panic and anger exploded. On July 14, a crowd of Parisians attacked the Bastille, an old royal prison that symbolized royal tyranny. After hours of fighting, the fortress fell. The governor was killed and his head was paraded through the streets.</p>
+    <p class="cn">1789年7月11日，路易十六解雇了他深受欢迎的财政顾问内克尔。巴黎人认为这证明国王正准备以武力镇压革命——军队正在巴黎郊外集结。恐慌和愤怒爆发了。7月14日，一群巴黎市民攻打了巴士底狱——一座象征王权专制的古老皇家监狱。经过数小时的战斗，要塞陷落。总督被杀，其头颅被游街示众。</p>
+  </div>
+ 
+  <div class="callout">
+    <strong>Why July 14 Matters · 为什么7月14日很重要</strong>
+    <p>The Bastille only held 7 prisoners when it fell — but that was not the point. It was a symbol of royal oppression. When it fell, it sent a message across France and all of Europe: the people had power. July 14 is still celebrated as Bastille Day — France's national holiday — every year.</p>
+    <p class="cn">巴士底狱陷落时只关押了7名囚犯——但这不是重点。它是王权压迫的象征。它的陷落向法国和整个欧洲发出了一个信息：人民拥有力量。7月14日至今仍每年作为攻占巴士底狱纪念日——法国的国庆节——被庆祝。</p>
+  </div>
+ 
+  <h3 class="section-head">Declaration of the Rights of Man · 《人权宣言》</h3>
+  <div class="concept-card">
+    <p>On August 26, 1789, the National Assembly adopted the Declaration of the Rights of Man and of the Citizen. Inspired directly by the American Declaration of Independence and Enlightenment philosophy, it declared: liberty, property, security, and resistance to oppression are natural rights of all men. It stated that the law must be the same for everyone, and that political power comes from the nation — not the king.</p>
+    <p class="cn">1789年8月26日，国民议会通过了《人权宣言》。直接受美国《独立宣言》和启蒙哲学启发，它宣称：自由、财产、安全和对压迫的抵抗是所有人的天赋权利。它声明法律对所有人必须平等，政治权力来自国家——而不是国王。</p>
+  </div>
+ 
+  <h3 class="section-head">Quiz · 测验 — French Revolution Part 2</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="l3QuizContainer"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">
+      <label>1. The Bastille only held 7 prisoners when it was stormed, but it became the most famous moment of the French Revolution. Why do you think symbols are so powerful in revolutions?</label>
+      <span class="cn">巴士底狱被攻占时只关押了7名囚犯，但它成为法国大革命最著名的时刻。你认为为什么象征在革命中如此强大？</span>
+      <textarea id="l3Ref1" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. The Declaration of the Rights of Man said the law must be the same for everyone. Think about your own society — do you think everyone is truly treated equally under the law today? Give an example.</label>
+      <span class="cn">《人权宣言》说法律对所有人必须平等。想想你自己的社会——你认为今天每个人在法律面前真的平等吗？举一个例子。</span>
+      <textarea id="l3Ref2" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="l3Grat" class="grat-input" placeholder="...">
+    </div>
+    <button class="dl-btn" id="l3DownloadBtn" onclick="tryDownload('l3')">⬇ Download My Work · 下载我的作业</button>
+    <p class="hint-text" id="l3Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思栏后解锁下载。</p>
+  </div>
+</div>
+ 
+<!-- ===== LESSON 4: REIGN OF TERROR ===== -->
+<div id="tab-l4" class="tab-content">
+  <div class="name-row">
+    <label for="l4Name">Your Name · 你的姓名:</label>
+    <input type="text" id="l4Name" class="name-input" placeholder="Type your name here...">
+  </div>
+ 
+  <h2 class="section-head">Reign of Terror · 恐怖统治</h2>
+ 
+  <div class="concept-card">
+    <h3>What Was the Reign of Terror? · 什么是恐怖统治？</h3>
+    <p>The Reign of Terror (September 1793 – July 1794) was the most violent phase of the French Revolution. A radical political group called the Jacobins, led by Maximilien Robespierre, took control of France. They believed the revolution was in danger from enemies inside and outside France. To protect it, they executed anyone they suspected of being an enemy — including the king, the queen, and eventually each other.</p>
+    <p class="cn">恐怖统治（1793年9月-1794年7月）是法国大革命最暴力的阶段。由马克西米利安·罗伯斯庇尔领导的激进政治团体雅各宾派控制了法国。他们认为革命正面临来自法国内外敌人的危险。为了保护革命，他们处决了任何他们怀疑是敌人的人——包括国王、王后，最终甚至是彼此。</p>
+  </div>
+ 
+  <h3 class="section-head">Key Events of the Terror · 恐怖统治的关键事件</h3>
+  <table class="concept-table">
+    <thead>
+      <tr><th>Event · 事件</th><th>Date · 日期</th><th>Significance · 意义</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Execution of Louis XVI<span class="cn">处决路易十六</span></td>
+        <td>Jan 21, 1793</td>
+        <td>King guillotined in Paris; shocked Europe<span class="cn">国王在巴黎被断头台处决；震惊欧洲</span></td>
+      </tr>
+      <tr>
+        <td>Committee of Public Safety formed<span class="cn">公共安全委员会成立</span></td>
+        <td>Apr 1793</td>
+        <td>Robespierre's 12-man ruling committee; effectively a dictatorship<span class="cn">罗伯斯庇尔的12人统治委员会；实际上是独裁政权</span></td>
+      </tr>
+      <tr>
+        <td>Execution of Marie Antoinette<span class="cn">处决玛丽·安托瓦内特</span></td>
+        <td>Oct 16, 1793</td>
+        <td>Queen guillotined after a show trial<span class="cn">王后在走过场的审判后被断头台处决</span></td>
+      </tr>
+      <tr>
+        <td>Mass executions across France<span class="cn">全法国大规模处决</span></td>
+        <td>1793–1794</td>
+        <td>~17,000 officially executed; ~40,000 died in prison<span class="cn">约17,000人被正式处决；约40,000人死于狱中</span></td>
+      </tr>
+      <tr>
+        <td>Thermidorian Reaction<span class="cn">热月政变</span></td>
+        <td>Jul 27, 1794</td>
+        <td>Robespierre arrested and guillotined; Terror ends<span class="cn">罗伯斯庇尔被捕并被断头台处决；恐怖统治结束</span></td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <div class="concept-card">
+    <h3>Robespierre and the Jacobins · 罗伯斯庇尔与雅各宾派</h3>
+    <p>Robespierre believed he was saving the revolution from its enemies. He called terror "an emanation of virtue" — the idea that killing enemies was morally necessary to protect the people's freedom. The Committee of Public Safety created Revolutionary Tribunals — courts that condemned thousands to death with little evidence. The guillotine became the symbol of the Terror: a fast, mechanical execution machine used on the rich, the poor, the guilty, and the innocent alike.</p>
+    <p class="cn">罗伯斯庇尔认为他在拯救革命免受敌人侵害。他称恐怖是"美德的体现"——认为杀死敌人在道德上是保护人民自由的必要手段。公共安全委员会创建了革命法庭——以极少的证据将数千人判处死刑的法庭。断头台成为恐怖统治的象征：一种对富人、穷人、有罪者和无辜者一视同仁的快速机械处决机器。</p>
+  </div>
+ 
+  <div class="callout">
+    <strong>European Coalition Wars · 欧洲联盟战争</strong>
+    <p>The execution of King Louis XVI horrified the monarchies of Europe. Austria, Prussia, Britain, Spain, and others formed a coalition to crush the French Revolution before it spread to their own countries. France found itself at war with most of Europe — which Robespierre used to justify even more extreme measures at home. External war and internal terror fed each other.</p>
+    <p class="cn">路易十六被处决使欧洲各君主制国家感到震惊。奥地利、普鲁士、英国、西班牙等国组成联盟，在法国大革命蔓延到本国之前将其扼杀。法国发现自己与大多数欧洲国家处于战争状态——罗伯斯庇尔用这一点来为国内更极端的措施辩护。外部战争和内部恐怖相互助长。</p>
+  </div>
+ 
+  <div class="color-row">
+    <div class="color-cell red">
+      <strong>The Terror in Numbers · 恐怖统治数字</strong>
+      ~17,000 officially executed · 约17,000人被正式处决<br>
+      ~40,000 died in prison · 约40,000人死于狱中<br>
+      10 months of radical rule · 10个月的激进统治
+    </div>
+    <div class="color-cell amber">
+      <strong>End of Robespierre · 罗伯斯庇尔的终结</strong>
+      Even his allies feared him · 连盟友都惧怕他<br>
+      Arrested July 27, 1794 · 1794年7月27日被捕<br>
+      Guillotined July 28, 1794 · 1794年7月28日被处决
+    </div>
+  </div>
+ 
+  <h3 class="section-head">Quiz · 测验 — Reign of Terror</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="l4QuizContainer"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">
+      <label>1. Robespierre believed that executing enemies was necessary to protect freedom. Do you think it is ever right to use extreme violence to protect a good cause? Where is the line?</label>
+      <span class="cn">罗伯斯庇尔认为处决敌人对保护自由是必要的。你认为使用极端暴力来保护一个好的事业是否有时是正确的？界限在哪里？</span>
+      <textarea id="l4Ref1" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Robespierre was eventually executed by the same revolution he led. What does this tell us about how revolutions can change and get out of control?</label>
+      <span class="cn">罗伯斯庇尔最终被他所领导的同一场革命处决。这告诉我们什么关于革命如何变化并失控的信息？</span>
+      <textarea id="l4Ref2" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="l4Grat" class="grat-input" placeholder="...">
+    </div>
+    <button class="dl-btn" id="l4DownloadBtn" onclick="tryDownload('l4')">⬇ Download My Work · 下载我的作业</button>
+    <p class="hint-text" id="l4Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思栏后解锁下载。</p>
+  </div>
+</div>
+ 
+<!-- ===== LESSON 5: HAITIAN REVOLUTION ===== -->
+<div id="tab-l5" class="tab-content">
+  <div class="name-row">
+    <label for="l5Name">Your Name · 你的姓名:</label>
+    <input type="text" id="l5Name" class="name-input" placeholder="Type your name here...">
+  </div>
+ 
+  <h2 class="section-head">Haitian Revolution · 海地革命</h2>
+ 
+  <div class="concept-card">
+    <h3>Saint-Domingue: The Richest Colony in the World · 圣多明各：世界上最富有的殖民地</h3>
+    <p>In the late 1700s, the French colony of Saint-Domingue (modern-day Haiti) was the most profitable colony in the world. It produced about 40% of Europe's sugar and 60% of its coffee. This enormous wealth was built entirely on the labor of enslaved African people. The colony was a brutal slave society where the enslaved population outnumbered free people by more than 10 to 1.</p>
+    <p class="cn">18世纪末，法国殖民地圣多明各（今海地）是世界上最有利可图的殖民地。它生产了欧洲约40%的糖和60%的咖啡。这笔巨大的财富完全建立在被奴役的非洲人的劳动上。这个殖民地是一个残酷的奴隶社会，被奴役人口与自由人的比例超过10比1。</p>
+  </div>
+ 
+  <h3 class="section-head">The Social Class Structure of Saint-Domingue · 圣多明各的社会阶层结构</h3>
+  <table class="concept-table">
+    <thead>
+      <tr><th>Group · 群体</th><th>Status · 地位</th><th>Rights · 权利</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Grand Blancs · 大白人</strong></td>
+        <td>Wealthy white plantation owners<span class="cn">富有的白人种植园主</span></td>
+        <td>Full rights; wanted independence from France<span class="cn">完全权利；想从法国独立</span></td>
+      </tr>
+      <tr>
+        <td><strong>Petit Blancs · 小白人</strong></td>
+        <td>Poor white workers<span class="cn">贫穷的白人工人</span></td>
+        <td>Citizen rights but little wealth<span class="cn">公民权利但财富甚少</span></td>
+      </tr>
+      <tr>
+        <td><strong>Affranchis · 自由有色人</strong></td>
+        <td>Free people of color (mixed race or freed)<span class="cn">自由有色人种（混血或获释者）</span></td>
+        <td>Some wealth, but denied political rights<span class="cn">有一定财富，但被剥夺政治权利</span></td>
+      </tr>
+      <tr>
+        <td><strong>Enslaved People · 被奴役者</strong></td>
+        <td>Enslaved Africans and their descendants<span class="cn">被奴役的非洲人及其后裔</span></td>
+        <td>No rights; treated as property<span class="cn">没有权利；被视为财产</span></td>
+      </tr>
+    </tbody>
+  </table>
+ 
+  <h3 class="section-head">Seeds of Revolt · 反抗的种子</h3>
+  <div class="concept-card">
+    <h3>How the French Revolution Sparked Haiti · 法国大革命如何点燃海地</h3>
+    <p>When the French Revolution began in 1789, it sent a contradictory message to Saint-Domingue. The Declaration of the Rights of Man said all men are free and equal — but France did not apply this to its colonies. Free people of color like Vincent Ogé demanded equal rights, were refused, and were executed after a failed revolt in 1790. The enslaved population paid close attention. They saw that the colonial system was fragile and could be challenged.</p>
+    <p class="cn">1789年法国大革命爆发时，它向圣多明各传递了一个矛盾的信息。《人权宣言》说所有人都是自由平等的——但法国并没有将这一点应用于其殖民地。像樊尚·奥热这样的自由有色人要求平等权利，遭到拒绝，并在1790年起义失败后被处决。被奴役的人口密切关注这一切。他们看到殖民制度是脆弱的，可以被挑战。</p>
+  </div>
+ 
+  <div class="concept-card">
+    <h3>The Bois Caiman Ceremony · 布瓦卡伊曼仪式</h3>
+    <p>On the night of August 14, 1791, enslaved leaders gathered in a forest called Bois Caiman for a secret ceremony. Led by a Vodou priest named Dutty Boukman, they made a pact to rise up together. Eight days later, on August 22, 1791, the enslaved people of northern Saint-Domingue launched a massive coordinated rebellion. Within weeks, hundreds of plantations were burning across the north. The Haitian Revolution had begun.</p>
+    <p class="cn">1791年8月14日夜间，被奴役的领导者在一片名为布瓦卡伊曼的森林中聚集，举行秘密仪式。在巫毒教祭司杜提·布克曼的领导下，他们立誓一起起义。八天后，1791年8月22日，圣多明各北部的被奴役者发动了大规模协调起义。几周之内，北部数百个种植园相继燃起烈火。海地革命开始了。</p>
+  </div>
+ 
+  <div class="callout">
+    <strong>Why the Haitian Revolution Was Unique · 为什么海地革命是独一无二的</strong>
+    <p>The Haitian Revolution was the only successful slave revolt in world history that led to the creation of a new nation. It proved that enslaved people could organize, fight, and win against a powerful colonial power. Haiti declared independence on January 1, 1804 — becoming the first Black republic in the world and only the second country in the Western Hemisphere to win independence (after the United States).</p>
+    <p class="cn">海地革命是世界历史上唯一一次成功的奴隶起义，导致了新国家的建立。它证明了被奴役的人可以组织、战斗并战胜强大的殖民势力。海地于1804年1月1日宣布独立——成为世界上第一个黑人共和国，也是西半球第二个赢得独立的国家（仅次于美国）。</p>
+  </div>
+ 
+  <h3 class="section-head">Quiz · 测验 — Haitian Revolution</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="l5QuizContainer"></div>
+ 
+  <div class="reflect-section">
+    <h3>Reflection · 反思</h3>
+    <div class="reflect-q">
+      <label>1. The French Declaration of the Rights of Man said all men are free — but France did not apply this to Haiti. What does this contradiction tell us about how powerful nations often treat their ideals?</label>
+      <span class="cn">法国《人权宣言》说所有人都是自由的——但法国没有将这一点应用于海地。这种矛盾告诉我们强大国家如何对待其理想？</span>
+      <textarea id="l5Ref1" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. The Haitian Revolution was the only successful slave revolt in history. Why do you think it succeeded when so many others failed? Think about the conditions in Saint-Domingue.</label>
+      <span class="cn">海地革命是历史上唯一成功的奴隶起义。你认为为什么它在那么多其他起义失败时却成功了？想想圣多明各的条件。</span>
+      <textarea id="l5Ref2" class="reflect-textarea" placeholder="Write your answer here... / 在这里写下你的答案..."></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" id="l5Grat" class="grat-input" placeholder="...">
+    </div>
+    <button class="dl-btn" id="l5DownloadBtn" onclick="tryDownload('l5')">⬇ Download My Work · 下载我的作业</button>
+    <p class="hint-text" id="l5Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思栏后解锁下载。</p>
+  </div>
+</div>
+ 
+<!-- TIMER -->
+<div id="timer-display">⏱ 00:00</div>
+ 
+<script>
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 50;
+ 
+var l1Answers = {}, l1Score = {val:0}, l1Done = {val:0};
+var l2Answers = {}, l2Score = {val:0}, l2Done = {val:0};
+var l3Answers = {}, l3Score = {val:0}, l3Done = {val:0};
+var l4Answers = {}, l4Score = {val:0}, l4Done = {val:0};
+var l5Answers = {}, l5Score = {val:0}, l5Done = {val:0};
+ 
+var VOCAB = [
+  {word:"Enlightenment",pos:"noun",cn:"启蒙运动",def:"An 18th-century European intellectual movement that promoted reason, individual rights, and the idea that government should serve the people.",cn_def:"18世纪欧洲的思想运动，提倡理性、个人权利以及政府应为人民服务的理念。",example:"Enlightenment ideas inspired both the American and French Revolutions."},
+  {word:"natural rights",pos:"noun",cn:"天赋权利",def:"Rights that every person is born with and that no government can take away, such as life, liberty, and property.",cn_def:"每个人生来就拥有的权利，任何政府都不能剥夺，如生命、自由和财产。",example:"John Locke argued that natural rights belong to all people, not just the wealthy."},
+  {word:"consent of the governed",pos:"noun",cn:"被统治者的同意",def:"The idea that a government's power is only legitimate when the people agree to be ruled by it.",cn_def:"政府权力只有在人民同意被其统治时才是合法的理念。",example:"The Declaration of Independence was based on the principle of consent of the governed."},
+  {word:"estates",pos:"noun",cn:"等级",def:"The three social classes of pre-revolutionary France: the clergy, the nobility, and everyone else.",cn_def:"法国大革命前的三个社会阶层：神职人员、贵族和其他所有人。",example:"The Third Estate paid all the taxes while the First and Second Estates paid none."},
+  {word:"guillotine",pos:"noun",cn:"断头台",def:"A machine with a heavy blade used to execute people by cutting off their heads, used widely during the French Revolution.",cn_def:"一种用重刀斩首处决人的机器，在法国大革命期间被广泛使用。",example:"During the Reign of Terror, the guillotine was used to execute thousands of people."},
+  {word:"revolution",pos:"noun",cn:"革命",def:"A sudden, often violent, change in government or society, usually when the people overthrow those in power.",cn_def:"政府或社会中通常是暴力性的突然变革，通常是人民推翻当权者。",example:"The French Revolution transformed France from a monarchy to a republic."},
+  {word:"colony",pos:"noun",cn:"殖民地",def:"A territory controlled by a foreign country, where the foreign country takes resources and makes the rules.",cn_def:"由外国控制的领土，外国获取资源并制定规则。",example:"Saint-Domingue was France's most profitable colony in the Caribbean."},
+  {word:"enslaved",pos:"adjective",cn:"被奴役的",def:"Forced to work without pay or freedom, treated as the property of another person.",cn_def:"被迫无偿劳动、没有自由，被视为他人财产。",example:"Enslaved Africans produced nearly all the wealth of Saint-Domingue."},
+  {word:"Declaration of Independence",pos:"noun",cn:"独立宣言",def:"The document written by Thomas Jefferson in 1776 that formally announced the American colonies' separation from Britain.",cn_def:"托马斯·杰斐逊于1776年起草的文件，正式宣布美洲殖民地与英国分离。",example:"The Declaration of Independence stated that all men are created equal."},
+  {word:"Bastille",pos:"noun",cn:"巴士底狱",def:"A royal prison in Paris that became a symbol of royal tyranny; its storming on July 14, 1789 marked the beginning of the French Revolution.",cn_def:"巴黎的一座皇家监狱，成为王权专制的象征；1789年7月14日对其的攻占标志着法国大革命的开始。",example:"When the Bastille fell, it signaled to all of France that the revolution had truly begun."},
+  {word:"radical",pos:"adjective",cn:"激进的",def:"Wanting extreme or drastic political or social change, often through immediate and forceful action.",cn_def:"希望通过立即而有力的行动实现极端或急剧的政治或社会变革。",example:"The Jacobins were a radical group who believed the revolution needed to move faster and more aggressively."},
+  {word:"plantation",pos:"noun",cn:"种植园",def:"A large farm in a colony, usually worked by enslaved people, that grew crops like sugar, cotton, or coffee for export.",cn_def:"殖民地中通常由被奴役者耕种的大型农场，种植糖、棉花或咖啡等出口作物。",example:"Saint-Domingue's sugar plantations made France enormously wealthy."}
+];
+ 
+var L1_Q = [
+  {id:"l1q1",title:"Enlightenment Philosophy",passage:"The Enlightenment was an intellectual movement in 18th-century Europe. Philosophers argued that human reason — not kings or the church — should guide society. John Locke argued that all people have natural rights to life, liberty, and property. If a government fails to protect these rights, the people have the right to replace it. Montesquieu argued for separation of powers so no single person could hold too much authority.",q:"What was the central argument of Enlightenment philosophers?",q_cn:"启蒙哲学家的核心论点是什么？",options:["A. Kings have a divine right to rule and cannot be questioned|A. 国王拥有神圣的统治权，不能被质疑","B. Human reason should guide society and governments must protect people's natural rights|B. 人类理性应指导社会，政府必须保护人民的天赋权利","C. The church should control all government decisions|C. 教会应该控制所有政府决定","D. Only wealthy landowners should have political rights|D. 只有富有的地主才应拥有政治权利"],correct:"B",rat_right:"The passage states Enlightenment thinkers argued reason should guide society and governments must protect natural rights.|文章指出启蒙思想家认为理性应指导社会，政府必须保护天赋权利。",rat_wrong:{A:"The Enlightenment directly challenged divine right of kings.|启蒙运动直接挑战了国王的神圣权利。",C:"Enlightenment thinkers wanted to reduce church authority, not increase it.|启蒙思想家希望减少教会权威，而不是增加它。",D:"Locke argued rights belong to all people, not just the wealthy.|洛克认为权利属于所有人，而不仅仅是富人。"}},
+  {id:"l1q2",title:"Colonial Grievances",passage:"After the Seven Years' War (1756–1763), Britain was deeply in debt. To raise money, Parliament passed new taxes on the American colonies — including the Stamp Act of 1765, which taxed newspapers and legal documents, and taxes on tea. The colonists were furious: they had no representatives in the British Parliament and had no say in these laws. Their protest slogan became 'No taxation without representation.'",q:"What was the main colonial grievance against Britain?",q_cn:"殖民地对英国的主要不满是什么？",options:["A. Britain refused to allow colonists to build their own churches|A. 英国拒绝允许殖民者建立自己的教堂","B. Britain taxed the colonies without giving them any representation in Parliament|B. 英国对殖民地征税但没有给予他们任何议会代表权","C. Britain banned all trade between the colonies|C. 英国禁止殖民地之间的所有贸易","D. Britain forced colonists to fight in European wars|D. 英国强迫殖民者参加欧洲战争"],correct:"B",rat_right:"The passage states colonists had no representatives in Parliament and no say in tax laws — hence 'No taxation without representation.'|文章指出殖民者在议会中没有代表，对税法没有发言权——因此'无代表，不纳税。'",rat_wrong:{A:"Religious freedom is not mentioned as the main grievance.|宗教自由没有被提及为主要不满。",C:"Trade bans are not the specific grievance described in this passage.|贸易禁令不是这段文章所描述的具体不满。",D:"Fighting in European wars is not described as the colonists' complaint.|参加欧洲战争没有被描述为殖民者的抱怨。"}},
+  {id:"l1q3",title:"The Declaration of Independence",passage:"Thomas Jefferson wrote the Declaration of Independence in June–July 1776. It drew heavily from John Locke's philosophy. The Declaration stated: 'We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of Happiness.' It also stated that when a government destroys these rights, the people have the right to abolish it.",q:"According to the Declaration of Independence, when do people have the right to overthrow their government?",q_cn:"根据《独立宣言》，人民何时有权推翻其政府？",options:["A. When the government raises taxes too high|A. 当政府征税过高时","B. When the government loses a war|B. 当政府在战争中失败时","C. When the government destroys the people's natural rights|C. 当政府破坏人民的天赋权利时","D. When the king dies without an heir|D. 当国王去世而没有继承人时"],correct:"C",rat_right:"The passage states when a government destroys people's rights, the people have the right to abolish it.|文章指出当政府破坏人民的权利时，人民有权废除它。",rat_wrong:{A:"High taxes alone are not cited as justification — it's the destruction of rights.|仅仅高税收不足以作为理由——是权利的破坏。",B:"Losing a war is not mentioned as a reason to overthrow government.|在战争中失败没有被提及为推翻政府的原因。",D:"Succession is not mentioned in this context.|继承问题在这里没有提到。"}},
+  {id:"l1q4",title:"John Locke's Influence",passage:"John Locke (1632–1704) was an English philosopher whose ideas directly shaped American independence. Locke argued that all people are born with three natural rights: life, liberty, and property. Governments are created by the people to protect these rights. If a government fails — or worse, actively destroys these rights — then the people have not only the right but the duty to revolt and create a better government. Jefferson borrowed Locke's framework almost word for word.",q:"How did John Locke's philosophy directly influence the Declaration of Independence?",q_cn:"约翰·洛克的哲学如何直接影响了《独立宣言》？",options:["A. Locke wrote the first draft of the Declaration for Jefferson|A. 洛克为杰斐逊写了《独立宣言》的第一稿","B. Jefferson borrowed Locke's framework of natural rights and the right to revolt against unjust government|B. 杰斐逊借鉴了洛克的天赋权利框架和反抗不公正政府的权利","C. Locke told Jefferson which specific British laws to protest|C. 洛克告诉杰斐逊反对哪些具体的英国法律","D. Locke's ideas were only used in the US Constitution, not the Declaration|D. 洛克的思想只用于美国宪法，而非《独立宣言》"],correct:"B",rat_right:"The passage states Jefferson borrowed Locke's framework of natural rights and the duty to revolt, almost word for word.|文章指出杰斐逊几乎逐字借鉴了洛克的天赋权利框架和起义义务。",rat_wrong:{A:"Locke died in 1704 — 72 years before the Declaration was written.|洛克于1704年去世——比《独立宣言》起草早72年。",C:"Locke wrote general philosophy, not specific protest advice.|洛克写的是一般哲学，而不是具体的抗议建议。",D:"The passage specifically links Locke to the Declaration, not just the Constitution.|文章专门将洛克与《独立宣言》联系起来，而不仅仅是宪法。"}},
+  {id:"l1q5",title:"Separation of Powers",passage:"Montesquieu was a French Enlightenment philosopher who published 'The Spirit of the Laws' in 1748. He argued that government power should be divided into three separate branches: legislative (makes laws), executive (carries out laws), and judicial (interprets laws). If one branch held all power, tyranny would result. The American Constitution directly adopted this three-branch system when it was written in 1787.",q:"What was Montesquieu's main contribution to political theory?",q_cn:"孟德斯鸠对政治理论的主要贡献是什么？",options:["A. He invented the idea of democracy|A. 他发明了民主的理念","B. He argued that all men should have voting rights|B. 他认为所有人都应有投票权","C. He argued that government power should be divided into three branches to prevent tyranny|C. 他认为政府权力应分为三个分支以防止专制","D. He created the French Revolution's Committee of Public Safety|D. 他创建了法国大革命的公共安全委员会"],correct:"C",rat_right:"The passage states Montesquieu argued for three branches of government — legislative, executive, judicial — to prevent tyranny.|文章指出孟德斯鸠主张政府分为立法、行政、司法三个分支，以防止专制。",rat_wrong:{A:"Democracy as a concept predates Montesquieu — he refined it.|民主概念早于孟德斯鸠——他是对其进行了完善。",B:"Universal voting rights were not Montesquieu's focus.|普选权不是孟德斯鸠的重点。",D:"Montesquieu died in 1755 — before the French Revolution.|孟德斯鸠于1755年去世——在法国大革命之前。"}},
+  {id:"l1q6",title:"Boston Tea Party",passage:"In December 1773, a group of American colonists — some dressed as Mohawk Native Americans — boarded British ships in Boston Harbor and threw 342 chests of tea into the water. This was a protest against the Tea Act, which gave the British East India Company a monopoly on tea sales in the colonies. The British government responded with the Coercive Acts (called the 'Intolerable Acts' by colonists), which closed Boston's port and restricted colonial self-government.",q:"Why did colonists throw tea into Boston Harbor?",q_cn:"为什么殖民者将茶叶扔入波士顿港？",options:["A. They preferred coffee and wanted to stop all tea imports|A. 他们更喜欢咖啡，想停止所有茶叶进口","B. To protest the Tea Act, which gave Britain an unfair monopoly on tea|B. 为了抗议《茶税法》，该法给予英国对茶叶的不公平垄断权","C. To start a war with Britain immediately|C. 为了立即与英国开战","D. Because the tea was spoiled and unsafe to drink|D. 因为茶叶变质了，不安全"],correct:"B",rat_right:"The passage states the Boston Tea Party was a protest against the Tea Act and Britain's monopoly on tea sales.|文章指出波士顿倾茶事件是对《茶税法》和英国茶叶销售垄断权的抗议。",rat_wrong:{A:"The protest was about taxation and representation, not a preference for coffee.|抗议是关于税收和代表权，而不是对咖啡的偏好。",C:"The colonists were protesting, not yet ready for all-out war at this point.|殖民者在抗议，此时还没有准备好全面开战。",D:"The tea was not spoiled — colonists chose to destroy it as a political statement.|茶叶没有变质——殖民者选择销毁它作为政治声明。"}},
+  {id:"l1q7",title:"The Social Contract",passage:"Jean-Jacques Rousseau was a Genevan-French philosopher whose concept of the social contract influenced both the American and French Revolutions. Rousseau argued that government is a contract between the ruler and the people. The government promises to protect and serve the people. The people promise to obey the law. If the government breaks its side of the contract — by being tyrannical or failing to serve the people — the contract is broken, and the people can establish a new government.",q:"According to Rousseau's social contract theory, when is it acceptable to establish a new government?",q_cn:"根据卢梭的社会契约论，什么时候可以建立新政府？",options:["A. Whenever the people feel like having a change|A. 每当人民想要改变时","B. Only after 100 years of the same government|B. 只有在同一政府执政100年后","C. When the government breaks the contract by failing to serve or protect the people|C. 当政府通过不服务或不保护人民而违反契约时","D. Only when approved by religious leaders|D. 只有在宗教领袖批准后"],correct:"C",rat_right:"Rousseau's social contract theory says the contract breaks when government fails to serve or becomes tyrannical — justifying a new government.|卢梭的社会契约论说，当政府不服务人民或变得专制时，契约破裂——从而为建立新政府提供依据。",rat_wrong:{A:"The social contract requires a genuine breach, not just a desire for change.|社会契约需要真正的违约，而不仅仅是改变的愿望。",B:"Time limits are not part of Rousseau's contract theory.|时间限制不是卢梭契约理论的一部分。",D:"Religious approval is not a requirement in Rousseau's secular philosophy.|宗教批准不是卢梭世俗哲学的要求。"}},
+  {id:"l1q8",title:"Impact of the Revolution",passage:"The American Revolution had enormous global consequences. It proved that an armed colonial population could defeat one of the world's most powerful empires. The new United States became a model of republican government — elected representatives, written constitution, individual rights. French soldiers who fought alongside the Americans, like the Marquis de Lafayette, returned to France with revolutionary ideas. The American Revolution directly inspired the French Revolution just six years later.",q:"How did the American Revolution influence France?",q_cn:"美国革命如何影响了法国？",options:["A. France immediately copied the American Constitution word for word|A. 法国立即逐字复制了美国宪法","B. French soldiers who fought in America returned with revolutionary ideas that inspired the French Revolution|B. 在美国作战的法国士兵带着革命思想回国，激发了法国大革命","C. The American Revolution had no effect on France|C. 美国革命对法国没有任何影响","D. France was angry at America's independence and went to war against it|D. 法国对美国独立感到愤怒并与之开战"],correct:"B",rat_right:"The passage states French soldiers returned from America with revolutionary ideas, directly inspiring the French Revolution.|文章指出法国士兵从美国带着革命思想回国，直接激发了法国大革命。",rat_wrong:{A:"France did not copy the American Constitution verbatim — it developed its own documents.|法国没有逐字复制美国宪法——它发展了自己的文件。",C:"The passage explicitly describes the American Revolution's direct influence on France.|文章明确描述了美国革命对法国的直接影响。",D:"France actually helped America during its revolution — they were allies.|法国实际上在美国革命期间帮助了美国——他们是盟友。"}},
+  {id:"l1q9",title:"Natural Rights and the Declaration",passage:"The Declaration of Independence lists three natural rights: life, liberty, and the pursuit of happiness. This was a modification of Locke's original formulation of life, liberty, and property. Jefferson changed 'property' to 'pursuit of happiness' to make the Declaration more universal and less focused on wealthy landowners. The Declaration also stated that governments are instituted among men to secure these rights — meaning government's primary job is to protect people, not to serve the king.",q:"Why did Jefferson change Locke's 'property' to 'pursuit of happiness' in the Declaration?",q_cn:"为什么杰斐逊在《独立宣言》中将洛克的'财产'改为'追求幸福'？",options:["A. Because Jefferson did not believe in property rights|A. 因为杰斐逊不相信财产权","B. To make the Declaration more universal and less focused on wealthy property owners|B. 为了使《独立宣言》更具普遍性，减少对富有土地所有者的关注","C. Because Locke told Jefferson to change the wording|C. 因为洛克告诉杰斐逊改变措辞","D. Because the British had already used the word 'property' in their laws|D. 因为英国人已经在其法律中使用了'财产'这个词"],correct:"B",rat_right:"The passage states Jefferson changed 'property' to 'pursuit of happiness' to make the Declaration more universal and less focused on the wealthy.|文章指出杰斐逊将'财产'改为'追求幸福'，使《独立宣言》更具普遍性，减少对富人的关注。",rat_wrong:{A:"Jefferson absolutely believed in property rights — he himself owned property.|杰斐逊绝对相信财产权——他自己拥有财产。",C:"Locke had been dead for 72 years by this time.|洛克此时已去世72年。",D:"The British use of 'property' is not the reason given for the change.|英国对'财产'的使用不是改变的原因。"}},
+  {id:"l1q10",title:"Legacy of the American Revolution",passage:"The American Revolution's legacy extended far beyond North America. Its Declaration of Independence and Constitution became models studied by revolutionaries across the world. The French Revolution (1789), the Haitian Revolution (1791), and the Latin American independence movements (1810s–1820s) all drew inspiration from American ideas of natural rights, consent of the governed, and republican government. The American Revolution showed the world that revolution against colonial rule was possible and could succeed.",q:"Which of the following best describes the global legacy of the American Revolution?",q_cn:"以下哪项最能描述美国革命的全球遗产？",options:["A. It inspired later revolutions in France, Haiti, and Latin America|A. 它激励了法国、海地和拉丁美洲后来的革命","B. It caused Britain to become a republic|B. 它导致英国成为共和国","C. It created a military alliance that defeated all European empires|C. 它建立了一个军事联盟，击败了所有欧洲帝国","D. Its ideas were only relevant to North America|D. 其思想只与北美相关"],correct:"A",rat_right:"The passage states the American Revolution inspired the French, Haitian, and Latin American revolutions through its ideas of natural rights and self-governance.|文章指出美国革命通过其天赋权利和自治理念激励了法国、海地和拉丁美洲革命。",rat_wrong:{B:"Britain remained a constitutional monarchy, not a republic.|英国仍然是君主立宪制，而不是共和国。",C:"No such alliance is described in the passage.|文章中没有描述这样的联盟。",D:"The passage explicitly describes global influence.|文章明确描述了全球影响。"}}
+];
+ 
+var L2_Q = [
+  {id:"l2q1",title:"The Three Estates",passage:"Before the French Revolution, France was divided into three social classes called estates. The First Estate was the Catholic clergy — priests, bishops, and abbots — who owned about 10% of the land but paid no taxes. The Second Estate was the nobility — lords, dukes, and aristocrats — who also paid no taxes and held the best government jobs. The Third Estate included everyone else: about 98% of the population, from wealthy lawyers and merchants to peasants and urban workers. The Third Estate paid virtually all the taxes.",q:"Which group paid nearly all taxes in pre-revolutionary France?",q_cn:"在革命前的法国，哪个群体缴纳了几乎所有的税款？",options:["A. The First Estate (clergy)|A. 第一等级（神职人员）","B. The Second Estate (nobility)|B. 第二等级（贵族）","C. The Third Estate (everyone else)|C. 第三等级（其他所有人）","D. Taxes were shared equally among all three estates|D. 税款在三个等级中平均分配"],correct:"C",rat_right:"The passage explicitly states the Third Estate paid virtually all the taxes while the First and Second paid none.|文章明确指出第三等级几乎缴纳了所有税款，而第一和第二等级不纳税。",rat_wrong:{A:"The First Estate paid no taxes at all.|第一等级根本不纳税。",B:"The nobility also paid no taxes.|贵族也不纳税。",D:"The passage clearly shows taxation was deeply unequal, not shared.|文章清楚地显示税收极度不平等，而不是共享的。"}},
+  {id:"l2q2",title:"Louis XVI",passage:"Louis XVI became King of France in 1774 at age 19. He was intelligent but notoriously indecisive — he would delay making important decisions for months, which proved disastrous during a crisis. He was interested in locksmithing and geography as hobbies. He genuinely wanted to reform France's finances but was blocked by the nobility, who refused to give up their tax exemptions. His inability to act decisively at critical moments accelerated the revolution's collapse into chaos.",q:"What was Louis XVI's greatest weakness as king?",q_cn:"路易十六作为国王最大的弱点是什么？",options:["A. He was too violent and cruel toward his subjects|A. 他对臣民过于暴力和残酷","B. He was indecisive and could not make firm decisions during the crisis|B. 他优柔寡断，无法在危机中做出坚定决定","C. He refused to meet with any of his advisors|C. 他拒绝与任何顾问会面","D. He spent all the government's money on wars|D. 他把所有政府资金花在战争上"],correct:"B",rat_right:"The passage states Louis XVI was notoriously indecisive — he would delay important decisions for months, which proved disastrous.|文章指出路易十六以优柔寡断著称——他会将重要决定推迟数月，这被证明是灾难性的。",rat_wrong:{A:"The passage describes him as wanting reform, not as cruel or violent.|文章描述他想要改革，而不是残酷或暴力。",C:"The passage says he worked with advisors — his problem was indecision, not isolation.|文章说他与顾问合作——他的问题是优柔寡断，而不是孤立。",D:"The wars were a contributing factor to debt but not described as his greatest personal weakness.|战争是债务的一个促成因素，但没有被描述为他最大的个人弱点。"}},
+  {id:"l2q3",title:"Marie Antoinette",passage:"Marie Antoinette was born in Austria in 1755 and married Louis XVI at age 14 to cement a political alliance between France and Austria. She was intelligent and cultured, but became deeply unpopular in France. The French media attacked her constantly with pamphlets and cartoons showing her as extravagant and immoral. Her Austrian origins made many French people distrust her — they feared she was loyal to Austria, France's rival. She was nicknamed 'Madame Deficit' for her expensive lifestyle.",q:"Why was Marie Antoinette so unpopular with ordinary French people?",q_cn:"为什么玛丽·安托瓦内特在普通法国人中如此不受欢迎？",options:["A. She publicly supported taxing the poor more heavily|A. 她公开支持对穷人征收更重的税","B. She was Austrian-born and seen as extravagant while France struggled with poverty|B. 她出生于奥地利，在法国饱受贫困之苦时被视为奢靡","C. She tried to have King Louis XVI arrested|C. 她试图让路易十六被捕","D. She banned all public celebrations and entertainment|D. 她禁止一切公共庆祝活动和娱乐"],correct:"B",rat_right:"The passage states her Austrian origins caused distrust and she was seen as extravagant, earning the nickname 'Madame Deficit.'|文章指出她的奥地利出身引起了不信任，她被视为奢靡，因此获得了'赤字夫人'的绰号。",rat_wrong:{A:"There is no evidence she supported taxing the poor more.|没有证据表明她支持对穷人征收更多税款。",C:"She was the queen — she supported her husband, not tried to arrest him.|她是王后——她支持她的丈夫，而不是试图逮捕他。",D:"Banning entertainment is not mentioned as her unpopular action.|禁止娱乐没有被提及为她不受欢迎的行为。"}},
+  {id:"l2q4",title:"The Food Crisis",passage:"By 1788–1789, France was in the grip of a severe food crisis. A series of bad harvests had caused grain prices to skyrocket. In Paris, workers were spending 80–90% of their wages just to buy bread — and still could not get enough. Meanwhile, France was nearly bankrupt from its wars, including helping fund the American Revolution. The king desperately needed to raise taxes, but the nobility refused to give up their tax exemptions. The government had run out of options.",q:"What was France's most immediate crisis in 1789?",q_cn:"1789年法国最紧迫的危机是什么？",options:["A. A military invasion by Austria and Prussia|A. 奥地利和普鲁士的军事入侵","B. A food crisis combined with government bankruptcy|B. 粮食危机与政府破产的结合","C. A conflict between the king and the Catholic Church|C. 国王与天主教会之间的冲突","D. A plague that was killing thousands of people|D. 导致数千人死亡的瘟疫"],correct:"B",rat_right:"The passage describes both the severe food crisis and the government's near-bankruptcy as the immediate crises facing France in 1789.|文章将严重的粮食危机和政府的近乎破产描述为1789年法国面临的紧迫危机。",rat_wrong:{A:"Foreign invasion came later — Austria and Prussia invaded after the revolution began.|外国入侵发生在后来——奥地利和普鲁士在革命开始后才入侵。",C:"A church-king conflict is not the primary crisis described.|教会-国王冲突不是所描述的主要危机。",D:"No plague is mentioned in the passage.|文章中没有提到瘟疫。"}},
+  {id:"l2q5",title:"The Estates-General",passage:"In May 1789, Louis XVI called the Estates-General — a meeting of representatives from all three estates — for the first time since 1614. He hoped the three groups could agree on how to solve France's financial crisis. However, the meeting immediately became contentious. The Third Estate demanded that votes be counted by head (one person, one vote), which would give them equal power. The First and Second Estates insisted votes be counted by estate — giving each group one vote, meaning the elite two estates could always outvote the Third.",q:"Why did the Third Estate demand votes by head rather than by estate?",q_cn:"为什么第三等级要求按人头而不是按等级投票？",options:["A. Because they wanted to help the king solve the financial crisis faster|A. 因为他们想帮助国王更快地解决财政危机","B. Because voting by head would give them equal power with the other two estates|B. 因为按人头投票将给予他们与其他两个等级平等的权力","C. Because they wanted to include women in the voting|C. 因为他们想让女性参与投票","D. Because they preferred the old system used in 1614|D. 因为他们更喜欢1614年使用的旧制度"],correct:"B",rat_right:"The passage explains that voting by head meant one person, one vote — which would give the Third Estate equal power against the two privileged estates.|文章解释说按人头投票意味着一人一票——这将给予第三等级与两个特权等级平等的权力。",rat_wrong:{A:"The Third Estate was not trying to help the king — they were fighting for their own rights.|第三等级不是在帮助国王——他们在为自己的权利而斗争。",C:"Women's voting rights were not the issue at the Estates-General.|女性投票权不是三级会议的议题。",D:"The Third Estate rejected the old system — they wanted the new one.|第三等级拒绝了旧制度——他们想要新制度。"}},
+  {id:"l2q6",title:"Palace of Versailles",passage:"The Palace of Versailles, built by Louis XIV in the 1660s–1680s, was the symbol of French royal power. Located 12 miles from Paris, the palace had over 700 rooms, 2,000 windows, and employed more than 10,000 servants at its peak. It cost enormous amounts to maintain. The king and his entire court — thousands of nobles — lived at Versailles, which kept them isolated from the reality of ordinary French life. This isolation made it easy for the king and nobles to ignore the suffering of the poor.",q:"Why was the Palace of Versailles problematic for Louis XVI during the revolution?",q_cn:"为什么凡尔赛宫在革命期间对路易十六来说是个问题？",options:["A. It was too small to hold the court|A. 它太小，无法容纳宫廷","B. It isolated the king and nobility from the reality of ordinary French people's suffering|B. 它将国王和贵族与普通法国人苦难的现实隔离开来","C. It was located too close to the border with Germany|C. 它距德国边境太近","D. It had no defenses against a military attack|D. 它对军事攻击没有任何防御"],correct:"B",rat_right:"The passage states Versailles isolated the king and nobles from ordinary life, making it easy to ignore the poor's suffering.|文章指出凡尔赛宫将国王和贵族与普通生活隔离开来，使他们容易忽视穷人的苦难。",rat_wrong:{A:"Versailles was enormous — it had over 700 rooms.|凡尔赛宫非常巨大——它有700多个房间。",C:"Versailles' distance from Germany is not mentioned as the problem.|凡尔赛宫距德国的距离没有被提及为问题所在。",D:"Lack of military defense was not the key issue with Versailles.|缺乏军事防御不是凡尔赛宫的关键问题。"}},
+  {id:"l2q7",title:"Causes of the Revolution",passage:"Historians identify multiple causes of the French Revolution. Long-term causes included the unfair tax system, Enlightenment ideas challenging royal authority, and France's rigid social structure. Short-term causes included the food crisis of 1788–1789, government bankruptcy, and Louis XVI's weak leadership. The American Revolution (1775–1783) served as a catalyst — it showed that revolution against an established government was possible and could succeed. All these factors combined to create the explosive situation of 1789.",q:"Which of the following was a SHORT-TERM cause of the French Revolution?",q_cn:"以下哪项是法国大革命的短期原因？",options:["A. Enlightenment philosophy challenging royal authority|A. 启蒙哲学挑战王权","B. France's rigid social class structure|B. 法国僵化的社会阶级结构","C. The food crisis of 1788–1789 and government bankruptcy|C. 1788-1789年的粮食危机和政府破产","D. The unfair tax system that exempted the nobility|D. 免除贵族税收的不公平税制"],correct:"C",rat_right:"The passage identifies the food crisis and bankruptcy as short-term causes, while the other options are listed as long-term causes.|文章将粮食危机和破产列为短期原因，而其他选项被列为长期原因。",rat_wrong:{A:"Enlightenment philosophy is listed as a long-term cause.|启蒙哲学被列为长期原因。",B:"Rigid social structure is a long-term cause that had existed for centuries.|僵化的社会结构是存在了几个世纪的长期原因。",D:"The unfair tax system is listed as a long-term cause.|不公平的税制被列为长期原因。"}},
+  {id:"l2q8",title:"The National Assembly",passage:"On June 17, 1789, the Third Estate took a dramatic step. Frustrated by the Estates-General's deadlock over voting rules, the Third Estate declared itself the National Assembly — claiming to represent all French people, not just their estate. When Louis XVI locked their meeting hall on June 20, they moved to a nearby tennis court and swore the Tennis Court Oath: they would not disband until France had a new constitution. Louis XVI was forced to accept the National Assembly, but tensions continued to rise.",q:"What did the Third Estate do when Louis XVI locked them out of their meeting hall?",q_cn:"当路易十六将第三等级锁在会议厅外时，他们做了什么？",options:["A. They went home and abandoned the revolution|A. 他们回家并放弃了革命","B. They attacked the Palace of Versailles immediately|B. 他们立即袭击了凡尔赛宫","C. They moved to a tennis court and swore not to leave until France had a new constitution|C. 他们移至网球场并宣誓在法国拥有新宪法之前不会离开","D. They asked Austria for military help|D. 他们向奥地利寻求军事帮助"],correct:"C",rat_right:"The passage describes how the Third Estate moved to a tennis court and swore the Tennis Court Oath.|文章描述了第三等级如何移至网球场并宣誓了网球场誓言。",rat_wrong:{A:"They did the opposite — they made their most defiant stand at the tennis court.|他们做了相反的事情——他们在网球场上做出了最坚决的抵抗。",B:"The attack on Versailles came later, in October 1789.|对凡尔赛宫的袭击发生在后来，1789年10月。",D:"There is no mention of asking Austria for help at this stage.|没有提到在这个阶段向奥地利寻求帮助。"}},
+  {id:"l2q9",title:"Financial Crisis",passage:"France's financial problems in the 1780s were severe. The country had spent enormous amounts fighting the Seven Years' War (1756–1763) and then helping fund the American Revolution (1775–1783). Interest payments on France's debt consumed more than half the government's annual budget. Louis XVI tried to reform taxes — especially to make the nobility pay — but the nobility blocked all reform attempts. By 1789, France was effectively bankrupt and could not pay its bills.",q:"Why could Louis XVI not solve France's financial crisis before the revolution?",q_cn:"为什么路易十六在革命前无法解决法国的财政危机？",options:["A. He spent all remaining money on the Palace of Versailles|A. 他把所有剩余资金花在了凡尔赛宫上","B. The nobility blocked all tax reform attempts to protect their exemptions|B. 贵族阻止了所有税收改革尝试以保护自己的豁免权","C. The church refused to allow any financial reform|C. 教会拒绝允许任何财政改革","D. France's banks refused to lend money to the government|D. 法国的银行拒绝向政府提供贷款"],correct:"B",rat_right:"The passage states Louis XVI tried to reform taxes and make the nobility pay, but the nobility blocked all reform attempts.|文章指出路易十六试图改革税收并让贵族纳税，但贵族阻止了所有改革尝试。",rat_wrong:{A:"While Versailles was expensive, the main barrier to reform was noble resistance.|虽然凡尔赛宫很昂贵，但改革的主要障碍是贵族的抵制。",C:"The church's role in blocking reform is not described in this passage.|教会在阻止改革中的作用在这段文章中没有描述。",D:"Bank lending is not mentioned as the specific barrier described here.|银行贷款没有被提及为这里描述的具体障碍。"}},
+  {id:"l2q10",title:"The Role of Ideas",passage:"Enlightenment books and pamphlets spread widely through French society in the 1700s. Coffee houses in Paris became centers of debate — people of all classes read and discussed the ideas of Voltaire, Rousseau, Montesquieu, and others. These writers criticized religious superstition, royal tyranny, and the unfair class system. When the financial crisis hit, people already had a philosophical framework to explain why the system was wrong and what a just society should look like. Ideas made revolution possible.",q:"How did Enlightenment ideas prepare France for revolution?",q_cn:"启蒙思想如何为法国革命做好了准备？",options:["A. They gave people weapons to use against the king|A. 它们给了人们用来对抗国王的武器","B. They gave people a philosophical framework to understand why the system was unjust and what should replace it|B. 它们给人们提供了一个哲学框架，理解为什么这个制度是不公正的，以及应该用什么来取代它","C. They convinced the nobility to voluntarily give up their privileges|C. 它们说服贵族自愿放弃特权","D. They had no real effect — the revolution was caused only by economic problems|D. 它们没有真正的效果——革命仅由经济问题引起"],correct:"B",rat_right:"The passage states Enlightenment ideas gave people a philosophical framework to understand injustice and imagine a just society.|文章指出启蒙思想给人们提供了一个哲学框架来理解不公正和想象公正社会。",rat_wrong:{A:"Enlightenment ideas were intellectual, not military weapons.|启蒙思想是思想性的，而不是军事武器。",C:"The nobility did not voluntarily give up privileges — they were forced.|贵族没有自愿放弃特权——他们是被迫的。",D:"The passage argues that ideas and economic problems worked together.|文章认为思想和经济问题共同起作用。"}}
+];
+ 
+var L3_Q = [
+  {id:"l3q1",title:"The National Assembly",passage:"When Louis XVI locked the Third Estate out of their meeting hall on June 20, 1789, the delegates moved to a nearby indoor tennis court. There, they took the Tennis Court Oath — a solemn pledge not to disband until France had a written constitution. This was a revolutionary act: ordinary citizens were claiming authority that had always belonged to the king. Louis XVI eventually accepted the National Assembly, but he was furious and began secretly gathering troops around Paris.",q:"What made the Tennis Court Oath a revolutionary act?",q_cn:"网球场宣誓为什么是一种革命行动？",options:["A. It was the first time anyone had ever played tennis in France|A. 这是有史以来第一次有人在法国打网球","B. Ordinary citizens claimed the authority to create a constitution — a power that had always belonged to the king|B. 普通公民声称拥有制定宪法的权力——这种权力历来属于国王","C. It gave women the right to vote for the first time|C. 它首次给予女性投票权","D. It formed a military alliance with the United States|D. 它与美国建立了军事联盟"],correct:"B",rat_right:"The passage states the Tennis Court Oath was revolutionary because ordinary citizens claimed authority that had always belonged to the king.|文章指出网球场宣誓是革命性的，因为普通公民声称拥有历来属于国王的权力。",rat_wrong:{A:"The tennis court is a location detail, not the revolutionary element.|网球场是一个地点细节，而不是革命因素。",C:"Women's voting rights were not part of the Tennis Court Oath.|女性投票权不是网球场宣誓的一部分。",D:"No military alliance with the US was formed at the tennis court.|没有在网球场与美国建立军事联盟。"}},
+  {id:"l3q2",title:"Dismissal of Necker",passage:"Jacques Necker was Louis XVI's popular finance minister. Though not a revolutionary, Necker had pushed for financial reforms that the people hoped would address the crisis. On July 11, 1789, Louis XVI suddenly dismissed Necker from his position. News spread through Paris like wildfire. People interpreted this as a signal that the king was about to use military force to crush the National Assembly. Soldiers were already visible outside Paris. The dismissal was the final trigger that pushed Parisians to action.",q:"Why did the dismissal of Necker push Parisians toward revolt?",q_cn:"为什么内克尔被解雇促使巴黎人走向起义？",options:["A. Necker owed money to the people of Paris|A. 内克尔欠巴黎人的钱","B. People interpreted it as a sign the king would use military force to crush the revolution|B. 人们将其解读为国王将使用武力镇压革命的信号","C. Necker had personally promised to cancel all taxes|C. 内克尔曾亲自承诺取消所有税收","D. Necker was a hero who had defeated France's enemies|D. 内克尔是一位击败法国敌人的英雄"],correct:"B",rat_right:"The passage states people interpreted Necker's dismissal as a signal the king would use military force to crush the National Assembly.|文章指出人们将内克尔被解雇解读为国王将使用军事力量镇压国民议会的信号。",rat_wrong:{A:"Necker's dismissal was about politics, not personal debts.|内克尔被解雇是关于政治，而不是个人债务。",C:"Necker had not promised to cancel all taxes.|内克尔没有承诺取消所有税收。",D:"Necker was a finance minister, not a military hero.|内克尔是一位财政部长，而不是军事英雄。"}},
+  {id:"l3q3",title:"The Bastille",passage:"The Bastille was a medieval fortress prison in eastern Paris. By 1789, it held only 7 prisoners — four forgers, two criminals, and one nobleman put there by his own family. Despite its nearly empty cells, the Bastille was a powerful symbol: it represented the king's arbitrary power to imprison anyone without trial. On July 14, 1789, about 900 Parisians attacked the Bastille. After hours of fighting in which 98 attackers died, the fortress's governor surrendered. The governor was then killed by the crowd.",q:"Why was the Bastille an important symbol even though it held only 7 prisoners?",q_cn:"为什么巴士底狱即使只关押了7名囚犯也是一个重要的象征？",options:["A. It stored enormous amounts of weapons that the revolutionaries needed|A. 它储存了大量革命者需要的武器","B. It represented the king's power to imprison anyone without trial|B. 它代表了国王无需审判即可监禁任何人的权力","C. It was the most beautiful building in Paris|C. 它是巴黎最美丽的建筑","D. It was where the king stored France's gold reserves|D. 它是国王储存法国黄金储备的地方"],correct:"B",rat_right:"The passage states the Bastille symbolized the king's arbitrary power to imprison anyone without trial — making it a potent symbol regardless of current prisoner count.|文章指出巴士底狱象征着国王无需审判即可监禁任何人的专制权力——无论当前囚犯数量如何，这都使其成为一个强有力的象征。",rat_wrong:{A:"While the crowd did seek weapons, the symbolic importance is what the passage emphasizes.|虽然人群确实寻求武器，但文章强调的是象征意义。",C:"The Bastille was a medieval fortress prison, not a beautiful building.|巴士底狱是一座中世纪要塞监狱，而不是一座美丽的建筑。",D:"Gold reserves are not mentioned in the passage.|文章中没有提到黄金储备。"}},
+  {id:"l3q4",title:"The Declaration of the Rights of Man",passage:"On August 26, 1789, the National Assembly adopted the Declaration of the Rights of Man and of the Citizen. It proclaimed: 'The principle of all sovereignty resides essentially in the nation. No body nor individual may exercise any authority which does not proceed directly from the nation.' The document listed natural rights including liberty, property, security, and resistance to oppression. Crucially, it stated that law must be the same for everyone — the legal privilege of the nobility was now directly challenged.",q:"What was the most revolutionary idea in the Declaration of the Rights of Man?",q_cn:"《人权宣言》中最具革命性的思想是什么？",options:["A. It gave the king more power to govern France|A. 它给予国王更多的权力来治理法国","B. Sovereignty belongs to the nation, not the king, and law must be equal for all|B. 主权属于国家，而不是国王，法律对所有人必须平等","C. It established France as a republic with no king|C. 它将法国建立为没有国王的共和国","D. It gave women equal rights to men|D. 它给予女性与男性平等的权利"],correct:"B",rat_right:"The passage states sovereignty belongs to the nation (not the king) and the law must be equal for everyone — directly challenging noble privilege.|文章指出主权属于国家（而不是国王），法律对所有人必须平等——直接挑战贵族特权。",rat_wrong:{A:"The Declaration reduced royal power, not increased it.|《宣言》减少了王权，而不是增加它。",C:"France still had a king in 1789 — it became a republic only in 1792.|1789年法国仍有国王——它直到1792年才成为共和国。",D:"The Declaration applied to male citizens — women's rights were excluded.|《宣言》适用于男性公民——女性权利被排除在外。"}},
+  {id:"l3q5",title:"Women's March on Versailles",passage:"On October 5, 1789, about 7,000 Parisian women — furious about bread prices and shortages — marched the 12 miles from Paris to the Palace of Versailles. Armed with pikes and knives, they demanded bread and the return of the royal family to Paris. The king agreed to release grain stores and, the next day, the royal family was escorted back to Paris by the marching women. This event showed that ordinary people — even women who had no political rights — could force the king to act.",q:"What was significant about the Women's March on Versailles?",q_cn:"凡尔赛妇女大游行有什么重要意义？",options:["A. It was the first time women voted in a French election|A. 这是女性首次在法国选举中投票","B. It showed ordinary people with no political rights could force the king to act|B. 它表明没有政治权利的普通人可以迫使国王采取行动","C. It started the Reign of Terror|C. 它开始了恐怖统治","D. It caused Louis XVI to abdicate immediately|D. 它导致路易十六立即退位"],correct:"B",rat_right:"The passage states the Women's March showed ordinary people, even without political rights, could force the king to act.|文章指出妇女大游行表明普通人，即使没有政治权利，也可以迫使国王采取行动。",rat_wrong:{A:"Women did not gain voting rights in France in 1789.|女性在1789年的法国没有获得投票权。",C:"The Reign of Terror began in 1793 — years after this march.|恐怖统治始于1793年——这次游行多年之后。",D:"Louis XVI did not abdicate — he was executed in 1793.|路易十六没有退位——他于1793年被处决。"}},
+  {id:"l3q6",title:"The National Assembly's Work",passage:"Between 1789 and 1791, the National Assembly transformed France. It abolished feudalism — the ancient system of lords controlling peasants — on August 4, 1789. It adopted the Declaration of the Rights of Man. It created a new constitution in 1791 that made France a constitutional monarchy, limiting the king's power and creating an elected legislature. These changes were among the most radical political reforms any country had ever made in a single period.",q:"What did the National Assembly accomplish between 1789 and 1791?",q_cn:"国民议会在1789年至1791年间完成了什么？",options:["A. It abolished the monarchy and declared France a republic|A. 它废除了君主制并宣布法国为共和国","B. It abolished feudalism, created the Declaration of Rights, and established a constitutional monarchy|B. 它废除了封建制度，创建了《权利宣言》，并建立了君主立宪制","C. It restored the power of the Catholic Church in France|C. 它恢复了天主教会在法国的权力","D. It declared war on Britain and Prussia|D. 它向英国和普鲁士宣战"],correct:"B",rat_right:"The passage lists the Assembly's accomplishments: abolishing feudalism, the Declaration of Rights, and a new constitutional monarchy.|文章列出了议会的成就：废除封建制度、《权利宣言》和新的君主立宪制。",rat_wrong:{A:"France became a republic in 1792 — the Assembly created a constitutional monarchy, not a republic.|法国在1792年成为共和国——议会建立的是君主立宪制，而不是共和国。",C:"The Revolution actually reduced Church power — it nationalized Church property.|革命实际上削减了教会权力——它将教会财产国有化。",D:"The declaration of war came later in 1792, not during this period.|宣战来得更晚，是在1792年，而不是这个时期。"}},
+  {id:"l3q7",title:"The Role of the Press",passage:"The French Revolution saw an explosion of newspapers and political pamphlets. Before 1789, the press was censored and controlled by the government. After the revolution began, hundreds of new newspapers appeared overnight. Writers like Jean-Paul Marat published newspapers that attacked the aristocracy in vivid, emotional language. These publications spread revolutionary ideas across France and helped shape public opinion. The press played a crucial role in radicalizing the population — making many people more extreme in their political views.",q:"How did the press influence the French Revolution?",q_cn:"新闻媒体如何影响了法国大革命？",options:["A. It supported the king and tried to stop the revolution|A. 它支持国王并试图阻止革命","B. It spread revolutionary ideas and radicalized public opinion|B. 它传播革命思想并使公众舆论激进化","C. It had no effect because most French people could not read|C. 它没有任何影响，因为大多数法国人不识字","D. It only reported news from other countries|D. 它只报道其他国家的新闻"],correct:"B",rat_right:"The passage states the press spread revolutionary ideas across France and helped radicalize the population.|文章指出新闻媒体在法国传播革命思想，并帮助使民众激进化。",rat_wrong:{A:"The press attacked the aristocracy — it fueled the revolution, not opposed it.|新闻媒体攻击贵族——它推动了革命，而不是反对它。",C:"Literacy rates varied but pamphlets and newspapers clearly had major political impact.|识字率各不相同，但小册子和报纸显然产生了重大政治影响。",D:"The passage describes how the press reported on domestic French politics.|文章描述了新闻媒体如何报道法国国内政治。"}},
+  {id:"l3q8",title:"Bread and Revolution",passage:"Bread was the central food of the French diet in the 18th century — ordinary workers ate 2–3 pounds of bread per day. When harvests failed and bread prices doubled or tripled, people literally faced starvation. Historians argue that the bread crisis made revolution not just politically desirable but physically necessary: people who are starving have nothing left to lose. The connection between food prices and political unrest was a lesson noted by governments across Europe after the French Revolution.",q:"Why was the bread crisis so politically explosive in France?",q_cn:"为什么面包危机在法国具有如此大的政治爆炸性？",options:["A. Because bread was a luxury item that only the wealthy could afford|A. 因为面包是只有富人才能负担得起的奢侈品","B. Because starving people have nothing left to lose and are willing to take extreme action|B. 因为饥饿的人没有什么可失去的，愿意采取极端行动","C. Because bread was used as currency in France|C. 因为面包在法国被用作货币","D. Because Louis XVI personally controlled the bread supply|D. 因为路易十六亲自控制面包供应"],correct:"B",rat_right:"The passage argues people facing starvation have nothing left to lose — making revolution physically necessary, not just politically desirable.|文章认为面临饥饿的人们没有什么可以失去的——使革命不仅在政治上是可取的，而且在物质上是必要的。",rat_wrong:{A:"Bread was a basic necessity, not a luxury.|面包是基本必需品，而不是奢侈品。",C:"Bread was food, not currency.|面包是食物，而不是货币。",D:"The bread crisis was caused by harvest failures, not royal control.|面包危机是由歉收引起的，而不是王室控制。"}},
+  {id:"l3q9",title:"Fall of the Bastille — Impact",passage:"News of the Bastille's fall spread across France within days. In cities and villages across the country, people rose up against local nobles and government officials. Peasants burned records of their feudal debts in what historians call the 'Great Fear' of July–August 1789. Nobles began fleeing France, taking their wealth with them. The king was forced to recall Necker and publicly accept a revolutionary cockade (ribbon) — symbolically acknowledging the revolution's authority. The fall of one building changed France forever.",q:"What happened across France immediately after the fall of the Bastille?",q_cn:"巴士底狱陷落后，法国各地立即发生了什么？",options:["A. France declared war on England|A. 法国向英国宣战","B. People rose up nationwide, peasants burned debt records, and nobles fled the country|B. 全国各地的人民起义，农民焚烧债务记录，贵族逃离法国","C. The king ordered his army to crush the revolution in Paris|C. 国王命令军队镇压巴黎的革命","D. The revolution ended peacefully after negotiations|D. 革命在谈判后和平结束"],correct:"B",rat_right:"The passage describes nationwide uprisings, peasants burning feudal debt records in the Great Fear, and nobles fleeing France.|文章描述了全国性起义、农民在恐怖大逃亡中焚烧封建债务记录以及贵族逃离法国。",rat_wrong:{A:"War with England came much later in the revolution.|与英国的战争在革命晚得多后才发生。",C:"The king was forced to accept the revolution's authority, not crush it.|国王被迫接受革命的权威，而不是镇压它。",D:"The revolution did not end peacefully — it escalated dramatically.|革命没有和平结束——它急剧升级。"}},
+  {id:"l3q10",title:"Constitutional Monarchy",passage:"After 1789, France briefly operated as a constitutional monarchy — a system where a king still rules, but his power is limited by a written constitution and an elected legislature. Louis XVI was forced to accept this arrangement. The new constitution of 1791 gave voting rights to men who paid a certain level of taxes — this excluded the very poor. The constitution kept the king as head of the executive but gave legislative power to an elected assembly. This compromise satisfied almost no one: radicals wanted a republic, conservatives wanted the old system back.",q:"Why did the constitutional monarchy of 1791 fail to satisfy most groups in France?",q_cn:"为什么1791年的君主立宪制未能满足法国大多数群体？",options:["A. Because it taxed people even more heavily than before|A. 因为它比以前向人们征收更重的税","B. Radicals wanted a full republic while conservatives wanted to restore the old absolute monarchy|B. 激进派想要完全的共和国，而保守派想要恢复旧的专制君主制","C. Because it banned all political debate|C. 因为它禁止了所有政治辩论","D. Because it gave women too many new rights|D. 因为它给予女性太多新权利"],correct:"B",rat_right:"The passage states radicals wanted a republic and conservatives wanted the old system back — the constitutional monarchy satisfied almost no one.|文章指出激进派想要共和国，保守派想要旧制度——君主立宪制几乎没有让任何人满意。",rat_wrong:{A:"Higher taxes are not mentioned as the reason for dissatisfaction.|更高的税收没有被提及为不满的原因。",C:"Political debate was not banned — in fact it flourished.|政治辩论没有被禁止——事实上它蓬勃发展。",D:"Women's rights were largely excluded from the 1791 constitution.|女性权利在1791年宪法中被大量排除。"}}
+];
+ 
+var L4_Q = [
+  {id:"l4q1",title:"The Jacobins",passage:"The Jacobins were a radical political club that became extremely powerful during the French Revolution. Founded in 1789, the club originally attracted moderate reformers. By 1792–1793, however, it had been taken over by radical members who believed the revolution was in danger and needed to be defended by any means necessary. The most influential Jacobin was Maximilien Robespierre, a lawyer from northern France who had once argued against the death penalty. He became the architect of mass executions.",q:"How did the Jacobin Club change between 1789 and 1792–1793?",q_cn:"雅各宾俱乐部在1789年至1792-1793年间发生了怎样的变化？",options:["A. It started radical and became more moderate over time|A. 它一开始是激进的，随着时间的推移变得更温和","B. It started as a moderate reform club but was taken over by radicals who believed any means were justified|B. 它最初是一个温和的改革俱乐部，但被认为任何手段都是合理的激进派所接管","C. It was always a military organization planning a coup|C. 它一直是一个计划政变的军事组织","D. It had no significant change — it remained the same throughout|D. 没有重大变化——它始终保持不变"],correct:"B",rat_right:"The passage describes the Jacobins starting moderate in 1789 but being taken over by radicals by 1792–1793.|文章描述了雅各宾派在1789年开始时是温和的，但到1792-1793年被激进派接管。",rat_wrong:{A:"The change was the opposite — from moderate to radical.|变化恰恰相反——从温和到激进。",C:"The passage says it was originally a political club for reformers, not a military group.|文章说它最初是一个改革者的政治俱乐部，而不是军事团体。",D:"The passage explicitly describes a dramatic change in the club's direction.|文章明确描述了俱乐部方向的戏剧性变化。"}},
+  {id:"l4q2",title:"Execution of Louis XVI",passage:"On January 21, 1793, Louis XVI was guillotined in the Place de la Revolution in Paris before a large crowd. His final words, cut off by the drumroll, were reportedly 'I die innocent of all the crimes laid to my charge.' The execution of a king shocked the world — no European monarch had ever been publicly executed by his own people before. Austria and Prussia were already at war with France; Britain and Spain now joined the coalition against France. Robespierre used these foreign threats to justify extreme domestic measures.",q:"What was the international reaction to the execution of Louis XVI?",q_cn:"国际社会对处决路易十六有何反应？",options:["A. Most countries praised France for establishing a republic|A. 大多数国家称赞法国建立共和国","B. Britain and Spain joined the coalition against France, adding to the threat|B. 英国和西班牙加入了反法联盟，增加了威胁","C. Russia sent troops to help France defend the revolution|C. 俄罗斯派遣军队帮助法国捍卫革命","D. The other European kings peacefully accepted the execution|D. 其他欧洲国王和平接受了这次处决"],correct:"B",rat_right:"The passage states Britain and Spain joined the anti-French coalition after the execution, increasing the foreign threat.|文章指出英国和西班牙在处决后加入了反法联盟，增加了外部威胁。",rat_wrong:{A:"European monarchies were horrified, not supportive.|欧洲君主制国家感到震惊，而不是支持。",C:"Russia did not send troops to help France.|俄罗斯没有派遣军队帮助法国。",D:"European kings were deeply alarmed — they feared revolution spreading to their own countries.|欧洲国王深感警觉——他们担心革命蔓延到自己的国家。"}},
+  {id:"l4q3",title:"Committee of Public Safety",passage:"In April 1793, the National Convention created the Committee of Public Safety to manage France's defense and internal security. The committee had 12 members and was dominated by Robespierre. It operated as an emergency government with nearly unlimited powers. The Committee could arrest, try, and execute enemies of the revolution without following normal legal procedures. It directed France's war effort against the European coalition and organized the mass conscription of soldiers — the first large-scale military draft in history.",q:"What powers did the Committee of Public Safety hold?",q_cn:"公共安全委员会拥有哪些权力？",options:["A. It only managed France's trade and economic affairs|A. 它只管理法国的贸易和经济事务","B. It had nearly unlimited powers to arrest, try, and execute enemies without normal legal procedures|B. 它拥有几乎无限的权力来逮捕、审判和处决敌人，而无需遵循正常法律程序","C. It was a ceremonial body with no real power|C. 它是一个没有实权的礼仪机构","D. It could only manage military affairs and could not arrest civilians|D. 它只能管理军事事务，不能逮捕平民"],correct:"B",rat_right:"The passage states the Committee could arrest, try, and execute enemies without following normal legal procedures — nearly unlimited power.|文章指出委员会可以不遵循正常法律程序逮捕、审判和处决敌人——几乎是无限的权力。",rat_wrong:{A:"The Committee managed defense, security, and executions — far more than trade.|委员会管理防务、安全和处决——远不止贸易。",C:"The Committee was the most powerful body in France during the Terror.|委员会是恐怖统治期间法国最有权力的机构。",D:"The Committee absolutely arrested and executed civilians — this was the core of the Terror.|委员会绝对逮捕并处决了平民——这是恐怖统治的核心。"}},
+  {id:"l4q4",title:"Revolutionary Tribunals",passage:"The Revolutionary Tribunal was created in March 1793 to try enemies of the revolution. At first, it operated slowly and acquitted many defendants. After the Law of 22 Prairial was passed in June 1794, the Tribunal was dramatically accelerated: defense lawyers were eliminated, the only verdicts were acquittal or death, and judges no longer needed to hear witnesses or evidence. Trials lasted minutes. In the 47 days after this law passed, 1,376 people were executed — more than in the entire previous year of the Terror.",q:"How did the Law of 22 Prairial change the Revolutionary Tribunal?",q_cn:"牧月22日法令如何改变了革命法庭？",options:["A. It made trials longer and more fair|A. 它使审判更长更公平","B. It eliminated defense lawyers and evidence, so only acquittal or death were possible|B. 它取消了辩护律师和证据，因此只有无罪释放或死刑两种结果","C. It replaced the guillotine with imprisonment|C. 它用监禁取代了断头台","D. It gave accused people more time to prepare their defense|D. 它给被告更多时间准备辩护"],correct:"B",rat_right:"The passage states the law eliminated defense lawyers, required no witnesses or evidence, and left only acquittal or death as verdicts.|文章指出该法律取消了辩护律师，不需要证人或证据，只留下无罪释放或死刑两种判决。",rat_wrong:{A:"The law made trials faster and less fair, not longer and more fair.|该法律使审判更快但更不公平，而不是更长更公平。",C:"The guillotine continued to be used even more frequently after this law.|断头台在这项法律之后被更频繁地使用。",D:"The law reduced, not increased, the time available for defense.|该法律减少了辩护时间，而不是增加了。"}},
+  {id:"l4q5",title:"The Guillotine",passage:"The guillotine was introduced in France in 1792 as a humane method of execution — the same for all citizens regardless of class. Before the Revolution, beheading was reserved for nobles while commoners faced hanging or worse. The guillotine's designer, Dr. Joseph-Ignace Guillotin, was a reformer who wanted execution to be swift and painless. Ironically, the guillotine became the symbol of the Terror's mass killings. In Paris, public executions became a form of entertainment that crowds attended to watch.",q:"What was ironic about the guillotine during the Reign of Terror?",q_cn:"恐怖统治期间，断头台有什么讽刺之处？",options:["A. It was designed to punish only the nobility|A. 它被设计为只惩罚贵族","B. It was invented to be humane but became the symbol of mass political killings|B. 它被发明为人道处决方式，却成为大规模政治杀戮的象征","C. It was actually never used during the Terror|C. 它在恐怖统治期间实际上从未被使用过","D. It was designed by Robespierre himself|D. 它是罗伯斯庇尔本人设计的"],correct:"B",rat_right:"The passage states the guillotine was introduced as a humane reform but became the symbol of the Terror's mass killings — an ironic reversal.|文章指出断头台被作为人道改革引入，却成为恐怖统治大规模杀戮的象征——一种讽刺性的逆转。",rat_wrong:{A:"The guillotine was intended for all classes equally — not just nobles.|断头台原本适用于所有阶层——不仅仅是贵族。",C:"The guillotine was used extensively throughout the Terror.|断头台在整个恐怖统治期间被广泛使用。",D:"The guillotine was designed by Dr. Guillotin, not Robespierre.|断头台由吉约坦博士设计，而不是罗伯斯庇尔。"}},
+  {id:"l4q6",title:"Foreign Wars",passage:"By 1793, France was at war with most of Europe. The First Coalition against France included Austria, Prussia, Britain, Spain, Portugal, and several Italian states. France faced invasion from multiple directions simultaneously. Inside France, royalist rebellions also broke out, especially in the Vendee region of western France, where tens of thousands of people died in a civil war against the revolution. The combination of external war and internal rebellion gave Robespierre a genuine justification for emergency rule — even if he used it far beyond what the situation required.",q:"Why did France's wars give Robespierre justification for the Terror?",q_cn:"为什么法国的战争给了罗伯斯庇尔实施恐怖统治的理由？",options:["A. Robespierre needed money from executions to fund the war|A. 罗伯斯庇尔需要通过处决获得资金来资助战争","B. External invasion and internal rebellion created a genuine emergency that could justify extreme measures|B. 外部入侵和内部叛乱创造了一种真正的紧急情况，可以为极端措施提供依据","C. The wars were entirely fake — Robespierre invented the threat|C. 战争完全是假的——罗伯斯庇尔编造了威胁","D. Foreign kings demanded that Robespierre execute French citizens|D. 外国国王要求罗伯斯庇尔处决法国公民"],correct:"B",rat_right:"The passage states France faced real invasion from multiple directions and internal civil war — creating a genuine emergency Robespierre used to justify extreme measures.|文章指出法国面临来自多个方向的真实入侵和内部内战——创造了一种罗伯斯庇尔用来为极端措施辩护的真正紧急情况。",rat_wrong:{A:"Execution proceeds are not mentioned as a war funding mechanism.|处决收益没有被提及为战争资金机制。",C:"The wars were real — France fought major European powers.|战争是真实的——法国与主要欧洲强国作战。",D:"Foreign kings wanted to defeat France, not direct its internal executions.|外国国王想要击败法国，而不是指挥其内部处决。"}},
+  {id:"l4q7",title:"Robespierre's Ideology",passage:"Robespierre believed he was creating a 'Republic of Virtue' — a pure, moral society free from corruption, aristocracy, and selfishness. He viewed terror as the tool to build this perfect republic: 'Terror is nothing other than prompt, severe, inflexible justice; it is therefore an emanation of virtue.' He genuinely believed people who disagreed with him were enemies of the people, not just political opponents. This made him incapable of compromise and increasingly paranoid about betrayal.",q:"What did Robespierre mean by calling the Terror 'an emanation of virtue'?",q_cn:"罗伯斯庇尔称恐怖统治为'美德的体现'是什么意思？",options:["A. He believed executing enemies was morally justified as a way to build a pure society|A. 他认为处决敌人在道德上是有理由的，是建立纯洁社会的方式","B. He was being sarcastic and actually opposed the executions|B. 他是在讽刺，实际上反对处决","C. He meant that virtue was punished during the Terror|C. 他的意思是在恐怖统治期间美德受到了惩罚","D. He borrowed the phrase from Locke's philosophy|D. 他从洛克的哲学中借用了这个短语"],correct:"A",rat_right:"The passage explains Robespierre genuinely believed terror was morally justified to build his pure Republic of Virtue.|文章解释了罗伯斯庇尔真诚地认为恐怖统治在道德上是合理的，以建立他纯洁的美德共和国。",rat_wrong:{B:"Robespierre was the architect of the Terror — he did not oppose it.|罗伯斯庇尔是恐怖统治的设计者——他并不反对它。",C:"He meant the opposite — virtue was the reason for violence, not the victim of it.|他的意思恰恰相反——美德是暴力的原因，而不是受害者。",D:"This idea was Robespierre's own political theology, not from Locke.|这个想法是罗伯斯庇尔自己的政治神学，而不是来自洛克。"}},
+  {id:"l4q8",title:"Fall of Robespierre",passage:"By July 1794, even Robespierre's closest allies feared they would be his next victims. The Terror had consumed former friends — Danton, a founding revolutionary, had been guillotined in April. Members of the National Convention knew that Robespierre had lists of people he suspected. On July 27, 1794 (9 Thermidor in the Revolutionary calendar), Convention members staged a coup. Robespierre was shouted down, arrested, and the next day guillotined. The day became known as the Thermidorian Reaction, and the Terror ended almost immediately afterward.",q:"Why did Robespierre's allies turn against him?",q_cn:"为什么罗伯斯庇尔的盟友背叛了他？",options:["A. They disagreed with his political views about the republic|A. 他们不同意他关于共和国的政治观点","B. They feared they would be his next victims, as even former allies had been executed|B. 他们担心自己会成为他的下一个受害者，因为即使是前盟友也被处决了","C. They were bribed by foreign governments to arrest him|C. 他们被外国政府贿赂逮捕他","D. Robespierre ordered them arrested first, forcing them to fight back|D. 罗伯斯庇尔先下令逮捕他们，迫使他们反击"],correct:"B",rat_right:"The passage states allies feared they would be Robespierre's next victims — he had even executed a founding revolutionary like Danton.|文章指出盟友担心他们会成为罗伯斯庇尔的下一个受害者——他甚至处决了像丹东这样的创始革命者。",rat_wrong:{A:"By 1794, the coup was driven by self-preservation, not policy disagreements.|到1794年，政变是出于自我保护，而不是政策分歧。",C:"Foreign bribery is not mentioned as the cause of the coup.|外国贿赂没有被提及为政变的原因。",D:"The passage describes allies preemptively acting against Robespierre before he could target them.|文章描述了盟友在罗伯斯庇尔能够针对他们之前先发制人地采取行动。"}},
+  {id:"l4q9",title:"Scale of the Terror",passage:"Historians estimate that during the Reign of Terror (September 1793 – July 1794), approximately 17,000 people were officially executed by guillotine or other means, and another 40,000 died in prison or from other causes related to the Terror. More than 300,000 people were arrested across France. The Terror was not limited to Paris — provincial cities like Lyon and Nantes saw mass executions. In Nantes, a Revolutionary official named Carrier ordered prisoners drowned in the Loire River — a procedure called 'republican baptism.'",q:"Which of the following best describes the scale and geography of the Reign of Terror?",q_cn:"以下哪项最能描述恐怖统治的规模和地理范围？",options:["A. The Terror only happened in Paris and affected fewer than 1,000 people|A. 恐怖统治只发生在巴黎，影响不到1,000人","B. The Terror killed tens of thousands across France and involved mass arrests of 300,000 people|B. 恐怖统治在全法国杀死了数万人，并对30万人进行了大规模逮捕","C. The Terror was limited to the nobility and clergy|C. 恐怖统治仅限于贵族和神职人员","D. The Terror was violent in theory but few actual executions took place|D. 恐怖统治在理论上是暴力的，但实际上很少执行处决"],correct:"B",rat_right:"The passage states 17,000 were executed, 40,000 died from related causes, and 300,000 were arrested across France — including provincial cities.|文章指出17,000人被处决，40,000人因相关原因死亡，全法国30万人被逮捕——包括外省城市。",rat_wrong:{A:"The passage explicitly states the Terror spread far beyond Paris to cities like Lyon and Nantes.|文章明确指出恐怖统治远远蔓延到巴黎之外，延伸到里昂和南特等城市。",C:"The Terror targeted all classes — merchants, peasants, former revolutionaries, clergy, and nobles.|恐怖统治针对所有阶层——商人、农民、前革命者、神职人员和贵族。",D:"The passage gives specific, large numbers showing the Terror's real violence.|文章给出了显示恐怖统治真实暴力的具体、大量数字。"}},
+  {id:"l4q10",title:"Legacy of the Terror",passage:"The Reign of Terror left a powerful legacy for political thought. It became the primary example used by conservatives to argue that radical revolution inevitably leads to chaos and tyranny. Edmund Burke, an Anglo-Irish politician, had already predicted in 1790 that the French Revolution would end in terror — making him the founder of modern conservatism. The Terror also showed that revolutions can be consumed by their own extremism: Robespierre was destroyed by the same forces he unleashed. This pattern — radical revolution devouring its own leaders — repeated in later revolutions.",q:"What political lesson did the Reign of Terror teach conservatives about revolution?",q_cn:"恐怖统治给保守派关于革命教了什么政治教训？",options:["A. Revolution is always positive because it creates new rights|A. 革命总是积极的，因为它创造了新权利","B. Radical revolution inevitably leads to chaos and tyranny|B. 激进革命不可避免地导致混乱和专制","C. Revolutions only fail when they move too slowly|C. 革命只有在进展太慢时才会失败","D. The Terror proved that only military leaders should govern|D. 恐怖统治证明只有军事领导人才应该执政"],correct:"B",rat_right:"The passage states the Terror became the primary example conservatives used to argue radical revolution leads to chaos and tyranny.|文章指出恐怖统治成为保守派用来争辩激进革命导致混乱和专制的主要例子。",rat_wrong:{A:"Conservatives drew the opposite conclusion — revolution is dangerous, not always positive.|保守派得出了相反的结论——革命是危险的，而不是总是积极的。",C:"Burke and conservatives argued it was the radicalism, not the speed, that caused the problem.|伯克和保守派认为是激进主义，而不是速度，造成了这个问题。",D:"The Terror actually showed the dangers of ideological civilian leaders, not a call for military rule.|恐怖统治实际上显示了意识形态平民领导人的危险，而不是军事统治的呼唤。"}}
+];
+ 
+var L5_Q = [
+  {id:"l5q1",title:"Saint-Domingue's Economy",passage:"Saint-Domingue (modern Haiti) was France's most valuable colony and one of the most profitable territories in the entire world in the late 18th century. The colony covered the western third of the island of Hispaniola. By 1789, it produced approximately 40% of Europe's sugar and 60% of its coffee. It also produced cotton, indigo, and cocoa. This extraordinary wealth was generated almost entirely by the forced labor of approximately 500,000 enslaved Africans.",q:"What made Saint-Domingue so economically valuable to France?",q_cn:"是什么让圣多明各对法国如此有经济价值？",options:["A. Its large gold and silver mines|A. 其大型金银矿","B. It produced 40% of Europe's sugar and 60% of its coffee using enslaved labor|B. 它使用奴役劳动生产了欧洲40%的糖和60%的咖啡","C. It had the largest population of any French colony|C. 它拥有所有法国殖民地中最大的人口","D. It was strategically located for controlling Atlantic trade routes|D. 它在战略上位于控制大西洋贸易路线的位置"],correct:"B",rat_right:"The passage states Saint-Domingue produced 40% of Europe's sugar and 60% of its coffee using enslaved labor — making it extraordinarily valuable.|文章指出圣多明各使用奴役劳动生产了欧洲40%的糖和60%的咖啡——使其具有非凡的价值。",rat_wrong:{A:"Gold and silver mines are not mentioned — the wealth came from agricultural products.|没有提到金银矿——财富来自农业产品。",C:"Population size is not described as the source of economic value.|人口规模没有被描述为经济价值的来源。",D:"Strategic location for trade routes is not the specific economic value described.|贸易路线的战略位置不是所描述的具体经济价值。"}},
+  {id:"l5q2",title:"The Class Structure",passage:"Saint-Domingue had an extremely rigid social hierarchy. At the top were the Grand Blancs — wealthy white plantation owners who controlled most of the land and enslaved people. Below them were the Petit Blancs — poor white workers, artisans, and shopkeepers who had citizenship rights but little wealth. The Affranchis were free people of color — some mixed race, some formerly enslaved Africans who had bought their freedom. Many Affranchis were wealthy landowners, but they were denied political rights. At the bottom were approximately 500,000 enslaved people.",q:"Why were the Affranchis a particularly unstable group in Saint-Domingue's social hierarchy?",q_cn:"为什么自由有色人在圣多明各的社会等级中是一个特别不稳定的群体？",options:["A. They were the poorest group with no money or land|A. 他们是最贫穷的群体，没有钱或土地","B. They had wealth but were denied political rights — creating dangerous resentment|B. 他们有财富但被剥夺政治权利——产生了危险的怨恨","C. They were illegal immigrants who were not officially recognized|C. 他们是未被官方承认的非法移民","D. They were the largest group and so hardest to control|D. 他们是最大的群体，因此最难控制"],correct:"B",rat_right:"The passage states Affranchis were wealthy landowners but denied political rights — a dangerous combination that bred resentment.|文章指出自由有色人是富有的土地所有者，但被剥夺政治权利——这种危险的组合滋生了怨恨。",rat_wrong:{A:"Many Affranchis were wealthy — the problem was denied rights, not poverty.|许多自由有色人很富有——问题是权利被剥夺，而不是贫困。",C:"Affranchis were legally recognized as free people — they were not illegal immigrants.|自由有色人被法律承认为自由人——他们不是非法移民。",D:"Enslaved people were by far the largest group at 500,000.|被奴役的人是迄今为止最大的群体，有50万人。"}},
+  {id:"l5q3",title:"French Revolution's Contradictions",passage:"The French Declaration of the Rights of Man (1789) declared that 'men are born and remain free and equal in rights.' This created an immediate problem for France's colonial empire. If all men were free and equal, what about the enslaved people in the colonies? What about the Affranchis who were free but denied rights? Colonial planters in Saint-Domingue lobbied intensely to prevent the Declaration from applying to the colonies. The French government, dependent on colonial revenue, initially agreed — the Declaration would apply in France but not in Saint-Domingue.",q:"Why did the Declaration of the Rights of Man create a problem for France?",q_cn:"为什么《人权宣言》给法国带来了一个问题？",options:["A. It was written in a language that colonists could not understand|A. 它是用殖民者无法理解的语言写成的","B. Its statement that all men are free contradicted France's use of enslaved labor in its colonies|B. 它关于所有人都是自由的声明与法国在殖民地使用奴役劳动相矛盾","C. It accidentally gave colonial planters too much power|C. 它意外地给予殖民地种植园主太多权力","D. It was rejected by the French National Assembly|D. 它被法国国民议会拒绝"],correct:"B",rat_right:"The passage states the Declaration's claim that all men are free directly contradicted France's enslaved labor system in its colonies.|文章指出《宣言》关于所有人都是自由的主张直接与法国在殖民地的奴役劳动制度相矛盾。",rat_wrong:{A:"Language was not the problem — the contradiction was ideological.|语言不是问题——矛盾是意识形态上的。",C:"The planters were not accidentally empowered — France deliberately excluded the colonies.|种植园主不是被意外赋权——法国故意将殖民地排除在外。",D:"The Declaration was adopted by the National Assembly — it was not rejected.|《宣言》被国民议会通过——它没有被拒绝。"}},
+  {id:"l5q4",title:"Vincent Oge's Revolt",passage:"Vincent Ogé was an Affranchis (free person of color) from Saint-Domingue who had been in Paris during the French Revolution. Inspired by the Declaration of the Rights of Man, he returned to Saint-Domingue in 1790 demanding equal political rights for free people of color. He led a small armed revolt. The colonial government crushed the revolt, captured Ogé, and had him publicly tortured and executed on a wheel in February 1791 — a deliberately brutal punishment designed to warn others. The enslaved population observed and remembered.",q:"What was the significance of Vincent Ogé's revolt and its suppression?",q_cn:"文尚·奥热的起义及其镇压有什么意义？",options:["A. It succeeded in winning equal rights for free people of color|A. 它成功为自由有色人赢得了平等权利","B. Its brutal suppression showed the enslaved population that the colonial system could be challenged|B. 对它的残酷镇压向被奴役的人口表明殖民制度可以被挑战","C. It caused France to immediately apply the Declaration of Rights to the colonies|C. 它导致法国立即将《权利宣言》应用于殖民地","D. It started the main Haitian Revolution uprising|D. 它开始了海地革命的主要起义"],correct:"B",rat_right:"The passage states the enslaved population observed and remembered Ogé's revolt — demonstrating that the system could be challenged despite brutal suppression.|文章指出被奴役的人口观察并记住了奥热的起义——尽管遭到残酷镇压，证明该制度可以被挑战。",rat_wrong:{A:"Ogé's revolt failed — he was executed and equal rights were not granted.|奥热的起义失败了——他被处决，平等权利没有获得。",C:"France did not immediately apply the Declaration to the colonies after Ogé.|奥热之后，法国没有立即将《宣言》应用于殖民地。",D:"The main uprising began with the Bois Caiman ceremony in August 1791, not Ogé's revolt.|主要起义始于1791年8月的布瓦卡伊曼仪式，而不是奥热的起义。"}},
+  {id:"l5q5",title:"Bois Caiman Ceremony",passage:"On August 14, 1791, enslaved leaders gathered secretly in the forest of Bois Caiman. The ceremony was led by Dutty Boukman, a Jamaican-born enslaved man who was a Vodou priest and houngan (spiritual leader). According to accounts, the participants made a pact under the night sky, invoking their African spiritual traditions. Eight days later, on August 22, 1791, the rebellion began simultaneously across northern Saint-Domingue. Within weeks, over 1,000 plantations had been burned and 100,000 enslaved people had joined the uprising.",q:"What was the significance of the Bois Caiman ceremony?",q_cn:"布瓦卡伊曼仪式有什么意义？",options:["A. It was a celebration held after the revolution succeeded|A. 它是革命成功后举行的庆祝活动","B. It was the secret planning meeting that launched the coordinated slave uprising|B. 它是启动协调奴隶起义的秘密计划会议","C. It was a religious ceremony with no connection to the revolution|C. 它是与革命无关的宗教仪式","D. It was organized by French revolutionaries from Paris|D. 它是由来自巴黎的法国革命者组织的"],correct:"B",rat_right:"The passage states that eight days after Bois Caiman, the coordinated rebellion began simultaneously across northern Saint-Domingue.|文章指出布瓦卡伊曼之后八天，协调起义同时在圣多明各北部开始。",rat_wrong:{A:"The ceremony came before the revolution — it was the planning stage, not a celebration.|仪式发生在革命之前——它是计划阶段，而不是庆祝活动。",C:"The passage directly connects the ceremony to the launch of the revolution eight days later.|文章直接将仪式与八天后革命的开始联系起来。",D:"The ceremony was organized by enslaved leaders themselves, not French outsiders.|仪式由被奴役的领导者自己组织，而不是法国外人。"}},
+  {id:"l5q6",title:"Conditions of Slavery",passage:"Slavery in Saint-Domingue was among the most brutal in the Atlantic world. The average life expectancy for an enslaved person imported from Africa was only 7–10 years after arrival — they were literally worked to death. Because death rates were so high, planters continuously imported new enslaved Africans — about 40,000 per year by the 1780s. This meant that by 1791, about two-thirds of the enslaved population in Saint-Domingue had been born in Africa, not in the colony. They brought with them African cultural traditions, languages, and resistance strategies.",q:"How did the constant importation of enslaved Africans affect the 1791 revolution?",q_cn:"被奴役非洲人的不断输入如何影响了1791年的革命？",options:["A. It meant most enslaved people were too new to Saint-Domingue to organize|A. 这意味着大多数被奴役的人来到圣多明各的时间太短，无法组织","B. It meant two-thirds of the enslaved population retained African cultural traditions and resistance strategies|B. 这意味着三分之二的被奴役人口保留了非洲文化传统和抵抗策略","C. It gave the French government more control because newcomers did not know the land|C. 它给法国政府更多控制，因为新来者不了解这片土地","D. It prevented unity because enslaved people spoke too many different languages|D. 它阻止了团结，因为被奴役的人说太多不同的语言"],correct:"B",rat_right:"The passage states two-thirds of the enslaved population were African-born and brought African traditions and resistance strategies with them.|文章指出三分之二的被奴役人口出生于非洲，带来了非洲传统和抵抗策略。",rat_wrong:{A:"Being African-born did not prevent organization — they brought resistance strategies with them.|出生于非洲并没有阻止组织——他们带来了抵抗策略。",C:"The passage argues the opposite — African cultural retention helped the revolution.|文章认为恰恰相反——非洲文化的保留有助于革命。",D:"The passage suggests shared African cultural traditions helped unity, not prevented it.|文章表明共同的非洲文化传统有助于团结，而不是阻止它。"}},
+  {id:"l5q7",title:"Toussaint Louverture",passage:"Toussaint Louverture emerged as the greatest leader of the Haitian Revolution. Born enslaved around 1743, he had been freed by his master years before the revolution and had learned to read and write. When the revolution began in 1791, he initially helped his former master escape, then joined the rebel forces. His military genius, political intelligence, and organizational skills transformed a slave revolt into a disciplined revolutionary army. By 1801, he had driven out both Spanish and British forces that had tried to take control of the island.",q:"What made Toussaint Louverture an effective revolutionary leader?",q_cn:"是什么使杜桑·卢维杜尔成为一位有效的革命领袖？",options:["A. He had received formal military training from France|A. 他接受过法国的正规军事训练","B. His literacy, military genius, and organizational skills transformed the revolt into a disciplined army|B. 他的识字能力、军事才能和组织技能将起义转变为一支有纪律的军队","C. He was the only formerly enslaved person who could speak French|C. 他是唯一能说法语的前被奴役者","D. He had weapons and funding supplied by the United States|D. 他有美国提供的武器和资金"],correct:"B",rat_right:"The passage describes Toussaint's literacy, military genius, political intelligence, and organizational skills as what made him effective.|文章将杜桑的识字能力、军事才能、政治智慧和组织技能描述为使他有效的原因。",rat_wrong:{A:"The passage says he was self-educated — his former master had allowed him to read, not formal French military training.|文章说他是自学成才的——他的前主人允许他读书，而不是正规的法国军事训练。",C:"Speaking French was not his distinguishing feature — his military and organizational genius was.|说法语不是他的显著特征——他的军事和组织才能才是。",D:"US funding and weapons are not mentioned in the passage.|文章中没有提到美国的资金和武器。"}},
+  {id:"l5q8",title:"Why Haiti Succeeded",passage:"Historians have identified several reasons why the Haitian Revolution succeeded where other slave revolts failed. First, the enslaved population greatly outnumbered free people — 10 to 1. Second, the political chaos of the French Revolution meant France could not consistently defend the colony. Third, British and Spanish troops who invaded the island were decimated by yellow fever. Fourth, the revolution had charismatic leaders like Toussaint Louverture. Fifth, African cultural traditions, especially Vodou, provided a unifying spiritual foundation for the revolt.",q:"Which factor is NOT listed as a reason for the Haitian Revolution's success?",q_cn:"以下哪个因素不在海地革命成功的原因中？",options:["A. The enslaved population greatly outnumbered free people|A. 被奴役的人口大大超过自由人","B. French political chaos prevented a consistent colonial defense|B. 法国政治混乱阻止了一致的殖民防御","C. The United States provided military support to the Haitian rebels|C. 美国为海地反叛者提供了军事支持","D. British and Spanish troops were devastated by yellow fever|D. 英国和西班牙军队被黄热病摧毁"],correct:"C",rat_right:"US military support is not listed in the passage — the five reasons given are numerical advantage, French chaos, yellow fever, strong leaders, and Vodou.|美国军事支持没有列在文章中——给出的五个原因是数量优势、法国混乱、黄热病、强大的领导人和伏都教。",rat_wrong:{A:"Numerical advantage (10 to 1) is explicitly listed as a reason.|数量优势（10比1）被明确列为原因。",B:"French political chaos is explicitly listed as a reason.|法国政治混乱被明确列为原因。",D:"Yellow fever devastating British and Spanish troops is explicitly listed as a reason.|黄热病摧毁英国和西班牙军队被明确列为原因。"}},
+  {id:"l5q9",title:"Haiti's Independence",passage:"After years of fighting, Haiti declared independence on January 1, 1804. Jean-Jacques Dessalines, who had succeeded Toussaint Louverture as leader after Toussaint was captured by the French in 1802 and died in prison, proclaimed himself Emperor Jacques I. Haiti became the first Black republic in the world and only the second country in the Western Hemisphere to win independence from a European power, after the United States. Haiti's success terrified slaveholding nations — especially the United States — and they refused to recognize Haiti diplomatically for decades.",q:"Why did slaveholding nations like the United States refuse to recognize Haiti?",q_cn:"为什么像美国这样的奴隶制国家拒绝承认海地？",options:["A. Because Haiti had attacked American ships during the revolution|A. 因为海地在革命期间袭击了美国船只","B. Because Haiti's success as a Black republic was terrifying to slaveholding nations who feared it would inspire their own enslaved populations|B. 因为海地作为黑人共和国的成功令奴隶制国家感到恐惧，他们担心这会激励自己的被奴役人口","C. Because Haiti refused to trade with the United States|C. 因为海地拒绝与美国贸易","D. Because the US and Haiti had a territorial dispute|D. 因为美国和海地有领土争端"],correct:"B",rat_right:"The passage states Haiti's success terrified slaveholding nations who feared it would inspire their own enslaved populations — so they refused recognition.|文章指出海地的成功令奴隶制国家感到恐惧，他们担心这会激励自己的被奴役人口——因此他们拒绝承认。",rat_wrong:{A:"Attacks on American ships are not mentioned as the reason for non-recognition.|袭击美国船只没有被提及为不承认的原因。",C:"Trade refusal is not described as Haiti's position.|贸易拒绝没有被描述为海地的立场。",D:"Territorial disputes are not mentioned in the passage.|领土争端在文章中没有提到。"}},
+  {id:"l5q10",title:"Legacy of the Haitian Revolution",passage:"The Haitian Revolution's legacy was profound and complex. It was the only successful slave revolt in world history that led to the founding of a new nation. It ended the Atlantic slave trade to Saint-Domingue and eventually contributed to the abolition of slavery in the French Empire in 1848. It inspired enslaved people across the Americas — in the United States, Cuba, Brazil, and across Latin America. Napoleon, who had tried and failed to reconquer Haiti, sold the Louisiana Territory to the United States in 1803 partly because he could no longer envision a Western Hemisphere French Empire.",q:"Which of the following was an indirect consequence of the Haitian Revolution?",q_cn:"以下哪项是海地革命的间接后果？",options:["A. The United States declared war on Britain|A. 美国向英国宣战","B. Napoleon sold the Louisiana Territory to the United States|B. 拿破仑将路易斯安那领地出售给美国","C. France immediately abolished slavery across its entire empire in 1791|C. 法国于1791年立即在整个帝国废除了奴隶制","D. Britain gave up all its Caribbean colonies|D. 英国放弃了所有加勒比海殖民地"],correct:"B",rat_right:"The passage states Napoleon sold the Louisiana Territory partly because his failure in Haiti ended his vision of a Western Hemisphere French Empire.|文章指出拿破仑出售路易斯安那领地，部分原因是他在海地的失败结束了他对西半球法兰西帝国的愿景。",rat_wrong:{A:"The US did not declare war on Britain as a result of the Haitian Revolution.|美国没有因海地革命而向英国宣战。",C:"France did not abolish slavery in 1791 — that came later in 1848.|法国没有在1791年废除奴隶制——这发生在后来的1848年。",D:"Britain did not give up its Caribbean colonies as a result of Haiti.|英国没有因海地而放弃其加勒比海殖民地。"}}
+];
+ 
+function buildVocab() {
+  var grid = document.getElementById('vocab-grid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML = '<div class="vocab-word">' + v.word + '</div>' +
+      '<div class="vocab-pos">' + v.pos + '</div>' +
+      '<div class="vocab-cn-word">' + v.cn + '</div>' +
+      '<div class="vocab-def">' + v.def + '</div>' +
+      '<div class="vocab-cn-def">' + v.cn_def + '</div>' +
+      '<div class="vocab-example">' + v.example + '</div>';
+    var btn = document.createElement('button');
+    btn.className = 'speak-btn';
+    btn.textContent = '🔊 Pronounce';
+    btn.addEventListener('click', (function(word) {
+      return function() {
+        var u = new SpeechSynthesisUtterance(word);
+        u.lang = 'en-US';
+        speechSynthesis.speak(u);
+      };
+    })(v.word));
+    card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+ 
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx+1) + ' of ' + data.length;
+    card.appendChild(num);
+    if (item.passage) {
+      var pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+    var qEl = document.createElement('div'); qEl.className = 'q-text'; qEl.textContent = item.q;
+    var qCn = document.createElement('div'); qCn.className = 'q-cn cn'; qCn.textContent = item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+    var optsWrap = document.createElement('div'); optsWrap.className = 'opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className = 'rationale';
+    var answered = false;
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/,'');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/,'') : '';
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.dataset.letter = letter;
+      var strong = document.createElement('strong'); strong.textContent = letter + '. ';
+      var enS = document.createElement('span'); enS.textContent = enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className = 'cn'; cnS.textContent = cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+      btn.addEventListener('click', (function(it, lb, ow, rd, sc, dn, oc, tot) {
+        return function() {
+          if (answered) return;
+          answered = true;
+          answers[it.id] = lb;
+          ow.querySelectorAll('.opt-btn').forEach(function(b) {
+            b.disabled = true;
+            if (b.dataset.letter === it.correct) b.classList.add('show-correct');
+          });
+          var ratText, ratCn, ratParts;
+          if (lb === it.correct) {
+            this.classList.add('selected-correct');
+            ratParts = it.rat_right.split('|');
+            ratText = '✅ ' + ratParts[0];
+            ratCn = ratParts[1] || '';
+            rd.className = 'rationale show correct-rat';
+            addProgress(1);
+            sc.val++;
+          } else {
+            this.classList.add('selected-wrong');
+            var wr = it.rat_wrong[lb] || '';
+            ratParts = wr.split('|');
+            ratText = '❌ ' + ratParts[0] + ' (Correct: ' + it.correct + ')';
+            ratCn = ratParts[1] || '';
+            rd.className = 'rationale show wrong-rat';
+          }
+          var rDiv = document.createElement('div'); rDiv.textContent = ratText;
+          if (ratCn) {
+            var rBr = document.createElement('br');
+            var rCnS = document.createElement('span'); rCnS.className = 'cn'; rCnS.textContent = ratCn;
+            rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+          }
+          rd.appendChild(rDiv);
+          dn.val++;
+          if (dn.val >= tot) oc();
+        };
+      })(item, letter, optsWrap, ratDiv, scoreObj, doneObj, onComplete, data.length));
+      optsWrap.appendChild(btn);
+    });
+    card.appendChild(optsWrap); card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+ 
+function checkReadiness(tabKey) {
+  var doneMap = {l1:l1Done,l2:l2Done,l3:l3Done,l4:l4Done,l5:l5Done};
+  var doneObj = doneMap[tabKey];
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey+'DownloadBtn');
+  var hint = document.getElementById(tabKey+'Hint');
+  if (ready) { btn.classList.add('ready'); hint.classList.add('hidden'); }
+  else { btn.classList.remove('ready'); hint.classList.remove('hidden'); }
+}
+ 
+function wireListeners(tabKey) {
+  ['Ref1','Ref2'].forEach(function(fld) {
+    document.getElementById(tabKey+fld).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey+'Grat').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+ 
+function tryDownload(tabKey) {
+  var doneMap = {l1:l1Done,l2:l2Done,l3:l3Done,l4:l4Done,l5:l5Done};
+  var scoreMap = {l1:l1Score,l2:l2Score,l3:l3Score,l4:l4Score,l5:l5Score};
+  var qMap = {l1:L1_Q,l2:L2_Q,l3:L3_Q,l4:L4_Q,l5:L5_Q};
+  var ansMap = {l1:l1Answers,l2:l2Answers,l3:l3Answers,l4:l4Answers,l5:l5Answers};
+  var labelMap = {l1:'American Revolution and Independence',l2:'French Revolution Part 1',l3:'French Revolution Part 2',l4:'Reign of Terror',l5:'Haitian Revolution'};
+  var doneObj = doneMap[tabKey], scoreObj = scoreMap[tabKey];
+  var qData = qMap[tabKey], ansData = ansMap[tabKey];
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+  var name = document.getElementById(tabKey+'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var txt = '================================================================\n';
+  txt += 'MLWS SOCIAL STUDIES — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Lesson: ' + labelMap[tabKey] + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+  qData.forEach(function(item, i) {
+    var sel = ansData[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_W3D2_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+ 
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+ 
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+ 
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+ 
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+ 
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+ 
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(L1_Q, 'l1QuizContainer', l1Answers, l1Score, l1Done, function(){ checkReadiness('l1'); });
+  buildQuiz(L2_Q, 'l2QuizContainer', l2Answers, l2Score, l2Done, function(){ checkReadiness('l2'); });
+  buildQuiz(L3_Q, 'l3QuizContainer', l3Answers, l3Score, l3Done, function(){ checkReadiness('l3'); });
+  buildQuiz(L4_Q, 'l4QuizContainer', l4Answers, l4Score, l4Done, function(){ checkReadiness('l4'); });
+  buildQuiz(L5_Q, 'l5QuizContainer', l5Answers, l5Score, l5Done, function(){ checkReadiness('l5'); });
+  wireListeners('l1');
+  wireListeners('l2');
+  wireListeners('l3');
+  wireListeners('l4');
+  wireListeners('l5');
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
