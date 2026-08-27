@@ -1335,11 +1335,47 @@ function renderWordCard(){
 }
 
 // ─── SPEAK ──────────────────────────────────────────────────────────────────
+var cachedVoices = [];
+function refreshVoices(){
+  if('speechSynthesis' in window){
+    cachedVoices = window.speechSynthesis.getVoices();
+  }
+}
+if('speechSynthesis' in window){
+  refreshVoices();
+  window.speechSynthesis.onvoiceschanged = refreshVoices;
+}
+function pickBestVoice(){
+  if(!cachedVoices || cachedVoices.length===0) return null;
+  // Preference order: high-quality online/natural voices first, then any
+  // Google/Microsoft branded voice, then any English voice, then anything.
+  var prefs = [
+    function(v){ return /en(-|_)?US/i.test(v.lang) && /natural|online|neural/i.test(v.name); },
+    function(v){ return /en(-|_)?GB/i.test(v.lang) && /natural|online|neural/i.test(v.name); },
+    function(v){ return /Google US English/i.test(v.name); },
+    function(v){ return /Google UK English/i.test(v.name); },
+    function(v){ return /Microsoft.*Online/i.test(v.name); },
+    function(v){ return /^Google/i.test(v.name); },
+    function(v){ return /^Microsoft/i.test(v.name); },
+    function(v){ return /Samantha|Karen|Daniel|Moira|Tessa/i.test(v.name); }, // decent built-in Apple voices
+    function(v){ return /en(-|_)?US/i.test(v.lang); },
+    function(v){ return /^en/i.test(v.lang); }
+  ];
+  for(var i=0;i<prefs.length;i++){
+    for(var j=0;j<cachedVoices.length;j++){
+      if(prefs[i](cachedVoices[j])) return cachedVoices[j];
+    }
+  }
+  return cachedVoices[0];
+}
 function doSpeak(){
   if('speechSynthesis' in window){
+    if(!cachedVoices || cachedVoices.length===0) refreshVoices();
     window.speechSynthesis.cancel();
     var u=new SpeechSynthesisUtterance(CW[1]);
-    u.lang='en-US'; u.rate=0.85;
+    var v=pickBestVoice();
+    if(v){ u.voice=v; u.lang=v.lang; } else { u.lang='en-US'; }
+    u.rate=0.92; u.pitch=1.0;
     window.speechSynthesis.speak(u);
   }
   document.getElementById('speak-done-btn').style.display='block';
