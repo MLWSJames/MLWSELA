@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Lab — Vocabulary Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFE7D8;
+    --paper-line:#D9CFB8;
+    --card:#FFFDF8;
+    --ink:#22303F;
+    --ink-soft:#5B6B74;
+    --green:#3B6255;
+    --green-dark:#26443A;
+    --green-tint:#E4EBE6;
+    --rust:#BE5A2A;
+    --rust-tint:#F5E4D8;
+    --gold:#C8932B;
+    --gold-tint:#F6EAD1;
+    --radius:14px;
+    --shadow: 0 1px 0 rgba(34,48,63,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px);
+    background-size: 100% 42px;
+    color:var(--ink);
+    font-family:'Atkinson Hyperlegible', sans-serif;
+    font-size:17px;
+    line-height:1.5;
+    min-height:100vh;
+  }
+  h1,h2,h3,.serif{font-family:'Source Serif 4', serif;}
+  button{font-family:inherit;}
+  .app{max-width:1080px;margin:0 auto;padding:28px 20px 60px;}
+
+  /* ---------- Header ---------- */
+  .masthead{
+    display:flex; align-items:baseline; justify-content:space-between;
+    flex-wrap:wrap; gap:10px 24px;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:14px; margin-bottom:22px;
+  }
+  .masthead h1{
+    font-size:clamp(28px,4.4vw,40px);
+    font-weight:700; margin:0; letter-spacing:.2px; color:var(--green-dark);
+  }
+  .masthead .tag{
+    color:var(--ink-soft); font-size:14.5px; max-width:360px;
+  }
+
+  /* ---------- Mode tabs (catalog drawer look) ---------- */
+  .drawer{
+    display:flex; gap:6px; flex-wrap:wrap; margin-bottom:22px;
+  }
+  .drawer button{
+    background:var(--card);
+    border:1.5px solid var(--ink);
+    border-bottom-width:4px;
+    border-radius:8px 8px 4px 4px;
+    padding:9px 15px;
+    font-size:14.5px; font-weight:700;
+    color:var(--ink);
+    cursor:pointer;
+    transition:transform .12s ease;
+  }
+  .drawer button:hover{transform:translateY(-1px);}
+  .drawer button.active{
+    background:var(--green); color:#fff; border-color:var(--green-dark);
+  }
+
+  /* ---------- Layout: sidebar + stage ---------- */
+  .layout{display:grid; grid-template-columns:250px 1fr; gap:22px;}
+  @media (max-width:760px){ .layout{grid-template-columns:1fr;} }
+
+  .sidebar{
+    background:var(--card); border:1px solid var(--paper-line);
+    border-radius:var(--radius); padding:14px; height:fit-content;
+  }
+  .sidebar input[type=search]{
+    width:100%; padding:9px 10px; border-radius:8px;
+    border:1.5px solid var(--paper-line); font-size:14.5px;
+    font-family:inherit; margin-bottom:10px; background:#fff;
+  }
+  .pos-filter{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px;}
+  .pos-chip{
+    font-size:12px; font-weight:700; padding:4px 9px; border-radius:99px;
+    border:1.5px solid var(--paper-line); cursor:pointer; background:#fff; color:var(--ink-soft);
+  }
+  .pos-chip.on{background:var(--green); border-color:var(--green-dark); color:#fff;}
+  .word-list{list-style:none; margin:0; padding:0; max-height:520px; overflow-y:auto;}
+  .word-list li button{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    padding:8px 8px; border-radius:8px; font-size:15px; color:var(--ink);
+    display:flex; justify-content:space-between; gap:8px; align-items:center;
+  }
+  .word-list li button:hover{background:var(--green-tint);}
+  .word-list li button.current{background:var(--green); color:#fff;}
+  .word-list .num{color:var(--ink-soft); font-size:12px; font-variant-numeric:tabular-nums;}
+  .word-list li button.current .num{color:#dfe9e4;}
+
+  .stage{min-height:520px;}
+
+  /* ---------- Specimen Card ---------- */
+  .specimen{
+    background:var(--card); border:1px solid var(--paper-line);
+    border-radius:var(--radius); overflow:hidden;
+  }
+  .specimen-tab{
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--green); color:#fff; padding:12px 20px;
+  }
+  .specimen-tab .cat-num{font-family:'Source Serif 4',serif; font-weight:700; letter-spacing:.5px; opacity:.85;}
+  .pos-badge{
+    display:inline-block; font-size:12px; font-weight:700; text-transform:lowercase;
+    padding:3px 10px; border-radius:99px; background:rgba(255,255,255,.18);
+  }
+  .specimen-body{padding:22px 24px 26px;}
+  .specimen-word{
+    font-size:clamp(26px,4vw,34px); font-weight:700; color:var(--green-dark); margin:0 0 4px;
+  }
+  .specimen-def{font-size:18px; margin:0 0 20px; color:var(--ink);}
+  .quad{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px;
+  }
+  @media (max-width:520px){ .quad{grid-template-columns:1fr;} }
+  .quad-box{
+    border:1.5px solid var(--paper-line); border-radius:10px; padding:12px 14px; background:#fff;
+  }
+  .quad-box h4{
+    margin:0 0 8px; font-size:12.5px; text-transform:uppercase; letter-spacing:.6px;
+    color:var(--ink-soft); font-family:'Atkinson Hyperlegible',sans-serif; font-weight:700;
+  }
+  .pillrow{display:flex; flex-wrap:wrap; gap:6px;}
+  .pill{
+    font-size:13.5px; padding:4px 10px; border-radius:99px;
+  }
+  .pill.syn{background:var(--green-tint); color:var(--green-dark);}
+  .pill.ant{background:var(--rust-tint); color:var(--rust);}
+  .empty-pill{color:var(--ink-soft); font-size:13.5px; font-style:italic;}
+
+  .family-table{width:100%; border-collapse:collapse; font-size:14.5px; margin-bottom:18px;}
+  .family-table th{
+    text-align:left; font-size:12px; text-transform:uppercase; letter-spacing:.5px;
+    color:var(--ink-soft); border-bottom:1.5px solid var(--paper-line); padding:6px 8px;
+  }
+  .family-table td{padding:7px 8px; border-bottom:1px solid var(--paper-line); vertical-align:top;}
+
+  .sketch-block{border-top:1.5px dashed var(--paper-line); padding-top:16px;}
+  .sketch-block h4{margin:0 0 8px; font-size:14px; color:var(--ink-soft); font-weight:700;}
+  .sketch-wrap{
+    display:flex; gap:14px; flex-wrap:wrap; align-items:flex-start;
+  }
+  canvas.pad{
+    background:#fff; border:1.5px solid var(--paper-line); border-radius:10px;
+    touch-action:none; cursor:crosshair;
+  }
+  .pad-controls{display:flex; flex-direction:column; gap:8px;}
+  .btn{
+    border:1.5px solid var(--ink); background:var(--card); border-radius:8px;
+    padding:7px 13px; font-size:13.5px; font-weight:700; cursor:pointer; color:var(--ink);
+  }
+  .btn.primary{background:var(--green); border-color:var(--green-dark); color:#fff;}
+  .btn.rust{background:var(--rust); border-color:#8a3f18; color:#fff;}
+  .btn:disabled{opacity:.45; cursor:default;}
+
+  .stage-nav{display:flex; justify-content:space-between; margin-top:16px;}
+
+  /* ---------- Word family builder ---------- */
+  .builder-card{
+    background:var(--card); border:1px solid var(--paper-line); border-radius:var(--radius);
+    padding:22px 24px;
+  }
+  .builder-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px;}
+  .builder-head h2{margin:0; color:var(--green-dark);}
+  .form-row{
+    display:grid; grid-template-columns:110px 1fr auto; gap:10px; align-items:center;
+    padding:10px 0; border-bottom:1px solid var(--paper-line);
+  }
+  .form-row label{font-weight:700; color:var(--ink-soft); font-size:14px;}
+  .form-row input{
+    padding:8px 10px; border:1.5px solid var(--paper-line); border-radius:8px;
+    font-family:inherit; font-size:15px; width:100%;
+  }
+  .reveal-word{font-size:13px; color:var(--ink-soft); background:var(--gold-tint); padding:4px 8px; border-radius:6px; display:none;}
+  .reveal-word.show{display:inline-block;}
+
+  /* ---------- Flashcards ---------- */
+  .flash-wrap{display:flex; flex-direction:column; align-items:center; gap:18px;}
+  .flash-progress{font-size:13.5px; color:var(--ink-soft);}
+  .flashcard{
+    width:min(480px,90vw); height:280px; perspective:1200px; cursor:pointer;
+  }
+  .flashcard-inner{
+    position:relative; width:100%; height:100%; transition:transform .5s;
+    transform-style:preserve-3d;
+  }
+  .flashcard.flipped .flashcard-inner{transform:rotateY(180deg);}
+  .flash-face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius:16px; border:1.5px solid var(--ink);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:24px; text-align:center; background:var(--card);
+  }
+  .flash-face.front{ }
+  .flash-face.back{ transform:rotateY(180deg); background:var(--green-tint); }
+  .flash-face .big-word{font-size:32px; font-weight:700; color:var(--green-dark);}
+  .flash-face #playAudio{margin-top:12px;}
+  .flash-face .hint{font-size:13px; color:var(--ink-soft); margin-top:10px;}
+  .flash-face .back-def{font-size:19px; margin-bottom:12px;}
+  .rate-row{display:flex; gap:10px;}
+
+  /* ---------- Match It ---------- */
+  .match-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  @media (max-width:600px){ .match-grid{grid-template-columns:1fr;} }
+  .match-col h3{margin:0 0 10px; font-size:14px; text-transform:uppercase; letter-spacing:.5px; color:var(--ink-soft);}
+  .match-item{
+    display:block; width:100%; text-align:left; margin-bottom:8px;
+    padding:11px 13px; border-radius:10px; border:1.5px solid var(--paper-line);
+    background:var(--card); font-size:15px; cursor:pointer;
+  }
+  .match-item.selected{border-color:var(--green); background:var(--green-tint);}
+  .match-item.correct{border-color:var(--gold); background:var(--gold-tint); cursor:default;}
+  .match-item.wrong{border-color:var(--rust); background:var(--rust-tint);}
+  .match-item:disabled{cursor:default;}
+  .match-status{margin-top:14px; font-size:14.5px; color:var(--ink-soft);}
+
+  /* ---------- Quiz ---------- */
+  .quiz-card{background:var(--card); border:1px solid var(--paper-line); border-radius:var(--radius); padding:24px; max-width:640px; margin:0 auto;}
+  .quiz-q{font-size:19px; margin-bottom:18px;}
+  .quiz-opt{
+    display:block; width:100%; text-align:left; padding:12px 14px; margin-bottom:9px;
+    border-radius:10px; border:1.5px solid var(--paper-line); background:#fff; font-size:15px; cursor:pointer;
+  }
+  .quiz-opt:hover{border-color:var(--green);}
+  .quiz-opt.correct{background:var(--gold-tint); border-color:var(--gold);}
+  .quiz-opt.wrong{background:var(--rust-tint); border-color:var(--rust);}
+  .quiz-opt:disabled{cursor:default;}
+  .quiz-score{font-size:14px; color:var(--ink-soft); margin-bottom:10px;}
+  .quiz-foot{display:flex; justify-content:space-between; align-items:center; margin-top:16px;}
+
+  .setup-row{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:18px;}
+  .setup-row select{
+    padding:8px 10px; border-radius:8px; border:1.5px solid var(--paper-line); font-family:inherit; font-size:14.5px;
+  }
+  .center-note{color:var(--ink-soft); font-size:14.5px; text-align:center; padding:40px 20px;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="masthead">
+    <h1>Word Lab</h1>
+    <div class="tag">A vocabulary field guide — 55 specimens, five ways to study each one.</div>
+  </div>
+
+  <div class="drawer" id="modeTabs"></div>
+
+  <div id="stageRoot"></div>
+</div>
+
+<script>
+const WORDS = [{"num": 1, "word": "annual", "pos": "adjective", "definition": "occurring or returning once a year", "synonyms": ["once a year", "every year"], "antonyms": [], "forms": {"noun": "annual", "verb": "annualise", "pastTense": "annualised", "adjective": "annual", "adverb": "annually"}}, {"num": 2, "word": "apparent", "pos": "adjective", "definition": "able to be easily seen or understood", "synonyms": ["clear", "distinct", "obvious"], "antonyms": ["unclear", "obscure", "unapparent"], "forms": {"noun": "apparentness", "verb": "appear", "pastTense": "appeared", "adjective": "apparent", "adverb": "apparently"}}, {"num": 3, "word": "commit", "pos": "verb", "definition": "to do", "synonyms": ["accomplish", "to carry out", "execute"], "antonyms": ["disengage", "abandon"], "forms": {"noun": "commitment", "verb": "commit", "pastTense": "committed", "adjective": "committed", "adverb": "committedly"}}, {"num": 4, "word": "contrast", "pos": "verb", "definition": "to compare in order to show differences", "synonyms": ["compare", "differentiate", "distinguish"], "antonyms": ["similarity", "comparison", "likeness"], "forms": {"noun": "contrast", "verb": "contrast", "pastTense": "contrasted", "adjective": "contrasting", "adverb": "contrastingly"}}, {"num": 5, "word": "goal", "pos": "noun", "definition": "What your effort is directed toward", "synonyms": ["objective", "aim", "target"], "antonyms": ["obstacle", "hurdle", "barrier"], "forms": {"noun": "goal", "verb": "goal (rarely used)", "pastTense": "Gained (used when referring to achieving a goal)", "adjective": "goal-oriented", "adverb": ""}}, {"num": 6, "word": "grant", "pos": "verb", "definition": "To give, especially by a formal act", "synonyms": ["allow", "bestow", "permit"], "antonyms": ["deny", "refuse", "withhold"], "forms": {"noun": "grant", "verb": "grant", "pastTense": "granted", "adjective": "granted", "adverb": "granted"}}, {"num": 7, "word": "label", "pos": "noun", "definition": "A short word or phrase describing a person, group, category etc…", "synonyms": ["tag", "mark", "sticker"], "antonyms": ["unlabel", "untagged", "unmarked"], "forms": {"noun": "label", "verb": "label", "pastTense": "labelled", "adjective": "Labelled", "adverb": "Labelingly (not common)"}}, {"num": 8, "word": "phase", "pos": "noun", "definition": "A stage in a process of change or development", "synonyms": ["stage", "period", "step"], "antonyms": ["whole", "entirety", "constant"], "forms": {"noun": "phase", "verb": "phase", "pastTense": "phased", "adjective": "phased", "adverb": "*Phasally (not common)"}}, {"num": 9, "word": "approximate", "pos": "verb/adj", "definition": "not perfectly correct, but near or close", "synonyms": ["estimated", "near", "close"], "antonyms": ["exact", "precise", "accurate"], "forms": {"noun": "approximation", "verb": "approximate", "pastTense": "approximated", "adjective": "approximate", "adverb": "approximately"}}, {"num": 10, "word": "predict", "pos": "verb", "definition": "To declare, guess or tell beforehand", "synonyms": ["forecast", "foretell", "anticipate"], "antonyms": ["retrodict", "hindsight", "explain"], "forms": {"noun": "prediction", "verb": "predict", "pastTense": "predicted", "adjective": "predictable / predictive", "adverb": "Predictably / predictively"}}, {"num": 11, "word": "sustain", "pos": "verb", "definition": "to keep something going or to support it so it doesn’t stop or fall apart.", "synonyms": ["Maintain", "Preserve", "Continue", "support"], "antonyms": ["Abandon", "Discontinue", "Neglect", "Halt", "stop"], "forms": {"noun": "Sustainability / sustainer", "verb": "Sustain / sustains", "pastTense": "sustained", "adjective": "sustainable", "adverb": "-"}}, {"num": 12, "word": "resilient", "pos": "adjective", "definition": "Being able to bounce back after something hard happens. It’s when you stay strong, even if things don’t go your way.", "synonyms": ["Strong", "Tough", "Buoyant", "flexible"], "antonyms": ["Fragile", "Sensitive", "Weak", "delicate"], "forms": {"noun": "resilience", "verb": "resile (not common)", "pastTense": "resiled ( not commonly used)", "adjective": "resilient", "adverb": "resiliently"}}, {"num": 13, "word": "series", "pos": "noun", "definition": "A group or number of related or similar things arranged in order", "synonyms": ["sequence", "succession"], "antonyms": ["disarray", "disconnection"], "forms": {"noun": "series", "verb": "serialize", "pastTense": "serialized", "adjective": "serial", "adverb": "serially"}}, {"num": 14, "word": "statistic", "pos": "noun", "definition": "A numerical (number) fact.", "synonyms": ["data", "information"], "antonyms": ["anecdotal", "non-statistical"], "forms": {"noun": "statistic", "verb": "statisticize", "pastTense": "statisticized", "adjective": "Statistical", "adverb": "statistically"}}, {"num": 15, "word": "attitude", "pos": "noun", "definition": "a manner, feeling or position in relation to a person or thing", "synonyms": ["perspective", "outlook"], "antonyms": ["indifference", "apathy"], "forms": {"noun": "attitude", "verb": "attitudinize ( very rare)", "pastTense": "attitudinized", "adjective": "attitudinal", "adverb": "attitudinally"}}, {"num": 16, "word": "attribute", "pos": "noun", "definition": "A characteristic or quality belonging to a person, group or thing.", "synonyms": ["quality", "characteristic"], "antonyms": ["deficiency", "shortcoming"], "forms": {"noun": "Attribute", "verb": "attribute", "pastTense": "attributed", "adjective": "attributive", "adverb": "attributively"}}, {"num": 17, "word": "trauma", "pos": "noun", "definition": "a deeply distressing or disturbing experience.", "synonyms": ["Shock", "Distress", "Agony", "Grief", "torment"], "antonyms": ["Comfort", "Relief", "Peace", "Joy", "contentment"], "forms": {"noun": "trauma", "verb": "traumatize", "pastTense": "tramatized", "adjective": "traumatic", "adverb": "traumatically"}}, {"num": 18, "word": "character", "pos": "noun", "definition": "refers to the set of moral, ethical, and mental qualities that define a person’s nature.", "synonyms": ["Personality", "Identity", "principles"], "antonyms": ["Corruption", "Unreliability", "imorality"], "forms": {"noun": "character", "verb": "characterize", "pastTense": "characterized", "adjective": "characteristic", "adverb": "characteristically"}}, {"num": 19, "word": "certain", "pos": "adjective", "definition": "describes something known for sure, established beyond doubt, or guaranteed to happen.", "synonyms": ["Confident", "Positive", "Secure", "assured"], "antonyms": ["Uncertain", "Doubtful", "Hesitant", "undecisive"], "forms": {"noun": "certainty", "verb": "-", "pastTense": "-", "adjective": "certain", "adverb": "certainly"}}, {"num": 20, "word": "consequence", "pos": "noun", "definition": "the result or effect of an action, decision, or event.", "synonyms": ["Outcome", "Result", "effect"], "antonyms": ["Cause", "Origin", "source"], "forms": {"noun": "Consequence", "verb": "-", "pastTense": "-", "adjective": "consequential", "adverb": "consequentially"}}, {"num": 21, "word": "cycle", "pos": "verb", "definition": "to move or revolve in cycles", "synonyms": ["rotate", "revolve"], "antonyms": ["halt", "stop"], "forms": {"noun": "cycle", "verb": "cycle", "pastTense": "cycled", "adjective": "cyclical", "adverb": "cyclically"}}, {"num": 22, "word": "culture", "pos": "noun", "definition": "the shared beliefs, values, customs, behaviors, and artifacts that characterize a group or society.", "synonyms": ["civilization", "society", "heritage", "traditions"], "antonyms": ["savagery", "barbarism", "ignorance", "crudeness"], "forms": {"noun": "culture", "verb": "cultivate", "pastTense": "cultivated", "adjective": "cultural", "adverb": "culturally"}}, {"num": 23, "word": "impact", "pos": "noun", "definition": "the strong effect or influence that something has on a person, situation, system, or environment.", "synonyms": ["Effect", "Influence", "Outcome", "result"], "antonyms": ["Irrelevant", "Insignificant"], "forms": {"noun": "impact", "verb": "impact", "pastTense": "impacted", "adjective": "impactful", "adverb": "impactfully"}}, {"num": 24, "word": "survive", "pos": "verb", "definition": "continue to live or exist, especially in spite of danger, hardship, or adversity.", "synonyms": ["Endure", "Persist", "withstand"], "antonyms": ["Perish", "Succumb", "collapse"], "forms": {"noun": "survival", "verb": "survive", "pastTense": "survived", "adjective": "surviving", "adverb": "survivably (not common)"}}, {"num": 25, "word": "contribute", "pos": "verb", "definition": "to give, offer, or add something—such as time, effort, ideas, or resources—toward a common goal, cause, or outcome.", "synonyms": ["Donate", "Offer", "provide"], "antonyms": ["Withhold", "Take", "remove"], "forms": {"noun": "contribution", "verb": "contribute", "pastTense": "contributed", "adjective": "contributive / contributory", "adverb": "contributively"}}, {"num": 26, "word": "manipulate", "pos": "verb", "definition": "to skillfully handle, control, or influence something or someone—often with precision, but sometimes with hidden or unfair intent.", "synonyms": ["Operate", "Handle", "control"], "antonyms": ["Mismanage", "Mishandle", "fumble"], "forms": {"noun": "manipulation", "verb": "manipulate", "pastTense": "manipulated", "adjective": "manipulative", "adverb": "manipulatively"}}, {"num": 27, "word": "hypothesis", "pos": "noun", "definition": "A proposal (idea) put forward to explain an observation, or to predict an experiment’s outcome", "synonyms": ["theory", "proposition"], "antonyms": ["fact", "truth"], "forms": {"noun": "hypothesis", "verb": "hypothesize", "pastTense": "hypothesized", "adjective": "hypothetical", "adverb": "hypothetically"}}, {"num": 28, "word": "integrate", "pos": "verb", "definition": "To bring together, combine or unite", "synonyms": ["combine", "unite"], "antonyms": ["segregate", "divide"], "forms": {"noun": "integration", "verb": "integrate", "pastTense": "integrated", "adjective": "integrative", "adverb": "Integratively (rare)"}}, {"num": 29, "word": "hence", "pos": "adverb", "definition": "For this reason", "synonyms": ["therefore", "thus"], "antonyms": [], "forms": {"noun": "-", "verb": "-", "pastTense": "-", "adjective": "-", "adverb": "hence"}}, {"num": 30, "word": "mechanism", "pos": "noun", "definition": "An assembly of moving parts that work together to move (machinery)", "synonyms": ["systems", "machinery"], "antonyms": ["manual", "organic"], "forms": {"noun": "mechanisms", "verb": "mechanize", "pastTense": "mechanized", "adjective": "mechanistic", "adverb": "mechanistically"}}, {"num": 31, "word": "obvious", "pos": "adjective", "definition": "Easily seen or understood", "synonyms": ["clear", "evident"], "antonyms": ["hidden", "vague"], "forms": {"noun": "obviousness", "verb": "obviate (verb form, but with a different meaning)", "pastTense": "-", "adjective": "obvious", "adverb": "obviously"}}, {"num": 32, "word": "occupy", "pos": "verb", "definition": "to take or fill up space (or time)", "synonyms": ["fill", "inhabit"], "antonyms": ["vacate", "abandon"], "forms": {"noun": "occupation", "verb": "occupy", "pastTense": "occupied", "adjective": "occupied", "adverb": "occupationally"}}, {"num": 33, "word": "prior", "pos": "adjective", "definition": "Coming before in time or order", "synonyms": ["Previous", "Former", "Earlier"], "antonyms": ["Subsequent", "Later", "Following"], "forms": {"noun": "prior", "verb": "prioritize", "pastTense": "prioritized", "adjective": "prior", "adverb": "priorly"}}, {"num": 34, "word": "professional", "pos": "adjective", "definition": "Related to a profession/career", "synonyms": ["skilled", "expert", "competent"], "antonyms": ["amateur", "unprofessional", "inexperienced"], "forms": {"noun": "professional", "verb": "professionalize", "pastTense": "professionalized", "adjective": "professional", "adverb": "professionally"}}, {"num": 35, "word": "status", "pos": "noun", "definition": "The position of an individual in relation to others", "synonyms": ["position", "condition", "standing"], "antonyms": ["disgrace", "shame", "obscurity"], "forms": {"noun": "status", "verb": "statusfy (less common)", "pastTense": "statusfied (less common)", "adjective": "status-related", "adverb": "status-wise"}}, {"num": 36, "word": "stress", "pos": "verb", "definition": "to emphasize", "synonyms": ["emphasize", "highlight", "accentuate"], "antonyms": ["downplay", "de-emphasize", "ignore"], "forms": {"noun": "Stress / Stressor (agent causing stress)", "verb": "stress", "pastTense": "Stressed", "adjective": "Stressful", "adverb": "Stressfully"}}, {"num": 37, "word": "summary", "pos": "noun", "definition": "A (brief) retelling of something that only includes the main points", "synonyms": ["synopsis", "abstract", "overview"], "antonyms": ["elaboration", "expansion", "detail"], "forms": {"noun": "summary", "verb": "summarize", "pastTense": "summarized", "adjective": "summary", "adverb": "summarily"}}, {"num": 38, "word": "project", "pos": "noun", "definition": "Something that is created or planned, especially something that involves a lot of human effort, money, time, etc…", "synonyms": ["venture", "assignment", "task"], "antonyms": ["abandon", "halt", "cancel"], "forms": {"noun": "project", "verb": "project", "pastTense": "projected", "adjective": "projected", "adverb": "projectedly"}}, {"num": 39, "word": "access", "pos": "verb", "definition": "To have the ability or right to approach, enter, speak with or use", "synonyms": ["enter", "reach", "obtain"], "antonyms": ["block", "deny", "prevent"], "forms": {"noun": "access", "verb": "access", "pastTense": "accessed", "adjective": "accessible", "adverb": "accessibly"}}, {"num": 40, "word": "communicate", "pos": "verb", "definition": "To express thoughts, feelings, or knowledge", "synonyms": ["convey", "transmit", "express"], "antonyms": ["withhold", "suppress", "hide"], "forms": {"noun": "communication", "verb": "communicate", "pastTense": "communicated", "adjective": "communicative", "adverb": "communicatively"}}, {"num": 41, "word": "internal", "pos": "adjective", "definition": "Existing inside of something; relating to the interior/inside of something", "synonyms": ["inner", "inside", "inward"], "antonyms": ["external", "externalized", "outer"], "forms": {"noun": "Internality", "verb": "Internalize", "pastTense": "Internalized", "adjective": "Internal", "adverb": "Internally"}}, {"num": 42, "word": "parallel", "pos": "adjective", "definition": "Extending in the same direction", "synonyms": ["Aligned", "Concurrent"], "antonyms": ["Perpendicular", "Intersecting"], "forms": {"noun": "Parallelism", "verb": "Parallel", "pastTense": "Paralleled", "adjective": "parallel", "adverb": "Parallely"}}, {"num": 43, "word": "resolve", "pos": "verb", "definition": "To come to a decision about (something)", "synonyms": ["decide", "determine"], "antonyms": ["hesitate", "waver"], "forms": {"noun": "resolution", "verb": "resolve", "pastTense": "resolved", "adjective": "resolved", "adverb": "resolvedly"}}, {"num": 44, "word": "evidence", "pos": "noun", "definition": "information or facts that provide proof or support for a belief, claim, or argument.", "synonyms": ["proof", "verification"], "antonyms": ["rejection", "discrediting"], "forms": {"noun": "evidence", "verb": "evidence", "pastTense": "evidenced", "adjective": "evidential", "adverb": "evidentially"}}, {"num": 45, "word": "dystopia", "pos": "noun", "definition": "an imagined state or society in which there is great suffering or injustice, typically one that is totalitarian or post-apocalyptic", "synonyms": ["nightmare", "catastrophe"], "antonyms": ["utopia", "paradise"], "forms": {"noun": "dystopia", "verb": "dystopify (less common)", "pastTense": "dystopified (less common)", "adjective": "dystopian", "adverb": "dystopianly (less common)"}}, {"num": 46, "word": "adequate", "pos": "adjective", "definition": "as much or as good as necessary; barely enough", "synonyms": ["sufficient", "suitable"], "antonyms": ["inadequate", "insufficient"], "forms": {"noun": "Adequacy", "verb": "Adequate", "pastTense": "-", "adjective": "adequate", "adverb": "Adequately"}}, {"num": 47, "word": "concentrate", "pos": "verb", "definition": "To focus one’s attention; to gather everything to a single point (a center).", "synonyms": ["focus", "center"], "antonyms": ["distract", "disperse"], "forms": {"noun": "concentration", "verb": "concentrate", "pastTense": "concentrated", "adjective": "concentrated", "adverb": "concentratedly"}}, {"num": 48, "word": "investigate", "pos": "verb", "definition": "To search or examine in detail, systematically", "synonyms": ["examine", "probe", "inspect"], "antonyms": ["overlook", "ignore", "neglect"], "forms": {"noun": "investigation", "verb": "investigate", "pastTense": "investigated", "adjective": "investigated", "adverb": "investigatively"}}, {"num": 49, "word": "parameter", "pos": "noun", "definition": "A variable, restriction or guideline.  Parameters are commonly used in math & statistics.", "synonyms": ["variable", "criterion"], "antonyms": ["constant", "fixed value"], "forms": {"noun": "parameter", "verb": "Parameterise", "pastTense": "Parameterised", "adjective": "Parametric", "adverb": "Parametrically"}}, {"num": 50, "word": "retain", "pos": "verb", "definition": "To keep, hold or remember (keep in mind)", "synonyms": ["keep", "maintain", "preserve"], "antonyms": ["release", "let go", "dispose"], "forms": {"noun": "retention", "verb": "retain", "pastTense": "retained", "adjective": "retained", "adverb": "retainably"}}, {"num": 51, "word": "error", "pos": "noun", "definition": "A belief in something untrue", "synonyms": ["mistake", "inaccuracy"], "antonyms": ["accuracy", "correctness"], "forms": {"noun": "error", "verb": "err", "pastTense": "erred", "adjective": "erroneous", "adverb": "erroneously"}}, {"num": 52, "word": "explain", "pos": "verb", "definition": "to make something clear or understandable.", "synonyms": ["clarify", "illustrate", "demonstrate", "interpret", "elucidate", "expound"], "antonyms": ["confuse", "obscure", "cloud", "mislead", "distort", "obfuscate"], "forms": {"noun": "Explanation / explainer", "verb": "explain", "pastTense": "explained", "adjective": "explanatory", "adverb": "explanatorily"}}, {"num": 53, "word": "discuss", "pos": "verb", "definition": "to talk about something in detail.", "synonyms": ["debate", "argue", "confer", "consider", "examine", "review", "talk over"], "antonyms": ["ignore", "avoid", "evade", "bypass", "neglect", "be silent"], "forms": {"noun": "discussion", "verb": "discuss", "pastTense": "discussed", "adjective": "discussable", "adverb": "discussedly"}}, {"num": 54, "word": "analyze", "pos": "verb", "definition": "to examine something in detail.", "synonyms": ["examine", "evaluate", "investigate", "scrutinize", "dissect", "assess", "study"], "antonyms": ["synthesize", "combine", "ignore", "overlook", "unify", "integrate"], "forms": {"noun": "Analysis / analyst", "verb": "analyze", "pastTense": "analyzed", "adjective": "analytical", "adverb": "analytically"}}, {"num": 55, "word": "describe", "pos": "verb", "definition": "to give details about something.", "synonyms": ["depict", "portray", "explain", "narrate", "outline", "illustrate", "recount"], "antonyms": ["misrepresent", "distort", "falsify", "confuse", "twist", "misstate"], "forms": {"noun": "description / describer", "verb": "describe", "pastTense": "described", "adjective": "descriptive", "adverb": "descriptively"}}];
+
+const POS_LABEL = {
+  noun:'noun', verb:'verb', adjective:'adj.', adverb:'adv.', 'verb/adj':'verb / adj.'
+};
+
+let state = {
+  mode: 'specimen',
+  currentIndex: 0,
+  search: '',
+  posFilter: null,
+  flash: { deck: [], i: 0, flipped: false, known: 0, learning: 0, done:false },
+  match: { pool: [], leftOrder: [], rightOrder: [], selectedLeft:null, matched:new Set(), wrong:null, mode:'definition' },
+  quiz: { pool: [], i:0, score:0, mode:'def2word', answered:false, options:[], correctIdx:null, chosenIdx:null, count:10, finished:false }
+};
+
+const sketches = {}; // wordNum -> dataURL
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function filteredWords(){
+  return WORDS.filter(w=>{
+    const matchesSearch = !state.search || w.word.toLowerCase().includes(state.search.toLowerCase());
+    const matchesPos = !state.posFilter || w.pos === state.posFilter;
+    return matchesSearch && matchesPos;
+  });
+}
+
+/* ---------------- Mode tabs ---------------- */
+const MODES = [
+  {id:'specimen', label:'Specimen Card'},
+  {id:'family', label:'Word Family'},
+  {id:'flash', label:'Flashcards'},
+  {id:'match', label:'Match It'},
+  {id:'quiz', label:'Quiz Me'}
+];
+
+function renderTabs(){
+  const el = document.getElementById('modeTabs');
+  el.innerHTML = MODES.map(m=>`<button data-mode="${m.id}" class="${state.mode===m.id?'active':''}">${m.label}</button>`).join('');
+  Array.from(el.querySelectorAll('button')).forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      state.mode = btn.dataset.mode;
+      if(state.mode==='flash') setupFlash();
+      if(state.mode==='match') setupMatch();
+      if(state.mode==='quiz' && state.quiz.pool.length===0) {} // wait for setup screen
+      render();
+    });
+  });
+}
+
+/* ================= SPECIMEN CARD MODE ================= */
+function renderSidebar(showList){
+  const words = filteredWords();
+  return `
+  <div class="sidebar">
+    <input type="search" placeholder="Search a word..." value="${state.search}" id="searchBox">
+    <div class="pos-filter" id="posFilter">
+      ${['noun','verb','adjective','adverb','verb/adj'].map(p=>`<span class="pos-chip ${state.posFilter===p?'on':''}" data-pos="${p}">${POS_LABEL[p]}</span>`).join('')}
+    </div>
+    <ul class="word-list" id="wordListUl">
+      ${words.map(w=>`<li><button data-num="${w.num}" class="${w.num===state.currentIndex?'current':''}"><span>${w.word}</span><span class="num">#${String(w.num).padStart(2,'0')}</span></button></li>`).join('')}
+    </ul>
+  </div>`;
+}
+
+function bindSidebar(onPick){
+  document.getElementById('searchBox').addEventListener('input', (e)=>{ state.search = e.target.value; render(); });
+  Array.from(document.querySelectorAll('#posFilter .pos-chip')).forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      const p = chip.dataset.pos;
+      state.posFilter = state.posFilter===p ? null : p;
+      render();
+    });
+  });
+  Array.from(document.querySelectorAll('#wordListUl button')).forEach(btn=>{
+    btn.addEventListener('click', ()=>{ onPick(parseInt(btn.dataset.num)); render(); });
+  });
+}
+
+function getWordByNum(n){ return WORDS.find(w=>w.num===n) || WORDS[0]; }
+
+function renderSpecimenMode(){
+  const w = getWordByNum(state.currentIndex || WORDS[0].num);
+  const forms = w.forms;
+  const html = `
+  <div class="layout">
+    ${renderSidebar()}
+    <div class="stage">
+      <div class="specimen">
+        <div class="specimen-tab">
+          <span class="cat-num">Specimen #${String(w.num).padStart(2,'0')}</span>
+          <span class="pos-badge">${POS_LABEL[w.pos]||w.pos}</span>
+        </div>
+        <div class="specimen-body">
+          <h2 class="specimen-word">${w.word}</h2>
+          <p class="specimen-def">${w.definition}</p>
+
+          <div class="quad">
+            <div class="quad-box">
+              <h4>Synonyms — feels the same</h4>
+              <div class="pillrow">${w.synonyms.length? w.synonyms.map(s=>`<span class="pill syn">${s}</span>`).join('') : '<span class="empty-pill">none listed</span>'}</div>
+            </div>
+            <div class="quad-box">
+              <h4>Antonyms — feels opposite</h4>
+              <div class="pillrow">${w.antonyms.length? w.antonyms.map(s=>`<span class="pill ant">${s}</span>`).join('') : '<span class="empty-pill">none listed</span>'}</div>
+            </div>
+          </div>
+
+          <table class="family-table">
+            <tr><th>Noun</th><th>Verb</th><th>Past tense</th><th>Adjective</th><th>Adverb</th></tr>
+            <tr>
+              <td>${forms.noun||'—'}</td>
+              <td>${forms.verb||'—'}</td>
+              <td>${forms.pastTense||'—'}</td>
+              <td>${forms.adjective||'—'}</td>
+              <td>${forms.adverb||'—'}</td>
+            </tr>
+          </table>
+
+          <div class="sketch-block">
+            <h4>Draw a picture or symbol to help you remember "${w.word}"</h4>
+            <div class="sketch-wrap">
+              <canvas class="pad" id="sketchPad" width="260" height="150"></canvas>
+              <div class="pad-controls">
+                <button class="btn" id="clearPad">Clear</button>
+                <span style="font-size:12.5px;color:var(--ink-soft);max-width:150px;">Draw with your mouse or finger. Your sketch stays for this session.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-nav">
+        <button class="btn" id="prevWord">&larr; Previous</button>
+        <button class="btn" id="nextWord">Next &rarr;</button>
+      </div>
+    </div>
+  </div>`;
+  document.getElementById('stageRoot').innerHTML = html;
+  bindSidebar((n)=>{ state.currentIndex = n; });
+
+  document.getElementById('prevWord').addEventListener('click', ()=>{
+    const list = WORDS.map(x=>x.num);
+    let idx = list.indexOf(w.num);
+    idx = (idx-1+list.length)%list.length;
+    state.currentIndex = list[idx];
+    render();
+  });
+  document.getElementById('nextWord').addEventListener('click', ()=>{
+    const list = WORDS.map(x=>x.num);
+    let idx = list.indexOf(w.num);
+    idx = (idx+1)%list.length;
+    state.currentIndex = list[idx];
+    render();
+  });
+
+  setupCanvas(w.num);
+}
+
+function setupCanvas(num){
+  const canvas = document.getElementById('sketchPad');
+  const ctx = canvas.getContext('2d');
+  ctx.lineWidth = 2.4;
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = '#26443A';
+  if(sketches[num]){
+    const img = new Image();
+    img.onload = ()=> ctx.drawImage(img,0,0);
+    img.src = sketches[num];
+  }
+  let drawing = false;
+  function pos(e){
+    const rect = canvas.getBoundingClientRect();
+    const cx = (e.touches? e.touches[0].clientX : e.clientX) - rect.left;
+    const cy = (e.touches? e.touches[0].clientY : e.clientY) - rect.top;
+    return [cx,cy];
+  }
+  function start(e){ drawing=true; const [x,y]=pos(e); ctx.beginPath(); ctx.moveTo(x,y); e.preventDefault(); }
+  function move(e){ if(!drawing) return; const [x,y]=pos(e); ctx.lineTo(x,y); ctx.stroke(); e.preventDefault(); }
+  function end(){ if(drawing){ drawing=false; sketches[num] = canvas.toDataURL(); } }
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', move, {passive:false});
+  canvas.addEventListener('touchend', end);
+  document.getElementById('clearPad').addEventListener('click', ()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    delete sketches[num];
+  });
+}
+
+/* ================= WORD FAMILY BUILDER ================= */
+function renderFamilyMode(){
+  const w = getWordByNum(state.currentIndex || WORDS[0].num);
+  const forms = w.forms;
+  const rows = [
+    ['Noun', forms.noun],
+    ['Verb', forms.verb],
+    ['Adjective', forms.adjective],
+    ['Adverb', forms.adverb],
+  ];
+  const html = `
+  <div class="layout">
+    ${renderSidebar()}
+    <div class="stage">
+      <div class="builder-card">
+        <div class="builder-head">
+          <h2>${w.word}</h2>
+          <span class="pos-badge" style="background:var(--green);color:#fff;">${POS_LABEL[w.pos]||w.pos}</span>
+        </div>
+        <p style="color:var(--ink-soft);margin-top:0;">Write one sentence for each word form. Pick your favorite form if a row shows more than one word.</p>
+        ${rows.map(([label,form],i)=>`
+          <div class="form-row">
+            <label>${label}</label>
+            <input type="text" placeholder="Write a sentence using ${label.toLowerCase()==='noun'? 'the noun form' : 'the '+label.toLowerCase()+' form'}..." data-form-idx="${i}">
+            <div>
+              <button class="btn" data-reveal="${i}">Show word</button>
+              <span class="reveal-word" id="reveal-${i}">${form||'—'}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="stage-nav">
+        <button class="btn" id="prevWord">&larr; Previous</button>
+        <button class="btn" id="nextWord">Next &rarr;</button>
+      </div>
+    </div>
+  </div>`;
+  document.getElementById('stageRoot').innerHTML = html;
+  bindSidebar((n)=>{ state.currentIndex = n; });
+  Array.from(document.querySelectorAll('[data-reveal]')).forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.getElementById('reveal-'+btn.dataset.reveal).classList.add('show');
+    });
+  });
+  const list = WORDS.map(x=>x.num);
+  document.getElementById('prevWord').addEventListener('click', ()=>{
+    let idx = list.indexOf(w.num); idx=(idx-1+list.length)%list.length; state.currentIndex=list[idx]; render();
+  });
+  document.getElementById('nextWord').addEventListener('click', ()=>{
+    let idx = list.indexOf(w.num); idx=(idx+1)%list.length; state.currentIndex=list[idx]; render();
+  });
+}
+
+/* ================= FLASHCARDS ================= */
+function speakWord(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
+function setupFlash(){
+  const pool = filteredWords().length>=4 ? filteredWords() : WORDS;
+  state.flash = { deck: shuffle(pool), i:0, flipped:false, known:0, learning:0, done:false };
+}
+function renderFlashMode(){
+  if(state.flash.deck.length===0) setupFlash();
+  const f = state.flash;
+  if(f.done){
+    document.getElementById('stageRoot').innerHTML = `
+      <div class="flash-wrap">
+        <div class="specimen" style="max-width:480px;width:100%;">
+          <div class="specimen-body" style="text-align:center;">
+            <h2 style="color:var(--green-dark);">Deck complete</h2>
+            <p>Known: <strong>${f.known}</strong> &nbsp; Still learning: <strong>${f.learning}</strong></p>
+            <button class="btn primary" id="restartFlash">Shuffle again</button>
+          </div>
+        </div>
+      </div>`;
+    document.getElementById('restartFlash').addEventListener('click', ()=>{ setupFlash(); render(); });
+    return;
+  }
+  const w = f.deck[f.i];
+  document.getElementById('stageRoot').innerHTML = `
+    <div class="flash-wrap">
+      <div class="flash-progress">Card ${f.i+1} of ${f.deck.length} &nbsp;·&nbsp; Known ${f.known} &nbsp;·&nbsp; Learning ${f.learning}</div>
+      <div class="flashcard ${f.flipped?'flipped':''}" id="flashcard">
+        <div class="flashcard-inner">
+          <div class="flash-face front">
+            <div class="big-word">${w.word}</div>
+            <button class="btn" id="playAudio" title="Hear the word">&#128264; Hear it</button>
+            <div class="hint">${POS_LABEL[w.pos]||w.pos} — tap to reveal meaning</div>
+          </div>
+          <div class="flash-face back">
+            <div class="back-def">${w.definition}</div>
+            <div class="hint">synonyms: ${w.synonyms.slice(0,3).join(', ')||'—'}</div>
+          </div>
+        </div>
+      </div>
+      <div class="rate-row" style="${f.flipped? '' : 'visibility:hidden'}">
+        <button class="btn rust" id="rateLearning">Still learning</button>
+        <button class="btn primary" id="rateKnown">I know this</button>
+      </div>
+    </div>`;
+  document.getElementById('flashcard').addEventListener('click', ()=>{
+    f.flipped = !f.flipped; render();
+  });
+  const playBtn = document.getElementById('playAudio');
+  if(playBtn) playBtn.addEventListener('click', (e)=>{ e.stopPropagation(); speakWord(w.word); });
+  if(!f.flipped) speakWord(w.word);
+  const nextCard = ()=>{
+    f.i++; f.flipped=false;
+    if(f.i>=f.deck.length) f.done=true;
+    render();
+  };
+  const known = document.getElementById('rateKnown');
+  const learning = document.getElementById('rateLearning');
+  if(known) known.addEventListener('click',(e)=>{ e.stopPropagation(); f.known++; nextCard(); });
+  if(learning) learning.addEventListener('click',(e)=>{ e.stopPropagation(); f.learning++; nextCard(); });
+}
+
+/* ================= MATCH IT ================= */
+function setupMatch(){
+  const pool = shuffle(filteredWords().length>=6 ? filteredWords() : WORDS).slice(0,6);
+  state.match = {
+    pool,
+    leftOrder: shuffle(pool),
+    rightOrder: shuffle(pool),
+    selectedLeft: null,
+    matched: new Set(),
+    wrong: null
+  };
+}
+function renderMatchMode(){
+  if(state.match.pool.length===0) setupMatch();
+  const m = state.match;
+  const allMatched = m.matched.size === m.pool.length;
+  document.getElementById('stageRoot').innerHTML = `
+    <div class="specimen" style="padding:22px 24px;">
+      <p style="color:var(--ink-soft);margin-top:0;">Click a word on the left, then click its definition on the right.</p>
+      <div class="match-grid">
+        <div class="match-col">
+          <h3>Words</h3>
+          ${m.leftOrder.map(w=>`<button class="match-item ${m.selectedLeft===w.num?'selected':''} ${m.matched.has(w.num)?'correct':''}" data-num="${w.num}" data-side="left" ${m.matched.has(w.num)?'disabled':''}>${w.word}</button>`).join('')}
+        </div>
+        <div class="match-col">
+          <h3>Definitions</h3>
+          ${m.rightOrder.map(w=>`<button class="match-item ${m.matched.has(w.num)?'correct':''} ${m.wrong===w.num?'wrong':''}" data-num="${w.num}" data-side="right" ${m.matched.has(w.num)?'disabled':''}>${w.definition}</button>`).join('')}
+        </div>
+      </div>
+      <div class="match-status">${allMatched? 'All matched — nice work.' : `${m.matched.size} of ${m.pool.length} matched`}</div>
+      ${allMatched? '<button class="btn primary" id="newMatchRound" style="margin-top:10px;">New round</button>' : ''}
+    </div>`;
+  Array.from(document.querySelectorAll('.match-item[data-side="left"]')).forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      m.selectedLeft = parseInt(btn.dataset.num);
+      m.wrong = null;
+      render();
+    });
+  });
+  Array.from(document.querySelectorAll('.match-item[data-side="right"]')).forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const num = parseInt(btn.dataset.num);
+      if(m.selectedLeft===null) return;
+      if(m.selectedLeft===num){
+        m.matched.add(num);
+        m.selectedLeft = null;
+        m.wrong = null;
+      } else {
+        m.wrong = num;
+        setTimeout(()=>{ m.wrong=null; render(); }, 550);
+      }
+      render();
+    });
+  });
+  const again = document.getElementById('newMatchRound');
+  if(again) again.addEventListener('click', ()=>{ setupMatch(); render(); });
+}
+
+/* ================= QUIZ ME ================= */
+function buildQuiz(count){
+  const pool = shuffle(filteredWords().length>=4 ? filteredWords() : WORDS).slice(0, Math.min(count, filteredWords().length || WORDS.length));
+  state.quiz = { pool, i:0, score:0, answered:false, options:[], correctIdx:null, chosenIdx:null, count, finished:false };
+  buildQuizQuestion();
+}
+function buildQuizQuestion(){
+  const q = state.quiz;
+  const w = q.pool[q.i];
+  const distractors = shuffle(WORDS.filter(x=>x.num!==w.num)).slice(0,3);
+  const options = shuffle([w, ...distractors]);
+  q.options = options.map(o=>o.definition);
+  q.correctIdx = options.findIndex(o=>o.num===w.num);
+  q.answered = false;
+  q.chosenIdx = null;
+}
+function renderQuizMode(){
+  const q = state.quiz;
+  if(q.pool.length===0){
+    document.getElementById('stageRoot').innerHTML = `
+      <div class="quiz-card">
+        <h2 style="margin-top:0;color:var(--green-dark);">Quiz Me</h2>
+        <p style="color:var(--ink-soft);">Choose how many questions. Each question shows a word — pick its correct definition.</p>
+        <div class="setup-row">
+          <label>Questions:</label>
+          <select id="quizCount">
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="55">All 55</option>
+          </select>
+          <button class="btn primary" id="startQuiz">Start quiz</button>
+        </div>
+        <p style="font-size:13.5px;color:var(--ink-soft);">Tip: use the Specimen Card search/filter first to quiz just one part of speech or a subset of words.</p>
+      </div>`;
+    document.getElementById('startQuiz').addEventListener('click', ()=>{
+      const count = parseInt(document.getElementById('quizCount').value);
+      buildQuiz(count);
+      render();
+    });
+    return;
+  }
+  if(q.finished){
+    document.getElementById('stageRoot').innerHTML = `
+      <div class="quiz-card" style="text-align:center;">
+        <h2 style="color:var(--green-dark);">Quiz complete</h2>
+        <p style="font-size:20px;">Score: <strong>${q.score} / ${q.pool.length}</strong></p>
+        <button class="btn primary" id="retakeQuiz">New quiz</button>
+      </div>`;
+    document.getElementById('retakeQuiz').addEventListener('click', ()=>{
+      state.quiz = { pool:[], i:0, score:0, answered:false, options:[], correctIdx:null, chosenIdx:null, count:10, finished:false };
+      render();
+    });
+    return;
+  }
+  const w = q.pool[q.i];
+  document.getElementById('stageRoot').innerHTML = `
+    <div class="quiz-card">
+      <div class="quiz-score">Question ${q.i+1} of ${q.pool.length} &nbsp;·&nbsp; Score ${q.score}</div>
+      <div class="quiz-q">Which definition matches <strong>"${w.word}"</strong>?</div>
+      ${q.options.map((opt,i)=>`<button class="quiz-opt ${q.answered && i===q.correctIdx? 'correct':''} ${q.answered && i===q.chosenIdx && i!==q.correctIdx? 'wrong':''}" data-i="${i}" ${q.answered?'disabled':''}>${opt}</button>`).join('')}
+      <div class="quiz-foot">
+        <span style="font-size:13.5px;color:var(--ink-soft);">${q.answered? (q.chosenIdx===q.correctIdx? 'Correct.' : 'Not quite — the right answer is highlighted.') : ''}</span>
+        <button class="btn primary" id="quizNext" ${q.answered? '' : 'disabled'}>${q.i+1===q.pool.length? 'Finish' : 'Next'}</button>
+      </div>
+    </div>`;
+  Array.from(document.querySelectorAll('.quiz-opt')).forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(q.answered) return;
+      q.answered = true;
+      q.chosenIdx = parseInt(btn.dataset.i);
+      if(q.chosenIdx===q.correctIdx) q.score++;
+      render();
+    });
+  });
+  document.getElementById('quizNext').addEventListener('click', ()=>{
+    if(q.i+1 >= q.pool.length){ q.finished = true; }
+    else { q.i++; buildQuizQuestion(); }
+    render();
+  });
+}
+
+/* ================= RENDER ROOT ================= */
+function render(){
+  renderTabs();
+  if(!state.currentIndex) state.currentIndex = WORDS[0].num;
+  if(state.mode==='specimen') renderSpecimenMode();
+  else if(state.mode==='family') renderFamilyMode();
+  else if(state.mode==='flash') renderFlashMode();
+  else if(state.mode==='match') renderMatchMode();
+  else if(state.mode==='quiz') renderQuizMode();
+}
+
+render();
+</script>
+</body>
+</html>
