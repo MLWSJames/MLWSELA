@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1 Review: Grammar &amp; Story Elements | 第一单元复习：语法与故事要素</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--mist); color: var(--ink); line-height: 1.55; }
+h1, h2, h3 { font-family: 'Literata', serif; color: var(--ml-green-dark); }
+.cn { font-family: 'Noto Sans SC', sans-serif; color: var(--ink2); }
+.warning-banner {
+  background: #7f1d1d; color: #fff; padding: 9px 18px; font-size: 0.83rem;
+  font-weight: 600; text-align: center; position: sticky; top: 0; z-index: 1000;
+}
+.warning-banner .cn { font-weight: 400; }
+#leaveNotice {
+  display: none; background: #fee2e2; border-left: 4px solid var(--ml-red);
+  padding: 8px 16px; font-size: 0.82rem; color: #7f1d1d; font-weight: 600; text-align: center;
+}
+header.app-header {
+  background: var(--ml-green-dark); color: #fff; padding: 18px 22px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+}
+header.app-header h1 { color: #fff; font-size: 1.4rem; }
+header.app-header .sub { font-size: 0.85rem; color: var(--ml-green-light); }
+.header-meta { display: flex; align-items: center; gap: 14px; font-size: 0.85rem; }
+#leaveBadge { background: var(--ml-red); padding: 4px 10px; border-radius: 12px; font-weight: 700; }
+.progress-wrap { background: var(--ml-green-dark); padding: 0 22px 14px; }
+.progress-track { background: rgba(255,255,255,0.15); border-radius: 8px; height: 10px; overflow: hidden; }
+#progressBar { background: var(--ml-gold); height: 100%; width: 0%; transition: width 0.3s ease; }
+#progressText { color: var(--ml-green-light); font-size: 0.78rem; margin-top: 5px; }
+.tabs { display: flex; flex-wrap: wrap; background: #fff; border-bottom: 2px solid var(--border); padding: 0 12px; position: sticky; top: 40px; z-index: 900; }
+.tab-btn {
+  background: none; border: none; padding: 14px 18px; font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem; font-weight: 600; color: var(--ink2); cursor: pointer; position: relative;
+  display: flex; align-items: center; gap: 8px;
+}
+.tab-btn.active { color: var(--ml-green-dark); }
+.tab-btn.active::after { content: ""; position: absolute; bottom: -2px; left: 0; right: 0; height: 3px; background: var(--ml-green); }
+.pip { width: 9px; height: 9px; border-radius: 50%; background: var(--border); display: inline-block; }
+.pip.done { background: var(--ml-gold); }
+.tab-content { display: none; max-width: 980px; margin: 0 auto; padding: 24px 20px 80px; }
+.tab-content.active { display: block; }
+.name-row { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; margin-bottom: 22px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.name-row label { font-weight: 700; font-size: 0.9rem; }
+.name-row input[type=text] { flex: 1; min-width: 200px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 0.95rem; font-family: inherit; }
+section.concept { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 18px; }
+section.concept h2 { font-size: 1.15rem; margin-bottom: 10px; }
+section.concept h3 { font-size: 1rem; margin: 14px 0 6px; color: var(--cobalt); }
+section.concept p { margin-bottom: 8px; font-size: 0.95rem; }
+.callout { border-left: 4px solid var(--ml-gold); background: var(--amber-light); padding: 10px 14px; border-radius: 6px; margin: 10px 0; font-size: 0.9rem; }
+.callout.green { border-left-color: var(--ml-green); background: var(--ml-green-light); }
+table.ref-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.85rem; }
+table.ref-table th, table.ref-table td { border: 1px solid var(--border); padding: 7px 9px; text-align: left; }
+table.ref-table th { background: var(--ml-green-light); color: var(--ml-green-dark); }
+.ex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+@media (max-width: 640px) { .ex-grid { grid-template-columns: 1fr; } }
+.ex-card { border-radius: 8px; padding: 10px 12px; font-size: 0.88rem; }
+.ex-card.good { background: #f1f8e9; border: 1px solid #8bc34a; }
+.ex-card.bad { background: #ffebee; border: 1px solid #f44336; }
+.quiz-heading { margin: 26px 0 4px; }
+.quiz-instr { font-size: 0.88rem; color: var(--ink2); margin-bottom: 14px; }
+.quiz-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+.q-num { font-size: 0.75rem; font-weight: 700; color: var(--ml-green); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+.passage-box { background: var(--mist); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 0.88rem; margin-bottom: 10px; white-space: pre-wrap; }
+.q-text { font-weight: 700; margin-bottom: 2px; font-size: 0.98rem; }
+.q-cn { font-size: 0.88rem; margin-bottom: 10px; }
+.opts-wrap { display: flex; flex-direction: column; gap: 8px; }
+.opt-btn {
+  text-align: left; background: #fff; border: 1.5px solid var(--border); border-radius: 8px;
+  padding: 9px 12px; font-family: inherit; font-size: 0.9rem; cursor: pointer; color: var(--ink);
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--ml-green); }
+.opt-btn:disabled { cursor: default; }
+.opt-btn.show-correct { border-color: var(--ml-green); background: var(--ml-green-light); }
+.opt-btn.selected-correct { border-color: var(--ml-green); background: var(--ml-green-light); font-weight: 700; }
+.opt-btn.selected-wrong { border-color: var(--ml-red); background: #fdeaea; }
+.rationale { display: none; margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 0.87rem; }
+.rationale.show { display: block; }
+.rationale.correct-rat { background: var(--ml-green-light); border-left: 4px solid var(--ml-green); }
+.rationale.wrong-rat { background: #fdeaea; border-left: 4px solid var(--ml-red); }
+.reflect-section { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-top: 24px; }
+.reflect-section h3 { margin-bottom: 4px; }
+.reflect-q { margin: 14px 0; }
+.reflect-q label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; }
+.reflect-q textarea {
+  width: 100%; min-height: 70px; padding: 9px 10px; border: 1px solid var(--border);
+  border-radius: 8px; font-family: inherit; font-size: 0.9rem; resize: vertical;
+}
+.reflect-q textarea.filled { border-color: var(--ml-green); }
+.grat-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.92rem; margin: 14px 0; }
+.grat-row input[type=text] { flex: 1; min-width: 180px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; }
+.grat-row input.filled { border-color: var(--ml-green); }
+.download-btn {
+  display: inline-block; margin-top: 10px; padding: 12px 22px; border-radius: 8px; border: none;
+  background: var(--border); color: #888; font-family: inherit; font-weight: 700; font-size: 0.95rem;
+  cursor: not-allowed; opacity: 0.6; pointer-events: none;
+}
+.download-btn.ready { background: var(--ml-green); color: #fff; cursor: pointer; opacity: 1; pointer-events: auto; }
+.dl-hint { font-size: 0.8rem; color: var(--ink2); margin-top: 6px; }
+.dl-hint.hidden { display: none; }
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.vocab-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.vocab-card .vword { font-family: 'Literata', serif; font-size: 1.15rem; font-weight: 700; color: var(--ml-green-dark); display: flex; align-items: center; gap: 8px; }
+.vocab-card .vpos { font-size: 0.78rem; color: var(--ink2); font-style: italic; margin-bottom: 4px; }
+.vocab-card .vcn { font-size: 0.9rem; margin-bottom: 6px; }
+.vocab-card .vdef { font-size: 0.87rem; margin-bottom: 4px; }
+.vocab-card .vex { font-size: 0.85rem; color: var(--cobalt); font-style: italic; }
+.speak-btn { background: none; border: none; cursor: pointer; font-size: 1rem; }
+#timer-display {
+  position: fixed; bottom: 14px; right: 14px; background: var(--ml-green-dark); color: #fff;
+  padding: 6px 12px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; z-index: 950;
+}
+</style>
+</head>
+<body>
+
+<div class="warning-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice">
+  🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span>
+</div>
+
+<header class="app-header">
+  <div>
+    <h1>Unit 1 Review: Grammar &amp; Story Elements</h1>
+    <div class="sub cn">第一单元复习：语法与故事要素</div>
+  </div>
+  <div class="header-meta">
+    <span id="leaveBadge">🚪 Leaves: 0</span>
+  </div>
+</header>
+<div class="progress-wrap">
+  <div class="progress-track"><div id="progressBar"></div></div>
+  <div id="progressText">Progress: 0% · 进度：0%</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">Vocab <span class="cn">词汇</span></button>
+  <button class="tab-btn" onclick="switchTab('gram', this)"><span class="pip" id="pip-gram"></span> Grammar Revision <span class="cn">语法复习</span></button>
+  <button class="tab-btn" onclick="switchTab('tense', this)"><span class="pip" id="pip-tense"></span> Tenses Revision <span class="cn">时态复习</span></button>
+  <button class="tab-btn" onclick="switchTab('plot', this)"><span class="pip" id="pip-plot"></span> Plot &amp; Story Elements <span class="cn">情节与故事要素</span></button>
+</div>
+
+<!-- ============ VOCAB TAB ============ -->
+<div id="tab-vocab" class="tab-content active">
+  <section class="concept">
+    <h2>Key Vocabulary <span class="cn">关键词汇</span></h2>
+    <p>Tap the speaker to hear each word. These terms show up across all three sections this week.</p>
+  </section>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ============ GRAMMAR REVISION TAB ============ -->
+<div id="tab-gram" class="tab-content">
+  <div class="name-row">
+    <label for="gramName">Name / 姓名:</label>
+    <input type="text" id="gramName" placeholder="Type your name here">
+  </div>
+
+  <section class="concept">
+    <h2>Articles: a / an / the / no article <span class="cn">冠词</span></h2>
+    <p>An article is a small word placed before a noun to show whether that noun is <strong>specific</strong> or <strong>general</strong>. Every singular noun phrase makes one of four choices.</p>
+    <table class="ref-table">
+      <tr><th>Choice</th><th>When to use it</th><th>Example</th></tr>
+      <tr><td><strong>a / an</strong></td><td>Non-specific singular countable noun — first mention, or one of many</td><td>I saw <strong>a</strong> dog. She ate <strong>an</strong> apple.</td></tr>
+      <tr><td><strong>the</strong></td><td>Specific to both writer and reader — already mentioned, unique, or clear from context</td><td>I saw a dog. <strong>The</strong> dog was wearing a red collar.</td></tr>
+      <tr><td><strong>∅ (no article)</strong></td><td>General plural or uncountable nouns, and most proper nouns</td><td>Dogs make loyal pets. Honesty matters.</td></tr>
+    </table>
+    <div class="callout">
+      <strong>Sound, not spelling:</strong> "an" is chosen by the <em>sound</em> that follows — an hour (silent h), but a university ("yoo-" sound).
+      <br><span class="cn">"an" 由后面的<strong>发音</strong>决定，不是拼写 — an hour（h不发音），但 a university（发"yoo"音）。</span>
+    </div>
+  </section>
+
+  <section class="concept">
+    <h2>Pronoun–Antecedent Agreement <span class="cn">代词与先行词一致</span></h2>
+    <p>The <strong>antecedent</strong> is the noun a pronoun refers back to. A pronoun must match its antecedent in <strong>number</strong> (singular/plural), <strong>person</strong>, and gender.</p>
+    <h3>Five rules that cover almost every question</h3>
+    <table class="ref-table">
+      <tr><th>Rule</th><th>Example</th></tr>
+      <tr><td>Singular antecedent → singular pronoun; plural → plural</td><td>The girl lost <strong>her</strong> keys. The girls lost <strong>their</strong> keys.</td></tr>
+      <tr><td>Indefinite pronouns (each, every, everyone, someone) are singular — singular <em>they</em> is now widely accepted</td><td>Each of the players brought <strong>their</strong> own water.</td></tr>
+      <tr><td>With <em>or / nor</em>, the pronoun agrees with the <strong>nearer</strong> antecedent</td><td>Neither the coach nor the players brought <strong>their</strong> bags.</td></tr>
+      <tr><td>Collective nouns (team, class, committee) acting as one unit take a singular pronoun</td><td>The team celebrated <strong>its</strong> victory.</td></tr>
+      <tr><td>Avoid vague reference — the reader must know exactly who the pronoun means</td><td>Unclear: "Maya told Sara that <strong>she</strong> had won." — who won?</td></tr>
+    </table>
+    <div class="callout green">
+      <strong>Quick method:</strong> underline the antecedent first, then ask "singular or plural? specific or general?" before choosing the word.
+      <br><span class="cn">先划出先行词，再问"单数还是复数？特指还是泛指？"，最后选词。</span>
+    </div>
+  </section>
+
+  <h2 class="quiz-heading">Quiz <span class="cn">测验</span></h2>
+  <p class="quiz-instr">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="gramQuizContainer"></div>
+
+  <section class="reflect-section">
+    <h3>Reflect <span class="cn">反思</span></h3>
+    <div class="reflect-q">
+      <label>1. Look back at something you wrote this week. Find one sentence where you could improve article use or pronoun agreement. What would you change? <span class="cn">回顾你这周写的内容，找一句可以改进冠词或代词一致的句子，你会怎么修改？</span></label>
+      <textarea id="gramRef1"></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Which grammar rule in this section do you still find confusing, and why? <span class="cn">这部分哪条语法规则你还觉得困惑？为什么？</span></label>
+      <textarea id="gramRef2"></textarea>
+    </div>
+    <div class="grat-row">
+      <label>✍ Today I am grateful for</label>
+      <input type="text" id="gramGrat">
+    </div>
+    <button class="download-btn" id="gramDownloadBtn" onclick="tryDownload('gram')">Download My Report</button>
+    <div class="dl-hint" id="gramHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段以解锁下载。</div>
+  </section>
+</div>
+
+<!-- ============ TENSES REVISION TAB ============ -->
+<div id="tab-tense" class="tab-content">
+  <div class="name-row">
+    <label for="tenseName">Name / 姓名:</label>
+    <input type="text" id="tenseName" placeholder="Type your name here">
+  </div>
+
+  <section class="concept">
+    <h2>Twelve Tenses = Three Times × Four Aspects <span class="cn">十二种时态 = 三种时间 × 四种体</span></h2>
+    <p>Every English verb form makes one choice of <strong>time</strong> (when) and one choice of <strong>aspect</strong> (how the action unfolds).</p>
+    <table class="ref-table">
+      <tr><th></th><th>Simple</th><th>Continuous</th><th>Perfect</th><th>Perfect Continuous</th></tr>
+      <tr><td><strong>Past</strong></td><td>wrote</td><td>was/were writing</td><td>had written</td><td>had been writing</td></tr>
+      <tr><td><strong>Present</strong></td><td>write/writes</td><td>am/is/are writing</td><td>have/has written</td><td>have/has been writing</td></tr>
+      <tr><td><strong>Future</strong></td><td>will write</td><td>will be writing</td><td>will have written</td><td>will have been writing</td></tr>
+    </table>
+  </section>
+
+  <section class="concept">
+    <h2>What Each Aspect Means <span class="cn">每种"体"的含义</span></h2>
+    <table class="ref-table">
+      <tr><th>Aspect</th><th>Meaning</th><th>Signal words</th></tr>
+      <tr><td><strong>Simple</strong></td><td>Facts, habits, routines, completed events</td><td>every day, usually, yesterday</td></tr>
+      <tr><td><strong>Continuous</strong></td><td>Action in progress at a particular moment</td><td>right now, while, at that moment</td></tr>
+      <tr><td><strong>Perfect</strong></td><td>Connects two points in time — completed before/relevant to another moment</td><td>already, just, ever/never, by the time</td></tr>
+      <tr><td><strong>Perfect Continuous</strong></td><td>Emphasizes how long an action has continued up to a point</td><td>since, for, all morning</td></tr>
+    </table>
+    <div class="callout">
+      Find the signal words first — they usually name the tense for you.
+      <br><span class="cn">先找信号词——它们通常能告诉你该用哪种时态。</span>
+    </div>
+  </section>
+
+  <section class="concept">
+    <h2>Four Sentence Errors the Quiz Will Test <span class="cn">测验会考的四种句子错误</span></h2>
+    <div class="ex-grid">
+      <div class="ex-card bad"><strong>Run-on:</strong> The test was hard I studied all night.</div>
+      <div class="ex-card good"><strong>Fixed:</strong> The test was hard. I studied all night.</div>
+      <div class="ex-card bad"><strong>Comma splice:</strong> The test was hard, I studied all night.</div>
+      <div class="ex-card good"><strong>Fixed:</strong> The test was hard, so I studied all night.</div>
+      <div class="ex-card bad"><strong>Fragment:</strong> Because I studied all night.</div>
+      <div class="ex-card good"><strong>Fixed:</strong> Because I studied all night, I felt ready.</div>
+      <div class="ex-card bad"><strong>Tense shift:</strong> She walked into the room and sits down.</div>
+      <div class="ex-card good"><strong>Fixed:</strong> She walked into the room and sat down.</div>
+    </div>
+  </section>
+
+  <h2 class="quiz-heading">Quiz <span class="cn">测验</span></h2>
+  <p class="quiz-instr">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="tenseQuizContainer"></div>
+
+  <section class="reflect-section">
+    <h3>Reflect <span class="cn">反思</span></h3>
+    <div class="reflect-q">
+      <label>1. Choose one sentence from your own writing and identify its tense and aspect. Is it correct? How do you know? <span class="cn">从你自己的写作中选一句话，判断它的时态和体，它对吗？你怎么知道？</span></label>
+      <textarea id="tenseRef1"></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Which sentence error (run-on, splice, fragment, or tense shift) do you make most often in your own writing? <span class="cn">你自己写作中最常犯哪种句子错误（跑句、逗号粘连、片段还是时态转换）？</span></label>
+      <textarea id="tenseRef2"></textarea>
+    </div>
+    <div class="grat-row">
+      <label>✍ Today I am grateful for</label>
+      <input type="text" id="tenseGrat">
+    </div>
+    <button class="download-btn" id="tenseDownloadBtn" onclick="tryDownload('tense')">Download My Report</button>
+    <div class="dl-hint" id="tenseHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段以解锁下载。</div>
+  </section>
+</div>
+
+<!-- ============ PLOT & STORY ELEMENTS TAB ============ -->
+<div id="tab-plot" class="tab-content">
+  <div class="name-row">
+    <label for="plotName">Name / 姓名:</label>
+    <input type="text" id="plotName" placeholder="Type your name here">
+  </div>
+
+  <section class="concept">
+    <h2>The Plot Diagram: Six Stages <span class="cn">情节图：六个阶段</span></h2>
+    <table class="ref-table">
+      <tr><th>Stage</th><th>Job</th></tr>
+      <tr><td><strong>Exposition</strong></td><td>Introduces characters, setting, and situation — the reader's "before" picture</td></tr>
+      <tr><td><strong>Inciting Incident</strong></td><td>The single event that disturbs normal life and launches the conflict</td></tr>
+      <tr><td><strong>Rising Action</strong></td><td>Complications and choices that raise the stakes, event by event</td></tr>
+      <tr><td><strong>Climax</strong></td><td>The turning point — the moment the outcome of the conflict is decided</td></tr>
+      <tr><td><strong>Falling Action</strong></td><td>Consequences unfold, tension eases, loose ends are gathered</td></tr>
+      <tr><td><strong>Resolution</strong></td><td>The conflict is settled — the story closes, showing the "new normal"</td></tr>
+    </table>
+    <div class="callout">
+      The climax is not the most exciting scene by default — it is the scene where the main conflict is decided. Ask: "After this moment, could the story still go either way?" If no, that was the climax.
+      <br><span class="cn">高潮不一定是最刺激的场景——而是决定主要冲突结果的场景。问自己："这一刻之后，故事还能有别的走向吗？"如果不能，那就是高潮。</span>
+    </div>
+  </section>
+
+  <section class="concept">
+    <h2>Six Elements Every Story Is Built From <span class="cn">每个故事的六大要素</span></h2>
+    <table class="ref-table">
+      <tr><th>Element</th><th>What it is</th></tr>
+      <tr><td><strong>Character</strong></td><td>The people in the story — led by the protagonist, opposed by the antagonist</td></tr>
+      <tr><td><strong>Setting</strong></td><td>Where and when the story happens — place, time, mood</td></tr>
+      <tr><td><strong>Plot</strong></td><td>The sequence of events, arranged for effect (the six-stage diagram above)</td></tr>
+      <tr><td><strong>Conflict</strong></td><td>The problem or struggle that drives the story — internal or external</td></tr>
+      <tr><td><strong>Theme</strong></td><td>The story's central message, written as a full sentence — not one word</td></tr>
+      <tr><td><strong>Point of View</strong></td><td>Who tells the story and how much they know</td></tr>
+    </table>
+    <h3>Conflict Types</h3>
+    <p>Person vs. Person · Person vs. Self · Person vs. Nature · Person vs. Society · Person vs. Technology</p>
+    <h3>Points of View</h3>
+    <p><strong>First person</strong> — narrator is a character ("I caught the bus"). <strong>Third limited</strong> — outside narrator, inside one mind. <strong>Third omniscient</strong> — all-knowing narrator who can enter any character's thoughts.</p>
+  </section>
+
+  <h2 class="quiz-heading">Quiz <span class="cn">测验</span></h2>
+  <p class="quiz-instr">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="plotQuizContainer"></div>
+
+  <section class="reflect-section">
+    <h3>Reflect <span class="cn">反思</span></h3>
+    <div class="reflect-q">
+      <label>1. Pick a story, film, or game you know well. Briefly describe its climax and explain why that moment — and not another — is the turning point. <span class="cn">选一个你熟悉的故事、电影或游戏，简单描述它的高潮，并说明为什么是这一刻而不是别的时刻。</span></label>
+      <textarea id="plotRef1"></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Which story element (character, setting, plot, conflict, theme, or POV) is hardest for you to identify when reading, and why? <span class="cn">哪个故事要素（人物、背景、情节、冲突、主题或视角）你在阅读时最难识别？为什么？</span></label>
+      <textarea id="plotRef2"></textarea>
+    </div>
+    <div class="grat-row">
+      <label>✍ Today I am grateful for</label>
+      <input type="text" id="plotGrat">
+    </div>
+    <button class="download-btn" id="plotDownloadBtn" onclick="tryDownload('plot')">Download My Report</button>
+    <div class="dl-hint" id="plotHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思字段以解锁下载。</div>
+  </section>
+</div>
+
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+const VOCAB = [
+  { word: "Article", pos: "noun", cn: "冠词", def: "A word (a, an, the) — or no word at all — placed before a noun to show whether it is specific or general.", cn_def: "放在名词前的词（a, an, the）或不使用冠词，用来表示名词是特指还是泛指。", example: "She bought a laptop. The laptop came with a case." },
+  { word: "Antecedent", pos: "noun", cn: "先行词", def: "The noun a pronoun refers back to.", cn_def: "代词所指代的名词。", example: "Aisha forgot her book." },
+  { word: "Aspect", pos: "noun", cn: "体（语法）", def: "How an action unfolds in time — simple, continuous, perfect, or perfect continuous.", cn_def: "动作在时间中展开的方式——一般体、进行体、完成体或完成进行体。", example: "She has been writing since 8 a.m." },
+  { word: "Comma Splice", pos: "noun phrase", cn: "逗号粘连句", def: "Joining two complete sentences with only a comma.", cn_def: "只用逗号连接两个完整句子的错误。", example: "The test was hard, so I studied all night." },
+  { word: "Fragment", pos: "noun", cn: "句子片段", def: "A group of words that looks like a sentence but does not express a complete idea.", cn_def: "看起来像句子但没有表达完整意思的一组词。", example: "Because the rain stopped, we left." },
+  { word: "Climax", pos: "noun", cn: "高潮", def: "The turning point of a story, where the outcome of the main conflict is decided.", cn_def: "故事的转折点，决定主要冲突结果的时刻。", example: "Nadia turned to confront the stranger at the bridge." },
+  { word: "Conflict", pos: "noun", cn: "冲突", def: "The problem or struggle that drives a story forward.", cn_def: "推动故事发展的问题或斗争。", example: "Two rivals competed for one scholarship." },
+  { word: "Point of View", pos: "noun phrase", cn: "叙述视角", def: "Who tells the story, and how much that narrator knows.", cn_def: "谁在讲述故事，以及叙述者知道多少。", example: "Nadia caught the bus. She hated the rain." }
+];
+
+const GRAM_Q = [
+  { id:"g1", title:"Articles", q:"___ honesty is the best policy.", q_cn:"___ 诚实为上策。",
+    options:["A. a|A. a","B. an|B. an","C. the|C. the","D. no article|D. 不用冠词"], correct:"D",
+    rat_right:"\"Honesty\" is an uncountable noun used in a general statement, so it takes no article.|\"Honesty\"是不可数名词，用于泛指陈述，因此不用冠词。",
+    rat_wrong:{A:"\"A\" is used with specific, countable singular nouns — not general uncountable nouns.|\"a\"用于特指的可数单数名词，而非泛指的不可数名词。",B:"\"An\" is used before a vowel sound with countable nouns — not here.|\"an\"用于以元音音开头的可数名词前——此处不适用。",C:"\"The\" would only work if \"honesty\" were already specific to the reader.|只有当\"honesty\"对读者来说是特指时才用\"the\"。"} },
+  { id:"g2", title:"Articles", q:"She bought ___ umbrella because the forecast said rain.", q_cn:"她买了 ___ 雨伞，因为天气预报说要下雨。",
+    options:["A. a|A. a","B. an|B. an","C. the|C. the","D. no article|D. 不用冠词"], correct:"B",
+    rat_right:"\"Umbrella\" begins with a vowel sound, and it is a non-specific singular countable noun.|\"umbrella\"以元音音开头，且是泛指的可数单数名词。",
+    rat_wrong:{A:"\"A\" is for consonant sounds, not vowel sounds like \"umbrella.\"|\"a\"用于辅音音开头的词，而非像\"umbrella\"这样元音音开头的词。",C:"\"The\" would require the umbrella to already be specific/known.|\"the\"要求这把伞已经是特指或已知的。",D:"A singular countable noun needs an article here.|此处的可数单数名词需要冠词。"} },
+  { id:"g3", title:"Articles", q:"I finally read ___ book you lent me last month.", q_cn:"我终于读了你上个月借给我的 ___ 书。",
+    options:["A. a|A. a","B. an|B. an","C. the|C. the","D. no article|D. 不用冠词"], correct:"C",
+    rat_right:"\"You lent me last month\" makes the book specific and known to both people.|\"你上个月借给我\"使这本书对双方都是特指且已知的。",
+    rat_wrong:{A:"\"A\" signals a non-specific noun, but this book is clearly identified.|\"a\"表示泛指，但这本书已被明确指出。",B:"\"An\" doesn't fit — \"book\" starts with a consonant sound, and the noun is specific anyway.|\"an\"不合适——\"book\"以辅音音开头，而且此名词是特指的。",D:"A specific singular countable noun needs an article.|特指的可数单数名词需要冠词。"} },
+  { id:"g4", title:"Articles", q:"Which sentence uses articles correctly?", q_cn:"哪个句子的冠词用法正确？",
+    options:["A. I saw a dog. The dog was cute.|A. 我看见一只狗。这只狗很可爱。","B. I saw the dog. A dog was cute.|B. 我看见那只狗。一只狗很可爱。","C. I saw a the dog.|C. 我看见一那只狗。","D. I saw dog the.|D. 我看见狗那只。"], correct:"A",
+    rat_right:"First mention uses \"a\" (non-specific); the second mention uses \"the\" because the dog is now known.|第一次提及用\"a\"（泛指）；第二次提及用\"the\"因为这只狗现在已被提及、已知。",
+    rat_wrong:{B:"This reverses the pattern — the dog should be specific after first mention, not before.|这颠倒了顺序——狗应该在首次提及之后才变为特指，而不是之前。",C:"Two articles cannot stack before one noun.|两个冠词不能叠放在一个名词前。",D:"This is not valid English word order.|这不是有效的英语语序。"} },
+  { id:"g5", title:"Pronoun Agreement", q:"Everyone in the class handed in ___ essay on time.", q_cn:"班上每个人都按时交了 ___ 论文。",
+    options:["A. his|A. his","B. her|B. her","C. their|C. their","D. its|D. its"], correct:"C",
+    rat_right:"\"Everyone\" is a singular indefinite pronoun, but singular \"their\" is now widely accepted in modern usage.|\"everyone\"是单数不定代词，但现代英语中已广泛接受单数\"their\"的用法。",
+    rat_wrong:{A:"\"His\" assumes every student is male — not accurate or inclusive.|\"his\"假设每个学生都是男性——不准确也不具包容性。",B:"\"Her\" assumes every student is female — same problem.|\"her\"假设每个学生都是女性——同样的问题。",D:"\"Its\" is used for objects or animals, not people.|\"its\"用于物体或动物，不用于人。"} },
+  { id:"g6", title:"Pronoun Agreement", q:"Neither the captain nor the players forgot ___ equipment.", q_cn:"队长和队员们都没有忘记 ___ 装备。",
+    options:["A. his|A. his","B. her|B. her","C. their|C. their","D. its|D. its"], correct:"C",
+    rat_right:"With neither...nor, the pronoun agrees with the nearer antecedent — \"the players,\" which is plural.|使用neither...nor时，代词与较近的先行词一致——\"the players\"是复数。",
+    rat_wrong:{A:"\"His\" would only work if \"captain\" (singular) were the nearer antecedent.|只有当较近的先行词是单数的\"captain\"时才用\"his\"。",B:"\"Her\" has the same issue — it doesn't match the nearer plural antecedent.|\"her\"同样的问题——它与较近的复数先行词不一致。",D:"\"Its\" is for objects, not people.|\"its\"用于物体，不用于人。"} },
+  { id:"g7", title:"Pronoun Agreement", q:"The committee has announced ___ decision.", q_cn:"委员会宣布了 ___ 决定。",
+    options:["A. its|A. its","B. their|B. their","C. his|C. his","D. our|D. our"], correct:"A",
+    rat_right:"\"Committee\" is a collective noun acting as one unit, so it takes a singular pronoun.|\"committee\"是集体名词，作为一个整体，因此用单数代词。",
+    rat_wrong:{B:"\"Their\" treats the committee as multiple separate units, not one.|\"their\"把委员会当作多个独立单位，而不是一个整体。",C:"\"His\" doesn't fit a group at all.|\"his\"完全不适用于一个团体。",D:"\"Our\" would only work if the speaker were part of the committee.|只有当说话人是委员会成员时才用\"our\"。"} },
+  { id:"g8", title:"Pronoun Agreement", q:"Which sentence has a vague (unclear) pronoun reference?", q_cn:"哪个句子的代词指代不清？",
+    options:["A. Aisha called Maria because she needed help.|A. 艾莎给玛丽亚打电话，因为她需要帮助。","B. Aisha called Maria because Maria needed help.|B. 艾莎给玛丽亚打电话，因为玛丽亚需要帮助。","C. Because Maria needed help, Aisha called her.|C. 因为玛丽亚需要帮助，艾莎给她打了电话。","D. Aisha, who needed help, called Maria.|D. 需要帮助的艾莎给玛丽亚打了电话。"], correct:"A",
+    rat_right:"\"She\" could refer to either Aisha or Maria — the reader cannot tell who needed help.|\"she\"可能指艾莎，也可能指玛丽亚——读者无法判断谁需要帮助。",
+    rat_wrong:{B:"Using the name instead of a pronoun removes the ambiguity.|用名字代替代词消除了歧义。",C:"\"Her\" clearly refers back to Maria here, since Aisha is the subject doing the calling.|这里的\"her\"明确指向玛丽亚，因为艾莎是打电话的主语。",D:"The sentence structure makes it clear Aisha is the one who needed help.|句子结构清楚地表明是艾莎需要帮助。"} },
+  { id:"g9", title:"Articles", q:"___ European trip requires careful planning.", q_cn:"___ 欧洲之旅需要仔细规划。",
+    options:["A. A|A. A","B. An|B. An","C. The|C. The","D. no article|D. 不用冠词"], correct:"A",
+    rat_right:"\"European\" starts with a consonant sound (\"yoo-\"), so it takes \"a,\" not \"an.\"|\"European\"以辅音音（\"yoo-\"）开头，因此用\"a\"而不是\"an\"。",
+    rat_wrong:{B:"\"An\" is chosen by sound, and \"European\" sounds like it starts with \"y,\" a consonant sound.|\"an\"由发音决定，而\"European\"听起来像以辅音\"y\"开头。",C:"\"The\" would require the trip to already be specific to the reader.|\"the\"要求这次旅行对读者来说已经是特指的。",D:"A specific singular countable noun (\"trip\") needs an article.|特指的可数单数名词（\"trip\"）需要冠词。"} },
+  { id:"g10", title:"Articles", q:"\"Dogs make loyal pets\" illustrates which article rule?", q_cn:"\"Dogs make loyal pets\" 体现了哪条冠词规则？",
+    options:["A. \"The\" for a specific noun|A. 特指名词用\"the\"","B. \"A\" for first mention|B. 首次提及用\"a\"","C. No article for a general plural noun|C. 泛指复数名词不用冠词","D. \"An\" before a vowel sound|D. 元音音前用\"an\""], correct:"C",
+    rat_right:"\"Dogs\" is a general plural noun making a broad statement, so no article is used.|\"dogs\"是泛指复数名词，用于泛泛陈述，因此不用冠词。",
+    rat_wrong:{A:"\"The\" is not used here — the sentence is general, not specific.|此处不用\"the\"——句子是泛指而非特指。",B:"There is no \"a\" in this sentence, and \"dogs\" is plural anyway.|这句话里没有\"a\"，而且\"dogs\"是复数。",D:"There is no vowel-sound article in this sentence.|这句话中没有元音音冠词。"} }
+];
+
+const TENSE_Q = [
+  { id:"t1", title:"Tenses", q:"By the time we arrived, the movie ___.", q_cn:"我们到的时候，电影 ___。",
+    options:["A. started|A. started","B. had started|B. had started","C. starts|C. starts","D. has started|D. has started"], correct:"B",
+    rat_right:"\"By the time\" signals past perfect — the movie started before we arrived.|\"by the time\"表示过去完成时——电影在我们到达之前就已经开始了。",
+    rat_wrong:{A:"Simple past doesn't show which action happened first.|一般过去时无法表明哪个动作先发生。",C:"Present tense doesn't fit a past-time sentence.|现在时不适用于过去时间的句子。",D:"Present perfect connects to now, not to another past moment.|现在完成时连接到现在，而不是另一个过去的时刻。"} },
+  { id:"t2", title:"Tenses", q:"She ___ in Toronto since 2019.", q_cn:"她自2019年以来一直住在多伦多。",
+    options:["A. lives|A. lives","B. lived|B. lived","C. has lived|C. has lived","D. is living|D. is living"], correct:"C",
+    rat_right:"\"Since 2019\" connects the past to now — present perfect.|\"since 2019\"把过去和现在联系起来——用现在完成时。",
+    rat_wrong:{A:"Simple present doesn't show the connection from a past point to now.|一般现在时无法表明从过去某点到现在的联系。",B:"Simple past doesn't connect to the present moment.|一般过去时不与现在时刻相连。",D:"Present continuous shows a temporary action, not a duration since a point in time.|现在进行时表示暂时性动作，而不是从某个时间点开始的持续时间。"} },
+  { id:"t3", title:"Sentence Errors", q:"\"Running down the street in the rain.\" is an example of a...", q_cn:"\"Running down the street in the rain.\" 是哪种错误？",
+    options:["A. run-on|A. 跑句","B. comma splice|B. 逗号粘连句","C. fragment|C. 片段","D. tense shift|D. 时态转换"], correct:"C",
+    rat_right:"There is no subject doing a complete action — it needs a main clause to be complete.|没有主语做出完整动作——需要一个主句才能完整。",
+    rat_wrong:{A:"A run-on joins two full sentences with no punctuation — this is only one incomplete idea.|跑句是没有标点连接两个完整句子——而这只是一个不完整的想法。",B:"A comma splice joins two full sentences with a comma — there's no comma here at all.|逗号粘连句是用逗号连接两个完整句子——这里根本没有逗号。",D:"There is no verb tense to shift, since there's no complete clause.|由于没有完整的分句，也就没有时态可以转换。"} },
+  { id:"t4", title:"Sentence Errors", q:"Fix the error: \"He don't know the answer.\"", q_cn:"修正错误：\"He don't know the answer.\"",
+    options:["A. He don't know the answer.|A. He don't know the answer.","B. He doesn't know the answer.|B. He doesn't know the answer.","C. He not know the answer.|C. He not know the answer.","D. He didn't knows the answer.|D. He didn't knows the answer."], correct:"B",
+    rat_right:"Third-person singular subjects (he/she/it) take \"does\" in the negative, not \"do.\"|第三人称单数主语（he/she/it）否定句用\"does\"，而不是\"do\"。",
+    rat_wrong:{A:"This keeps the subject-verb agreement error unfixed.|这仍然保留了主谓一致的错误。",C:"This drops the auxiliary verb entirely, which is not correct English.|这完全去掉了助动词，不符合英语语法。",D:"\"Didn't\" already carries the past tense, so \"knows\" should stay in base form.|\"didn't\"已经带有过去时含义，所以\"know\"应保持原形。"} },
+  { id:"t5", title:"Sentence Errors", q:"Which type of error is in \"When I was young, I play outside every day\"?", q_cn:"\"When I was young, I play outside every day\" 属于哪种错误？",
+    options:["A. run-on|A. 跑句","B. fragment|B. 片段","C. tense shift|C. 时态转换","D. comma splice|D. 逗号粘连句"], correct:"C",
+    rat_right:"\"When I was young\" sets a past-time frame, but \"play\" is present tense — the tense shifts mid-sentence.|\"when I was young\"设定了过去的时间框架，但\"play\"是现在时——时态在句中发生了转换。",
+    rat_wrong:{A:"There is no missing punctuation between two full sentences here.|这里没有两个完整句子之间缺少标点的问题。",B:"The sentence is complete — it just shifts tense incorrectly.|这句话是完整的——只是时态转换有误。",D:"There is no comma incorrectly joining two sentences here.|这里没有逗号错误地连接两个句子。"} },
+  { id:"t6", title:"Sentence Errors", q:"Which revision best fixes the comma splice \"The library was closed, we went home\"?", q_cn:"哪个修改最好地修正了逗号粘连句 \"The library was closed, we went home\"？",
+    options:["A. The library was closed, we went home.|A. The library was closed, we went home.","B. The library was closed we went home.|B. The library was closed we went home.","C. The library was closed, so we went home.|C. The library was closed, so we went home.","D. The library, was closed, we went home.|D. The library, was closed, we went home."], correct:"C",
+    rat_right:"Adding \"so\" gives the comma a conjunction to work with, correctly joining the two ideas.|加上\"so\"给逗号配上了连词，正确地连接了两个想法。",
+    rat_wrong:{A:"This is the original comma splice — still unfixed.|这是原来的逗号粘连句——仍未修正。",B:"Removing the comma creates a run-on instead of fixing the splice.|去掉逗号会造成跑句，而不是修正粘连句。",D:"This adds an unnecessary comma and doesn't fix the real problem.|这加了一个不必要的逗号，并没有解决真正的问题。"} },
+  { id:"t7", title:"Aspect", q:"Which aspect emphasizes an action in progress at a specific moment?", q_cn:"哪种\"体\"强调某一特定时刻正在进行的动作？",
+    options:["A. simple|A. 一般体","B. continuous|B. 进行体","C. perfect|C. 完成体","D. perfect continuous|D. 完成进行体"], correct:"B",
+    rat_right:"Continuous aspect (be + -ing) shows an action happening right at a moment, often interrupted.|进行体（be + -ing）表示某一时刻正在发生的动作，常常被打断。",
+    rat_wrong:{A:"Simple aspect covers facts, habits, and completed events — not an in-progress moment.|一般体涵盖事实、习惯和已完成的事件——不是正在进行的时刻。",C:"Perfect aspect connects two points in time, not a single ongoing moment.|完成体连接两个时间点，而不是单一的持续时刻。",D:"Perfect continuous emphasizes duration up to a point, not a specific in-progress moment.|完成进行体强调持续到某一点的时长，而不是特定的进行时刻。"} },
+  { id:"t8", title:"Aspect", q:"Which aspect connects two points in time — an action completed before another moment?", q_cn:"哪种\"体\"连接两个时间点——一个动作在另一个时刻之前完成？",
+    options:["A. simple|A. 一般体","B. continuous|B. 进行体","C. perfect|C. 完成体","D. perfect continuous|D. 完成进行体"], correct:"C",
+    rat_right:"Perfect aspect (have + past participle) links a completed action to another point in time.|完成体（have + 过去分词）把已完成的动作和另一个时间点联系起来。",
+    rat_wrong:{A:"Simple aspect doesn't connect two separate time points.|一般体不连接两个独立的时间点。",B:"Continuous shows an action in progress, not a completed link between two moments.|进行体表示正在进行的动作，而不是两个时刻之间已完成的联系。",D:"Perfect continuous adds duration, but the core \"before another moment\" idea is perfect aspect.|完成进行体加入了时长概念，但\"在另一时刻之前\"的核心含义属于完成体。"} },
+  { id:"t9", title:"Aspect", q:"Signal words \"since,\" \"for,\" and \"all morning\" point to which aspect?", q_cn:"信号词\"since\"、\"for\"和\"all morning\"指向哪种\"体\"？",
+    options:["A. simple|A. 一般体","B. continuous|B. 进行体","C. perfect|C. 完成体","D. perfect continuous|D. 完成进行体"], correct:"D",
+    rat_right:"These words emphasize how long an action has continued up to a point — perfect continuous.|这些词强调一个动作持续到某一点的时长——完成进行体。",
+    rat_wrong:{A:"Simple aspect uses signals like \"every day\" or \"usually,\" not duration words.|一般体用\"every day\"或\"usually\"这类信号词，而不是表示时长的词。",B:"Continuous uses signals like \"right now\" or \"while,\" not duration-since words.|进行体用\"right now\"或\"while\"这类信号词，而不是表示\"自从\"的时长词。",C:"Perfect uses signals like \"already\" or \"just,\" not ongoing-duration words.|完成体用\"already\"或\"just\"这类信号词，而不是持续时长词。"} },
+  { id:"t10", title:"Tenses", q:"By next June, I ___ from high school.", q_cn:"到明年六月，我 ___ 高中毕业了。",
+    options:["A. will graduate|A. will graduate","B. will have graduated|B. will have graduated","C. graduate|C. graduate","D. am graduating|D. am graduating"], correct:"B",
+    rat_right:"\"By next June\" signals future perfect — an action completed before a future point.|\"by next June\"表示将来完成时——在将来某一时刻之前完成的动作。",
+    rat_wrong:{A:"Simple future doesn't show completion before a specific future point.|一般将来时无法表明在将来某一特定时刻之前完成。",C:"Simple present doesn't fit a future-time sentence at all.|一般现在时完全不适用于将来时间的句子。",D:"Present continuous shows an ongoing action, not one completed before a future point.|现在进行时表示正在进行的动作，而不是在将来某点之前完成的动作。"} }
+];
+
+const PLOT_Q = [
+  { id:"p1", title:"Plot Diagram", q:"Which stage introduces characters, setting, and situation before anything goes wrong?", q_cn:"哪个阶段在任何问题发生之前介绍人物、背景和情境？",
+    options:["A. Exposition|A. 开端","B. Inciting Incident|B. 引发事件","C. Rising Action|C. 发展","D. Climax|D. 高潮"], correct:"A",
+    rat_right:"Exposition gives the reader the \"before\" picture — characters, setting, and situation.|开端向读者展示\"之前\"的画面——人物、背景和情境。",
+    rat_wrong:{B:"The inciting incident is the event that disturbs this normal life, not the introduction itself.|引发事件是打破这种正常生活的事件，而不是介绍本身。",C:"Rising action comes later, building complications after the conflict starts.|发展在之后，是冲突开始后逐步累积的复杂情节。",D:"Climax is the turning point, far past the introduction.|高潮是转折点，远在介绍之后。"} },
+  { id:"p2", title:"Plot Diagram", q:"Which stage is the single event that disturbs normal life and launches the conflict?", q_cn:"哪个阶段是打破正常生活并引发冲突的单一事件？",
+    options:["A. Exposition|A. 开端","B. Inciting Incident|B. 引发事件","C. Falling Action|C. 结局前","D. Resolution|D. 结局"], correct:"B",
+    rat_right:"The inciting incident is the specific event that starts the main conflict.|引发事件是开启主要冲突的特定事件。",
+    rat_wrong:{A:"Exposition happens before anything goes wrong.|开端发生在任何问题出现之前。",C:"Falling action comes after the climax, not at the start of the conflict.|结局前发生在高潮之后，而不是冲突开始时。",D:"Resolution closes the story, long after the conflict begins.|结局是故事的收尾，远在冲突开始之后。"} },
+  { id:"p3", title:"Plot Diagram", q:"Which stage is usually the longest, made of complications that raise the stakes?", q_cn:"哪个阶段通常最长，由不断加剧的复杂情节组成？",
+    options:["A. Rising Action|A. 发展","B. Exposition|B. 开端","C. Resolution|C. 结局","D. Inciting Incident|D. 引发事件"], correct:"A",
+    rat_right:"Rising action is a chain of complications and choices that deepen the conflict, event by event.|发展是一连串不断加深冲突的复杂情节和选择，一环扣一环。",
+    rat_wrong:{B:"Exposition is brief and comes before the conflict starts.|开端很简短，发生在冲突开始之前。",C:"Resolution closes the story — it does not build complications.|结局是故事的收尾——不会累积复杂情节。",D:"The inciting incident is a single event, not an ongoing chain.|引发事件是单一事件，而不是持续的连锁反应。"} },
+  { id:"p4", title:"Plot Diagram", q:"How do you correctly identify the true climax of a story?", q_cn:"如何正确判断故事真正的高潮？",
+    options:["A. It's the scene with the most action|A. 动作最多的场景","B. It's the moment the conflict's outcome is decided|B. 冲突结果被决定的那一刻","C. It's always the very last scene|C. 一定是最后一幕","D. It's always the first scene|D. 一定是第一幕"], correct:"B",
+    rat_right:"The climax is the moment the main conflict's outcome is decided — after it, the story can only go one way.|高潮是主要冲突结果被决定的时刻——在此之后，故事只能朝一个方向发展。",
+    rat_wrong:{A:"An exciting scene isn't automatically the climax if it doesn't decide the conflict.|一个刺激的场景如果没有决定冲突结果，就不一定是高潮。",C:"The last scene is usually the resolution, not the climax.|最后一幕通常是结局，而不是高潮。",D:"The first scene is the exposition, before any conflict exists.|第一幕是开端，在任何冲突出现之前。"} },
+  { id:"p5", title:"Plot Diagram", q:"Which stage covers the events between the climax and the ending, where tension eases?", q_cn:"哪个阶段涵盖了高潮和结局之间，紧张感逐渐缓解的事件？",
+    options:["A. Falling Action|A. 结局前","B. Rising Action|B. 发展","C. Exposition|C. 开端","D. Inciting Incident|D. 引发事件"], correct:"A",
+    rat_right:"Falling action shows consequences unfolding and tension easing after the climax.|结局前展示高潮之后事情的后续发展和紧张感的缓解。",
+    rat_wrong:{B:"Rising action builds tension before the climax, not after.|发展是在高潮之前累积紧张感，而不是之后。",C:"Exposition happens at the very beginning of the story.|开端发生在故事的最开始。",D:"The inciting incident launches the conflict, long before the climax.|引发事件在高潮之前很久就开启了冲突。"} },
+  { id:"p6", title:"Plot Diagram", q:"Which stage shows the \"new normal\" and closes the story?", q_cn:"哪个阶段展示\"新的常态\"并结束故事？",
+    options:["A. Resolution|A. 结局","B. Rising Action|B. 发展","C. Inciting Incident|C. 引发事件","D. Climax|D. 高潮"], correct:"A",
+    rat_right:"Resolution is where the conflict is settled and the story closes.|结局是冲突得到解决、故事结束的地方。",
+    rat_wrong:{B:"Rising action is still building tension, not closing anything.|发展仍在累积紧张感，而不是收尾。",C:"The inciting incident opens the conflict, not the story.|引发事件是开启冲突，而不是结束故事。",D:"The climax is the turning point, not the closing.|高潮是转折点，而不是结尾。"} },
+  { id:"p7", title:"Story Elements", q:"What is the correct term for the central struggle that drives a story?", q_cn:"推动故事发展的核心斗争，正确的术语是什么？",
+    options:["A. Theme|A. 主题","B. Conflict|B. 冲突","C. Setting|C. 背景","D. Point of View|D. 视角"], correct:"B",
+    rat_right:"Conflict is the problem or struggle that drives the story forward.|冲突是推动故事发展的问题或斗争。",
+    rat_wrong:{A:"Theme is the story's message, not the struggle itself.|主题是故事的信息，而不是斗争本身。",C:"Setting is where and when the story happens, not the struggle.|背景是故事发生的时间和地点，而不是斗争。",D:"Point of view is who tells the story, not the struggle within it.|视角是谁在讲述故事，而不是故事中的斗争。"} },
+  { id:"p8", title:"Story Elements", q:"A character battling her own fear illustrates which conflict type?", q_cn:"一个角色与自己的恐惧作斗争，体现了哪种冲突类型？",
+    options:["A. Person vs. Person|A. 人与人","B. Person vs. Self|B. 人与自我","C. Person vs. Nature|C. 人与自然","D. Person vs. Society|D. 人与社会"], correct:"B",
+    rat_right:"An internal struggle inside a character's own mind is Person vs. Self.|角色内心自身的斗争属于人与自我。",
+    rat_wrong:{A:"Person vs. Person involves conflict with another character, not an internal struggle.|人与人是与另一个角色的冲突，而不是内心斗争。",C:"Person vs. Nature involves natural forces, not internal fear.|人与自然涉及自然力量，而不是内心的恐惧。",D:"Person vs. Society involves laws or customs, not a personal internal battle.|人与社会涉及法律或习俗，而不是个人内心的斗争。"} },
+  { id:"p9", title:"Story Elements", q:"\"Nadia caught the bus. She hated the rain.\" is an example of which point of view?", q_cn:"\"Nadia caught the bus. She hated the rain.\" 是哪种叙述视角的例子？",
+    options:["A. First person|A. 第一人称","B. Third person limited|B. 第三人称有限视角","C. Third person omniscient|C. 第三人称全知视角","D. Second person|D. 第二人称"], correct:"B",
+    rat_right:"The outside narrator stays inside one character's mind (Nadia's) — this is third limited.|叙述者在外部叙述，但只进入一个角色（Nadia）的内心——这是第三人称有限视角。",
+    rat_wrong:{A:"First person would use \"I,\" not \"she.\"|第一人称会用\"I\"，而不是\"she\"。",C:"Omniscient would enter multiple characters' minds, not just one.|全知视角会进入多个角色的内心，而不仅仅是一个。",D:"Second person would use \"you,\" which doesn't appear here.|第二人称会用\"you\"，这里没有出现。"} },
+  { id:"p10", title:"Story Elements", q:"A story's theme should be written as...", q_cn:"故事的主题应该写成……",
+    options:["A. A single word like \"courage\"|A. 一个单词，如\"courage\"","B. A full sentence, like \"Courage means acting even when you are afraid.\"|B. 一个完整的句子，如\"Courage means acting even when you are afraid.\"","C. The title of the story|C. 故事的标题","D. A list of characters|D. 一份人物清单"], correct:"B",
+    rat_right:"Theme is the story's central message about life, written as a full sentence — not just a topic word.|主题是关于生活的核心信息，要写成完整的句子——而不仅仅是一个话题词。",
+    rat_wrong:{A:"A single word like \"courage\" is the topic, not the theme itself.|像\"courage\"这样的单词只是话题，而不是主题本身。",C:"The title is not the same as the story's message.|标题和故事的信息不是一回事。",D:"A character list doesn't express any message about life.|人物清单不能表达任何关于生活的信息。"} }
+];
+
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 30;
+
+const gramAnswers = {}; const gramScore = { val: 0 }; const gramDone = { val: 0 };
+const tenseAnswers = {}; const tenseScore = { val: 0 }; const tenseDone = { val: 0 };
+const plotAnswers = {}; const plotScore = { val: 0 }; const plotDone = { val: 0 };
+
+function buildVocab() {
+  const grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v) {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+
+    const wordRow = document.createElement('div');
+    wordRow.className = 'vword';
+    const wordSpan = document.createElement('span');
+    wordSpan.textContent = v.word;
+    const speakBtn = document.createElement('button');
+    speakBtn.className = 'speak-btn';
+    speakBtn.textContent = '🔊';
+    speakBtn.addEventListener('click', function() {
+      const utter = new SpeechSynthesisUtterance(v.word);
+      utter.lang = 'en-US';
+      window.speechSynthesis.speak(utter);
+    });
+    wordRow.appendChild(wordSpan);
+    wordRow.appendChild(speakBtn);
+
+    const pos = document.createElement('div'); pos.className = 'vpos'; pos.textContent = v.pos;
+    const cn = document.createElement('div'); cn.className = 'vcn cn'; cn.textContent = v.cn;
+    const def = document.createElement('div'); def.className = 'vdef'; def.textContent = v.def;
+    const cnDef = document.createElement('div'); cnDef.className = 'vdef cn'; cnDef.textContent = v.cn_def;
+    const ex = document.createElement('div'); ex.className = 'vex'; ex.textContent = v.example;
+
+    card.appendChild(wordRow); card.appendChild(pos); card.appendChild(cn);
+    card.appendChild(def); card.appendChild(cnDef); card.appendChild(ex);
+    grid.appendChild(card);
+  });
+}
+
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  const container = document.getElementById(containerId);
+
+  data.forEach(function(item, idx) {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    const num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx+1) + ' of ' + data.length;
+    card.appendChild(num);
+
+    if (item.passage) {
+      const pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    const qEl = document.createElement('div'); qEl.className='q-text'; qEl.textContent=item.q;
+    const qCn = document.createElement('div'); qCn.className='q-cn cn'; qCn.textContent=item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    const optsWrap = document.createElement('div'); optsWrap.className='opts-wrap';
+    const ratDiv = document.createElement('div'); ratDiv.className='rationale';
+    let answered = false;
+
+    item.options.forEach(function(opt) {
+      const parts = opt.split('|');
+      const letter = parts[0].charAt(0);
+      const enText = parts[0].replace(/^[A-D]\.\s*/,'');
+      const cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/,'') : '';
+
+      const btn = document.createElement('button');
+      btn.className='opt-btn';
+      btn.dataset.letter=letter;
+
+      const strong = document.createElement('strong'); strong.textContent=letter+'. ';
+      const enS = document.createElement('span'); enS.textContent=enText;
+      const br = document.createElement('br');
+      const cnS = document.createElement('span'); cnS.className='cn'; cnS.textContent=cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+
+        let ratText, ratCn, ratParts;
+
+        if (letter === item.correct) {
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '✅ ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          addProgress(1);
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          const wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = '❌ ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+
+        const rDiv = document.createElement('div'); rDiv.textContent=ratText;
+        if (ratCn) {
+          const rBr = document.createElement('br');
+          const rCnS = document.createElement('span'); rCnS.className='cn'; rCnS.textContent=ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+function checkReadiness(tabKey) {
+  const doneMap = { gram: gramDone, tense: tenseDone, plot: plotDone };
+  const doneObj = doneMap[tabKey];
+  const ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  const ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  const grat = document.getElementById(tabKey+'Grat').value.trim();
+  const ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  const btn = document.getElementById(tabKey+'DownloadBtn');
+  const hint = document.getElementById(tabKey+'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+    document.getElementById('pip-'+tabKey).classList.add('done');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+  }
+}
+
+function wireListeners(tabKey) {
+  ['Ref1','Ref2'].forEach(function(fld) {
+    document.getElementById(tabKey+fld).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey+'Grat').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+
+function tryDownload(tabKey) {
+  const ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  const ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  const grat = document.getElementById(tabKey+'Grat').value.trim();
+
+  const doneMap = { gram: gramDone, tense: tenseDone, plot: plotDone };
+  const scoreMap = { gram: gramScore, tense: tenseScore, plot: plotScore };
+  const dataMap = { gram: GRAM_Q, tense: TENSE_Q, plot: PLOT_Q };
+  const ansMap = { gram: gramAnswers, tense: tenseAnswers, plot: plotAnswers };
+  const dayLabelMap = { gram: "Grammar Revision", tense: "Tenses Revision", plot: "Plot & Story Elements" };
+
+  const doneObj = doneMap[tabKey];
+  const scoreObj = scoreMap[tabKey];
+  const qData = dataMap[tabKey];
+  const ansData = ansMap[tabKey];
+
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+
+  const name = document.getElementById(tabKey+'Name').value.trim() || 'Unknown';
+  const now = new Date().toLocaleString();
+  let txt = '';
+
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Section: ' + dayLabelMap[tabKey] + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  qData.forEach(function(item, i) {
+    const sel = ansData[item.id] || 'Not answered';
+    const result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  const blob = new Blob([txt], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  const pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      const notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(GRAM_Q, 'gramQuizContainer', gramAnswers, gramScore, gramDone, function() { checkReadiness('gram'); });
+  buildQuiz(TENSE_Q, 'tenseQuizContainer', tenseAnswers, tenseScore, tenseDone, function() { checkReadiness('tense'); });
+  buildQuiz(PLOT_Q, 'plotQuizContainer', plotAnswers, plotScore, plotDone, function() { checkReadiness('plot'); });
+  wireListeners('gram');
+  wireListeners('tense');
+  wireListeners('plot');
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
