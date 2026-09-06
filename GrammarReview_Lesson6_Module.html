@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar Review Lesson 6 | 语法复习第六课</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family:'DM Sans', sans-serif; background:var(--mist); color:var(--ink); line-height:1.5; }
+h1,h2,h3,h4 { font-family:'Literata', serif; color:var(--ml-green-dark); }
+.cn { font-family:'Noto Sans SC', sans-serif; color:#4a5568; }
+
+/* Anti-cheat banner */
+.warn-banner {
+  background:#7f1d1d; color:#fff; padding:9px 18px; font-size:0.83rem;
+  font-weight:600; text-align:center; position:sticky; top:0; z-index:1000;
+}
+.leave-notice {
+  display:none; background:#fee2e2; border-left:4px solid #c1121f; padding:8px 16px;
+  font-size:0.82rem; color:#7f1d1d; font-weight:600; text-align:center;
+}
+
+/* Header */
+.header {
+  background:linear-gradient(135deg, var(--ml-green) 0%, var(--ml-green-dark) 100%);
+  color:#fff; padding:18px 20px;
+}
+.header h1 { color:#fff; font-size:1.5rem; }
+.header .sub { font-family:'Noto Sans SC', sans-serif; color:var(--ml-green-light); font-size:0.95rem; margin-top:2px;}
+.header-row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:12px; }
+.badge { background:rgba(255,255,255,0.15); border-radius:20px; padding:4px 12px; font-size:0.8rem; }
+.progress-outer { flex:1; min-width:200px; background:rgba(255,255,255,0.2); border-radius:10px; height:10px; overflow:hidden; }
+.progress-inner { background:var(--ml-gold); height:100%; width:0%; transition:width 0.3s; }
+#progressText { font-size:0.78rem; color:var(--ml-green-light); margin-top:4px; }
+
+/* Tabs */
+.tabs { display:flex; gap:6px; background:#fff; padding:10px 16px 0; border-bottom:2px solid var(--border); flex-wrap:wrap; }
+.tab-btn {
+  background:var(--mist); border:1px solid var(--border); border-bottom:none;
+  padding:10px 18px; border-radius:8px 8px 0 0; cursor:pointer; font-family:'DM Sans',sans-serif;
+  font-size:0.92rem; font-weight:600; color:var(--ink2); display:flex; align-items:center; gap:8px;
+}
+.tab-btn.active { background:var(--ml-green); color:#fff; }
+.pip { width:9px; height:9px; border-radius:50%; background:#cbd5c9; display:inline-block; }
+.pip.done { background:var(--ml-gold); }
+
+.tab-content { display:none; padding:22px 20px 60px; max-width:920px; margin:0 auto; }
+.tab-content.active { display:block; }
+
+/* Name row */
+.name-row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:20px; background:#fff;
+  padding:12px 16px; border-radius:10px; border:1px solid var(--border); }
+.name-row input { padding:8px 12px; border:1px solid var(--border); border-radius:6px; font-size:0.95rem; flex:1; min-width:180px; }
+
+/* Concept blocks */
+.concept-section { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin-bottom:18px; }
+.concept-section h2 { font-size:1.15rem; margin-bottom:8px; border-left:5px solid var(--ml-green); padding-left:10px; }
+.concept-section h3 { font-size:1rem; margin:12px 0 6px; color:var(--cobalt); }
+.concept-section p { margin-bottom:8px; }
+.callout {
+  background:var(--ml-green-light); border-left:4px solid var(--ml-green); border-radius:6px;
+  padding:10px 14px; margin:10px 0; font-size:0.92rem;
+}
+.callout.amber { background:var(--amber-light); border-left-color:var(--amber); }
+table.gtable { width:100%; border-collapse:collapse; margin:10px 0; font-size:0.88rem; }
+table.gtable th, table.gtable td { border:1px solid var(--border); padding:6px 10px; text-align:left; }
+table.gtable th { background:var(--ml-green-light); color:var(--ml-green-dark); }
+.word-pill { display:inline-block; background:#eef6ee; border:1px solid var(--ml-green); border-radius:14px;
+  padding:2px 10px; margin:2px; font-size:0.85rem; }
+
+/* Vocab cards */
+.vocab-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:14px; }
+.vocab-card { background:#fff; border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+.vocab-card .term { font-family:'Literata', serif; font-weight:700; font-size:1.1rem; color:var(--ml-green-dark); }
+.vocab-card .pos { font-size:0.78rem; color:#888; font-style:italic; margin-left:6px; }
+.vocab-card .speak-btn { float:right; background:none; border:none; cursor:pointer; font-size:1.1rem; }
+.vocab-card .def { margin-top:6px; font-size:0.9rem; }
+.vocab-card .ex { margin-top:6px; font-size:0.85rem; font-style:italic; color:var(--cobalt); }
+
+/* Quiz */
+.quiz-card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px 18px; margin-bottom:16px; }
+.q-num { font-size:0.78rem; color:#888; margin-bottom:6px; font-weight:600; }
+.passage-box { background:var(--mist); border:1px solid var(--border); border-radius:8px; padding:10px 14px; margin-bottom:10px; font-size:0.9rem; }
+.q-text { font-weight:700; margin-bottom:2px; }
+.q-cn { font-size:0.88rem; margin-bottom:10px; }
+.opts-wrap { display:flex; flex-direction:column; gap:8px; }
+.opt-btn {
+  text-align:left; background:var(--mist); border:1px solid var(--border); border-radius:8px;
+  padding:9px 12px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.9rem;
+}
+.opt-btn:disabled { cursor:default; }
+.opt-btn.show-correct { border-color:var(--ml-green); background:var(--ml-green-light); }
+.opt-btn.selected-correct { background:var(--ml-green-light); border-color:var(--ml-green); font-weight:700; }
+.opt-btn.selected-wrong { background:#fde8e8; border-color:var(--ml-red); }
+.rationale { display:none; margin-top:10px; padding:10px 12px; border-radius:8px; font-size:0.88rem; }
+.rationale.show { display:block; }
+.rationale.correct-rat { background:var(--ml-green-light); }
+.rationale.wrong-rat { background:#fde8e8; }
+
+/* Reflect */
+.reflect-box { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin-top:10px; }
+.reflect-box h3 { margin-bottom:10px; }
+.reflect-q { margin-bottom:14px; }
+.reflect-q label { display:block; font-size:0.9rem; font-weight:600; margin-bottom:4px; }
+.reflect-q .cn { display:block; font-size:0.84rem; margin-bottom:6px; }
+.reflect-q textarea, .grat-input {
+  width:100%; padding:9px 12px; border:1px solid var(--border); border-radius:8px; font-family:'DM Sans',sans-serif;
+  font-size:0.9rem; resize:vertical;
+}
+.reflect-q textarea.filled, .grat-input.filled { border-color:var(--ml-green); background:var(--ml-green-light); }
+.grat-row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size:0.92rem; }
+.grat-input { flex:1; min-width:200px; }
+
+.download-btn {
+  margin-top:14px; padding:12px 22px; border:none; border-radius:8px; background:#cbd5c9; color:#fff;
+  font-weight:700; font-size:0.95rem; opacity:0.6; pointer-events:none; cursor:default;
+}
+.download-btn.ready { background:var(--ml-green); opacity:1; pointer-events:auto; cursor:pointer; }
+.dl-hint { font-size:0.82rem; color:#888; margin-top:6px; }
+.dl-hint.hidden { display:none; }
+
+.timer-fixed {
+  position:fixed; bottom:14px; right:16px; background:var(--ml-green-dark); color:#fff;
+  padding:6px 14px; border-radius:20px; font-size:0.82rem; z-index:900;
+}
+@media (max-width:600px) {
+  .tab-btn { padding:8px 12px; font-size:0.82rem; }
+  .header h1 { font-size:1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="warn-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn" style="color:#fff;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span>
+</div>
+
+<div class="header">
+  <h1>Grammar Review · Lesson 6</h1>
+  <div class="sub">语法复习 · 第六课</div>
+  <div class="header-row">
+    <div class="badge">👤 <span id="leaveBadge">🚪 Leaves: 0</span></div>
+    <div class="progress-outer"><div class="progress-inner" id="progressBar"></div></div>
+  </div>
+  <div id="progressText">Progress: 0% · 进度：0%</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">📖 Vocab · 词汇</button>
+  <button class="tab-btn" onclick="switchTab('tab1', this)"><span class="pip" id="pip-tab1"></span> Part 1: Speech &amp; Forms · 第一部分</button>
+  <button class="tab-btn" onclick="switchTab('tab2', this)"><span class="pip" id="pip-tab2"></span> Part 2: Commas, Conjunctions &amp; Quotes · 第二部分</button>
+</div>
+
+<!-- ===================== VOCAB TAB ===================== -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="concept-section">
+    <h2>The Eight Word Classes · 八大词类</h2>
+    <p>Every English word belongs to one of eight parts of speech. Click 🔊 to hear each word pronounced.</p>
+  </div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ===================== TAB 1: Sections 1-2 ===================== -->
+<div class="tab-content" id="tab-tab1">
+  <div class="name-row">
+    <label for="tab1Name">Name · 姓名:</label>
+    <input type="text" id="tab1Name" placeholder="Type your full name">
+  </div>
+
+  <div class="concept-section">
+    <h2>01 · Parts of Speech · 词性</h2>
+    <p>We sort words into groups so we know the <strong>job</strong> each word does in a sentence. The same word can do different jobs — check the job, not just the word.</p>
+    <table class="gtable">
+      <tr><th>Class</th><th>Job</th><th>Examples</th></tr>
+      <tr><td>Noun (N)</td><td>names a person, place, thing or idea</td><td>teacher, school, laptop, happiness</td></tr>
+      <tr><td>Pronoun (P)</td><td>stands in place of a noun</td><td>he, she, it, they</td></tr>
+      <tr><td>Verb (V)</td><td>shows an action or a state of being</td><td>run, think, is, was writing</td></tr>
+      <tr><td>Adjective (Adj)</td><td>describes or changes a noun/pronoun</td><td>blue, gigantic, confident</td></tr>
+      <tr><td>Adverb (Adv)</td><td>describes a verb, adjective or word group</td><td>softly, quickly, yesterday</td></tr>
+      <tr><td>Preposition (Pr)</td><td>shows position, direction or relationship</td><td>to, at, with, against</td></tr>
+      <tr><td>Conjunction (C)</td><td>joins words, phrases and clauses</td><td>and, but, because, although</td></tr>
+      <tr><td>Interjection (I)</td><td>expresses sudden or strong emotion</td><td>Wow! Ouch! Oh dear!</td></tr>
+    </table>
+    <div class="callout">💡 <strong>Test:</strong> Can you put "the" or "a" in front of the word? Then it is probably a <strong>noun</strong>. · 如果一个词前面可以加 "the" 或 "a"，它很可能是名词。</div>
+
+    <h3>Four Noun Types · 四种名词</h3>
+    <p><strong>Abstract</strong> (an idea you cannot touch): pride, courage, danger &nbsp;|&nbsp; <strong>Collective</strong> (a group): a herd of sheep, a flock of birds &nbsp;|&nbsp; <strong>Compound</strong> (two words joined): airplane, keyboard &nbsp;|&nbsp; <strong>Proper</strong> (a specific name, capitalized): China, Harry Potter</p>
+
+    <h3>Pronouns &amp; Articles · 代词与冠词</h3>
+    <p><strong>Pronouns</strong> replace a noun so we don't repeat the same name: "Maria lost <em>her</em> keys, but <em>she</em> found <em>them</em> later." <strong>The</strong> = one particular thing ("<em>the</em> dog is eating my homework"). <strong>A/an</strong> = any one of a general group ("<em>a</em> dog is eating my homework"); use <em>an</em> before a vowel sound ("<em>an</em> apple a day").</p>
+
+    <h3>Adjectives &amp; Verbs · 形容词与动词</h3>
+    <p>Adjectives answer "what kind?", "which one?" or "how many?" and usually sit before a noun or after "be". Verbs show a doing or a being, and change form for person, tense, and aspect (I walk / she walks / I walked / I am walking / I have walked). <strong>Modal verbs</strong> (can, could, may, might, must, shall, should, will, would) help the main verb and never stand alone: "You <em>should</em> study before the quiz."</p>
+
+    <h3>Adverbs &amp; Prepositions · 副词与介词</h3>
+    <p>Most adverbs end in <strong>-ly</strong> (softly, quickly), but some do not (well, fast, never, now). Some adjectives also end in -ly (likely, friendly) — always ask what the word modifies. Prepositions link a noun to the rest of the sentence and show position or direction: "She stubbed her toe <em>against</em> the door."</p>
+
+    <div class="callout amber">📌 <strong>Contractions</strong> drop letters and mark the gap with an apostrophe: don't = do + not. A contraction counts as its own word — never split it in two when labeling. · 缩写词用撇号标记省略的字母，标注时不要拆分成两个词。</div>
+
+    <h3>Root Words, Prefixes &amp; Suffixes · 词根、前缀与后缀</h3>
+    <p>A <strong>root word</strong> is the simplest form with no prefix or suffix (happy, dress, manage). A <strong>prefix</strong> is added before the root to change its meaning (un + happy = unhappy). A <strong>suffix</strong> is added after the root, and suffixes often change the <strong>word class</strong> (happy → happiness): this is the key to word forms below.</p>
+
+    <h3>Phrases &amp; Clauses · 短语与从句</h3>
+    <p>A <strong>phrase</strong> is a group of words with no subject-verb pair ("in the first place"). A <strong>clause</strong> has both a subject and a verb. An <strong>independent clause</strong> can stand alone as a full sentence ("The woman sang."). A <strong>dependent clause</strong> cannot stand alone — it needs an independent clause to complete the thought ("Although it was raining" + ", I walked to school.").</p>
+  </div>
+
+  <div class="concept-section">
+    <h2>02 · Word Forms · 词形</h2>
+    <p>A <strong>word family</strong> is a group of words that share meaning and a root, appearing as different forms — noun, verb, adjective, adverb: <em>perception → perceptive → perceptively</em>.</p>
+    <table class="gtable">
+      <tr><th>Class</th><th>Common suffixes</th><th>Examples</th></tr>
+      <tr><td>Adjective</td><td>-ful, -less, -ous, -ive, -tic, -able/-ible, -y</td><td>beautiful, endless, dangerous, creative, romantic, comfortable, noisy</td></tr>
+      <tr><td>Adverb</td><td>adjective + -ly</td><td>soft → softly, creative → creatively</td></tr>
+      <tr><td>Noun</td><td>-tion, -ity, -ness, -ence, -ment, -th</td><td>creation, clarity, happiness, difference, management, strength</td></tr>
+      <tr><td>Verb</td><td>changes for person/tense/aspect</td><td>claim → claimed → is claiming → has claimed</td></tr>
+    </table>
+    <div class="callout">💡 Choose the form that matches the word's <strong>job</strong> in the sentence: subject, action, description, or manner. · 根据词在句中的作用（主语、动作、描述或方式）选择正确的词形。</div>
+    <p><strong>Sample family:</strong> action (n.) → active (adj.) → actively (adv.) &nbsp;|&nbsp; decision (n.) → decisive (adj.) → decisively (adv.) &nbsp;|&nbsp; success (n.) → successful (adj.) → successfully (adv.)</p>
+  </div>
+
+  <h2 style="margin:20px 0 6px;">Quiz · 测验</h2>
+  <p style="margin-bottom:14px; font-size:0.9rem; color:#555;">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="tab1QuizContainer"></div>
+
+  <div class="reflect-box" id="tab1Reflect">
+    <h3>Reflect · 反思</h3>
+    <div class="reflect-q">
+      <label>1. Pick one sentence from today's lesson and explain how you decided the job of each word.</label>
+      <span class="cn">从今天的课程中选一个句子，解释你如何判断每个词的词性。</span>
+      <textarea id="tab1Ref1" rows="3"></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Which part of speech do you find hardest to identify, and why?</label>
+      <span class="cn">你觉得哪种词性最难判断？为什么？</span>
+      <textarea id="tab1Ref2" rows="3"></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" class="grat-input" id="tab1Grat" placeholder="type here">
+      <span class="cn">今天我很感激</span>
+    </div>
+    <button class="download-btn" id="tab1DownloadBtn" onclick="tryDownload('tab1')">Download My Work · 下载我的作业</button>
+    <div class="dl-hint" id="tab1Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思后才能下载。</div>
+  </div>
+</div>
+
+<!-- ===================== TAB 2: Sections 3-5 ===================== -->
+<div class="tab-content" id="tab-tab2">
+  <div class="name-row">
+    <label for="tab2Name">Name · 姓名:</label>
+    <input type="text" id="tab2Name" placeholder="Type your full name">
+  </div>
+
+  <div class="concept-section">
+    <h2>03 · Comma Rules · 逗号规则</h2>
+    <p>There are ten places a comma belongs, and five common misuses.</p>
+    <h3>Ten Uses · 十种用法</h3>
+    <ol style="margin-left:18px; font-size:0.92rem;">
+      <li>Before a coordinating conjunction joining two independent clauses: "It was cold, <strong>and</strong> we stayed inside."</li>
+      <li>Between items in a series: "We are going water skiing, swimming, and snorkeling."</li>
+      <li>After an introductory phrase: "To raise money for the cause, Mary sold her belongings."</li>
+      <li>Around a nonessential clause/appositive: "Justin, who lives down the street, is going too."</li>
+      <li>Between coordinate adjectives (no "and" between them): "the interesting, dangerous act of beekeeping"</li>
+      <li>After an introductory dependent clause (if, when, although, because...): "If you want good grades, you need to do your homework."</li>
+      <li>Before a quotation introduced by a speaking verb: Kevin said, "I like turtles!"</li>
+      <li>After a transition word (first, next, therefore...): "First, we should eat tacos for lunch."</li>
+      <li>Separating parts of dates and addresses: "On January 2nd, 1996, Bill Clinton, President of the U.S.A., visited Chicago, Illinois."</li>
+      <li>Before a name in direct address: "Would you please be quiet, Tony?"</li>
+    </ol>
+    <h3>Five Misuses · 五种误用</h3>
+    <div class="callout amber">❌ Don't put a comma: between subject and verb · between only two items joined by "and" · around an essential (restrictive) clause · before "and"/"but" joining only two words · between two independent clauses with no conjunction (comma splice). · 不要在主谓之间、仅两项由"and"连接时、限定性从句两侧、仅连接两个词的"and/but"前，或无连词的两个独立分句之间加逗号。</div>
+  </div>
+
+  <div class="concept-section">
+    <h2>04 · Conjunctions · 连词</h2>
+    <h3>Coordinating — FANBOYS</h3>
+    <p>Connect equal ideas: <span class="word-pill">for</span><span class="word-pill">and</span><span class="word-pill">nor</span><span class="word-pill">but</span><span class="word-pill">or</span><span class="word-pill">yet</span><span class="word-pill">so</span>. Put a comma before FANBOYS when it joins two independent clauses; no comma when it joins only two words or phrases.</p>
+    <h3>Correlative — work in pairs</h3>
+    <p><span class="word-pill">both...and</span><span class="word-pill">either...or</span><span class="word-pill">neither...nor</span><span class="word-pill">not only...but also</span><span class="word-pill">whether...or</span></p>
+    <h3>Subordinating — join a dependent clause to a main clause</h3>
+    <p><span class="word-pill">although</span><span class="word-pill">because</span><span class="word-pill">since</span><span class="word-pill">when</span><span class="word-pill">while</span><span class="word-pill">unless</span><span class="word-pill">until</span><span class="word-pill">as soon as</span></p>
+    <div class="callout">💡 If the second idea depends on the first, choose a subordinator; if it contrasts, choose <em>yet</em> or <em>although</em>; if it offers a choice, choose <em>or</em> or <em>either...or</em>.</div>
+  </div>
+
+  <div class="concept-section">
+    <h2>05 · Quotation Marks · 引号</h2>
+    <ol style="margin-left:18px; font-size:0.92rem;">
+      <li>Introduce a quote with a dialogue tag + comma: Danny said, "I'm leaving soon."</li>
+      <li>Introduce with a complete sentence + colon: Kennedy said: "Ask not what your country can do for you..."</li>
+      <li>Blend a quote into your own sentence — no comma, no colon.</li>
+      <li>A short quoted phrase inside your sentence takes quotation marks only, no comma.</li>
+      <li>A dialogue tag interrupting a quote — the second part starts lowercase: "I don't know," he said, "but the law is the law."</li>
+      <li>Periods, commas, question marks and exclamation points go <strong>inside</strong> the closing quotation mark.</li>
+    </ol>
+    <div class="callout">📌 "What a great day!" yelled Mr. Dobbins. — note the exclamation point sits inside the closing mark. · 感叹号在右引号内。</div>
+  </div>
+
+  <h2 style="margin:20px 0 6px;">Quiz · 测验</h2>
+  <p style="margin-bottom:14px; font-size:0.9rem; color:#555;">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+  <div id="tab2QuizContainer"></div>
+
+  <div class="reflect-box" id="tab2Reflect">
+    <h3>Reflect · 反思</h3>
+    <div class="reflect-q">
+      <label>1. Explain why punctuation (like a period or comma) usually goes inside the closing quotation mark.</label>
+      <span class="cn">解释为什么标点符号（如句号或逗号）通常放在右引号内。</span>
+      <textarea id="tab2Ref1" rows="3"></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Write one sentence about your own weekend using a subordinating conjunction (although, because, when...).</label>
+      <span class="cn">用一个从属连词（although, because, when...）写一句关于你周末的句子。</span>
+      <textarea id="tab2Ref2" rows="3"></textarea>
+    </div>
+    <div class="grat-row">
+      <label>Today I am grateful for</label>
+      <input type="text" class="grat-input" id="tab2Grat" placeholder="type here">
+      <span class="cn">今天我很感激</span>
+    </div>
+    <button class="download-btn" id="tab2DownloadBtn" onclick="tryDownload('tab2')">Download My Work · 下载我的作业</button>
+    <div class="dl-hint" id="tab2Hint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思后才能下载。</div>
+  </div>
+</div>
+
+<div class="timer-fixed" id="timer-display">⏱ 00:00</div>
+
+<script>
+/* ================= DATA ================= */
+const VOCAB = [
+  { word:"Noun", pos:"noun", cn:"名词", def:"Names a person, place, thing, or idea.", cn_def:"表示人、地方、事物或概念的词。", example:"The teacher gave the class a test." },
+  { word:"Pronoun", pos:"pronoun", cn:"代词", def:"Stands in place of a noun so it is not repeated.", cn_def:"代替名词，避免重复。", example:"Maria lost her keys, but she found them later." },
+  { word:"Verb", pos:"verb", cn:"动词", def:"Shows an action or a state of being.", cn_def:"表示动作或状态的词。", example:"The boy was writing his essay." },
+  { word:"Adjective", pos:"adjective", cn:"形容词", def:"Describes or modifies a noun or pronoun.", cn_def:"描述或修饰名词或代词的词。", example:"I have a gigantic hamburger." },
+  { word:"Adverb", pos:"adverb", cn:"副词", def:"Describes a verb, adjective, or another adverb — tells how, when, where, or to what extent.", cn_def:"修饰动词、形容词或另一个副词，说明方式、时间、地点或程度。", example:"The boy sang softly." },
+  { word:"Preposition", pos:"preposition", cn:"介词", def:"Shows position, direction, or relationship between a noun and the rest of the sentence.", cn_def:"表示位置、方向或关系的词。", example:"She stubbed her toe against the door." },
+  { word:"Conjunction", pos:"conjunction", cn:"连词", def:"Joins words, phrases, and clauses.", cn_def:"连接词语、短语和分句的词。", example:"Although it was raining, I walked to school." },
+  { word:"Interjection", pos:"interjection", cn:"感叹词", def:"Expresses sudden or strong emotion; can stand alone.", cn_def:"表达突然或强烈情感的词，可以独立使用。", example:"Ow! That looks painful." }
+];
+
+const TAB1_Q = [
+  { id:"t1q1", title:"Label the noun",
+    q:"In the sentence 'The teacher gave the class a test,' which word is the noun that names a thing (not a person)?",
+    q_cn:"在句子 'The teacher gave the class a test' 中，哪个是表示事物的名词？",
+    options:["A. teacher|A. teacher（老师）","B. gave|B. gave（给）","C. test|C. test（测试）","D. the|D. the（冠词）"],
+    correct:"C",
+    rat_right:"'Test' names a thing — it can follow 'a', which is the noun test.|'test' 是事物名词，前面可以加 'a'。",
+    rat_wrong:{ A:"'Teacher' is a noun, but it names a person, not a thing — the question asks for the thing.|'teacher' 是名词但表示人，不是事物。", B:"'Gave' shows an action — it is a verb.|'gave' 表示动作，是动词。", D:"'The' is an article, not a noun.|'the' 是冠词，不是名词。" } },
+  { id:"t1q2", title:"Pronoun function",
+    q:"'Maria lost her keys, but she found them later.' What job does 'them' do?",
+    q_cn:"'them' 在句中起什么作用？",
+    options:["A. It replaces 'keys' so the word isn't repeated.|A. 代替 'keys'，避免重复。","B. It describes the keys.|B. 描述钥匙。","C. It shows an action.|C. 表示动作。","D. It joins two clauses.|D. 连接两个分句。"],
+    correct:"A",
+    rat_right:"'Them' is a pronoun standing in for 'keys' so Maria isn't repeated.|'them' 是代词，代替 'keys'。",
+    rat_wrong:{ B:"Describing a noun is the adjective's job, not the pronoun's.|描述名词是形容词的工作。", C:"Showing action is the verb's job.|表示动作是动词的工作。", D:"Joining clauses is the conjunction's job.|连接分句是连词的工作。" } },
+  { id:"t1q3", title:"Adjective placement",
+    q:"'I have a gigantic hamburger in my lunch box.' Which word answers 'what kind of hamburger?'",
+    q_cn:"哪个词回答 '什么样的汉堡？'",
+    options:["A. have|A. have","B. gigantic|B. gigantic","C. lunch box|C. lunch box","D. in|D. in"],
+    correct:"B",
+    rat_right:"'Gigantic' describes the noun 'hamburger' — it answers 'what kind?', so it's an adjective.|'gigantic' 描述名词 'hamburger'，是形容词。",
+    rat_wrong:{ A:"'Have' shows the action — it is the verb.|'have' 是动词。", C:"'Lunch box' is a compound noun, not a description.|'lunch box' 是复合名词，不是描述词。", D:"'In' shows position — it is a preposition.|'in' 是介词，表示位置。" } },
+  { id:"t1q4", title:"Modal verb",
+    q:"'You should study before the quiz.' What is the job of 'should'?",
+    q_cn:"'should' 在句中起什么作用？",
+    options:["A. It is the main action.|A. 是主要动作。","B. It is a modal verb helping the main verb 'study'.|B. 是帮助主要动词 'study' 的情态动词。","C. It is an adverb.|C. 是副词。","D. It is a noun.|D. 是名词。"],
+    correct:"B",
+    rat_right:"Modal verbs (can, could, may, should...) help the main verb and never stand alone.|情态动词帮助主要动词，不能单独使用。",
+    rat_wrong:{ A:"'Study' is the main action, not 'should'.|'study' 才是主要动作。", C:"'Should' does not describe a verb, adjective, or adverb.|'should' 不修饰动词、形容词或副词。", D:"'Should' does not name anything — it is not a noun.|'should' 不是名词。" } },
+  { id:"t1q5", title:"Adverb job",
+    q:"'The boy sang softly.' What does 'softly' modify, and what part of speech is it?",
+    q_cn:"'softly' 修饰什么？它是什么词性？",
+    options:["A. It modifies 'boy' — it is an adjective.|A. 修饰 'boy'，是形容词。","B. It modifies 'sang' — it is an adverb telling how.|B. 修饰 'sang'，是说明方式的副词。","C. It modifies nothing.|C. 不修饰任何词。","D. It is a preposition.|D. 是介词。"],
+    correct:"B",
+    rat_right:"'Softly' tells how the boy sang — it modifies the verb, so it is an adverb.|'softly' 说明唱歌的方式，修饰动词，是副词。",
+    rat_wrong:{ A:"Adjectives modify nouns, but 'softly' modifies the verb 'sang', not a noun.|形容词修饰名词，但 'softly' 修饰动词。", C:"It does modify something — the verb 'sang'.|它修饰了动词 'sang'。", D:"Prepositions show position or relationship, not manner.|介词表示位置或关系，不是方式。" } },
+  { id:"t1q6", title:"Preposition spotting",
+    q:"'She stubbed her toe against the big, wooden door.' Which word links 'toe' to 'door'?",
+    q_cn:"哪个词把 'toe' 和 'door' 联系起来？",
+    options:["A. stubbed|A. stubbed","B. against|B. against","C. big|C. big","D. wooden|D. wooden"],
+    correct:"B",
+    rat_right:"'Against' is a preposition — it shows the relationship between the toe and the door.|'against' 是介词，表示 toe 和 door 之间的关系。",
+    rat_wrong:{ A:"'Stubbed' is the action — the verb.|'stubbed' 是动词，表示动作。", C:"'Big' describes the door — an adjective.|'big' 是形容词，描述 door。", D:"'Wooden' also describes the door — an adjective.|'wooden' 也是形容词，描述 door。" } },
+  { id:"t1q7", title:"Contraction rule",
+    q:"'A teacher that I don't know.' How should 'don't' be labeled when tagging every word?",
+    q_cn:"标注每个词性时，'don't' 应该怎么标注？",
+    options:["A. Split it into 'do' (verb) + 'not' (adverb).|A. 拆成 'do'（动词）+ 'not'（副词）。","B. Label it as one contraction — do not split it.|B. 标为一个完整的缩写词，不要拆分。","C. Label it as a noun.|C. 标为名词。","D. Ignore it — it has no part of speech.|D. 忽略它，它没有词性。"],
+    correct:"B",
+    rat_right:"A contraction counts as its own shortened form and should not be split into two words when labeling.|缩写词标注时算作一个整体，不要拆分成两个词。",
+    rat_wrong:{ A:"The lesson specifically says not to split a contraction into two words.|课程中明确说明不要把缩写词拆成两个词。", C:"A contraction is not a noun — it is a shortened verb phrase here.|缩写词不是名词，这里是缩短的动词短语。", D:"Every word in a sentence gets labeled, including contractions.|句子中每个词都要标注，包括缩写词。" } },
+  { id:"t1q8", title:"Root, prefix, suffix",
+    q:"In 'unhappiness', which part is the root word?",
+    q_cn:"'unhappiness' 中哪一部分是词根？",
+    options:["A. un-|A. un-","B. happy|B. happy","C. -ness|C. -ness","D. unhappi-|D. unhappi-"],
+    correct:"B",
+    rat_right:"'Happy' is the simplest form with no prefix or suffix added — it is the root.|'happy' 是没有加前缀或后缀的最简单形式，是词根。",
+    rat_wrong:{ A:"'Un-' is a prefix added before the root.|'un-' 是加在词根前的前缀。", C:"'-ness' is a suffix added after the root.|'-ness' 是加在词根后的后缀。", D:"'Unhappi-' is not a standalone word part — it mixes the prefix and root.|'unhappi-' 不是独立的词根，混合了前缀和词根。" } },
+  { id:"t1q9", title:"Phrase vs. clause",
+    q:"Which group of words is a clause, not just a phrase?",
+    q_cn:"哪一组词是分句（有主谓），而不仅仅是短语？",
+    options:["A. in the first place|A. in the first place","B. very cold and dark|B. very cold and dark","C. Although it was raining|C. Although it was raining","D. a good friend|D. a good friend"],
+    correct:"C",
+    rat_right:"'Although it was raining' has a subject (it) and a verb (was raining) — it is a clause (a dependent one).|'Although it was raining' 有主语（it）和谓语（was raining），是从句。",
+    rat_wrong:{ A:"'In the first place' has no subject-verb pair — it is a prepositional phrase.|没有主谓，是介词短语。", B:"'Very cold and dark' is an adjective phrase — no subject or verb.|是形容词短语，没有主谓。", D:"'A good friend' is a noun phrase — no subject or verb.|是名词短语，没有主谓。" } },
+  { id:"t1q10", title:"Word form conversion",
+    q:"Which adjective and adverb pair correctly matches the noun 'danger'?",
+    q_cn:"哪一组形容词和副词是 'danger' 的正确词形？",
+    options:["A. dangerful / dangerfully|A. dangerful / dangerfully","B. dangerous / dangerously|B. dangerous / dangerously","C. dangered / dangeringly|C. dangered / dangeringly","D. dangerness / dangerness-ly|D. dangerness / dangerness-ly"],
+    correct:"B",
+    rat_right:"'Danger' (noun) → 'dangerous' (adjective, -ous suffix) → 'dangerously' (adverb, adjective + -ly).|danger（名词）→ dangerous（形容词）→ dangerously（副词）。",
+    rat_wrong:{ A:"'-ful' is not the correct suffix for this word family.|'-ful' 不是这个词族的正确后缀。", C:"'-ed' and '-ingly' are not real suffixes for this word family.|'-ed' 和 '-ingly' 不是正确的后缀。", D:"'Dangerness' is not a real word form.|'dangerness' 不是真实的词形。" } }
+];
+
+const TAB2_Q = [
+  { id:"t2q1", title:"Series comma",
+    q:"Which sentence uses commas correctly in a series?",
+    q_cn:"哪个句子在列举时正确使用了逗号？",
+    options:["A. We are going water skiing, swimming and snorkeling.|A. We are going water skiing, swimming and snorkeling.","B. We are going water skiing swimming and snorkeling.|B. We are going water skiing swimming and snorkeling.","C. We are going, water skiing swimming, and snorkeling.|C. We are going, water skiing swimming, and snorkeling.","D. We, are going water skiing swimming and, snorkeling.|D. We, are going water skiing swimming and, snorkeling."],
+    correct:"A",
+    rat_right:"Each item in a series is separated by a comma, including before 'and'.|列举时每一项之间用逗号分隔，包括 'and' 之前。",
+    rat_wrong:{ B:"No commas separate the items at all.|完全没有用逗号分隔各项。", C:"The commas are in the wrong places — not between the series items.|逗号位置不对，没有放在列举项之间。", D:"Commas are scattered in places that break the sentence incorrectly.|逗号位置混乱，破坏了句子结构。" } },
+  { id:"t2q2", title:"Nonessential clause",
+    q:"'Justin who lives down the street is going too.' Where do commas belong?",
+    q_cn:"逗号应该放在哪里？",
+    options:["A. Justin, who lives down the street, is going too.|A. Justin, who lives down the street, is going too.","B. Justin who, lives down the street is, going too.|B. Justin who, lives down the street is, going too.","C. Justin who lives, down the street is going, too.|C. Justin who lives, down the street is going, too.","D. No commas are needed.|D. 不需要逗号。"],
+    correct:"A",
+    rat_right:"The nonessential clause 'who lives down the street' is set off with commas on both sides.|非限定性从句 'who lives down the street' 两侧都要加逗号。",
+    rat_wrong:{ B:"Commas are placed inside the clause incorrectly, breaking it apart.|逗号位置错误，把从句拆开了。", C:"Same problem — commas split the clause instead of surrounding it.|逗号仍然把从句拆开，而不是包围它。", D:"Nonessential (extra) information about Justin needs commas around it.|关于 Justin 的额外信息需要用逗号隔开。" } },
+  { id:"t2q3", title:"Comma misuse",
+    q:"Which sentence contains a comma misuse (an unnecessary comma)?",
+    q_cn:"哪个句子有多余的逗号（误用）？",
+    options:["A. Timothy is reading, the newspaper.|A. Timothy is reading, the newspaper.","B. Timothy is reading the newspaper.|B. Timothy is reading the newspaper.","C. She loves cooking, and she makes great fried rice.|C. She loves cooking, and she makes great fried rice.","D. If you want good grades, you need to do your homework.|D. If you want good grades, you need to do your homework."],
+    correct:"A",
+    rat_right:"A comma should never separate a verb from its object — 'reading' and 'the newspaper' should stay together.|逗号不能把动词和宾语分开——'reading' 和 'the newspaper' 应该在一起。",
+    rat_wrong:{ B:"This sentence has no comma at all — it's correct as written.|这个句子没有逗号，写法正确。", C:"This correctly uses a comma before 'and' joining two independent clauses.|这里正确地在连接两个独立分句的 'and' 前加了逗号。", D:"This correctly uses a comma after an introductory dependent clause.|这里正确地在引导性从句后加了逗号。" } },
+  { id:"t2q4", title:"FANBOYS comma rule",
+    q:"'The weather was cold and wet ___ we enjoyed our day out.' Which is correct?",
+    q_cn:"哪个是正确的？",
+    options:["A. , so|A. , so","B. so|B. so (no comma)","C. , and, so|C. , and, so","D. so,|D. so,"],
+    correct:"A",
+    rat_right:"'So' joins two independent clauses here, so it needs a comma before it.|'so' 连接了两个独立分句，前面需要逗号。",
+    rat_wrong:{ B:"Without the comma, two independent clauses run together incorrectly.|没有逗号，两个独立分句会错误地连在一起。", C:"You cannot stack two conjunctions with extra commas like this.|不能像这样堆叠两个连词和多余的逗号。", D:"The comma belongs before 'so', not after it.|逗号应该在 'so' 之前，而不是之后。" } },
+  { id:"t2q5", title:"Correlative conjunctions",
+    q:"'___ the office ___ the library are open today.' Which pair is correct?",
+    q_cn:"哪一对连词正确？",
+    options:["A. Both...and|A. Both...and","B. Because...so|B. Because...so","C. Although...however|C. Although...however","D. When...then|D. When...then"],
+    correct:"A",
+    rat_right:"'Both...and' is a correlative conjunction pair used to coordinate two equal items.|'both...and' 是关联连词，用于连接两个平等的事物。",
+    rat_wrong:{ B:"'Because...so' is not a correlative pair and creates a repetitive structure.|'because...so' 不是关联连词对，会造成重复结构。", C:"'Although...however' improperly repeats the same contrast idea twice.|'although...however' 重复表达同一个转折意思。", D:"'When...then' does not fit — this sentence isn't about sequence in time.|'when...then' 不适合，这句话不是关于时间顺序的。" } },
+  { id:"t2q6", title:"Subordinating conjunction",
+    q:"'___ it is very old, he goes jogging every morning.' Which word fits best?",
+    q_cn:"哪个词最合适？",
+    options:["A. Because|A. Because","B. Although|B. Although","C. Unless|C. Unless","D. Since|D. Since"],
+    correct:"B",
+    rat_right:"'Although' shows contrast — being old and still jogging is unexpected, which matches 'although'.|'although' 表示转折——年纪大了还坚持晨跑，出乎意料，符合 'although' 的用法。",
+    rat_wrong:{ A:"'Because' shows a cause, but being old is not the reason he jogs.|'because' 表示原因，但年纪大不是他晨跑的原因。", C:"'Unless' shows a condition, which doesn't fit this contrast.|'unless' 表示条件，不符合这里的转折关系。", D:"'Since' can mean 'because' or 'from that time' — neither fits the contrast here.|'since' 表示原因或时间起点，都不符合这里的转折。" } },
+  { id:"t2q7", title:"Quotation mark placement",
+    q:"Which sentence punctuates the quotation correctly?",
+    q_cn:"哪个句子的引号标点是正确的？",
+    options:["A. Danny said, \"I'm leaving soon.\"|A. Danny said, \"I'm leaving soon.\"","B. Danny said \"I'm leaving soon\".|B. Danny said \"I'm leaving soon\".","C. Danny said, I'm leaving soon.|C. Danny said, I'm leaving soon.","D. \"Danny said, I'm leaving soon.\"|D. \"Danny said, I'm leaving soon.\""],
+    correct:"A",
+    rat_right:"A dialogue tag is followed by a comma, then the quotation with the period inside the closing mark.|对话标签后加逗号，然后是引号，句号放在右引号内。",
+    rat_wrong:{ B:"The period must go inside the closing quotation mark, and a comma is needed after 'said'.|句号必须放在右引号内，'said' 后也需要逗号。", C:"The actual words spoken need quotation marks around them.|说出的话需要加引号。", D:"The whole sentence is wrongly wrapped in quotes — only Danny's actual words should be quoted.|整句话被错误地加了引号，只有 Danny 说的话才需要引号。" } },
+  { id:"t2q8", title:"Interrupted quotation",
+    q:"'\"I don't know,\" one policeman said, \"but the law is the law.\"' Why is 'but' lowercase?",
+    q_cn:"为什么 'but' 是小写？",
+    options:["A. Because the quote is one continuous sentence interrupted by the dialogue tag.|A. 因为引语是一句被对话标签打断的完整句子。","B. Because 'but' is never capitalized.|B. 因为 'but' 永远不能大写。","C. It's a typo — it should be capitalized.|C. 这是打字错误，应该大写。","D. Because it starts a new sentence.|D. 因为它开始了一个新句子。"],
+    correct:"A",
+    rat_right:"When a dialogue tag interrupts one sentence, the second part continues lowercase since it's not a new sentence.|当对话标签打断一句话时，后半部分继续用小写，因为它不是新句子。",
+    rat_wrong:{ B:"'But' can be capitalized when it starts a new sentence — this rule is about interrupted quotes specifically.|'but' 在开始新句子时可以大写——这条规则专门针对被打断的引语。", C:"It is not a typo — this is the correct rule for interrupted dialogue.|这不是打字错误——这是打断对话的正确规则。", D:"It does not start a new sentence — it continues the first one.|它没有开始新句子，而是延续了第一句。" } },
+  { id:"t2q9", title:"Direct address comma",
+    q:"Which sentence correctly punctuates direct address?",
+    q_cn:"哪个句子正确标注了直接称呼？",
+    options:["A. Would you please be quiet, Tony?|A. Would you please be quiet, Tony?","B. Would you please be quiet Tony?|B. Would you please be quiet Tony?","C. Would, you please be quiet Tony?|C. Would, you please be quiet Tony?","D. Would you please, be quiet Tony?|D. Would you please, be quiet Tony?"],
+    correct:"A",
+    rat_right:"A name being spoken to directly is set off with a comma before it.|直接称呼的名字前面要加逗号。",
+    rat_wrong:{ B:"Without the comma, 'Tony' is not properly set off as direct address.|没有逗号，'Tony' 没有被正确标注为直接称呼。", C:"The comma is in the wrong place — it splits the verb phrase.|逗号位置错误，拆开了动词短语。", D:"The comma is misplaced — it should come directly before the name 'Tony'.|逗号放错了位置，应该紧挨在 'Tony' 前面。" } },
+  { id:"t2q10", title:"Choosing the right conjunction type",
+    q:"'You'd better keep quiet, ___ you will be sent outside.' Which word fits, and what type is it?",
+    q_cn:"哪个词合适？它是哪种连词？",
+    options:["A. or — a coordinating (FANBOYS) conjunction|A. or — 并列连词（FANBOYS）","B. because — a subordinating conjunction|B. because — 从属连词","C. both...and — a correlative conjunction|C. both...and — 关联连词","D. however — an adverb, not a conjunction|D. however — 副词，不是连词"],
+    correct:"A",
+    rat_right:"'Or' presents a consequence/choice between two independent clauses — a coordinating conjunction, needing a comma before it.|'or' 表示两个独立分句之间的选择/后果关系，是并列连词，前面需要逗号。",
+    rat_wrong:{ B:"'Because' would reverse the logic — being sent outside isn't the reason to keep quiet.|'because' 会颠倒逻辑关系——被送出去不是保持安静的原因。", C:"Correlative pairs need two matching slots ('both...and'), which doesn't fit this single blank.|关联连词需要两个对应的位置，不适合这里的单个空格。", D:"'However' is a transitional adverb, not a conjunction, and needs a semicolon, not a comma, before it.|'however' 是过渡副词，不是连词，前面需要分号而不是逗号。" } }
+];
+
+/* ================= STATE ================= */
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 20; // 10 questions x 2 tabs
+
+const tab1Answers = {}; const tab1Score = { val:0 }; const tab1Done = { val:0 };
+const tab2Answers = {}; const tab2Score = { val:0 }; const tab2Done = { val:0 };
+
+/* ================= BUILD VOCAB ================= */
+function buildVocab() {
+  var grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(w) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+
+    var speakBtn = document.createElement('button');
+    speakBtn.className = 'speak-btn';
+    speakBtn.textContent = '🔊';
+    speakBtn.addEventListener('click', function() {
+      var u = new SpeechSynthesisUtterance(w.word);
+      u.lang = 'en-US';
+      window.speechSynthesis.speak(u);
+    });
+    card.appendChild(speakBtn);
+
+    var termLine = document.createElement('div');
+    var termSpan = document.createElement('span'); termSpan.className='term'; termSpan.textContent = w.word;
+    var posSpan = document.createElement('span'); posSpan.className='pos'; posSpan.textContent = '(' + w.pos + ')';
+    termLine.appendChild(termSpan); termLine.appendChild(posSpan);
+    card.appendChild(termLine);
+
+    var cnLine = document.createElement('div'); cnLine.className='cn'; cnLine.textContent = w.cn;
+    card.appendChild(cnLine);
+
+    var defLine = document.createElement('div'); defLine.className='def'; defLine.textContent = w.def;
+    card.appendChild(defLine);
+    var cnDefLine = document.createElement('div'); cnDefLine.className='def cn'; cnDefLine.textContent = w.cn_def;
+    card.appendChild(cnDefLine);
+
+    var exLine = document.createElement('div'); exLine.className='ex'; exLine.textContent = '"' + w.example + '"';
+    card.appendChild(exLine);
+
+    grid.appendChild(card);
+  });
+}
+
+/* ================= BUILD QUIZ ================= */
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx+1) + ' of ' + data.length;
+    card.appendChild(num);
+
+    if (item.passage) {
+      var pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    var qEl = document.createElement('div'); qEl.className='q-text'; qEl.textContent=item.q;
+    var qCn = document.createElement('div'); qCn.className='q-cn cn'; qCn.textContent=item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement('div'); optsWrap.className='opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className='rationale';
+    var answered = false;
+
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/,'');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/,'') : '';
+
+      var btn = document.createElement('button');
+      btn.className='opt-btn';
+      btn.dataset.letter=letter;
+
+      var strong = document.createElement('strong'); strong.textContent=letter+'. ';
+      var enS = document.createElement('span'); enS.textContent=enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className='cn'; cnS.textContent=cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+
+        var ratText, ratCn, ratParts;
+
+        if (letter === item.correct) {
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '✅ ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          addProgress(1);
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          var wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = '❌ ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+
+        var rDiv = document.createElement('div'); rDiv.textContent=ratText;
+        if (ratCn) {
+          var rBr = document.createElement('br');
+          var rCnS = document.createElement('span'); rCnS.className='cn'; rCnS.textContent=ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+/* ================= GATING ================= */
+function checkReadiness(tabKey) {
+  var doneObj = tabKey === 'tab1' ? tab1Done : tab2Done;
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey+'DownloadBtn');
+  var hint = document.getElementById(tabKey+'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+    document.getElementById('pip-'+tabKey).classList.add('done');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+  }
+}
+
+function wireListeners(tabKey) {
+  ['Ref1','Ref2'].forEach(function(fld) {
+    document.getElementById(tabKey+fld).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey+'Grat').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+
+/* ================= DOWNLOAD ================= */
+function tryDownload(tabKey) {
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var doneObj = tabKey === 'tab1' ? tab1Done : tab2Done;
+  var scoreObj = tabKey === 'tab1' ? tab1Score : tab2Score;
+  var qData = tabKey === 'tab1' ? TAB1_Q : TAB2_Q;
+  var ansData = tabKey === 'tab1' ? tab1Answers : tab2Answers;
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+
+  var name = document.getElementById(tabKey+'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var dayLabel = tabKey === 'tab1' ? 'Part 1: Parts of Speech & Word Forms' : 'Part 2: Commas, Conjunctions & Quotation Marks';
+  var txt = '';
+
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Section: ' + dayLabel + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  qData.forEach(function(item, i) {
+    var sel = ansData[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+
+/* ================= UTILITY ================= */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  const pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent =
+    'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+
+/* ================= INIT ================= */
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(TAB1_Q, 'tab1QuizContainer', tab1Answers, tab1Score, tab1Done, function() {
+    checkReadiness('tab1');
+  });
+  buildQuiz(TAB2_Q, 'tab2QuizContainer', tab2Answers, tab2Score, tab2Done, function() {
+    checkReadiness('tab2');
+  });
+  wireListeners('tab1');
+  wireListeners('tab2');
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
