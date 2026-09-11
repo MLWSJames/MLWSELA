@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP-CASTT Poetry Analysis | TP-CASTT 诗歌分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: var(--mist);
+  line-height: 1.55;
+}
+.cn { font-family: 'Noto Sans SC', sans-serif; color: var(--ink2); }
+h1, h2, h3, .serif { font-family: 'Literata', serif; }
+
+/* ---------- Anti-cheat banners ---------- */
+.warn-banner {
+  background: #7f1d1d; color: #fff; padding: 9px 18px; font-size: 0.83rem;
+  font-weight: 600; text-align: center; position: sticky; top: 0; z-index: 1000;
+}
+.warn-banner .cn { color: #fff; font-weight: 400; }
+#leaveNotice {
+  display: none; background: #fee2e2; border-left: 4px solid var(--ml-red);
+  padding: 8px 16px; font-size: 0.82rem; color: #7f1d1d; font-weight: 600; text-align: center;
+}
+
+/* ---------- Header ---------- */
+header {
+  background: var(--ml-green-dark); color: #fff; padding: 22px 24px 18px;
+}
+header .eyebrow { font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ml-gold); font-weight: 600; }
+header h1 { font-size: 1.7rem; margin-top: 6px; color: #fff; }
+header .sub { color: #cde7d8; font-size: 0.95rem; margin-top: 4px; }
+.status-row { display: flex; align-items: center; gap: 14px; margin-top: 16px; flex-wrap: wrap; }
+.pip-group { display: flex; gap: 8px; align-items: center; }
+.pip { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); }
+.pip.done { background: var(--ml-gold); border-color: var(--ml-gold); }
+.pip-label { font-size: 0.78rem; color: #cde7d8; }
+#leaveBadge { font-size: 0.78rem; background: rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 20px; }
+.progress-wrap { flex: 1; min-width: 200px; }
+.progress-track { background: rgba(255,255,255,0.18); border-radius: 20px; height: 10px; overflow: hidden; }
+.progress-fill { background: var(--ml-gold); height: 100%; width: 0%; transition: width 0.3s; }
+#progressText { font-size: 0.75rem; color: #cde7d8; margin-top: 4px; }
+
+/* ---------- Tabs ---------- */
+.tab-bar { display: flex; background: #fff; border-bottom: 2px solid var(--border); position: sticky; top: 36px; z-index: 900; }
+.tab-btn {
+  flex: 0 0 auto; padding: 14px 24px; background: none; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--ink2);
+  border-bottom: 3px solid transparent;
+}
+.tab-btn.active { color: var(--ml-green-dark); border-bottom-color: var(--ml-green); }
+.tab-content { display: none; max-width: 880px; margin: 0 auto; padding: 28px 20px 80px; }
+.tab-content.active { display: block; }
+
+/* ---------- Name input ---------- */
+.name-row { margin-bottom: 24px; }
+.name-row label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.92rem; }
+.name-row input {
+  width: 100%; max-width: 340px; padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: 8px; font-size: 0.95rem; font-family: 'DM Sans', sans-serif;
+}
+
+/* ---------- Vocab tab ---------- */
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.vocab-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.vocab-head { display: flex; align-items: center; justify-content: space-between; }
+.vocab-word { font-family: 'Literata', serif; font-weight: 700; font-size: 1.1rem; color: var(--ml-green-dark); }
+.vocab-pos { font-size: 0.75rem; color: var(--ink2); font-style: italic; }
+.speak-btn {
+  border: none; background: var(--ml-green-light); color: var(--ml-green-dark);
+  width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem;
+}
+.vocab-cn { font-size: 1rem; margin-top: 2px; }
+.vocab-def { margin-top: 10px; font-size: 0.9rem; }
+.vocab-def-cn { font-size: 0.9rem; margin-top: 2px; }
+.vocab-ex { margin-top: 10px; font-size: 0.85rem; font-style: italic; color: var(--ink2); border-left: 3px solid var(--ml-gold); padding-left: 10px; }
+
+/* ---------- Concept instruction ---------- */
+.activity { margin-bottom: 28px; }
+.activity-badge {
+  display: inline-block; background: var(--cobalt); color: #fff; font-weight: 700;
+  font-size: 0.75rem; letter-spacing: 1px; padding: 4px 12px; border-radius: 20px; margin-bottom: 10px;
+}
+.activity-badge.badge-talk { background: var(--ml-green); }
+.activity-badge.badge-practice { background: var(--amber); }
+.activity-badge.badge-writing { background: var(--ml-green-dark); }
+.activity-title { font-size: 1.35rem; color: var(--ml-green-dark); margin-bottom: 10px; }
+.concept-section { margin-bottom: 20px; }
+.concept-section h2 { font-size: 1.35rem; color: var(--ml-green-dark); margin-bottom: 10px; }
+.concept-section p { margin-bottom: 10px; font-size: 0.96rem; }
+.concept-section p.cn { margin-bottom: 14px; }
+
+.steps-table { width: 100%; border-collapse: collapse; margin: 14px 0 20px; font-size: 0.88rem; }
+.steps-table th, .steps-table td { border: 1px solid var(--border); padding: 9px 10px; text-align: left; vertical-align: top; }
+.steps-table th { background: var(--ml-green-dark); color: #fff; }
+.steps-table tr:nth-child(even) td { background: #fff; }
+.steps-table tr:nth-child(odd) td { background: var(--mist); }
+
+.step-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; margin: 16px 0 24px; }
+.step-card { border-radius: 12px; padding: 16px; color: #fff; }
+.step-card .letter { font-family: 'Literata', serif; font-weight: 700; font-size: 1.5rem; }
+.step-card .name { font-weight: 600; margin-top: 2px; }
+.step-card p { font-size: 0.82rem; margin-top: 8px; color: rgba(255,255,255,0.92); }
+.step-c1 { background: var(--ml-green); }
+.step-c2 { background: var(--cobalt); }
+.step-c3 { background: var(--amber); }
+.step-c4 { background: var(--ml-green-dark); }
+.step-c5 { background: #6d597a; }
+.step-c6 { background: #7f1d1d; }
+.step-c7 { background: #14532d; }
+
+.poem-box {
+  background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--ml-green);
+  border-radius: 10px; padding: 22px 26px; margin: 16px 0; font-family: 'Literata', serif;
+  font-style: italic; font-size: 1.02rem; line-height: 1.85; color: var(--ink);
+}
+.poem-box .poem-title { font-style: normal; font-weight: 700; font-size: 1.15rem; margin-bottom: 12px; color: var(--ml-green-dark); }
+.poem-box .stanza { margin-bottom: 16px; }
+
+.callout {
+  background: var(--ml-green-light); border-radius: 10px; padding: 16px 18px; margin: 14px 0;
+}
+.callout-title { font-weight: 700; color: var(--ml-green-dark); margin-bottom: 6px; font-size: 0.95rem; }
+
+.walkthrough { border-collapse: collapse; width: 100%; font-size: 0.88rem; margin-top: 10px; }
+.walkthrough th, .walkthrough td { border: 1px solid var(--border); padding: 10px; vertical-align: top; text-align: left; }
+.walkthrough th { background: var(--cobalt); color: #fff; width: 110px; }
+.walkthrough tr:nth-child(odd) td { background: #fff; }
+.walkthrough tr:nth-child(even) td { background: var(--mist); }
+
+/* ---------- Quiz ---------- */
+.quiz-instructions { background: var(--amber-light); border-radius: 10px; padding: 14px 18px; margin-bottom: 18px; font-size: 0.9rem; }
+.quiz-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+.q-num { font-size: 0.75rem; color: var(--ink2); font-weight: 600; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+.passage-box {
+  background: var(--mist); border-left: 3px solid var(--ml-gold); padding: 10px 14px;
+  font-family: 'Literata', serif; font-style: italic; font-size: 0.9rem; margin-bottom: 12px; white-space: pre-line;
+}
+.q-text { font-weight: 600; font-size: 0.98rem; }
+.q-cn { margin-top: 2px; margin-bottom: 12px; font-size: 0.92rem; }
+.opts-wrap { display: flex; flex-direction: column; gap: 8px; }
+.opt-btn {
+  text-align: left; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+  background: #fff; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--ml-green); }
+.opt-btn:disabled { cursor: default; }
+.opt-btn.correct { background: var(--ml-green-light); border-color: var(--ml-green); }
+.opt-btn.incorrect { background: #fee2e2; border-color: var(--ml-red); }
+.rationale { margin-top: 12px; padding: 12px 14px; background: var(--mist); border-radius: 8px; font-size: 0.87rem; display: none; }
+.rationale.show { display: block; }
+.rationale .rat-line { margin-bottom: 6px; }
+
+/* ---------- Discourse stems card ---------- */
+.checkpoint-card { background: var(--cobalt); background: linear-gradient(135deg, #eef2f9, #ffffff); border: 1px solid var(--border); border-left: 5px solid var(--cobalt); border-radius: 10px; padding: 18px 20px; margin: 20px 0; }
+.checkpoint-label { font-family: 'Literata', serif; font-weight: 700; color: var(--cobalt); font-size: 1.05rem; margin-bottom: 8px; }
+.checkpoint-prompt { font-size: 0.96rem; margin-bottom: 4px; }
+.checkpoint-prompt-cn { font-size: 0.9rem; margin-bottom: 10px; }
+.checkpoint-meta { margin-bottom: 12px; }
+.checkpoint-structure { display: inline-block; background: var(--ml-green-light); color: var(--ml-green-dark); padding: 3px 12px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; }
+.checkpoint-stems { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.checkpoint-stems .stem-cat { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+.stem-cat-label { font-weight: 700; font-size: 0.78rem; color: var(--cobalt); margin-bottom: 4px; }
+.stem-en { font-size: 0.83rem; font-style: italic; margin-top: 3px; }
+.stem-cn { font-size: 0.83rem; margin-bottom: 4px; }
+
+/* ---------- Reflect section ---------- */
+.reflect-section { margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--border); }
+.reflect-q { margin-bottom: 18px; }
+.reflect-q label { display: block; font-weight: 600; margin-bottom: 4px; font-size: 0.92rem; }
+.reflect-q .label-cn { font-weight: 400; margin-bottom: 6px; }
+.reflect-q textarea {
+  width: 100%; min-height: 90px; padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; resize: vertical;
+}
+.reflect-q textarea.filled { border-color: var(--ml-green); }
+.grat-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.95rem; margin-bottom: 20px; }
+.grat-row input {
+  flex: 1; min-width: 200px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+}
+.grat-row input.filled { border-color: var(--ml-green); }
+
+.download-btn {
+  display: inline-block; padding: 12px 26px; border-radius: 30px; border: none;
+  background: #cbd5c0; color: #fff; font-weight: 700; font-size: 0.95rem;
+  cursor: not-allowed; opacity: 0.7; pointer-events: none;
+}
+.download-btn.ready { background: var(--ml-green); cursor: pointer; opacity: 1; pointer-events: auto; }
+.dl-hint { font-size: 0.82rem; color: var(--ink2); margin-top: 8px; }
+.dl-hint.hidden { display: none; }
+
+/* ---------- Timer ---------- */
+#timer-display {
+  position: fixed; bottom: 16px; right: 16px; background: var(--ml-green-dark); color: #fff;
+  padding: 8px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; z-index: 950;
+}
+
+@media (max-width: 640px) {
+  header h1 { font-size: 1.35rem; }
+  .tab-btn { padding: 12px 14px; font-size: 0.85rem; }
+  .steps-table, .walkthrough { font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Layer 1: Always-visible warning -->
+<div class="warn-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+
+<!-- Layer 2: Flash alert -->
+<div id="leaveNotice">
+  🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span>
+</div>
+
+<header>
+  <div class="eyebrow">MLWS English · Grade 11</div>
+  <h1>Poetry Analysis with TP-CASTT</h1>
+  <div class="sub">用 TP-CASTT 框架分析诗歌</div>
+  <div class="status-row">
+    <div class="pip-group">
+      <div class="pip" id="pip-vocab"></div>
+      <span class="pip-label">Vocab</span>
+      <div class="pip" id="pip-poem"></div>
+      <span class="pip-label">TP-CASTT</span>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+      <div id="progressText">Progress: 0% · 进度：0%</div>
+    </div>
+    <div id="leaveBadge">🚪 Leaves: 0</div>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">Vocab · 词汇</button>
+  <button class="tab-btn" onclick="switchTab('poem', this)">TP-CASTT · 分析</button>
+</div>
+
+<!-- ================= VOCAB TAB ================= -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="concept-section">
+    <h2>Poetry Analysis Vocabulary</h2>
+    <p>These are the key terms you'll use to analyze poems all year. Tap the speaker icon to hear each word.</p>
+    <p class="cn">这些是你今年分析诗歌时会用到的关键词。点击喇叭图标可以听到发音。</p>
+  </div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ================= CONTENT TAB: TP-CASTT ================= -->
+<div class="tab-content" id="tab-poem">
+
+  <div class="name-row">
+    <label>Your Name · 你的名字</label>
+    <input type="text" id="poemName" placeholder="Type your name here">
+  </div>
+
+  <!-- ============ ACTIVITY 1: TEXT & TOPIC INTRODUCTION ============ -->
+  <div class="activity">
+    <div class="activity-badge">ACTIVITY 1</div>
+    <h2 class="activity-title">Text &amp; Topic Introduction: What Is TP-CASTT?</h2>
+
+    <div class="concept-section">
+      <p>TP-CASTT is a seven-step framework that helps readers move from a first, surface-level read of a poem to a deep understanding of its meaning. Each letter stands for one step in the process.</p>
+      <p class="cn">TP-CASTT 是一个七步框架，帮助读者从对一首诗的初步、表面阅读，逐步走向对其意义的深入理解。每个字母代表这个过程中的一个步骤。</p>
+
+      <table class="steps-table">
+        <tr><th>Step</th><th>English</th><th>中文</th></tr>
+        <tr><td><strong>T</strong> — Title</td><td>Predict meaning from the title before reading.</td><td>在阅读之前，根据标题预测诗歌的含义。</td></tr>
+        <tr><td><strong>P</strong> — Paraphrase</td><td>Restate the literal meaning, stanza by stanza.</td><td>逐节重述诗歌的字面意思。</td></tr>
+        <tr><td><strong>C</strong> — Connotation</td><td>Examine diction, imagery, and figurative language.</td><td>分析措辞、意象和修辞手法。</td></tr>
+        <tr><td><strong>A</strong> — Attitude</td><td>Identify the speaker's feelings toward the subject.</td><td>找出说话者对主题的感受。</td></tr>
+        <tr><td><strong>S</strong> — Shifts</td><td>Notice changes in tone, attitude, or perspective.</td><td>注意语气、态度或视角的变化。</td></tr>
+        <tr><td><strong>T</strong> — Title (again)</td><td>Reconsider the title now that you understand the poem.</td><td>在理解全诗后，重新思考标题的含义。</td></tr>
+        <tr><td><strong>T</strong> — Theme</td><td>State the poem's central message about life.</td><td>说出诗歌关于人生的核心信息。</td></tr>
+      </table>
+    </div>
+
+    <div class="concept-section">
+      <h2>Step-by-Step: A Closer Look</h2>
+      <div class="step-grid">
+        <div class="step-card step-c1"><div class="letter">T</div><div class="name">Title</div><p>Before reading, ask: what might this title mean? What do I expect?</p></div>
+        <div class="step-card step-c2"><div class="letter">P</div><div class="name">Paraphrase</div><p>Put each stanza into your own simple words. If you can't paraphrase it, you don't understand it yet.</p></div>
+        <div class="step-card step-c3"><div class="letter">C</div><div class="name">Connotation</div><p>Look for word choice, imagery, and figurative language that carries extra meaning.</p></div>
+        <div class="step-card step-c4"><div class="letter">A</div><div class="name">Attitude</div><p>Decide how the speaker feels — hopeful, regretful, calm, anxious?</p></div>
+        <div class="step-card step-c5"><div class="letter">S</div><div class="name">Shifts</div><p>Watch for turning points — a change in time, tone, or perspective, often signaled by words like "but" or "yet."</p></div>
+        <div class="step-card step-c6"><div class="letter">T</div><div class="name">Title (Revisited)</div><p>Look at the title again. Has its meaning grown or changed?</p></div>
+        <div class="step-card step-c7"><div class="letter">T</div><div class="name">Theme</div><p>State the poem's message in a full sentence about life or human nature — not just a single word.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ACTIVITY 2: PARTNER TALK — PREDICTING FROM THE TITLE ============ -->
+  <div class="activity">
+    <div class="activity-badge badge-talk">ACTIVITY 2 · PARTNER TALK</div>
+    <h2 class="activity-title">Predicting from the Title</h2>
+    <div class="checkpoint-card">
+      <div class="checkpoint-prompt">Turn to a partner: just from the title, what do you think "The Road Not Taken" will be about?</div>
+      <div class="checkpoint-prompt-cn cn">和同伴讨论：仅从标题来看，你觉得"The Road Not Taken"这首诗会讲什么？</div>
+      <div class="checkpoint-meta"><span class="checkpoint-structure">Think-Pair-Share · 2 min</span></div>
+      <div class="checkpoint-stems">
+        <div class="stem-cat">
+          <div class="stem-cat-label">Agree · 同意</div>
+          <div class="stem-en">"That makes sense because ___."</div>
+          <div class="stem-cn cn">这很有道理，因为___。</div>
+        </div>
+        <div class="stem-cat">
+          <div class="stem-cat-label">Personal Connection · 个人联系</div>
+          <div class="stem-en">"This reminds me of ___."</div>
+          <div class="stem-cn cn">这让我想起了___。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CONNECTIVE: REVEAL THE POEM ============ -->
+  <div class="concept-section">
+    <h2>Now, Let's Read the Poem</h2>
+    <p>Here's the full poem. Read it once all the way through before we go any further.</p>
+    <p class="cn">这是这首诗的全文。请先完整读一遍，之后我们再继续。</p>
+    <div class="poem-box">
+      <div class="poem-title">The Road Not Taken — Robert Frost (1916)</div>
+      <div class="stanza">Two roads diverged in a yellow wood,<br>And sorry I could not travel both<br>And be one traveler, long I stood<br>And looked down one as far as I could<br>To where it bent in the undergrowth;</div>
+      <div class="stanza">Then took the other, as just as fair,<br>And having perhaps the better claim,<br>Because it was grassy and wanted wear;<br>Though as for that the passing there<br>Had worn them really about the same,</div>
+      <div class="stanza">And both that morning equally lay<br>In leaves no step had trodden black.<br>Oh, I kept the first for another day!<br>Yet knowing how way leads on to way,<br>I doubted if I should ever come back.</div>
+      <div class="stanza">I shall be telling this with a sigh<br>Somewhere ages and ages hence:<br>Two roads diverged in a wood, and I—<br>I took the one less traveled by,<br>And that has made all the difference.</div>
+    </div>
+  </div>
+
+  <!-- ============ ACTIVITY 3: GROUP TALK — FIRST REACTION ============ -->
+  <div class="activity">
+    <div class="activity-badge badge-talk">ACTIVITY 3 · GROUP TALK</div>
+    <h2 class="activity-title">First Reaction to the Poem</h2>
+    <div class="checkpoint-card">
+      <div class="checkpoint-prompt">Before we analyze it together: what feeling do you get from this poem?</div>
+      <div class="checkpoint-prompt-cn cn">在我们一起分析之前，先说说：这首诗给你什么感觉？</div>
+      <div class="checkpoint-meta"><span class="checkpoint-structure">Small Group · 3 min</span></div>
+      <div class="checkpoint-stems">
+        <div class="stem-cat">
+          <div class="stem-cat-label">Personal Connection · 个人联系</div>
+          <div class="stem-en">"In my experience, ___."</div>
+          <div class="stem-cn cn">根据我的经验，___。</div>
+        </div>
+        <div class="stem-cat">
+          <div class="stem-cat-label">Disagree · 不同意</div>
+          <div class="stem-en">"I see it differently because ___."</div>
+          <div class="stem-cn cn">我的看法不同，因为___。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ CONNECTIVE: WORKED ANALYSIS ============ -->
+  <div class="concept-section">
+    <h2>Worked Example: Applying TP-CASTT</h2>
+    <p>Now let's apply every TP-CASTT step to the poem together, before you try it yourself.</p>
+    <p class="cn">现在，让我们一起用 TP-CASTT 的每一步来分析这首诗，之后你再自己练习。</p>
+
+    <table class="walkthrough">
+      <tr><th>T — Title</th><td>Before reading, the title suggests a poem about a path someone chose not to walk — maybe about regret or missed chances.</td></tr>
+      <tr><th>P — Paraphrase</th><td>A traveler reaches a fork in the road, picks one path, notices later that both looked about the same, and wonders if he'll ever return to try the other.</td></tr>
+      <tr><th>C — Connotation</th><td>Words like "diverged," "grassy," and "trodden black" suggest freshness, separation, and the passage of time. The yellow wood evokes autumn — change and endings.</td></tr>
+      <tr><th>A — Attitude</th><td>The speaker's attitude is thoughtful and a little wistful — not angry or triumphant, just quietly reflective about an ordinary decision.</td></tr>
+      <tr><th>S — Shifts</th><td>The final stanza shifts from describing the moment of choosing to imagining himself, years later, retelling the story "with a sigh."</td></tr>
+      <tr><th>T — Title (Revisited)</th><td>"The Road Not Taken" now feels less about a literal road and more about every choice whose alternative we'll never know.</td></tr>
+      <tr><th>T — Theme</th><td>Even small, ordinary choices can quietly shape the entire direction of a life.</td></tr>
+    </table>
+
+    <div class="callout">
+      <div class="callout-title">Notice · 注意</div>
+      Frost never says the road he chose was actually better — only that choosing it "made all the difference." The poem is more about the *story we tell* about our choices than about the choice itself.
+    </div>
+  </div>
+
+  <!-- ============ ACTIVITY 4: GROUP TALK — DEBATE THE THEME ============ -->
+  <div class="activity">
+    <div class="activity-badge badge-talk">ACTIVITY 4 · GROUP TALK</div>
+    <h2 class="activity-title">Debate: What Is This Poem Really About?</h2>
+    <div class="checkpoint-card">
+      <div class="checkpoint-prompt">Whole-class debate: is this poem more about a real choice, or about the story we tell ourselves about our choices afterward?</div>
+      <div class="checkpoint-prompt-cn cn">全班辩论：这首诗更多是关于一个真实的选择，还是关于我们事后讲述这个选择的方式？</div>
+      <div class="checkpoint-meta"><span class="checkpoint-structure">Structured Debate · 4 min</span></div>
+      <div class="checkpoint-stems">
+        <div class="stem-cat">
+          <div class="stem-cat-label">Disagree · 不同意</div>
+          <div class="stem-en">"I'm not sure that's right because ___."</div>
+          <div class="stem-cn cn">我不确定这是对的，因为___。</div>
+        </div>
+        <div class="stem-cat">
+          <div class="stem-cat-label">Build on an Idea · 补充想法</div>
+          <div class="stem-en">"That connects to ___."</div>
+          <div class="stem-cn cn">这和___有关。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ACTIVITY 5: PRACTICE EXAMPLES ============ -->
+  <div class="activity">
+    <div class="activity-badge badge-practice">ACTIVITY 5 · PRACTICE EXAMPLES</div>
+    <h2 class="activity-title">Now Try It Yourself</h2>
+    <div class="quiz-instructions">
+      Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。
+    </div>
+    <div id="poemQuizContainer"></div>
+  </div>
+
+  <!-- ============ ACTIVITY 6: INDEPENDENT WRITING ============ -->
+  <div class="activity reflect-section">
+    <div class="activity-badge badge-writing">ACTIVITY 6 · INDEPENDENT WRITING</div>
+    <h2 class="activity-title">Write About the Poem</h2>
+    <div class="reflect-q">
+      <label>1. Choose one moment where the poet's word choice (diction or connotation) changes how you understand the speaker's decision. Use one of the talk stems from Activity 4.</label>
+      <div class="label-cn cn">1. 选择一个诗人的用词选择（措辞或隐含意义）改变了你对说话者决定理解的时刻。请用 Activity 4 中用过的一个句型来解释。</div>
+      <textarea id="poemRef1"></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Think of a real choice in your own life that felt small at the time but turned out to matter a lot. Use one of the talk stems from Activity 3.</label>
+      <div class="label-cn cn">2. 想一想你自己生活中一个当时看起来很小、但后来证明很重要的选择。请用 Activity 3 中用过的一个句型来描述。</div>
+      <textarea id="poemRef2"></textarea>
+    </div>
+    <div class="grat-row">
+      <label for="poemGrat" style="font-weight:600;">Today I am grateful for</label>
+      <input type="text" id="poemGrat" placeholder="___">
+      <span class="cn">今天我很感激___</span>
+    </div>
+    <button class="download-btn" id="poemDownloadBtn" onclick="tryDownload('poem')">Download My Report · 下载我的报告</button>
+    <div class="dl-hint" id="poemHint">Complete all questions and writing fields to unlock the download. · 完成所有问题和写作内容后才能下载。</div>
+  </div>
+</div>
+
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+/* ================= DATA ================= */
+
+const VOCAB = [
+  { word: "Title", pos: "noun", cn: "标题", def: "The name given to a poem, often the first clue to its meaning.", cn_def: "诗歌的名字，通常是理解意义的第一条线索。", example: "Readers consider the title before reading the poem itself." },
+  { word: "Paraphrase", pos: "verb", cn: "释义", def: "To restate the poem's literal meaning in your own words, line by line.", cn_def: "用自己的话逐行重述诗歌的字面意思。", example: "Paraphrasing the stanza helped her understand the basic story." },
+  { word: "Denotation", pos: "noun", cn: "本义", def: "The dictionary definition of a word, without extra feeling attached.", cn_def: "一个词的字典定义，不带任何额外情感。", example: "The denotation of 'road' is simply a path or street." },
+  { word: "Connotation", pos: "noun", cn: "隐含意义", def: "The feeling or idea a word suggests beyond its dictionary meaning.", cn_def: "一个词除了字典意思之外所暗示的感觉或想法。", example: "The word 'diverged' carries a connotation of difficulty and separation." },
+  { word: "Diction", pos: "noun", cn: "措辞", def: "A writer's choice of words.", cn_def: "作者对词语的选择。", example: "The poet's diction is simple, but every word is chosen carefully." },
+  { word: "Imagery", pos: "noun", cn: "意象", def: "Language that appeals to the five senses to create a picture in the reader's mind.", cn_def: "运用感官描写在读者脑海中创造画面的语言。", example: "The imagery of the yellow wood helps readers see the setting." },
+  { word: "Attitude", pos: "noun", cn: "态度", def: "The speaker's feelings toward the subject of the poem.", cn_def: "说话者对诗歌主题的感受。", example: "The speaker's attitude is thoughtful, not regretful." },
+  { word: "Tone", pos: "noun", cn: "语气", def: "The overall mood created by the poem's word choice and imagery.", cn_def: "诗歌的词语选择和意象所营造出的整体氛围。", example: "The tone of the poem is reflective." },
+  { word: "Shift", pos: "noun", cn: "转折", def: "A change in tone, attitude, or perspective within a poem.", cn_def: "诗歌中语气、态度或视角的变化。", example: "There is a shift when the speaker imagines retelling the story years later." },
+  { word: "Theme", pos: "noun", cn: "主题", def: "The central message or lesson the poem communicates about life.", cn_def: "诗歌所传达的关于人生的核心信息或道理。", example: "One possible theme is that our choices, even small ones, shape who we become." }
+];
+
+const POEM_Q = [
+  {
+    id: "t1", title: "Considering the Title",
+    q: "Before reading the poem, what does the title 'The Road Not Taken' suggest the poem might be about?",
+    q_cn: "在读诗之前，标题 'The Road Not Taken' 暗示这首诗可能是关于什么的？",
+    options: [
+      "A. A poem about traveling on vacation|A. 一首关于度假旅行的诗",
+      "B. A poem about a choice or path someone did not choose|B. 一首关于某人没有选择的道路或选择的诗",
+      "C. A poem about building a new road|C. 一首关于修建新路的诗",
+      "D. A poem about getting lost in a forest|D. 一首关于在森林里迷路的诗"
+    ],
+    correct: "B",
+    rat_right: "The title directly names an unchosen path, which signals the poem will explore decision-making.|标题直接提到了一条未被选择的路，这暗示这首诗将探讨做决定的过程。",
+    rat_wrong: {
+      A: "The title doesn't mention vacation or leisure travel.|标题没有提到度假或休闲旅行。",
+      C: "The title is about a road not taken, not about construction.|标题讲的是一条没有走的路，而不是修路。",
+      D: "Being lost isn't suggested by the phrase 'not taken.'|'未选择的'这个词并没有暗示迷路。"
+    }
+  },
+  {
+    id: "t2", title: "Paraphrasing Stanza 1",
+    passage: "Two roads diverged in a yellow wood,\nAnd sorry I could not travel both\nAnd be one traveler, long I stood\nAnd looked down one as far as I could\nTo where it bent in the undergrowth;",
+    q: "In your own words, what is literally happening in this stanza?",
+    q_cn: "用自己的话说，这一节诗字面上发生了什么？",
+    options: [
+      "A. The speaker is standing at a fork in a path and can only choose one direction.|A. 说话者站在岔路口，只能选择一个方向。",
+      "B. The speaker is lost and cannot find any road.|B. 说话者迷路了，找不到任何一条路。",
+      "C. The speaker is traveling with a friend.|C. 说话者正在和朋友一起旅行。",
+      "D. The speaker is building two roads.|D. 说话者正在修建两条路。"
+    ],
+    correct: "A",
+    rat_right: "The stanza literally describes a traveler facing two paths and being unable to take both.|这节诗字面上描述了一位旅行者面对两条路，却无法同时走两条。",
+    rat_wrong: {
+      B: "The speaker sees the roads clearly — he's not lost, just deciding.|说话者清楚地看到了两条路——他没有迷路，只是在做决定。",
+      C: "The poem says 'one traveler,' meaning he is alone.|诗中说 'one traveler'，说明他是独自一人。",
+      D: "There's no mention of construction; the roads already exist.|没有提到建造，道路已经存在。"
+    }
+  },
+  {
+    id: "t3", title: "Denotation vs. Connotation",
+    passage: "Then took the other, as just as fair,\nAnd having perhaps the better claim,\nBecause it was grassy and wanted wear;",
+    q: "What does the word 'grassy' connote (suggest), beyond its dictionary meaning?",
+    q_cn: "'grassy'（长满草的）这个词除了字典意思之外，还暗示了什么？",
+    options: [
+      "A. Danger and fear|A. 危险和恐惧",
+      "B. Freshness, being less traveled, or unused|B. 新鲜、少有人走、未被使用",
+      "C. Wealth and luxury|C. 财富和奢华",
+      "D. Sadness and loss|D. 悲伤和失落"
+    ],
+    correct: "B",
+    rat_right: "Grassy suggests a path that hasn't been worn down by many feet — implying freshness or novelty.|'长满草的'暗示这条路没有被很多人踩过——暗示着新鲜感或新奇感。",
+    rat_wrong: {
+      A: "Grass isn't typically associated with danger in this context.|在这个语境中，草通常不与危险相关。",
+      C: "Grass doesn't suggest wealth or luxury here.|这里的草并不暗示财富或奢华。",
+      D: "The word doesn't carry a sad connotation in this context.|这个词在此语境中不带有悲伤的含义。"
+    }
+  },
+  {
+    id: "t4", title: "Diction Choices",
+    passage: "Though as for that the passing there\nHad worn them really about the same,",
+    q: "Why might the poet's diction here ('really about the same') be important to the poem's meaning?",
+    q_cn: "诗人在这里使用 'really about the same' 这样的措辞，为什么对诗歌的含义很重要？",
+    options: [
+      "A. It shows the two roads are physically similar, undercutting the earlier claim that one was less traveled|A. 它表明两条路其实差不多，削弱了之前说其中一条较少人走的说法",
+      "B. It proves the speaker is lying to the reader|B. 它证明说话者在对读者撒谎",
+      "C. It shows the poet made a mistake while writing|C. 它表明诗人写作时犯了错误",
+      "D. It has no relationship to the poem's meaning|D. 它与诗歌的含义没有关系"
+    ],
+    correct: "A",
+    rat_right: "This diction reveals the roads were actually similar, which complicates the idea of a truly 'less traveled' choice.|这样的措辞揭示了两条路其实很相似，这使得'较少人走'的说法变得复杂。",
+    rat_wrong: {
+      B: "This isn't about honesty — it's about complicating the poem's central claim.|这不是关于诚实的问题——而是让诗歌的核心说法变得更复杂。",
+      C: "This is a deliberate poetic choice, not an error.|这是诗人有意的选择，不是错误。",
+      D: "Word choice always shapes meaning — this line is central to the poem's irony.|用词选择总是会影响含义——这一行是这首诗反讽意味的核心。"
+    }
+  },
+  {
+    id: "t5", title: "Imagery",
+    passage: "And both that morning equally lay\nIn leaves no step had trodden black.",
+    q: "What image does this line create in the reader's mind?",
+    q_cn: "这一行诗在读者脑海中创造了怎样的画面？",
+    options: [
+      "A. Roads covered in fresh, untouched fallen leaves|A. 覆盖着新鲜、未被踩踏的落叶的道路",
+      "B. Roads covered in snow|B. 覆盖着雪的道路",
+      "C. Roads full of traffic|C. 交通繁忙的道路",
+      "D. Roads made of stone|D. 石头铺成的道路"
+    ],
+    correct: "A",
+    rat_right: "The image is of leaves that haven't been stepped on and blackened — both paths look equally fresh that morning.|这幅画面是尚未被踩黑的落叶——那天早上两条路看起来同样新鲜。",
+    rat_wrong: {
+      B: "Leaves, not snow, are described.|描述的是落叶，不是雪。",
+      C: "The image emphasizes stillness and lack of use, not traffic.|这幅画面强调的是静止和未被使用，而不是交通。",
+      D: "There's no mention of stone in this line.|这一行没有提到石头。"
+    }
+  },
+  {
+    id: "t6", title: "Speaker's Attitude",
+    passage: "Oh, I kept the first for another day!\nYet knowing how way leads on to way,\nI doubted if I should ever come back.",
+    q: "What is the speaker's attitude in this stanza?",
+    q_cn: "说话者在这一节中的态度是怎样的？",
+    options: [
+      "A. Confident that he will return to try the other road|A. 自信他会回来走另一条路",
+      "B. Doubtful that he will ever get the chance to return|B. 怀疑自己是否还有机会回来",
+      "C. Angry that he had to make a choice|C. 因为不得不做选择而生气",
+      "D. Indifferent about the roads entirely|D. 对这两条路完全不在意"
+    ],
+    correct: "B",
+    rat_right: "The speaker explicitly says he 'doubted' he'd come back, revealing a wistful, uncertain attitude.|说话者明确说他'怀疑'自己会不会回来，表现出一种怅然若失、不确定的态度。",
+    rat_wrong: {
+      A: "He doubts, rather than feels confident about, returning.|他是怀疑，而不是自信自己会回来。",
+      C: "There's no anger expressed here — just reflection.|这里没有表现出愤怒——只是在反思。",
+      D: "His hesitation shows he cares about the choice, not indifference.|他的犹豫表明他很在意这个选择，而不是漠不关心。"
+    }
+  },
+  {
+    id: "t7", title: "Identifying the Shift",
+    passage: "I shall be telling this with a sigh\nSomewhere ages and ages hence:",
+    q: "This stanza marks a shift in the poem. What changes here?",
+    q_cn: "这一节标志着诗歌的一个转折。这里发生了什么变化？",
+    options: [
+      "A. The poem shifts from describing the moment of choice to imagining the future retelling of the story|A. 诗歌从描述做选择的那一刻转向想象未来讲述这个故事的情景",
+      "B. The poem shifts from a sad tone to a happy tone|B. 诗歌从悲伤的语气转向快乐的语气",
+      "C. The poem shifts from first person to third person|C. 诗歌从第一人称转向第三人称",
+      "D. The poem shifts location from a forest to a city|D. 诗歌的地点从森林转向城市"
+    ],
+    correct: "A",
+    rat_right: "The speaker jumps forward in time, imagining himself retelling this story 'ages and ages hence.'|说话者跳到未来，想象自己在'很多很多年后'重新讲述这个故事。",
+    rat_wrong: {
+      B: "The tone remains reflective and wistful, not a clear shift to happiness.|语气仍然是反思、怅惘的，并没有明显转向快乐。",
+      C: "The poem stays in first person ('I') throughout.|整首诗都保持第一人称。",
+      D: "There is no change in physical location here.|这里没有地点的变化。"
+    }
+  },
+  {
+    id: "t8", title: "Revisiting the Title",
+    passage: "I took the one less traveled by,\nAnd that has made all the difference.",
+    q: "Now that you've read the whole poem, how does the title's meaning deepen?",
+    q_cn: "读完整首诗后，标题的含义有了怎样的深化？",
+    options: [
+      "A. It now clearly refers only to a literal road trip|A. 它现在明确只是指字面上的一次公路旅行",
+      "B. It now represents any significant choice in life that shapes a person's future|B. 它现在代表了人生中任何塑造一个人未来的重大选择",
+      "C. It suggests the speaker regrets ever leaving home|C. 它暗示说话者后悔离开家",
+      "D. It has no deeper meaning beyond the literal roads|D. 除了字面上的道路之外，它没有更深的含义"
+    ],
+    correct: "B",
+    rat_right: "By the end, 'the road not taken' becomes a symbol for any life choice whose alternative we'll never fully know.|到诗的结尾，'未选择的路'成为人生中任何一个我们永远无法完全知晓另一种可能的选择的象征。",
+    rat_wrong: {
+      A: "The poem moves beyond the literal road into symbolic meaning.|这首诗超越了字面上的道路，进入了象征意义。",
+      C: "There's no mention of home or regret about leaving it.|诗中没有提到家或对离开家的后悔。",
+      D: "The whole poem builds toward this deeper, symbolic meaning.|整首诗都在为这一更深层的象征意义做铺垫。"
+    }
+  },
+  {
+    id: "t9", title: "Determining the Theme",
+    passage: "Two roads diverged in a wood, and I—\nI took the one less traveled by,\nAnd that has made all the difference.",
+    q: "Which statement best expresses the poem's theme?",
+    q_cn: "以下哪一项最能表达这首诗的主题？",
+    options: [
+      "A. Roads in the woods are dangerous|A. 森林里的路很危险",
+      "B. The choices we make, even when they seem small or similar, shape the direction of our lives|B. 我们所做的选择，即使看起来很小或差不多，也会决定我们人生的方向",
+      "C. It is always better to travel with a group|C. 结伴旅行总是更好的",
+      "D. Nature is more beautiful in the fall|D. 秋天的大自然更美丽"
+    ],
+    correct: "B",
+    rat_right: "The poem's central idea is about how a single choice — even an ordinary one — can have lasting significance.|这首诗的核心思想是：一个选择——即使是很平常的选择——也可能产生深远的影响。",
+    rat_wrong: {
+      A: "Danger isn't a focus of the poem.|诗歌并不关注危险。",
+      C: "The poem is about a solitary traveler, not group travel.|诗歌讲的是一个独自旅行的人，而不是结伴旅行。",
+      D: "While autumn imagery appears, it isn't the poem's main idea.|虽然出现了秋天的意象，但这不是诗歌的主要思想。"
+    }
+  },
+  {
+    id: "t10", title: "Applying TP-CASTT",
+    q: "Which step of TP-CASTT specifically asks you to notice a change in tone or perspective within the poem?",
+    q_cn: "TP-CASTT 中的哪一步骤专门要求你注意诗歌中语气或视角的变化？",
+    options: [
+      "A. Paraphrase|A. 释义",
+      "B. Connotation|B. 隐含意义",
+      "C. Shift|C. 转折",
+      "D. Theme|D. 主题"
+    ],
+    correct: "C",
+    rat_right: "'Shift' is the step where readers look for a turn in tone, attitude, or perspective.|'转折'这一步是读者寻找语气、态度或视角变化的步骤。",
+    rat_wrong: {
+      A: "Paraphrase is about restating literal meaning, not identifying tonal change.|释义是重述字面意思，而不是识别语气变化。",
+      B: "Connotation is about the suggested meaning of words, not structural shifts.|隐含意义是关于词语所暗示的意思，而不是结构上的转折。",
+      D: "Theme is the overall message, which comes after identifying shifts.|主题是整体信息，是在识别转折之后得出的。"
+    }
+  }
+];
+
+/* ================= STATE ================= */
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 10;
+
+const poemAnswers = {};
+const poemScore = { val: 0 };
+const poemDone = { val: 0 };
+
+/* ================= VOCAB BUILD ================= */
+function buildVocab() {
+  const grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v) {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+
+    const head = document.createElement('div');
+    head.className = 'vocab-head';
+    const wordWrap = document.createElement('div');
+    const wordEl = document.createElement('div'); wordEl.className = 'vocab-word'; wordEl.textContent = v.word;
+    const posEl = document.createElement('div'); posEl.className = 'vocab-pos'; posEl.textContent = v.pos;
+    wordWrap.appendChild(wordEl); wordWrap.appendChild(posEl);
+
+    const speakBtn = document.createElement('button');
+    speakBtn.className = 'speak-btn';
+    speakBtn.textContent = '🔊';
+    speakBtn.addEventListener('click', function() {
+      if ('speechSynthesis' in window) {
+        const utter = new SpeechSynthesisUtterance(v.word);
+        utter.lang = 'en-US';
+        window.speechSynthesis.speak(utter);
+      }
+    });
+
+    head.appendChild(wordWrap);
+    head.appendChild(speakBtn);
+
+    const cnEl = document.createElement('div'); cnEl.className = 'vocab-cn cn'; cnEl.textContent = v.cn;
+    const defEl = document.createElement('div'); defEl.className = 'vocab-def'; defEl.textContent = v.def;
+    const defCnEl = document.createElement('div'); defCnEl.className = 'vocab-def-cn cn'; defCnEl.textContent = v.cn_def;
+    const exEl = document.createElement('div'); exEl.className = 'vocab-ex'; exEl.textContent = v.example;
+
+    card.appendChild(head);
+    card.appendChild(cnEl);
+    card.appendChild(defEl);
+    card.appendChild(defCnEl);
+    card.appendChild(exEl);
+    grid.appendChild(card);
+  });
+}
+
+/* ================= QUIZ BUILD (locked, no answer changes) ================= */
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  const container = document.getElementById(containerId);
+
+  data.forEach(function(item, idx) {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    const num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx + 1) + ' of ' + data.length + ' · ' + item.title;
+    card.appendChild(num);
+
+    if (item.passage) {
+      const pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    const qEl = document.createElement('div'); qEl.className = 'q-text'; qEl.textContent = item.q;
+    const qCn = document.createElement('div'); qCn.className = 'q-cn cn'; qCn.textContent = item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    const optsWrap = document.createElement('div'); optsWrap.className = 'opts-wrap';
+    const ratDiv = document.createElement('div'); ratDiv.className = 'rationale';
+    let answered = false;
+
+    item.options.forEach(function(opt) {
+      const parts = opt.split('|');
+      const letter = parts[0].charAt(0);
+      const enText = parts[0].replace(/^[A-D]\.\s*/, '');
+      const cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/, '') : '';
+
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.dataset.letter = letter;
+
+      const strong = document.createElement('strong'); strong.textContent = letter + '. ';
+      const enS = document.createElement('span'); enS.textContent = enText;
+      const br = document.createElement('br');
+      const cnS = document.createElement('span'); cnS.className = 'cn'; cnS.textContent = cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) { b.disabled = true; });
+
+        if (letter === item.correct) {
+          btn.classList.add('correct');
+          scoreObj.val += 1;
+        } else {
+          btn.classList.add('incorrect');
+          const correctBtn = optsWrap.querySelector('[data-letter="' + item.correct + '"]');
+          if (correctBtn) correctBtn.classList.add('correct');
+        }
+
+        ratDiv.innerHTML = '';
+        const rightParts = item.rat_right.split('|');
+        const rightLine = document.createElement('div');
+        rightLine.className = 'rat-line';
+        rightLine.innerHTML = '<strong>Why ' + item.correct + ' is correct:</strong> ' + rightParts[0];
+        const rightLineCn = document.createElement('div');
+        rightLineCn.className = 'rat-line cn';
+        rightLineCn.textContent = rightParts[1] || '';
+        ratDiv.appendChild(rightLine);
+        ratDiv.appendChild(rightLineCn);
+
+        if (letter !== item.correct && item.rat_wrong[letter]) {
+          const wrongParts = item.rat_wrong[letter].split('|');
+          const wrongLine = document.createElement('div');
+          wrongLine.className = 'rat-line';
+          wrongLine.innerHTML = '<strong>Why ' + letter + ' is not correct:</strong> ' + wrongParts[0];
+          const wrongLineCn = document.createElement('div');
+          wrongLineCn.className = 'rat-line cn';
+          wrongLineCn.textContent = wrongParts[1] || '';
+          ratDiv.appendChild(wrongLine);
+          ratDiv.appendChild(wrongLineCn);
+        }
+        ratDiv.classList.add('show');
+
+        doneObj.val += 1;
+        addProgress(1);
+        if (onComplete) onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+/* ================= GATING ================= */
+function checkReadiness(tabKey) {
+  const doneObj = poemDone;
+  const ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  const ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  const grat = document.getElementById(tabKey + 'Grat').value.trim();
+  const ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  const btn = document.getElementById(tabKey + 'DownloadBtn');
+  const hint = document.getElementById(tabKey + 'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+    document.getElementById('pip-' + tabKey).classList.add('done');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+  }
+}
+
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2'].forEach(function(fld) {
+    document.getElementById(tabKey + fld).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey + 'Grat').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+
+/* ================= DOWNLOAD REPORT ================= */
+function tryDownload(tabKey) {
+  const ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  const ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  const grat = document.getElementById(tabKey + 'Grat').value.trim();
+  const doneObj = poemDone;
+  const scoreObj = poemScore;
+  const qData = POEM_Q;
+  const ansData = poemAnswers;
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+
+  const name = document.getElementById(tabKey + 'Name').value.trim() || 'Unknown';
+  const now = new Date().toLocaleString();
+  let txt = '';
+
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Module: TP-CASTT Poetry Analysis — The Road Not Taken\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  qData.forEach(function(item, i) {
+    const sel = ansData[item.id] || 'Not answered';
+    const result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i + 1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  const blob = new Blob([txt], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g, '_') + '_' + new Date().toLocaleDateString().replace(/\//g, '-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ================= UTILITY ================= */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'vocab') document.getElementById('pip-vocab').classList.add('done');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  const pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      const notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+
+/* ================= INIT ================= */
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(POEM_Q, 'poemQuizContainer', poemAnswers, poemScore, poemDone, function() {
+    checkReadiness('poem');
+  });
+  wireListeners('poem');
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
