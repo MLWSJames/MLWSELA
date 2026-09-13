@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poetry: Devices, Forms & Analysis | 诗歌：手法、体裁与赏析</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { box-sizing: border-box; }
+body {
+  margin:0; font-family:'DM Sans', sans-serif; background:var(--mist); color:var(--ink);
+  padding-bottom:70px;
+}
+h1,h2,h3,h4 { font-family:'Literata', serif; color:var(--ml-green-dark); margin:0 0 10px; }
+.cn { font-family:'Noto Sans SC', sans-serif; color:var(--ink2); }
+.wrap { max-width: 900px; margin:0 auto; padding: 0 16px; }
+
+/* Header */
+header.app-header {
+  background: var(--ml-green-dark); color:#fff; padding:18px 16px 14px;
+}
+header.app-header h1 { color:#fff; font-size:1.4rem; }
+header.app-header .sub { font-size:0.85rem; opacity:0.9; margin-top:4px; }
+.header-meta { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; align-items:center; }
+.badge {
+  background: rgba(255,255,255,0.15); border-radius:20px; padding:5px 12px; font-size:0.78rem; font-weight:600;
+}
+#leaveBadge { background: var(--ml-red); }
+.progress-track {
+  background: rgba(255,255,255,0.2); border-radius:10px; height:10px; width:100%; margin-top:10px; overflow:hidden;
+}
+#progressBar { background: var(--ml-gold); height:100%; width:0%; transition: width 0.3s; }
+#progressText { font-size:0.78rem; margin-top:4px; opacity:0.9; }
+
+/* Tabs */
+.tabbar {
+  display:flex; flex-wrap:wrap; gap:6px; background:#fff; border-bottom:2px solid var(--border);
+  padding:10px 16px; position:sticky; top:37px; z-index:50;
+}
+.tab-btn {
+  border:2px solid var(--ml-green); background:#fff; color:var(--ml-green-dark); font-weight:600;
+  padding:8px 14px; border-radius:8px; cursor:pointer; font-size:0.85rem; font-family:'DM Sans',sans-serif;
+  display:flex; align-items:center; gap:6px;
+}
+.tab-btn.active { background:var(--ml-green); color:#fff; }
+.pip { width:9px; height:9px; border-radius:50%; background:#cbd5cb; display:inline-block; }
+.pip.done { background: var(--ml-gold); }
+
+.tab-content { display:none; padding: 18px 0 30px; }
+.tab-content.active { display:block; }
+
+/* Name row */
+.name-row { display:flex; flex-direction:column; gap:6px; margin-bottom:20px; }
+.name-row label { font-weight:600; font-size:0.9rem; }
+.name-row input {
+  padding:10px 12px; border:2px solid var(--border); border-radius:8px; font-size:1rem; font-family:'DM Sans',sans-serif;
+}
+
+/* Concept blocks */
+.concept-section { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px; margin-bottom:16px; }
+.concept-section h2 { font-size:1.15rem; border-bottom:2px solid var(--ml-green-light); padding-bottom:8px; margin-bottom:12px; }
+.concept-section h3 { font-size:1rem; color:var(--cobalt); margin-top:14px; }
+.concept-section p { line-height:1.55; margin:6px 0; }
+.concept-section p.cn { margin-top:2px; margin-bottom:10px; font-size:0.93rem; }
+
+.term-card {
+  border-left:4px solid var(--ml-green); background:var(--ml-green-light); border-radius:8px;
+  padding:12px 14px; margin:10px 0;
+}
+.term-card .term-name { font-weight:700; color:var(--ml-green-dark); font-size:1.02rem; }
+.term-card .term-ex { font-style:italic; color:var(--ink2); margin-top:4px; }
+
+.callout {
+  border:2px dashed var(--amber); background: var(--amber-light); border-radius:10px; padding:12px 14px; margin:14px 0;
+}
+.callout .callout-title { font-weight:700; color:var(--amber); margin-bottom:6px; }
+
+table.ref-table { width:100%; border-collapse: collapse; margin:12px 0; font-size:0.88rem; }
+table.ref-table th, table.ref-table td { border:1px solid var(--border); padding:8px 10px; text-align:left; vertical-align:top; }
+table.ref-table th { background:var(--ml-green-light); color:var(--ml-green-dark); }
+table.ref-table tr:nth-child(even) td { background:#fbfdfb; }
+
+.worked-example {
+  background:#eef4fb; border:1px solid var(--cobalt); border-radius:10px; padding:12px 14px; margin:14px 0;
+}
+.worked-example .we-title { color:var(--cobalt); font-weight:700; margin-bottom:6px; }
+.poem-block { font-family:'Literata', serif; font-style:italic; white-space:pre-line; line-height:1.6; background:#fff; border-radius:6px; padding:10px 12px; margin:8px 0; border:1px solid var(--border); }
+
+/* Vocab */
+.vocab-grid { display:grid; grid-template-columns: 1fr; gap:12px; }
+@media (min-width:640px) { .vocab-grid { grid-template-columns: 1fr 1fr; } }
+.vocab-card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:14px; }
+.vocab-card .vh { display:flex; align-items:center; justify-content:space-between; }
+.vocab-card .word { font-family:'Literata',serif; font-weight:700; font-size:1.1rem; color:var(--ml-green-dark); }
+.vocab-card .pos { font-size:0.75rem; color:#fff; background:var(--ml-green); border-radius:6px; padding:2px 7px; margin-left:8px; }
+.vocab-card .cnword { font-size:0.95rem; margin-top:2px; }
+.speak-btn { border:none; background:var(--ml-gold); border-radius:50%; width:32px; height:32px; cursor:pointer; font-size:1rem; flex-shrink:0; }
+.vocab-card .def { margin-top:8px; font-size:0.92rem; line-height:1.45; }
+.vocab-card .example { margin-top:6px; font-size:0.87rem; font-style:italic; color:var(--ink2); border-left:3px solid var(--ml-gold); padding-left:8px; }
+
+/* Quiz */
+.quiz-section-heading { margin-top:26px; }
+.quiz-instr { font-size:0.88rem; color:var(--ink2); margin-bottom:14px; }
+.quiz-card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:14px; }
+.q-num { font-size:0.75rem; font-weight:700; color:var(--ml-green); text-transform:uppercase; letter-spacing:0.03em; margin-bottom:6px; }
+.passage-box { background:var(--mist); border-left:4px solid var(--cobalt); padding:10px 12px; font-family:'Literata',serif; font-style:italic; white-space:pre-line; margin-bottom:10px; border-radius:6px; line-height:1.55;}
+.q-text { font-weight:600; margin-bottom:2px; }
+.q-cn { font-size:0.9rem; margin-bottom:10px; }
+.opts-wrap { display:flex; flex-direction:column; gap:8px; }
+.opt-btn {
+  text-align:left; border:2px solid var(--border); background:#fff; border-radius:8px; padding:9px 12px;
+  cursor:pointer; font-family:'DM Sans',sans-serif; font-size:0.92rem; line-height:1.4;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--ml-green); }
+.opt-btn:disabled { cursor:default; }
+.opt-btn.show-correct { border-color: var(--ml-green); background:var(--ml-green-light); }
+.opt-btn.selected-correct { border-color: var(--ml-green); background:var(--ml-green-light); }
+.opt-btn.selected-wrong { border-color: var(--ml-red); background:#fdeceb; }
+.rationale { display:none; margin-top:10px; padding:10px 12px; border-radius:8px; font-size:0.88rem; line-height:1.5; }
+.rationale.show { display:block; }
+.rationale.correct-rat { background:var(--ml-green-light); }
+.rationale.wrong-rat { background:#fdeceb; }
+
+/* Reflect */
+.reflect-box { background:#fff; border:1px solid var(--border); border-radius:12px; padding:16px; margin-top:20px; }
+.reflect-box h3 { margin-top:0; }
+.reflect-box textarea {
+  width:100%; min-height:80px; border:2px solid var(--border); border-radius:8px; padding:10px; font-family:'DM Sans',sans-serif;
+  font-size:0.93rem; margin-top:6px; margin-bottom:14px; resize:vertical;
+}
+.reflect-box textarea.filled { border-color: var(--ml-green); }
+.grat-row { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin-bottom:16px; font-weight:600; }
+.grat-row input { flex:1; min-width:160px; border:2px solid var(--border); border-radius:8px; padding:8px 10px; font-family:'DM Sans',sans-serif; }
+.grat-row input.filled { border-color: var(--ml-green); }
+.download-btn {
+  display:inline-block; background:#9ca39c; color:#fff; border:none; border-radius:10px; padding:12px 20px;
+  font-weight:700; font-size:0.95rem; cursor:not-allowed; opacity:0.6; pointer-events:none; font-family:'DM Sans',sans-serif;
+}
+.download-btn.ready { background: var(--ml-green); opacity:1; pointer-events:auto; cursor:pointer; }
+.hint-text { font-size:0.8rem; color:var(--ink2); margin-top:8px; }
+.hint-text.hidden { display:none; }
+
+/* Anti-cheat */
+.warn-banner {
+  background:#7f1d1d; color:#fff; padding:9px 18px; font-size:0.83rem; font-weight:600; text-align:center;
+  position:sticky; top:0; z-index:1000;
+}
+.leave-notice {
+  display:none; background:#fee2e2; border-left:4px solid #c1121f; padding:8px 16px; font-size:0.82rem;
+  color:#7f1d1d; font-weight:600; text-align:center;
+}
+
+/* Timer */
+.timer-fixed {
+  position:fixed; bottom:12px; right:12px; background:var(--ml-green-dark); color:#fff; padding:7px 14px;
+  border-radius:20px; font-weight:700; font-size:0.85rem; z-index:900; box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+</style>
+</head>
+<body>
+
+<!-- Layer 1: Always-visible warning -->
+<div class="warn-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+
+<!-- Layer 2: Flash alert -->
+<div id="leaveNotice" class="leave-notice">
+  🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span>
+</div>
+
+<header class="app-header">
+  <div class="wrap">
+    <h1>Poetry: Devices, Forms &amp; Analysis</h1>
+    <div class="sub cn">诗歌：手法、体裁与赏析</div>
+    <div class="header-meta">
+      <span class="badge" id="leaveBadge">🚪 Leaves: 0</span>
+      <span class="badge" id="timerBadgeText">⏱ Session in progress</span>
+    </div>
+    <div class="progress-track"><div id="progressBar"></div></div>
+    <div id="progressText">Progress: 0% · 进度：0%</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="tabbar">
+    <button class="tab-btn active" onclick="switchTab('vocab', this)"><span class="pip" id="pip-vocab"></span> Vocab 词汇</button>
+    <button class="tab-btn" onclick="switchTab('devices', this)"><span class="pip" id="pip-devices"></span> Devices 修辞手法</button>
+    <button class="tab-btn" onclick="switchTab('forms', this)"><span class="pip" id="pip-forms"></span> Forms 体裁</button>
+    <button class="tab-btn" onclick="switchTab('analyze', this)"><span class="pip" id="pip-analyze"></span> Analyze 赏析</button>
+  </div>
+
+  <!-- ============ TAB: VOCAB ============ -->
+  <div class="tab-content active" id="tab-vocab">
+    <h2>Poetry Vocabulary · 诗歌词汇</h2>
+    <p style="margin-bottom:14px;">Tap the speaker icon to hear each word pronounced. Learn these terms before moving on. · 点击喇叭图标听发音。学习完成后再继续下一部分。</p>
+    <div class="vocab-grid" id="vocabGrid"></div>
+  </div>
+
+  <!-- ============ TAB: DEVICES ============ -->
+  <div class="tab-content" id="tab-devices">
+    <div class="name-row">
+      <label for="devicesName">Student Name · 学生姓名</label>
+      <input type="text" id="devicesName" placeholder="Type your name here / 请输入姓名">
+    </div>
+
+    <div class="concept-section">
+      <h2>Part 1: Figurative Language · 比喻性语言</h2>
+      <p>Figurative language compares or describes things in ways that are not literally true. Poets use it to create feeling and meaning.</p>
+      <p class="cn">比喻性语言用不完全真实的方式来比较或描述事物。诗人用它来营造情感和意义。</p>
+
+      <div class="term-card">
+        <div class="term-name">Simile 明喻 — uses "like" or "as"</div>
+        <p>Directly compares two different things using the words "like" or "as."</p>
+        <p class="cn">用"像"或"如"直接比较两种不同的事物。</p>
+        <div class="term-ex">Example: Her smile was as bright as the sun.</div>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Metaphor 隐喻 — no "like" or "as"</div>
+        <p>States that one thing IS another thing, without using "like" or "as." It is a stronger, more direct comparison than a simile.</p>
+        <p class="cn">直接说某事物"就是"另一事物，不使用"像"或"如"，比明喻更直接更强烈。</p>
+        <div class="term-ex">Example: Her heart is a locked door, rusted shut by years of silence.</div>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">How to tell them apart · 如何区分它们</div>
+        <p>Ask yourself: does the sentence use the word "like" or "as"? If yes, it is a simile. If the sentence just says something IS something else, it is a metaphor.</p>
+        <p class="cn">问自己：句子里有没有"像"或"如"？有，就是明喻；如果直接说某物"是"另一物，就是隐喻。</p>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Personification 拟人</div>
+        <p>Gives human actions, feelings, or qualities to something that is not human — an object, animal, or idea.</p>
+        <p class="cn">把人的动作、情感或特征赋予非人类的事物——物体、动物或概念。</p>
+        <div class="term-ex">Example: The old house groaned as the storm arrived.</div>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Hyperbole 夸张</div>
+        <p>An extreme exaggeration used for emphasis or humor. It is never meant to be taken literally.</p>
+        <p class="cn">用于强调或幽默的极端夸张说法，不能按字面理解。</p>
+        <div class="term-ex">Example: I've asked you a thousand times to pick up your shoes!</div>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Symbolism 象征</div>
+        <p>An object, person, animal, or color that stands for a deeper idea beyond its literal meaning.</p>
+        <p class="cn">一个物体、人物、动物或颜色代表其字面意义之外的更深层含义。</p>
+        <div class="term-ex">Example: A dove landing gently often symbolizes peace.</div>
+      </div>
+
+      <h3>Quick Reference Table · 快速参考表</h3>
+      <table class="ref-table">
+        <tr><th>Device 手法</th><th>Key Signal 关键特征</th><th>Example 例句</th></tr>
+        <tr><td>Simile 明喻</td><td>Uses "like" / "as" 使用"像"/"如"</td><td>brave as a lion</td></tr>
+        <tr><td>Metaphor 隐喻</td><td>Says "is" directly, no like/as 直接说"是"</td><td>the classroom is a zoo</td></tr>
+        <tr><td>Personification 拟人</td><td>Human action given to a non-human thing 非人事物有人的动作</td><td>the wind whispered</td></tr>
+        <tr><td>Hyperbole 夸张</td><td>Impossible exaggeration 不可能的夸张</td><td>I could eat a horse</td></tr>
+        <tr><td>Symbolism 象征</td><td>Object represents a bigger idea 物体代表更大的概念</td><td>a chain = feeling trapped</td></tr>
+      </table>
+    </div>
+
+    <div class="concept-section">
+      <h2>Part 2: Sound Devices · 声音手法</h2>
+      <p>Sound devices are about how a poem sounds when read aloud, not just what it means.</p>
+      <p class="cn">声音手法关注诗歌朗读时的声音效果，而不仅仅是意义。</p>
+
+      <div class="term-card">
+        <div class="term-name">Alliteration 头韵</div>
+        <p>The repetition of the same consonant sound at the beginning of words that are close together.</p>
+        <p class="cn">相邻词语开头重复出现相同的辅音。</p>
+        <div class="term-ex">Example: Silver stars scattered across a black blanket.</div>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Assonance 元音韵</div>
+        <p>The repetition of vowel sounds inside nearby words (not necessarily at the start).</p>
+        <p class="cn">相邻词语内部元音重复出现（不一定在开头）。</p>
+        <div class="term-ex">Example: The rain in Spain falls mainly on the plain.</div>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Onomatopoeia 拟声词</div>
+        <p>A word that imitates the actual sound it describes.</p>
+        <p class="cn">模仿其所描述的真实声音的词语。</p>
+        <div class="term-ex">Example: The bacon sizzled and popped in the pan.</div>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Rhyme Scheme 韵律格式</div>
+        <p>The pattern of end-rhymes in a poem, labeled with letters. Lines that rhyme get the same letter.</p>
+        <p class="cn">诗歌中行末押韵的模式，用字母标记，押韵的行用同一字母表示。</p>
+        <div class="term-ex">Example: AABB means lines 1-2 rhyme, and lines 3-4 rhyme with each other.</div>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Meter 格律</div>
+        <p>The rhythmic pattern of stressed and unstressed syllables in a line.</p>
+        <p class="cn">诗行中重读与非重读音节形成的节奏模式。</p>
+        <div class="term-ex">Example: Shakespeare's sonnets often use iambic pentameter — ten syllables per line.</div>
+      </div>
+
+      <div class="worked-example">
+        <div class="we-title">Worked Example · 示范练习</div>
+        <div class="poem-block">The bacon sizzled, popped, and hissed,
+Silver smoke curled from the pan.
+The kitchen sang its morning song
+before the family day began.</div>
+        <p><strong>Sound devices found:</strong> "sizzled, popped, hissed" = onomatopoeia; "Silver smoke" = alliteration; "kitchen sang" = personification (bonus figurative device).</p>
+        <p class="cn">发现的声音手法："sizzled, popped, hissed"是拟声词；"Silver smoke"是头韵；"kitchen sang"是拟人（额外的比喻手法）。</p>
+      </div>
+    </div>
+
+    <div class="quiz-section-heading">
+      <h2>Quiz: Poetic Devices · 测验：诗歌修辞手法</h2>
+      <p class="quiz-instr">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+    </div>
+    <div id="devicesQuizContainer"></div>
+
+    <div class="reflect-box" id="devicesReflect">
+      <h3>Reflection · 反思</h3>
+      <label>1. Which poetic device do you think is hardest to spot when reading a poem, and why? · 你认为哪种诗歌手法最难发现？为什么？</label>
+      <textarea id="devicesRef1"></textarea>
+      <label>2. Think of a place, person, or feeling in your own life. Write one line describing it using a simile or metaphor. · 想一个你生活中的地方、人或感受，用明喻或隐喻写一句描述它的诗行。</label>
+      <textarea id="devicesRef2"></textarea>
+      <div class="grat-row">Today I am grateful for <input type="text" id="devicesGrat"></div>
+      <button class="download-btn" id="devicesDownloadBtn" onclick="tryDownload('devices')">Download My Report · 下载我的报告</button>
+      <div class="hint-text" id="devicesHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思内容以解锁下载。</div>
+    </div>
+  </div>
+
+  <!-- ============ TAB: FORMS ============ -->
+  <div class="tab-content" id="tab-forms">
+    <div class="name-row">
+      <label for="formsName">Student Name · 学生姓名</label>
+      <input type="text" id="formsName" placeholder="Type your name here / 请输入姓名">
+    </div>
+
+    <div class="concept-section">
+      <h2>Part 1: Structured Poetic Forms · 结构化诗歌体裁</h2>
+      <p>Some poems follow strict rules about the number of lines, the rhyme scheme, or the syllable count. These are called fixed forms.</p>
+      <p class="cn">有些诗歌在行数、韵律或音节数上遵循严格规则，这些被称为固定体裁。</p>
+
+      <div class="term-card">
+        <div class="term-name">Sonnet 十四行诗 (14 lines)</div>
+        <p><strong>Shakespearean (English) Sonnet:</strong> 14 lines, three quatrains (4-line groups) plus a final rhyming couplet, rhyme scheme ABAB CDCD EFEF GG. Often about love or beauty.</p>
+        <p class="cn">莎士比亚（英式）十四行诗：14行，三个四行诗节加一个押韵对句，韵律为ABAB CDCD EFEF GG，常写爱情或美。</p>
+        <p><strong>Petrarchan (Italian) Sonnet:</strong> 14 lines divided into an 8-line octave and a 6-line sestet, with a "turn" in thought between them.</p>
+        <p class="cn">彼特拉克（意大利）十四行诗：14行，分为8行的八行组和6行的六行组，两部分之间有思路的"转折"。</p>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Haiku 俳句 (3 lines, 5-7-5)</div>
+        <p>A Japanese form with three lines and a 5-7-5 syllable pattern. Traditionally focuses on nature and a single moment in time.</p>
+        <p class="cn">日式诗体，三行，音节为5-7-5，传统上聚焦自然和某一瞬间。</p>
+        <div class="term-ex">Example: Autumn leaves falling (5) / softly onto quiet ground (7) / winter waits close by (5)</div>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Limerick 打油诗 (5 lines, AABBA)</div>
+        <p>A humorous five-line poem. Lines 1, 2, and 5 rhyme with each other and are longer; lines 3 and 4 rhyme with each other and are shorter.</p>
+        <p class="cn">幽默的五行诗，第1、2、5行押韵且较长，第3、4行押韵且较短。</p>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Ballad 民谣叙事诗</div>
+        <p>A poem that tells a story, often meant to be sung, usually in four-line stanzas with an ABCB rhyme scheme.</p>
+        <p class="cn">讲述故事的诗歌，常配乐演唱，通常为四行诗节，韵律为ABCB。</p>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Ode 颂歌</div>
+        <p>A formal poem written to praise or celebrate a person, object, or idea.</p>
+        <p class="cn">用于赞美或歌颂某人、某物或某种理念的正式诗歌。</p>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Elegy 挽歌</div>
+        <p>A poem written to mourn someone's death, expressing grief, loss, and often reflection on life.</p>
+        <p class="cn">悼念逝者的诗歌，表达悲伤、失落，常常也反思人生。</p>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Villanelle 维拉内拉诗</div>
+        <p>A 19-line poem with two repeating refrain lines and a strict rhyme pattern across five tercets and a final quatrain.</p>
+        <p class="cn">19行诗，含两句反复出现的叠句，五个三行诗节加一个四行诗节，韵律严格。</p>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Acrostic 藏头诗</div>
+        <p>A poem in which the first letter of each line spells out a word or message when read top to bottom.</p>
+        <p class="cn">每行第一个字母从上到下连起来能拼出一个词或一句话的诗歌。</p>
+      </div>
+    </div>
+
+    <div class="concept-section">
+      <h2>Part 2: Open / Free Forms · 自由体裁</h2>
+      <p>Not every poem follows strict rules. Some forms break away from fixed patterns on purpose.</p>
+      <p class="cn">不是每首诗都遵循严格规则，有些体裁故意打破固定模式。</p>
+
+      <div class="term-card">
+        <div class="term-name">Free Verse 自由诗</div>
+        <p>Poetry with no fixed rhyme scheme or meter. Line length and rhythm follow the natural flow of thought and speech.</p>
+        <p class="cn">没有固定韵律或格律的诗歌，行的长度与节奏跟随思路和语言的自然流动。</p>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Blank Verse 无韵诗</div>
+        <p>Poetry written in a steady meter (usually iambic pentameter) but without rhyme.</p>
+        <p class="cn">采用稳定格律（通常是抑扬格五音步）但不押韵的诗歌。</p>
+      </div>
+
+      <div class="term-card">
+        <div class="term-name">Concrete / Shape Poetry 图形诗</div>
+        <p>Poetry arranged on the page so its shape visually represents its subject.</p>
+        <p class="cn">诗行在页面上排列成与主题相关的图形，通过视觉形状表达意义。</p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-title">Lyric vs. Narrative Poetry · 抒情诗与叙事诗</div>
+        <p><strong>Lyric poetry</strong> expresses a speaker's personal thoughts and feelings; it usually does not tell a full story. <strong>Narrative poetry</strong> tells a story with characters and events, like a ballad or an epic.</p>
+        <p class="cn"><strong>抒情诗</strong>表达说话者个人的思想和情感，通常不完整讲述一个故事；<strong>叙事诗</strong>则讲述带有人物和事件的故事，例如民谣或史诗。</p>
+      </div>
+
+      <h3>Forms Comparison Table · 体裁对比表</h3>
+      <table class="ref-table">
+        <tr><th>Form 体裁</th><th>Lines 行数</th><th>Rhyme/Meter 韵律/格律</th><th>Typical Use 常见用途</th></tr>
+        <tr><td>Shakespearean Sonnet</td><td>14</td><td>ABAB CDCD EFEF GG</td><td>Love, beauty</td></tr>
+        <tr><td>Haiku</td><td>3</td><td>5-7-5 syllables, no rhyme</td><td>Nature, a single moment</td></tr>
+        <tr><td>Limerick</td><td>5</td><td>AABBA</td><td>Humor</td></tr>
+        <tr><td>Ballad</td><td>Multiple 4-line stanzas</td><td>ABCB</td><td>Storytelling, often sung</td></tr>
+        <tr><td>Villanelle</td><td>19</td><td>Repeating refrains, strict pattern</td><td>Obsession, memory</td></tr>
+        <tr><td>Free Verse</td><td>Any</td><td>None fixed</td><td>Natural voice, modern themes</td></tr>
+      </table>
+    </div>
+
+    <div class="quiz-section-heading">
+      <h2>Quiz: Poetic Forms · 测验：诗歌体裁</h2>
+      <p class="quiz-instr">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+    </div>
+    <div id="formsQuizContainer"></div>
+
+    <div class="reflect-box" id="formsReflect">
+      <h3>Reflection · 反思</h3>
+      <label>1. If you were going to write a poem about your own life, which form would you choose and why? · 如果要写一首关于你生活的诗，你会选哪种体裁？为什么？</label>
+      <textarea id="formsRef1"></textarea>
+      <label>2. Why do you think some poets choose free verse instead of a strict form like a sonnet? · 你认为为什么有些诗人选择自由诗而不是像十四行诗这样的严格体裁？</label>
+      <textarea id="formsRef2"></textarea>
+      <div class="grat-row">Today I am grateful for <input type="text" id="formsGrat"></div>
+      <button class="download-btn" id="formsDownloadBtn" onclick="tryDownload('forms')">Download My Report · 下载我的报告</button>
+      <div class="hint-text" id="formsHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思内容以解锁下载。</div>
+    </div>
+  </div>
+
+  <!-- ============ TAB: ANALYZE ============ -->
+  <div class="tab-content" id="tab-analyze">
+    <div class="name-row">
+      <label for="analyzeName">Student Name · 学生姓名</label>
+      <input type="text" id="analyzeName" placeholder="Type your name here / 请输入姓名">
+    </div>
+
+    <div class="concept-section">
+      <h2>Part 1: Speaker, Tone, and Mood · 说话者、语气与氛围</h2>
+      <div class="term-card">
+        <div class="term-name">Speaker 说话者</div>
+        <p>The voice speaking in the poem. The speaker is NOT always the poet — it can be an imagined character, an animal, or even an object.</p>
+        <p class="cn">诗中说话的声音。说话者不总是诗人本人，可能是虚构的角色、动物，甚至是物体。</p>
+      </div>
+      <div class="term-card">
+        <div class="term-name">Tone 语气</div>
+        <p>The speaker's or poet's attitude toward the subject — for example, hopeful, angry, sarcastic, or nostalgic.</p>
+        <p class="cn">说话者或诗人对主题的态度——例如充满希望、愤怒、讽刺或怀旧。</p>
+      </div>
+      <div class="term-card">
+        <div class="term-name">Mood 氛围</div>
+        <p>The feeling or atmosphere the poem creates in the reader. Tone comes from the writer; mood is what the reader experiences.</p>
+        <p class="cn">诗歌在读者心中营造的感觉或氛围。语气来自作者，而氛围是读者所感受到的。</p>
+      </div>
+      <div class="callout">
+        <div class="callout-title">Tone vs. Mood in one sentence · 一句话区分语气与氛围</div>
+        <p>Tone = the writer's attitude. Mood = the reader's feeling.</p>
+        <p class="cn">语气＝作者的态度；氛围＝读者的感受。</p>
+      </div>
+    </div>
+
+    <div class="concept-section">
+      <h2>Part 2: Theme · 主题</h2>
+      <p>The theme is the central message or big idea of a poem — what it says about life, people, or the world. A theme is usually a full idea, not just a single word like "love."</p>
+      <p class="cn">主题是诗歌的核心信息或大观点——它对人生、人性或世界所表达的看法。主题通常是一个完整的观点，而不仅仅是一个单词，比如"爱"。</p>
+      <div class="callout">
+        <div class="callout-title">Finding the theme · 寻找主题的方法</div>
+        <p>Ask: What is this poem really about, beneath the surface? What is it trying to teach the reader about life?</p>
+        <p class="cn">问自己：这首诗表面之下真正在讲什么？它想教会读者关于人生的什么道理？</p>
+      </div>
+    </div>
+
+    <div class="concept-section">
+      <h2>Part 3: Structure and Line Breaks · 结构与分行</h2>
+      <div class="term-card">
+        <div class="term-name">Stanza 诗节</div>
+        <p>A group of lines forming one unit, similar to a paragraph in prose.</p>
+        <p class="cn">构成一个单元的若干诗行，类似于散文中的段落。</p>
+      </div>
+      <div class="term-card">
+        <div class="term-name">Enjambment 跨行</div>
+        <p>When a sentence or thought continues onto the next line without a pause or punctuation. It can create momentum, suspense, or mirror hesitant emotion.</p>
+        <p class="cn">句子或思路不停顿地延续到下一诗行，可以制造动感、悬念，或表现犹豫不决的情绪。</p>
+        <div class="term-ex">Example: I want to tell you / everything I feel</div>
+      </div>
+      <div class="term-card">
+        <div class="term-name">End-Stopped Line 完整句行</div>
+        <p>A line that ends with a natural pause or punctuation, such as a period or comma — the opposite of enjambment.</p>
+        <p class="cn">诗行结尾有自然停顿或标点符号，如句号或逗号——与跨行相反。</p>
+      </div>
+      <p>Poets choose line breaks carefully. Short, choppy lines can feel urgent or uncertain; long, flowing lines can feel calm or steady.</p>
+      <p class="cn">诗人精心选择分行方式。短促的诗行让人感到急迫或不安；流畅悠长的诗行则让人感到平静或稳定。</p>
+    </div>
+
+    <div class="concept-section">
+      <h2>Part 4: A Close-Reading Method · 精读方法</h2>
+      <p>Use this simple step-by-step method to analyze any poem, adapted from the well-known TP-CASTT strategy.</p>
+      <p class="cn">使用以下简单的分步方法来赏析任何诗歌，改编自著名的TP-CASTT策略。</p>
+      <table class="ref-table">
+        <tr><th>Step 步骤</th><th>What to Do 做什么</th></tr>
+        <tr><td>1. Title 标题</td><td>Predict what the poem might be about before reading closely.</td></tr>
+        <tr><td>2. Paraphrase 释义</td><td>Restate what happens in the poem in your own simple words.</td></tr>
+        <tr><td>3. Connotation 内涵</td><td>Notice figurative language, imagery, and symbols — what deeper meanings do they suggest?</td></tr>
+        <tr><td>4. Attitude / Tone 态度/语气</td><td>Identify the speaker's attitude toward the subject.</td></tr>
+        <tr><td>5. Shifts 转折</td><td>Look for any change in tone, time, or perspective within the poem.</td></tr>
+        <tr><td>6. Title (again) 再看标题</td><td>Revisit the title — does it mean something new now?</td></tr>
+        <tr><td>7. Theme 主题</td><td>State the poem's central message in one full sentence.</td></tr>
+      </table>
+
+      <div class="worked-example">
+        <div class="we-title">Worked Example · 示范练习</div>
+        <div class="poem-block">The river does not ask permission
+to carry the fallen leaves away.
+It simply moves,
+patient and certain,
+toward the sea.</div>
+        <p><strong>Paraphrase:</strong> A river carries leaves without asking, moving steadily toward the ocean. <strong>Connotation:</strong> the river may symbolize time or life moving forward. <strong>Tone:</strong> calm, accepting. <strong>Theme:</strong> life moves forward steadily, whether or not we are ready for it.</p>
+        <p class="cn"><strong>释义：</strong>河流不经允许带走落叶，稳定地流向大海。<strong>内涵：</strong>河流可能象征时间或人生的前进。<strong>语气：</strong>平静、坦然。<strong>主题：</strong>无论我们是否准备好，人生都会稳步向前。</p>
+      </div>
+    </div>
+
+    <div class="quiz-section-heading">
+      <h2>Quiz: Reading &amp; Analyzing Poetry · 测验：诗歌赏析</h2>
+      <p class="quiz-instr">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改。</p>
+    </div>
+    <div id="analyzeQuizContainer"></div>
+
+    <div class="reflect-box" id="analyzeReflect">
+      <h3>Reflection · 反思</h3>
+      <label>1. Why do you think poets often leave the theme unstated instead of just telling the reader directly? · 你认为为什么诗人常常不直接说出主题，而是让读者自己发现？</label>
+      <textarea id="analyzeRef1"></textarea>
+      <label>2. Think of a poem, song lyric, or saying you know in Chinese or English. What is its theme, in your own words? · 想一首你知道的诗歌、歌词或格言（中文或英文），用你自己的话说说它的主题是什么？</label>
+      <textarea id="analyzeRef2"></textarea>
+      <div class="grat-row">Today I am grateful for <input type="text" id="analyzeGrat"></div>
+      <button class="download-btn" id="analyzeDownloadBtn" onclick="tryDownload('analyze')">Download My Report · 下载我的报告</button>
+      <div class="hint-text" id="analyzeHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思内容以解锁下载。</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="timer-fixed" id="timer-display">⏱ 00:00</div>
+
+<script>
+/* ================= STATE ================= */
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 30; // 10 questions x 3 content tabs
+
+const devicesAnswers = {}; const devicesScore = { val: 0 }; const devicesDone = { val: 0 };
+const formsAnswers   = {}; const formsScore   = { val: 0 }; const formsDone   = { val: 0 };
+const analyzeAnswers = {}; const analyzeScore = { val: 0 }; const analyzeDone = { val: 0 };
+
+/* ================= DATA: VOCAB ================= */
+const VOCAB = [
+  { word:"Metaphor", pos:"noun", cn:"隐喻", def:"A figure of speech that describes something by saying it IS something else, without using 'like' or 'as.'", cn_def:"一种比喻，说某物'就是'另一物，不用'像'或'如'。", example:"Time is a thief that steals our youth." },
+  { word:"Simile", pos:"noun", cn:"明喻", def:"A figure of speech comparing two different things using 'like' or 'as.'", cn_def:"用'像'或'如'比较两种不同事物的修辞方法。", example:"Her smile was as bright as the sun." },
+  { word:"Personification", pos:"noun", cn:"拟人", def:"Giving human qualities or actions to non-human things or ideas.", cn_def:"把人的特征或行为赋予非人类事物或概念。", example:"The wind whispered through the trees." },
+  { word:"Alliteration", pos:"noun", cn:"头韵", def:"The repetition of the same consonant sound at the beginning of nearby words.", cn_def:"相邻词语开头重复相同辅音的现象。", example:"Peter Piper picked a peck of pickled peppers." },
+  { word:"Onomatopoeia", pos:"noun", cn:"拟声词", def:"A word that imitates the natural sound it describes.", cn_def:"模仿其所描述的自然声音的词语。", example:"The bees buzzed and the balloon popped." },
+  { word:"Rhyme Scheme", pos:"noun", cn:"韵律格式", def:"The pattern of rhyming lines in a poem, shown with letters like ABAB.", cn_def:"诗歌中押韵句子的排列模式，用字母如ABAB表示。", example:"In roses are red, violets are blue, the pattern is AABB." },
+  { word:"Meter", pos:"noun", cn:"格律", def:"The rhythmic pattern of stressed and unstressed syllables in a line of poetry.", cn_def:"诗行中重读和非重读音节的节奏模式。", example:"Shakespeare often used iambic pentameter, ten syllables per line." },
+  { word:"Stanza", pos:"noun", cn:"诗节", def:"A group of lines forming a unit in a poem, similar to a paragraph in prose.", cn_def:"诗歌中构成一个单元的若干行，类似于散文中的段落。", example:"The poem had four stanzas, each with four lines." },
+  { word:"Imagery", pos:"noun", cn:"意象", def:"Descriptive language that appeals to the five senses to create a picture in the reader's mind.", cn_def:"诉诸五种感官、在读者脑海中创造画面的描述性语言。", example:"The salty ocean spray stung her eyes." },
+  { word:"Symbolism", pos:"noun", cn:"象征", def:"The use of an object, person, or color to represent a deeper idea beyond its literal meaning.", cn_def:"用一个物体、人物或颜色代表超出字面意义的更深层含义。", example:"A dove often symbolizes peace." },
+  { word:"Enjambment", pos:"noun", cn:"跨行", def:"When a sentence or phrase continues past the end of a poetic line without a pause.", cn_def:"句子或短语不停顿地延续到下一诗行的现象。", example:"I have not seen / the stars tonight." },
+  { word:"Assonance", pos:"noun", cn:"元音韵", def:"The repetition of vowel sounds within nearby words.", cn_def:"相邻词语中元音重复出现的现象。", example:"The rain in Spain falls mainly on the plain." },
+  { word:"Hyperbole", pos:"noun", cn:"夸张", def:"An extreme exaggeration used for emphasis, not meant to be taken literally.", cn_def:"用于强调的极端夸张，不能按字面理解。", example:"I've told you a million times." },
+  { word:"Free Verse", pos:"noun", cn:"自由诗", def:"Poetry that does not follow a fixed rhyme scheme or meter.", cn_def:"不遵循固定韵律或格律的诗歌。", example:"Much of Walt Whitman's poetry is written in free verse." }
+];
+
+/* ================= DATA: DEVICES QUIZ ================= */
+const DEVICES_Q = [
+  {
+    id:"d1",
+    title:"Homework Wolf",
+    passage:"The classroom clock ticked and tocked,\ncounting down the final hour.\nMy homework called like a hungry wolf,\nhowling for my attention.",
+    q:"Which device is used in the line 'My homework called like a hungry wolf'?",
+    q_cn:"诗行'My homework called like a hungry wolf'使用了哪种手法？",
+    options:["A. Metaphor|A. 隐喻","B. Simile|B. 明喻","C. Alliteration|C. 头韵","D. Onomatopoeia|D. 拟声词"],
+    correct:"B",
+    rat_right:"The line uses the word 'like' to compare homework to a wolf, which is the defining feature of a simile.|这句话使用了'like'来把作业比作狼，这正是明喻的关键特征。",
+    rat_wrong:{
+      A:"A metaphor would say the homework IS a wolf, without using 'like.' This line uses 'like,' so it is a simile.|隐喻会直接说作业'是'一只狼，不用'like'。这句用了'like'，所以是明喻。",
+      C:"Alliteration is repeated consonant sounds at the start of words, which is not the technique used here.|头韵是词首辅音重复，这里没有使用这种手法。",
+      D:"Onomatopoeia is a word that imitates a sound, like 'buzz.' 'Called like a hungry wolf' is a comparison, not a sound word.|拟声词是模仿声音的词，如'buzz'。'called like a hungry wolf'是比较，不是拟声词。"
+    }
+  },
+  {
+    id:"d2",
+    title:"The Old House",
+    passage:"The old house groaned as the storm arrived,\nits wooden bones creaking in fear.",
+    q:"Which device gives the house human qualities in this passage?",
+    q_cn:"这段文字中哪种手法赋予了房屋人的特征？",
+    options:["A. Simile|A. 明喻","B. Personification|B. 拟人","C. Hyperbole|C. 夸张","D. Symbolism|D. 象征"],
+    correct:"B",
+    rat_right:"Saying the house 'groaned' and its bones 'creaked in fear' gives the house human actions and emotions — this is personification.|说房屋'呻吟'、它的骨头'因害怕而嘎吱作响'，赋予了房屋人的动作和情感——这就是拟人。",
+    rat_wrong:{
+      A:"There is no comparison using 'like' or 'as' here, so it is not a simile.|这里没有使用'like'或'as'进行比较，所以不是明喻。",
+      C:"Hyperbole is extreme exaggeration; there is no obvious exaggeration in this passage.|夸张是极端的夸大说法，这段文字中没有明显的夸张。",
+      D:"Symbolism means an object represents a deeper idea; the house is not clearly standing for something else here.|象征是指某物代表更深层的含义，这里房屋并没有明显代表其他事物。"
+    }
+  },
+  {
+    id:"d3",
+    title:"Silver Stars",
+    passage:"Silver stars scattered across a black blanket,\nsilent, sparkling secrets.",
+    q:"Which sound device is repeated throughout this passage?",
+    q_cn:"这段文字中反复使用了哪种声音手法？",
+    options:["A. Assonance|A. 元音韵","B. Onomatopoeia|B. 拟声词","C. Alliteration|C. 头韵","D. Rhyme scheme|D. 韵律格式"],
+    correct:"C",
+    rat_right:"The repeated 's' sound at the start of 'silver,' 'stars,' 'scattered,' 'silent,' 'sparkling,' and 'secrets' is alliteration.|'silver'、'stars'、'scattered'、'silent'、'sparkling'和'secrets'开头重复的's'音是头韵。",
+    rat_wrong:{
+      A:"Assonance is repeated vowel sounds inside words, not repeated consonant sounds at the start of words.|元音韵是词语内部元音重复，而不是词首辅音重复。",
+      B:"Onomatopoeia is a word that imitates a real sound, like 'buzz' or 'pop.' None of these words imitate a sound.|拟声词是模仿真实声音的词，如'buzz'或'pop'。这里没有这样的词。",
+      D:"A rhyme scheme is a pattern of end-rhymes across lines; this passage does not show a rhyme pattern.|韵律格式是诗行结尾押韵的模式，这段文字没有展示押韵模式。"
+    }
+  },
+  {
+    id:"d4",
+    title:"Breakfast Sounds",
+    passage:"The bacon sizzled and popped in the pan\nwhile the kettle hissed nearby.",
+    q:"Which device is shown by the words 'sizzled,' 'popped,' and 'hissed'?",
+    q_cn:"'sizzled'、'popped'和'hissed'这些词展示了哪种手法？",
+    options:["A. Onomatopoeia|A. 拟声词","B. Simile|B. 明喻","C. Hyperbole|C. 夸张","D. Symbolism|D. 象征"],
+    correct:"A",
+    rat_right:"'Sizzled,' 'popped,' and 'hissed' are words that imitate the actual sounds they describe — this is onomatopoeia.|'sizzled'、'popped'、'hissed'都是模仿它们所描述的真实声音的词——这就是拟声词。",
+    rat_wrong:{
+      B:"A simile compares two things using 'like' or 'as.' There is no such comparison here.|明喻用'like'或'as'比较两个事物，这里没有这样的比较。",
+      C:"Hyperbole is an extreme, unrealistic exaggeration. Describing normal cooking sounds is not exaggeration.|夸张是极端的、不现实的夸大，描述正常的烹饪声音不是夸张。",
+      D:"Symbolism means an object represents a deeper idea. These are simply sound-imitating words, not symbols.|象征是指物体代表更深层含义，这些只是模仿声音的词，不是象征。"
+    }
+  },
+  {
+    id:"d5",
+    title:"Locked Door",
+    passage:"Her heart is a locked door,\nrusted shut by years of silence.",
+    q:"What device is used in 'Her heart is a locked door'?",
+    q_cn:"'Her heart is a locked door'使用了哪种手法？",
+    options:["A. Simile|A. 明喻","B. Metaphor|B. 隐喻","C. Onomatopoeia|C. 拟声词","D. Alliteration|D. 头韵"],
+    correct:"B",
+    rat_right:"The line directly states the heart IS a locked door, with no 'like' or 'as' — this is a metaphor.|这句话直接说心'是'一扇锁着的门，没有用'like'或'as'——这是隐喻。",
+    rat_wrong:{
+      A:"A simile requires 'like' or 'as.' This line makes a direct comparison without those words, so it is a metaphor instead.|明喻需要'like'或'as'，这句话没有使用这些词而是直接比较，所以是隐喻。",
+      C:"There is no sound-imitating word in this line, so it is not onomatopoeia.|这句话中没有模仿声音的词，所以不是拟声词。",
+      D:"There is no repeated consonant sound at the beginning of nearby words here.|这里没有相邻词语开头辅音的重复。"
+    }
+  },
+  {
+    id:"d6",
+    title:"Concept Check",
+    q:"What is the main difference between a simile and a metaphor?",
+    q_cn:"明喻和隐喻的主要区别是什么？",
+    options:["A. A simile uses 'like' or 'as'; a metaphor states something directly IS something else|A. 明喻使用'like'或'as'；隐喻直接说某物'是'另一物","B. A metaphor is always about nature|B. 隐喻总是关于自然","C. A simile is always longer than a metaphor|C. 明喻总是比隐喻长","D. There is no real difference|D. 两者没有实际区别"],
+    correct:"A",
+    rat_right:"This is the defining difference: similes signal the comparison with 'like' or 'as,' while metaphors state the comparison directly.|这是两者的关键区别：明喻用'like'或'as'表明比较，而隐喻直接陈述比较。",
+    rat_wrong:{
+      B:"Metaphors can be about any topic, not only nature.|隐喻可以涉及任何主题，不仅限于自然。",
+      C:"Length has nothing to do with whether something is a simile or a metaphor.|长度与是明喻还是隐喻无关。",
+      D:"There is a clear, important difference between the two — the presence or absence of 'like'/'as.'|两者之间有明确重要的区别——是否使用'like'/'as'。"
+    }
+  },
+  {
+    id:"d7",
+    title:"A Thousand Times",
+    passage:"I've asked you a thousand times\nto pick up your shoes!",
+    q:"Which device is used in 'a thousand times'?",
+    q_cn:"'a thousand times'使用了哪种手法？",
+    options:["A. Personification|A. 拟人","B. Assonance|B. 元音韵","C. Hyperbole|C. 夸张","D. Rhyme scheme|D. 韵律格式"],
+    correct:"C",
+    rat_right:"Saying something happened 'a thousand times' is an extreme exaggeration used for emphasis — this is hyperbole.|说某事发生了'a thousand times'是用于强调的极端夸张——这就是夸张。",
+    rat_wrong:{
+      A:"Personification gives human qualities to non-human things; there is no such action here.|拟人赋予非人事物人的特征，这里没有这样的表现。",
+      B:"Assonance is repeated vowel sounds; that is not the focus of this phrase.|元音韵是元音重复，这不是这句话的重点。",
+      D:"A rhyme scheme is a pattern of end-rhymes across multiple lines, which is not shown in just this phrase.|韵律格式是多行诗句末尾押韵的模式，这个短语中没有体现。"
+    }
+  },
+  {
+    id:"d8",
+    title:"The Dove",
+    passage:"The dove landed gently on the fence,\na quiet promise of peace to come.",
+    q:"What does the dove most likely represent in this passage?",
+    q_cn:"这段文字中鸽子最可能代表什么？",
+    options:["A. War|A. 战争","B. Peace|B. 和平","C. Wealth|C. 财富","D. Sadness|D. 悲伤"],
+    correct:"B",
+    rat_right:"Doves are a traditional symbol of peace, and the passage directly connects the dove to 'a quiet promise of peace' — this is symbolism.|鸽子是和平的传统象征，这段文字直接把鸽子与'和平的静静承诺'联系起来——这就是象征。",
+    rat_wrong:{
+      A:"Doves are almost never used to symbolize war; they are strongly associated with the opposite idea.|鸽子几乎从不用来象征战争，它们与相反的概念紧密相关。",
+      C:"Nothing in the passage connects the dove to wealth or money.|文中没有任何内容把鸽子与财富或金钱联系起来。",
+      D:"The tone of the passage ('quiet promise') is hopeful, not sad.|这段文字的语气（'quiet promise'）是充满希望的，而不是悲伤的。"
+    }
+  },
+  {
+    id:"d9",
+    title:"Sleepless Lines",
+    passage:"I have not slept\nin days.",
+    q:"This passage is an example of which structural technique?",
+    q_cn:"这段文字展示了哪种结构手法？",
+    options:["A. Enjambment|A. 跨行","B. Alliteration|B. 头韵","C. Hyperbole|C. 夸张","D. Symbolism|D. 象征"],
+    correct:"A",
+    rat_right:"The sentence 'I have not slept in days' continues across the line break without a pause or punctuation — this is enjambment.|句子'I have not slept in days'跨越诗行没有停顿或标点——这就是跨行。",
+    rat_wrong:{
+      B:"There is no repeated consonant sound at the beginning of nearby words here.|这里没有相邻词语开头辅音的重复。",
+      C:"While 'in days' could suggest exaggeration in a longer poem, the question is asking about the line-break technique, which is enjambment.|虽然'in days'在更长的诗中可能暗示夸张，但此题问的是分行技巧，答案是跨行。",
+      D:"There is no object here standing for a deeper idea; this is about how the line is broken, not symbolism.|这里没有物体代表更深层含义；这是关于分行方式，而不是象征。"
+    }
+  },
+  {
+    id:"d10",
+    title:"Sunset Stanza",
+    passage:"The sun goes down at end of day,\ngolden light along the way.\nStars begin to fill the night,\neach one glowing soft and bright.",
+    q:"What is the rhyme scheme of this stanza?",
+    q_cn:"这个诗节的韵律格式是什么？",
+    options:["A. ABAB|A. ABAB","B. AABB|B. AABB","C. ABCB|C. ABCB","D. No rhyme at all|D. 完全不押韵"],
+    correct:"B",
+    rat_right:"'Day' rhymes with 'way' (lines 1-2 = A A) and 'night' rhymes with 'bright' (lines 3-4 = B B), giving the pattern AABB.|'day'与'way'押韵（第1、2行为AA），'night'与'bright'押韵（第3、4行为BB），形成AABB模式。",
+    rat_wrong:{
+      A:"ABAB would mean lines 1 and 3 rhyme, and lines 2 and 4 rhyme — that is not the pattern here.|ABAB意味着第1、3行押韵，第2、4行押韵——这不是这里的模式。",
+      C:"ABCB would mean only lines 2 and 4 rhyme — but here, lines 1-2 also rhyme with each other.|ABCB意味着只有第2、4行押韵——但这里第1、2行也彼此押韵。",
+      D:"There clearly are rhyming pairs in this stanza ('day/way' and 'night/bright'), so it is not rhyme-free.|这个诗节中明显存在押韵组合('day/way'和'night/bright')，所以并非不押韵。"
+    }
+  }
+];
+
+/* ================= DATA: FORMS QUIZ ================= */
+const FORMS_Q = [
+  {
+    id:"f1",
+    title:"Form ID",
+    q:"A 14-line poem with a strict rhyme scheme, often divided into three quatrains and a final couplet, commonly explores love or beauty. What form is this?",
+    q_cn:"一首14行诗，韵律严格，通常分为三个四行诗节加一个对句，常写爱情或美。这是什么体裁？",
+    options:["A. Haiku|A. 俳句","B. Shakespearean Sonnet|B. 莎士比亚十四行诗","C. Limerick|C. 打油诗","D. Free Verse|D. 自由诗"],
+    correct:"B",
+    rat_right:"14 lines, three quatrains, a final couplet, and a focus on love or beauty are the defining features of the Shakespearean sonnet.|14行、三个四行诗节、一个结尾对句，以及以爱情或美为主题，这些正是莎士比亚十四行诗的关键特征。",
+    rat_wrong:{
+      A:"A haiku has only 3 lines with a 5-7-5 syllable pattern, not 14 lines.|俳句只有3行，音节为5-7-5，不是14行。",
+      C:"A limerick is a humorous 5-line poem, not a 14-line poem about love.|打油诗是幽默的5行诗，不是14行的爱情诗。",
+      D:"Free verse has no fixed rhyme scheme, but this poem clearly has a strict, described pattern.|自由诗没有固定韵律，而这首诗明确有严格的韵律模式。"
+    }
+  },
+  {
+    id:"f2",
+    title:"Form ID",
+    q:"A three-line Japanese poem with a 5-7-5 syllable pattern, usually focused on nature. What form is this?",
+    q_cn:"一首三行的日式诗，音节为5-7-5，通常聚焦自然。这是什么体裁？",
+    options:["A. Haiku|A. 俳句","B. Ballad|B. 民谣","C. Ode|C. 颂歌","D. Villanelle|D. 维拉内拉诗"],
+    correct:"A",
+    rat_right:"Three lines and a 5-7-5 syllable pattern focused on nature is the exact definition of a haiku.|三行、5-7-5的音节模式、聚焦自然，这正是俳句的定义。",
+    rat_wrong:{
+      B:"A ballad tells a story in multiple four-line stanzas, not a single 3-line poem.|民谣用多个四行诗节讲述故事，而不是单独的三行诗。",
+      C:"An ode praises a subject and does not follow a 5-7-5 syllable structure.|颂歌赞美某个主题，并不遵循5-7-5的音节结构。",
+      D:"A villanelle has 19 lines with repeating refrains, which is very different from a 3-line haiku.|维拉内拉诗有19行，带有反复的叠句，与三行的俳句完全不同。"
+    }
+  },
+  {
+    id:"f3",
+    title:"Form ID",
+    q:"A humorous five-line poem with an AABBA rhyme scheme. What form is this?",
+    q_cn:"一首幽默的五行诗，韵律为AABBA。这是什么体裁？",
+    options:["A. Elegy|A. 挽歌","B. Limerick|B. 打油诗","C. Acrostic|C. 藏头诗","D. Sonnet|D. 十四行诗"],
+    correct:"B",
+    rat_right:"Five lines, a humorous tone, and an AABBA rhyme scheme are the defining features of a limerick.|五行、幽默的语气和AABBA韵律，这些正是打油诗的关键特征。",
+    rat_wrong:{
+      A:"An elegy mourns a death and is serious in tone, not humorous.|挽歌哀悼死亡，语气严肃，而不是幽默。",
+      C:"An acrostic is defined by its first letters spelling a word, not by having 5 lines or a specific rhyme scheme.|藏头诗的特点是首字母拼出一个词，而不是5行或特定的韵律。",
+      D:"A sonnet has 14 lines, not 5.|十四行诗有14行，不是5行。"
+    }
+  },
+  {
+    id:"f4",
+    title:"Form ID",
+    q:"Poetry that has no fixed rhyme scheme or meter, and lines can be any length. What form is this?",
+    q_cn:"没有固定韵律或格律，诗行长度可以任意的诗歌。这是什么体裁？",
+    options:["A. Free Verse|A. 自由诗","B. Villanelle|B. 维拉内拉诗","C. Petrarchan Sonnet|C. 彼特拉克十四行诗","D. Limerick|D. 打油诗"],
+    correct:"A",
+    rat_right:"No fixed rhyme scheme, no fixed meter, and flexible line length are exactly what define free verse.|没有固定韵律、没有固定格律、行长灵活，这正是自由诗的定义。",
+    rat_wrong:{
+      B:"A villanelle has a very strict, fixed pattern of 19 lines with repeating refrains — the opposite of free verse.|维拉内拉诗有19行的严格固定模式，带有反复的叠句——与自由诗相反。",
+      C:"A Petrarchan sonnet has a fixed 14-line structure with a set rhyme pattern.|彼特拉克十四行诗有固定的14行结构和设定的韵律模式。",
+      D:"A limerick has a fixed 5-line, AABBA structure.|打油诗有固定的5行AABBA结构。"
+    }
+  },
+  {
+    id:"f5",
+    title:"Form ID",
+    q:"A poem that tells a story, often meant to be sung, using a repeating rhyme pattern like ABCB. What form is this?",
+    q_cn:"一首讲述故事、常配乐演唱、韵律模式如ABCB反复出现的诗。这是什么体裁？",
+    options:["A. Ballad|A. 民谣","B. Ode|B. 颂歌","C. Haiku|C. 俳句","D. Acrostic|D. 藏头诗"],
+    correct:"A",
+    rat_right:"Telling a story, being meant for singing, and using an ABCB rhyme pattern are the defining features of a ballad.|讲述故事、适合演唱、使用ABCB韵律模式，这些正是民谣的关键特征。",
+    rat_wrong:{
+      B:"An ode praises a person, object, or idea; it does not necessarily tell a story or use ABCB rhyme.|颂歌赞美人物、物体或理念，不一定讲述故事或使用ABCB韵律。",
+      C:"A haiku is only 3 lines with a 5-7-5 syllable count, not a multi-stanza story.|俳句只有3行，音节为5-7-5，不是多诗节的故事诗。",
+      D:"An acrostic is defined by first letters spelling a word, not by storytelling or rhyme pattern.|藏头诗以首字母拼词为特点，而不是讲故事或韵律模式。"
+    }
+  },
+  {
+    id:"f6",
+    title:"Form ID",
+    q:"A formal poem written to praise or celebrate a person, object, or idea. What form is this?",
+    q_cn:"一首用于赞美或歌颂某人、某物或某种理念的正式诗歌。这是什么体裁？",
+    options:["A. Elegy|A. 挽歌","B. Limerick|B. 打油诗","C. Ode|C. 颂歌","D. Free Verse|D. 自由诗"],
+    correct:"C",
+    rat_right:"Praising or celebrating a subject in a formal way is the exact definition of an ode.|以正式方式赞美或歌颂某个主题，这正是颂歌的定义。",
+    rat_wrong:{
+      A:"An elegy mourns a death, which is the opposite purpose of praising or celebrating.|挽歌哀悼死亡，与赞美歌颂的目的相反。",
+      B:"A limerick is humorous and short, not a formal poem of praise.|打油诗幽默简短，不是正式的赞美诗。",
+      D:"Free verse describes a poem's structure (no fixed rhyme/meter), not its purpose of praise.|自由诗描述的是诗歌结构（无固定韵律/格律），而不是赞美的目的。"
+    }
+  },
+  {
+    id:"f7",
+    title:"Form ID",
+    q:"A poem written to mourn the death of someone, expressing grief and loss. What form is this?",
+    q_cn:"一首哀悼某人死亡、表达悲伤和失落的诗。这是什么体裁？",
+    options:["A. Ode|A. 颂歌","B. Elegy|B. 挽歌","C. Haiku|C. 俳句","D. Acrostic|D. 藏头诗"],
+    correct:"B",
+    rat_right:"Mourning a death and expressing grief and loss are the defining features of an elegy.|哀悼死亡、表达悲伤和失落，这些正是挽歌的关键特征。",
+    rat_wrong:{
+      A:"An ode praises or celebrates, which is the opposite tone of mourning.|颂歌赞美歌颂，与哀悼的语气相反。",
+      C:"A haiku focuses on nature and a single moment, not specifically on mourning a death.|俳句聚焦自然和某一瞬间，而不是专门哀悼死亡。",
+      D:"An acrostic is defined by its first-letter word spelling, not by its emotional purpose.|藏头诗以首字母拼词为特点，而不是以情感目的为特点。"
+    }
+  },
+  {
+    id:"f8",
+    title:"Form ID",
+    q:"A 14-line Italian sonnet form divided into an eight-line octave and a six-line sestet. What form is this?",
+    q_cn:"一种意大利十四行诗，分为8行的八行组和6行的六行组。这是什么体裁？",
+    options:["A. Shakespearean Sonnet|A. 莎士比亚十四行诗","B. Petrarchan Sonnet|B. 彼特拉克十四行诗","C. Villanelle|C. 维拉内拉诗","D. Ballad|D. 民谣"],
+    correct:"B",
+    rat_right:"The octave-plus-sestet structure (8 lines + 6 lines) is the defining feature of the Petrarchan (Italian) sonnet.|八行组加六行组的结构（8行+6行）正是彼特拉克（意大利）十四行诗的关键特征。",
+    rat_wrong:{
+      A:"The Shakespearean sonnet is divided into three quatrains and a couplet (4+4+4+2), not an octave and sestet.|莎士比亚十四行诗分为三个四行组和一个对句（4+4+4+2），不是八行组加六行组。",
+      C:"A villanelle has 19 lines, not 14, and does not use an octave/sestet structure.|维拉内拉诗有19行，不是14行，也不使用八行组/六行组结构。",
+      D:"A ballad is made of multiple 4-line stanzas and tells a story; it is not a 14-line sonnet form.|民谣由多个四行诗节组成，用于讲故事；它不是14行的十四行诗体裁。"
+    }
+  },
+  {
+    id:"f9",
+    title:"Form ID",
+    q:"A poem in which the first letter of each line spells out a word or message. What form is this?",
+    q_cn:"一首每行第一个字母连起来能拼出一个词或信息的诗。这是什么体裁？",
+    options:["A. Acrostic|A. 藏头诗","B. Elegy|B. 挽歌","C. Blank Verse|C. 无韵诗","D. Ode|D. 颂歌"],
+    correct:"A",
+    rat_right:"Spelling out a word or message using the first letter of each line is the exact definition of an acrostic.|用每行第一个字母拼出一个词或信息，这正是藏头诗的定义。",
+    rat_wrong:{
+      B:"An elegy is defined by its mourning content, not by a hidden first-letter message.|挽歌以哀悼内容为特点，而不是以隐藏的首字母信息为特点。",
+      C:"Blank verse is unrhymed poetry in a steady meter; it has nothing to do with spelling words with first letters.|无韵诗是格律稳定但不押韵的诗歌，与用首字母拼词无关。",
+      D:"An ode is defined by its purpose of praise, not by a first-letter pattern.|颂歌以赞美的目的为特点，而不是以首字母模式为特点。"
+    }
+  },
+  {
+    id:"f10",
+    title:"Concept Check",
+    q:"Poetry meant to express a speaker's personal thoughts and feelings, usually without telling a full story, is called:",
+    q_cn:"用于表达说话者个人思想和情感、通常不完整讲述故事的诗歌被称为：",
+    options:["A. Narrative poetry|A. 叙事诗","B. Lyric poetry|B. 抒情诗","C. Epic poetry|C. 史诗","D. Dramatic poetry|D. 戏剧诗"],
+    correct:"B",
+    rat_right:"Expressing personal thoughts and feelings without necessarily telling a full story is the definition of lyric poetry.|表达个人思想和情感，不一定完整讲述故事，这正是抒情诗的定义。",
+    rat_wrong:{
+      A:"Narrative poetry specifically tells a story with characters and events, which is the opposite of what is described.|叙事诗专门讲述带有人物和事件的故事，与题目描述相反。",
+      C:"Epic poetry is a long narrative poem about heroic events, not a short personal expression.|史诗是关于英雄事迹的长篇叙事诗，而不是简短的个人情感表达。",
+      D:"Dramatic poetry is written to be performed by characters, which is different from a personal lyric expression.|戏剧诗是供角色表演的诗歌，与个人抒情表达不同。"
+    }
+  }
+];
+
+/* ================= DATA: ANALYZE QUIZ ================= */
+const ANALYZE_Q = [
+  {
+    id:"a1",
+    title:"Alone Beneath Gray Sky",
+    passage:"I walk alone beneath the gray sky,\nwondering where my friends have gone.\nThe silence follows every step,\na shadow that will not move on.",
+    q:"What is the mood of this poem?",
+    q_cn:"这首诗的氛围是什么？",
+    options:["A. Joyful|A. 欢乐","B. Lonely|B. 孤独","C. Angry|C. 愤怒","D. Excited|D. 兴奋"],
+    correct:"B",
+    rat_right:"Details like walking alone, wondering where friends have gone, and silence following every step all create a feeling of loneliness in the reader.|独自行走、思念朋友去向、寂静如影随形，这些细节都在读者心中营造出孤独的感觉。",
+    rat_wrong:{
+      A:"Nothing in the passage suggests happiness; the imagery is gray, quiet, and isolated.|文中没有任何内容暗示快乐；意象是灰暗、寂静和孤立的。",
+      C:"There are no words expressing frustration or rage; the tone is quiet and sad rather than angry.|没有表达挫折或愤怒的词语；语气是安静而悲伤的，而不是愤怒的。",
+      D:"There is no energetic or thrilling language here; the mood is slow and heavy.|这里没有充满活力或激动人心的语言；氛围是缓慢而沉重的。"
+    }
+  },
+  {
+    id:"a2",
+    title:"Alone Beneath Gray Sky",
+    passage:"I walk alone beneath the gray sky,\nwondering where my friends have gone.\nThe silence follows every step,\na shadow that will not move on.",
+    q:"Who is most likely speaking in this poem?",
+    q_cn:"这首诗最可能是谁在说话？",
+    options:["A. A narrator describing someone else's life from a distance|A. 一个从远处描述他人生活的叙述者","B. The poet's own literal voice, with a name given|B. 诗人本人的声音，且有具名","C. A first-person speaker who feels isolated|C. 一个感到孤立的第一人称说话者","D. A group of people speaking together|D. 一群人一起说话"],
+    correct:"C",
+    rat_right:"The poem uses 'I' throughout and describes personal feelings of isolation, which is a first-person speaker experiencing loneliness.|这首诗全篇使用'I'，描述个人孤立的感受，这是一个正经历孤独的第一人称说话者。",
+    rat_wrong:{
+      A:"The poem uses 'I,' not third-person description of someone else — it is not written from a distance.|这首诗使用'I'，而不是第三人称描述他人——不是从远处描述。",
+      B:"The speaker in a poem is not always the poet, and no name is given here, so we cannot assume it is literally the poet.|诗中的说话者不一定是诗人本人，这里也没有给出姓名，所以不能假定就是诗人。",
+      D:"The poem uses singular 'I,' not 'we,' so it is one individual speaker, not a group.|这首诗使用单数'I'，而不是'we'，所以是一个说话者，而不是一群人。"
+    }
+  },
+  {
+    id:"a3",
+    title:"Fresh Cup of Chances",
+    passage:"Work hard, dream big, never give up,\nfor every sunrise brings a fresh cup\nof chances waiting to be poured —\nstir in courage, don't be bored.",
+    q:"What is the tone of this poem?",
+    q_cn:"这首诗的语气是什么？",
+    options:["A. Discouraging|A. 令人沮丧","B. Motivational|B. 激励","C. Sarcastic|C. 讽刺","D. Mournful|D. 悲痛"],
+    correct:"B",
+    rat_right:"Phrases like 'work hard, dream big, never give up' and 'fresh cup of chances' show an encouraging, energizing attitude — this is a motivational tone.|像'work hard, dream big, never give up'和'fresh cup of chances'这样的短语展现出鼓舞人心、充满活力的态度——这是激励的语气。",
+    rat_wrong:{
+      A:"The poem encourages the reader rather than discouraging them; there is no negative or defeated language.|这首诗鼓励读者而不是使其沮丧；没有消极或失败的语言。",
+      C:"There is no mocking or ironic undertone here — the encouragement seems sincere.|这里没有嘲讽或反语的暗示——鼓励看起来是真诚的。",
+      D:"The poem's energy and hopeful language are the opposite of a mournful, grieving tone.|这首诗充满活力和希望的语言与悲痛、哀伤的语气相反。"
+    }
+  },
+  {
+    id:"a4",
+    title:"Fresh Cup of Chances",
+    passage:"Work hard, dream big, never give up,\nfor every sunrise brings a fresh cup\nof chances waiting to be poured —\nstir in courage, don't be bored.",
+    q:"What is the central theme of this poem?",
+    q_cn:"这首诗的中心主题是什么？",
+    options:["A. Poems should always rhyme|A. 诗歌应该总是押韵","B. Hard work and hope can lead to new opportunities|B. 努力和希望能带来新的机会","C. Coffee is an important part of the morning|C. 咖啡是早晨的重要部分","D. Sunrises are beautiful to look at|D. 日出很美"],
+    correct:"B",
+    rat_right:"The poem's repeated encouragement to work hard, dream big, and see each day as a fresh chance points to a theme about hope and effort leading to opportunity.|这首诗反复鼓励努力工作、勇敢追梦，并把每一天看作新的机会，指向一个关于希望与努力带来机遇的主题。",
+    rat_wrong:{
+      A:"This is a fact about poetic form, not the poem's message about life.|这是关于诗歌形式的事实，而不是这首诗关于人生的信息。",
+      C:"'Cup' is used figuratively to represent opportunity, not literally about coffee.|'cup'是比喻性地代表机会，而不是字面上指咖啡。",
+      D:"Sunrise is mentioned but only as a symbol of new chances, not as the poem's main point about beauty.|日出被提及，但只是作为新机会的象征，而不是这首诗关于美的主要观点。"
+    }
+  },
+  {
+    id:"a5",
+    title:"The River",
+    passage:"The river does not ask permission\nto carry the fallen leaves away.\nIt simply moves,\npatient and certain,\ntoward the sea.",
+    q:"The poem uses short, uneven line lengths. What effect does this create?",
+    q_cn:"这首诗使用了长短不一的诗行。这创造了什么效果？",
+    options:["A. A fast, chaotic rhythm|A. 快速、混乱的节奏","B. A slow, flowing, deliberate rhythm that matches the river's movement|B. 一种缓慢、流畅、从容的节奏，与河流的运动相呼应","C. A confusing, meaningless rhythm|C. 令人困惑、毫无意义的节奏","D. No effect on the reader at all|D. 对读者完全没有影响"],
+    correct:"B",
+    rat_right:"The short lines and words like 'patient and certain' work together to slow the reading pace, mirroring the steady, unhurried movement of the river.|短诗行与'patient and certain'这样的词语相配合，放慢了阅读节奏，映照出河流稳定从容的运动。",
+    rat_wrong:{
+      A:"There is nothing chaotic here; the words 'patient' and 'certain' suggest calm, not speed or chaos.|这里没有混乱的感觉；'patient'和'certain'这些词暗示的是平静，而不是速度或混乱。",
+      C:"The structure is purposeful, connecting form to meaning, not confusing or random.|这种结构是有目的的，把形式与意义联系起来，而不是令人困惑或随意的。",
+      D:"Line length and structure are poetic choices that do affect how a reader experiences a poem.|诗行长度和结构是诗歌的选择，确实会影响读者的阅读体验。"
+    }
+  },
+  {
+    id:"a6",
+    title:"Snow and Summer Heat",
+    passage:"Snow falls soft on empty streets,\nlamplight glowing gold.\nI remember summer heat,\nnow my hands are cold.",
+    q:"What might the shift from 'summer heat' to 'cold hands' suggest?",
+    q_cn:"从'summer heat'到'cold hands'的转变可能暗示什么？",
+    options:["A. The passing of time and a loss of former warmth or happiness|A. 时间的流逝以及曾经的温暖或幸福的失去","B. A simple weather report about temperature|B. 一份关于气温的简单天气报告","C. The speaker prefers winter to every other season|C. 说话者比起其他季节更喜欢冬天","D. Nothing significant — it is only describing the seasons|D. 没有特别含义——只是在描述季节"],
+    correct:"A",
+    rat_right:"The contrast between the warmth of summer memories and the coldness of the present suggests a deeper feeling of loss or change over time, not just weather.|夏日回忆的温暖与当下的寒冷之间的对比，暗示了随时间流逝而产生的失落或变化的更深层情感，而不仅仅是天气。",
+    rat_wrong:{
+      B:"While weather is mentioned, poems rarely include such details only for factual reporting — it usually carries emotional meaning.|虽然提到了天气，但诗歌很少仅仅为了事实报道而包含这些细节——通常带有情感意义。",
+      C:"The tone (remembering summer with a hint of longing) does not clearly show a preference for winter.|语气（带着一丝渴望回忆夏天）并没有明确表现出对冬天的偏好。",
+      D:"The contrast between past warmth and present cold is a deliberate poetic choice carrying emotional weight.|过去的温暖与现在的寒冷之间的对比是刻意的诗歌选择，带有情感分量。"
+    }
+  },
+  {
+    id:"a7",
+    title:"Lost Words",
+    passage:"I want to tell you\neverything I feel\nbut the words get lost\nsomewhere between my heart\nand my mouth.",
+    q:"This poem uses enjambment throughout — lines running into each other without pause. How does this affect the reading experience?",
+    q_cn:"这首诗全篇使用跨行——诗行不停顿地连续下去。这如何影响阅读体验？",
+    options:["A. It makes the poem feel abrupt and disconnected|A. 让诗歌显得突兀、不连贯","B. It mirrors the hesitant, continuous flow of unspoken feelings|B. 它映照出未说出口的情感那种犹豫不决、持续流动的状态","C. It has no effect on the poem's meaning|C. 对诗歌的意义没有影响","D. It only affects whether the poem rhymes|D. 只影响诗歌是否押韵"],
+    correct:"B",
+    rat_right:"The continuous flow created by enjambment mirrors the speaker's struggle to express feelings that keep getting 'lost' between thought and speech.|跨行所形成的连续流动，映照出说话者在思绪和言语之间努力表达却不断'迷失'的情感挣扎。",
+    rat_wrong:{
+      A:"Enjambment here creates flow and continuity, not abruptness or disconnection.|这里的跨行营造了流畅和连贯，而不是突兀或不连贯。",
+      C:"Structural choices like enjambment are almost always connected to meaning in poetry.|像跨行这样的结构选择在诗歌中几乎总是与意义相关联。",
+      D:"Enjambment is about line breaks and pacing, not about whether words rhyme.|跨行关乎分行和节奏，而不是词语是否押韵。"
+    }
+  },
+  {
+    id:"a8",
+    title:"Concept Check",
+    q:"Which best describes the difference between tone and mood in a poem?",
+    q_cn:"以下哪项最能描述诗歌中语气与氛围的区别？",
+    options:["A. Tone is the writer's attitude toward the subject; mood is the feeling created in the reader|A. 语气是作者对主题的态度；氛围是诗歌在读者心中营造的感受","B. Tone and mood are exactly the same thing|B. 语气和氛围完全是同一回事","C. Tone only exists in sad poems|C. 语气只存在于悲伤的诗歌中","D. Mood is only found in narrative poetry|D. 氛围只存在于叙事诗中"],
+    correct:"A",
+    rat_right:"Tone comes from the writer's attitude, while mood is the emotional atmosphere the reader feels — this is the standard distinction.|语气来自作者的态度，而氛围是读者所感受到的情感氛围——这是标准的区分方式。",
+    rat_wrong:{
+      B:"They are related but distinct: one belongs to the writer's attitude, the other to the reader's experience.|它们相关但不同：一个属于作者的态度，另一个属于读者的体验。",
+      C:"Tone can be found in any poem regardless of emotion — happy, angry, sarcastic, and more.|任何诗歌无论情感如何都可以有语气——快乐、愤怒、讽刺等等。",
+      D:"Mood can be created in lyric poetry just as much as in narrative poetry.|抒情诗和叙事诗一样都可以营造氛围。"
+    }
+  },
+  {
+    id:"a9",
+    title:"The Old Oak",
+    passage:"The old oak stands through wind and rain,\nroots holding fast against the strain.\nThough branches bend, it does not fall —\nsilent strength that outlasts all.",
+    q:"What does the old oak most likely symbolize in this poem?",
+    q_cn:"这首诗中老橡树最可能象征什么？",
+    options:["A. Weakness|A. 软弱","B. Resilience and endurance|B. 韧性与坚持","C. Springtime|C. 春天","D. Sadness|D. 悲伤"],
+    correct:"B",
+    rat_right:"Details like 'roots holding fast,' 'does not fall,' and 'silent strength that outlasts all' show the oak standing for resilience and endurance through hardship.|'roots holding fast'、'does not fall'、'silent strength that outlasts all'这些细节表明橡树象征着在困境中的韧性与坚持。",
+    rat_wrong:{
+      A:"The poem emphasizes strength ('does not fall,' 'silent strength'), which is the opposite of weakness.|这首诗强调力量（'does not fall'、'silent strength'），与软弱正相反。",
+      C:"There is no reference to a season or springtime imagery in the passage.|文中没有提及季节或春天的意象。",
+      D:"The tone here is one of strength and steadiness, not sorrow.|这里的语气是力量和稳定，而不是悲伤。"
+    }
+  },
+  {
+    id:"a10",
+    title:"Concept Check",
+    q:"When trying to find a poem's theme, which strategy is most effective?",
+    q_cn:"在寻找一首诗的主题时，哪种策略最有效？",
+    options:["A. Only look at the title|A. 只看标题","B. Count the number of lines in the poem|B. 数诗歌的行数","C. Paraphrase the poem in your own words and ask what larger message it conveys|C. 用自己的话复述这首诗，并思考它传达了什么更大的信息","D. Look only for rhyming words|D. 只寻找押韵的词"],
+    correct:"C",
+    rat_right:"Restating the poem's events in your own words and then asking what larger idea they point to is the most reliable way to identify a theme.|用自己的话复述诗歌的内容，然后思考它们指向什么更大的观点，这是识别主题最可靠的方法。",
+    rat_wrong:{
+      A:"The title can be a helpful clue, but relying on it alone often misses the poem's full meaning.|标题可以是有用的线索，但仅依靠标题往往会遗漏诗歌的完整含义。",
+      B:"The number of lines tells you nothing about meaning or message.|诗行数量无法说明任何关于意义或信息的内容。",
+      D:"Rhyming words relate to sound, not to the poem's central meaning.|押韵的词与声音有关，而与诗歌的中心意义无关。"
+    }
+  }
+];
+
+/* ================= BUILD FUNCTIONS ================= */
+function speakWord(word) {
+  if (!('speechSynthesis' in window)) return;
+  var utter = new SpeechSynthesisUtterance(word);
+  utter.lang = 'en-US';
+  window.speechSynthesis.speak(utter);
+}
+
+function buildVocab() {
+  var grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+
+    var vh = document.createElement('div'); vh.className = 'vh';
+    var left = document.createElement('div');
+    var wordEl = document.createElement('span'); wordEl.className='word'; wordEl.textContent = v.word;
+    var posEl = document.createElement('span'); posEl.className='pos'; posEl.textContent = v.pos;
+    left.appendChild(wordEl); left.appendChild(posEl);
+    var cnEl = document.createElement('div'); cnEl.className='cnword cn'; cnEl.textContent = v.cn;
+    left.appendChild(document.createElement('br')); left.appendChild(cnEl);
+
+    var btn = document.createElement('button');
+    btn.className = 'speak-btn';
+    btn.textContent = '🔊';
+    btn.addEventListener('click', function() { speakWord(v.word); });
+
+    vh.appendChild(left); vh.appendChild(btn);
+    card.appendChild(vh);
+
+    var defEl = document.createElement('div'); defEl.className='def'; defEl.textContent = v.def;
+    var defCn = document.createElement('div'); defCn.className='def cn'; defCn.textContent = v.cn_def;
+    card.appendChild(defEl); card.appendChild(defCn);
+
+    var exEl = document.createElement('div'); exEl.className='example'; exEl.textContent = v.example;
+    card.appendChild(exEl);
+
+    grid.appendChild(card);
+  });
+}
+
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx+1) + ' of ' + data.length;
+    card.appendChild(num);
+
+    if (item.passage) {
+      var pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    var qEl = document.createElement('div'); qEl.className='q-text'; qEl.textContent=item.q;
+    var qCn = document.createElement('div'); qCn.className='q-cn cn'; qCn.textContent=item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement('div'); optsWrap.className='opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className='rationale';
+    var answered = false;
+
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/,'');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/,'') : '';
+
+      var btn = document.createElement('button');
+      btn.className='opt-btn';
+      btn.dataset.letter=letter;
+
+      var strong = document.createElement('strong'); strong.textContent=letter+'. ';
+      var enS = document.createElement('span'); enS.textContent=enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className='cn'; cnS.textContent=cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+
+        var ratText, ratCn, ratParts;
+
+        if (letter === item.correct) {
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '✅ ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          addProgress(1);
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          var wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = '❌ ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+
+        var rDiv = document.createElement('div'); rDiv.textContent=ratText;
+        if (ratCn) {
+          var rBr = document.createElement('br');
+          var rCnS = document.createElement('span'); rCnS.className='cn'; rCnS.textContent=ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+/* ================= GATING ================= */
+function getDoneObj(tabKey) {
+  if (tabKey === 'devices') return devicesDone;
+  if (tabKey === 'forms') return formsDone;
+  return analyzeDone;
+}
+function getScoreObj(tabKey) {
+  if (tabKey === 'devices') return devicesScore;
+  if (tabKey === 'forms') return formsScore;
+  return analyzeScore;
+}
+function getQData(tabKey) {
+  if (tabKey === 'devices') return DEVICES_Q;
+  if (tabKey === 'forms') return FORMS_Q;
+  return ANALYZE_Q;
+}
+function getAnsData(tabKey) {
+  if (tabKey === 'devices') return devicesAnswers;
+  if (tabKey === 'forms') return formsAnswers;
+  return analyzeAnswers;
+}
+function tabDayLabel(tabKey) {
+  if (tabKey === 'devices') return 'Poetic Devices';
+  if (tabKey === 'forms') return 'Poetic Forms';
+  return 'Reading & Analyzing Poetry';
+}
+
+function checkReadiness(tabKey) {
+  var doneObj = getDoneObj(tabKey);
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey+'DownloadBtn');
+  var hint = document.getElementById(tabKey+'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+  }
+}
+
+function wireListeners(tabKey) {
+  ['Ref1','Ref2'].forEach(function(fld) {
+    document.getElementById(tabKey+fld).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey+'Grat').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+
+/* ================= DOWNLOAD ================= */
+function tryDownload(tabKey) {
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var doneObj = getDoneObj(tabKey);
+  var scoreObj = getScoreObj(tabKey);
+  var qData = getQData(tabKey);
+  var ansData = getAnsData(tabKey);
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+
+  var name = document.getElementById(tabKey+'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var txt = '';
+
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Section: ' + tabDayLabel(tabKey) + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  qData.forEach(function(item, i) {
+    var sel = ansData[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+
+/* ================= UTILITY ================= */
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent =
+    'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+
+/* ================= INIT ================= */
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(DEVICES_Q, 'devicesQuizContainer', devicesAnswers, devicesScore, devicesDone, function() {
+    checkReadiness('devices');
+  });
+  buildQuiz(FORMS_Q, 'formsQuizContainer', formsAnswers, formsScore, formsDone, function() {
+    checkReadiness('forms');
+  });
+  buildQuiz(ANALYZE_Q, 'analyzeQuizContainer', analyzeAnswers, analyzeScore, analyzeDone, function() {
+    checkReadiness('analyze');
+  });
+  wireListeners('devices');
+  wireListeners('forms');
+  wireListeners('analyze');
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
