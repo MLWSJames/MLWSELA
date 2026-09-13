@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar Foundations | 语法基础</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--mist);
+  color: var(--ink);
+  line-height: 1.5;
+  padding-bottom: 70px;
+}
+h1, h2, h3 { font-family: 'Literata', serif; color: var(--ml-green-dark); }
+.cn { font-family: 'Noto Sans SC', sans-serif; color: #4a5a4a; }
+
+/* Anti-cheat banner */
+.warn-banner {
+  background: #7f1d1d; color: #fff; padding: 9px 18px; font-size: 0.83rem;
+  font-weight: 600; text-align: center; position: sticky; top: 0; z-index: 1000;
+}
+.warn-banner .cn { color: #fff; font-weight: 400; }
+#leaveNotice {
+  display: none; background: #fee2e2; border-left: 4px solid #c1121f;
+  padding: 8px 16px; font-size: 0.82rem; color: #7f1d1d; font-weight: 600; text-align: center;
+}
+
+/* Header */
+header {
+  background: var(--ml-green-dark); color: #fff; padding: 18px 20px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+}
+header h1 { color: #fff; font-size: 1.5rem; }
+header .subtitle { font-family: 'Noto Sans SC', sans-serif; font-size: 0.95rem; color: var(--ml-green-light); margin-top: 2px; }
+.header-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.status-pips { display: flex; gap: 6px; }
+.pip { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); }
+.pip.done { background: var(--ml-gold); border-color: var(--ml-gold); }
+.leave-badge {
+  background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 20px; font-size: 0.8rem;
+}
+.progress-wrap { width: 100%; margin-top: 10px; }
+.progress-track { background: rgba(255,255,255,0.2); border-radius: 20px; height: 10px; overflow: hidden; }
+.progress-fill { background: var(--ml-gold); height: 100%; width: 0%; transition: width 0.3s ease; }
+.progress-text { font-size: 0.78rem; margin-top: 4px; color: var(--ml-green-light); }
+
+/* Tabs */
+.tab-bar { display: flex; background: #fff; border-bottom: 2px solid var(--border); overflow-x: auto; }
+.tab-btn {
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--ink2);
+  background: none; border: none; padding: 14px 22px; cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap;
+}
+.tab-btn.active { color: var(--ml-green-dark); border-bottom-color: var(--ml-green); }
+.tab-content { display: none; max-width: 900px; margin: 0 auto; padding: 24px 18px; }
+.tab-content.active { display: block; }
+
+/* Name input */
+.name-row { margin-bottom: 20px; }
+.name-row label { display: block; font-weight: 600; margin-bottom: 6px; }
+.name-row input {
+  width: 100%; max-width: 320px; padding: 9px 12px; border: 2px solid var(--border);
+  border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+}
+
+/* Vocab */
+.intro-box {
+  background: var(--ml-green-light); border-left: 4px solid var(--ml-green); border-radius: 8px;
+  padding: 14px 18px; margin-bottom: 20px; font-size: 0.95rem;
+}
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.vocab-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.vocab-top { display: flex; align-items: baseline; gap: 4px; }
+.vocab-word { font-family: 'Literata', serif; font-weight: 700; font-size: 1.15rem; color: var(--ml-green-dark); }
+.vocab-pos { font-style: italic; color: #777; font-size: 0.85rem; }
+.speak-btn {
+  margin-left: auto; background: var(--ml-green-light); border: 1px solid var(--ml-green);
+  border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 0.95rem;
+}
+.vocab-cn { font-size: 0.95rem; margin-top: 2px; }
+.vocab-def { margin-top: 8px; font-size: 0.88rem; }
+.vocab-cndef { font-size: 0.88rem; margin-top: 3px; }
+.vocab-example { margin-top: 8px; font-size: 0.85rem; font-style: italic; color: #555; border-top: 1px dashed var(--border); padding-top: 6px; }
+
+/* Concept sections */
+.concept-section { margin-bottom: 26px; }
+.concept-title { font-size: 1.2rem; margin-bottom: 8px; }
+.concept-text { font-size: 0.95rem; margin-bottom: 6px; }
+.example-box {
+  background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--cobalt);
+  border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 0.9rem;
+}
+.example-box strong { color: var(--cobalt); }
+.callout {
+  background: var(--amber-light); border-left: 4px solid var(--amber); border-radius: 8px;
+  padding: 12px 16px; margin: 10px 0; font-size: 0.9rem;
+}
+table.grammar-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.88rem; background: #fff; }
+table.grammar-table th, table.grammar-table td {
+  border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top;
+}
+table.grammar-table th { background: var(--ml-green-light); color: var(--ml-green-dark); }
+
+/* Quiz */
+.quiz-heading { margin: 26px 0 6px; }
+.quiz-instruction { font-size: 0.88rem; color: #555; margin-bottom: 16px; }
+.quiz-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.q-num { font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 6px; }
+.passage-box { background: var(--mist); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-size: 0.88rem; margin-bottom: 10px; }
+.q-text { font-weight: 600; font-size: 0.98rem; }
+.q-cn { font-size: 0.9rem; margin-top: 2px; margin-bottom: 10px; }
+.opts-wrap { display: flex; flex-direction: column; gap: 8px; }
+.opt-btn {
+  text-align: left; background: #fff; border: 2px solid var(--border); border-radius: 8px;
+  padding: 9px 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--ink);
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--ml-green); background: var(--ml-green-light); }
+.opt-btn:disabled { cursor: default; opacity: 0.85; }
+.opt-btn.selected-correct { border-color: #2e7d32; background: #e8f5e9; }
+.opt-btn.selected-wrong { border-color: var(--ml-red); background: #ffebee; }
+.opt-btn.show-correct { border-color: #2e7d32; background: #e8f5e9; }
+.opt-btn .cn { display: block; font-size: 0.8rem; margin-top: 2px; }
+.rationale { display: none; margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 0.87rem; }
+.rationale.show { display: block; }
+.rationale.correct-rat { background: #e8f5e9; border-left: 4px solid #2e7d32; }
+.rationale.wrong-rat { background: #ffebee; border-left: 4px solid var(--ml-red); }
+.rationale .cn { display: block; margin-top: 3px; font-size: 0.83rem; }
+
+/* Reflect */
+.reflect-section { margin-top: 28px; border-top: 2px solid var(--border); padding-top: 20px; }
+.reflect-q { margin-bottom: 16px; }
+.reflect-q label { display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 4px; }
+.reflect-q label .cn { display: block; font-weight: 400; font-size: 0.85rem; margin-top: 2px; }
+.reflect-q textarea {
+  width: 100%; min-height: 70px; padding: 9px 12px; border: 2px solid var(--border); border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem; resize: vertical;
+}
+.reflect-q textarea.filled { border-color: var(--ml-green); }
+.grat-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.92rem; font-weight: 600; margin-bottom: 6px; }
+.grat-row input {
+  flex: 1; min-width: 180px; padding: 8px 10px; border: 2px solid var(--border); border-radius: 8px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 400;
+}
+.grat-row input.filled { border-color: var(--ml-green); }
+.grat-cn { font-size: 0.85rem; font-weight: 400; color: #555; margin-bottom: 16px; }
+
+.download-btn {
+  background: #b0bcb0; color: #fff; border: none; border-radius: 8px; padding: 12px 22px;
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: not-allowed;
+  opacity: 0.6; pointer-events: none;
+}
+.download-btn.ready { background: var(--ml-green); opacity: 1; pointer-events: auto; cursor: pointer; }
+.download-btn.ready:hover { background: var(--ml-green-dark); }
+.hint { font-size: 0.82rem; color: #888; margin-top: 8px; }
+.hint.hidden { display: none; }
+
+/* Timer */
+#timer-display {
+  position: fixed; bottom: 14px; right: 14px; background: var(--ml-green-dark); color: #fff;
+  padding: 7px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 600px) {
+  header h1 { font-size: 1.2rem; }
+  .tab-btn { padding: 12px 14px; font-size: 0.85rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="warn-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice">
+  🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span>
+</div>
+
+<header>
+  <div>
+    <h1>Grammar Foundations</h1>
+    <div class="subtitle">语法基础：标点符号与句子</div>
+  </div>
+  <div class="header-right">
+    <div class="status-pips">
+      <span class="pip" id="pip-punct" title="Punctuation"></span>
+      <span class="pip" id="pip-sent" title="Sentences & Conjunctions"></span>
+    </div>
+    <span class="leave-badge" id="leaveBadge">🚪 Leaves: 0</span>
+  </div>
+  <div class="progress-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">Progress: 0% · 进度：0%</div>
+  </div>
+</header>
+
+<nav class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">Vocab · 词汇</button>
+  <button class="tab-btn" onclick="switchTab('punct', this)">Punctuation · 标点</button>
+  <button class="tab-btn" onclick="switchTab('sent', this)">Sentences & Conjunctions · 句子与连词</button>
+</nav>
+
+<!-- VOCAB TAB -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="intro-box">
+    Every new ESL grammar unit starts here. These are the key words you need to talk about punctuation and sentences. Tap the 🔊 button to hear each word.
+    <span class="cn">每个新的语法单元都从这里开始。这些是谈论标点符号和句子时需要用到的重要词汇。点击🔊按钮可以听到每个单词的发音。</span>
+  </div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- PUNCTUATION TAB -->
+<div class="tab-content" id="tab-punct">
+  <div class="name-row">
+    <label>Student Name · 学生姓名</label>
+    <input type="text" id="punctName" placeholder="Type your name here">
+  </div>
+
+  <div class="concept-section">
+    <h2 class="concept-title">Why Punctuation Matters</h2>
+    <p class="concept-text">Punctuation tells the reader how a sentence should sound and what kind of sentence it is. Without it, writing is confusing.</p>
+    <p class="cn concept-text">标点符号告诉读者一句话应该怎样朗读，以及它是什么类型的句子。没有标点符号，写作会让人感到困惑。</p>
+  </div>
+
+  <div class="concept-section">
+    <h2 class="concept-title">Three Ways to End a Sentence</h2>
+    <table class="grammar-table">
+      <tr><th>Mark</th><th>Used for</th><th>Example</th></tr>
+      <tr><td>Period ( . )<br><span class="cn">句号</span></td><td>A statement — telling something</td><td>I live in Dalian.</td></tr>
+      <tr><td>Question Mark ( ? )<br><span class="cn">问号</span></td><td>A question — asking something</td><td>Where do you live?</td></tr>
+      <tr><td>Exclamation Mark ( ! )<br><span class="cn">感叹号</span></td><td>Strong feeling — surprise, excitement, warning</td><td>Watch out!</td></tr>
+    </table>
+    <div class="callout">
+      Tip: Read your sentence out loud. If your voice rises at the end, it probably needs a question mark. If you feel strong emotion, try an exclamation mark. Otherwise, use a period.
+      <span class="cn">提示：把句子读出来。如果声音在结尾上扬，可能需要问号。如果表达强烈情感，可以用感叹号。否则，用句号。</span>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <h2 class="concept-title">Quotation Marks & Dialogue</h2>
+    <p class="concept-text">Quotation marks ( " " ) surround the exact words a person says. Other punctuation, like a comma or a period, usually goes inside the closing quotation mark.</p>
+    <p class="cn concept-text">引号（" "）围住一个人说出的原话。其他标点符号，比如逗号或句号，通常放在闭合引号的内部。</p>
+    <div class="example-box">
+      <strong>Correct:</strong> She said, "I am ready."<br>
+      <strong>Correct:</strong> "Are you coming?" asked Mei.<br>
+      <strong>Incorrect:</strong> She said I am ready.
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <h2 class="concept-title">Capitalization Rules</h2>
+    <table class="grammar-table">
+      <tr><th>Rule</th><th>Example</th></tr>
+      <tr><td>Capitalize the first word of every sentence<br><span class="cn">句子的第一个词要大写</span></td><td>The students study every night.</td></tr>
+      <tr><td>Capitalize proper nouns (specific names, places)<br><span class="cn">专有名词（具体名字、地名）要大写</span></td><td>I live in Dalian, China.</td></tr>
+      <tr><td>Capitalize the first word inside a quotation<br><span class="cn">引号内句子的第一个词要大写</span></td><td>She said, "Good job today."</td></tr>
+    </table>
+  </div>
+
+  <h3 class="quiz-heading">Check Your Understanding · 检测理解</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改答案。</p>
+  <div id="punctQuizContainer"></div>
+
+  <div class="reflect-section">
+    <div class="reflect-q">
+      <label>1. Look at something you wrote this week (a journal entry, a message, or an assignment). Find one sentence you could fix using what you learned today. Write the corrected sentence below.
+        <span class="cn">看看你这周写的东西（日记、消息或作业）。找一句可以用今天学到的知识修改的句子，把改正后的句子写在下面。</span>
+      </label>
+      <textarea id="punctRef1"></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Which punctuation mark do you forget to use most often — periods, question marks, exclamation marks, or quotation marks? Why do you think that happens?
+        <span class="cn">你最常忘记使用哪个标点符号——句号、问号、感叹号还是引号？你觉得为什么会这样？</span>
+      </label>
+      <textarea id="punctRef2"></textarea>
+    </div>
+    <div class="grat-row">
+      Today I am grateful for
+      <input type="text" id="punctGrat" placeholder="type here">
+    </div>
+    <div class="grat-cn">今天我感激 ___</div>
+    <button class="download-btn" id="punctDownloadBtn" onclick="tryDownload('punct')">Download My Report · 下载我的报告</button>
+    <div class="hint" id="punctHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思内容后即可下载。</div>
+  </div>
+</div>
+
+<!-- SENTENCES & CONJUNCTIONS TAB -->
+<div class="tab-content" id="tab-sent">
+  <div class="name-row">
+    <label>Student Name · 学生姓名</label>
+    <input type="text" id="sentName" placeholder="Type your name here">
+  </div>
+
+  <div class="concept-section">
+    <h2 class="concept-title">What Makes a Sentence Complete?</h2>
+    <p class="concept-text">A complete sentence has a subject (who or what) and a verb (the action), and it expresses a full idea. A sentence fragment is missing one of these things.</p>
+    <p class="cn concept-text">一个完整的句子有主语（谁或什么）和谓语（动作），并且表达完整的意思。句子片段缺少其中一个部分。</p>
+    <table class="grammar-table">
+      <tr><th>Complete Sentence · 完整句</th><th>Sentence Fragment · 句子片段</th></tr>
+      <tr><td>The students study every night.</td><td>Because it was raining.</td></tr>
+      <tr><td>She forgot her homework.</td><td>Running to the bus stop.</td></tr>
+    </table>
+  </div>
+
+  <div class="concept-section">
+    <h2 class="concept-title">Subject-Verb Agreement</h2>
+    <p class="concept-text">The subject and verb of a sentence must match in number: a singular subject uses a singular verb, and a plural subject uses a plural verb form.</p>
+    <p class="cn concept-text">句子的主语和谓语在数上必须一致：单数主语用单数动词形式，复数主语用复数动词形式。</p>
+    <table class="grammar-table">
+      <tr><th>Subject Type</th><th>Verb Form</th><th>Example</th></tr>
+      <tr><td>Singular (she, he, it, one person)<br><span class="cn">单数</span></td><td>verb + -s</td><td>She studies every day.</td></tr>
+      <tr><td>Plural (they, we, more than one)<br><span class="cn">复数</span></td><td>base verb, no -s</td><td>They study every day.</td></tr>
+    </table>
+  </div>
+
+  <div class="concept-section">
+    <h2 class="concept-title">Joining Sentences: Conjunctions</h2>
+    <p class="concept-text">A conjunction connects two words, phrases, or sentences. The seven coordinating conjunctions are easy to remember with the word FANBOYS.</p>
+    <p class="cn concept-text">连词用来连接两个词、短语或句子。七个并列连词可以用单词FANBOYS来记忆。</p>
+    <table class="grammar-table">
+      <tr><th>Conjunction</th><th>Shows</th><th>Example</th></tr>
+      <tr><td>and</td><td>addition</td><td>I like tea and coffee.</td></tr>
+      <tr><td>but</td><td>contrast</td><td>I like tea, but I prefer coffee.</td></tr>
+      <tr><td>or</td><td>choice</td><td>Do you want tea or coffee?</td></tr>
+      <tr><td>so</td><td>result</td><td>It was raining, so we stayed inside.</td></tr>
+    </table>
+  </div>
+
+  <div class="concept-section">
+    <h2 class="concept-title">Commas: Two Jobs You Need to Know</h2>
+    <div class="example-box">
+      <strong>Job 1 — Separating items in a list:</strong> I bought apples, bananas, and oranges.<br>
+      <strong>Job 2 — Before a conjunction joining two complete sentences:</strong> It was raining, so we stayed inside.
+    </div>
+    <div class="callout">
+      Tip: Before you add a comma with a conjunction, check that both halves of the sentence could stand alone. If they can, use a comma before the conjunction.
+      <span class="cn">提示：在连词前加逗号之前，检查句子的两部分是否都能独立成句。如果可以，就在连词前加逗号。</span>
+    </div>
+  </div>
+
+  <div class="concept-section">
+    <h2 class="concept-title">Compound Sentences</h2>
+    <p class="concept-text">A compound sentence joins two complete sentences with a comma and a conjunction, like this: [complete sentence], [conjunction] [complete sentence].</p>
+    <p class="cn concept-text">并列句用逗号和连词连接两个完整的句子，格式为：[完整句]，[连词] [完整句]。</p>
+    <div class="example-box">
+      <strong>Example:</strong> He studied hard, and he passed the test.
+    </div>
+  </div>
+
+  <h3 class="quiz-heading">Check Your Understanding · 检测理解</h3>
+  <p class="quiz-instruction">Select the best answer. You cannot change your answer after you select it. · 选择最佳答案。选择后不能更改答案。</p>
+  <div id="sentQuizContainer"></div>
+
+  <div class="reflect-section">
+    <div class="reflect-q">
+      <label>1. Write one compound sentence about your day, using a comma and a conjunction correctly. Then explain why you chose that conjunction.
+        <span class="cn">写一个关于你今天的并列句，正确使用逗号和连词。然后解释你为什么选择那个连词。</span>
+      </label>
+      <textarea id="sentRef1"></textarea>
+    </div>
+    <div class="reflect-q">
+      <label>2. Think about a sentence fragment you have written or seen. How could you fix it into a complete sentence?
+        <span class="cn">想一想你写过或见过的一个句子片段。你会怎样把它改成一个完整的句子？</span>
+      </label>
+      <textarea id="sentRef2"></textarea>
+    </div>
+    <div class="grat-row">
+      Today I am grateful for
+      <input type="text" id="sentGrat" placeholder="type here">
+    </div>
+    <div class="grat-cn">今天我感激 ___</div>
+    <button class="download-btn" id="sentDownloadBtn" onclick="tryDownload('sent')">Download My Report · 下载我的报告</button>
+    <div class="hint" id="sentHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思内容后即可下载。</div>
+  </div>
+</div>
+
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+/* ============ DATA ============ */
+
+const VOCAB = [
+  { word: "Period", pos: "noun", cn: "句号", def: "A punctuation mark that shows a sentence is a complete statement.", cn_def: "表示一句话是完整陈述的标点符号。", example: "I live in Dalian." },
+  { word: "Question Mark", pos: "noun phrase", cn: "问号", def: "A punctuation mark placed at the end of a sentence that asks something.", cn_def: "放在疑问句末尾的标点符号。", example: "Where do you live?" },
+  { word: "Exclamation Mark", pos: "noun phrase", cn: "感叹号", def: "A punctuation mark that shows strong feeling, surprise, or excitement.", cn_def: "表示强烈情感、惊讶或兴奋的标点符号。", example: "We won the game!" },
+  { word: "Quotation Marks", pos: "noun phrase", cn: "引号", def: "Punctuation marks placed around a speaker's exact words.", cn_def: "放在说话人原话两边的标点符号。", example: "She said, 'I am ready.'" },
+  { word: "Dialogue", pos: "noun", cn: "对话", def: "The exact words that people say to each other, written down.", cn_def: "人们互相说的原话，写下来的形式。", example: "'Are you coming?' asked Mei." },
+  { word: "Capitalization", pos: "noun", cn: "大写", def: "Using a capital letter at the start of a sentence or for a proper noun.", cn_def: "在句子开头或专有名词处使用大写字母。", example: "Dalian is a city in China." },
+  { word: "Conjunction", pos: "noun", cn: "连词", def: "A word that connects two words, phrases, or sentences.", cn_def: "连接两个词、短语或句子的词。", example: "I like tea, but I prefer coffee." },
+  { word: "Compound Sentence", pos: "noun phrase", cn: "并列句", def: "A sentence made of two complete sentences joined by a comma and a conjunction.", cn_def: "由逗号和连词连接的两个完整句子组成的句子。", example: "It was raining, so we stayed inside." },
+  { word: "Complete Sentence", pos: "noun phrase", cn: "完整句", def: "A group of words with a subject and a verb that expresses a full idea.", cn_def: "含有主语和谓语，能表达完整意思的一组词。", example: "The students study every night." },
+  { word: "Sentence Fragment", pos: "noun phrase", cn: "句子片段", def: "A group of words that looks like a sentence but is missing a subject, a verb, or a complete idea.", cn_def: "看起来像句子，但缺少主语、谓语或完整意思的一组词。", example: "Because it was raining." },
+  { word: "Comma", pos: "noun", cn: "逗号", def: "A punctuation mark used to separate ideas, items in a list, or parts of a sentence.", cn_def: "用于分隔意思、列表项目或句子部分的标点符号。", example: "I bought apples, bananas, and oranges." },
+  { word: "Subject-Verb Agreement", pos: "noun phrase", cn: "主谓一致", def: "The rule that a subject and its verb must match in number, singular or plural.", cn_def: "主语和谓语在数（单数或复数）上必须一致的规则。", example: "She studies every day. They study every day." }
+];
+
+const PUNCT_Q = [
+  { id: "p1", title: "End Punctuation",
+    q: "Which punctuation mark correctly completes this sentence? 'I live in Dalian___'",
+    q_cn: "哪个标点符号可以正确完成这句话？'I live in Dalian___'",
+    options: ["A. Period (.)|A. 句号 (.)", "B. Question Mark (?)|B. 问号 (?)", "C. Exclamation Mark (!)|C. 感叹号 (!)", "D. Comma (,)|D. 逗号 (,)"],
+    correct: "A",
+    rat_right: "This is a statement, not a question or an exclamation, so it needs a period.|这是一个陈述句，不是疑问句或感叹句，所以需要用句号。",
+    rat_wrong: { B: "A question mark is only for sentences that ask something.|问号只用于疑问句。", C: "An exclamation mark is only for sentences showing strong feeling.|感叹号只用于表达强烈情感的句子。", D: "A comma does not end a sentence.|逗号不能用来结束一个句子。" }
+  },
+  { id: "p2", title: "Asking a Question",
+    q: "Choose the correctly punctuated question.",
+    q_cn: "选择标点正确的疑问句。",
+    options: ["A. Where is the library.|A. Where is the library.", "B. Where is the library?|B. Where is the library?", "C. Where is the library!|C. Where is the library!", "D. Where is the library,|D. Where is the library,"],
+    correct: "B",
+    rat_right: "This sentence asks something, so it must end with a question mark.|这句话在提问，所以必须以问号结尾。",
+    rat_wrong: { A: "A period is for statements, not questions.|句号用于陈述句，不是疑问句。", C: "An exclamation mark shows strong emotion, not a question.|感叹号表示强烈情感，不是疑问。", D: "A comma cannot end a sentence.|逗号不能用来结束句子。" }
+  },
+  { id: "p3", title: "Showing Strong Feeling",
+    q: "Which sentence correctly uses an exclamation mark?",
+    q_cn: "哪句话正确使用了感叹号？",
+    options: ["A. Watch out!|A. Watch out!", "B. Watch out.|B. Watch out.", "C. Watch out?|C. Watch out?", "D. Watch out,|D. Watch out,"],
+    correct: "A",
+    rat_right: "This is a warning with strong feeling, so an exclamation mark is correct.|这是一个带有强烈情感的警告，所以用感叹号是正确的。",
+    rat_wrong: { B: "A period does not show strong emotion.|句号不能表示强烈情感。", C: "This sentence is a warning, not a question.|这句话是警告，不是疑问句。", D: "A comma cannot end a sentence.|逗号不能用来结束句子。" }
+  },
+  { id: "p4", title: "Quotation Marks",
+    q: "Which sentence uses quotation marks correctly?",
+    q_cn: "哪句话正确使用了引号？",
+    options: ["A. She said, 'I am ready.'|A. She said, 'I am ready.'", "B. She said, I am ready.|B. She said, I am ready.", "C. 'She said, I am ready.'|C. 'She said, I am ready.'", "D. She said I am ready|D. She said I am ready"],
+    correct: "A",
+    rat_right: "Quotation marks surround only the speaker's exact words, and the period goes inside the closing mark.|引号只围住说话人的原话，句号放在引号内。",
+    rat_wrong: { B: "This sentence is missing quotation marks around the exact words spoken.|这句话缺少围住原话的引号。", C: "The quotation marks are placed around the whole sentence instead of just the spoken words.|引号围住了整句话，而不是只围住说出的话。", D: "This sentence has no punctuation at all separating the quote.|这句话完全没有标点符号来分隔引语。" }
+  },
+  { id: "p5", title: "Capitalization: Sentence Start",
+    q: "Which sentence uses capitalization correctly?",
+    q_cn: "哪句话的大写使用正确？",
+    options: ["A. the students study every night.|A. the students study every night.", "B. The students study every night.|B. The students study every night.", "C. The Students study every night.|C. The Students study every night.", "D. The students Study every night.|D. The students Study every night."],
+    correct: "B",
+    rat_right: "Only the first word of the sentence needs a capital letter.|句子的第一个词才需要大写字母。",
+    rat_wrong: { A: "The first word of every sentence must be capitalized.|每个句子的第一个词都必须大写。", C: "'Students' is not a proper noun, so it should not be capitalized here.|'students'不是专有名词，这里不应该大写。", D: "'Study' is a regular verb, not a proper noun, so it should not be capitalized.|'study'是普通动词，不是专有名词，不应该大写。" }
+  },
+  { id: "p6", title: "Capitalization: Proper Nouns",
+    q: "Which sentence uses capitalization correctly?",
+    q_cn: "哪句话的大写使用正确？",
+    options: ["A. I live in dalian, china.|A. I live in dalian, china.", "B. I live in Dalian, china.|B. I live in Dalian, china.", "C. I live in Dalian, China.|C. I live in Dalian, China.", "D. i live in Dalian, China.|D. i live in Dalian, China."],
+    correct: "C",
+    rat_right: "Both 'Dalian' and 'China' are proper nouns (specific place names), so both must be capitalized.|'Dalian'和'China'都是专有名词（具体地名），所以都必须大写。",
+    rat_wrong: { A: "Both place names are missing capital letters.|两个地名都没有大写。", B: "'China' is a proper noun and needs a capital letter.|'China'是专有名词，需要大写。", D: "The first word of the sentence, 'I', must always be capitalized.|句子的第一个词'I'必须始终大写。" }
+  },
+  { id: "p7", title: "Writing Dialogue",
+    q: "Which sentence correctly formats dialogue?",
+    q_cn: "哪句话正确地写出了对话？",
+    options: ["A. 'Are you coming.' asked Mei.|A. 'Are you coming.' asked Mei.", "B. 'Are you coming?' asked Mei.|B. 'Are you coming?' asked Mei.", "C. Are you coming? asked Mei.|C. Are you coming? asked Mei.", "D. 'are you coming?' asked Mei.|D. 'are you coming?' asked Mei."],
+    correct: "B",
+    rat_right: "The spoken words are inside quotation marks, and since Mei is asking a question, a question mark is used before the closing quotation mark.|说出的话放在引号内，因为Mei在提问，所以在引号内使用问号。",
+    rat_wrong: { A: "This is a question, so it needs a question mark, not a period.|这是疑问句，需要问号而不是句号。", C: "The spoken words need quotation marks around them.|说出的话需要用引号围住。", D: "The first word inside a quoted sentence should be capitalized.|引号内句子的第一个词应该大写。" }
+  },
+  { id: "p8", title: "Mixed Review: End Punctuation",
+    q: "Which sentence uses the correct end punctuation?",
+    q_cn: "哪句话的结尾标点使用正确？",
+    options: ["A. I can't believe we won!|A. I can't believe we won!", "B. I can't believe we won.|B. I can't believe we won.", "C. I can't believe we won?|C. I can't believe we won?", "D. I can't believe we won,|D. I can't believe we won,"],
+    correct: "A",
+    rat_right: "This sentence shows excitement and disbelief, so it needs an exclamation mark.|这句话表达了兴奋和难以置信的情绪，所以需要感叹号。",
+    rat_wrong: { B: "A period does not capture the strong feeling in this sentence.|句号无法表达这句话中的强烈情感。", C: "This is not a question, so a question mark is incorrect.|这不是疑问句，所以不能用问号。", D: "A comma cannot end a sentence.|逗号不能用来结束句子。" }
+  },
+  { id: "p9", title: "Punctuation Inside Quotation Marks",
+    q: "Choose the correctly punctuated sentence.",
+    q_cn: "选择标点正确的句子。",
+    options: ["A. 'Let's go' he said.|A. 'Let's go' he said.", "B. 'Let's go,' he said.|B. 'Let's go,' he said.", "C. 'Let's go', he said.|C. 'Let's go', he said.", "D. 'Let's go he said.'|D. 'Let's go he said.'"],
+    correct: "B",
+    rat_right: "In American English, the comma goes inside the closing quotation mark.|在美式英语中，逗号放在闭合引号的内部。",
+    rat_wrong: { A: "This sentence is missing the comma that separates the quote from the speaker tag.|这句话缺少分隔引语和说话人标签的逗号。", C: "The comma should be placed inside the quotation mark, not outside.|逗号应该放在引号内部，而不是外部。", D: "This places the speaker tag inside the quotation marks, which is incorrect.|这把说话人标签也放进了引号内，是不正确的。" }
+  },
+  { id: "p10", title: "Full Review",
+    q: "Which sentence has NO punctuation or capitalization errors?",
+    q_cn: "哪句话没有标点或大写错误？",
+    options: ["A. my teacher said, 'good job today.'|A. my teacher said, 'good job today.'", "B. My teacher said, 'Good job today.'|B. My teacher said, 'Good job today.'", "C. My Teacher said 'good job today'|C. My Teacher said 'good job today'", "D. My teacher said, 'good job today'|D. My teacher said, 'good job today'"],
+    correct: "B",
+    rat_right: "The sentence starts with a capital letter, the quotation marks surround the exact spoken words, the quoted sentence starts with a capital letter, and the period is inside the closing quotation mark.|句子以大写字母开头，引号围住了原话，引语的第一个词大写，句号在引号内部。",
+    rat_wrong: { A: "The sentence should start with a capital letter, and the quoted sentence inside should also start with a capital letter.|句子应该以大写字母开头，引号内的句子第一个词也应该大写。", C: "'Teacher' should not be capitalized, and this sentence is missing a comma and an ending period.|'teacher'不应该大写，并且缺少逗号和句尾的句号。", D: "The quoted sentence needs a capital letter at the start and a period before the closing quotation mark.|引语的开头需要大写字母，句号应放在闭合引号之前。" }
+  }
+];
+
+const SENT_Q = [
+  { id: "s1", title: "Complete Sentences",
+    q: "Which of these is a complete sentence?",
+    q_cn: "下面哪一个是完整的句子？",
+    options: ["A. Because it was raining.|A. Because it was raining.", "B. The students study every night.|B. The students study every night.", "C. Running to the bus stop.|C. Running to the bus stop.", "D. After the long school day.|D. After the long school day."],
+    correct: "B",
+    rat_right: "This has a subject (the students) and a verb (study) and expresses a complete idea.|这句话有主语（the students）和谓语（study），表达了完整的意思。",
+    rat_wrong: { A: "This starts with 'because' but never finishes the idea — it depends on another sentence.|这句话以'because'开头，但没有完成整个意思——它需要依赖另一句话。", C: "This has no subject and no complete idea, only an action.|这句话没有主语，也没有完整意思，只有一个动作。", D: "This is only a time phrase with no subject or verb.|这只是一个时间短语，没有主语或谓语。" }
+  },
+  { id: "s2", title: "Identifying Fragments",
+    q: "Which of these is a sentence fragment (an incomplete sentence)?",
+    q_cn: "下面哪一个是句子片段（不完整的句子）？",
+    options: ["A. Because she forgot her homework.|A. Because she forgot her homework.", "B. She forgot her homework.|B. She forgot her homework.", "C. She forgot her homework at home.|C. She forgot her homework at home.", "D. Her homework was forgotten.|D. Her homework was forgotten."],
+    correct: "A",
+    rat_right: "This starts with 'because' and never completes the thought — the reader is left waiting for more information.|这句话以'because'开头，但没有完成意思——读者还在等待更多信息。",
+    rat_wrong: { B: "This has a subject and a verb and expresses a complete idea.|这句话有主语和谓语，表达了完整的意思。", C: "This is a complete sentence with extra detail added.|这是一个带有额外细节的完整句子。", D: "This has a subject (Her homework) and a verb (was forgotten), so it is complete.|这句话有主语（Her homework）和谓语（was forgotten），所以是完整的。" }
+  },
+  { id: "s3", title: "Subject-Verb Agreement (Singular)",
+    q: "Choose the sentence with correct subject-verb agreement.",
+    q_cn: "选择主谓一致正确的句子。",
+    options: ["A. She study every day.|A. She study every day.", "B. She studies every day.|B. She studies every day.", "C. She studying every day.|C. She studying every day.", "D. She studies everyday day.|D. She studies everyday day."],
+    correct: "B",
+    rat_right: "A singular subject like 'she' needs a verb ending in -s in the present tense.|像'she'这样的单数主语在现在时中需要动词以-s结尾。",
+    rat_wrong: { A: "Singular subjects need an -s on the verb; 'study' is missing the -s.|单数主语的动词需要加-s；'study'缺少了-s。", C: "This uses the -ing form without a helping verb, which is incorrect here.|这里使用了-ing形式却没有助动词，是不正确的。", D: "'Everyday day' repeats the word incorrectly; the correct phrase is simply 'every day'.|'everyday day'重复了单词，正确的说法应该是'every day'。" }
+  },
+  { id: "s4", title: "Subject-Verb Agreement (Plural)",
+    q: "Choose the sentence with correct subject-verb agreement.",
+    q_cn: "选择主谓一致正确的句子。",
+    options: ["A. The students studies every night.|A. The students studies every night.", "B. The students study every night.|B. The students study every night.", "C. The students studying every night.|C. The students studying every night.", "D. The student study every night.|D. The student study every night."],
+    correct: "B",
+    rat_right: "A plural subject like 'the students' uses the base form of the verb without -s.|像'the students'这样的复数主语使用动词原形，不加-s。",
+    rat_wrong: { A: "Plural subjects do not take an -s on the verb.|复数主语的动词不需要加-s。", C: "This uses the -ing form without a helping verb, which is incorrect here.|这里使用了-ing形式却没有助动词，是不正确的。", D: "'Student' is singular but the verb 'study' is the plural form — they do not match.|'student'是单数，但动词'study'是复数形式——两者不匹配。" }
+  },
+  { id: "s5", title: "Choosing a Conjunction",
+    q: "Which conjunction best joins these two sentences? 'I wanted to go outside. It was raining.'",
+    q_cn: "哪个连词最适合连接这两句话？'I wanted to go outside. It was raining.'",
+    options: ["A. and|A. and", "B. but|B. but", "C. so|C. so", "D. or|D. or"],
+    correct: "B",
+    rat_right: "'But' shows contrast between wanting to go outside and the rain stopping that plan.|'but'表示对比——想出去和下雨阻止了这个计划之间的对比。",
+    rat_wrong: { A: "'And' adds similar ideas together, but these two ideas contrast with each other.|'and'用来连接相似的想法，但这两个想法是相互矛盾的。", C: "'So' shows a result, but the rain is not a result of wanting to go outside.|'so'表示结果，但下雨不是想出去的结果。", D: "'Or' shows a choice between two options, but this sentence is not offering a choice.|'or'表示两个选项之间的选择，但这句话没有提供选择。" }
+  },
+  { id: "s6", title: "Punctuating Compound Sentences",
+    q: "Which sentence is correctly punctuated?",
+    q_cn: "哪句话的标点使用正确？",
+    options: ["A. It was raining so we stayed inside.|A. It was raining so we stayed inside.", "B. It was raining, so we stayed inside.|B. It was raining, so we stayed inside.", "C. It was raining so, we stayed inside.|C. It was raining so, we stayed inside.", "D. It was raining, so, we stayed inside.|D. It was raining, so, we stayed inside."],
+    correct: "B",
+    rat_right: "A comma goes right before the conjunction that joins two complete sentences.|逗号应放在连接两个完整句子的连词之前。",
+    rat_wrong: { A: "This compound sentence is missing the comma before 'so'.|这个并列句在'so'之前缺少逗号。", C: "The comma is placed after 'so' instead of before it.|逗号被放在了'so'之后，而不是之前。", D: "This sentence has an extra, unnecessary comma after 'so'.|这句话在'so'之后多了一个不必要的逗号。" }
+  },
+  { id: "s7", title: "Commas in a Series",
+    q: "Which sentence uses commas correctly in a list?",
+    q_cn: "哪句话正确使用了列表中的逗号？",
+    options: ["A. I bought apples bananas and oranges.|A. I bought apples bananas and oranges.", "B. I bought apples, bananas and, oranges.|B. I bought apples, bananas and, oranges.", "C. I bought apples, bananas, and oranges.|C. I bought apples, bananas, and oranges.", "D. I bought apples, bananas, oranges.|D. I bought apples, bananas, oranges."],
+    correct: "C",
+    rat_right: "Each item in the list is separated by a comma, including one before 'and'.|列表中的每一项都用逗号分隔，包括'and'之前的一个逗号。",
+    rat_wrong: { A: "This list is missing all the commas that should separate the items.|这个列表缺少所有应该分隔各项的逗号。", B: "The comma is placed after 'and' instead of before it.|逗号被放在了'and'之后，而不是之前。", D: "This list is missing the conjunction 'and' before the final item.|这个列表在最后一项之前缺少连词'and'。" }
+  },
+  { id: "s8", title: "Compound vs. Simple Sentences",
+    q: "Which sentence is a compound sentence?",
+    q_cn: "哪句话是并列句？",
+    options: ["A. He studied hard and passed the test.|A. He studied hard and passed the test.", "B. He studied hard, and he passed the test.|B. He studied hard, and he passed the test.", "C. He studied hard for the test.|C. He studied hard for the test.", "D. Studying hard, he passed the test.|D. Studying hard, he passed the test."],
+    correct: "B",
+    rat_right: "This sentence joins two complete sentences ('He studied hard' and 'he passed the test') with a comma and conjunction.|这句话用逗号和连词连接了两个完整的句子（'He studied hard'和'he passed the test'）。",
+    rat_wrong: { A: "This is a simple sentence with one subject doing two actions, not two complete sentences.|这是一个简单句，一个主语做了两个动作，而不是两个完整的句子。", C: "This is a simple sentence with only one main idea.|这是一个只有一个主要意思的简单句。", D: "This sentence uses a describing phrase, not two joined complete sentences.|这句话使用了一个描述性短语，而不是两个连接起来的完整句子。" }
+  },
+  { id: "s9", title: "Combining Sentences Correctly",
+    q: "Which option correctly combines these two sentences? 'She finished her homework. She watched TV.'",
+    q_cn: "哪个选项正确地连接了这两句话？'She finished her homework. She watched TV.'",
+    options: ["A. She finished her homework she watched TV.|A. She finished her homework she watched TV.", "B. She finished her homework, and watched TV.|B. She finished her homework, and watched TV.", "C. She finished her homework, and she watched TV.|C. She finished her homework, and she watched TV.", "D. She finished her homework and, she watched TV.|D. She finished her homework and, she watched TV."],
+    correct: "C",
+    rat_right: "Both parts have their own subject and verb, so a comma before 'and' correctly joins them into a compound sentence.|两部分都有各自的主语和谓语，所以在'and'之前加逗号可以正确地把它们连接成一个并列句。",
+    rat_wrong: { A: "This runs two complete sentences together with no punctuation at all, which is called a run-on sentence.|这把两个完整的句子连在一起，中间没有任何标点，这叫做粘连句。", B: "The second part is missing its own subject 'she', so this is not two joined complete sentences.|第二部分缺少自己的主语'she'，所以这不是两个连接起来的完整句子。", D: "The comma is placed after 'and' instead of before it.|逗号被放在了'and'之后，而不是之前。" }
+  },
+  { id: "s10", title: "Review: Sentence Building",
+    q: "Which sentence has NO grammar or punctuation errors?",
+    q_cn: "哪句话没有语法或标点错误？",
+    options: ["A. My brother like pizza, but I prefer noodles.|A. My brother like pizza, but I prefer noodles.", "B. My brother likes pizza but I prefer noodles.|B. My brother likes pizza but I prefer noodles.", "C. My brother likes pizza, but I prefer noodles.|C. My brother likes pizza, but I prefer noodles.", "D. My brother likes pizza, but, I prefer noodles.|D. My brother likes pizza, but, I prefer noodles."],
+    correct: "C",
+    rat_right: "The subject 'brother' correctly matches the verb 'likes', and the comma is placed correctly before the conjunction 'but'.|主语'brother'和谓语'likes'正确匹配，逗号也正确地放在了连词'but'之前。",
+    rat_wrong: { A: "'Brother' is singular, so the verb should be 'likes', not 'like'.|'brother'是单数，所以动词应该是'likes'而不是'like'。", B: "This compound sentence is missing the comma before 'but'.|这个并列句在'but'之前缺少逗号。", D: "There is an extra, unnecessary comma after 'but'.|'but'之后多了一个不必要的逗号。" }
+  }
+];
+
+/* ============ STATE ============ */
+
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 20;
+
+const punctAnswers = {};
+const punctScore = { val: 0 };
+const punctDone = { val: 0 };
+
+const sentAnswers = {};
+const sentScore = { val: 0 };
+const sentDone = { val: 0 };
+
+/* ============ FUNCTIONS ============ */
+
+function buildVocab() {
+  const container = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v) {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+
+    const top = document.createElement('div');
+    top.className = 'vocab-top';
+    const wordSpan = document.createElement('span');
+    wordSpan.className = 'vocab-word';
+    wordSpan.textContent = v.word;
+    const posSpan = document.createElement('span');
+    posSpan.className = 'vocab-pos';
+    posSpan.textContent = ' (' + v.pos + ')';
+    const speakBtn = document.createElement('button');
+    speakBtn.className = 'speak-btn';
+    speakBtn.type = 'button';
+    speakBtn.textContent = '🔊';
+    speakBtn.addEventListener('click', function() {
+      if ('speechSynthesis' in window) {
+        const utter = new SpeechSynthesisUtterance(v.word);
+        utter.lang = 'en-US';
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utter);
+      }
+    });
+    top.appendChild(wordSpan);
+    top.appendChild(posSpan);
+    top.appendChild(speakBtn);
+
+    const cnWord = document.createElement('div');
+    cnWord.className = 'cn vocab-cn';
+    cnWord.textContent = v.cn;
+
+    const def = document.createElement('div');
+    def.className = 'vocab-def';
+    def.textContent = v.def;
+
+    const cnDef = document.createElement('div');
+    cnDef.className = 'cn vocab-cndef';
+    cnDef.textContent = v.cn_def;
+
+    const ex = document.createElement('div');
+    ex.className = 'vocab-example';
+    ex.textContent = 'Example: ' + v.example;
+
+    card.appendChild(top);
+    card.appendChild(cnWord);
+    card.appendChild(def);
+    card.appendChild(cnDef);
+    card.appendChild(ex);
+    container.appendChild(card);
+  });
+}
+
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  const container = document.getElementById(containerId);
+  data.forEach(function(item, idx) {
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    const num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx + 1) + ' of ' + data.length;
+    card.appendChild(num);
+
+    if (item.passage) {
+      const pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    const qEl = document.createElement('div');
+    qEl.className = 'q-text';
+    qEl.textContent = item.q;
+    const qCn = document.createElement('div');
+    qCn.className = 'q-cn cn';
+    qCn.textContent = item.q_cn;
+    card.appendChild(qEl);
+    card.appendChild(qCn);
+
+    const optsWrap = document.createElement('div');
+    optsWrap.className = 'opts-wrap';
+    const ratDiv = document.createElement('div');
+    ratDiv.className = 'rationale';
+    let answered = false;
+
+    item.options.forEach(function(opt) {
+      const parts = opt.split('|');
+      const letter = parts[0].charAt(0);
+      const enText = parts[0].replace(/^[A-D]\.\s*/, '');
+      const cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/, '') : '';
+
+      const btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.dataset.letter = letter;
+
+      const strong = document.createElement('strong');
+      strong.textContent = letter + '. ';
+      const enS = document.createElement('span');
+      enS.textContent = enText;
+      const br = document.createElement('br');
+      const cnS = document.createElement('span');
+      cnS.className = 'cn';
+      cnS.textContent = cnText;
+      btn.appendChild(strong);
+      btn.appendChild(enS);
+      btn.appendChild(br);
+      btn.appendChild(cnS);
+
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+
+        let ratText, ratCn, ratParts;
+
+        if (letter === item.correct) {
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '✅ ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          addProgress(1);
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          const wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = '❌ ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+
+        const rDiv = document.createElement('div');
+        rDiv.textContent = ratText;
+        if (ratCn) {
+          const rBr = document.createElement('br');
+          const rCnS = document.createElement('span');
+          rCnS.className = 'cn';
+          rCnS.textContent = ratCn;
+          rDiv.appendChild(rBr);
+          rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+function checkReadiness(tabKey) {
+  const doneObj = tabKey === 'punct' ? punctDone : sentDone;
+  const ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  const ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  const grat = document.getElementById(tabKey + 'Grat').value.trim();
+  const ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  const btn = document.getElementById(tabKey + 'DownloadBtn');
+  const hint = document.getElementById(tabKey + 'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+  }
+}
+
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2'].forEach(function(fld) {
+    document.getElementById(tabKey + fld).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey + 'Grat').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+
+function tryDownload(tabKey) {
+  const ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  const ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  const grat = document.getElementById(tabKey + 'Grat').value.trim();
+
+  let doneObj, scoreObj, qData, ansData, sectionLabel;
+  if (tabKey === 'punct') {
+    doneObj = punctDone; scoreObj = punctScore; qData = PUNCT_Q; ansData = punctAnswers; sectionLabel = 'Punctuation';
+  } else {
+    doneObj = sentDone; scoreObj = sentScore; qData = SENT_Q; ansData = sentAnswers; sectionLabel = 'Sentences & Conjunctions';
+  }
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+
+  const name = document.getElementById(tabKey + 'Name').value.trim() || 'Unknown';
+  const now = new Date().toLocaleString();
+  let txt = '';
+
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Section: ' + sectionLabel + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  qData.forEach(function(item, i) {
+    const sel = ansData[item.id] || 'Not answered';
+    const result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i + 1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  const blob = new Blob([txt], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g, '_') + '_' + new Date().toLocaleDateString().replace(/\//g, '-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  const pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      const notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(PUNCT_Q, 'punctQuizContainer', punctAnswers, punctScore, punctDone, function() { checkReadiness('punct'); });
+  buildQuiz(SENT_Q, 'sentQuizContainer', sentAnswers, sentScore, sentDone, function() { checkReadiness('sent'); });
+  wireListeners('punct');
+  wireListeners('sent');
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
