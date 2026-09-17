@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar &amp; Vocabulary Practice | 语法与词汇练习</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ml-green:#2d6a4f; --ml-green-dark:#1b4332; --ml-green-light:#d8f3dc;
+  --ml-red:#c1121f; --ml-gold:#e9c46a; --ink:#1a2a1a; --ink2:#2d3748;
+  --mist:#f8faf8; --border:#e2e8e2; --cobalt:#1e3a5f; --amber:#b45309; --amber-light:#fef3c7;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);}
+h1,h2,h3{font-family:'Literata',serif;color:var(--ml-green-dark);}
+.cn{font-family:'Noto Sans SC',sans-serif;}
+header{background:var(--ml-green-dark);color:#fff;padding:18px 20px;text-align:center;}
+header h1{color:#fff;margin:0 0 4px;font-size:1.5rem;}
+header p{margin:0;color:var(--ml-green-light);font-size:.95rem;}
+.tabs{display:flex;flex-wrap:wrap;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:50;}
+.tab-btn{flex:1;min-width:140px;padding:12px 8px;background:none;border:none;border-bottom:4px solid transparent;
+  font-family:'DM Sans',sans-serif;font-weight:600;font-size:.85rem;color:var(--ink2);cursor:pointer;}
+.tab-btn.active{color:var(--ml-green-dark);border-bottom-color:var(--ml-green);background:var(--ml-green-light);}
+.tab-content{display:none;max-width:840px;margin:0 auto;padding:20px 16px 60px;}
+.tab-content.active{display:block;}
+.card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:16px;}
+.instruction{background:var(--amber-light);border-left:4px solid var(--amber);padding:12px 16px;border-radius:6px;margin-bottom:18px;}
+.instruction p{margin:4px 0;}
+.q-num{display:inline-block;background:var(--ml-green);color:#fff;border-radius:50%;width:26px;height:26px;
+  text-align:center;line-height:26px;font-weight:700;font-size:.85rem;margin-right:8px;}
+.sentence{font-size:1.05rem;margin:10px 0;line-height:1.6;}
+.blank-box{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0;}
+@media(max-width:500px){.blank-box{grid-template-columns:1fr;}}
+.opt-btn{padding:10px 12px;border:2px solid var(--border);background:#fff;border-radius:8px;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-size:.92rem;text-align:left;color:var(--ink);}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);}
+.opt-btn:disabled{cursor:default;}
+.opt-btn.correct{background:var(--ml-green-light);border-color:var(--ml-green);font-weight:700;}
+.opt-btn.wrong{background:#fde8e8;border-color:var(--ml-red);}
+.feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.9rem;display:none;}
+.feedback.show{display:block;}
+.feedback.good{background:var(--ml-green-light);color:var(--ml-green-dark);}
+.feedback.bad{background:#fde8e8;color:var(--ml-red);}
+.feedback .cn{display:block;margin-top:4px;color:var(--ink2);}
+hr{border:none;border-top:1px dashed var(--border);margin:18px 0;}
+.punct-passage{font-size:1.08rem;line-height:2.3;}
+.punct-btn{display:inline-block;min-width:28px;padding:2px 6px;border:2px dashed var(--ml-green);border-radius:6px;
+  background:var(--ml-green-light);cursor:pointer;font-weight:700;color:var(--ml-green-dark);}
+.punct-btn.done-correct{background:var(--ml-green-light);border-style:solid;border-color:var(--ml-green);}
+.punct-btn.done-wrong{background:#fde8e8;border-style:solid;border-color:var(--ml-red);}
+.punct-choices{display:none;gap:6px;margin:6px 0 14px;flex-wrap:wrap;}
+.punct-choices.show{display:flex;}
+.pc-btn{padding:6px 14px;border:2px solid var(--border);border-radius:20px;background:#fff;cursor:pointer;font-weight:700;}
+.pc-btn:hover{border-color:var(--ml-green);}
+.score-pill{display:inline-block;background:var(--ml-green-dark);color:#fff;padding:4px 14px;border-radius:20px;
+  font-size:.85rem;font-weight:600;float:right;}
+textarea{width:100%;min-height:110px;font-family:'DM Sans',sans-serif;font-size:.95rem;padding:10px;
+  border:1px solid var(--border);border-radius:8px;resize:vertical;}
+.wordcount{font-size:.8rem;color:var(--ink2);text-align:right;margin-top:4px;}
+.reveal-btn{margin-top:8px;background:var(--cobalt);color:#fff;border:none;padding:8px 14px;border-radius:8px;
+  cursor:pointer;font-weight:600;font-size:.85rem;}
+.model-answer{display:none;background:var(--ml-green-light);padding:10px 14px;border-radius:8px;margin-top:8px;font-size:.9rem;}
+.model-answer.show{display:block;}
+.checklist{background:var(--mist);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-top:10px;}
+.checklist label{display:block;margin:6px 0;font-size:.88rem;}
+footer{text-align:center;padding:20px;color:var(--ink2);font-size:.8rem;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Grammar &amp; Vocabulary Practice <span class="cn">语法与词汇练习</span></h1>
+  <p>English 10-1 Unit 1 · Practice with instant feedback <span class="cn">— 即时反馈练习</span></p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="partA">Word Forms <span class="cn">词形</span></button>
+  <button class="tab-btn" data-tab="partB">Conjunctions <span class="cn">连词</span></button>
+  <button class="tab-btn" data-tab="partC">Punctuation <span class="cn">标点</span></button>
+  <button class="tab-btn" data-tab="partD">Sentence Writing <span class="cn">造句</span></button>
+  <button class="tab-btn" data-tab="partE">Diary Writing <span class="cn">日记</span></button>
+</div>
+
+<!-- PART A -->
+<div class="tab-content active" id="tab-partA">
+  <div class="instruction">
+    <p><strong>Change the underlined word into the correct word form to complete the sentence. Click an answer to check it instantly.</strong></p>
+    <p class="cn">把带下划线的词改成正确的词形，使句子通顺。点击答案立即查看是否正确。</p>
+  </div>
+  <div class="card"><span class="score-pill" id="scoreA">0 / 0</span><div id="wordFormsContainer"></div></div>
+</div>
+
+<!-- PART B -->
+<div class="tab-content" id="tab-partB">
+  <div class="instruction">
+    <p><strong>Choose the conjunction that correctly completes each sentence.</strong></p>
+    <p class="cn">选择能正确完成句子的连词。</p>
+  </div>
+  <div class="card"><span class="score-pill" id="scoreB">0 / 0</span><div id="conjContainer"></div></div>
+</div>
+
+<!-- PART C -->
+<div class="tab-content" id="tab-partC">
+  <div class="instruction">
+    <p><strong>Click each dashed blank and choose the correct punctuation mark.</strong></p>
+    <p class="cn">点击每一个虚线空白处，选择正确的标点符号。</p>
+  </div>
+  <div class="card"><span class="score-pill" id="scoreC">0 / 0</span><h3>Passage 1</h3><div class="punct-passage" id="punctPassage1"></div></div>
+  <div class="card"><span class="score-pill" id="scoreC2">0 / 0</span><h3>Passage 2 <span class="cn">（额外练习）</span></h3><div class="punct-passage" id="punctPassage2"></div></div>
+</div>
+
+<!-- PART D -->
+<div class="tab-content" id="tab-partD">
+  <div class="instruction">
+    <p><strong>Write one complete sentence for each word below. Your sentence must show the meaning of the word. When you finish, click "Show example" to compare your sentence with a model answer — there is no single correct answer!</strong></p>
+    <p class="cn">为下面每个单词写一个完整的句子，句子要能体现该词的意思。写完后点击"查看示例"和范例句子对比——答案不是唯一的！</p>
+  </div>
+  <div id="sentenceWritingContainer"></div>
+</div>
+
+<!-- PART E -->
+<div class="tab-content" id="tab-partE">
+  <div class="instruction">
+    <p><strong>Write a short diary entry explaining why correct word forms and punctuation help readers understand a message. Include at least three vocabulary words from this unit. Write 120–150 words or 6–9 complete sentences.</strong></p>
+    <p class="cn">写一篇简短的日记，说明正确的词形和标点符号如何帮助读者理解信息。至少使用本单元的三个词汇。写120-150词或6-9个完整句子。</p>
+  </div>
+  <div class="card">
+    <h3>Word bank <span class="cn">词库</span> <span class="cn" style="font-weight:400">(from Part A)</span></h3>
+    <p>cheerfully · dangerous · comfort · hopefully · beautifully · angrily · noisily · creatively · foolish · peacefully</p>
+    <textarea id="diaryText" placeholder="Dear Diary, ..."></textarea>
+    <div class="wordcount" id="diaryCount">0 words</div>
+    <div class="checklist">
+      <strong>Self-check before you finish <span class="cn">完成前自查</span></strong>
+      <label><input type="checkbox"> I used at least 3 unit vocabulary words. <span class="cn">我用了至少3个本单元词汇。</span></label>
+      <label><input type="checkbox"> My word count is between 120–150 (or 6–9 sentences). <span class="cn">词数在120-150之间（或6-9个完整句子）。</span></label>
+      <label><input type="checkbox"> Every sentence starts with a capital letter and ends with correct punctuation. <span class="cn">每个句子首字母大写，结尾标点正确。</span></label>
+      <label><input type="checkbox"> My ideas are organized and clearly connected to the topic. <span class="cn">内容有条理，紧扣主题。</span></label>
+    </div>
+  </div>
+</div>
+
+<footer>MLWS Grade 11 English 10-1 · Practice tool — not a graded assessment <span class="cn">练习工具，非正式评分</span></footer>
+
+<script>
+/* ---------- TAB SWITCHING ---------- */
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ================= PART A: WORD FORMS ================= */
+var WORD_FORMS = [
+  {sentence:"The children waited ___ for the surprise to begin.", cn:"孩子们___地等待着惊喜开始。",
+   options:[{f:"cheerful",pos:"adjective"},{f:"cheerfully",pos:"adverb",ok:true},{f:"cheerfulness",pos:"noun"},{f:"cheer",pos:"verb"}],
+   full:"The children waited cheerfully for the surprise to begin.",
+   why:"We need an adverb to describe HOW the children waited. \"Cheerfully\" modifies the verb \"waited\".|我们需要一个副词来描述孩子们“怎样”等待。cheerfully修饰动词waited。"},
+  {sentence:"The broken bridge looked ___ after the heavy storm.", cn:"暴风雨过后，破损的桥看起来很___。",
+   options:[{f:"danger",pos:"noun"},{f:"dangerous",pos:"adjective",ok:true},{f:"dangerously",pos:"adverb"},{f:"endanger",pos:"verb"}],
+   full:"The broken bridge looked dangerous after the heavy storm.",
+   why:"After a linking verb like \"looked\", we need an adjective describing the bridge, not an adverb.|系动词looked后面需要形容词来描述桥，而不是副词。"},
+  {sentence:"The warm blanket gave the tired hiker ___.", cn:"温暖的毯子给了疲惫的徒步者___。",
+   options:[{f:"comfortable",pos:"adjective"},{f:"comfortably",pos:"adverb"},{f:"comfort",pos:"noun",ok:true},{f:"comforting",pos:"adjective/verb"}],
+   full:"The warm blanket gave the tired hiker comfort.",
+   why:"\"Gave the hiker ___\" needs a noun — the thing that was given.|“给了徒步者___”后面需要一个名词，表示被给予的东西。"},
+  {sentence:"Nina spoke ___ about her team's chances in the final game.", cn:"妮娜___地谈论她的球队在决赛中的机会。",
+   options:[{f:"hopeful",pos:"adjective"},{f:"hopefully",pos:"adverb",ok:true},{f:"hopefulness",pos:"noun"},{f:"hope",pos:"verb/noun"}],
+   full:"Nina spoke hopefully about her team's chances in the final game.",
+   why:"\"Spoke ___\" needs an adverb describing how she spoke.|“说话___”需要副词来描述她说话的方式。"},
+  {sentence:"The artist decorated the school hall ___ for the celebration.", cn:"艺术家为庆祝活动把学校礼堂装饰得很___。",
+   options:[{f:"beauty",pos:"noun"},{f:"beautiful",pos:"adjective"},{f:"beautifully",pos:"adverb",ok:true},{f:"beautify",pos:"verb"}],
+   full:"The artist decorated the school hall beautifully for the celebration.",
+   why:"\"Decorated ___\" needs an adverb describing how the decorating was done.|“装饰得___”需要副词描述装饰的方式。"},
+  {sentence:"Jordan replied ___ when his teammate blamed him for the loss.", cn:"当队友责怪他输球时，乔丹___地回应。",
+   options:[{f:"anger",pos:"noun"},{f:"angry",pos:"adjective"},{f:"angrily",pos:"adverb",ok:true},{f:"enrage",pos:"verb"}],
+   full:"Jordan replied angrily when his teammate blamed him for the loss.",
+   why:"\"Replied ___\" needs an adverb describing how Jordan replied.|“回应___”需要副词描述回应的方式。"},
+  {sentence:"The students entered the library ___ after lunch.", cn:"午饭后学生们___地走进图书馆。",
+   options:[{f:"noise",pos:"noun"},{f:"noisy",pos:"adjective"},{f:"noisily",pos:"adverb",ok:true},{f:"noiseless",pos:"adjective"}],
+   full:"The students entered the library noisily after lunch.",
+   why:"\"Entered ___\" needs an adverb describing how they entered.|“进入___”需要副词描述进入的方式。"},
+  {sentence:"Our group worked ___ to solve the design problem.", cn:"我们小组___地解决了设计问题。",
+   options:[{f:"create",pos:"verb"},{f:"creative",pos:"adjective"},{f:"creatively",pos:"adverb",ok:true},{f:"creativity",pos:"noun"}],
+   full:"Our group worked creatively to solve the design problem.",
+   why:"\"Worked ___\" needs an adverb describing how the group worked.|“工作___”需要副词描述工作的方式。"},
+  {sentence:"It was ___ to leave the windows open during the storm.", cn:"暴风雨时开着窗户是很___的。",
+   options:[{f:"fool",pos:"noun"},{f:"foolish",pos:"adjective",ok:true},{f:"foolishly",pos:"adverb"},{f:"foolishness",pos:"noun"}],
+   full:"It was foolish to leave the windows open during the storm.",
+   why:"After the linking verb \"was\", we need an adjective describing the action.|系动词was后需要形容词来描述这个行为。"},
+  {sentence:"The two neighbours settled their disagreement ___.", cn:"两个邻居___地解决了他们的分歧。",
+   options:[{f:"peace",pos:"noun"},{f:"peaceful",pos:"adjective"},{f:"peacefully",pos:"adverb",ok:true},{f:"pacify",pos:"verb"}],
+   full:"The two neighbours settled their disagreement peacefully.",
+   why:"\"Settled ___\" needs an adverb describing how they settled it.|“解决___”需要副词描述解决问题的方式。"},
+  {sentence:"The dancer moved ___ across the stage.", cn:"（额外练习）舞者___地在舞台上移动。",
+   options:[{f:"grace",pos:"noun"},{f:"graceful",pos:"adjective"},{f:"gracefully",pos:"adverb",ok:true},{f:"disgrace",pos:"verb"}],
+   full:"The dancer moved gracefully across the stage.",
+   why:"\"Moved ___\" needs an adverb describing how she moved.|“移动___”需要副词描述移动的方式。"},
+  {sentence:"The teacher explained the lesson with great ___.", cn:"（额外练习）老师非常有___地讲解了这节课。",
+   options:[{f:"patient",pos:"adjective"},{f:"patience",pos:"noun",ok:true},{f:"patiently",pos:"adverb"},{f:"impatient",pos:"adjective"}],
+   full:"The teacher explained the lesson with great patience.",
+   why:"\"With great ___\" needs a noun following the preposition \"with\".|“with great ___”后面需要名词，因为with是介词。"},
+  {sentence:"The old house looked ___ in the fog.", cn:"（额外练习）雾中的老房子看起来很___。",
+   options:[{f:"mystery",pos:"noun"},{f:"mysterious",pos:"adjective",ok:true},{f:"mysteriously",pos:"adverb"},{f:"mystify",pos:"verb"}],
+   full:"The old house looked mysterious in the fog.",
+   why:"After the linking verb \"looked\", we need an adjective.|系动词looked后面需要形容词。"},
+  {sentence:"The children laughed ___ at the funny movie.", cn:"（额外练习）孩子们看着搞笑电影___地笑。",
+   options:[{f:"happy",pos:"adjective"},{f:"happily",pos:"adverb",ok:true},{f:"happiness",pos:"noun"},{f:"happen",pos:"verb"}],
+   full:"The children laughed happily at the funny movie.",
+   why:"\"Laughed ___\" needs an adverb describing how they laughed.|“笑___”需要副词描述笑的方式。"},
+  {sentence:"It was ___ of him to leave the stove on.", cn:"（额外练习）他让炉子开着，这是很___的。",
+   options:[{f:"care",pos:"noun"},{f:"careful",pos:"adjective"},{f:"careless",pos:"adjective",ok:true},{f:"carefully",pos:"adverb"}],
+   full:"It was careless of him to leave the stove on.",
+   why:"After the linking verb \"was\", we need an adjective — and the meaning here is the opposite of careful.|系动词was后需要形容词，这里意思与careful相反，所以是careless。"}
+];
+
+var scoreA = {correct:0, total:0};
+function buildWordForms(){
+  var container = document.getElementById('wordFormsContainer');
+  WORD_FORMS.forEach(function(item, idx){
+    var qDiv = document.createElement('div');
+    if(idx>0) qDiv.appendChild(document.createElement('hr'));
+    var num = document.createElement('span'); num.className='q-num'; num.textContent = idx+1;
+    var sent = document.createElement('div'); sent.className='sentence';
+    sent.appendChild(num);
+    sent.appendChild(document.createTextNode(item.sentence));
+    var cnP = document.createElement('div'); cnP.className='cn'; cnP.style.color='#4a5568'; cnP.style.fontSize='.85rem';
+    cnP.textContent = item.cn;
+    qDiv.appendChild(sent);
+    qDiv.appendChild(cnP);
+
+    var box = document.createElement('div'); box.className='blank-box';
+    var fb = document.createElement('div'); fb.className='feedback';
+
+    item.options.forEach(function(opt){
+      var b = document.createElement('button'); b.className='opt-btn';
+      b.textContent = opt.f + '  (' + opt.pos + ')';
+      b.addEventListener('click', function(){
+        if(b.dataset.locked) return;
+        Array.prototype.forEach.call(box.children, function(x){ x.dataset.locked='1'; });
+        scoreA.total++;
+        if(opt.ok){
+          b.classList.add('correct'); scoreA.correct++;
+          fb.className='feedback show good';
+        } else {
+          b.classList.add('wrong');
+          Array.prototype.forEach.call(box.children, function(x,i){
+            if(item.options[i].ok) x.classList.add('correct');
+          });
+          fb.className='feedback show bad';
+        }
+        var parts = item.why.split('|');
+        var line1 = document.createElement('div'); line1.textContent = (opt.ok?'Correct! ':'Not quite. ') + parts[0] + ' Full sentence: "' + item.full + '"';
+        var line2 = document.createElement('span'); line2.className='cn'; line2.textContent = (opt.ok?'正确！':'不完全对。') + parts[1] + ' 完整句子：“' + item.full + '”';
+        fb.innerHTML=''; fb.appendChild(line1); fb.appendChild(line2);
+        document.getElementById('scoreA').textContent = scoreA.correct + ' / ' + scoreA.total;
+      });
+      box.appendChild(b);
+    });
+    qDiv.appendChild(box);
+    qDiv.appendChild(fb);
+    container.appendChild(qDiv);
+  });
+}
+
+/* ================= PART B: CONJUNCTIONS ================= */
+var CONJ = [
+  {sentence:"Maya packed an umbrella ___ the sky was dark and cloudy.", cn:"玛雅带了一把雨伞，___天空又暗又多云。",
+   options:["because","but","or","so"], ok:"because",
+   why:"\"Because\" introduces the reason Maya packed an umbrella.|because用来引出玛雅带伞的原因。"},
+  {sentence:"___ Leo ___ Ben remembered to bring the permission slip.", cn:"（correlative pair 相关连词）___莱奥___本记得带许可条。",
+   options:["Neither / nor","Both / and","Either / or","Not only / but also"], ok:"Neither / nor",
+   why:"\"Neither...nor\" shows that TWO people both failed to do something — neither of them remembered.|neither...nor 表示两个人都没有做到某事——两人都没记得。"},
+  {sentence:"I wanted to ride my bicycle, ___ one of the tires was flat.", cn:"我想骑自行车，___其中一个轮胎瘪了。",
+   options:["but","so","and","because"], ok:"but",
+   why:"\"But\" shows a contrast — she wanted to ride, yet couldn't because of the flat tire.|but 表示转折——她想骑车，但因为轮胎瘪了而不能骑。"},
+  {sentence:"Ava finished her project early, ___ she helped her partner.", cn:"艾娃提前完成了项目，___她帮助了她的搭档。",
+   options:["so","but","or","although"], ok:"so",
+   why:"\"So\" shows a result — because she finished early, she was then able to help.|so 表示结果——因为她提前完成了，所以能够帮助别人。"},
+  {sentence:"We stayed inside ___ it was raining heavily.", cn:"（额外练习）我们待在室内，___外面下着大雨。",
+   options:["because","and","yet","nor"], ok:"because",
+   why:"\"Because\" gives the reason for staying inside.|because引出待在室内的原因。"},
+  {sentence:"You can have pizza ___ pasta for dinner.", cn:"（额外练习）晚饭你可以吃披萨___意大利面。",
+   options:["or","so","but","because"], ok:"or",
+   why:"\"Or\" presents a choice between two options.|or 表示两个选项之间的选择。"},
+  {sentence:"She studied hard, ___ she still found the test difficult.", cn:"（额外练习）她努力学习，___她仍然觉得考试很难。",
+   options:["but","so","and","because"], ok:"but",
+   why:"\"But\" shows a contrast between the effort and the outcome.|but 表示努力和结果之间的转折。"}
+];
+
+var scoreB = {correct:0, total:0};
+function buildConj(){
+  var container = document.getElementById('conjContainer');
+  CONJ.forEach(function(item, idx){
+    var qDiv = document.createElement('div');
+    if(idx>0) qDiv.appendChild(document.createElement('hr'));
+    var num = document.createElement('span'); num.className='q-num'; num.textContent = idx+1;
+    var sent = document.createElement('div'); sent.className='sentence';
+    sent.appendChild(num); sent.appendChild(document.createTextNode(item.sentence));
+    var cnP = document.createElement('div'); cnP.className='cn'; cnP.style.color='#4a5568'; cnP.style.fontSize='.85rem';
+    cnP.textContent = item.cn;
+    qDiv.appendChild(sent); qDiv.appendChild(cnP);
+
+    var box = document.createElement('div'); box.className='blank-box';
+    var fb = document.createElement('div'); fb.className='feedback';
+
+    item.options.forEach(function(opt){
+      var b = document.createElement('button'); b.className='opt-btn'; b.textContent = opt;
+      b.addEventListener('click', function(){
+        if(b.dataset.locked) return;
+        Array.prototype.forEach.call(box.children, function(x){ x.dataset.locked='1'; });
+        scoreB.total++;
+        var parts = item.why.split('|');
+        if(opt === item.ok){
+          b.classList.add('correct'); scoreB.correct++;
+          fb.className='feedback show good';
+        } else {
+          b.classList.add('wrong');
+          Array.prototype.forEach.call(box.children, function(x,i){
+            if(item.options[i]===item.ok) x.classList.add('correct');
+          });
+          fb.className='feedback show bad';
+        }
+        fb.innerHTML='';
+        var l1=document.createElement('div'); l1.textContent=(opt===item.ok?'Correct! ':'Not quite. ')+parts[0];
+        var l2=document.createElement('span'); l2.className='cn'; l2.textContent=(opt===item.ok?'正确！':'不完全对。')+parts[1];
+        fb.appendChild(l1); fb.appendChild(l2);
+        document.getElementById('scoreB').textContent = scoreB.correct + ' / ' + scoreB.total;
+      });
+      box.appendChild(b);
+    });
+    qDiv.appendChild(box); qDiv.appendChild(fb);
+    container.appendChild(qDiv);
+  });
+
+  // open sentence-writing item for "although"
+  var openDiv = document.createElement('div');
+  openDiv.appendChild(document.createElement('hr'));
+  var num2=document.createElement('span'); num2.className='q-num'; num2.textContent='5';
+  var s2=document.createElement('div'); s2.className='sentence';
+  s2.appendChild(num2); s2.appendChild(document.createTextNode('Write one complete sentence using "although" as a conjunction.'));
+  var cn2=document.createElement('div'); cn2.className='cn'; cn2.style.color='#4a5568'; cn2.style.fontSize='.85rem';
+  cn2.textContent='用although写一个完整的句子。';
+  var ta=document.createElement('textarea'); ta.style.minHeight='60px'; ta.placeholder='Although ...';
+  var revealBtn=document.createElement('button'); revealBtn.className='reveal-btn'; revealBtn.textContent='Show example 查看示例';
+  var model=document.createElement('div'); model.className='model-answer';
+  model.innerHTML='<div>Example: "Although it was raining, the team kept practicing."</div><div class="cn">示例：“虽然下雨，球队还是继续训练。”</div>';
+  revealBtn.addEventListener('click', function(){ model.classList.toggle('show'); });
+  openDiv.appendChild(s2); openDiv.appendChild(cn2); openDiv.appendChild(ta); openDiv.appendChild(revealBtn); openDiv.appendChild(model);
+  container.appendChild(openDiv);
+}
+
+/* ================= PART C: PUNCTUATION ================= */
+var PUNCT_MARKS = [',','.','?','!'];
+var PASSAGE1 = {
+  segments:["On Saturday","Mia and her cousin Omar visited the science museum","They saw robots","rockets","and a model of the moon",
+    "\u201CWhich exhibit should we visit first","\u201D asked Mia","\nOmar pointed to a moving robot","\u201CLet's start there","\u201D he shouted"],
+  answers:[',','.',',',',','.', '?','.', '.','!','.'],
+  why:[
+    "A comma follows an introductory time phrase (\"On Saturday\") before the main clause.|表示时间的引导短语（“On Saturday”）后面要用逗号，再接主句。",
+    "This is the end of a complete statement, so it needs a period.|这是一个完整陈述句的结尾，需要用句号。",
+    "Items in a list (robots, rockets, and a model of the moon) are separated by commas.|列举事物（robots, rockets, and a model of the moon）之间要用逗号隔开。",
+    "This comma separates the second item in the list from \"and\" before the last item.|这个逗号把列表中的第二项和最后一项前的and隔开。",
+    "This is the end of a complete statement, so it needs a period.|这是一个完整陈述句的结尾，需要用句号。",
+    "The quoted words form a question, so it needs a question mark before the closing quotation mark.|引号里的话是一个疑问句，所以在右引号前要用问号。",
+    "This ends the sentence that tells us who spoke (\"asked Mia\"), so it needs a period.|这句话说明是谁说的话（“asked Mia”），结尾需要句号。",
+    "This is the end of a complete statement before a new quotation begins, so it needs a period.|这是一个完整陈述句的结尾，后面要开始新的引语，所以需要句号。",
+    "The quoted words show excitement, so an exclamation mark fits before the closing quotation mark.|引号里的话表示激动的情绪，所以右引号前要用感叹号。",
+    "This ends the sentence that tells us who spoke (\"he shouted\"), so it needs a period.|这句话说明是谁说的话（“he shouted”），结尾需要句号。"
+  ]
+};
+var PASSAGE2 = {
+  segments:["After school","Wei and his friend Lily walked to the park","They saw dogs","birds","and a squirrel running by",
+    "\u201CShould we feed the birds","\u201D asked Lily","\nWei smiled and said","\u201CThat sounds like fun","\u201D he replied"],
+  answers:[',','.',',',',','.', '?','.', '.','!','.'],
+  why:[
+    "A comma follows an introductory time phrase (\"After school\") before the main clause.|表示时间的引导短语（“After school”）后面要用逗号，再接主句。",
+    "This is the end of a complete statement, so it needs a period.|这是一个完整陈述句的结尾，需要用句号。",
+    "Items in a list (dogs, birds, and a squirrel) are separated by commas.|列举事物（dogs, birds, and a squirrel）之间要用逗号隔开。",
+    "This comma separates the second item in the list from \"and\" before the last item.|这个逗号把列表中的第二项和最后一项前的and隔开。",
+    "This is the end of a complete statement, so it needs a period.|这是一个完整陈述句的结尾，需要用句号。",
+    "The quoted words form a question, so it needs a question mark before the closing quotation mark.|引号里的话是一个疑问句，所以在右引号前要用问号。",
+    "This ends the sentence that tells us who spoke (\"asked Lily\"), so it needs a period.|这句话说明是谁说的话（“asked Lily”），结尾需要句号。",
+    "This is the end of a complete statement before a new quotation begins, so it needs a period.|这是一个完整陈述句的结尾，后面要开始新的引语，所以需要句号。",
+    "The quoted words show excitement, so an exclamation mark fits before the closing quotation mark.|引号里的话表示激动的情绪，所以右引号前要用感叹号。",
+    "This ends the sentence that tells us who spoke (\"he replied\"), so it needs a period.|这句话说明是谁说的话（“he replied”），结尾需要句号。"
+  ]
+};
+
+function buildPunctuation(containerId, scoreId, data){
+  var container = document.getElementById(containerId);
+  var scoreObj = {correct:0, total:0};
+  data.segments.forEach(function(seg, i){
+    var textNode = document.createTextNode(seg + ' ');
+    container.appendChild(textNode);
+    var blank = document.createElement('span'); blank.className='punct-btn'; blank.textContent='___';
+    var choices = document.createElement('span'); choices.className='punct-choices';
+    var fb = document.createElement('div'); fb.className='feedback';
+    PUNCT_MARKS.forEach(function(mark){
+      var pcBtn = document.createElement('button'); pcBtn.className='pc-btn'; pcBtn.textContent = mark;
+      pcBtn.addEventListener('click', function(){
+        if(blank.dataset.locked) return;
+        blank.dataset.locked='1';
+        scoreObj.total++;
+        var parts = data.why[i].split('|');
+        if(mark === data.answers[i]){
+          blank.classList.add('done-correct'); blank.textContent = mark; scoreObj.correct++;
+          fb.className='feedback show good';
+        } else {
+          blank.classList.add('done-wrong'); blank.textContent = mark + ' (' + data.answers[i] + ')';
+          fb.className='feedback show bad';
+        }
+        fb.innerHTML='';
+        var l1=document.createElement('div'); l1.textContent=(mark===data.answers[i]?'Correct! ':'Not quite. ')+parts[0];
+        var l2=document.createElement('span'); l2.className='cn'; l2.textContent=(mark===data.answers[i]?'正确！':'不完全对。')+parts[1];
+        fb.appendChild(l1); fb.appendChild(l2);
+        choices.classList.remove('show');
+        document.getElementById(scoreId).textContent = scoreObj.correct + ' / ' + scoreObj.total;
+      });
+      choices.appendChild(pcBtn);
+    });
+    blank.addEventListener('click', function(){
+      if(blank.dataset.locked) return;
+      choices.classList.toggle('show');
+    });
+    container.appendChild(blank);
+    container.appendChild(document.createElement('br'));
+    container.appendChild(choices);
+    container.appendChild(fb);
+  });
+}
+
+/* ================= PART D: SENTENCE WRITING ================= */
+var SENT_WORDS = [
+  {word:"Romantic", cn:"浪漫的", model:"The candlelight dinner felt very romantic.", model_cn:"烛光晚餐的氛围非常浪漫。"},
+  {word:"Endless", cn:"无尽的", model:"The desert seemed to stretch on in an endless line of sand.", model_cn:"沙漠似乎绵延不绝，无边无际。"},
+  {word:"Playful", cn:"顽皮的", model:"The playful puppy chased its tail around the yard.", model_cn:"顽皮的小狗在院子里追着自己的尾巴转圈。"},
+  {word:"Joyfully", cn:"欢乐地", model:"The children danced joyfully at the birthday party.", model_cn:"孩子们在生日聚会上欢乐地跳舞。"},
+  {word:"Pleasantly", cn:"令人愉快地", model:"The garden smelled pleasantly of fresh flowers.", model_cn:"花园里闻起来有令人愉快的鲜花香味。"},
+  {word:"Generous", cn:"慷慨的", model:"The generous man gave his coat to the shivering stranger.", model_cn:"那位慷慨的男士把外套给了瑟瑟发抖的陌生人。"},
+  {word:"Curious", cn:"好奇的", model:"The curious cat peeked into every open box.", model_cn:"好奇的猫咪偷看了每一个打开的盒子。"},
+  {word:"Bravely", cn:"勇敢地", model:"The firefighter bravely ran into the burning building to save the family.", model_cn:"消防员勇敢地冲进燃烧的建筑物去救那家人。"}
+];
+
+function buildSentenceWriting(){
+  var container = document.getElementById('sentenceWritingContainer');
+  SENT_WORDS.forEach(function(item, idx){
+    var card = document.createElement('div'); card.className='card';
+    var h = document.createElement('h3'); h.innerHTML = (idx+1) + '. ' + item.word + '  <span class="cn" style="font-weight:400;font-size:.85rem;">(' + item.cn + ')</span>';
+    var ta = document.createElement('textarea'); ta.style.minHeight='55px'; ta.placeholder='Write your sentence here...';
+    var btn = document.createElement('button'); btn.className='reveal-btn'; btn.textContent='Show example 查看示例';
+    var model = document.createElement('div'); model.className='model-answer';
+    var m1=document.createElement('div'); m1.textContent='Example: ' + item.model;
+    var m2=document.createElement('div'); m2.className='cn'; m2.textContent='示例：' + item.model_cn;
+    model.appendChild(m1); model.appendChild(m2);
+    btn.addEventListener('click', function(){ model.classList.toggle('show'); });
+    card.appendChild(h); card.appendChild(ta); card.appendChild(btn); card.appendChild(model);
+    container.appendChild(card);
+  });
+}
+
+/* ================= PART E: DIARY WORD COUNT ================= */
+function wireDiaryCounter(){
+  var ta = document.getElementById('diaryText');
+  var counter = document.getElementById('diaryCount');
+  ta.addEventListener('input', function(){
+    var words = ta.value.trim().length ? ta.value.trim().split(/\s+/).length : 0;
+    counter.textContent = words + ' words';
+    counter.style.color = (words>=120 && words<=150) ? '#2d6a4f' : '#2d3748';
+  });
+}
+
+/* ================= INIT ================= */
+document.addEventListener('DOMContentLoaded', function(){
+  buildWordForms();
+  buildConj();
+  buildPunctuation('punctPassage1','scoreC',PASSAGE1);
+  buildPunctuation('punctPassage2','scoreC2',PASSAGE2);
+  buildSentenceWriting();
+  wireDiaryCounter();
+});
+</script>
+</body>
+</html>
