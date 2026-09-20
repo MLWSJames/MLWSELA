@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English in the Classroom | 课堂英语反思</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ml-green:#2d6a4f; --ml-green-dark:#1b4332; --ml-green-light:#d8f3dc;
+  --ml-red:#c1121f; --ml-gold:#e9c46a; --ink:#1a2a1a; --ink2:#2d3748;
+  --mist:#f8faf8; --border:#e2e8e2; --cobalt:#1e3a5f; --amber:#b45309; --amber-light:#fef3c7;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);}
+.cn{font-family:'Noto Sans SC',sans-serif;color:var(--ink2);}
+h1,h2,h3{font-family:'Literata',serif;}
+
+/* Anti-cheat layer 1 */
+.warn-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;
+  text-align:center;position:sticky;top:0;z-index:1000;}
+.warn-banner .cn{color:#fde8e8;font-weight:400;}
+
+/* Anti-cheat layer 2 */
+#leaveNotice{display:none;background:#fee2e2;border-left:4px solid var(--ml-red);padding:8px 16px;
+  font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center;}
+
+header{background:var(--ml-green-dark);color:#fff;padding:18px 20px;text-align:center;}
+header h1{margin:0 0 2px;font-size:1.5rem;}
+header .sub{font-size:.9rem;color:var(--ml-green-light);}
+.badges{display:flex;justify-content:center;gap:10px;margin-top:10px;flex-wrap:wrap;}
+.badge{background:rgba(255,255,255,.12);padding:4px 10px;border-radius:20px;font-size:.78rem;}
+
+.progress-wrap{background:#0f2b20;padding:6px 20px;}
+.progress-track{height:8px;background:rgba(255,255,255,.15);border-radius:6px;overflow:hidden;}
+#progressBar{height:100%;width:0%;background:var(--ml-gold);transition:width .3s;}
+#progressText{color:var(--ml-gold);font-size:.75rem;text-align:center;margin-top:4px;}
+
+.wrap{max-width:880px;margin:0 auto;padding:20px 16px 100px;}
+
+.intro-card{background:#fff;border:1px solid var(--border);border-left:5px solid var(--ml-green);
+  border-radius:10px;padding:16px 18px;margin-bottom:20px;}
+.intro-card p{margin:6px 0;font-size:.92rem;line-height:1.5;}
+
+.name-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px;}
+.name-row .field{flex:1;min-width:180px;}
+.name-row label{display:block;font-size:.78rem;font-weight:600;color:var(--ink2);margin-bottom:4px;}
+.name-row input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:8px;font-size:.95rem;font-family:inherit;}
+
+.section{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:20px;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.section.complete{border-color:var(--ml-green);box-shadow:0 0 0 2px var(--ml-green-light);}
+.section-overall{border-color:var(--amber);background:var(--amber-light);}
+.section-overall.complete{border-color:var(--ml-green);box-shadow:0 0 0 2px var(--ml-green-light);}
+.overall-divider{text-align:center;margin:28px 0 14px;font-family:'Literata',serif;font-weight:700;
+  color:var(--amber);font-size:1.05rem;border-top:2px dashed var(--amber);padding-top:14px;}
+.overall-divider .cn{color:var(--amber);}
+.section-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;}
+.section-head h2{margin:0;font-size:1.15rem;color:var(--ml-green-dark);}
+.section-head .status{font-size:.75rem;font-weight:700;color:var(--border);}
+.section.complete .section-head .status{color:var(--ml-green);}
+.section-head .cn-title{font-size:.85rem;}
+
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:12px 0;}
+.level-btn{text-align:left;border:1.5px solid var(--border);background:var(--mist);border-radius:9px;
+  padding:9px 10px;cursor:pointer;font-family:inherit;transition:.15s;}
+.level-btn:hover:not(:disabled){border-color:var(--ml-green);}
+.level-btn .lvl-num{display:inline-block;background:var(--cobalt);color:#fff;font-size:.7rem;font-weight:700;
+  border-radius:5px;padding:1px 6px;margin-right:6px;}
+.level-btn .lvl-label{font-weight:700;font-size:.82rem;color:var(--ink);}
+.level-btn .lvl-text{display:block;font-size:.78rem;color:var(--ink2);margin-top:4px;line-height:1.35;}
+.level-btn:disabled{cursor:default;opacity:.55;}
+.level-btn.selected{border-color:var(--ml-green);background:var(--ml-green-light);opacity:1;}
+.level-btn.selected .lvl-num{background:var(--ml-green);}
+
+.comment-box{margin-top:10px;}
+.comment-box label{display:block;font-size:.78rem;font-weight:600;color:var(--ink2);margin-bottom:5px;}
+.comment-box textarea{width:100%;min-height:70px;border:1px solid var(--border);border-radius:8px;
+  padding:10px;font-family:inherit;font-size:.9rem;resize:vertical;}
+.comment-box textarea.filled{border-color:var(--ml-green);}
+
+.gate{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--border);padding:14px 16px;
+  text-align:center;box-shadow:0 -2px 8px rgba(0,0,0,.05);}
+#downloadBtn{background:var(--border);color:#8a9a8a;border:none;padding:13px 30px;border-radius:9px;
+  font-size:1rem;font-weight:700;cursor:default;pointer-events:none;font-family:inherit;}
+#downloadBtn.ready{background:var(--ml-green);color:#fff;cursor:pointer;pointer-events:auto;}
+#hint{font-size:.78rem;color:var(--ink2);margin-top:6px;}
+#hint.hidden{display:none;}
+.upload-steps{margin-top:12px;text-align:left;background:var(--ml-green-light);border:1px solid var(--ml-green);
+  border-radius:8px;padding:10px 14px;font-size:.8rem;color:var(--ink);max-width:520px;margin-left:auto;margin-right:auto;}
+.upload-steps ol{margin:6px 0 0;padding-left:18px;}
+.upload-steps li{margin-bottom:4px;line-height:1.4;}
+.upload-steps.hidden{display:none;}
+.download-confirm{margin-top:10px;background:var(--ml-green);color:#fff;border-radius:8px;padding:9px 14px;
+  font-size:.85rem;font-weight:600;max-width:520px;margin-left:auto;margin-right:auto;}
+.download-confirm.hidden{display:none;}
+
+#timer-display{position:fixed;bottom:16px;right:16px;background:var(--ml-green-dark);color:#fff;
+  padding:6px 12px;border-radius:20px;font-size:.8rem;font-weight:600;z-index:900;box-shadow:0 2px 6px rgba(0,0,0,.15);}
+</style>
+</head>
+<body>
+
+<div class="warn-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice">
+  🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span>
+</div>
+
+<header>
+  <h1>English in the Classroom</h1>
+  <div class="sub cn">课堂英语使用反思</div>
+  <div class="badges">
+    <span class="badge" id="leaveBadge">🚪 Leaves: 0</span>
+    <span class="badge">Reflect honestly · 请诚实反思</span>
+  </div>
+</header>
+<div class="progress-wrap">
+  <div class="progress-track"><div id="progressBar"></div></div>
+  <div id="progressText">Progress: 0% · 进度：0%</div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro-card">
+    <p><strong>Reflecting on your usage of English and Mandarin in the classroom</strong> can help you become more aware, and hopefully encourage you to work on becoming more fluent in English, leading you to be more successful in your understanding of classroom content.</p>
+    <p>Read each section carefully. Reflect thoroughly and honestly. Select the level that best describes you, then explain your thinking in the comment box (improvement plan, evidence of English use, moments you're proud of, concerns/difficulties, etc.). Think critically and be honest with yourself.</p>
+  </div>
+
+  <div class="name-row">
+    <div class="field">
+      <label>Name · 姓名</label>
+      <input type="text" id="studentName" placeholder="Your full name">
+    </div>
+    <div class="field">
+      <label>Block · 班级</label>
+      <input type="text" id="studentBlock" placeholder="Block">
+    </div>
+  </div>
+
+  <div id="sectionsContainer"></div>
+
+  <div class="gate">
+    <button id="downloadBtn" onclick="tryDownload()">Download My Reflection · 下载我的反思</button>
+    <div id="hint">Select a level and add a comment for every section to unlock the download. · 每个部分都需选择等级并填写评论才能下载。</div>
+    <div id="uploadSteps" class="upload-steps hidden">
+      <strong>Next steps · 下一步：</strong>
+      <ol>
+        <li>Download the .txt file using the button above. · 点击上方按钮下载 .txt 文件。</li>
+        <li>Open Schoology and find this Reflection assignment. · 打开 Schoology，找到本次反思作业。</li>
+        <li>Click "Submit Assignment" and upload the downloaded .txt file. · 点击"提交作业"并上传下载的 .txt 文件。</li>
+      </ol>
+    </div>
+    <div id="downloadConfirm" class="download-confirm hidden">
+      ✅ Downloaded! Now go upload that .txt file to Schoology. · 已下载！现在请到 Schoology 上传该 .txt 文件。
+    </div>
+  </div>
+</div>
+
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+const CRITERIA = [
+  {
+    key: "participation",
+    title: "Participation",
+    title_cn: "参与",
+    levels: [
+      {n:1,label:"Whoops!",text:"I am often quiet in class. I only speak to my friends and to the teacher."},
+      {n:2,label:"So-So",text:"I only speak to others when I have no other choice."},
+      {n:3,label:"Getting it",text:"I speak with any and all people in the class, when necessary."},
+      {n:4,label:"Got it",text:"I speak with any and all people in the class and share critical ideas to help us all learn."},
+      {n:5,label:"Leader",text:"On a daily basis and on any given opportunity, I speak with any and all people in the class and share critical ideas to help us all learn."}
+    ]
+  },
+  {
+    key: "habits",
+    title: "Habits",
+    title_cn: "习惯",
+    levels: [
+      {n:1,label:"Whoops!",text:"I often forget to speak in English during class and need to be reminded to switch to English more than once."},
+      {n:2,label:"So-So",text:"I try to speak English, but mostly only speak English when the teacher can hear me. When s/he cannot hear me, I go back to speaking Mandarin."},
+      {n:3,label:"Getting it",text:"I try to speak English, but I still, casually or academically, discuss in Mandarin every day."},
+      {n:4,label:"Got it",text:"I speak more English than Mandarin and rarely (once or twice a week) casually or academically discuss in Mandarin."},
+      {n:5,label:"Leader",text:"I speak English all class every day and only ever use Mandarin to translate for clarification."}
+    ]
+  },
+  {
+    key: "understanding",
+    title: "Understanding English and Using Mandarin as a Learning Tool",
+    title_cn: "理解英语并将中文作为学习工具",
+    levels: [
+      {n:1,label:"Whoops!",text:"I need to use Mandarin many times during every lesson to understand what is being done in class."},
+      {n:2,label:"So-So",text:"I need to use Mandarin a few times a lesson to understand what is being done in class."},
+      {n:3,label:"Getting it",text:"I need to use Mandarin only a few times a week to understand what is being done in class."},
+      {n:4,label:"Got it",text:"Very rarely, I need to use Mandarin to understand what is being done in class."},
+      {n:5,label:"Leader",text:"I do not need to use Mandarin at all to understand what is being done in class."}
+    ]
+  },
+  {
+    key: "encouragement",
+    title: "Encouragement and Collaboration",
+    title_cn: "鼓励与合作",
+    levels: [
+      {n:1,label:"Whoops!",text:"I speak Mandarin in class. I rarely try to speak English. I do not encourage my classmates to speak English when they speak Mandarin."},
+      {n:2,label:"So-So",text:"I try to speak English but join in speaking in Mandarin if others are speaking Mandarin."},
+      {n:3,label:"Getting it",text:"I try to speak English and am trying to break the habit of speaking Mandarin in class. I sometimes try to encourage those around me to speak English."},
+      {n:4,label:"Got it",text:"I speak English and I encourage those around me to speak English."},
+      {n:5,label:"Leader",text:"I lead by example and always speak English. I always help my classmates to speak in English and always provide kind words of encouragement when they speak Mandarin. I do not let Mandarin be used other than as a learning tool."}
+    ]
+  },
+  {
+    key: "comfort",
+    title: "Comfort",
+    title_cn: "舒适度",
+    levels: [
+      {n:1,label:"Whoops!",text:"I do not feel comfortable speaking English in class."},
+      {n:2,label:"So-So",text:"I only feel comfortable speaking English to my friends and/or the teacher."},
+      {n:3,label:"Getting it",text:"I only feel comfortable speaking English to my friends and the teacher."},
+      {n:4,label:"Got it",text:"I feel comfortable speaking English in class for academic purposes."},
+      {n:5,label:"Leader",text:"I feel comfortable speaking English in class for academic and casual purposes."}
+    ]
+  },
+  {
+    key: "overall",
+    title: "Overall Rating",
+    title_cn: "总体评分",
+    levels: [
+      {n:1,label:"Whoops!",text:"Looking at all five areas together, I am mostly relying on Mandarin and avoiding English in class."},
+      {n:2,label:"So-So",text:"Looking at all five areas together, I use English sometimes, but I fall back on Mandarin often."},
+      {n:3,label:"Getting it",text:"Looking at all five areas together, I am making a real effort to use English, but it is still inconsistent."},
+      {n:4,label:"Got it",text:"Looking at all five areas together, I use English most of the time and only occasionally need Mandarin."},
+      {n:5,label:"Leader",text:"Looking at all five areas together, I consistently use English, encourage others, and lead by example."}
+    ]
+  }
+];
+
+let leaveCount = 0;
+let secondsElapsed = 0;
+const responses = {}; // key -> { level: n|null, comment: "" }
+CRITERIA.forEach(function(c){ responses[c.key] = { level: null, comment: "" }; });
+
+function buildSections() {
+  const container = document.getElementById('sectionsContainer');
+  CRITERIA.forEach(function(c) {
+    if (c.key === 'overall') {
+      const divider = document.createElement('div');
+      divider.className = 'overall-divider';
+      divider.innerHTML = '<span>Overall Reflection <span class="cn">· 总体反思</span></span>';
+      container.appendChild(divider);
+    }
+
+    const section = document.createElement('div');
+    section.className = 'section' + (c.key === 'overall' ? ' section-overall' : '');
+    section.id = 'sec-' + c.key;
+
+    const head = document.createElement('div');
+    head.className = 'section-head';
+    const h2 = document.createElement('h2');
+    h2.innerHTML = c.title + ' <span class="cn-title cn">· ' + c.title_cn + '</span>';
+    const status = document.createElement('span');
+    status.className = 'status';
+    status.id = 'status-' + c.key;
+    status.textContent = 'Incomplete';
+    head.appendChild(h2);
+    head.appendChild(status);
+    section.appendChild(head);
+
+    const levelsWrap = document.createElement('div');
+    levelsWrap.className = 'levels';
+
+    c.levels.forEach(function(lv) {
+      const btn = document.createElement('button');
+      btn.className = 'level-btn';
+      btn.dataset.n = lv.n;
+
+      const numSpan = document.createElement('span');
+      numSpan.className = 'lvl-num';
+      numSpan.textContent = lv.n;
+
+      const labelSpan = document.createElement('span');
+      labelSpan.className = 'lvl-label';
+      labelSpan.textContent = lv.label;
+
+      const textSpan = document.createElement('span');
+      textSpan.className = 'lvl-text';
+      textSpan.textContent = lv.text;
+
+      btn.appendChild(numSpan);
+      btn.appendChild(labelSpan);
+      btn.appendChild(textSpan);
+
+      btn.addEventListener('click', function() {
+        if (responses[c.key].level !== null) return; // locked after first choice
+        responses[c.key].level = lv.n;
+        levelsWrap.querySelectorAll('.level-btn').forEach(function(b) {
+          b.disabled = true;
+        });
+        btn.classList.add('selected');
+        updateSectionState(c.key);
+        addProgress();
+      });
+
+      levelsWrap.appendChild(btn);
+    });
+
+    section.appendChild(levelsWrap);
+
+    const commentBox = document.createElement('div');
+    commentBox.className = 'comment-box';
+    const label = document.createElement('label');
+    label.textContent = 'Student Comment · 学生评论';
+    const textarea = document.createElement('textarea');
+    textarea.id = 'comment-' + c.key;
+    textarea.placeholder = 'Explain your thinking — evidence, a proud moment, a concern, or a plan to improve...';
+    commentBox.appendChild(label);
+    commentBox.appendChild(textarea);
+    section.appendChild(commentBox);
+
+    container.appendChild(section);
+
+    textarea.addEventListener('input', function() {
+      responses[c.key].comment = this.value.trim();
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      updateSectionState(c.key);
+      checkReadiness();
+    });
+  });
+}
+
+function updateSectionState(key) {
+  const r = responses[key];
+  const sectionEl = document.getElementById('sec-' + key);
+  const statusEl = document.getElementById('status-' + key);
+  const done = r.level !== null && r.comment.length > 0;
+  sectionEl.classList.toggle('complete', done);
+  statusEl.textContent = done ? 'Complete' : 'Incomplete';
+  checkReadiness();
+}
+
+function addProgress() {
+  checkReadiness();
+  const total = CRITERIA.length;
+  let done = 0;
+  CRITERIA.forEach(function(c){ if (responses[c.key].level !== null && responses[c.key].comment.length > 0) done++; });
+  const pct = Math.round((done/total)*100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function checkReadiness() {
+  const total = CRITERIA.length;
+  let done = 0;
+  CRITERIA.forEach(function(c){ if (responses[c.key].level !== null && responses[c.key].comment.length > 0) done++; });
+  const pct = Math.round((done/total)*100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+
+  const ready = done >= total;
+  const btn = document.getElementById('downloadBtn');
+  const hint = document.getElementById('hint');
+  const steps = document.getElementById('uploadSteps');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+    steps.classList.remove('hidden');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+    steps.classList.add('hidden');
+    document.getElementById('downloadConfirm').classList.add('hidden');
+  }
+}
+
+function tryDownload() {
+  const total = CRITERIA.length;
+  let done = 0;
+  CRITERIA.forEach(function(c){ if (responses[c.key].level !== null && responses[c.key].comment.length > 0) done++; });
+  if (done < total) return;
+
+  const name = document.getElementById('studentName').value.trim() || 'Unknown';
+  const block = document.getElementById('studentBlock').value.trim() || 'N/A';
+  const now = new Date().toLocaleString();
+  let txt = '';
+
+  txt += '================================================================\n';
+  txt += 'ENGLISH IN THE CLASSROOM — STUDENT REFLECTION\n';
+  txt += '================================================================\n';
+  txt += 'Name: ' + name + '\n';
+  txt += 'Block: ' + block + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += '\n================================================================\n';
+  txt += 'RESPONSES\n';
+  txt += '================================================================\n\n';
+
+  CRITERIA.forEach(function(c) {
+    const r = responses[c.key];
+    const lv = c.levels.find(function(l){ return l.n === r.level; });
+    txt += c.title + ' (' + c.title_cn + ')\n';
+    txt += 'Level Selected: ' + r.level + ' - ' + (lv ? lv.label : '') + '\n';
+    txt += 'Descriptor: ' + (lv ? lv.text : '') + '\n';
+    txt += 'Student Comment: ' + r.comment + '\n\n';
+  });
+
+  txt += '================================================================\nEnd of report\n';
+
+  const blob = new Blob([txt], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_EnglishReflection_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  document.getElementById('downloadConfirm').classList.remove('hidden');
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      const notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  buildSections();
+  checkReadiness();
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
