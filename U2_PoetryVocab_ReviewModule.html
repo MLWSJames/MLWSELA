@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>U2 Poetry Review: April Rain Song | 第二单元诗歌复习：四月雨之歌</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: var(--mist); color: var(--ink); line-height: 1.55; }
+h1, h2, h3, .literata { font-family: 'Literata', serif; }
+.cn { font-family: 'Noto Sans SC', sans-serif; color: #556; }
+
+/* Banners */
+.warn-banner {
+  background: #7f1d1d; color: #fff; padding: 9px 18px; font-size: 0.83rem;
+  font-weight: 600; text-align: center; position: sticky; top: 0; z-index: 1000;
+}
+.warn-banner .cn { color: #fee2e2; font-weight: 400; }
+.leave-flash {
+  display: none; background: #fee2e2; border-left: 4px solid var(--ml-red);
+  padding: 8px 16px; font-size: 0.82rem; color: #7f1d1d; font-weight: 600; text-align: center;
+}
+
+/* Header */
+header {
+  background: var(--ml-green-dark); color: #fff; padding: 18px 20px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+}
+header .title-block h1 { font-size: 1.4rem; }
+header .title-block .cn { font-size: 0.95rem; color: var(--ml-green-light); }
+.header-right { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+#leaveBadge {
+  background: var(--ml-red); color: #fff; padding: 4px 10px; border-radius: 20px;
+  font-size: 0.78rem; font-weight: 700;
+}
+.progress-wrap { min-width: 180px; }
+.progress-track {
+  background: rgba(255,255,255,0.2); border-radius: 20px; height: 10px; overflow: hidden; width: 180px;
+}
+#progressBar { background: var(--ml-gold); height: 100%; width: 0%; transition: width 0.3s; }
+#progressText { font-size: 0.75rem; margin-top: 4px; color: var(--ml-green-light); }
+
+/* Tabs */
+.tab-bar { display: flex; background: #fff; border-bottom: 2px solid var(--border); flex-wrap: wrap; }
+.tab-btn {
+  background: none; border: none; padding: 14px 22px; font-size: 0.95rem; font-weight: 700;
+  color: var(--ink2); cursor: pointer; border-bottom: 3px solid transparent; display: flex; align-items: center; gap: 8px;
+  font-family: 'DM Sans', sans-serif;
+}
+.tab-btn.active { color: var(--ml-green-dark); border-bottom-color: var(--ml-green); }
+.pip { width: 9px; height: 9px; border-radius: 50%; background: #ccc; display: inline-block; }
+.pip.done { background: var(--ml-gold); }
+
+.tab-content { display: none; max-width: 920px; margin: 0 auto; padding: 24px 18px 60px; }
+.tab-content.active { display: block; }
+
+/* Cards / sections */
+.section-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 20px 22px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.section-card h2 { color: var(--ml-green-dark); font-size: 1.2rem; margin-bottom: 4px; }
+.section-card h2 .cn { display: block; font-size: 0.9rem; font-weight: 400; margin-top: 2px; }
+.section-card p { margin: 10px 0; }
+
+.poem-card {
+  background: var(--ml-green-light); border-left: 5px solid var(--ml-green);
+  border-radius: 8px; padding: 18px 22px; font-family: 'Literata', serif;
+  font-size: 1.05rem; white-space: pre-line; color: var(--ml-green-dark);
+}
+.poem-meta { font-size: 0.8rem; color: var(--ink2); margin-top: 10px; font-style: italic; }
+
+.callout {
+  background: var(--amber-light); border-left: 5px solid var(--amber);
+  border-radius: 8px; padding: 14px 18px; margin: 14px 0; font-size: 0.92rem;
+}
+.callout strong { color: var(--amber); }
+
+table.device-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.88rem; }
+table.device-table th, table.device-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+table.device-table th { background: var(--ml-green-light); color: var(--ml-green-dark); }
+
+.worked-example {
+  background: #eef4fb; border: 1px dashed var(--cobalt); border-radius: 8px;
+  padding: 14px 18px; margin: 14px 0; font-size: 0.92rem;
+}
+.worked-example .step { margin: 6px 0; }
+.worked-example .step b { color: var(--cobalt); }
+
+/* Name input */
+.name-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 20px; }
+.name-row input {
+  flex: 1; min-width: 220px; padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: 6px; font-size: 0.95rem; font-family: 'DM Sans', sans-serif;
+}
+.name-row label { font-weight: 700; font-size: 0.9rem; }
+
+/* Quiz */
+.quiz-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px;
+  padding: 18px 20px; margin-bottom: 16px;
+}
+.q-num { font-size: 0.75rem; color: var(--ink2); font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+.passage-box {
+  background: var(--ml-green-light); border-radius: 6px; padding: 10px 14px;
+  font-size: 0.85rem; margin-bottom: 10px; white-space: pre-line; font-family: 'Literata', serif;
+}
+.q-text { font-weight: 700; margin-bottom: 2px; }
+.q-cn { font-size: 0.88rem; margin-bottom: 12px; }
+.opts-wrap { display: grid; gap: 8px; }
+.opt-btn {
+  text-align: left; background: #f8faf8; border: 1.5px solid var(--border); border-radius: 8px;
+  padding: 10px 14px; cursor: pointer; font-size: 0.9rem; font-family: 'DM Sans', sans-serif; color: var(--ink);
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--ml-green); background: #eef7f0; }
+.opt-btn:disabled { cursor: default; }
+.opt-btn.selected-correct { background: #d8f3dc; border-color: var(--ml-green); }
+.opt-btn.selected-wrong { background: #fde0e0; border-color: var(--ml-red); }
+.opt-btn.show-correct { background: #d8f3dc; border-color: var(--ml-green); }
+.rationale { display: none; margin-top: 12px; padding: 12px 14px; border-radius: 8px; font-size: 0.88rem; }
+.rationale.show { display: block; }
+.rationale.correct-rat { background: #eafaf0; border-left: 4px solid var(--ml-green); }
+.rationale.wrong-rat { background: #fdeeee; border-left: 4px solid var(--ml-red); }
+
+/* Vocab */
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.vocab-card {
+  background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px;
+}
+.vocab-card .word { font-family: 'Literata', serif; font-weight: 700; font-size: 1.1rem; color: var(--ml-green-dark); }
+.vocab-card .pos { font-size: 0.78rem; color: var(--ink2); font-style: italic; margin-left: 6px; }
+.vocab-card .cn-word { font-size: 0.92rem; margin: 2px 0 8px; }
+.vocab-card .def { font-size: 0.88rem; margin-bottom: 4px; }
+.vocab-card .cn-def { font-size: 0.85rem; margin-bottom: 8px; }
+.vocab-card .example { font-size: 0.82rem; font-style: italic; color: #555; border-top: 1px dashed var(--border); padding-top: 8px; }
+.speak-btn {
+  background: var(--ml-green); color: #fff; border: none; border-radius: 20px;
+  padding: 4px 12px; font-size: 0.78rem; cursor: pointer; margin-top: 8px;
+}
+.speak-btn:hover { background: var(--ml-green-dark); }
+
+/* Reflect */
+.reflect-box { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; margin-top: 10px; }
+.reflect-box h3 { color: var(--ml-green-dark); font-size: 1.05rem; margin-bottom: 10px; }
+.reflect-box label { display: block; font-weight: 700; font-size: 0.9rem; margin: 14px 0 4px; }
+.reflect-box .cn { font-weight: 400; font-size: 0.82rem; }
+.reflect-box textarea {
+  width: 100%; min-height: 80px; padding: 10px 12px; border: 1px solid var(--border);
+  border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; resize: vertical;
+}
+.reflect-box textarea.filled { border-color: var(--ml-green); background: #f6fbf7; }
+.grat-row { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 14px 0; font-size: 0.92rem; }
+.grat-row input {
+  flex: 1; min-width: 200px; padding: 8px 10px; border: 1px solid var(--border);
+  border-radius: 6px; font-family: 'DM Sans', sans-serif;
+}
+.grat-row input.filled { border-color: var(--ml-green); background: #f6fbf7; }
+
+.download-btn {
+  background: #ccc; color: #fff; border: none; border-radius: 8px; padding: 12px 26px;
+  font-size: 0.95rem; font-weight: 700; margin-top: 16px; opacity: 0.6; pointer-events: none;
+  font-family: 'DM Sans', sans-serif;
+}
+.download-btn.ready { background: var(--ml-green); opacity: 1; pointer-events: auto; cursor: pointer; }
+.download-btn.ready:hover { background: var(--ml-green-dark); }
+.dl-hint { font-size: 0.8rem; color: var(--ml-red); margin-top: 8px; }
+.dl-hint.hidden { display: none; }
+
+/* Timer */
+#timer-display {
+  position: fixed; bottom: 14px; right: 14px; background: var(--ink); color: #fff;
+  padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; z-index: 999;
+}
+
+@media (max-width: 600px) {
+  header { flex-direction: column; align-items: flex-start; }
+  .progress-track { width: 140px; }
+}
+</style>
+</head>
+<body>
+
+<div class="warn-banner">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" class="leave-flash">
+  🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span>
+</div>
+
+<header>
+  <div class="title-block">
+    <h1>U2 Poetry Review: "April Rain Song"</h1>
+    <div class="cn">第二单元诗歌复习：《四月雨之歌》</div>
+  </div>
+  <div class="header-right">
+    <span id="leaveBadge">🚪 Leaves: 0</span>
+    <div class="progress-wrap">
+      <div class="progress-track"><div id="progressBar"></div></div>
+      <div id="progressText">Progress: 0% · 进度：0%</div>
+    </div>
+  </div>
+</header>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)"><span class="pip" id="pip-vocab"></span> Vocab 词汇</button>
+  <button class="tab-btn" onclick="switchTab('poem', this)"><span class="pip" id="pip-poem"></span> April Rain Song 诗歌复习</button>
+</div>
+
+<!-- ============ VOCAB TAB ============ -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="section-card">
+    <h2>Academic Vocabulary List 1 <span class="cn">学术词汇第一单</span></h2>
+    <p>Click the 🔊 button to hear each word pronounced. Review the definition, Chinese translation, and example sentence for each term.</p>
+    <p class="cn">点击🔊按钮听单词发音。复习每个词的定义、中文翻译和例句。</p>
+  </div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ============ POEM TAB ============ -->
+<div class="tab-content" id="tab-poem">
+  <div class="name-row">
+    <label for="poemName">Student Name 学生姓名:</label>
+    <input type="text" id="poemName" placeholder="Enter your name / 输入你的姓名">
+  </div>
+
+  <div class="section-card">
+    <h2>The Poem <span class="cn">诗歌原文</span></h2>
+    <div class="poem-card">April Rain Song
+By Langston Hughes
+
+Let the rain kiss you
+Let the rain beat upon your head with silver liquid drops
+Let the rain sing you a lullaby
+
+The rain makes still pools on the sidewalk
+The rain makes running pools in the gutter
+The rain plays a little sleep song on our roof at night
+
+And I love the rain.</div>
+    <div class="poem-meta">"April Rain Song" by Langston Hughes (1921) is in the public domain.</div>
+  </div>
+
+  <div class="section-card">
+    <h2>Mood &amp; Atmosphere <span class="cn">情绪与氛围</span></h2>
+    <p>Remember from your vocab list: <b>atmosphere</b> is the overall feeling a writer creates through word choice and description. In this poem, Langston Hughes uses soft, gentle images — a kiss, a lullaby, a sleep song — to build a calm, peaceful atmosphere around the rain.</p>
+    <p class="cn">回顾你的词汇表：<b>atmosphere（氛围）</b>是作者通过用词和描写营造出的整体感觉。在这首诗中，休斯用温柔的意象——亲吻、摇篮曲、睡眠之歌——营造出一种平静、安宁的氛围。</p>
+    <div class="callout">
+      <strong>Tip 提示:</strong> Ask yourself — do the words in this poem feel soft or harsh? Warm or cold? That feeling IS the atmosphere/mood.
+      <br><span class="cn">问问自己——这首诗里的词语给你的感觉是柔和还是刺耳？温暖还是冷淡？那种感觉就是氛围/情绪。</span>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h2>Figurative Language &amp; Sound Devices <span class="cn">修辞手法与声音技巧</span></h2>
+    <p>Two important devices appear in this poem:</p>
+    <table class="device-table">
+      <tr><th>Device 手法</th><th>Definition 定义</th><th>Example from the Poem 诗中例子</th></tr>
+      <tr>
+        <td><b>Personification</b><br>拟人</td>
+        <td>Giving human qualities or actions to something non-human.<br>把人类的特质或动作赋予非人类事物。</td>
+        <td>"Let the rain <u>sing</u> you a <u>lullaby</u>" — rain cannot really sing, but the poet gives it this human ability.</td>
+      </tr>
+      <tr>
+        <td><b>Consonance</b><br>辅音重复</td>
+        <td>The repetition of consonant sounds within or between words (not just at the start).<br>单词内部或之间重复出现的辅音（不仅限于开头）。</td>
+        <td>"The rain play<u>s</u> a little <u>s</u>leep <u>s</u>ong" — the repeated "s" sound creates a soft, musical effect.</td>
+      </tr>
+    </table>
+
+    <div class="worked-example">
+      <b>Worked Example 示范分析:</b> Let's analyze "Let the rain sing you a lullaby" step by step.
+      <div class="step"><b>Step 1 — Identify:</b> The rain is described as doing something only people (or living things) can do: singing.</div>
+      <div class="step"><b>Step 2 — Name the device:</b> This is personification, because a human action is given to something non-human (rain).</div>
+      <div class="step"><b>Step 3 — Explain the effect:</b> A lullaby is soft and calming, so this personification reinforces the poem's peaceful, comforting atmosphere.</div>
+      <div class="step cn">第一步——识别：雨被描写成做了只有人（或有生命的事物）才能做的动作：唱歌。第二步——说出手法名称：这是拟人手法，因为人类的动作被赋予了非人类事物（雨）。第三步——解释效果：摇篮曲是柔和、令人安心的，因此这种拟人手法强化了诗歌平静、抚慰人心的氛围。</div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h2>Theme <span class="cn">主题</span></h2>
+    <p>Remember: <b>theme</b> is the message or insight about life that the poem conveys — not just what happens, but what it means. As you take the quiz, think about what Langston Hughes wants readers to feel and understand about rain.</p>
+    <p class="cn">记住：<b>theme（主题）</b>是诗歌所传达的关于生活的信息或感悟——不仅仅是发生了什么，而是它意味着什么。做题时，想一想休斯想让读者对雨产生怎样的感受和理解。</p>
+  </div>
+
+  <div class="section-card">
+    <h2>Quiz <span class="cn">测验</span></h2>
+    <p>Select the best answer. You cannot change your answer after you select it.</p>
+    <p class="cn">选择最佳答案。选定后不能更改。</p>
+  </div>
+
+  <div id="poemQuizContainer"></div>
+
+  <div class="reflect-box" id="poemReflect">
+    <h3>Reflection <span class="cn">反思</span></h3>
+
+    <label for="poemRef1">1. How did identifying the figurative language and sound devices in "April Rain Song" change or deepen your understanding of the poem's message?
+      <span class="cn">识别这首诗中的修辞手法和声音技巧如何改变或加深了你对诗歌信息的理解？</span></label>
+    <textarea id="poemRef1" placeholder="Write your answer here / 在此处写下你的答案"></textarea>
+
+    <label for="poemRef2">2. Rain can mean different things to different people. What personal memory or experience does "April Rain Song" bring to mind for you, and why?
+      <span class="cn">雨对不同的人来说意义不同。《四月雨之歌》让你想起了什么个人回忆或经历？为什么？</span></label>
+    <textarea id="poemRef2" placeholder="Write your answer here / 在此处写下你的答案"></textarea>
+
+    <div class="grat-row">
+      <label for="poemGrat" style="margin:0;">✨ Today I am grateful for</label>
+      <input type="text" id="poemGrat" placeholder="___">
+    </div>
+
+    <button class="download-btn" id="poemDownloadBtn" onclick="tryDownload('poem')">⬇ Download My Report</button>
+    <div class="dl-hint" id="poemHint">Complete all questions and reflection fields to unlock the download. · 完成所有问题和反思内容以解锁下载。</div>
+  </div>
+</div>
+
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+// ============ STATE ============
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 10;
+
+const poemAnswers = {};
+const poemScore = { val: 0 };
+const poemDone = { val: 0 };
+
+// ============ DATA: VOCAB ============
+const VOCAB = [
+  { word: "Atmosphere", pos: "n.", cn: "氛围 / 气氛",
+    def: "The overall feeling, mood, or emotional tone that a writer creates within a narrative or scene.",
+    cn_def: "作者在叙事或场景中营造的整体感觉、情绪或情感基调。",
+    example: "The abandoned house had a spooky atmosphere that made everyone nervous." },
+  { word: "Audience", pos: "n.", cn: "观众 / 读者",
+    def: "A group of people gathered together to watch or listen to a performance, speech, or show.",
+    cn_def: "聚集在一起观看或聆听表演、演讲或节目的一群人。",
+    example: "The speaker adjusted her presentation to fit a young audience." },
+  { word: "Contrast", pos: "v.", cn: "对比 / 形成对照",
+    def: "To compare two or more things in order to highlight their differences.",
+    cn_def: "比较两个或多个事物以突出它们的不同之处。",
+    example: "The teacher asked us to contrast the two main characters' personalities." },
+  { word: "Epic", pos: "n.", cn: "史诗",
+    def: "A long narrative poem or story, typically involving heroic deeds, grand adventures, or historical events.",
+    cn_def: "一种长篇叙事诗或故事，通常涉及英雄事迹、伟大的冒险或历史事件。",
+    example: "Homer's epic tells the story of a hero's ten-year journey home." },
+  { word: "Annotate", pos: "v.", cn: "批注 / 做注解",
+    def: "To make or write critical or explanatory notes or comments.",
+    cn_def: "撰写批判性或解释性的注释或评论。",
+    example: "We annotated the short story to identify examples of foreshadowing." },
+  { word: "Context", pos: "n.", cn: "上下文 / 语境",
+    def: "The parts of a discussion or text that surround a word or passage and can make its meaning clear.",
+    cn_def: "围绕某个词语或段落的讨论或文本内容，有助于弄清其含义。",
+    example: "The context of the paragraph helped me understand what the strange word meant." },
+  { word: "Connotation", pos: "n.", cn: "内涵意义 / 隐含意义",
+    def: "The implied or suggested meaning of a word or phrase, beyond its dictionary definition.",
+    cn_def: "一个词或短语除字典释义之外所暗示或引申出的含义。",
+    example: "The word \u201Ccheap\u201D has a more negative connotation than the word \u201Cinexpensive.\u201D" },
+  { word: "Subjective", pos: "adj.", cn: "主观的",
+    def: "Relating to or based on personal feelings, tastes, or opinions.",
+    cn_def: "与个人感受、品味或观点相关或以此为基础的。",
+    example: "Choosing your favorite book is a subjective decision based on personal taste." },
+  { word: "Error", pos: "n.", cn: "错误",
+    def: "Something produced by mistake.",
+    cn_def: "因失误而产生的事物。",
+    example: "I found an error in my homework and fixed it before turning it in." },
+  { word: "Character", pos: "n.", cn: "人物 / 角色",
+    def: "A person, animal, or other entity that plays a role in a story, novel, or drama.",
+    cn_def: "在故事、小说或戏剧中扮演角色的人物、动物或其他实体。",
+    example: "The main character in the novel changes a lot by the final chapter." }
+];
+
+// ============ DATA: POEM QUIZ ============
+const POEM_Q = [
+  {
+    id: "p1",
+    title: "Subject of the Poem",
+    q: "What is the primary subject of \"April Rain Song\" by Langston Hughes?",
+    q_cn: "休斯的《四月雨之歌》主要写的是什么？",
+    options: [
+      "A. The joy of dancing in the rain.|A. 在雨中跳舞的快乐。",
+      "B. The beauty of nature in April.|B. 四月大自然的美丽。",
+      "C. The importance of staying indoors during rain.|C. 下雨时待在室内的重要性。",
+      "D. The hardships of a rainy day.|D. 雨天的艰辛。"
+    ],
+    correct: "B",
+    rat_right: "The poem focuses on the sights and sounds of April rain and celebrates its natural beauty.|这首诗着重描写四月雨的景象和声音，赞美了大自然的美。",
+    rat_wrong: {
+      A: "The poem never mentions dancing \u2014 it focuses on quietly experiencing the rain.|诗中并没有提到跳舞，重点是安静地感受雨。",
+      C: "The speaker welcomes the rain rather than avoiding it.|说话者欢迎雨，而不是躲避它。",
+      D: "The poem presents rain positively, not as a hardship.|诗歌以积极的态度描写雨，而不是把它当作困难。"
+    }
+  },
+  {
+    id: "p2",
+    title: "Encouraged Response",
+    q: "What does the poem encourage the reader to do in relation to the rain?",
+    q_cn: "这首诗鼓励读者对雨采取什么样的态度？",
+    options: [
+      "A. Ignore it completely.|A. 完全忽视它。",
+      "B. Complain about it loudly.|B. 大声抱怨它。",
+      "C. Stay indoors and avoid it at all costs.|C. 待在室内，不惜一切代价避开它。",
+      "D. Embrace it and enjoy its presence.|D. 拥抱它并享受它的存在。"
+    ],
+    correct: "D",
+    rat_right: "Lines like \"Let the rain kiss you\" show the speaker inviting the reader to welcome and enjoy the rain.|像“让雨吻你”这样的诗句表明说话者邀请读者欢迎并享受雨。",
+    rat_wrong: {
+      A: "The speaker actively invites the reader to notice the rain, not ignore it.|说话者积极邀请读者注意雨，而不是忽视它。",
+      B: "There is no complaining in the poem \u2014 the tone is calm and joyful.|诗中没有抱怨，语气平静而愉快。",
+      C: "The speaker wants the reader outside experiencing the rain, not hiding from it.|说话者希望读者到外面感受雨，而不是躲避它。"
+    }
+  },
+  {
+    id: "p3",
+    title: "Mood",
+    q: "What mood does the poem primarily convey?",
+    q_cn: "这首诗主要传达出什么样的情绪？",
+    options: [
+      "A. Sadness and melancholy|A. 悲伤和忧郁",
+      "B. Calmness and tranquility|B. 平静和安宁",
+      "C. Anxiety and fear|C. 焦虑和恐惧",
+      "D. Excitement and celebration|D. 兴奋和庆祝"
+    ],
+    correct: "B",
+    rat_right: "Gentle images like a \"lullaby\" and \"sleep song\" create a peaceful, calm mood.|像“摇篮曲”和“睡眠之歌”这样温柔的意象营造出平静安宁的氛围。",
+    rat_wrong: {
+      A: "There are no sad images in the poem \u2014 the imagery is soft and pleasant.|诗中没有悲伤的意象，意象是柔和愉快的。",
+      C: "The imagery is comforting, not frightening.|诗中的意象令人感到安慰，而不是害怕。",
+      D: "The mood is quiet and peaceful, not loud or excited.|诗歌的情绪是安静平和的，而不是兴奋热闹的。"
+    }
+  },
+  {
+    id: "p4",
+    title: "What the Rain Does",
+    passage: "Let the rain kiss you\nLet the rain beat upon your head with silver liquid drops\nLet the rain sing you a lullaby",
+    q: "According to the poem, what does the rain do?",
+    q_cn: "根据诗歌，雨做了什么？",
+    options: [
+      "A. Kisses the speaker|A. 亲吻说话者",
+      "B. Beats upon the roof|B. 敲打屋顶",
+      "C. Sings a lullaby|C. 唱摇篮曲",
+      "D. All of the above|D. 以上全部"
+    ],
+    correct: "D",
+    rat_right: "The poem describes the rain kissing the speaker, beating on the roof, and singing a lullaby \u2014 all three actions appear in the text.|诗中描写雨吻着说话者、敲打屋顶，并唱着摇篮曲——这三种描写都出现在诗中。",
+    rat_wrong: {
+      A: "This is one action mentioned, but the poem describes more than just this.|这是诗中提到的一种动作，但诗中描写的不止这些。",
+      B: "This is one action mentioned, but the poem describes more than just this.|这是诗中提到的一种动作，但诗中描写的不止这些。",
+      C: "This is one action mentioned, but the poem describes more than just this.|这是诗中提到的一种动作，但诗中描写的不止这些。"
+    }
+  },
+  {
+    id: "p5",
+    title: "\u201CSilver Liquid Drops\u201D",
+    q: "In line 2, the poet describes rain as \u201Csilver liquid drops.\u201D What does this phrase emphasize?",
+    q_cn: "在第二行，诗人把雨描写成“银色液体水珠”。这个短语强调了什么？",
+    options: [
+      "A. The rain's danger and unpredictability.|A. 雨的危险性和不可预测性。",
+      "B. The rain's beauty and purity.|B. 雨的美丽和纯净。",
+      "C. The rain's loud, harsh sound.|C. 雨刺耳的响声。",
+      "D. The rain's connection to sadness.|D. 雨与悲伤的联系。"
+    ],
+    correct: "B",
+    rat_right: "\u201CSilver\u201D suggests value and shine, while \u201Cliquid drops\u201D highlights the smooth, flowing beauty of the rain.|“银色”暗示珍贵和光泽，而“液体水珠”则突出了雨水流动的美感。",
+    rat_wrong: {
+      A: "Nothing in the phrase suggests danger \u2014 it is a gentle, admiring description.|这个短语没有任何危险的暗示，它是一种温柔、赞美的描写。",
+      C: "\u201CSilver liquid drops\u201D is a soft, visual image, not a description of sound.|“银色液体水珠”是一种柔和的视觉意象，而不是声音的描写。",
+      D: "The description is admiring and positive, not sad.|这个描写是赞美和积极的，而不是悲伤的。"
+    }
+  },
+  {
+    id: "p6",
+    title: "Speaker's Tone",
+    q: "What is the speaker's overall tone throughout the poem?",
+    q_cn: "整首诗中说话者的语气总体是怎样的？",
+    options: [
+      "A. Bitter and resentful|A. 苦涩和怨恨",
+      "B. Calm and admiring|B. 平静和赞赏",
+      "C. Confused and uncertain|C. 困惑和不确定",
+      "D. Formal and distant|D. 正式和疏远"
+    ],
+    correct: "B",
+    rat_right: "The speaker celebrates the rain with warmth and appreciation, creating a calm, admiring tone.|说话者带着温暖和欣赏的态度赞美雨，营造出平静而充满赞赏的语气。",
+    rat_wrong: {
+      A: "There is no anger or resentment in the poem \u2014 the speaker clearly enjoys the rain.|诗中没有愤怒或怨恨，说话者显然很享受雨。",
+      C: "The speaker's feelings are clear and consistent throughout, not confused.|说话者的情感始终清晰一致，并非困惑。",
+      D: "The tone is warm and personal, not formal.|语气是温暖而个人化的，而不是正式的。"
+    }
+  },
+  {
+    id: "p7",
+    title: "Personification",
+    q: "\u201CLet the rain sing you a lullaby\u201D (Line 3) is an example of which figure of speech?",
+    q_cn: "“让雨唱一首摇篮曲给你听”（第3行）是哪种修辞手法的例子？",
+    options: [
+      "A. Simile|A. 明喻",
+      "B. Personification|B. 拟人",
+      "C. Hyperbole|C. 夸张",
+      "D. Onomatopoeia|D. 拟声词"
+    ],
+    correct: "B",
+    rat_right: "Giving the rain the human ability to \u201Csing\u201D is personification \u2014 a human quality given to something non-human.|把“唱歌”这种人类的能力赋予雨水，这是拟人手法——把人类的特质赋予非人类事物。",
+    rat_wrong: {
+      A: "A simile would compare using \u201Clike\u201D or \u201Cas\u201D \u2014 this line does not use either.|明喻会使用“像”或“如同”进行比较，而这句诗中没有使用这些词。",
+      C: "Hyperbole is exaggeration \u2014 this line is not exaggerating, it's giving the rain human action.|夸张是夸大其词，而这句诗只是赋予雨水人类的动作。",
+      D: "Onomatopoeia is a word that imitates a sound (like \u201Cbuzz\u201D) \u2014 \u201Csing\u201D is not that kind of word here.|拟声词是模仿声音的词（如“嗡嗡”），而“唱歌”在这里不是这种词。"
+    }
+  },
+  {
+    id: "p8",
+    title: "Consonance",
+    q: "\u201CThe rain plays a little sleep song on our roof at night\u201D (Line 6) mainly demonstrates which sound device?",
+    q_cn: "“雨在我们屋顶上弹奏一首小小的睡眠之歌”（第6行）主要展示了哪种声音技巧？",
+    options: [
+      "A. Rhyme|A. 押韵",
+      "B. Alliteration|B. 头韵",
+      "C. Consonance|C. 辅音重复",
+      "D. Assonance|D. 类音（元音重复）"
+    ],
+    correct: "C",
+    rat_right: "The repeated \u201Cs\u201D sound in \u201Cplays,\u201D \u201Csleep,\u201D and \u201Csong\u201D is consonance \u2014 repeated consonant sounds within or between words.|“plays”、“sleep”和“song”中重复的“s”音是辅音重复——即单词内部或之间重复出现的辅音。",
+    rat_wrong: {
+      A: "Rhyme involves matching end sounds of lines \u2014 this device is about repeated consonant sounds, not line endings.|押韵是指诗行结尾发音相同，而这里是词语中重复的辅音音，与行尾无关。",
+      B: "Alliteration is repeated sounds at the START of words \u2014 here the \u201Cs\u201D sound appears inside and at different positions, so it's better identified as consonance.|头韵是单词开头重复的声音——这里的“s”音出现在单词内部及不同位置，因此更准确地说是辅音重复。",
+      D: "Assonance is repeated vowel sounds, not consonant sounds like \u201Cs.\u201D|类音是元音重复，而不是像“s”这样的辅音重复。"
+    }
+  },
+  {
+    id: "p9",
+    title: "Theme",
+    q: "What is the theme of \u201CApril Rain Song\u201D?",
+    q_cn: "《四月雨之歌》的主题是什么？",
+    options: [
+      "A. Rain is a source of joy and renewal that should be embraced.|A. 雨是快乐和新生的源泉，应该被拥抱。",
+      "B. Rain is dangerous and should always be avoided.|B. 雨是危险的，应该始终避免。",
+      "C. Nature is unpredictable and cannot be understood.|C. 大自然是不可预测且无法理解的。",
+      "D. Childhood memories are always tied to sadness.|D. 童年回忆总是与悲伤联系在一起。"
+    ],
+    correct: "A",
+    rat_right: "The poem's imagery and joyful tone show that rain brings comfort, beauty, and renewal \u2014 something to be embraced, not feared.|诗中的意象和欢快的语气表明，雨带来了舒适、美丽和更新——这是值得拥抱的，而不是害怕的。",
+    rat_wrong: {
+      B: "The speaker welcomes the rain warmly \u2014 this is the opposite of the poem's message.|说话者热情地欢迎雨——这与诗歌所传达的信息正好相反。",
+      C: "The poem doesn't suggest confusion about nature \u2014 it celebrates a clear, positive connection to it.|诗歌并没有表达对自然的困惑，而是庆祝与自然之间清晰、积极的联系。",
+      D: "There is no mention of childhood or sadness in the poem.|诗中没有提到童年或悲伤。"
+    }
+  },
+  {
+    id: "p10",
+    title: "Poetic Form",
+    q: "Which best describes the poem's form (structure)?",
+    q_cn: "以下哪项最能描述这首诗的形式（结构）？",
+    options: [
+      "A. A strict sonnet with 14 lines and a fixed rhyme scheme.|A. 严格的十四行诗，有14行且押韵格式固定。",
+      "B. Free verse with no fixed rhyme scheme.|B. 没有固定押韵格式的自由诗。",
+      "C. A haiku with three lines.|C. 三行的俳句。",
+      "D. A ballad with alternating rhymed stanzas.|D. 诗节交替押韵的叙事谣曲。"
+    ],
+    correct: "B",
+    rat_right: "\u201CApril Rain Song\u201D does not follow a regular rhyme pattern or fixed line count \u2014 it flows freely, which is characteristic of free verse.|《四月雨之歌》没有遵循固定的押韵模式或行数——它自由流畅，这是自由诗的特点。",
+    rat_wrong: {
+      A: "The poem is only 7 lines and does not follow a sonnet's strict structure or rhyme scheme.|这首诗只有7行，并不遵循十四行诗的严格结构或押韵格式。",
+      C: "A haiku has exactly three lines with a set syllable pattern \u2014 this poem is longer and has no such pattern.|俳句正好有三行，并遵循固定的音节格式——而这首诗更长，也没有这种格式。",
+      D: "A ballad typically has a regular rhyme scheme in stanzas \u2014 this poem does not follow that pattern.|叙事谣曲通常在诗节中有规律的押韵格式——而这首诗并不遵循这种格式。"
+    }
+  }
+];
+
+// ============ BUILD VOCAB ============
+function buildVocab() {
+  var grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div');
+    card.className = 'vocab-card';
+
+    var wordLine = document.createElement('div');
+    var wordSpan = document.createElement('span'); wordSpan.className = 'word'; wordSpan.textContent = v.word;
+    var posSpan = document.createElement('span'); posSpan.className = 'pos'; posSpan.textContent = v.pos;
+    wordLine.appendChild(wordSpan); wordLine.appendChild(posSpan);
+    card.appendChild(wordLine);
+
+    var cnWord = document.createElement('div'); cnWord.className = 'cn-word cn'; cnWord.textContent = v.cn;
+    card.appendChild(cnWord);
+
+    var def = document.createElement('div'); def.className = 'def'; def.textContent = v.def;
+    card.appendChild(def);
+
+    var cnDef = document.createElement('div'); cnDef.className = 'cn-def cn'; cnDef.textContent = v.cn_def;
+    card.appendChild(cnDef);
+
+    var example = document.createElement('div'); example.className = 'example'; example.textContent = v.example;
+    card.appendChild(example);
+
+    var speakBtn = document.createElement('button');
+    speakBtn.className = 'speak-btn';
+    speakBtn.textContent = '\uD83D\uDD0A Hear it';
+    speakBtn.addEventListener('click', function() {
+      if ('speechSynthesis' in window) {
+        var utter = new SpeechSynthesisUtterance(v.word);
+        utter.lang = 'en-US';
+        window.speechSynthesis.speak(utter);
+      }
+    });
+    card.appendChild(speakBtn);
+
+    grid.appendChild(card);
+  });
+}
+
+// ============ BUILD QUIZ ============
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div');
+    card.className = 'quiz-card';
+
+    var num = document.createElement('div');
+    num.className = 'q-num';
+    num.textContent = 'Question ' + (idx + 1) + ' of ' + data.length;
+    card.appendChild(num);
+
+    if (item.passage) {
+      var pasEl = document.createElement('div');
+      pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    var qEl = document.createElement('div'); qEl.className = 'q-text'; qEl.textContent = item.q;
+    var qCn = document.createElement('div'); qCn.className = 'q-cn cn'; qCn.textContent = item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement('div'); optsWrap.className = 'opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className = 'rationale';
+    var answered = false;
+
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/, '');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/, '') : '';
+
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.dataset.letter = letter;
+
+      var strong = document.createElement('strong'); strong.textContent = letter + '. ';
+      var enS = document.createElement('span'); enS.textContent = enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className = 'cn'; cnS.textContent = cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+
+        var ratText, ratCn, ratParts;
+
+        if (letter === item.correct) {
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '\u2705 ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          addProgress(1);
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          var wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = '\u274C ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+
+        var rDiv = document.createElement('div'); rDiv.textContent = ratText;
+        if (ratCn) {
+          var rBr = document.createElement('br');
+          var rCnS = document.createElement('span'); rCnS.className = 'cn'; rCnS.textContent = ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+// ============ GATING ============
+function checkReadiness(tabKey) {
+  var doneObj = tabKey === 'poem' ? poemDone : null;
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  var ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  if (ready) {
+    btn.classList.add('ready');
+    hint.classList.add('hidden');
+  } else {
+    btn.classList.remove('ready');
+    hint.classList.remove('hidden');
+  }
+}
+
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2'].forEach(function(fld) {
+    document.getElementById(tabKey + fld).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey + 'Grat').addEventListener('input', function() {
+    this.classList.toggle('filled', this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+
+// ============ DOWNLOAD ============
+function tryDownload(tabKey) {
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  var doneObj = poemDone;
+  var scoreObj = poemScore;
+  var qData = POEM_Q;
+  var ansData = poemAnswers;
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+
+  var name = document.getElementById(tabKey + 'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var txt = '';
+
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE \u2014 QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Module: April Rain Song Poetry Review\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + scoreObj.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  qData.forEach(function(item, i) {
+    var sel = ansData[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i + 1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK \u2014 REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  var blob = new Blob([txt], { type: 'text/plain' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g, '_') + '_' + new Date().toLocaleDateString().replace(/\//g, '-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+
+// ============ UTILITY ============
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% \u00B7 \u8FDB\u5EA6\uFF1A' + pct + '%';
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '\u23F1 ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s) {
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '\uD83D\uDEAA Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+
+// ============ INIT ============
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  buildQuiz(POEM_Q, 'poemQuizContainer', poemAnswers, poemScore, poemDone, function() {
+    checkReadiness('poem');
+  });
+  wireListeners('poem');
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
