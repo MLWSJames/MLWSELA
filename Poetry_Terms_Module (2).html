@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poetry Terms Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ml-green:#2d6a4f; --ml-green-dark:#1b4332; --ml-green-light:#d8f3dc;
+  --ml-red:#c1121f; --ml-gold:#e9c46a; --ink:#1a2a1a; --ink2:#2d3748;
+  --mist:#f8faf8; --border:#e2e8e2; --cobalt:#1e3a5f; --amber:#b45309; --amber-light:#fef3c7;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);}
+h1,h2,h3{font-family:'Literata',serif;color:var(--ml-green-dark);}
+.banner{background:#7f1d1d;color:#fff;padding:9px 14px;font-size:0.82rem;font-weight:600;
+  text-align:center;position:sticky;top:0;z-index:1000;}
+#leaveNotice{display:none;background:#fee2e2;border-left:4px solid var(--ml-red);padding:8px 14px;
+  font-size:0.82rem;color:#7f1d1d;font-weight:600;text-align:center;}
+header{background:var(--ml-green-dark);color:#fff;padding:14px 18px;}
+header h1{color:#fff;margin:0 0 4px 0;font-size:1.3rem;}
+.headerRow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:8px;}
+.badge{background:rgba(255,255,255,.15);border-radius:20px;padding:4px 12px;font-size:0.78rem;}
+.progWrap{flex:1;min-width:180px;background:rgba(255,255,255,.2);border-radius:10px;height:16px;overflow:hidden;}
+#progressBar{height:100%;background:var(--ml-gold);width:0%;transition:width .3s;}
+#progressText{font-size:0.75rem;margin-top:3px;}
+.pips{display:flex;gap:6px;}
+.pip{width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.3);}
+.pip.done{background:var(--ml-gold);}
+.tabs{display:flex;flex-wrap:wrap;background:#fff;border-bottom:2px solid var(--border);position:sticky;top:38px;z-index:900;}
+.tab-btn{flex:1;min-width:110px;padding:10px 8px;border:none;background:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-weight:600;color:var(--ink2);border-bottom:3px solid transparent;font-size:0.85rem;}
+.tab-btn.active{color:var(--ml-green);border-bottom-color:var(--ml-green);}
+.tab-content{display:none;max-width:900px;margin:0 auto;padding:20px 16px 90px;}
+.tab-content.active{display:block;}
+.card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.vcard{background:#fff;border:1px solid var(--border);border-left:5px solid var(--ml-green);border-radius:8px;padding:12px;}
+.vcard h3{margin:0 0 2px;font-size:1.05rem;}
+.vcard .pos{color:var(--amber);font-size:0.78rem;font-style:italic;}
+.spk{background:none;border:1px solid var(--ml-green);color:var(--ml-green);border-radius:6px;
+  padding:2px 8px;cursor:pointer;font-size:0.85rem;margin-left:6px;}
+.section-head{background:var(--ml-green-light);border-left:5px solid var(--ml-green);border-radius:6px;
+  padding:10px 14px;margin:18px 0 10px;}
+.section-head h2{margin:0 0 3px;font-size:1.1rem;}
+.callout{background:var(--amber-light);border-left:5px solid var(--amber);border-radius:6px;padding:10px 14px;margin-bottom:12px;font-size:0.92rem;}
+table.terms{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:0.9rem;}
+table.terms th,table.terms td{border:1px solid var(--border);padding:6px 8px;text-align:left;}
+table.terms th{background:var(--ml-green-light);}
+.stanza-box{background:var(--mist);border:1px dashed var(--ml-green);border-radius:8px;padding:14px;
+  font-family:'Literata',serif;font-style:italic;white-space:pre-line;margin-bottom:10px;}
+.q-row{border-bottom:1px solid var(--border);padding:12px 0;}
+.q-row:last-child{border-bottom:none;}
+.q-label{font-weight:600;margin-bottom:6px;}
+select,input[type=text],textarea{font-family:'DM Sans',sans-serif;border:1px solid var(--border);
+  border-radius:6px;padding:8px;width:100%;font-size:0.92rem;}
+textarea{min-height:64px;resize:vertical;}
+.checkBtn{background:var(--ml-green);color:#fff;border:none;border-radius:6px;padding:7px 14px;
+  cursor:pointer;font-weight:600;margin-top:6px;font-size:0.85rem;}
+.checkBtn:disabled{opacity:.5;cursor:default;}
+.result{margin-top:6px;font-size:0.88rem;border-radius:6px;padding:8px 10px;display:none;}
+.result.show{display:block;}
+.result.ok{background:var(--ml-green-light);color:var(--ml-green-dark);}
+.result.bad{background:#fde2e2;color:#7f1d1d;}
+.opts-wrap{display:grid;gap:6px;margin-top:6px;}
+.opt-btn{text-align:left;background:#fff;border:1px solid var(--border);border-radius:6px;padding:8px 10px;
+  cursor:pointer;font-size:0.88rem;}
+.opt-btn:disabled{cursor:default;}
+.opt-btn.show-correct{border-color:var(--ml-green);background:var(--ml-green-light);}
+.opt-btn.selected-wrong{border-color:var(--ml-red);background:#fde2e2;}
+.rationale{display:none;margin-top:6px;font-size:0.86rem;border-radius:6px;padding:8px 10px;}
+.rationale.show{display:block;}
+.rationale.correct-rat{background:var(--ml-green-light);}
+.rationale.wrong-rat{background:#fde2e2;}
+.nameRow{margin-bottom:14px;}
+.nameRow input{max-width:280px;display:inline-block;}
+.gate{background:#fff;border:2px dashed var(--ml-gold);border-radius:10px;padding:16px;margin-top:20px;}
+.gate label{font-weight:600;display:block;margin:10px 0 4px;}
+.fillin{display:inline-block;border-bottom:2px solid var(--ml-green);min-width:160px;padding:2px 4px;}
+.dlBtn{background:#9ca3af;color:#fff;border:none;border-radius:8px;padding:12px 20px;font-weight:700;
+  cursor:default;pointer-events:none;opacity:.6;margin-top:10px;font-size:0.95rem;}
+.dlBtn.ready{background:var(--ml-green);cursor:pointer;pointer-events:auto;opacity:1;}
+.hint{font-size:0.8rem;color:var(--ink2);margin-top:6px;}
+.hint.hidden{display:none;}
+#timer-display{position:fixed;bottom:12px;right:14px;background:var(--ml-green-dark);color:#fff;
+  padding:6px 12px;border-radius:20px;font-size:0.85rem;z-index:800;}
+.filled{border-color:var(--ml-green)!important;}
+</style>
+</head>
+<body>
+
+<div class="banner">⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it.</div>
+<div id="leaveNotice">🚨 Tab switch recorded! Your teacher will see this.</div>
+
+<header>
+  <h1>Poetry Terms Practice</h1>
+  <div class="headerRow">
+    <span class="badge" id="leaveBadge">Leaves: 0</span>
+    <div class="progWrap"><div id="progressBar"></div></div>
+    <div class="pips">
+      <div class="pip" id="pip-objective" title="Practice A"></div>
+      <div class="pip" id="pip-creative" title="Practice B"></div>
+    </div>
+  </div>
+  <div id="progressText" style="font-size:0.75rem;margin-top:4px;">Progress: 0%</div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('vocab',this)">Vocab</button>
+  <button class="tab-btn" onclick="switchTab('objective',this)">Practice A</button>
+  <button class="tab-btn" onclick="switchTab('creative',this)">Practice B</button>
+</div>
+
+<!-- ================= VOCAB TAB ================= -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="section-head"><h2>Key Vocabulary</h2>
+  <p>Learn these 12 terms before you match them below in Practice A.</p></div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ================= TAB A: OBJECTIVE ================= -->
+<div class="tab-content" id="tab-objective">
+  <div class="nameRow"><label>Name: </label><input type="text" id="objectiveName" placeholder="Your name"></div>
+
+  <div class="callout">Read the concept notes, then answer each item once. Once you click Check, that item locks — you cannot change your answer. Your final report downloads from Practice B once everything on both tabs is complete.</div>
+
+  <div class="section-head"><h2>Concept Review</h2></div>
+  <div class="card">
+    <h3>Figurative Language</h3>
+    <p><strong>Metaphor</strong> compares two unlike things directly (no "like/as"). <strong>Simile</strong> compares using "like" or "as." <strong>Personification</strong> gives human qualities to something nonhuman. <strong>Hyperbole</strong> is exaggeration for effect. <strong>Metonymy</strong> replaces a thing with something closely associated (the "crown" for a monarchy). <strong>Synecdoche</strong> uses a part to represent the whole ("all hands on deck").</p>
+  </div>
+  <div class="card">
+    <h3>Sound Devices</h3>
+    <table class="terms"><tr><th>Term</th><th>Definition</th></tr>
+    <tr><td>Alliteration</td><td>Repeated <em>initial</em> consonant sounds ("blooming bluebells")</td></tr>
+    <tr><td>Assonance</td><td>Repeated vowel sounds</td></tr>
+    <tr><td>Consonance</td><td>Repeated consonant sounds anywhere in nearby words</td></tr>
+    <tr><td>Onomatopoeia</td><td>A word that imitates a sound ("Crash!")</td></tr>
+    <tr><td>Euphony / Cacophony</td><td>Pleasant-sounding vs. harsh-sounding combinations</td></tr>
+    <tr><td>Internal rhyme</td><td>Rhyme occurring within a single line</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Structure Terms</h3>
+    <p><strong>Stanza</strong> = a group of lines. <strong>Refrain</strong> = a repeated line/group of lines. <strong>Chorus</strong> = a repeated section after each verse. <strong>Meter</strong> = the pattern of stressed/unstressed beats. <strong>Rhythm</strong> = the rhythmic pattern of a line. <strong>Iambic pentameter</strong> = a line of five iambs. <strong>Free verse</strong> = no regular rhyme or meter. <strong>Blank verse</strong> = unrhymed iambic pentameter.</p>
+  </div>
+
+  <div class="section-head"><h2>Match the Core Terms</h2></div>
+  <p>Choose the letter of the correct definition beside each term. Use each answer once.</p>
+  <div class="card" id="matchContainer"></div>
+
+  <div class="section-head"><h2>Identify the Device</h2></div>
+  <p>Name the most specific poetic device used in each sentence or line. Terms may be used more than once or not at all.</p>
+  <div class="callout">Word bank: alliteration • allusion • apostrophe • assonance • cacophony • consonance • euphony • hyperbole • imagery • internal rhyme • metaphor • metonymy • onomatopoeia • oxymoron • paradox • personification • pun • simile • synecdoche • understatement</div>
+  <div class="card" id="deviceContainer"></div>
+
+  <div class="section-head"><h2>Complete the Statement</h2></div>
+  <p>Complete each statement with the correct term.</p>
+  <div class="card" id="fillContainer"></div>
+
+  <div class="section-head"><h2>Rhyme &amp; Form</h2></div>
+  <div class="stanza-box">Across the lake, the lanterns gleam,
+And silver ripples fold the night;
+A quiet oar divides the dream,
+Then slips beyond the edge of light.</div>
+  <div class="card" id="closedStanzaContainer"></div>
+
+  <div class="section-head"><h2>Choose the Best Term</h2></div>
+  <p>Select the best answer for each question.</p>
+  <div class="card" id="mcContainer"></div>
+</div>
+
+<!-- ================= TAB B: CREATIVE / OPEN RESPONSE ================= -->
+<div class="tab-content" id="tab-creative">
+  <div class="nameRow"><label>Name: </label><input type="text" id="creativeName" placeholder="Your name"></div>
+  <div class="callout">These are open-response questions, so there is no single "correct" answer, but your teacher will read every response. Once every item on both tabs is complete, your download unlocks below.</div>
+
+  <div class="section-head"><h2>Sound and Structure</h2></div>
+  <div class="stanza-box">Across the lake, the lanterns gleam,
+And silver ripples fold the night;
+A quiet oar divides the dream,
+Then slips beyond the edge of light.</div>
+  <div class="card" id="openStanzaContainer"></div>
+
+  <div class="section-head"><h2>Compare Closely Related Terms</h2></div>
+  <p>Explain the difference between each pair. Then provide a brief original example where requested.</p>
+  <div class="card" id="compareContainer"></div>
+
+  <div class="section-head"><h2>Analyze a Short Poem</h2></div>
+  <div class="stanza-box">After the Last Bell
+
+The hallway exhales its final crowd,
+and lockers click like cooling clocks.
+A paper moon above the stairs
+keeps watch as evening fills the glass.
+
+I carry home a storm of notes,
+yet one clear sentence holds its ground:
+Tomorrow waits behind the door,
+quiet as a seed beneath the sound.</div>
+  <div class="card" id="poemAnalysisContainer"></div>
+
+  <div class="section-head"><h2>Create and Apply</h2></div>
+  <p>Demonstrate your understanding by producing accurate original examples. Do not copy examples from the word list.</p>
+  <div class="card" id="createContainer"></div>
+
+  <div class="section-head"><h2>Mini Poem Challenge</h2></div>
+  <p>Write a six- to eight-line poem that includes at least five of the following: imagery, metaphor, simile, personification, sound device, contrast, repetition, or rhyme. Label each device you used in the box below (describe your labels in words, since this box can't underline). Give your poem a title.</p>
+  <div class="card"><textarea id="miniPoem" rows="8"></textarea></div>
+
+  <div class="section-head"><h2>Final Reflection</h2></div>
+  <p>Which device was most effective in your poem, and what effect did it create?</p>
+  <div class="card"><textarea id="finalReflection" rows="6"></textarea></div>
+
+  <div class="gate">
+    <h3>Before you download</h3>
+    <label>Reflection 1: Which part of this practice made you think the hardest, and what strategy helped you get through it?</label>
+    <textarea id="metaRef1"></textarea>
+    <label>Reflection 2: How does knowing these poetry terms change the way you might read a poem in the future?</label>
+    <textarea id="metaRef2"></textarea>
+    <label>Today I am grateful for</label>
+    <input type="text" id="metaGrat" class="fillin">
+    <br><button class="dlBtn" id="downloadBtn" onclick="tryDownloadAll()">Download My Report</button>
+    <div class="hint" id="downloadHint">Complete everything on both tabs, plus the reflections above, to unlock the download.</div>
+  </div>
+</div>
+
+<div id="timer-display">00:00</div>
+
+<script>
+/* ============== DATA ============== */
+const VOCAB = [
+  {word:"Metaphor", pos:"noun", def:"A direct comparison without like or as.", example:"The moon was a silver coin."},
+  {word:"Alliteration", pos:"noun", def:"Repetition of initial consonant sounds.", example:"The bees buzzed beside the blooming bluebells."},
+  {word:"Imagery", pos:"noun", def:"Language that appeals to one or more senses.", example:"The warm bread smelled of butter and cinnamon."},
+  {word:"Hyperbole", pos:"noun", def:"An intentional exaggeration for emphasis.", example:"Her smile could light an entire city."},
+  {word:"Personification", pos:"noun", def:"Giving human qualities to something nonhuman.", example:"The hallway groaned and swallowed the last student."},
+  {word:"Connotation", pos:"noun", def:"The feelings or associations connected to a word.", example:"'Home' has a warmer connotation than 'building.'"},
+  {word:"Denotation", pos:"noun", def:"The literal dictionary meaning of a word.", example:"The denotation of 'home' is simply a dwelling."},
+  {word:"Onomatopoeia", pos:"noun", def:"A word that imitates a sound.", example:"Crash! The metal gate slammed against the wall."},
+  {word:"Simile", pos:"noun", def:"A comparison using like or as.", example:"The classroom was as silent as fresh snow."},
+  {word:"Oxymoron", pos:"noun", def:"Two contradictory words placed together.", example:"The comedian was seriously funny."},
+  {word:"Allusion", pos:"noun", def:"A reference to a familiar person, text, event, or idea.", example:"He met his Waterloo in the championship match."},
+  {word:"Apostrophe", pos:"noun", def:"Addressing an absent person, abstract idea, or nonhuman thing.", example:"O Time, slow your hurried feet."}
+];
+
+const MATCH_OPTIONS = [
+  "A. A direct comparison without like or as",
+  "B. A reference to a familiar person, text, event, or idea",
+  "C. The literal dictionary meaning of a word",
+  "D. Giving human qualities to something nonhuman",
+  "E. Repetition of initial consonant sounds",
+  "F. Language that appeals to one or more senses",
+  "G. Addressing an absent person, abstract idea, or nonhuman thing",
+  "H. An intentional exaggeration for emphasis",
+  "I. A word that imitates a sound",
+  "J. The feelings or associations connected to a word",
+  "K. A comparison using like or as",
+  "L. Two contradictory words placed together"
+];
+const MATCH_ITEMS = [
+  {id:"m1", term:"1. metaphor", correct:"A"},
+  {id:"m2", term:"2. alliteration", correct:"E"},
+  {id:"m3", term:"3. imagery", correct:"F"},
+  {id:"m4", term:"4. hyperbole", correct:"H"},
+  {id:"m5", term:"5. personification", correct:"D"},
+  {id:"m6", term:"6. connotation", correct:"J"},
+  {id:"m7", term:"7. denotation", correct:"C"},
+  {id:"m8", term:"8. onomatopoeia", correct:"I"},
+  {id:"m9", term:"9. simile", correct:"K"},
+  {id:"m10", term:"10. oxymoron", correct:"L"},
+  {id:"m11", term:"11. allusion", correct:"B"},
+  {id:"m12", term:"12. apostrophe", correct:"G"}
+];
+
+const DEVICE_BANK = ["alliteration","allusion","apostrophe","assonance","cacophony","consonance","euphony","hyperbole","imagery","internal rhyme","metaphor","metonymy","onomatopoeia","oxymoron","paradox","personification","pun","simile","synecdoche","understatement"];
+const DEVICE_ITEMS = [
+  {id:"d1", text:"1. The moon was a silver coin floating above the rooftops.", correct:"metaphor", why:"The moon IS described as a coin, a direct comparison with no 'like/as.'"},
+  {id:"d2", text:"2. The bees buzzed beside the blooming bluebells.", correct:"alliteration", why:"The repeated 'b' sound at the start of several words is alliteration."},
+  {id:"d3", text:"3. The mellow bells flowed over the quiet valley.", correct:"euphony", why:"The soft, pleasant combination of sounds creates euphony."},
+  {id:"d4", text:"4. Crash! The metal gate slammed against the wall.", correct:"onomatopoeia", why:"'Crash!' is a word that imitates the sound itself."},
+  {id:"d5", text:"5. O Time, slow your hurried feet.", correct:"apostrophe", why:"The speaker directly addresses the abstract idea of Time."},
+  {id:"d6", text:"6. The classroom was as silent as fresh snow.", correct:"simile", why:"The comparison uses 'as ... as.'"},
+  {id:"d7", text:"7. After the storm destroyed the stadium, the coach said, 'We have a small repair job.'", correct:"understatement", why:"Calling total destruction a 'small repair job' deliberately understates the severity."},
+  {id:"d8", text:"8. The crown announced new rules for the kingdom.", correct:"metonymy", why:"'Crown' stands in for the monarch/monarchy, a closely associated idea."},
+  {id:"d9", text:"9. All hands were needed on deck before the ship sailed.", correct:"synecdoche", why:"'Hands' (a part of a person) represents the whole sailors."},
+  {id:"d10", text:"10. Her smile could light an entire city.", correct:"hyperbole", why:"This is an obvious exaggeration for effect."},
+  {id:"d11", text:"11. The warm bread smelled of butter and cinnamon, and its crust crackled beneath my fingers.", correct:"imagery", why:"Smell, touch, and sound are all appealed to."},
+  {id:"d12", text:"12. The hallway groaned and swallowed the last student.", correct:"personification", why:"A hallway cannot literally groan or swallow — human/animal action is given to it."},
+  {id:"d13", text:"13. He met his Waterloo in the championship match.", correct:"allusion", why:"This references Napoleon's famous defeat at Waterloo."},
+  {id:"d14", text:"14. The rain in Spain fell mainly on the plain.", correct:"internal rhyme", why:"'rain,' 'Spain,' and 'plain' rhyme within the same line."},
+  {id:"d15", text:"15. The black sack struck the rock.", correct:"consonance", why:"The repeated 'k' sound appears within and at the ends of nearby words, not only at the start."},
+  {id:"d16", text:"16. The drummer struck the cracked cymbal: clang, clatter, scrape.", correct:"cacophony", why:"The harsh, discordant combination of sounds creates cacophony (the individual words are also onomatopoeic, but the overall effect asked for here is cacophony)."},
+  {id:"d17", text:"17. The more I learn, the more I realize how little I know.", correct:"paradox", why:"The statement seems contradictory but reveals a deeper truth."},
+  {id:"d18", text:"18. The comedian was seriously funny.", correct:"oxymoron", why:"'Seriously' and 'funny' are two contradictory words placed together."},
+  {id:"d19", text:"19. I wondered why the baseball was getting bigger. Then it hit me.", correct:"pun", why:"'It hit me' plays on both 'I suddenly realized' and 'the ball physically hit me.'"},
+  {id:"d20", text:"20. At noon I heard the tune beneath the moon.", correct:"internal rhyme", why:"'noon,' 'tune,' and 'moon' rhyme within the line."}
+];
+
+const FILL_ITEMS = [
+  {id:"f1", prompt:"1. A group of lines in a poem is a ____________________.", accepted:["stanza"]},
+  {id:"f2", prompt:"2. A repeated line or group of lines, often at the end of stanzas, is a ____________________.", accepted:["refrain"]},
+  {id:"f3", prompt:"3. A repeated section that follows each verse is a ____________________.", accepted:["chorus"]},
+  {id:"f4", prompt:"4. Rhyme within a single line is called ____________________.", accepted:["internal rhyme"]},
+  {id:"f5", prompt:"5. The pattern of stressed and unstressed beats is called ____________________.", accepted:["meter","metre"]},
+  {id:"f6", prompt:"6. The rhythmic pattern of a poetic line is its ____________________.", accepted:["rhythm"]},
+  {id:"f7", prompt:"7. A line with five iambs is written in ____________________.", accepted:["iambic pentameter"]},
+  {id:"f8", prompt:"8. A poem with no regular rhyme or metrical pattern is called ____________________.", accepted:["free verse"]},
+  {id:"f9", prompt:"9. Unrhymed iambic pentameter is called ____________________.", accepted:["blank verse"]}
+];
+
+const CLOSED_STANZA_ITEMS = [
+  {id:"cs1", prompt:"1. Write the end-rhyme pattern using letters.", accepted:["abab","a b a b"]},
+  {id:"cs2", prompt:"2. What term names this four-line stanza?", accepted:["quatrain"]}
+];
+
+const MC_ITEMS = [
+  {id:"mc1", q:"1. Which term refers to the speaker's or writer's attitude toward a subject?",
+    options:["A. atmosphere","B. tone","C. form","D. rhythm"], correct:"B",
+    rat_right:"Tone is the writer's or speaker's attitude toward the subject.",
+    rat_wrong:{A:"Atmosphere is the feeling created for the reader, not the writer's attitude.", C:"Form is the physical structure of the poem.", D:"Rhythm is the pattern of stressed and unstressed beats."}},
+  {id:"mc2", q:"2. Which term refers to the emotional feeling created for the reader?",
+    options:["A. tone","B. speaker","C. atmosphere","D. denotation"], correct:"C",
+    rat_right:"Atmosphere is the emotional feeling or mood created for the reader.",
+    rat_wrong:{A:"Tone describes the writer's attitude, not the reader's feeling.", B:"Speaker is the voice narrating the poem.", D:"Denotation is a word's literal meaning."}},
+  {id:"mc3", q:"3. Which term identifies the voice that speaks in a poem?",
+    options:["A. speaker","B. author","C. chorus","D. subject"], correct:"A",
+    rat_right:"The speaker is the voice or persona speaking in the poem, distinct from the real author.",
+    rat_wrong:{B:"The author is the real person who wrote the poem, not necessarily the voice inside it.", C:"Chorus is a repeated section, not a voice.", D:"Subject is what the poem is about, not who is talking."}},
+  {id:"mc4", q:"4. Which form traditionally has fourteen lines?",
+    options:["A. ballad","B. ode","C. lyric","D. sonnet"], correct:"D",
+    rat_right:"A sonnet is traditionally fourteen lines.",
+    rat_wrong:{A:"A ballad tells a story and has no fixed fourteen-line requirement.", B:"An ode praises or reflects on a subject; length varies.", C:"A lyric expresses personal emotion; length varies."}},
+  {id:"mc5", q:"5. Which form mainly expresses personal thoughts or emotions rather than narrating an event?",
+    options:["A. lyric","B. ballad","C. quatrain","D. blank verse"], correct:"A",
+    rat_right:"A lyric poem expresses personal thoughts and emotions.",
+    rat_wrong:{B:"A ballad narrates a story, often with a refrain.", C:"A quatrain is a four-line stanza, not a full poem type defined by content.", D:"Blank verse is unrhymed iambic pentameter, a metrical form, not defined by emotional content."}},
+  {id:"mc6", q:"6. Which form praises, celebrates, or reflects deeply on a person, object, or subject?",
+    options:["A. ode","B. refrain","C. sonnet","D. chorus"], correct:"A",
+    rat_right:"An ode praises, celebrates, or reflects deeply on its subject.",
+    rat_wrong:{B:"A refrain is a repeated line, not a poem type.", C:"A sonnet is defined by its fourteen-line structure, not by praising a subject.", D:"A chorus is a repeated section following each verse."}},
+  {id:"mc7", q:"7. Which term describes two ideas or images placed near each other to emphasize difference or connection?",
+    options:["A. contrast","B. juxtaposition","C. repetition","D. allusion"], correct:"B",
+    rat_right:"Juxtaposition is the placement of two ideas or images near each other for emphasis.",
+    rat_wrong:{A:"Contrast is the difference itself, not the technique of placement.", C:"Repetition is reusing the same word or phrase.", D:"Allusion is a reference to something familiar."}},
+  {id:"mc8", q:"8. Which term refers to the overall arrangement and physical structure of a poem?",
+    options:["A. form","B. metre","C. tone","D. imagery"], correct:"A",
+    rat_right:"Form refers to the overall arrangement and physical structure of a poem.",
+    rat_wrong:{B:"Metre is the pattern of stressed/unstressed syllables, one element of form.", C:"Tone is attitude, not structure.", D:"Imagery is sensory language, not structure."}},
+  {id:"mc9", q:"9. Which device develops one comparison through several lines or throughout an entire poem?",
+    options:["A. simile","B. extended metaphor","C. metonymy","D. allusion"], correct:"B",
+    rat_right:"An extended metaphor develops one comparison across several lines or an entire poem.",
+    rat_wrong:{A:"A simile is usually a single, brief comparison using like/as.", C:"Metonymy substitutes an associated term for the thing itself, not a sustained comparison.", D:"Allusion references something familiar; it isn't a sustained comparison."}},
+  {id:"mc10", q:"10. Which term is the broad category for imaginative expressions that go beyond literal meaning?",
+    options:["A. figurative language","B. rhyme scheme","C. blank verse","D. consonance"], correct:"A",
+    rat_right:"Figurative language is the broad category covering metaphor, simile, personification, and more.",
+    rat_wrong:{B:"Rhyme scheme is the pattern of end rhymes, a structural feature.", C:"Blank verse is a metrical form.", D:"Consonance is a sound device, one small category, not the broad umbrella."}},
+  {id:"mc11", q:"11. Which word choice has the most positive connotation for a comfortable place to live?",
+    options:["A. building","B. property","C. shelter","D. home"], correct:"D",
+    rat_right:"'Home' carries warm, comfortable associations beyond the literal dwelling.",
+    rat_wrong:{A:"'Building' is a neutral, literal term.", B:"'Property' emphasizes ownership/legal status, not comfort.", C:"'Shelter' emphasizes basic protection, a more clinical connotation."}},
+  {id:"mc12", q:"12. Which line best demonstrates dissonance or cacophony?",
+    options:["A. Soft winds wander over willows.","B. Clanging chains cracked against steel.","C. Golden light rested on the lake.","D. Low notes flowed through the room."], correct:"B",
+    rat_right:"The harsh 'cl,' 'cr,' and hard consonants create a jarring, discordant sound.",
+    rat_wrong:{A:"The soft 's' and 'w' sounds create euphony, not cacophony.", C:"The smooth, soft sounds here are euphonic.", D:"The flowing, soft sounds here are euphonic, not harsh."}}
+];
+
+/* ============== OPEN-RESPONSE ITEM LISTS (Tab B) ============== */
+const OPEN_STANZA = [
+  {id:"os3", label:"3. Identify one example of imagery and name the sense it appeals to."},
+  {id:"os4", label:"4. Identify one example of personification or metaphor. Explain your choice."},
+  {id:"os5", label:"5. How do the repeated soft sounds contribute to the atmosphere?"},
+  {id:"os6", label:"6. Describe the atmosphere in one precise adjective and support your answer with a word or phrase."}
+];
+const COMPARE_ITEMS = [
+  {id:"cp1", label:"1. Tone and atmosphere — Explain the difference and identify who or what each term describes."},
+  {id:"cp2", label:"2. Denotation and connotation — Use one word to demonstrate both meanings."},
+  {id:"cp3", label:"3. Alliteration and consonance — Explain how their sound positions may differ."},
+  {id:"cp4", label:"4. Assonance and consonance — Identify the type of sound repeated in each."},
+  {id:"cp5", label:"5. Repetition and refrain — Explain when repetition becomes a refrain."},
+  {id:"cp6", label:"6. Contrast and juxtaposition — Explain how placement strengthens a contrast."},
+  {id:"cp7", label:"7. Metonymy and synecdoche — Provide one original example of each."},
+  {id:"cp8", label:"8. Paradox and oxymoron — Explain the difference in scale or structure."},
+  {id:"cp9", label:"9. Free verse and blank verse — Explain the role of metre and rhyme in each."},
+  {id:"cp10", label:"10. Rhyme and rhyme scheme — Explain the difference between a sound relationship and an organized pattern."}
+];
+const POEM_ANALYSIS_ITEMS = [
+  {id:"pa1", label:"1. Identify the speaker. What can reasonably be inferred about the speaker's situation?"},
+  {id:"pa2", label:"2. What is the poem's tone? Support your answer with one exact phrase."},
+  {id:"pa3", label:"3. What atmosphere does the poem create? Explain how one image contributes to it."},
+  {id:"pa4", label:"4. Identify one simile and explain what it suggests."},
+  {id:"pa5", label:"5. Identify one metaphor or example of personification and explain its effect."},
+  {id:"pa6", label:"6. How does the contrast between 'a storm of notes' and 'one clear sentence' develop the poem's meaning?"},
+  {id:"pa7", label:"7. Describe the poem's form, including its stanza structure and rhyme pattern."},
+  {id:"pa8", label:"8. State one possible theme in a complete sentence. Explain how two details support it."}
+];
+const CREATE_ITEMS = [
+  {id:"cr1", label:"1. Write one line that uses alliteration and imagery."},
+  {id:"cr2", label:"2. Write one line containing internal rhyme."},
+  {id:"cr3", label:"3. Write a personification of weather."},
+  {id:"cr4", label:"4. Write a paradox and explain its hidden truth."},
+  {id:"cr5", label:"5. Write an oxymoron and place it in a complete sentence."},
+  {id:"cr6", label:"6. Write an apostrophe addressed to an abstract idea such as Time, Hope, or Fear."},
+  {id:"cr7", label:"7. Write one example of understatement in response to an extreme situation."},
+  {id:"cr8", label:"8. Create a pun, then identify the two meanings or sound-alike words involved."}
+];
+
+/* ============== STATE ============== */
+let leaveCount = 0, secondsElapsed = 0;
+const objAnswers = {}, objScore = {val:0}, objDone = {val:0};
+const objTotal = MATCH_ITEMS.length + DEVICE_ITEMS.length + FILL_ITEMS.length + CLOSED_STANZA_ITEMS.length + MC_ITEMS.length;
+const OPEN_ALL_IDS = [];
+
+/* ============== BUILD: VOCAB ============== */
+function buildVocab(){
+  const grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v){
+    const card = document.createElement('div'); card.className='vcard';
+    const h = document.createElement('h3');
+    const spk = document.createElement('button'); spk.className='spk'; spk.textContent='Play';
+    spk.addEventListener('click', function(){ speak(v.word); });
+    h.textContent = v.word + ' ';
+    h.appendChild(spk);
+    const pos = document.createElement('div'); pos.className='pos'; pos.textContent = v.pos;
+    const def = document.createElement('p'); def.textContent = v.def;
+    const ex = document.createElement('p'); ex.style.fontStyle='italic'; ex.style.color='#2d6a4f'; ex.textContent = 'e.g. ' + v.example;
+    card.appendChild(h); card.appendChild(pos); card.appendChild(def); card.appendChild(ex);
+    grid.appendChild(card);
+  });
+}
+function speak(text){
+  if (!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  window.speechSynthesis.speak(u);
+}
+
+/* ============== BUILD: MATCHING ============== */
+function buildMatch(){
+  const container = document.getElementById('matchContainer');
+  MATCH_ITEMS.forEach(function(item){
+    const row = document.createElement('div'); row.className='q-row';
+    const label = document.createElement('div'); label.className='q-label'; label.textContent = item.term;
+    const sel = document.createElement('select');
+    const blank = document.createElement('option'); blank.value=''; blank.textContent='-- choose a definition --';
+    sel.appendChild(blank);
+    MATCH_OPTIONS.forEach(function(opt){
+      const o = document.createElement('option'); o.value = opt.charAt(0); o.textContent = opt;
+      sel.appendChild(o);
+    });
+    const btn = document.createElement('button'); btn.className='checkBtn'; btn.textContent='Check';
+    const res = document.createElement('div'); res.className='result';
+    btn.addEventListener('click', function(){
+      if (!sel.value) return;
+      sel.disabled = true; btn.disabled = true;
+      objAnswers[item.id] = sel.value;
+      objDone.val++;
+      if (sel.value === item.correct){
+        res.className='result show ok'; res.textContent='Correct!';
+        objScore.val++;
+      } else {
+        const correctText = MATCH_OPTIONS.find(function(o){return o.charAt(0)===item.correct;});
+        res.className='result show bad'; res.textContent='Not quite. Correct answer: ' + correctText;
+      }
+      updateOverallProgress();
+      checkReadiness();
+    });
+    row.appendChild(label); row.appendChild(sel); row.appendChild(btn); row.appendChild(res);
+    container.appendChild(row);
+  });
+}
+
+/* ============== BUILD: DEVICE ID ============== */
+function buildDevice(){
+  const container = document.getElementById('deviceContainer');
+  DEVICE_ITEMS.forEach(function(item){
+    const row = document.createElement('div'); row.className='q-row';
+    const label = document.createElement('div'); label.className='q-label'; label.textContent = item.text;
+    const sel = document.createElement('select');
+    const blank = document.createElement('option'); blank.value=''; blank.textContent='-- choose a device --';
+    sel.appendChild(blank);
+    DEVICE_BANK.forEach(function(d){
+      const o = document.createElement('option'); o.value=d; o.textContent=d;
+      sel.appendChild(o);
+    });
+    const btn = document.createElement('button'); btn.className='checkBtn'; btn.textContent='Check';
+    const res = document.createElement('div'); res.className='result';
+    btn.addEventListener('click', function(){
+      if (!sel.value) return;
+      sel.disabled = true; btn.disabled = true;
+      objAnswers[item.id] = sel.value;
+      objDone.val++;
+      if (sel.value === item.correct){
+        res.className='result show ok'; res.textContent='Correct — ' + item.why;
+        objScore.val++;
+      } else {
+        res.className='result show bad'; res.textContent='Correct answer: ' + item.correct + '. ' + item.why;
+      }
+      updateOverallProgress();
+      checkReadiness();
+    });
+    row.appendChild(label); row.appendChild(sel); row.appendChild(btn); row.appendChild(res);
+    container.appendChild(row);
+  });
+}
+
+/* ============== BUILD: FILL-IN (generic) ============== */
+function buildFill(containerId, items){
+  const container = document.getElementById(containerId);
+  items.forEach(function(item){
+    const row = document.createElement('div'); row.className='q-row';
+    const label = document.createElement('div'); label.className='q-label'; label.textContent = item.prompt;
+    const inp = document.createElement('input'); inp.type='text';
+    const btn = document.createElement('button'); btn.className='checkBtn'; btn.textContent='Check';
+    const res = document.createElement('div'); res.className='result';
+    btn.addEventListener('click', function(){
+      const val = inp.value.trim().toLowerCase();
+      if (!val) return;
+      inp.disabled = true; btn.disabled = true;
+      objAnswers[item.id] = val;
+      objDone.val++;
+      if (item.accepted.indexOf(val) !== -1){
+        res.className='result show ok'; res.textContent='Correct!';
+        objScore.val++;
+      } else {
+        res.className='result show bad'; res.textContent='Correct answer: ' + item.accepted[0];
+      }
+      updateOverallProgress();
+      checkReadiness();
+    });
+    row.appendChild(label); row.appendChild(inp); row.appendChild(btn); row.appendChild(res);
+    container.appendChild(row);
+  });
+}
+
+/* ============== BUILD: MC (locked quiz) ============== */
+function buildMC(){
+  const container = document.getElementById('mcContainer');
+  MC_ITEMS.forEach(function(item){
+    const card = document.createElement('div'); card.className='q-row';
+    const qEl = document.createElement('div'); qEl.className='q-label'; qEl.textContent = item.q;
+    card.appendChild(qEl);
+    const optsWrap = document.createElement('div'); optsWrap.className='opts-wrap';
+    const ratDiv = document.createElement('div'); ratDiv.className='rationale';
+    let answered = false;
+    item.options.forEach(function(opt){
+      const letter = opt.charAt(0);
+      const enText = opt.replace(/^[A-D]\.\s*/,'');
+      const btn = document.createElement('button'); btn.className='opt-btn'; btn.dataset.letter=letter;
+      const strong = document.createElement('strong'); strong.textContent = letter + '. ';
+      const enS = document.createElement('span'); enS.textContent = enText;
+      btn.appendChild(strong); btn.appendChild(enS);
+      btn.addEventListener('click', function(){
+        if (answered) return;
+        answered = true;
+        objAnswers[item.id] = letter;
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b){
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+        let ratText;
+        if (letter === item.correct){
+          btn.classList.add('show-correct');
+          ratText = 'Correct — ' + item.rat_right;
+          ratDiv.className = 'rationale show correct-rat';
+          objScore.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          ratText = 'Not quite — ' + (item.rat_wrong[letter] || '') + ' (Correct: ' + item.correct + ')';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+        const rDiv = document.createElement('div'); rDiv.textContent = ratText;
+        ratDiv.appendChild(rDiv);
+        objDone.val++;
+        updateOverallProgress();
+        checkReadiness();
+      });
+      optsWrap.appendChild(btn);
+    });
+    card.appendChild(optsWrap); card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+/* ============== BUILD: OPEN RESPONSE (generic textarea list, Tab B) ============== */
+function buildOpenList(containerId, items){
+  const container = document.getElementById(containerId);
+  items.forEach(function(item){
+    const row = document.createElement('div'); row.className='q-row';
+    const label = document.createElement('div'); label.className='q-label'; label.textContent = item.label;
+    const ta = document.createElement('textarea'); ta.id = item.id;
+    ta.addEventListener('input', function(){
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      updateOverallProgress();
+      checkReadiness();
+    });
+    row.appendChild(label); row.appendChild(ta);
+    container.appendChild(row);
+    OPEN_ALL_IDS.push(item.id);
+  });
+}
+
+/* ============== PROGRESS + GATING (single combined gate) ============== */
+function countCreativeFilled(){
+  let filled = 0;
+  OPEN_ALL_IDS.forEach(function(id){
+    const el = document.getElementById(id);
+    if (el && el.value.trim().length>0) filled++;
+  });
+  const mini = document.getElementById('miniPoem');
+  const fr = document.getElementById('finalReflection');
+  if (mini && mini.value.trim()) filled++;
+  if (fr && fr.value.trim()) filled++;
+  return filled;
+}
+function creativeTotal(){ return OPEN_ALL_IDS.length + 2; }
+
+function updateOverallProgress(){
+  const objPct = objTotal ? (objDone.val/objTotal) : 0;
+  const crePct = creativeTotal() ? (countCreativeFilled()/creativeTotal()) : 0;
+  const overall = Math.round(((objPct + crePct)/2)*100);
+  document.getElementById('progressBar').style.width = overall + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + overall + '%';
+  if (objDone.val >= objTotal) document.getElementById('pip-objective').classList.add('done');
+  if (countCreativeFilled() >= creativeTotal()) document.getElementById('pip-creative').classList.add('done');
+}
+
+function checkReadiness(){
+  const ref1 = document.getElementById('metaRef1').value.trim();
+  const ref2 = document.getElementById('metaRef2').value.trim();
+  const grat = document.getElementById('metaGrat').value.trim();
+  const objReady = objDone.val >= objTotal;
+  const creReady = countCreativeFilled() >= creativeTotal();
+  const ready = objReady && creReady && ref1 && ref2 && grat;
+  const btn = document.getElementById('downloadBtn');
+  const hint = document.getElementById('downloadHint');
+  if (ready){ btn.classList.add('ready'); hint.classList.add('hidden'); }
+  else { btn.classList.remove('ready'); hint.classList.remove('hidden'); }
+}
+
+/* ============== SINGLE COMBINED DOWNLOAD ============== */
+function tryDownloadAll(){
+  const ref1 = document.getElementById('metaRef1').value.trim();
+  const ref2 = document.getElementById('metaRef2').value.trim();
+  const grat = document.getElementById('metaGrat').value.trim();
+  const mini = document.getElementById('miniPoem').value.trim();
+  const fr = document.getElementById('finalReflection').value.trim();
+  if (objDone.val < objTotal || countCreativeFilled() < creativeTotal() || !ref1 || !ref2 || !grat) return;
+
+  const name = document.getElementById('creativeName').value.trim() || document.getElementById('objectiveName').value.trim() || 'Unknown';
+  const now = new Date().toLocaleString();
+  let txt = '';
+  txt += '================================================================\n';
+  txt += 'POETRY TERMS PRACTICE — FULL REPORT\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Objective Score: ' + objScore.val + ' / ' + objTotal + '\n';
+
+  txt += '\n--- Match the Core Terms ---\n';
+  MATCH_ITEMS.forEach(function(item){
+    const sel = objAnswers[item.id] || 'Not answered';
+    txt += item.term + ' -> Selected: ' + sel + ' | Correct: ' + item.correct + '\n';
+  });
+  txt += '\n--- Identify the Device ---\n';
+  DEVICE_ITEMS.forEach(function(item){
+    const sel = objAnswers[item.id] || 'Not answered';
+    txt += item.text + '\n   Selected: ' + sel + ' | Correct: ' + item.correct + '\n';
+  });
+  txt += '\n--- Complete the Statement ---\n';
+  FILL_ITEMS.forEach(function(item){
+    const sel = objAnswers[item.id] || 'Not answered';
+    txt += item.prompt + '\n   Answered: ' + sel + ' | Accepted: ' + item.accepted.join(', ') + '\n';
+  });
+  txt += '\n--- Rhyme and Form ---\n';
+  CLOSED_STANZA_ITEMS.forEach(function(item){
+    const sel = objAnswers[item.id] || 'Not answered';
+    txt += item.prompt + '\n   Answered: ' + sel + ' | Accepted: ' + item.accepted.join(', ') + '\n';
+  });
+  txt += '\n--- Choose the Best Term ---\n';
+  MC_ITEMS.forEach(function(item){
+    const sel = objAnswers[item.id] || 'Not answered';
+    const result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += item.q + '\n   Selected: ' + sel + ' | Result: ' + result + '\n';
+  });
+
+  txt += '\n================================================================\n';
+  txt += 'STUDENT WORK — OPEN RESPONSE AND CREATIVE WRITING\n';
+  txt += '================================================================\n';
+  txt += '\n--- Sound and Structure ---\n';
+  OPEN_STANZA.forEach(function(item){ txt += item.label + '\n' + document.getElementById(item.id).value.trim() + '\n\n'; });
+  txt += '--- Compare Closely Related Terms ---\n';
+  COMPARE_ITEMS.forEach(function(item){ txt += item.label + '\n' + document.getElementById(item.id).value.trim() + '\n\n'; });
+  txt += '--- Analyze a Short Poem ---\n';
+  POEM_ANALYSIS_ITEMS.forEach(function(item){ txt += item.label + '\n' + document.getElementById(item.id).value.trim() + '\n\n'; });
+  txt += '--- Create and Apply ---\n';
+  CREATE_ITEMS.forEach(function(item){ txt += item.label + '\n' + document.getElementById(item.id).value.trim() + '\n\n'; });
+  txt += '--- Mini Poem Challenge ---\n' + mini + '\n\n';
+  txt += '--- Final Reflection (poem device) ---\n' + fr + '\n\n';
+
+  txt += '================================================================\n';
+  txt += 'MODULE REFLECTIONS\n';
+  txt += '================================================================\n';
+  txt += 'REFLECTION 1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION 2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  const blob = new Blob([txt], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'PoetryTermsPractice_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ============== UTILITY ============== */
+function switchTab(name, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+function startTimer(){
+  setInterval(function(){
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = fmt(secondsElapsed);
+  }, 1000);
+}
+function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+function trackNavigation(){
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden){
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = 'Leaves: ' + leaveCount;
+      const notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+
+/* ============== INIT ============== */
+document.addEventListener('DOMContentLoaded', function(){
+  buildVocab();
+  buildMatch();
+  buildDevice();
+  buildFill('fillContainer', FILL_ITEMS);
+  buildFill('closedStanzaContainer', CLOSED_STANZA_ITEMS);
+  buildMC();
+  buildOpenList('openStanzaContainer', OPEN_STANZA);
+  buildOpenList('compareContainer', COMPARE_ITEMS);
+  buildOpenList('poemAnalysisContainer', POEM_ANALYSIS_ITEMS);
+  buildOpenList('createContainer', CREATE_ITEMS);
+
+  ['metaRef1','metaRef2'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){
+      this.classList.toggle('filled', this.value.trim().length>0);
+      checkReadiness();
+    });
+  });
+  document.getElementById('metaGrat').addEventListener('input', function(){
+    this.classList.toggle('filled', this.value.trim().length>0);
+    checkReadiness();
+  });
+  ['miniPoem','finalReflection'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){
+      this.classList.toggle('filled', this.value.trim().length>0);
+      updateOverallProgress();
+      checkReadiness();
+    });
+  });
+
+  startTimer();
+  trackNavigation();
+  updateOverallProgress();
+});
+</script>
+</body>
+</html>
