@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English 10-1 Holiday Homework</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ml-green:#2d6a4f; --ml-green-dark:#1b4332; --ml-green-light:#d8f3dc;
+  --ml-red:#c1121f; --ml-gold:#e9c46a;
+  --ink:#1a2a1a; --ink2:#2d3748; --mist:#f8faf8; --border:#e2e8e2;
+  --cobalt:#1e3a5f; --amber:#b45309; --amber-light:#fef3c7;
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--mist);color:var(--ink2);font-family:'DM Sans',sans-serif;line-height:1.55;}
+h1,h2,h3,h4{font-family:'Literata',serif;color:var(--ml-green-dark);margin:0 0 .5em;}
+p{margin:0 0 .8em;}
+.wrap{max-width:920px;margin:0 auto;padding:0 18px 60px;}
+
+/* Anti-cheat layers */
+#stayBanner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;}
+#leaveNotice{display:none;background:#fee2e2;border-left:4px solid var(--ml-red);padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center;}
+
+header.top{background:var(--ml-green-dark);color:#fff;padding:22px 18px 18px;}
+header.top h1{color:#fff;font-size:1.5rem;margin-bottom:4px;}
+header.top .sub{color:var(--ml-green-light);font-size:.92rem;}
+.hdr-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center;}
+.hdr-meta input{font-family:'DM Sans',sans-serif;padding:8px 10px;border-radius:8px;border:none;font-size:.9rem;min-width:220px;}
+.badge{background:rgba(255,255,255,.14);border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:600;}
+.badge.leave{background:rgba(255,255,255,.24);}
+nav.tabs{position:sticky;top:33px;z-index:50;background:#fff;border-bottom:2px solid var(--border);display:flex;overflow-x:auto;}
+nav.tabs button{flex:1 0 auto;border:none;background:none;padding:14px 12px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.88rem;color:var(--ink2);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;}
+nav.tabs button.active{color:var(--ml-green-dark);border-bottom-color:var(--ml-green);}
+.tab-panel{display:none;padding-top:22px;}
+.tab-panel.active{display:block;}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin-bottom:18px;}
+.rules-list{background:var(--amber-light);border-left:4px solid var(--amber);border-radius:8px;padding:16px 20px;}
+.rules-list li{margin-bottom:6px;}
+.note{font-size:.85rem;background:#eef4fb;border-left:4px solid var(--cobalt);border-radius:6px;padding:10px 14px;margin-bottom:16px;}
+.section-lbl{font-family:'Literata',serif;font-weight:700;color:var(--ml-green-dark);text-transform:uppercase;letter-spacing:.04em;font-size:.85rem;margin:22px 0 8px;border-bottom:2px solid var(--ml-green-light);padding-bottom:4px;}
+.cn{font-family:'Noto Sans SC',sans-serif;}
+
+/* Instructions */
+.steps{counter-reset:step;list-style:none;padding:0;margin:0;}
+.steps li{counter-increment:step;position:relative;padding:6px 0 20px 46px;border-left:2px solid var(--ml-green-light);margin-left:17px;}
+.steps li:last-child{border-left-color:transparent;padding-bottom:0;}
+.steps li::before{content:counter(step);position:absolute;left:-17px;top:0;width:34px;height:34px;background:var(--ml-green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Literata',serif;}
+.step-en{font-size:1rem;margin-bottom:4px;}
+.step-cn{font-size:.95rem;color:var(--ink2);opacity:.9;}
+.file-chip{display:inline-block;background:var(--ml-green-light);color:var(--ml-green-dark);font-family:monospace;font-size:.85rem;padding:3px 10px;border-radius:6px;margin:2px 0;}
+.checklist{background:var(--amber-light);border-left:4px solid var(--amber);border-radius:8px;padding:16px 20px;margin:0;}
+.checklist li{margin-bottom:10px;list-style:none;padding-left:28px;position:relative;}
+.checklist li::before{content:"\2610";position:absolute;left:0;top:0;font-size:1.1rem;}
+
+/* Vocab */
+.vocab-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+@media(min-width:700px){.vocab-grid{grid-template-columns:1fr 1fr;}}
+.vocab-card{border:1px solid var(--border);border-radius:12px;padding:14px 16px;background:#fdfdfb;}
+.vocab-head{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.vocab-word{font-family:'Literata',serif;font-weight:700;font-size:1.1rem;color:var(--ml-green-dark);}
+.vocab-pos{font-size:.75rem;color:var(--amber);font-style:italic;margin-left:6px;}
+.speak-btn{border:none;background:var(--ml-green-light);color:var(--ml-green-dark);border-radius:999px;width:34px;height:34px;font-size:1rem;cursor:pointer;flex-shrink:0;}
+.vocab-cn{font-family:'Noto Sans SC',sans-serif;color:var(--ml-green);font-weight:600;margin:2px 0 6px;}
+.vocab-def{font-size:.92rem;margin-bottom:4px;}
+.vocab-def-cn{font-family:'Noto Sans SC',sans-serif;font-size:.88rem;color:var(--ink2);opacity:.85;margin-bottom:6px;}
+.vocab-ex{font-size:.85rem;font-style:italic;color:var(--cobalt);border-left:3px solid var(--ml-green-light);padding-left:10px;}
+
+/* Concept instruction blocks */
+.concept-block{border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px;background:#fdfdfb;}
+.concept-block h3{margin-bottom:6px;}
+.concept-block h3 .cn{display:block;font-size:.7em;color:var(--ml-green);font-weight:500;margin-top:2px;}
+.strat-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.88rem;}
+.strat-table th,.strat-table td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top;}
+.strat-table th{background:var(--ml-green-light);color:var(--ml-green-dark);font-family:'Literata',serif;}
+.callout{background:var(--amber-light);border-left:4px solid var(--amber);border-radius:8px;padding:12px 16px;margin:12px 0;font-size:.9rem;}
+.callout b{color:var(--amber);}
+.example-line{margin-bottom:6px;font-size:.9rem;}
+.example-line b{color:var(--ml-green-dark);}
+.script-box{background:var(--ink);color:#e7f3ec;font-family:'Literata',serif;font-style:italic;font-size:.92rem;border-radius:10px;padding:14px 18px;margin:10px 0;}
+.stress-demo{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0;}
+.stress-demo span{background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:.9rem;}
+.stress-demo b{color:var(--ml-red);font-family:'Literata',serif;}
+
+/* Quiz */
+.quiz-card{border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px;background:#fff;}
+.q-num{font-size:.78rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px;}
+.passage-box{background:var(--ml-green-light);border-radius:8px;padding:12px 14px;font-family:'Literata',serif;font-style:italic;font-size:.92rem;margin-bottom:10px;}
+.play-btn{display:inline-flex;align-items:center;gap:8px;border:none;background:var(--ml-green);color:#fff;border-radius:999px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;cursor:pointer;margin-bottom:10px;}
+.play-btn .cn{font-family:'Noto Sans SC',sans-serif;font-weight:400;opacity:.9;}
+details.script-toggle{margin-bottom:10px;}
+details.script-toggle summary{cursor:pointer;font-size:.82rem;color:var(--ink2);opacity:.8;margin-bottom:6px;}
+details.script-toggle summary .cn{opacity:.8;}
+details.script-toggle .passage-box{margin-top:6px;margin-bottom:0;}
+.q-text{font-weight:600;margin-bottom:2px;}
+.q-cn{font-size:.9rem;color:var(--ink2);opacity:.85;margin-bottom:10px;}
+.opts-wrap{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{text-align:left;border:2px solid var(--border);border-radius:10px;padding:10px 14px;background:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.92rem;}
+.opt-btn strong{color:var(--ml-green-dark);}
+.opt-btn .cn{display:block;font-size:.85rem;color:var(--ink2);opacity:.8;margin-top:2px;}
+.opt-btn:disabled{cursor:default;}
+.opt-btn.selected-correct{border-color:var(--ml-green);background:var(--ml-green-light);}
+.opt-btn.selected-wrong{border-color:var(--ml-red);background:#fee2e2;}
+.opt-btn.show-correct{border-color:var(--ml-green);}
+.rationale{display:none;margin-top:10px;font-size:.88rem;padding:10px 14px;border-radius:8px;}
+.rationale.show{display:block;}
+.rationale.correct-rat{background:var(--ml-green-light);color:var(--ml-green-dark);}
+.rationale.wrong-rat{background:#fee2e2;color:#7f1d1d;}
+.rationale .cn{display:block;opacity:.9;margin-top:2px;}
+
+/* Reflect / gratitude / download */
+.field{margin-bottom:16px;}
+.field label{display:block;font-weight:600;font-size:.9rem;margin-bottom:5px;color:var(--ml-green-dark);}
+.field textarea, .field input[type=text]{width:100%;font-family:'DM Sans',sans-serif;font-size:.95rem;padding:9px 11px;border:1px solid var(--border);border-radius:8px;resize:vertical;}
+.field textarea{min-height:70px;}
+.field.filled textarea, .field.filled input[type=text]{border-color:var(--ml-green);background:#fbfffc;}
+.grat-line{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:.98rem;}
+.grat-line input[type=text]{flex:1;min-width:160px;}
+.progress-wrap{background:var(--border);border-radius:999px;height:10px;overflow:hidden;margin:10px 0 4px;}
+.progress-bar{background:var(--ml-gold);height:100%;width:0%;transition:width .25s;}
+.progress-line{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:var(--ink2);opacity:.85;margin-bottom:4px;}
+.dl-btn{display:block;width:100%;margin-top:10px;padding:16px;border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-weight:700;font-size:1.05rem;background:#c9d3c9;color:#5a6a5a;cursor:not-allowed;opacity:.7;}
+.dl-btn.ready{background:var(--ml-green);color:#fff;cursor:pointer;opacity:1;}
+.dl-hint{text-align:center;font-size:.85rem;color:var(--ml-red);margin-top:8px;}
+.dl-hint.hidden{display:none;}
+
+#timer{position:fixed;bottom:16px;right:16px;background:var(--ml-green-dark);color:#fff;padding:8px 14px;border-radius:999px;font-size:.82rem;font-weight:600;box-shadow:0 2px 8px rgba(0,0,0,.2);z-index:80;}
+
+</style>
+</head>
+<body>
+<div id="stayBanner">&#9888;&#65039; Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. &middot; <span class="cn">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span></div>
+<div id="leaveNotice">&#128680; Tab switch recorded! Your teacher will see this. &middot; <span class="cn">标签页切换已记录！</span></div>
+<header class="top"><div class="wrap">
+<h1>English 10-1 Holiday Homework</h1>
+<div class="sub">Listening Skills &middot; <span class="cn">听力技能</span></div>
+<div class="hdr-meta">
+<input type="text" id="studentName" placeholder="Type your full name here">
+<span class="badge leave" id="leaveBadge">&#128682; Leaves: 0</span>
+</div>
+</div></header>
+<nav class="tabs">
+<button class="tab-btn active" data-tab="instructions" onclick="switchTab('instructions',this)">1. Instructions</button>
+<button class="tab-btn" data-tab="vocab" onclick="switchTab('vocab',this)">2. Vocab</button>
+<button class="tab-btn" data-tab="ls" onclick="switchTab('ls',this)">3. Listening Strategies</button>
+<button class="tab-btn" data-tab="sm" onclick="switchTab('sm',this)">4. Sound &amp; Meaning</button>
+</nav>
+<div class="wrap">
+
+<!-- TAB 1: INSTRUCTIONS -->
+<section id="tab-instructions" class="tab-panel active">
+<div class="card">
+<h2>What to Do<span class="cn" style="display:block;font-size:.7em;color:var(--ml-green);font-weight:500;margin-top:2px;">要做什么</span></h2>
+<ol class="steps">
+<li><div class="step-en">Type your full name at the top of the page. This name will be used in both files you download.</div><div class="step-cn cn">在页面顶部输入你的全名。你下载的两个文件都会使用这个名字。</div></li>
+<li><div class="step-en">First finish the paper parts of your workbook: the word definition/drawing table, the two recorded listening scripts, and the voice/word-stress speaking activities. Work alone with a pencil and a device that can record your voice or read text aloud.</div><div class="step-cn cn">先完成练习册中的纸质部分：单词定义/绘图表、两段录音听力材料，以及语音/词重音口语活动。独自完成，准备好铅笔和一台可以录音或朗读文字的设备。</div></li>
+<li><div class="step-en">Come to tab <b>2 (Vocab)</b> and review the key listening words. Tap the speaker icon to hear each word.</div><div class="step-cn cn">进入第 <b>2</b> 个标签页（词汇），复习关键听力词汇。点击喇叭图标可以听到每个单词的发音。</div></li>
+<li><div class="step-en">Go to tabs <b>3</b> and <b>4</b>. Read the instruction in each tab, then answer all 10 quiz questions. Once you click an answer, it locks in &mdash; you cannot change it.</div><div class="step-cn cn">进入第 <b>3</b> 和第 <b>4</b> 个标签页。阅读每个标签页中的说明，然后回答全部10道测验题。一旦你点击了答案，它就会被锁定——不能更改。</div></li>
+<li><div class="step-en">In each of tabs 3 and 4, answer both reflection questions and finish the gratitude sentence. The download button unlocks only after everything in that tab is complete.</div><div class="step-cn cn">在第3和第4个标签页中，回答两个反思问题并完成感恩句子。只有在该标签页的所有内容都完成后，下载按钮才会解锁。</div></li>
+<li><div class="step-en">Download your report from tab 3 and from tab 4. Upload both files to the Schoology assignment.</div><div class="step-cn cn">从第3和第4个标签页分别下载报告。把两个文件都上传到Schoology作业中。</div></li>
+</ol>
+<div class="note">Work alone. No one needs to check your answers while you work. If you have no recording device for the paper activities, cover the script, ask someone at home to read it once, then answer alone.<br><span class="cn">独自完成。做题时不需要有人检查你的答案。如果没有录音设备，可以盖住原文，请家人朗读一次，然后自己独立作答。</span></div>
+</div>
+<div class="card">
+<h2>You Should End Up With 2 Files<span class="cn" style="display:block;font-size:.7em;color:var(--ml-green);font-weight:500;margin-top:2px;">你最终应该有2个文件</span></h2>
+<p><span class="file-chip">MLWS_LS_[YourName]_[Date].txt</span> &mdash; from tab 3, Listening Strategies</p>
+<p><span class="file-chip">MLWS_SM_[YourName]_[Date].txt</span> &mdash; from tab 4, Sound &amp; Meaning</p>
+<p class="note" style="margin-top:14px;">You can complete tabs 3 and 4 in any order, and you do not have to finish both in one sitting &mdash; but remember, closing the page without downloading means losing your work in progress.<br><span class="cn">第3和第4个标签页可以按任意顺序完成，也不需要一次完成——但请记住，没有下载就关闭页面会导致正在进行的内容丢失。</span></p>
+</div>
+</section>
+
+<!-- TAB 2: VOCAB -->
+<section id="tab-vocab" class="tab-panel">
+<div class="card">
+<h2>Listening Vocabulary<span class="cn" style="display:block;font-size:.7em;color:var(--ml-green);font-weight:500;margin-top:2px;">听力词汇</span></h2>
+<p>Tap the speaker icon to hear each word. Read the definition and the example sentence.<br><span class="cn">点击喇叭图标听单词发音。阅读定义和例句。</span></p>
+<div class="vocab-grid" id="vocabGrid"></div>
+</div>
+</section>
+
+<!-- TAB 3: LISTENING STRATEGIES -->
+<section id="tab-ls" class="tab-panel">
+<div class="card">
+<div class="field"><label>Student Name (already filled from the top of the page)</label></div>
+
+<h2>Your Listening Toolkit<span class="cn" style="display:block;font-size:.7em;color:var(--ml-green);font-weight:500;margin-top:2px;">你的听力工具箱</span></h2>
+<p>Good listeners do more than just hear sound &mdash; they use strategies to understand and remember the message.<br><span class="cn">好的倾听者不只是听到声音——他们会用策略来理解和记住信息。</span></p>
+
+<div class="concept-block">
+<h3>The Core Strategies<span class="cn">核心策略</span></h3>
+<table class="strat-table">
+<tr><th>Strategy</th><th>What it means</th><th>Example</th></tr>
+<tr><td><b>Pay attention / Focus</b><br><span class="cn">专注</span></td><td>Look at the speaker and put other things down before they finish.</td><td>You put down your pencil and look at a friend while they talk.</td></tr>
+<tr><td><b>Keep an open mind</b><br><span class="cn">保持开放心态</span></td><td>Hear the whole message before deciding what you think.</td><td>You wait until a friend finishes explaining before you react.</td></tr>
+<tr><td><b>Reflect</b><br><span class="cn">反映</span></td><td>Say the idea or feeling back in your own words.</td><td>"So you missed the bus, and that was hard?"</td></tr>
+<tr><td><b>Clarify</b><br><span class="cn">澄清</span></td><td>Ask a question when something is unclear.</td><td>"Do you mean the poster?"</td></tr>
+<tr><td><b>Summarize</b><br><span class="cn">概括</span></td><td>Tell only the most important parts, in fewer words.</td><td>Turning a long notice into one short sentence.</td></tr>
+</table>
+</div>
+
+<div class="concept-block">
+<h3>Three More Tools: Infer, Predict, Connect<span class="cn">三个额外工具：推断、预测、联系</span></h3>
+<div class="example-line"><b>Infer</b> &mdash; use clues to work out something that was not said directly.<br><span class="cn">推断——利用线索推测出没有直接说出来的信息。</span><br>Example: You hear wet shoes and see an umbrella by the door, so you infer it is raining outside.</div>
+<div class="example-line"><b>Predict</b> &mdash; guess what will happen next using the clues you hear.<br><span class="cn">预测——根据听到的线索猜测接下来会发生什么。</span><br>Example: The sky is dark and the team goes indoors, so you predict the match may be delayed.</div>
+<div class="example-line"><b>Connect</b> &mdash; link the message to something you already know or have experienced.<br><span class="cn">联系——把信息和你已经知道或经历过的事情联系起来。</span><br>Example: A story about a lost pet reminds you of the day you looked for your own cat.</div>
+</div>
+
+<div class="callout"><b>Worked Example &middot; <span class="cn">范例</span></b><br>
+A friend says, "I was late because&hellip;" and you start telling your own story before they finish. The better move is to <b>keep an open mind</b> and let them finish &mdash; that way you actually learn the real reason, instead of guessing.<br>
+<span class="cn">一个朋友说“我迟到是因为……”，你却在他讲完之前就开始讲自己的故事。更好的做法是<b>保持开放的心态</b>，等他讲完——这样你才能了解真正的原因，而不是自己乱猜。</span>
+</div>
+
+<div class="section-lbl">Quiz &middot; <span class="cn">测验</span></div>
+<p style="font-size:.9rem;">Select the best answer. You cannot change your answer after you select it.<br><span class="cn">选择最佳答案。选择后不能更改。</span></p>
+<div id="lsQuizContainer"></div>
+
+<div class="section-lbl">Reflect &middot; <span class="cn">反思</span></div>
+<div class="field">
+<label>1. Think of a time this week when you did not fully listen to someone. Which strategy (pay attention, reflect, clarify, summarize, infer, predict, connect) could have helped you understand them better? Explain how.</label>
+<textarea id="lsRef1" placeholder="Write your answer here / 在这里写下你的答案"></textarea>
+</div>
+<div class="field">
+<label>2. Which listening strategy is easiest for you, and which is hardest? Give one example from your own life for each.</label>
+<textarea id="lsRef2" placeholder="Write your answer here / 在这里写下你的答案"></textarea>
+</div>
+<div class="field">
+<label>Gratitude &middot; <span class="cn">感恩</span></label>
+<div class="grat-line">Today I am grateful for <input type="text" id="lsGrat" placeholder="___"></div>
+</div>
+
+<div class="progress-line"><span>Listening Strategies progress &middot; <span class="cn">听力策略进度</span></span><span id="lsProgressText">0%</span></div>
+<div class="progress-wrap"><div class="progress-bar" id="lsProgressBar"></div></div>
+<button class="dl-btn" id="lsDownloadBtn" onclick="tryDownload('ls')">Download My Listening Strategies Report (.txt)</button>
+<div class="dl-hint" id="lsHint">Complete all 10 quiz questions and both reflection fields (plus gratitude) to unlock the download.<br><span class="cn">完成全部10道测验题和两个反思问题（以及感恩句子）才能解锁下载。</span></div>
+</div>
+</section>
+
+<!-- TAB 4: SOUND & MEANING -->
+<section id="tab-sm" class="tab-panel">
+<div class="card">
+<h2>How Voice Changes Meaning<span class="cn" style="display:block;font-size:.7em;color:var(--ml-green);font-weight:500;margin-top:2px;">声音如何改变意思</span></h2>
+<p>The same words can mean different things depending on how they are said. Three sound features matter most: word stress, reduced speech, and intonation.<br><span class="cn">同样的词语，说的方式不同，意思也可能不同。三个最重要的语音特点是：词重音、连读（弱化）和语调。</span></p>
+
+<div class="concept-block">
+<h3>Word Stress<span class="cn">词重音</span></h3>
+<p>Saying one word louder or longer shows that word is the important, or corrected, part of the message.<br><span class="cn">把某个词说得更响亮或更长，说明那个词是信息中重要或需要纠正的部分。</span></p>
+<div class="stress-demo">
+<span>Someone gives you a red cup &rarr; "I wanted the <b>BLUE</b> cup." <span class="cn">(纠正颜色)</span></span>
+<span>Someone gives you a blue plate &rarr; "I wanted the blue <b>CUP</b>." <span class="cn">(纠正物品)</span></span>
+</div>
+</div>
+
+<div class="concept-block">
+<h3>Reduced Speech<span class="cn">连读 / 弱化</span></h3>
+<p>In fast, casual speech, small words often blend together and sound shorter. In school writing, always use the full words.<br><span class="cn">在快速、随意的口语中，小词常常会连读在一起，听起来变短。但在正式书写中，要使用完整的词。</span></p>
+<table class="strat-table">
+<tr><th>Full words</th><th>Sounds like</th></tr>
+<tr><td>want to</td><td>wanna</td></tr>
+<tr><td>going to</td><td>gonna</td></tr>
+</table>
+</div>
+
+<div class="concept-block">
+<h3>Intonation<span class="cn">语调</span></h3>
+<p>Intonation is the rise and fall of your voice. A question often rises at the end, even if the words are exactly the same as a statement.<br><span class="cn">语调是说话时声音的升降。疑问句结尾的声调常常会上升，即使词语和陈述句完全一样。</span></p>
+<div class="example-line"><b>Statement:</b> "We are meeting today." (voice stays level or falls)<br><b>Question:</b> "We are meeting today?" (voice rises at the end)<br><span class="cn">陈述句的声调保持平稳或下降；疑问句的结尾声调会上升。</span></div>
+</div>
+
+<div class="callout"><b>Tip &middot; <span class="cn">小提示</span></b><br>
+A flat, unenthusiastic voice after bad news (like saying "Great." after a bike breaks) usually means the opposite of the word &mdash; the speaker is probably upset, not happy.<br>
+<span class="cn">在坏消息之后用平淡、没有热情的声音说话（比如自行车坏了之后说“太好了”），通常表示和字面意思相反——说话人可能是不高兴的，而不是真的高兴。</span>
+</div>
+
+<div class="section-lbl">Quiz &middot; <span class="cn">测验</span></div>
+<p style="font-size:.9rem;">Select the best answer. You cannot change your answer after you select it.<br><span class="cn">选择最佳答案。选择后不能更改。</span></p>
+<div id="smQuizContainer"></div>
+
+<div class="section-lbl">Reflect &middot; <span class="cn">反思</span></div>
+<div class="field">
+<label>1. Say one of your own sentences aloud two ways: once with rising intonation (like a question) and once with falling intonation (like a statement). Describe what changed about the meaning.</label>
+<textarea id="smRef1" placeholder="Write your answer here / 在这里写下你的答案"></textarea>
+</div>
+<div class="field">
+<label>2. Choose one sentence you say often. Explain how stressing a different word in that sentence would change its meaning.</label>
+<textarea id="smRef2" placeholder="Write your answer here / 在这里写下你的答案"></textarea>
+</div>
+<div class="field">
+<label>Gratitude &middot; <span class="cn">感恩</span></label>
+<div class="grat-line">Today I am grateful for <input type="text" id="smGrat" placeholder="___"></div>
+</div>
+
+<div class="progress-line"><span>Sound &amp; Meaning progress &middot; <span class="cn">语音与意义进度</span></span><span id="smProgressText">0%</span></div>
+<div class="progress-wrap"><div class="progress-bar" id="smProgressBar"></div></div>
+<button class="dl-btn" id="smDownloadBtn" onclick="tryDownload('sm')">Download My Sound &amp; Meaning Report (.txt)</button>
+<div class="dl-hint" id="smHint">Complete all 10 quiz questions and both reflection fields (plus gratitude) to unlock the download.<br><span class="cn">完成全部10道测验题和两个反思问题（以及感恩句子）才能解锁下载。</span></div>
+</div>
+</section>
+
+</div>
+<div id="timer">&#9201; 00:00</div>
+
+<script>
+
+const VOCAB = [
+  {word:"focus", pos:"verb", cn:"专注", def:"To pay close attention to a speaker or a task.", cn_def:"非常专心地注意说话人或某件事。", example:"I focus on my teacher when she gives instructions."},
+  {word:"clue", pos:"noun", cn:"线索", def:"A small piece of information that helps you understand something.", cn_def:"帮助你理解某件事的一小部分信息。", example:"The dark sky was a clue that it might rain."},
+  {word:"reflect", pos:"verb", cn:"反映", def:"To say an idea or feeling back to the speaker in your own words.", cn_def:"用自己的话把说话人的意思或感受说回去。", example:"I reflected her feeling by saying, 'So you felt nervous?'"},
+  {word:"clarify", pos:"verb", cn:"澄清", def:"To ask a question so a message becomes clear.", cn_def:"提出问题让信息变得清楚。", example:"I asked, 'Do you mean the poster?' to clarify."},
+  {word:"infer", pos:"verb", cn:"推断", def:"To use clues to work out something that was not said directly.", cn_def:"利用线索推测出没有直接说出来的信息。", example:"I heard wet shoes and inferred that it was raining outside."},
+  {word:"summarize", pos:"verb", cn:"概括", def:"To tell the main points of a message using fewer words.", cn_def:"用更少的词说出信息的主要内容。", example:"I summarized the notice in one short sentence."},
+  {word:"predict", pos:"verb", cn:"预测", def:"To guess what will happen next using clues you hear.", cn_def:"根据听到的线索猜测接下来会发生什么。", example:"I predicted the pot near the window would grow first."},
+  {word:"connect", pos:"verb", cn:"联系", def:"To link new information to something you already know or have experienced.", cn_def:"把新信息和自己已经知道或经历过的事情联系起来。", example:"The story about a lost pet connected to the day I lost my own cat."},
+  {word:"visualize", pos:"verb", cn:"想象", def:"To form a picture in your mind while you listen.", cn_def:"在听的时候在脑海中形成画面。", example:"I visualized the path from the gate to the library."},
+  {word:"question", pos:"verb", cn:"提问", def:"To ask about something in order to understand it better.", cn_def:"为了更好地理解而提出问题。", example:"I questioned why the door was open."},
+  {word:"word stress", pos:"noun", cn:"词重音", def:"Saying one word louder or longer to show it is important.", cn_def:"把某个词说得更响亮或更长，表示它很重要。", example:"I said, 'I wanted the BLUE cup,' to correct the color."},
+  {word:"reduced speech", pos:"noun", cn:"连读/弱化", def:"Words that sound shorter or blended together in fast, casual speech.", cn_def:"在快速、随意的口语中，词语听起来变短或连读在一起。", example:"'Want to' often sounds like 'wanna' in quick speech."},
+  {word:"intonation", pos:"noun", cn:"语调", def:"The rise and fall of the voice while speaking.", cn_def:"说话时声音的升降变化。", example:"My voice rose at the end of 'You finished?' to show a question."}
+];
+
+const LS_Q = [
+  {id:"ls1", title:"Clarifying", q:"What does it mean to clarify?", q_cn:"“澄清”是什么意思？",
+    options:["A. Ask for details|A. 提出细节问题","B. Guess without asking|B. 不问就猜","C. Change the topic|C. 改变话题","D. Speak louder|D. 说得更大声"],
+    correct:"A",
+    rat_right:"To clarify means to ask a question so the message becomes clear.|澄清的意思是提出问题，让意思变得清楚。",
+    rat_wrong:{
+      B:"Guessing without asking is not clarifying — it can lead to a wrong idea.|不问就猜不是澄清，可能会导致理解错误。",
+      C:"Changing the topic does not help you understand the first message.|改变话题不能帮助你理解原来的内容。",
+      D:"Speaking louder does not make a message clearer, it only makes it louder.|说得更大声并不能让内容更清楚，只是声音更大。"
+    }},
+  {id:"ls2", title:"Summarizing", q:"What is a summary?", q_cn:"什么是“概括”？",
+    options:["A. Every word from a talk|A. 一段话中的每一个词","B. A new ending|B. 一个新的结尾","C. The main points in fewer words|C. 用更少的词说出主要内容","D. Only your opinion|D. 只是你自己的看法"],
+    correct:"C",
+    rat_right:"A summary tells the main points using fewer words than the original.|摘要是用比原文更少的词语说出主要内容。",
+    rat_wrong:{
+      A:"Repeating every word is not a summary, it is the whole message again.|重复每一个词不是摘要，而是把整段话再说一遍。",
+      B:"A summary does not add a new ending, it reports what was actually said.|摘要不会加上新的结尾，而是说出实际讲过的内容。",
+      D:"A summary reports the speaker's main points, not your own opinion.|摘要说的是说话人的主要意思，而不是你自己的看法。"
+    }},
+  {id:"ls3", title:"Asking to Clarify", q:"Your friend says, \"Meet me there.\" What is the best reply?", q_cn:"朋友说“在那里见我”。最好的回答是什么？",
+    options:["A. \"Fine.\"|A. “好的。”","B. \"Where do you mean?\"|B. “你是说哪里？”","C. \"I will not listen.\"|C. “我不会听的。”","D. \"You must be wrong.\"|D. “你一定是错了。”"],
+    correct:"B",
+    rat_right:"\"Where do you mean?\" clarifies the unclear word \"there.\"|“你是说哪里？”这句话澄清了不清楚的词“那里”。",
+    rat_wrong:{
+      A:"\"Fine\" does not ask about the unclear detail, so confusion continues.|“好的”并没有询问不清楚的部分，误会会继续存在。",
+      C:"Refusing to listen does not help you understand the message.|拒绝听不能帮助你理解对方的意思。",
+      D:"Telling a friend they are wrong does not clarify what \"there\" means.|说朋友“你错了”并不能澄清“那里”是指哪里。"
+    }},
+  {id:"ls4", title:"Making an Inference", q:"A speaker says, \"Bring your coat. The sky is dark.\" What might happen?", q_cn:"说话人说：“带上外套，天空变暗了。”可能会发生什么？",
+    options:["A. A test will begin|A. 考试要开始了","B. It may rain|B. 可能要下雨了","C. It is midnight|C. 现在是午夜","D. The coat is lost|D. 外套丢了"],
+    correct:"B",
+    rat_right:"A dark sky is a clue that rain may come, so the listener infers rain.|天空变暗是可能下雨的线索，所以听者可以推断快要下雨了。",
+    rat_wrong:{
+      A:"Nothing in the sentence connects a dark sky to a test.|句子中没有任何内容把天空变暗和考试联系起来。",
+      C:"A dark sky during the day is a weather clue, not a clue about the time of night.|白天天空变暗是天气的线索，不是关于午夜时间的线索。",
+      D:"The sentence tells the listener to bring a coat, so it is not lost.|句子告诉听者要带上外套，所以外套并没有丢。"
+    }},
+  {id:"ls5", title:"Reflecting a Feeling", q:"Which reply reflects \"I feel nervous about the game\"?", q_cn:"哪句回答反映了“我对这场比赛感到紧张”？",
+    options:["A. \"So the game makes you feel worried?\"|A. “所以这场比赛让你感到担心？”","B. \"I like pizza.\"|B. “我喜欢比萨。”","C. \"You are silly.\"|C. “你真傻。”","D. \"The game is blue.\"|D. “比赛是蓝色的。”"],
+    correct:"A",
+    rat_right:"This reply says the speaker's feeling back in different words — that is reflecting.|这句回答用不同的词把说话人的感受说了回去——这就是“反映”。",
+    rat_wrong:{
+      B:"Talking about pizza ignores the speaker's feeling completely.|谈论比萨完全忽略了说话人的感受。",
+      C:"Calling someone silly does not show that you heard their feeling.|说别人“傻”并不能表示你听懂了他们的感受。",
+      D:"This reply changes the topic instead of reflecting the feeling.|这句回答改变了话题，而不是反映对方的感受。"
+    }},
+  {id:"ls6", title:"Listening Detective — Scene 1", passage:"A friend says, \"I was late because...\" You begin to tell your own story before the friend finishes.", q:"What should you do?", q_cn:"你应该怎么做？",
+    options:["A. Finish the friend's sentence|A. 替朋友把话说完","B. Listen until the friend finishes|B. 听到朋友讲完为止","C. Look away|C. 把目光移开"],
+    correct:"B",
+    rat_right:"Good listeners let the speaker finish before responding — this shows you keep an open mind.|好的倾听者会等说话人讲完再回应——这说明你保持开放的心态。",
+    rat_wrong:{
+      A:"Finishing someone else's sentence assumes you already know their reason, which may be wrong.|替别人把话说完，等于假设你已经知道原因，但这可能是错的。",
+      C:"Looking away shows you are not focusing on the speaker.|把目光移开说明你没有专注在说话人身上。"
+    }},
+  {id:"ls7", title:"Listening Detective — Scene 2", passage:"A friend says, \"I missed the bus and feel upset.\"", q:"Which reply reflects the message?", q_cn:"哪句回答反映了这句话的意思？",
+    options:["A. \"Buses are green.\"|A. “公交车是绿色的。”","B. \"So you missed the bus, and that was hard?\"|B. “所以你错过了公交车，这让你很难受？”","C. \"Forget about it.\"|C. “别想了。”"],
+    correct:"B",
+    rat_right:"This reply says the friend's situation and feeling back in your own words.|这句回答用你自己的话说出了朋友的情况和感受。",
+    rat_wrong:{
+      A:"This reply is about bus color, not about the friend's message.|这句话讲的是公交车的颜色，与朋友说的内容无关。",
+      C:"Telling someone to forget about it does not show you heard their feeling.|叫别人“别想了”并不能说明你听懂了他们的感受。"
+    }},
+  {id:"ls8", title:"Showing Attention", q:"Which action shows attention?", q_cn:"哪种行为表示专注？",
+    options:["A. Interrupting|A. 打断别人","B. Checking another page|B. 看别的页面","C. Listening to the whole message|C. 听完整段话","D. Guessing the ending aloud|D. 大声猜结尾"],
+    correct:"C",
+    rat_right:"Listening to the whole message before reacting shows real attention.|在做出反应之前听完整段话，才是真正的专注。",
+    rat_wrong:{
+      A:"Interrupting stops you from hearing the rest of the message.|打断别人会让你听不到接下来的内容。",
+      B:"Checking another page takes your focus away from the speaker.|看别的页面会让你的注意力离开说话人。",
+      D:"Guessing the ending means you stopped listening before the message finished.|猜结尾意味着你在讲完之前就已经停止倾听了。"
+    }},
+  {id:"ls9", title:"Reading a Flat Voice", passage:"Tom says \"Great.\" in a flat voice after his bike breaks.", q:"What might he mean?", q_cn:"他可能是什么意思？",
+    options:["A. He may be upset|A. 他可能不高兴","B. His bike is new|B. 他的自行车是新的","C. He is asking a question|C. 他在提问","D. He is counting|D. 他在数数"],
+    correct:"A",
+    rat_right:"A flat voice with bad news usually signals the opposite of the word — Tom is likely upset.|在坏消息后用平淡的语气说话，通常表示和字面意思相反——汤姆很可能是不高兴的。",
+    rat_wrong:{
+      B:"The sentence says his bike broke, so it is not new.|句子说他的自行车坏了，所以不是新的。",
+      C:"\"Great.\" said flatly is a statement, not a question, so there is no rising intonation.|平淡地说“太好了”是陈述句，不是疑问句，所以没有语调上升。",
+      D:"Nothing in the sentence involves numbers or counting.|句子里没有涉及数字或数数的内容。"
+    }},
+  {id:"ls10", title:"What Makes a Question", q:"What can make the same words sound like a question?", q_cn:"什么能让相同的词听起来像疑问句？",
+    options:["A. The speaker's shoes|A. 说话人的鞋子","B. The room number|B. 房间号码","C. The paper color|C. 纸的颜色","D. Rising intonation|D. 语调上升"],
+    correct:"D",
+    rat_right:"Rising intonation at the end of a sentence signals a question even with the same words.|句尾语调上升即使用相同的词也能让句子听起来像疑问句。",
+    rat_wrong:{
+      A:"This has nothing to do with how a sentence sounds.|这与句子听起来怎样没有关系。",
+      B:"This has nothing to do with how a sentence sounds.|这与句子听起来怎样没有关系。",
+      C:"This has nothing to do with how a sentence sounds.|这与句子听起来怎样没有关系。"
+    }}
+];
+
+const SM_Q = [
+  {id:"sm1", title:"Reduced Speech", q:"Which word pair can sound like \"wanna\" in quick speech?", q_cn:"哪一组词在快速口语中听起来像“wanna”？",
+    options:["A. went to|A. went to","B. want to|B. want to","C. will not|C. will not","D. was not|D. was not"],
+    correct:"B",
+    rat_right:"In fast, casual speech, \"want to\" often blends into \"wanna.\"|在快速、随意的口语中，“want to”常常会连读成“wanna”。",
+    rat_wrong:{
+      A:"\"Went to\" is past tense and does not reduce to \"wanna.\"|“went to”是过去式，不会连读成“wanna”。",
+      C:"\"Will not\" usually reduces to \"won't,\" not \"wanna.\"|“will not”通常会缩读成“won't”，而不是“wanna”。",
+      D:"\"Was not\" usually reduces to \"wasn't,\" not \"wanna.\"|“was not”通常会缩读成“wasn't”，而不是“wanna”。"
+    }},
+  {id:"sm2", title:"Word Stress", passage:"\"I said the GREEN book.\"", q:"Why stress GREEN?", q_cn:"为什么要重读GREEN？",
+    options:["A. To ask about time|A. 为了询问时间","B. To correct the color|B. 为了纠正颜色","C. To end the talk|C. 为了结束谈话","D. To count books|D. 为了数书的数量"],
+    correct:"B",
+    rat_right:"Stressing GREEN highlights that color was the wrong or misunderstood detail.|重读“GREEN”是为了强调颜色是说错或被误解的细节。",
+    rat_wrong:{
+      A:"Stress on a color word is not related to asking about time.|重读一个表示颜色的词与询问时间无关。",
+      C:"Word stress changes meaning, it does not end a conversation.|重音会改变意思，而不是用来结束谈话。",
+      D:"Stress on GREEN highlights color, not a number of books.|重读“GREEN”强调的是颜色，而不是书的数量。"
+    }},
+  {id:"sm3", title:"Rising Intonation", passage:"A speaker says \"We are meeting today?\" with the voice rising at the end.", q:"What does the rising voice most likely show?", q_cn:"上升的语调最可能表示什么？",
+    options:["A. The speaker is bored|A. 说话人很无聊","B. The speaker is asking a question|B. 说话人在提问","C. The speaker is angry|C. 说话人很生气","D. The speaker is whispering|D. 说话人在小声说话"],
+    correct:"B",
+    rat_right:"Rising intonation at the end of a sentence usually shows a question, even without changing the words.|句尾语调上升通常表示疑问句，即使词语没有改变。",
+    rat_wrong:{
+      A:"Boredom is usually shown by a flat or low voice, not a rising one.|无聊通常表现为平淡或低沉的声音，而不是上升的语调。",
+      C:"Anger is usually shown with volume or a sharp tone, not simply a rising ending.|生气通常通过音量或尖锐的语气表现，而不仅仅是句尾语调上升。",
+      D:"Whispering is about volume, not the rise and fall of pitch.|小声说话是关于音量的，而不是音调的升降。"
+    }},
+  {id:"sm4", title:"Word Stress — Correcting a Detail", passage:"Someone gives you a red cup. You say: \"I wanted the BLUE cup.\"", q:"Why is BLUE stressed in this sentence?", q_cn:"为什么这句话中BLUE要重读？",
+    options:["A. To correct the color of the cup|A. 为了纠正杯子的颜色","B. To ask a question|B. 为了提问","C. To end the conversation|C. 为了结束对话","D. To count cups|D. 为了数杯子的数量"],
+    correct:"A",
+    rat_right:"Stressing BLUE points out that color is the detail that was wrong.|重读“BLUE”指出颜色是出错的地方。",
+    rat_wrong:{
+      B:"The sentence is a statement, not a question, so stress here is not about asking.|这句话是陈述句，不是疑问句，所以这里的重音不是为了提问。",
+      C:"Word stress corrects a detail, it does not end a conversation.|词重音是用来纠正细节的，不是用来结束对话的。",
+      D:"The stress is on color, not on the number of cups.|重音在颜色上，而不是杯子的数量上。"
+    }},
+  {id:"sm5", audio:true, title:"Library Notice", passage:"\"The school library will open early on Friday. Students may return books at the front desk before class. A box by the door is for donated books, not returned books. At noon, the art club will hang new pictures near the window. Please walk around the display so the pictures stay safe.\"", q:"On which day will the library open early?", q_cn:"图书馆将在星期几提前开放？",
+    options:["A. Monday|A. 星期一","B. Wednesday|B. 星期三","C. Friday|C. 星期五","D. Saturday|D. 星期六"],
+    correct:"C",
+    rat_right:"The notice states the library opens early on Friday.|通知中说图书馆将在星期五提前开放。",
+    rat_wrong:{
+      A:"The passage does not mention this day for the early opening.|这段话中没有提到这一天会提前开放。",
+      B:"The passage does not mention this day for the early opening.|这段话中没有提到这一天会提前开放。",
+      D:"The passage does not mention this day for the early opening.|这段话中没有提到这一天会提前开放。"
+    }},
+  {id:"sm6", audio:true, title:"Library Notice", passage:"\"The school library will open early on Friday. Students may return books at the front desk before class. A box by the door is for donated books, not returned books. At noon, the art club will hang new pictures near the window. Please walk around the display so the pictures stay safe.\"", q:"Where should returned books go?", q_cn:"归还的图书应该放在哪里？",
+    options:["A. The donation box by the door|A. 门边的捐赠箱","B. The front desk|B. 前台","C. Near the window|C. 窗户附近","D. The art club room|D. 美术社的房间"],
+    correct:"B",
+    rat_right:"The notice says students may return books at the front desk.|通知说学生可以在前台归还图书。",
+    rat_wrong:{
+      A:"The box by the door is for donated books, not returned books.|门边的箱子是用来捐赠图书的，不是用来还书的。",
+      C:"The area near the window is for the art display, not returned books.|窗边的区域是用来展示美术作品的，不是用来还书的。",
+      D:"The art club room is not mentioned as a place to return books.|通知中没有提到美术社的房间可以还书。"
+    }},
+  {id:"sm7", audio:true, title:"Library Notice", passage:"\"The school library will open early on Friday. Students may return books at the front desk before class. A box by the door is for donated books, not returned books. At noon, the art club will hang new pictures near the window. Please walk around the display so the pictures stay safe.\"", q:"Why might the donation box and the returned-books desk be easy to confuse?", q_cn:"为什么捐赠箱和还书台容易被混淆？",
+    options:["A. They are both used for exactly the same purpose|A. 它们的用途完全相同","B. They are both places connected to books, but they serve different purposes|B. 它们都与图书有关，但用途不同","C. They are both located outside the library|C. 它们都在图书馆外面","D. They are both mentioned on a different day|D. 它们是在不同的日子提到的"],
+    correct:"B",
+    rat_right:"Both places involve books, so a careless listener might mix up their different purposes.|两个地方都和书有关，所以不认真听的人可能会把它们不同的用途搞混。",
+    rat_wrong:{
+      A:"The notice states these are two different purposes, not the same one.|通知中说明这是两个不同的用途，而不是相同的用途。",
+      C:"Both places are inside the library, based on the notice.|根据通知，这两个地方都在图书馆里面。",
+      D:"Both details are given in the same notice, not on different days.|这两个细节是在同一份通知中给出的，不是在不同的日子。"
+    }},
+  {id:"sm8", audio:true, title:"The Garden Plan", passage:"\"Lina brought two small pots to school on Monday. Her class put seeds in them. She placed one pot near a sunny window and the other on a shelf across the room. She gave each pot the same amount of water. On Thursday, one pot had tiny green shoots. Lina moved the other pot closer to the window. She said she would look again next week.\"", q:"What was the same for both pots?", q_cn:"两个花盆有什么是相同的？",
+    options:["A. The amount of water they received|A. 它们得到的水量","B. The amount of sunlight they received|B. 它们得到的阳光量","C. Where they were placed|C. 它们放置的位置","D. The day they got shoots|D. 它们长出嫩芽的日子"],
+    correct:"A",
+    rat_right:"The passage says Lina gave each pot the same amount of water.|文章说丽娜给每个花盆浇了同样多的水。",
+    rat_wrong:{
+      B:"The passage says one pot got more sun than the other, so sunlight was not the same.|文章说其中一个花盆得到的阳光更多，所以阳光并不相同。",
+      C:"The pots were placed in two different spots, not the same place.|两个花盆放在两个不同的地方，而不是同一个地方。",
+      D:"Only one pot had shoots by Thursday, so this was not the same for both.|到星期四只有一个花盆长出了嫩芽，所以这一点并不相同。"
+    }},
+  {id:"sm9", audio:true, title:"The Garden Plan", passage:"\"Lina brought two small pots to school on Monday. Her class put seeds in them. She placed one pot near a sunny window and the other on a shelf across the room. She gave each pot the same amount of water. On Thursday, one pot had tiny green shoots. Lina moved the other pot closer to the window. She said she would look again next week.\"", q:"Which pot most likely had shoots on Thursday, and what clue helps you know?", q_cn:"哪个花盆最可能在星期四长出嫩芽？什么线索能帮你判断？",
+    options:["A. The shelf pot, because it got no water|A. 架子上的花盆，因为它没有浇水","B. The window pot, because it got more sunlight|B. 窗边的花盆，因为它得到了更多阳光","C. Both pots, because they got the same water|C. 两个花盆都长了，因为浇水一样多","D. Neither pot, because the passage does not say|D. 两个都没长，因为文章没有说明"],
+    correct:"B",
+    rat_right:"The pot near the sunny window likely grew faster because plants use sunlight to grow.|靠近阳光窗户的花盆更可能长得快，因为植物需要阳光才能生长。",
+    rat_wrong:{
+      A:"Both pots got the same amount of water, so water is not the reason.|两个花盆浇的水一样多，所以浇水不是原因。",
+      C:"The passage says only one pot had shoots, not both.|文章说只有一个花盆长出了嫩芽，不是两个都有。",
+      D:"The passage gives enough clues (sunlight and shoots) to make a sensible guess.|文章给出了足够的线索（阳光和嫩芽），可以做出合理的推测。"
+    }},
+  {id:"sm10", audio:true, title:"The Garden Plan", passage:"\"Lina brought two small pots to school on Monday. Her class put seeds in them. She placed one pot near a sunny window and the other on a shelf across the room. She gave each pot the same amount of water. On Thursday, one pot had tiny green shoots. Lina moved the other pot closer to the window. She said she would look again next week.\"", q:"What might Lina find when she looks again next week? Choose the most sensible prediction.", q_cn:"丽娜下周再看时可能会发现什么？请选出最合理的预测。",
+    options:["A. The moved pot may also begin to grow shoots|A. 被移动的花盆也可能开始长出嫩芽","B. Both pots will disappear|B. 两个花盆都会消失","C. The pots will change color|C. 花盆会变色","D. The seeds will turn into a different plant|D. 种子会变成另一种植物"],
+    correct:"A",
+    rat_right:"Since Lina moved the shelf pot closer to the window for more light, it may begin to grow shoots too.|因为丽娜把架子上的花盆移到了更靠近窗户、光线更好的地方，所以它也可能开始长出嫩芽。",
+    rat_wrong:{
+      B:"Nothing in the passage suggests the pots will disappear.|文章中没有任何内容暗示花盆会消失。",
+      C:"The passage is about plant growth, not the pots changing color.|文章讲的是植物的生长，而不是花盆变色。",
+      D:"The passage does not suggest the seeds becoming a different type of plant.|文章没有暗示种子会变成另一种植物。"
+    }}
+];
+
+let leaveCount = 0;
+let secondsElapsed = 0;
+
+const lsAnswers = {};
+const lsScore = { val: 0 };
+const lsDone = { val: 0 };
+
+const smAnswers = {};
+const smScore = { val: 0 };
+const smDone = { val: 0 };
+
+function speak(text){
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "en-US";
+  utter.rate = 0.92;
+  window.speechSynthesis.speak(utter);
+}
+
+function fieldVal(id){
+  var el = document.getElementById(id);
+  return el ? el.value.trim() : "";
+}
+
+function buildVocab(){
+  var grid = document.getElementById("vocabGrid");
+  VOCAB.forEach(function(item){
+    var card = document.createElement("div");
+    card.className = "vocab-card";
+
+    var head = document.createElement("div");
+    head.className = "vocab-head";
+    var wordWrap = document.createElement("div");
+    var wordSpan = document.createElement("span");
+    wordSpan.className = "vocab-word";
+    wordSpan.textContent = item.word;
+    var posSpan = document.createElement("span");
+    posSpan.className = "vocab-pos";
+    posSpan.textContent = item.pos;
+    wordWrap.appendChild(wordSpan);
+    wordWrap.appendChild(posSpan);
+
+    var speakBtn = document.createElement("button");
+    speakBtn.className = "speak-btn";
+    speakBtn.type = "button";
+    speakBtn.textContent = "\uD83D\uDD0A";
+    speakBtn.addEventListener("click", function(){
+      if (!('speechSynthesis' in window)) return;
+      var utter = new SpeechSynthesisUtterance(item.word);
+      utter.lang = "en-US";
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utter);
+    });
+
+    head.appendChild(wordWrap);
+    head.appendChild(speakBtn);
+    card.appendChild(head);
+
+    var cnDiv = document.createElement("div");
+    cnDiv.className = "vocab-cn";
+    cnDiv.textContent = item.cn;
+    card.appendChild(cnDiv);
+
+    var defDiv = document.createElement("div");
+    defDiv.className = "vocab-def";
+    defDiv.textContent = item.def;
+    card.appendChild(defDiv);
+
+    var defCnDiv = document.createElement("div");
+    defCnDiv.className = "vocab-def-cn";
+    defCnDiv.textContent = item.cn_def;
+    card.appendChild(defCnDiv);
+
+    var exDiv = document.createElement("div");
+    exDiv.className = "vocab-ex";
+    exDiv.textContent = item.example;
+    card.appendChild(exDiv);
+
+    grid.appendChild(card);
+  });
+}
+
+function addProgress(tabKey, doneObj, total){
+  var pct = Math.round((doneObj.val / total) * 100);
+  document.getElementById(tabKey + "ProgressBar").style.width = pct + "%";
+  document.getElementById(tabKey + "ProgressText").textContent = pct + "%";
+}
+
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, tabKey, onComplete){
+  var container = document.getElementById(containerId);
+  var letters = ['A','B','C','D'];
+
+  data.forEach(function(item, idx){
+    var card = document.createElement("div");
+    card.className = "quiz-card";
+
+    var num = document.createElement("div");
+    num.className = "q-num";
+    num.textContent = "Question " + (idx+1) + " of " + data.length;
+    card.appendChild(num);
+
+    if (item.passage && item.audio){
+      var playBtn = document.createElement("button");
+      playBtn.type = "button";
+      playBtn.className = "play-btn";
+      playBtn.innerHTML = "&#9654; Play Recording <span class=\"cn\">播放录音</span>";
+      playBtn.addEventListener("click", function(){ speak(item.passage); });
+      card.appendChild(playBtn);
+
+      var details = document.createElement("details");
+      details.className = "script-toggle";
+      var summary = document.createElement("summary");
+      summary.innerHTML = "Show script text (only if you need it) <span class=\"cn\">显示文字稿（如果需要）</span>";
+      details.appendChild(summary);
+      var pasEl2 = document.createElement("div");
+      pasEl2.className = "passage-box";
+      pasEl2.textContent = item.passage;
+      details.appendChild(pasEl2);
+      card.appendChild(details);
+    } else if (item.passage){
+      var pasEl = document.createElement("div");
+      pasEl.className = "passage-box";
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    var qEl = document.createElement("div"); qEl.className = "q-text"; qEl.textContent = item.q;
+    var qCn = document.createElement("div"); qCn.className = "q-cn cn"; qCn.textContent = item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement("div"); optsWrap.className = "opts-wrap";
+    var ratDiv = document.createElement("div"); ratDiv.className = "rationale";
+    var answered = false;
+
+    item.options.forEach(function(opt){
+      var parts = opt.split("|");
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/, "");
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/, "") : "";
+
+      var btn = document.createElement("button");
+      btn.className = "opt-btn";
+      btn.type = "button";
+      btn.dataset.letter = letter;
+
+      var strong = document.createElement("strong"); strong.textContent = letter + ". ";
+      var enS = document.createElement("span"); enS.textContent = enText;
+      var br = document.createElement("br");
+      var cnS = document.createElement("span"); cnS.className = "cn"; cnS.textContent = cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener("click", function(){
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll(".opt-btn").forEach(function(b){
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add("show-correct");
+        });
+
+        var ratText, ratCn, ratParts;
+
+        if (letter === item.correct){
+          btn.classList.add("selected-correct");
+          ratParts = item.rat_right.split("|");
+          ratText = "\u2705 " + ratParts[0];
+          ratCn = ratParts[1] || "";
+          ratDiv.className = "rationale show correct-rat";
+          scoreObj.val++;
+        } else {
+          btn.classList.add("selected-wrong");
+          var wr = item.rat_wrong[letter] || "";
+          ratParts = wr.split("|");
+          ratText = "\u274C " + ratParts[0] + " (Correct: " + item.correct + ")";
+          ratCn = ratParts[1] || "";
+          ratDiv.className = "rationale show wrong-rat";
+        }
+
+        var rDiv = document.createElement("div"); rDiv.textContent = ratText;
+        if (ratCn){
+          var rBr = document.createElement("br");
+          var rCnS = document.createElement("span"); rCnS.className = "cn"; rCnS.textContent = ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+
+        doneObj.val++;
+        addProgress(tabKey, doneObj, data.length);
+        if (doneObj.val >= data.length) onComplete();
+        onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+function checkReadiness(tabKey){
+  var doneObj = tabKey === "ls" ? lsDone : smDone;
+  var ref1 = fieldVal(tabKey + "Ref1");
+  var ref2 = fieldVal(tabKey + "Ref2");
+  var grat = fieldVal(tabKey + "Grat");
+  var ready = (doneObj.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey + "DownloadBtn");
+  var hint = document.getElementById(tabKey + "Hint");
+  if (ready){
+    btn.classList.add("ready");
+    hint.classList.add("hidden");
+  } else {
+    btn.classList.remove("ready");
+    hint.classList.remove("hidden");
+  }
+}
+
+function wireListeners(tabKey){
+  ["Ref1","Ref2"].forEach(function(fld){
+    var el = document.getElementById(tabKey + fld);
+    el.addEventListener("input", function(){
+      this.parentElement.classList.toggle("filled", this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  var gratEl = document.getElementById(tabKey + "Grat");
+  gratEl.addEventListener("input", function(){
+    this.parentElement.classList.toggle("filled", this.value.trim().length > 0);
+    checkReadiness(tabKey);
+  });
+}
+
+function tryDownload(tabKey){
+  var ref1 = fieldVal(tabKey + "Ref1");
+  var ref2 = fieldVal(tabKey + "Ref2");
+  var grat = fieldVal(tabKey + "Grat");
+  var doneObj = tabKey === "ls" ? lsDone : smDone;
+  var scoreObj = tabKey === "ls" ? lsScore : smScore;
+  var qData = tabKey === "ls" ? LS_Q : SM_Q;
+  var ansData = tabKey === "ls" ? lsAnswers : smAnswers;
+  var tabLabel = tabKey === "ls" ? "Listening Strategies" : "Sound & Meaning";
+
+  if (doneObj.val < 10 || !ref1 || !ref2 || !grat) return;
+
+  var name = fieldVal("studentName") || "Unknown";
+  var now = new Date().toLocaleString();
+  var txt = "";
+
+  txt += "================================================================\n";
+  txt += "MLWS ENGLISH MODULE — QUIZ RESULTS\n";
+  txt += "================================================================\n";
+  txt += "Student: " + name + "\n";
+  txt += "Section: " + tabLabel + "\n";
+  txt += "Date/Time: " + now + "\n";
+  txt += "Session Time: " + fmt(secondsElapsed) + "\n";
+  txt += "Tab Switches (recorded leaves): " + leaveCount + "\n";
+  txt += "Quiz Score: " + scoreObj.val + " / 10\n";
+  txt += "\n--- Quiz Question Breakdown ---\n\n";
+
+  qData.forEach(function(item, i){
+    var sel = ansData[item.id] || "Not answered";
+    var result = sel === item.correct ? "CORRECT" : "INCORRECT (Correct: " + item.correct + ")";
+    txt += (i+1) + ". " + item.title + "\n";
+    txt += "   Question: " + item.q + "\n";
+    txt += "   Selected: " + sel + " | Result: " + result + "\n\n";
+  });
+
+  txt += "================================================================\n";
+  txt += "STUDENT WORK — REFLECTIONS AND RESPONSES\n";
+  txt += "================================================================\n\n";
+  txt += "REFLECTION Q1:\n" + ref1 + "\n\n";
+  txt += "REFLECTION Q2:\n" + ref2 + "\n\n";
+  txt += "GRATITUDE:\nToday I am grateful for " + grat + "\n\n";
+  txt += "================================================================\nEnd of report\n";
+
+  var blob = new Blob([txt], {type:"text/plain"});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "MLWS_" + tabKey.toUpperCase() + "_" + name.replace(/\s+/g,"_") + "_" + new Date().toLocaleDateString().replace(/\//g,"-") + ".txt";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function switchTab(name, btn){
+  document.querySelectorAll(".tab-panel").forEach(function(p){ p.classList.remove("active"); });
+  document.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("active"); });
+  document.getElementById("tab-" + name).classList.add("active");
+  btn.classList.add("active");
+  window.scrollTo({top:0, behavior:"instant"});
+}
+
+function fmt(s){
+  return String(Math.floor(s/60)).padStart(2,"0") + ":" + String(s%60).padStart(2,"0");
+}
+
+function startTimer(){
+  setInterval(function(){
+    secondsElapsed++;
+    document.getElementById("timer").textContent = "\u23F1 " + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function trackNavigation(){
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden){
+      leaveCount++;
+      document.getElementById("leaveBadge").textContent = "\uD83D\uDEAA Leaves: " + leaveCount;
+      var notice = document.getElementById("leaveNotice");
+      notice.style.display = "block";
+      setTimeout(function(){ notice.style.display = "none"; }, 5000);
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  buildVocab();
+  buildQuiz(LS_Q, "lsQuizContainer", lsAnswers, lsScore, lsDone, "ls", function(){ checkReadiness("ls"); });
+  buildQuiz(SM_Q, "smQuizContainer", smAnswers, smScore, smDone, "sm", function(){ checkReadiness("sm"); });
+  wireListeners("ls");
+  wireListeners("sm");
+  startTimer();
+  trackNavigation();
+});
+
+</script>
+</body>
+</html>
