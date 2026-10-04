@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poetry Terms Flash Cards</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card-front: #1e293b;
+    --card-back: #f8fafc;
+    --accent: #38bdf8;
+    --accent2: #a78bfa;
+    --text-light: #e2e8f0;
+    --text-dark: #0f172a;
+    --good: #4ade80;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: var(--text-light);
+  }
+  h1 {
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    margin-bottom: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-align: center;
+  }
+  .subtitle { font-size: 0.9rem; opacity: 0.7; margin-bottom: 18px; text-align:center; }
+
+  /* ---------- Card ---------- */
+  .card-container {
+    perspective: 1200px;
+    width: min(680px, 92vw);
+    height: min(420px, 58vh);
+    cursor: pointer;
+    margin-bottom: 18px;
+  }
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(.4,.2,.2,1);
+  }
+  .card.flipped { transform: rotateY(180deg); }
+  .face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+  }
+  .front {
+    background: linear-gradient(145deg, #1e293b, #334155);
+    border: 2px solid var(--accent);
+  }
+  .back {
+    background: var(--card-back);
+    color: var(--text-dark);
+    transform: rotateY(180deg);
+    border: 2px solid var(--accent2);
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+  .card-label {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 14px;
+  }
+  .term {
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 6px 14px;
+    transition: background 0.2s;
+  }
+  .term:hover { background: rgba(56,189,248,0.15); }
+  .speak-btn {
+    margin-top: 16px;
+    background: rgba(56,189,248,0.15);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 0.85rem;
+    padding: 8px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.12s;
+  }
+  .speak-btn:hover { background: rgba(56,189,248,0.3); transform: translateY(-2px); }
+  .speak-btn.speaking { background: var(--accent); color: #0f172a; }
+  .front .hint {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    opacity: 0.55;
+  }
+  .back .def {
+    font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+    line-height: 1.5;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .back .example {
+    font-size: clamp(0.8rem, 2vw, 0.95rem);
+    line-height: 1.5;
+    font-style: italic;
+    color: #475569;
+    background: #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 16px;
+    white-space: pre-line;
+  }
+  .back .example:empty { display:none; }
+  .no-example { font-size:0.8rem; color:#94a3b8; font-style:italic; }
+
+  /* ---------- Controls ---------- */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  button {
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s;
+    color: var(--text-dark);
+  }
+  button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.35); }
+  button:active { transform: translateY(0); }
+  .btn-nav { background: #334155; color: var(--text-light); }
+  .btn-flip { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #0f172a; }
+  .btn-shuffle { background: #fbbf24; }
+  .btn-shuffle.active { background: var(--good); }
+
+  .progress {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 16px;
+  }
+  .progress b { color: var(--accent); }
+
+  /* ---------- Card picker ---------- */
+  .picker {
+    width: min(680px, 92vw);
+    background: rgba(30,41,59,0.6);
+    border-radius: 16px;
+    padding: 14px;
+  }
+  .picker summary {
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-align: center;
+    list-style: none;
+  }
+  .picker summary::-webkit-details-marker { display:none; }
+  .picker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 6px;
+    margin-top: 12px;
+    max-height: 260px;
+    overflow-y: auto;
+  }
+  .picker-grid button {
+    font-size: 0.75rem;
+    padding: 7px 6px;
+    border-radius: 8px;
+    background: #334155;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+  .picker-grid button.current {
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    color: #0f172a;
+    font-weight: 800;
+  }
+  .picker-grid button.known { background: #14532d; color: #86efac; }
+
+  .footer-note { margin-top: 16px; font-size: 0.75rem; opacity: 0.5; text-align:center; }
+  @media (max-width: 480px) {
+    .card-container { height: min(460px, 62vh); }
+    button { padding: 9px 14px; font-size: 0.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🃏 Poetry Terms Flash Cards</h1>
+<div class="subtitle">Tap the card (or press Space) to flip · 🔊 tap the term to hear it</div>
+
+<div class="card-container" id="cardContainer" role="button" tabindex="0" aria-label="Flash card. Press to flip.">
+  <div class="card" id="card">
+    <div class="face front">
+      <div class="card-label">Term</div>
+      <div class="term" id="termText" title="Tap to hear pronunciation"></div>
+      <button class="speak-btn" id="speakBtn">🔊 Hear it</button>
+      <div class="hint">tap card to see definition →</div>
+    </div>
+    <div class="face back">
+      <div class="card-label" style="color:#7c3aed;">Definition</div>
+      <div class="def" id="defText"></div>
+      <div class="card-label" style="color:#7c3aed; margin-top:6px;">Example</div>
+      <div class="example" id="exText"></div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn-nav" id="prevBtn">← Prev</button>
+  <button class="btn-flip" id="flipBtn">Flip</button>
+  <button class="btn-nav" id="nextBtn">Next →</button>
+  <button class="btn-shuffle" id="shuffleBtn">🔀 Shuffle</button>
+  <button class="btn-nav" id="knownBtn">✓ Know it</button>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<details class="picker">
+  <summary>📑 Jump to a term…</summary>
+  <div class="picker-grid" id="pickerGrid"></div>
+</details>
+
+<div class="footer-note">Tip: ←/→ arrow keys to navigate · Space to flip · S to shuffle · P to pronounce</div>
+
+<script>
+const TERMS = [["alliteration", "When a writer puts two or more words together that have the same beginning sound.", "The sly, slithering snake snuck into the shed."], ["allusion", "A statement that refers to something without mentioning it directly.", "Chocolate is his Kryptonite — the word Kryptonite alludes to, or hints at, the hero Superman."], ["apostrophe", "When the speaker talks to someone who is absent (not there) or dead as if they were actually there. Or, the speaker talks to a non-human object, as if they could understand.", "Dear love, I'll be fine without you. / Oh, rose, how sweet you smell and how bright you look! / Car, please get me to work today."], ["assonance", "The repetition of a vowel sound (a, e, i, o, u, and y). The same vowel sounds can appear at the beginning, middle or end of a word.", "The cat sat on the mat. (long a sound) / \"Tyger, Tyger burning bright in the forest of the night\" (long i sound)"], ["atmosphere", "The main emotion of a poem.", "From \"Your Laughter\" by Pablo Neruda — \"My struggle is harsh and I come back... But when your laughter enters / It rises to the sky seeking me...\" (The atmosphere is hopeful, even though the speaker is tired.)"], ["ballad", "A poem that was originally sung in order to tell the news or the story of an event. It has a simple rhyme scheme, making it easier for the singer to remember.", "\"In west Philadelphia born and raised / On the playground was where I spent most of my days...\" (The Fresh Prince of Bel-Air)"], ["blank verse", "A poem that has a regular rhythm (iambic pentameter) but no rhyme scheme.", "From \"This is Just to Say\" by William Carlos Williams — \"I have eaten / The plums / That were / In the icebox / And which / You were probably / Saving / For breakfast\""], ["cacophony", "A blend of inharmonious sounds.", "Klarissa Klein drives an old, grumbling Cadillac which has a crumpled bumper and screaming, honking horn."], ["chorus", "A part of a song or poem that is repeated following each verse.", "\"Twinkle, twinkle, little star\" — the chorus repeats after each verse of the song."], ["connotation", "The emotions or associations connected to a word. Based on our experiences, certain words suggest a positive, negative or neutral meaning.", "\"I want to go back to the house\" Andrew said. / \"It's not a house, it's our home\" replied his mother. While both house and home have the same definition, home has a stronger, positive connotation of belonging and family."], ["consonance", "The repetition of a consonant sound. The same consonant sounds can appear at the beginning, middle or end of a word.", "The curious cat kicked the can. / Peter Piper picked a patch of pickled peppers. (A consonant is a letter in the alphabet that is not a vowel: a, e, i, o, u.)"], ["contrast", "A description of the differences between two or more things.", "In the first four lines of Shakespeare's Sonnet 130, he contrasts a mistress to the sun, coral, snow and wire."], ["denotation", "The literal, or primary, meaning of a word. The \"dictionary definition\".", "\"I want to go back to the house\" — House = a place where a person lives."], ["dissonance", "The use of letter sounds and words to create harsh, contrasting sounds.", "Crack, bang when the guns of war, with harsh, echoing cadence."], ["euphony", "The combining of words to create a pleasing sound. The series of words when said together is melodious and pleasant.", "\"Season of mists and mellow fruitfulness\" — the soft m, s, and l sounds flow together smoothly and musically."], ["extended metaphor", "A comparison between two unlike things that continues throughout the poem. It is often more than one sentence, and may even last throughout the entire poem.", "From \"Mother to Son\" by Langston Hughes — \"Well, son, I'll tell you: / Life for me ain't been no / Crystal stair. / It's had tacks in it, / And splinters, / And boards torn up\" — the speaker compares life to a staircase throughout the whole poem."], ["figurative language", "The language a person uses when they want to describe or say something in a creative way.", "The forest floor was covered in a thick, white blanket while I slept peacefully in my bed."], ["form", "A poem's physical structure — what it looks like and how it sounds.", "From \"Mending Wall\" by Robert Frost — \"I let my neighbour know beyond the hill; / And on a day we meet to walk the line / And set the wall between us once again. / We keep the wall between us as we go.\""], ["free verse", "A poem with no regular rhythm, rhyme or organizational plan.", "From \"This is Just to Say\" by William Carlos Williams — \"I have eaten / The plums / That were / In the icebox / And which / You were probably / Saving / For breakfast\""], ["hyperbole", "When a writer makes an extreme exaggeration in order to emphasize a point.", "My backpack weighs a ton. / It felt like the whole world was watching my performance. / I'm so tired, I'm going to sleep for the next five years."], ["iambic pentameter", "A line with five feet. Each foot has an unstressed syllable followed by a stressed syllable.", "\"dum ditty dum\""], ["imagery", "When a writer describes something using the five senses — taste, touch, sound, smell, sight.", "I could hear the popping and crackling as mom dropped the bacon into the frying pan, and soon the salty, greasy smell wafted towards me."], ["internal rhyme", "Rhyme that appears in the middle of a line of poetry.", "I went to town to buy a gown."], ["juxtaposition", "When two images or ideas are placed close together in order to make the differences clear to the reader.", "It was the best of times, it was the worst of times. It was the age of wisdom, it was the age of foolishness."], ["lyric", "A poem that describes an emotion or feeling, rather than a story or an event.", "From \"Since Hannah Moved Away\" by Judith Viorst — \"The tires on my bike are flat / The sky is grouchy gray / At least it sure feels like that / Since Hannah moved away.\""], ["metaphor", "When a writer compares two things without using the words \"like\" or \"as\".", "This room is an oven. / The calm lake water was a mirror below our boat."], ["metre", "The rhythmic pattern of a poetic line.", "Iambic pentameter — The itsy bitsy spider."], ["metonymy", "A figure of speech in which the name of an object or concept is replaced with a word closely related to or suggested by the original.", "As \"crown\" to mean \"king\" (\"The power of the crown was mortally weakened\")."], ["ode", "A poem expressing the writer's thought and feelings about a particular person or subject.", "\"Ode to a Nightingale\""], ["onomatopoeia", "When a writer uses words that sound like the thing he or she describes.", "The water drips in drops from the tap. / I heard the glass crack underneath my shoe. / The firecrackers exploded in the air with a \"boom\"!"], ["oxymoron", "When a writer puts two contradictory (opposite) words, side-by-side to create a dramatic effect.", "Jumbo shrimp / Bittersweet / Dark days / Act naturally / Seriously funny / Pretty ugly."], ["paradox", "A statement that seems impossible or contradictory but is proven to be true.", "Nobody goes to that restaurant because it's too crowded. / I always tell lies. / Youth is wasted on the young."], ["personification", "When a writer gives human characteristics to a non-human object or thing.", "The angry sea swallowed the tiny ship. / The sun looked down upon the city. / Lightning danced across the sky."], ["pun", "A joke that is funny because: 1) a word has two meanings; 2) two words have the same sound but different meanings.", "Why are fish so smart? Because they live in schools."], ["quatrain", "A stanza with four lines.", "Basketball is not boring. / Dribbling, shooting... scoring! / Each and every Saturday, / I find my friends and then we play."], ["refrain", "A line or a group of lines that repeat, usually at the end of a stanza.", "\"Do not go gentle into that good night... / Rage, rage against the dying of the light\" — the line returns at the end of each stanza."], ["repetition", "When the writer repeats the same words or phrases a few times to make an idea clearer and more memorable.", "From \"Annabel Lee\" by Edgar Allan Poe — \"It was many and many a year ago, / In a kingdom by the sea... / I was a child and she was a child, / In this kingdom by the sea...\""], ["rhyme / rhyme scheme", "When similar sounds are repeated in two or more words, they create a rhyme. Writers use rhyme because it makes the poetry sound more beautiful — more like music.", "Perfect rhyme / Imperfect rhyme / Eye rhyme / Internal rhyme / End rhyme."], ["rhyme scheme", "When a writer plans out a rhyming pattern.", "\"Amazing grace! How sweet the sound\" (A) / \"That saved a wretch like me\" (B) / \"I once was lost but now am found\" (A) / \"Was blind but now I see\" (B)."], ["rhythm", "The pattern of stressed and unstressed beats. Rhythm creates a musical effect when reading the poem aloud.", "\"Hickory, dickory, dock. / The mouse ran up the clock. / The clock struck one. / The mouse ran down. / Hickory, dickory, dock.\""], ["simile", "When a writer compares two things by using the words \"like\" or \"as\".", "Her heart was as cold as ice. / The panda was white, like new snow. / Chris is as tall as a tower."], ["sonnet", "A poem with 14 lines, typically written about love, and contains a rhyme scheme with a rhyming couplet at the end.", "From \"Love is not all\" by William Shakespeare — \"Love is not all; it is not meat nor drink / Nor slumber nor a roof against the rain...\""], ["speaker", "The narrative voice in a poem. The voice behind the poem — the person we imagine to be saying it out loud.", "From \"Mother to Son\" by Langston Hughes — \"Well, son, I'll tell you / Life for me ain't been no crystal stair.\" The speaker is a mother talking to her son. Remember, the speaker is not the same as the author (Hughes is a man)."], ["stanza", "A group of lines in a poem.", "\"Whose woods these are I think I know. / His house is in the village though; / He will not see me stopping here / To watch his woods fill up with snow. / My little horse must think it queer / To stop without a farmhouse near / Between the woods and frozen lake / The darkest evening of the year.\" (How many stanzas do you count?)"], ["synecdoche", "A literary device in which a part of something is substituted for the whole.", "Stars and stripes (signifies U.S. flag) / Green thumb (signifies person who is good at gardening)."], ["tone", "The author's attitude towards the subject of the poem. The subject refers to who or what the poem is about.", "\"I'm so excited that he called! I've been hoping to hear from him.\" (Tone = excited or pleased) / \"Why is that weirdo calling me again after all this time?\" (Tone = annoyed or apprehensive)."], ["understatement", "When a writer describes something as being smaller or less important than it really is.", "Your soccer team loses a match 50-0, and you say \"we didn't do our best\". / Someone shoots you in the arm and you say \"It's just a scratch\"."]];
+
+let order = [...TERMS.keys()];
+let idx = 0;
+let flipped = false;
+let knownSet = new Set();
+
+const card = document.getElementById('card');
+const termText = document.getElementById('termText');
+const defText = document.getElementById('defText');
+const exText = document.getElementById('exText');
+const progress = document.getElementById('progress');
+const pickerGrid = document.getElementById('pickerGrid');
+const speakBtn = document.getElementById('speakBtn');
+
+// ---------- Text-to-Speech (Web Speech API) ----------
+const synth = window.speechSynthesis;
+let voices = [];
+let speechUnlocked = false;
+
+function loadVoices() { voices = synth ? synth.getVoices() : []; }
+if (synth) {
+  loadVoices();
+  synth.onvoiceschanged = loadVoices;
+
+  // Some browsers (mobile especially) leave the engine paused until nudged
+  const nudge = () => {
+    if (synth.paused) synth.resume();
+    if (!speechUnlocked) {
+      speechUnlocked = true;
+      const silent = new SpeechSynthesisUtterance(' ');
+      silent.volume = 0;
+      silent.onend = () => { speechUnlocked = true; };
+      synth.speak(silent);
+    }
+  };
+  ['click', 'touchstart', 'keydown'].forEach(evt =>
+    document.addEventListener(evt, nudge, { passive: true })
+  );
+}
+
+function speakTerm() {
+  if (!synth) {
+    flashBtn('🔇 No audio support');
+    return;
+  }
+  // Force-resume in case engine is stuck paused (common on Chrome/Android)
+  if (synth.paused) synth.resume();
+  synth.cancel();
+
+  const term = TERMS[order[idx]][0];
+  const u = new SpeechSynthesisUtterance(term);
+  const en = voices.find(v => v.lang && v.lang.toLowerCase().startsWith('en'))
+          || voices[0];
+  if (en) u.voice = en;
+  u.rate = 0.85;
+  u.volume = 1;
+  u.pitch = 1;
+
+  speakBtn.classList.add('speaking');
+  speakBtn.textContent = '🔊 Playing…';
+
+  let settled = false;
+  const done = () => {
+    if (settled) return;
+    settled = true;
+    speakBtn.classList.remove('speaking');
+    speakBtn.textContent = '🔊 Hear it';
+  };
+
+  u.onstart = () => { speakBtn.textContent = '🔊 Playing…'; };
+  u.onend = done;
+  u.onerror = (e) => {
+    if (e.error === 'canceled' || e.error === 'interrupted') { done(); return; }
+    // Retry once with a bare utterance (no voice set) as fallback
+    try {
+      const fb = new SpeechSynthesisUtterance(term);
+      fb.rate = 0.85;
+      fb.onend = done;
+      fb.onerror = done;
+      synth.cancel();
+      synth.speak(fb);
+    } catch (err) { done(); }
+  };
+
+  synth.speak(u);
+
+  // Safety timeout: if nothing fires within 4s, reset button
+  setTimeout(() => { if (!settled) done(); }, 4000);
+}
+
+function flashBtn(msg) {
+  speakBtn.textContent = msg;
+  setTimeout(() => {
+    speakBtn.classList.remove('speaking');
+    speakBtn.textContent = '🔊 Hear it';
+  }, 1800);
+}
+
+function render() {
+  const i = order[idx];
+  const [term, def, ex] = TERMS[i];
+  flipped = false;
+  card.classList.remove('flipped');
+  termText.textContent = term;
+  defText.textContent = def;
+  exText.textContent = ex;
+  if (!ex) exText.innerHTML = '<span class="no-example">(no example on the chart — can you think of one?)</span>';
+  progress.innerHTML = `Card <b>${idx+1}</b> of <b>${order.length}</b> &nbsp;·&nbsp; ✅ known: <b>${knownSet.size}</b>`;
+  document.querySelectorAll('.picker-grid button').forEach(b => {
+    b.classList.toggle('current', Number(b.dataset.i) === i);
+  });
+  speakBtn.classList.remove('speaking');
+  speakBtn.textContent = '🔊 Hear it';
+}
+
+function doFlip() {
+  flipped = !flipped;
+  card.classList.toggle('flipped', flipped);
+}
+
+function go(delta) {
+  if (synth) synth.cancel();
+  idx = (idx + delta + order.length) % order.length;
+  render();
+}
+
+function shuffle() {
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  idx = 0;
+  render();
+}
+
+TERMS.forEach(([term], i) => {
+  const b = document.createElement('button');
+  b.textContent = term;
+  b.dataset.i = i;
+  b.onclick = () => {
+    const pos = order.indexOf(i);
+    if (pos !== -1) { idx = pos; render(); }
+  };
+  pickerGrid.appendChild(b);
+});
+
+// Events
+document.getElementById('cardContainer').addEventListener('click', doFlip);
+document.getElementById('flipBtn').addEventListener('click', doFlip);
+document.getElementById('prevBtn').addEventListener('click', () => go(-1));
+document.getElementById('nextBtn').addEventListener('click', () => go(1));
+document.getElementById('shuffleBtn').addEventListener('click', shuffle);
+document.getElementById('knownBtn').addEventListener('click', () => {
+  const i = order[idx];
+  if (knownSet.has(i)) knownSet.delete(i); else knownSet.add(i);
+  document.querySelector(`.picker-grid button[data-i="${i}"]`).classList.toggle('known', knownSet.has(i));
+  render();
+});
+
+// Pronunciation triggers — stop propagation so card doesn't flip
+termText.addEventListener('click', e => { e.stopPropagation(); speakTerm(); });
+speakBtn.addEventListener('click', e => { e.stopPropagation(); speakTerm(); });
+
+document.addEventListener('keydown', e => {
+  if (e.key === ' ') { e.preventDefault(); doFlip(); }
+  else if (e.key === 'ArrowRight') go(1);
+  else if (e.key === 'ArrowLeft') go(-1);
+  else if (e.key.toLowerCase() === 's') shuffle();
+  else if (e.key.toLowerCase() === 'p') speakTerm();
+});
+
+render();
+</script>
+</body>
+</html>
