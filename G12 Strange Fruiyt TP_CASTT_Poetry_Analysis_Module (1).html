@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP-CASTT Poetry Analysis | TP-CASTT 诗歌分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;
+  --ml-red:#c1121f;--ml-gold:#e9c46a;--ink:#1a2a1a;--ink2:#2d3748;
+  --mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);line-height:1.6;font-size:16px}
+.cn{font-family:'Noto Sans SC',sans-serif;color:var(--ink2)}
+h1,h2,h3,h4{font-family:'Literata',serif}
+header{background:var(--ml-green-dark);color:#fff;padding:14px 18px}
+header h1{font-size:1.35rem;margin-bottom:2px}
+header .sub{font-size:.9rem;opacity:.9}
+.hdr-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:10px}
+.prog-wrap{flex:1;min-width:200px}
+.prog-bar-bg{background:rgba(255,255,255,.25);border-radius:99px;height:10px;overflow:hidden}
+#progressBar{height:100%;width:0;background:var(--ml-gold);transition:width .3s}
+#progressText{font-size:.8rem;margin-top:3px}
+#leaveBadge{background:rgba(0,0,0,.3);padding:4px 10px;border-radius:99px;font-size:.8rem}
+.pips{display:flex;gap:6px;align-items:center;font-size:.75rem}
+.pip{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.3);border:2px solid #fff;display:inline-block}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;padding:10px 14px 0;background:#fff;border-bottom:2px solid var(--ml-green)}
+.tab-btn{font-family:inherit;font-size:.9rem;font-weight:700;padding:9px 14px;border:none;background:var(--mist);color:var(--ml-green-dark);border-radius:8px 8px 0 0;cursor:pointer}
+.tab-btn.active{background:var(--ml-green);color:#fff}
+.tab-content{display:none;max-width:980px;margin:0 auto;padding:18px 14px 80px}
+.tab-content.active{display:block}
+.sec{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.sec h3{color:var(--ml-green-dark);margin-bottom:8px;font-size:1.15rem}
+.sec h4{color:var(--cobalt);margin:10px 0 4px}
+.sec p{margin-bottom:8px}
+.sec ul{margin:6px 0 8px 22px}
+.callout{background:var(--amber-light);border-left:5px solid var(--amber);padding:10px 14px;border-radius:6px;margin:10px 0}
+.callout.green{background:var(--ml-green-light);border-left-color:var(--ml-green)}
+.callout.red{background:#fee2e2;border-left-color:var(--ml-red);color:#7f1d1d}
+.callout.blue{background:#e6eef7;border-left-color:var(--cobalt)}
+.tbl-wrap{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th{background:var(--ml-green);color:#fff;text-align:left;padding:7px 9px}
+td{border:1px solid var(--border);padding:7px 9px;vertical-align:top}
+tr:nth-child(even) td{background:#f4f8f4}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.card{border:1px solid var(--border);border-radius:10px;padding:12px;background:#fff}
+.card.g{border-top:5px solid var(--ml-green)}.card.a{border-top:5px solid var(--amber)}.card.b{border-top:5px solid var(--cobalt)}.card.r{border-top:5px solid var(--ml-red)}
+.name-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.name-row input{padding:8px 10px;border:2px solid var(--border);border-radius:8px;font-size:1rem;min-width:240px;font-family:inherit}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.vcard{background:#fff;border:1px solid var(--border);border-left:5px solid var(--ml-green);border-radius:10px;padding:12px}
+.vcard .w{font-family:'Literata',serif;font-size:1.15rem;font-weight:700;color:var(--ml-green-dark)}
+.vcard .pos{font-size:.75rem;color:var(--amber);font-style:italic}
+.vcard .ex{font-size:.85rem;background:var(--mist);padding:6px 8px;border-radius:6px;margin-top:6px}
+.speak{border:none;background:var(--ml-green);color:#fff;border-radius:99px;padding:3px 10px;cursor:pointer;font-size:.85rem;margin-left:6px}
+.viewer{border:2px dashed var(--ml-green);border-radius:10px;padding:12px;margin:10px 0;background:#fbfdfb}
+.viewer textarea{width:100%;padding:8px;border:2px solid var(--border);border-radius:8px;font-family:'Literata',serif;font-size:.95rem;margin:6px 0}
+.btn{font-family:inherit;border:none;background:var(--ml-green);color:#fff;padding:7px 14px;border-radius:8px;cursor:pointer;font-weight:700;margin-right:6px}
+.btn.alt{background:#64748b}
+.poembox{border:2px solid var(--ml-green);border-radius:10px;padding:14px 16px;margin:10px 0;background:#fbfdfb}
+.vfoot{font-size:.8rem;color:var(--ink2);margin-top:8px;font-style:italic}
+.vgap{height:12px}
+.vline{display:flex;gap:10px;font-family:'Literata',serif;font-size:1.05rem;padding:1px 0}
+.vnum{min-width:28px;text-align:right;color:var(--amber);font-family:'DM Sans',sans-serif;font-size:.8rem;padding-top:4px}
+.qhead{margin:20px 0 6px;color:var(--ml-green-dark)}
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.q-num{font-size:.75rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.passage-box{background:var(--mist);border-left:4px solid var(--ml-green);padding:8px 12px;margin:6px 0;font-family:'Literata',serif;font-size:.92rem;border-radius:4px}
+.q-text{font-weight:700}
+.q-cn{margin-bottom:8px}
+.opts-wrap{display:flex;flex-direction:column;gap:7px}
+.opt-btn{text-align:left;font-family:inherit;font-size:.95rem;padding:9px 12px;border:2px solid var(--border);border-radius:8px;background:#fff;cursor:pointer}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:var(--ml-green-light)}
+.opt-btn:disabled{cursor:default}
+.opt-btn.show-correct{background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.selected-correct{background:#b7e4c7;border-color:var(--ml-green-dark)}
+.opt-btn.selected-wrong{background:#fee2e2;border-color:var(--ml-red)}
+.rationale{display:none;margin-top:8px;padding:8px 12px;border-radius:8px;font-size:.9rem}
+.rationale.show{display:block}
+.correct-rat{background:var(--ml-green-light)}
+.wrong-rat{background:#fee2e2}
+.reflect{background:#fff;border:2px solid var(--ml-green);border-radius:12px;padding:16px;margin-top:18px}
+.reflect textarea{width:100%;min-height:80px;padding:9px;border:2px solid var(--border);border-radius:8px;font-family:inherit;font-size:.95rem;margin:4px 0 12px}
+.reflect textarea.filled,.grat-input.filled{border-color:var(--ml-green)}
+.grat-input{border:none;border-bottom:2px solid var(--border);font-family:inherit;font-size:1rem;min-width:220px;padding:2px 4px;background:transparent}
+.dl-btn{margin-top:14px;font-family:inherit;font-weight:700;font-size:1rem;padding:11px 22px;border:none;border-radius:10px;background:var(--ml-green);color:#fff;opacity:.35;pointer-events:none}
+.dl-btn.ready{opacity:1;pointer-events:auto;cursor:pointer}
+.hint{font-size:.85rem;color:var(--amber);margin-top:6px}
+.hint.hidden{display:none}
+#timer-display{position:fixed;right:12px;bottom:12px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:99px;font-weight:700;z-index:900}
+@media(max-width:600px){.name-row input{min-width:100%}header h1{font-size:1.1rem}}
+</style>
+</head>
+<body>
+
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:0.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  🚨 Tab switch recorded! Your teacher will see this. · <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span>
+</div>
+
+<header>
+  <h1>TP-CASTT Poetry Analysis · <span class="cn">TP-CASTT 诗歌分析</span></h1>
+  <div class="hdr-row">
+    <div class="prog-wrap">
+      <div class="prog-bar-bg"><div id="progressBar"></div></div>
+      <div id="progressText">Progress: 0% · 进度：0%</div>
+    </div>
+    <div id="leaveBadge">🚪 Leaves: 0</div>
+    <div class="pips"><span>Poem 1</span><span class="pip" id="pip-p1"></span><span>Poem 2</span><span class="pip" id="pip-p2"></span><span>Together</span><span class="pip" id="pip-p3"></span></div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="vocab">📚 Vocab · 词汇</button>
+  <button class="tab-btn" data-tab="p1">Poem 1 · 第一首</button>
+  <button class="tab-btn" data-tab="p2">Poem 2 · 第二首</button>
+  <button class="tab-btn" data-tab="p3">Together · 对比</button>
+</div>
+
+<!-- ============ VOCAB ============ -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="sec">
+    <h3>Start here · 从这里开始</h3>
+    <p>We will read two poems together. Learn these 14 words first. Press 🔊 to hear each word.</p>
+    <p class="cn">我们将一起读两首诗。先学习这14个词。点击 🔊 听发音。</p>
+    <div class="callout red">
+      <strong>Content note · 内容提示:</strong> These poems talk about racism, slavery, and lynching (killing by a mob). We read them with respect and care. If you need a break, tell your teacher.<br>
+      <span class="cn">这些诗涉及种族主义、奴隶制和私刑（暴徒杀人）。我们要带着尊重和关怀来阅读。如果你需要休息，请告诉老师。</span>
+    </div>
+    <div class="callout green">
+      <strong>Our method · 我们的方法 (TP-CASTT):</strong>
+      <b>T</b>itle · <b>P</b>araphrase · <b>C</b>onnotation · <b>A</b>ttitude (tone) · <b>S</b>hifts · <b>T</b>itle again · <b>T</b>heme<br>
+      <span class="cn">标题 · 释义 · 内涵 · 态度（语气）· 转折 · 再看标题 · 主题</span>
+    </div>
+  </div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ============ POEM 1 ============ -->
+<div class="tab-content" id="tab-p1">
+  <div class="name-row"><label for="p1Name"><strong>Name · 姓名:</strong></label><input type="text" id="p1Name" placeholder="Your name · 你的名字"></div>
+
+  <div class="sec">
+    <h3>Poem 1: 'You're Not Black' by Amy Saunders · <span class="cn">第一首：《你不是黑人》</span></h3>
+    <p>Read the poem below. Use the line numbers when we talk.</p>
+    <p class="cn">请阅读下面的诗。讨论时请使用行号。</p>
+    <p><a href="https://poems.poetrysociety.org.uk/poets/amy-saunders/" target="_blank" rel="noopener">Poet page · 诗人页面 →</a></p>
+    <div class="poembox" id="p1Poem"></div>
+  </div>
+
+  <div class="sec">
+    <h3>1 · Title and speaker · <span class="cn">标题与说话者</span></h3>
+    <p>The title is a sentence that other people say to the speaker. That means the poem is an <b>answer</b> to an insult. The poem has 30 lines, so we number them 1–30.</p>
+    <p class="cn">标题是别人对说话者说的一句话。所以这首诗是对一种冒犯的<b>回答</b>。全诗共30行，我们用1–30编号。</p>
+    <div class="grid2">
+      <div class="card g"><h4>Speaker · 说话者</h4><p>First person: <b>I</b>. She sits at a lunch table with other people (line 1). The speaker is the voice in the poem; we do not say the speaker is exactly the poet.</p><p class="cn">第一人称“我”。她和其他人坐在午餐桌旁（第1行）。说话者是诗中的声音，我们不能说她就是诗人本人。</p></div>
+      <div class="card a"><h4>Other voices · 其他声音</h4><p>Lines 4 and 12 use quotation marks. Those are the words of the people at lunch. Line 19 puts 'black norms' in single quotes: the speaker is quoting their idea.</p><p class="cn">第4行和第12行有引号，是午餐桌旁的人说的话。第19行用单引号：说话者在引用他们的说法。</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h3>2 · Paraphrase: a map of the poem · <span class="cn">释义：全诗结构图</span></h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Lines · 行</th><th>What happens · 内容</th><th>Tool · 手法</th></tr>
+      <tr><td>1–4</td><td>Lunch scene. The others say she is 'not Black' because she eats with a knife and fork.<br><span class="cn">午餐场景。别人说她“不是黑人”，因为她用刀叉吃饭。</span></td><td>Quotation, contrast</td></tr>
+      <tr><td>5–8</td><td><b>Yet</b> — she answers with history: hands, trees, and 'strange fruit' (see Poem 2).<br><span class="cn">“然而”——她用历史回答：手、树和“奇异的果实”（见第二首）。</span></td><td>Shift, metaphor, allusion</td></tr>
+      <tr><td>9–12</td><td>Second accusation: she does not know Caribbean music or Afrobeats; she knows Western classical music.<br><span class="cn">第二次指责：她不熟悉加勒比音乐和非洲节拍，她只知道西方古典音乐。</span></td><td>Quotation, contrast</td></tr>
+      <tr><td>13–16</td><td><b>Yet</b> — she knows another 'beat': pounding, whipping, and the cries of ancestors.<br><span class="cn">“然而”——她知道另一种“节拍”：捶打、鞭打和祖先的哭喊。</span></td><td>Sound imagery, shift</td></tr>
+      <tr><td>17–24</td><td>Anger. 'How dare you' is repeated. <b>Rhyming couplets begin.</b> She talks about segregation and beauty standards.<br><span class="cn">愤怒。“你怎么敢”重复出现。<b>押韵对句开始。</b>她谈到种族隔离和审美标准。</span></td><td>Repetition, irony, couplets</td></tr>
+      <tr><td>25–30</td><td>She names five films and books. The last line is one word: <b>Me</b>.<br><span class="cn">她列出五部电影和书。最后一行只有一个词：<b>Me（我）</b>。</span></td><td>Allusion, emphasis</td></tr>
+    </table></div>
+    <div class="callout">
+      <b>Pattern · 规律:</b> Accusation → <b>Yet</b> → history. It happens twice (lines 1–8 and 9–16). Then the pattern breaks and the speaker speaks directly to the accusers.<br>
+      <span class="cn">指责 → “然而” → 历史。这个模式出现两次（第1–8行和第9–16行）。然后模式被打破，说话者直接对指责她的人说话。</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h3>3 · Connotation: a word with two meanings · <span class="cn">内涵：一个词，两层意思</span></h3>
+    <p>In line 4 the others say <b>hands</b> are used to eat. In line 5 the speaker uses the word <b>hands</b> again, but now it means hands that tied people up and hung them in trees. One reading: the speaker takes their small test and answers with a much darker meaning of the same word.</p>
+    <p class="cn">第4行，别人说要用<b>手</b>吃饭。第5行，说话者再次用“手”这个词，但意思变成了绑人、把人吊在树上的手。一种解读：说话者拿他们的小测试，用同一个词的更黑暗含义来回答。</p>
+    <p><b>Class talk · 课堂讨论:</b> Why does the speaker say 'beat' in line 12, then use 'beat' again in line 13? What new meaning appears?<br><span class="cn">为什么说话者在第12行说“beat（节拍）”，第13行又用“beat”？出现了什么新的意思？</span></p>
+  </div>
+
+  <div class="sec">
+    <h3>4 · Allusions in lines 25–28 · <span class="cn">第25–28行的典故</span></h3>
+    <p>An <b>allusion</b> is a short reference to another work. These are titles of films and books. Titles help readers connect the poem to bigger stories.</p>
+    <div class="tbl-wrap"><table>
+      <tr><th>Title · 标题</th><th>What it is · 是什么</th><th>Possible link to the speaker · 与说话者的可能联系</th></tr>
+      <tr><td><b>Sorry to Bother You</b></td><td>2018 film about a Black worker who succeeds by changing how he speaks.<br><span class="cn">2018年电影，讲一位黑人员工靠改变说话方式获得成功。</span></td><td>Pressure to change yourself to fit in.<br><span class="cn">为了融入而改变自己的压力。</span></td></tr>
+      <tr><td><b>Get Out</b></td><td>2017 horror film about racism hiding behind politeness.<br><span class="cn">2017年恐怖电影，讲礼貌背后隐藏的种族主义。</span></td><td>A place that looks friendly but is not safe.<br><span class="cn">看起来友好却不安全的地方。</span></td></tr>
+      <tr><td><b>The Hate U Give</b></td><td>2017 novel by Angie Thomas (film 2018) about a Black teenager who speaks up after a police shooting.<br><span class="cn">安吉·托马斯2017年的小说（2018年拍成电影），讲一位黑人少女在警察枪击事件后站出来发声。</span></td><td>Speaking up; the pain of prejudice.<br><span class="cn">勇敢发声；偏见带来的痛苦。</span></td></tr>
+      <tr><td><b>The Help</b></td><td>Novel (2009) and film (2011) about Black maids in the 1960s American South.<br><span class="cn">小说（2009）和电影（2011），讲20世纪60年代美国南方的黑人女佣。</span></td><td>'I am not The Help': she refuses a role others give her.<br><span class="cn">“我不是女佣”：她拒绝别人给她的角色。</span></td></tr>
+      <tr><td><b>Hidden Figures</b></td><td>2016 book and film about Black women mathematicians at NASA whose work was overlooked.<br><span class="cn">2016年的书和电影，讲美国航天局里被忽视的黑人女数学家。</span></td><td>Achievements that were hidden but are now clear.<br><span class="cn">曾被隐藏、如今清晰可见的成就。</span></td></tr>
+    </table></div>
+    <p class="cn" style="font-size:.9rem">这些只是一种解读，课堂上可以有不同看法。 · These are one possible reading; the class may see other links.</p>
+  </div>
+
+  <div class="sec">
+    <h3>5 · Devices and sound · <span class="cn">手法与声音</span></h3>
+    <ul>
+      <li><b>Sound imagery (13–16)</b>: pounding, whipping, cries. The reader <i>hears</i> the past. <span class="cn">声音意象：捶打、鞭打、哭喊，读者“听到”过去。</span></li>
+      <li><b>Repetition (17)</b>: 'How dare you' twice. It shows rising anger. <span class="cn">重复：显示愤怒不断升高。</span></li>
+      <li><b>Irony (21–22)</b>: society calls her ugly but copies her features. The two ideas do not match. <span class="cn">反讽：社会说她丑，却模仿她的特征，两种说法互相矛盾。</span></li>
+      <li><b>Form change (17–30)</b>: lines now end in rhyming pairs (couplets). The rhyme makes the speech feel sharp and direct. <span class="cn">形式变化：行尾变成押韵的对句，让语气更尖锐直接。</span></li>
+      <li><b>One-word last line (30)</b>: <b>Me</b> stands alone with a capital letter. It is the poem's answer to the title. <span class="cn">最后一行单独一个大写的词，是对标题的回答。</span></li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h3>6 · Attitude, shifts, theme · <span class="cn">态度、转折、主题</span></h3>
+    <div class="grid2">
+      <div class="card b"><h4>Attitude (tone) · 态度</h4><p>Hurt and defensive (1–16) → angry (17–24) → determined and self-affirming (25–30).</p><p class="cn">受伤、防御（1–16）→ 愤怒（17–24）→ 坚定、肯定自我（25–30）。</p></div>
+      <div class="card r"><h4>Shifts · 转折</h4><p>Lines 5 and 13 ('Yet'); line 17 (direct address and rhyme); line 29 (turn toward 'Me').</p><p class="cn">第5行和第13行（“然而”）；第17行（直接对话并开始押韵）；第29行（转向“我”）。</p></div>
+    </div>
+    <div class="callout green"><b>Possible theme · 可能的主题:</b> A person's identity cannot be decided by stereotypes. Each person has the right to be themselves.<br><span class="cn">一个人的身份不能由刻板印象决定。每个人都有权做自己。</span></div>
+  </div>
+
+  <h3 class="qhead">Quiz · Poem 1 · <span class="cn">测验：第一首</span></h3>
+  <p style="margin-bottom:10px">Select the best answer. You cannot change your answer after you select it.<br><span class="cn">请选择最佳答案。选择后不能更改。</span></p>
+  <div id="p1QuizContainer"></div>
+
+  <div class="reflect">
+    <h3>Reflect · <span class="cn">反思</span></h3>
+    <p><b>1.</b> Choose ONE allusion from lines 25–28. Explain what it adds to the speaker's message. <span class="cn">从第25–28行选一个典故，解释它为说话者的信息增添了什么。</span></p>
+    <textarea id="p1Ref1"></textarea>
+    <p><b>2.</b> Has someone ever said you are not a 'real' something (a real fan, a real local, a real member)? What would you like to say back? You do not need to share private details. <span class="cn">有没有人说过你不是“真正的”某种人（真正的粉丝、真正的本地人、真正的成员）？你想回答什么？不需要分享隐私细节。</span></p>
+    <textarea id="p1Ref2"></textarea>
+    <p>Today I am grateful for <input type="text" class="grat-input" id="p1Grat"> <span class="cn">今天我感谢……</span></p>
+    <button class="dl-btn" id="p1DownloadBtn">⬇ Download your work · 下载你的作业</button>
+    <div class="hint" id="p1Hint">Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。</div>
+  </div>
+</div>
+
+<!-- ============ POEM 2 ============ -->
+<div class="tab-content" id="tab-p2">
+  <div class="name-row"><label for="p2Name"><strong>Name · 姓名:</strong></label><input type="text" id="p2Name" placeholder="Your name · 你的名字"></div>
+
+  <div class="sec">
+    <h3>Poem 2: 'Strange Fruit' by Abel Meeropol · <span class="cn">第二首：《奇异的果实》</span></h3>
+    <p>Read the poem below. It has 12 lines in 3 stanzas of 4 lines. Use the line numbers when we talk.</p>
+    <p class="cn">请阅读下面的诗。全诗12行，分3节，每节4行。讨论时请使用行号。</p>
+    <div class="poembox" id="p2Poem"></div>
+  </div>
+
+  <div class="sec">
+    <h3>1 · Context first · <span class="cn">先了解背景</span></h3>
+    <ul>
+      <li>Written by <b>Abel Meeropol</b>, a teacher and songwriter. Published in a union publication in <b>1937</b>, then set to music. <span class="cn">作者阿贝尔·米罗波尔，是教师和词曲作者。1937年发表在工会刊物上，后来谱成歌曲。</span></li>
+      <li>Made famous by singer <b>Billie Holiday</b>, who first sang it in <b>1939</b>. <span class="cn">歌手比莉·荷莉黛于1939年首次演唱，使它闻名于世。</span></li>
+      <li>It is an <b>anti-lynching protest poem</b>. A <b>protest poem</b> is written to speak against injustice. <span class="cn">它是一首<b>反私刑的抗议诗</b>。抗议诗是为反对不公正而写的。</span></li>
+    </ul>
+    <div class="callout red">This poem describes a lynching. It is hard to read. We read it to remember history and to understand why people protest.<br><span class="cn">这首诗描写了私刑。读起来很沉重。我们阅读它，是为了记住历史，理解人们为什么抗议。</span></div>
+  </div>
+
+  <div class="sec">
+    <h3>2 · Title and central metaphor · <span class="cn">标题与核心隐喻</span></h3>
+    <p>Fruit grows on trees. This is normal and natural. But the 'fruit' here is human bodies. The word <b>strange</b> means unnatural and shocking. The title is a <b>metaphor</b>: the bodies <i>are</i> the fruit.</p>
+    <p class="cn">水果长在树上，这很自然。但这里的“果实”是人的身体。“奇异”指不自然、令人震惊。标题是一个<b>隐喻</b>：身体就是果实。</p>
+  </div>
+
+  <div class="sec">
+    <h3>3 · Stanza map (Paraphrase) · <span class="cn">诗节结构图（释义）</span></h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Lines · 行</th><th>What happens · 内容</th><th>Key tool · 关键手法</th></tr>
+      <tr><td>1–4 (stanza 1)</td><td>Trees in the South carry blood and Black bodies swinging in the breeze.<br><span class="cn">南方的树上有血迹，黑人的身体在风中摇摆。</span></td><td>Metaphor, visual imagery</td></tr>
+      <tr><td>5–8 (stanza 2)</td><td>A pretty, proud picture of the South, then the sudden smell of burning flesh.<br><span class="cn">先是南方优美、自豪的画面，然后突然出现焦肉的气味。</span></td><td>Juxtaposition, smell imagery, irony</td></tr>
+      <tr><td>9–12 (stanza 3)</td><td>The 'fruit' is left for crows, rain, wind, sun, and tree. It ends with a 'strange and bitter crop'.<br><span class="cn">“果实”被留给乌鸦、雨、风、太阳和树。结尾是“奇异而苦涩的收成”。</span></td><td>Repetition ('For the...'), metaphor</td></tr>
+    </table></div>
+  </div>
+
+  <div class="sec">
+    <h3>4 · Connotation and devices · <span class="cn">内涵与手法</span></h3>
+    <div class="grid2">
+      <div class="card g"><h4>Juxtaposition and irony · 并置与反讽</h4><p>Line 5 calls the South <b>gallant</b> (brave, honorable). That is how the South liked to see itself. The poem puts this image next to violence, so the word becomes ironic. Sweet magnolias (line 7) sit next to burning flesh (line 8): two smells, two worlds.</p><p class="cn">第5行称南方为“gallant”（勇敢、高贵）。这是南方对自己的看法。诗把这个形象和暴力放在一起，这个词就成了反讽。甜美的木兰花（第7行）紧挨着焦肉（第8行）：两种气味，两个世界。</p></div>
+      <div class="card a"><h4>Repetition · 重复</h4><p>Stanza 3 repeats 'For the...' (lines 10–11). It makes a list, steady and cold, as if nature slowly uses the bodies. Line 9 begins 'Here is...', like someone showing an object to the reader.</p><p class="cn">第三节重复“For the...”（第10–11行），形成冷静平稳的清单，仿佛大自然慢慢吞噬身体。第9行以“Here is...”开头，像是把一件东西展示给读者。</p></div>
+      <div class="card b"><h4>Voice · 声音</h4><p>The speaker is an observer. The speaker does not shout. The calm voice makes the horror stronger. Words like swingin' and burnin' drop the final g: it sounds like speech and song.</p><p class="cn">说话者是旁观者，没有喊叫。平静的语气让恐怖感更强。swingin'、burnin'等词省略了词尾的g，听起来像说话和歌曲。</p></div>
+      <div class="card r"><h4>Rhyme · 韵律</h4><p>Rhyme scheme: <b>AABB CCDD EEFF</b>. Every pair of lines rhymes (couplets): root/fruit, breeze/trees, South/mouth, fresh/flesh, pluck/suck, drop/crop.</p><p class="cn">韵式：<b>AABB CCDD EEFF</b>。每两行押韵（对句）。</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h3>5 · Attitude, shifts, theme · <span class="cn">态度、转折、主题</span></h3>
+    <ul>
+      <li><b>Attitude (tone)</b>: sorrowful, bitter, horrified, but controlled. <span class="cn">语气：悲伤、苦涩、震惊，但克制。</span></li>
+      <li><b>Shifts</b>: line 5 (a pretty picture appears); line 8 ('Then the sudden smell…' turns sweet to horror); line 9 (the poem 'shows' the fruit). <span class="cn">转折：第5行（出现优美画面）；第8行（从甜美转向恐怖）；第9行（诗“展示”果实）。</span></li>
+      <li><b>Title again</b>: after reading, 'strange fruit' means the bodies and also the result of hatred: a 'crop' that society grew. <span class="cn">再看标题：读完后，“奇异的果实”指那些身体，也指仇恨的结果——社会种出的“收成”。</span></li>
+    </ul>
+    <div class="callout green"><b>Possible theme · 可能的主题:</b> Racist violence is unnatural and cruel, and a beautiful place can hide terrible acts. The poem asks readers not to look away.<br><span class="cn">种族暴力是不自然、残酷的，美丽的地方也可能隐藏可怕的行为。这首诗要求读者不要回避。</span></div>
+    <div class="callout blue"><b>Connect to Poem 1 · 联系第一首:</b> Look at Saunders lines 6–8 and Meeropol lines 9–11. Do you notice something? We will talk about this in the next tab.<br><span class="cn">对比桑德斯第6–8行和米罗波尔第9–11行。你注意到什么了吗？我们将在下一个标签页讨论。</span></div>
+  </div>
+
+  <h3 class="qhead">Quiz · Poem 2 · <span class="cn">测验：第二首</span></h3>
+  <p style="margin-bottom:10px">Select the best answer. You cannot change your answer after you select it.<br><span class="cn">请选择最佳答案。选择后不能更改。</span></p>
+  <div id="p2QuizContainer"></div>
+
+  <div class="reflect">
+    <h3>Reflect · <span class="cn">反思</span></h3>
+    <p><b>1.</b> The poem puts a pretty picture next to a horrible one. How does this contrast change how you feel as a reader? <span class="cn">诗把优美的画面和可怕的画面放在一起。这种对比如何改变你作为读者的感受？</span></p>
+    <textarea id="p2Ref1"></textarea>
+    <p><b>2.</b> Why is it important to read and remember difficult history? Give one reason in your own words. <span class="cn">为什么阅读并记住沉重的历史很重要？用你自己的话写一个理由。</span></p>
+    <textarea id="p2Ref2"></textarea>
+    <p>Today I am grateful for <input type="text" class="grat-input" id="p2Grat"> <span class="cn">今天我感谢……</span></p>
+    <button class="dl-btn" id="p2DownloadBtn">⬇ Download your work · 下载你的作业</button>
+    <div class="hint" id="p2Hint">Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。</div>
+  </div>
+</div>
+
+<!-- ============ TOGETHER ============ -->
+<div class="tab-content" id="tab-p3">
+  <div class="name-row"><label for="p3Name"><strong>Name · 姓名:</strong></label><input type="text" id="p3Name" placeholder="Your name · 你的名字"></div>
+
+  <div class="sec">
+    <h3>1 · Two poems in conversation · <span class="cn">两首诗的对话</span></h3>
+    <p>When one work refers to another, this is <b>intertextuality</b>. Saunders's lines 6–8 echo Meeropol's last stanza (lines 9–11). Saunders is not copying by accident. She is placing her speaker inside a long history. The 'strange fruit' becomes part of the speaker's memory, even though the people at lunch only talk about knives, forks, and music.</p>
+    <p class="cn">一部作品引用另一部作品，叫作<b>互文性</b>。桑德斯第6–8行呼应了米罗波尔的最后一节（第9–11行）。这不是偶然模仿，而是把说话者放进一段漫长的历史里。即使午餐桌旁的人只谈刀叉和音乐，“奇异的果实”也成了说话者记忆的一部分。</p>
+  </div>
+
+  <div class="sec">
+    <h3>2 · Compare · <span class="cn">比较</span></h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Feature · 特点</th><th>Poem 1: You're Not Black</th><th>Poem 2: Strange Fruit</th></tr>
+      <tr><td><b>Time and place</b><br><span class="cn">时间地点</span></td><td>Modern school lunch; history in the background<br><span class="cn">现代学校午餐；背景是历史</span></td><td>Southern United States in the 1930s<br><span class="cn">20世纪30年代的美国南方</span></td></tr>
+      <tr><td><b>Speaker</b><br><span class="cn">说话者</span></td><td>First person 'I'; personal and direct<br><span class="cn">第一人称“我”，个人化、直接</span></td><td>Observer; calm witness<br><span class="cn">旁观者，冷静的见证人</span></td></tr>
+      <tr><td><b>Tone</b><br><span class="cn">语气</span></td><td>Hurt → angry → self-affirming<br><span class="cn">受伤→愤怒→肯定自我</span></td><td>Sorrowful, bitter, controlled<br><span class="cn">悲伤、苦涩、克制</span></td></tr>
+      <tr><td><b>Form</b><br><span class="cn">形式</span></td><td>30 lines; couplets begin at line 17<br><span class="cn">30行；第17行开始用对句</span></td><td>12 lines; couplets throughout (AABB CCDD EEFF)<br><span class="cn">12行；全篇对句</span></td></tr>
+      <tr><td><b>Main tools</b><br><span class="cn">主要手法</span></td><td>Allusion, repetition, irony, sound imagery<br><span class="cn">典故、重复、反讽、声音意象</span></td><td>Metaphor, juxtaposition, smell and visual imagery, repetition<br><span class="cn">隐喻、并置、嗅觉和视觉意象、重复</span></td></tr>
+      <tr><td><b>Theme</b><br><span class="cn">主题</span></td><td>Identity is not decided by stereotypes<br><span class="cn">身份不由刻板印象决定</span></td><td>Racist violence is unnatural; do not look away<br><span class="cn">种族暴力不自然；不要回避</span></td></tr>
+    </table></div>
+  </div>
+
+  <div class="sec">
+    <h3>3 · TP-CASTT on both poems · <span class="cn">用TP-CASTT分析两首诗</span></h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Step · 步骤</th><th>Poem 1</th><th>Poem 2</th></tr>
+      <tr><td><b>T</b>itle · 标题</td><td>A sentence others say; the poem answers it</td><td>A shocking metaphor: fruit + bodies</td></tr>
+      <tr><td><b>P</b>araphrase · 释义</td><td>Others say I am not Black. I answer with history and anger. I want to be me.</td><td>Bodies hang from Southern trees. A beautiful land hides horror.</td></tr>
+      <tr><td><b>C</b>onnotation · 内涵</td><td>hands, beat, 'black norms', white sheen</td><td>strange, gallant, bitter, crop</td></tr>
+      <tr><td><b>A</b>ttitude · 态度</td><td>Hurt, angry, determined</td><td>Sorrowful, bitter, controlled</td></tr>
+      <tr><td><b>S</b>hifts · 转折</td><td>Lines 5, 13, 17, 29</td><td>Lines 5, 8, 9</td></tr>
+      <tr><td><b>T</b>itle again · 再看标题</td><td>The title is the insult; the last word is the reply</td><td>The 'fruit' is also the 'crop' of hatred</td></tr>
+      <tr><td><b>T</b>heme · 主题</td><td>Be yourself; identity is not a stereotype</td><td>Do not ignore racist violence</td></tr>
+    </table></div>
+    <p class="cn" style="font-size:.9rem">这是一种可能的分析，课堂上可以补充或不同意。 · This is one possible analysis; add to it or disagree in class.</p>
+  </div>
+
+  <div class="sec">
+    <h3>4 · Writing a comparison · <span class="cn">写比较</span></h3>
+    <div class="grid2">
+      <div class="card g"><h4>Show similarity · 表示相同</h4><p>Both… · Similarly… · Like Saunders, Meeropol…</p></div>
+      <div class="card a"><h4>Show difference · 表示不同</h4><p>However… · Whereas… · In contrast…</p></div>
+    </div>
+    <div class="callout green"><b>Thesis model · 论点范例:</b> Saunders and Meeropol both use images of historical violence to show that racism causes lasting harm, but Saunders focuses on personal identity while Meeropol bears witness to the violence itself.<br><span class="cn">桑德斯和米罗波尔都用历史暴力的意象说明种族主义造成持久伤害，但桑德斯关注个人身份，而米罗波尔见证暴力本身。</span></div>
+  </div>
+
+  <h3 class="qhead">Quiz · Together · <span class="cn">测验：对比</span></h3>
+  <p style="margin-bottom:10px">Select the best answer. You cannot change your answer after you select it.<br><span class="cn">请选择最佳答案。选择后不能更改。</span></p>
+  <div id="p3QuizContainer"></div>
+
+  <div class="reflect">
+    <h3>Reflect · <span class="cn">反思</span></h3>
+    <p><b>1.</b> Which poem do you find more powerful? Use ONE device (for example imagery, irony, repetition, or form) to explain your choice. <span class="cn">你觉得哪首诗更有力量？用一种手法（如意象、反讽、重复或形式）解释你的选择。</span></p>
+    <textarea id="p3Ref1"></textarea>
+    <p><b>2.</b> How does knowing 'Strange Fruit' change the way you read lines 5–8 of Poem 1? <span class="cn">了解《奇异的果实》后，你读第一首第5–8行的方式有什么变化？</span></p>
+    <textarea id="p3Ref2"></textarea>
+    <p>Today I am grateful for <input type="text" class="grat-input" id="p3Grat"> <span class="cn">今天我感谢……</span></p>
+    <button class="dl-btn" id="p3DownloadBtn">⬇ Download your work · 下载你的作业</button>
+    <div class="hint" id="p3Hint">Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。</div>
+  </div>
+</div>
+
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 30;
+
+// ============================================================
+// POEM TEXT — Poems are embedded below. Poem 1 = lines 1-30,
+// Poem 2 = lines 1-12. Blank lines mark stanza breaks.
+// A line that starts with * is shown as a footnote and is not numbered.
+// ============================================================
+const POEM1 = `
+I sit with them at lunch
+Fried chicken on my plate
+I eat with a knife and fork
+“You’re not black, if you don’t use your hands to eat”
+Yet I know that hands tied up the strange fruit on the trees in the south
+The fruit for the crows to pluck
+For the rain to gather, for the wind to suck
+For the sun to rot, for the trees to drop*
+
+I don’t recognise the Caribbean music, or the Afrobeats
+I only know of Liszt, Chopin and Ludovico Einaudi
+Whose names you’ve probably never heard
+“You’re not black, if you don’t know this beat”
+Yet, I am familiar with the beat of pounding
+Pounding of sugar cane, the whipping of backs
+The cries and screams of my ancestors
+Ring loud in my head centuries later
+
+So how dare you? How dare you put me down!
+Question my ethnicity, I’m still a shade of brown
+And I’m sorry if I don’t live up to your ‘black norms’
+But I live in a world with segregated dorms
+Society crushes me, tells me I’m ugly
+But copies my features, they must think it’s funny
+I’m not trying to in any way be mean
+But I live in a society covered in white sheen
+Sorry to Bother You, but I should Get Out
+’Cause The Hate U Give leaves me with no doubt
+That I am not The Help, the help that you need
+But the Hidden Figures are clear to see
+That I should stop trying to be ‘Black’ and just try to be
+Me
+
+*from ‘Strange Fruit’ by Abel Meeropol
+`;
+
+const POEM2 = `
+Southern trees bear strange fruit,
+Blood on the leaves and blood at the root,
+Black bodies swinging in the southern breeze,
+Strange fruit hanging from the poplar trees.
+
+Pastoral scene of the gallant south,
+The bulging eyes and the twisted mouth,
+Scent of magnolias, sweet and fresh,
+Then the sudden smell of burning flesh.
+
+Here is fruit for the crows to pluck,
+For the rain to gather, for the wind to suck,
+For the sun to rot, for the trees to drop,
+Here is a strange and bitter crop.
+`;
+
+const VOCAB = [
+  {word:"speaker",pos:"noun",cn:"说话者",def:"The voice that talks in a poem. It is not always the poet.",cn_def:"诗中说话的声音，不一定是诗人本人。",example:"The speaker in Poem 1 says 'I'."},
+  {word:"tone",pos:"noun",cn:"语气",def:"The speaker's attitude toward the subject.",cn_def:"说话者对主题的态度。",example:"The tone of lines 17–18 is angry."},
+  {word:"theme",pos:"noun",cn:"主题",def:"The big message or idea of a poem.",cn_def:"一首诗的主要信息或思想。",example:"One theme is that people should be free to be themselves."},
+  {word:"allusion",pos:"noun",cn:"典故；暗指",def:"A short reference to another book, film, poem, or event.",cn_def:"对另一本书、电影、诗或事件的简短提及。",example:"Get Out is an allusion to a film."},
+  {word:"metaphor",pos:"noun",cn:"隐喻",def:"A comparison that says one thing IS another, without 'like' or 'as'.",cn_def:"不用“像”，直接说一物就是另一物的比较。",example:"In Poem 2, the bodies are called strange fruit."},
+  {word:"imagery",pos:"noun",cn:"意象",def:"Words that help the reader see, hear, smell, taste, or feel.",cn_def:"让读者看到、听到、闻到、尝到或感受到的词语。",example:"The smell of burning flesh is strong imagery."},
+  {word:"irony",pos:"noun",cn:"反讽",def:"When two ideas do not match, or the meaning is opposite to what is expected.",cn_def:"两种想法互相矛盾，或意思与预期相反。",example:"It is ironic that society copies features it calls ugly."},
+  {word:"couplet",pos:"noun",cn:"对句",def:"Two lines in a row that rhyme.",cn_def:"连续两行押韵的诗句。",example:"The words down and brown end a couplet in Poem 1."},
+  {word:"juxtaposition",pos:"noun",cn:"并置；对照",def:"Putting two very different things side by side to show contrast.",cn_def:"把两种很不同的事物放在一起，显示对比。",example:"Sweet flowers next to a terrible smell is juxtaposition."},
+  {word:"stereotype",pos:"noun",cn:"刻板印象",def:"A fixed idea about a group of people that is too simple or unfair.",cn_def:"对某个群体的固定看法，过于简单或不公平。",example:"Judging a person by how they eat is stereotype thinking."},
+  {word:"identity",pos:"noun",cn:"身份认同",def:"Who you are: your background, culture, and how you see yourself.",cn_def:"你是谁：你的背景、文化和你如何看待自己。",example:"The speaker wants to define her own identity."},
+  {word:"segregation",pos:"noun",cn:"种族隔离",def:"Forcing groups of people to live, study, or work apart, often by race.",cn_def:"强迫不同群体分开生活、学习或工作，通常按种族划分。",example:"Segregation in schools was once law in parts of the United States."},
+  {word:"ancestor",pos:"noun",cn:"祖先",def:"A family member who lived long ago.",cn_def:"很久以前生活过的家庭成员。",example:"The speaker hears the cries of her ancestors."},
+  {word:"lynching",pos:"noun",cn:"私刑（暴徒绞死）",def:"The killing of a person by a mob without a legal trial, often by hanging. In the United States, most victims were Black.",cn_def:"暴徒不经合法审判就杀人，常用绞刑。在美国，大多数受害者是黑人。",example:"Poem 2 was written to protest lynching."}
+];
+
+const P1_Q = [
+ {id:"p1q1",title:"Who speaks inside quotation marks?",
+  passage:"Lines 4 and 12 are inside quotation marks. Both lines tell the speaker she is not Black.",
+  q:"Whose words are inside the quotation marks in lines 4 and 12?",q_cn:"第4行和第12行引号里是谁的话？",
+  options:["A. The speaker's own thoughts|A. 说话者自己的想法","B. The people at the lunch table|B. 午餐桌旁的人","C. The poet's teacher|C. 诗人的老师","D. Billie Holiday|D. 比莉·荷莉黛"],
+  correct:"B",
+  rat_right:"Quotation marks show other people's words. The people at lunch judge the speaker.|引号表示别人说的话。午餐桌旁的人在评判说话者。",
+  rat_wrong:{A:"The speaker answers these words. She does not say them.|说话者是在回应这些话，不是她自己说的。",C:"No teacher appears in the poem.|诗中没有出现老师。",D:"Billie Holiday belongs to Poem 2, not these lines.|比莉·荷莉黛与第二首诗有关，与这几行无关。"}},
+ {id:"p1q2",title:"The test for Blackness",
+  passage:"Lines 3–4: The speaker eats with a knife and fork. Someone says that means she is not Black.",
+  q:"How do the others decide whether the speaker is 'Black enough'?",q_cn:"别人如何判断说话者“够不够黑人”？",
+  options:["A. By her school grades|A. 看她的学习成绩","B. By how she eats|B. 看她怎么吃饭","C. By her hairstyle|C. 看她的发型","D. By her accent|D. 看她的口音"],
+  correct:"B",
+  rat_right:"The test is about eating with hands or with a knife and fork.|测试内容是用手吃饭还是用刀叉吃饭。",
+  rat_wrong:{A:"Grades are never mentioned in the poem.|诗中从未提到成绩。",C:"Hair is not mentioned in these lines.|这几行没有提到发型。",D:"Accent is not mentioned. The test is about eating.|没有提到口音。测试与吃饭有关。"}},
+ {id:"p1q3",title:"The word Yet",
+  q:"What does the word 'Yet' do at the start of lines 5 and 13?",q_cn:"第5行和第13行开头的“Yet”起什么作用？",
+  options:["A. It shifts from the accusation to the speaker's answer from history|A. 从指责转向说话者基于历史的回答","B. It ends the poem|B. 结束全诗","C. It introduces a joke|C. 引出一个笑话","D. It changes the speaker to a new person|D. 把说话者换成另一个人"],
+  correct:"A",
+  rat_right:"'Yet' is a turn word. After each accusation, the speaker answers with history.|“Yet”是转折词。每次被指责后，说话者都用历史回答。",
+  rat_wrong:{B:"The poem continues to line 30.|诗一直持续到第30行。",C:"The tone is serious, not funny.|语气严肃，不是玩笑。",D:"The speaker is the same person throughout.|说话者始终是同一个人。"}},
+ {id:"p1q4",title:"Strange fruit as metaphor",
+  passage:"Line 5 mentions hands that tied up the 'strange fruit' on the trees in the South.",
+  q:"What do the 'strange fruit' hanging in the trees stand for?",q_cn:"挂在树上的“奇异的果实”代表什么？",
+  options:["A. Fruit eaten by birds|A. 被鸟吃的水果","B. Bodies of people killed by lynching|B. 被私刑杀害的人的身体","C. A farm product from the South|C. 南方的农产品","D. A school lunch|D. 学校午餐"],
+  correct:"B",
+  rat_right:"This is a metaphor. It points to Poem 2, where the fruit means the bodies of lynching victims.|这是隐喻，指向第二首诗，其中“果实”指私刑受害者的身体。",
+  rat_wrong:{A:"The fruit is not real fruit in the poem.|诗中的果实不是真正的水果。",C:"The poem is not about farming.|这首诗不是关于农业的。",D:"The lunch is the present scene; the trees are history.|午餐是现在的场景，树是历史。"}},
+ {id:"p1q5",title:"Allusion",
+  passage:"Lines 25–28 name five titles: Sorry to Bother You, Get Out, The Hate U Give, The Help, and Hidden Figures.",
+  q:"What device is used when a poem names other films or books?",q_cn:"诗里提到其他电影或书，这是什么手法？",
+  options:["A. Allusion|A. 典故","B. Simile|B. 明喻","C. Personification|C. 拟人","D. Alliteration|D. 头韵"],
+  correct:"A",
+  rat_right:"An allusion is a short reference to another work.|典故是对另一作品的简短提及。",
+  rat_wrong:{B:"A simile compares using 'like' or 'as'.|明喻用“像”或“如”做比较。",C:"Personification gives human actions to objects.|拟人是给物体赋予人的行为。",D:"Alliteration repeats beginning sounds.|头韵是重复开头的音。"}},
+ {id:"p1q6",title:"Sound imagery",
+  passage:"Lines 13–16: the speaker knows the beat of pounding sugar cane, whipping, and the cries of her ancestors.",
+  q:"Which imagery is strongest in lines 13–16?",q_cn:"第13–16行中最强的意象是什么？",
+  options:["A. Sound and pain from the history of slavery|A. 来自奴隶制历史的声音和痛苦","B. Pleasant smells of food|B. 食物的香味","C. Bright colors in a classroom|C. 教室里的鲜艳颜色","D. Cool, quiet weather|D. 凉爽安静的天气"],
+  correct:"A",
+  rat_right:"Pounding, whipping, and cries make the reader hear the past.|捶打、鞭打和哭喊让读者“听到”过去。",
+  rat_wrong:{B:"Food appears in lines 1–3, not in these lines.|食物出现在第1–3行，不在这几行。",C:"No colors are described here.|这里没有描写颜色。",D:"Weather is not mentioned.|没有提到天气。"}},
+ {id:"p1q7",title:"Tone",
+  passage:"Line 17: the speaker repeats 'How dare you' and ends the line with an exclamation mark.",
+  q:"Which words best describe the tone in lines 17–18?",q_cn:"哪些词最能描述第17–18行的语气？",
+  options:["A. Angry and hurt|A. 愤怒、受伤","B. Calm and bored|B. 平静、无聊","C. Playful and silly|C. 好玩、傻气","D. Shy and nervous|D. 害羞、紧张"],
+  correct:"A",
+  rat_right:"Repetition and the exclamation mark show strong anger and pain.|重复和感叹号显示强烈的愤怒和痛苦。",
+  rat_wrong:{B:"Nothing here is calm or bored.|这里没有平静或无聊。",C:"The subject is serious.|主题是严肃的。",D:"The speaker is bold and direct.|说话者大胆直接。"}},
+ {id:"p1q8",title:"Form change at line 17",
+  passage:"The line endings from line 17 on include down and brown, norms and dorms, mean and sheen.",
+  q:"From line 17 to the end, what pattern appears at the ends of lines?",q_cn:"从第17行到结尾，行尾出现了什么规律？",
+  options:["A. Rhyming pairs (couplets)|A. 押韵的对句","B. No repeated sounds|B. 没有重复的声音","C. The same word every line|C. 每行同一个词","D. A rhyme every fourth line|D. 每四行一个韵"],
+  correct:"A",
+  rat_right:"The poem moves into couplets. The rhyme makes the speaker's voice sharper.|诗进入对句形式，押韵让说话者的声音更尖锐。",
+  rat_wrong:{B:"Many sounds repeat in pairs.|许多声音成对重复。",C:"The words are different each time.|每次的词都不同。",D:"The rhymes come in pairs, not every four lines.|韵脚是成对出现，不是每四行。"}},
+ {id:"p1q9",title:"Irony",
+  passage:"Lines 21–22: society tells the speaker she is ugly, but society copies her features.",
+  q:"What is ironic in lines 21–22?",q_cn:"第21–22行中什么是反讽？",
+  options:["A. Society insults her features and also copies them|A. 社会侮辱她的特征，同时又模仿它们","B. She wants to be ugly|B. 她想变丑","C. She copies society|C. 她模仿社会","D. Society never notices her|D. 社会从不注意她"],
+  correct:"A",
+  rat_right:"Two ideas do not match: insult and imitation. That is irony.|两种想法互相矛盾：侮辱和模仿。这就是反讽。",
+  rat_wrong:{B:"The speaker does not say this.|说话者没有这样说。",C:"It is society that copies her.|是社会在模仿她。",D:"Society notices her too much, in a bad way.|社会过分关注她，而且是不好的方式。"}},
+ {id:"p1q10",title:"Theme",
+  q:"Which statement is the best theme of Poem 1?",q_cn:"哪个陈述是第一首诗最好的主题？",
+  options:["A. Identity cannot be decided by stereotypes; a person should be free to be themselves|A. 身份不能由刻板印象决定，每个人应该可以做自己","B. Classical music is better than Afrobeats|B. 古典音乐比非洲节拍更好","C. Fried chicken is unhealthy|C. 炸鸡不健康","D. Lunch is the most important meal|D. 午餐是最重要的一餐"],
+  correct:"A",
+  rat_right:"The title, the ending word 'Me', and the whole argument point to this theme.|标题、结尾的“Me”和整个论述都指向这个主题。",
+  rat_wrong:{B:"The speaker does not say one music is better.|说话者没有说哪种音乐更好。",C:"Food is only part of the opening scene.|食物只是开头场景的一部分。",D:"The lunch is a setting, not the message.|午餐只是背景，不是主旨。"}}
+];
+
+const P2_Q = [
+ {id:"p2q1",title:"Author and singer",
+  q:"Abel Meeropol wrote 'Strange Fruit'. Which singer made it famous?",q_cn:"阿贝尔·米罗波尔写了《奇异的果实》。哪位歌手让它闻名？",
+  options:["A. Langston Hughes|A. 兰斯顿·休斯","B. Billie Holiday|B. 比莉·荷莉黛","C. Amy Saunders|C. 艾米·桑德斯","D. Robert Frost|D. 罗伯特·弗罗斯特"],
+  correct:"B",
+  rat_right:"Billie Holiday first sang it in 1939.|比莉·荷莉黛于1939年首次演唱。",
+  rat_wrong:{A:"Langston Hughes was a poet, not the singer here.|兰斯顿·休斯是诗人，不是这里的歌手。",C:"Amy Saunders wrote Poem 1.|艾米·桑德斯写的是第一首诗。",D:"Robert Frost was a poet.|罗伯特·弗罗斯特是诗人。"}},
+ {id:"p2q2",title:"Purpose",
+  q:"What was the main purpose of this poem?",q_cn:"这首诗的主要目的是什么？",
+  options:["A. To celebrate a harvest|A. 庆祝丰收","B. To protest lynching|B. 抗议私刑","C. To describe a farm|C. 描写农场","D. To teach geography|D. 教地理"],
+  correct:"B",
+  rat_right:"It is an anti-lynching protest poem.|这是一首反私刑的抗议诗。",
+  rat_wrong:{A:"The 'crop' is a bitter metaphor, not a celebration.|“收成”是苦涩的隐喻，不是庆祝。",C:"The farm images are used to show contrast.|农场的意象用来制造对比。",D:"The poem is not a geography lesson.|这首诗不是地理课。"}},
+ {id:"p2q3",title:"Central metaphor",
+  q:"In the title, 'strange fruit' is a metaphor for what?",q_cn:"在标题中，“奇异的果实”是什么的隐喻？",
+  options:["A. Rare tropical fruit|A. 稀有的热带水果","B. The bodies of lynching victims|B. 私刑受害者的身体","C. A kind of tree|C. 一种树","D. The weather in the South|D. 南方的天气"],
+  correct:"B",
+  rat_right:"The poem says Black bodies hang from the trees like fruit.|诗中说黑人的身体像果实一样挂在树上。",
+  rat_wrong:{A:"The poem does not describe real fruit.|诗中没有描写真正的水果。",C:"The trees are where the 'fruit' hangs, not the metaphor.|树是“果实”悬挂的地方，不是隐喻对象。",D:"Weather is only background.|天气只是背景。"}},
+ {id:"p2q4",title:"Why 'strange'?",
+  q:"Why is the fruit called 'strange'?",q_cn:"为什么这种果实被称为“奇异的”？",
+  options:["A. It is a rare tropical fruit|A. 它是稀有的热带水果","B. Human bodies do not belong on trees; it is unnatural and shocking|B. 人的身体不应该挂在树上，这不自然，令人震惊","C. It tastes very sweet|C. 它味道很甜","D. It only grows in the South|D. 它只生长在南方"],
+  correct:"B",
+  rat_right:"Fruit on a tree is natural. Bodies on a tree are not. 'Strange' means unnatural.|树上的水果是自然的，树上的身体则不是。“奇异”意思是不自然。",
+  rat_wrong:{A:"This is not about a real fruit.|这不是在说真的水果。",C:"Taste is not the point.|重点不是味道。",D:"The South is the setting, not the reason for 'strange'.|南方是背景，不是“奇异”的原因。"}},
+ {id:"p2q5",title:"Juxtaposition",
+  passage:"Lines 5–8 show a pretty, proud picture of the South. Then they show the smell of burning flesh.",
+  q:"What is the device when two very different pictures are placed side by side?",q_cn:"把两种很不同的画面放在一起，是什么手法？",
+  options:["A. Onomatopoeia|A. 拟声","B. Juxtaposition|B. 并置","C. Alliteration|C. 头韵","D. Simile|D. 明喻"],
+  correct:"B",
+  rat_right:"Juxtaposition shows contrast: beauty beside horror.|并置显示对比：美丽与恐怖并列。",
+  rat_wrong:{A:"Onomatopoeia is a word that sounds like its meaning.|拟声词是发音像其意思的词。",C:"Alliteration repeats beginning sounds.|头韵是重复开头的音。",D:"A simile compares with 'like' or 'as'.|明喻用“像”或“如”比较。"}},
+ {id:"p2q6",title:"Irony of 'gallant'",
+  passage:"Line 5 calls the South 'gallant'. Gallant means brave and honorable.",
+  q:"Why is the word 'gallant' ironic here?",q_cn:"为什么“gallant”在这里是反讽？",
+  options:["A. The poem agrees the South is honorable|A. 诗同意南方是高贵的","B. The word sounds like how the South saw itself, but the poem shows cruelty|B. 这个词像是南方对自己的看法，但诗展示了残酷","C. The word means funny|C. 这个词意思是好笑","D. The word is a place name|D. 这个词是地名"],
+  correct:"B",
+  rat_right:"The poem uses a noble word next to violence, so the word criticizes the South's image of itself.|诗把高贵的词放在暴力旁边，所以这个词批评了南方对自己的形象。",
+  rat_wrong:{A:"The poem is protesting, not praising.|这首诗是在抗议，不是赞美。",C:"Gallant does not mean funny.|gallant不是“好笑”的意思。",D:"It is an adjective, not a place name.|它是形容词，不是地名。"}},
+ {id:"p2q7",title:"Smell imagery",
+  passage:"Lines 7–8: the poem moves from the sweet smell of magnolias to the smell of burning flesh.",
+  q:"Which sense do lines 7–8 use most strongly?",q_cn:"第7–8行最强烈地使用了哪种感官？",
+  options:["A. Smell|A. 嗅觉","B. Taste|B. 味觉","C. Touch|C. 触觉","D. Hearing|D. 听觉"],
+  correct:"A",
+  rat_right:"The poem uses smell imagery: sweet, then horrible.|诗用嗅觉意象：先甜美，后可怕。",
+  rat_wrong:{B:"No taste is described.|没有描写味道。",C:"No touch is described.|没有描写触觉。",D:"No sound is described in these lines.|这几行没有描写声音。"}},
+ {id:"p2q8",title:"Repetition in stanza 3",
+  passage:"Lines 10–11 repeat 'For the...' before rain, wind, sun, and tree.",
+  q:"What is the effect of this repetition?",q_cn:"这种重复有什么效果？",
+  options:["A. It makes the list feel steady and cold, as if nature slowly uses the bodies|A. 让清单显得平稳冷静，仿佛大自然慢慢吞噬身体","B. It makes the poem funny|B. 让诗变得好笑","C. It confuses the reader|C. 让读者困惑","D. It changes the rhyme scheme|D. 改变韵式"],
+  correct:"A",
+  rat_right:"The repeated pattern builds a calm, relentless list.|重复的结构形成了平静、无情的清单。",
+  rat_wrong:{B:"The mood is bitter, not funny.|气氛是苦涩的，不是好笑的。",C:"The pattern is clear, not confusing.|结构清晰，并不令人困惑。",D:"The rhyme scheme stays the same.|韵式保持不变。"}},
+ {id:"p2q9",title:"Tone",
+  q:"Which words best describe the tone of 'Strange Fruit'?",q_cn:"哪些词最能描述《奇异的果实》的语气？",
+  options:["A. Joyful and playful|A. 快乐、好玩","B. Sorrowful and bitter|B. 悲伤、苦涩","C. Bored and tired|C. 无聊、疲倦","D. Proud and boastful|D. 骄傲、自夸"],
+  correct:"B",
+  rat_right:"Words like blood, burning flesh, and bitter crop create a sorrowful, bitter tone.|血、焦肉、苦涩的收成等词营造出悲伤、苦涩的语气。",
+  rat_wrong:{A:"Nothing in the poem is joyful.|诗中没有快乐的内容。",C:"The imagery is sharp and strong, not bored.|意象尖锐有力，不是无聊。",D:"The poem is protest, not boasting.|这首诗是抗议，不是自夸。"}},
+ {id:"p2q10",title:"Theme",
+  q:"Which statement is the best theme of 'Strange Fruit'?",q_cn:"哪个陈述是《奇异的果实》最好的主题？",
+  options:["A. Trees are important to farmers|A. 树对农民很重要","B. Racist violence is unnatural and cruel, and beauty can hide terrible acts|B. 种族暴力不自然且残酷，美丽也可能隐藏可怕的行为","C. The South has nice weather|C. 南方天气很好","D. Songs are better than poems|D. 歌曲比诗好"],
+  correct:"B",
+  rat_right:"The contrast of beauty and horror, and the bitter crop, support this theme.|美丽与恐怖的对比，以及苦涩的收成，支持这个主题。",
+  rat_wrong:{A:"The trees are part of a metaphor.|树是隐喻的一部分。",C:"The pretty setting is used for contrast.|优美的环境用于制造对比。",D:"The poem does not compare songs and poems.|诗没有比较歌曲和诗。"}}
+];
+
+const P3_Q = [
+ {id:"p3q1",title:"What both poems share",
+  q:"Which statement is true of BOTH poems?",q_cn:"哪个陈述对两首诗都成立？",
+  options:["A. Both are set in a school cafeteria|A. 都以学校食堂为背景","B. Both refer to the violent history of racism|B. 都提到种族主义的暴力历史","C. Both use 'I' from start to finish|C. 都从头到尾用“我”","D. Both were published in 1937|D. 都发表于1937年"],
+  correct:"B",
+  rat_right:"Poem 1 mentions slavery and lynching imagery. Poem 2 describes a lynching.|第一首提到奴隶制和私刑的意象，第二首描写私刑。",
+  rat_wrong:{A:"Only Poem 1 has a lunch scene.|只有第一首有午餐场景。",C:"Poem 2 has an observer voice, not 'I'.|第二首是旁观者的声音，没有“我”。",D:"Only Poem 2 was published in 1937.|只有第二首发表于1937年。"}},
+ {id:"p3q2",title:"Intertextuality",
+  passage:"Saunders's lines 6–8 echo Meeropol's lines 9–11.",
+  q:"What do we call it when one poem echoes or refers to another work?",q_cn:"一首诗呼应或引用另一作品，我们叫它什么？",
+  options:["A. Allusion or intertextuality|A. 典故或互文性","B. Rhyme|B. 押韵","C. Irony only|C. 仅仅是反讽","D. Simile|D. 明喻"],
+  correct:"A",
+  rat_right:"Referring to another work is allusion; the link between texts is intertextuality.|引用另一作品是典故，文本之间的联系是互文性。",
+  rat_wrong:{B:"Rhyme is about sound at line ends.|押韵是行尾的声音。",C:"Irony is about mismatch, not about echoing a text.|反讽是矛盾，不是呼应文本。",D:"A simile compares with 'like' or 'as'.|明喻用“像”或“如”比较。"}},
+ {id:"p3q3",title:"Speaker",
+  q:"How is the speaker different in the two poems?",q_cn:"两首诗的说话者有什么不同？",
+  options:["A. Poem 1 uses 'I' and is personal; Poem 2 is a calm observer|A. 第一首用“我”，很个人化；第二首是冷静的旁观者","B. Poem 1 is an observer; Poem 2 uses 'I'|B. 第一首是旁观者；第二首用“我”","C. Both are observers|C. 都是旁观者","D. Both are first person|D. 都是第一人称"],
+  correct:"A",
+  rat_right:"The speaker in Poem 1 speaks directly as 'I'. The speaker in Poem 2 reports what is seen.|第一首的说话者直接以“我”说话。第二首的说话者报告所见。",
+  rat_wrong:{B:"This reverses the poems.|这把两首诗弄反了。",C:"Poem 1 is first person.|第一首是第一人称。",D:"Poem 2 does not use 'I'.|第二首没有用“我”。"}},
+ {id:"p3q4",title:"Tone",
+  q:"Which pair of tones matches the poems?",q_cn:"哪一组语气与两首诗相符？",
+  options:["A. Poem 1: angry and defiant; Poem 2: sorrowful and bitter|A. 第一首：愤怒、不服；第二首：悲伤、苦涩","B. Poem 1: joyful; Poem 2: angry|B. 第一首：快乐；第二首：愤怒","C. Poem 1: bored; Poem 2: playful|C. 第一首：无聊；第二首：好玩","D. Both: cheerful|D. 都：愉快"],
+  correct:"A",
+  rat_right:"Poem 1 moves from hurt to anger to determination. Poem 2 is controlled sorrow.|第一首从受伤到愤怒再到坚定。第二首是克制的悲伤。",
+  rat_wrong:{B:"Poem 1 is not joyful.|第一首并不快乐。",C:"Neither poem is bored or playful.|两首诗都不无聊也不好玩。",D:"Neither poem is cheerful.|两首诗都不愉快。"}},
+ {id:"p3q5",title:"Rhyme and form",
+  q:"Which statement about rhyme is true?",q_cn:"关于押韵，哪个陈述是正确的？",
+  options:["A. Poem 2 uses couplets throughout; Poem 1 begins couplets at line 17|A. 第二首全篇用对句；第一首从第17行开始用对句","B. Poem 1 uses couplets throughout; Poem 2 has no rhyme|B. 第一首全篇用对句；第二首没有押韵","C. Neither poem rhymes|C. 两首诗都不押韵","D. Both begin couplets at line 17|D. 都从第17行开始用对句"],
+  correct:"A",
+  rat_right:"Poem 2 is AABB CCDD EEFF. Poem 1 changes to rhyme at line 17.|第二首是AABB CCDD EEFF。第一首在第17行转为押韵。",
+  rat_wrong:{B:"This reverses the poems.|这把两首诗弄反了。",C:"Both poems use rhyme.|两首诗都有押韵。",D:"Poem 2 has only 12 lines.|第二首只有12行。"}},
+ {id:"p3q6",title:"Themes",
+  q:"Which pair of themes fits the poems?",q_cn:"哪一组主题适合这两首诗？",
+  options:["A. Poem 1: identity is not decided by stereotypes; Poem 2: racist violence is unnatural|A. 第一首：身份不由刻板印象决定；第二首：种族暴力不自然","B. Poem 1: lunch is important; Poem 2: nature is beautiful|B. 第一首：午餐很重要；第二首：自然很美","C. Poem 1: music is dangerous; Poem 2: farming is hard|C. 第一首：音乐很危险；第二首：农耕很辛苦","D. Both: sports are fun|D. 都：运动很有趣"],
+  correct:"A",
+  rat_right:"Both poems protest racism, in different ways: personal identity and public violence.|两首诗都以不同方式抗议种族主义：个人身份和公共暴力。",
+  rat_wrong:{B:"These are surface details, not themes.|这些是表面细节，不是主题。",C:"This is not what the poems argue.|这不是两首诗的论点。",D:"Sports are not mentioned.|没有提到运动。"}},
+ {id:"p3q7",title:"Why echo another poem?",
+  q:"Why might Saunders echo lines from 'Strange Fruit' in her poem?",q_cn:"桑德斯为什么可能在诗中呼应《奇异的果实》的诗句？",
+  options:["A. To connect her speaker's pain today to a long history|A. 把说话者今天的痛苦与漫长的历史联系起来","B. To save time writing|B. 为了节省写作时间","C. To make the poem funny|C. 让诗变得好笑","D. To hide her real message|D. 隐藏她真正的信息"],
+  correct:"A",
+  rat_right:"The echo shows the speaker knows the history and carries it with her.|这种呼应表明说话者了解这段历史并将它带在身上。",
+  rat_wrong:{B:"Echoing is a deliberate choice for meaning.|呼应是为了表达意义而做的有意选择。",C:"The tone is serious.|语气是严肃的。",D:"The echo makes the message clearer.|呼应使信息更清楚。"}},
+ {id:"p3q8",title:"TP-CASTT",
+  q:"In TP-CASTT, what does the letter A stand for?",q_cn:"在TP-CASTT中，字母A代表什么？",
+  options:["A. Attitude (tone)|A. 态度（语气）","B. Allusion|B. 典故","C. Audience|C. 读者","D. Argument|D. 论点"],
+  correct:"A",
+  rat_right:"T-P-C-A-S-T-T: Title, Paraphrase, Connotation, Attitude, Shifts, Title again, Theme.|T-P-C-A-S-T-T：标题、释义、内涵、态度、转折、再看标题、主题。",
+  rat_wrong:{B:"Allusion is a device, not a TP-CASTT step.|典故是手法，不是TP-CASTT的步骤。",C:"Audience is not a letter in TP-CASTT.|读者不是TP-CASTT中的步骤。",D:"Argument is not part of TP-CASTT.|论点不是TP-CASTT的一部分。"}},
+ {id:"p3q9",title:"Comparison language",
+  q:"Which sentence stem best shows a DIFFERENCE between the poems?",q_cn:"哪个句子开头最能表示两首诗的不同？",
+  options:["A. Similarly, both poems...|A. 同样，两首诗都……","B. Whereas Saunders uses 'I', Meeropol uses...|B. 桑德斯用“我”，而米罗波尔用……","C. Both poems also...|C. 两首诗还都……","D. Like Poem 1, Poem 2...|D. 和第一首一样，第二首……"],
+  correct:"B",
+  rat_right:"'Whereas' signals contrast between two things.|“Whereas”表示两件事的对比。",
+  rat_wrong:{A:"'Similarly' shows likeness.|“Similarly”表示相似。",C:"'Both' shows likeness.|“Both”表示相似。",D:"'Like' shows likeness.|“Like”表示相似。"}},
+ {id:"p3q10",title:"Best thesis",
+  q:"Which is the best thesis for a comparison essay?",q_cn:"哪个是比较文章最好的论点？",
+  options:["A. Poems are interesting.|A. 诗很有趣。","B. Saunders wrote about lunch and Meeropol wrote about trees.|B. 桑德斯写了午餐，米罗波尔写了树。","C. Both poems use images of historical violence to show lasting harm from racism, but Saunders focuses on personal identity while Meeropol bears witness to violence.|C. 两首诗都用历史暴力的意象说明种族主义的持久伤害，但桑德斯关注个人身份，米罗波尔见证暴力本身。","D. I liked Poem 2 more.|D. 我更喜欢第二首。"],
+  correct:"C",
+  rat_right:"A strong thesis makes a clear argument about both poems and names a similarity and a difference.|好的论点对两首诗提出清楚的观点，并指出相同点和不同点。",
+  rat_wrong:{A:"This is too general to argue.|太笼统，无法论证。",B:"This only lists facts; it has no argument.|只是列出事实，没有论点。",D:"This is an opinion without reasons.|只是没有理由的看法。"}}
+];
+
+const TABS = {
+  p1:{q:P1_Q,answers:{},score:{val:0},done:{val:0},label:"Poem 1 - You're Not Black"},
+  p2:{q:P2_Q,answers:{},score:{val:0},done:{val:0},label:"Poem 2 - Strange Fruit"},
+  p3:{q:P3_Q,answers:{},score:{val:0},done:{val:0},label:"Together - Comparison"}
+};
+
+function buildVocab(){
+  var grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v){
+    var card = document.createElement('div'); card.className='vcard';
+    var top = document.createElement('div');
+    var w = document.createElement('span'); w.className='w'; w.textContent=v.word;
+    var sp = document.createElement('button'); sp.className='speak'; sp.textContent='🔊';
+    sp.addEventListener('click', function(){
+      if (window.speechSynthesis){
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(v.word); u.lang='en-US'; u.rate=0.85;
+        window.speechSynthesis.speak(u);
+      }
+    });
+    top.appendChild(w); top.appendChild(sp);
+    var pos = document.createElement('div'); pos.className='pos'; pos.textContent=v.pos+' · '+v.cn;
+    var d = document.createElement('div'); d.textContent=v.def;
+    var dc = document.createElement('div'); dc.className='cn'; dc.textContent=v.cn_def;
+    var ex = document.createElement('div'); ex.className='ex'; ex.textContent='Example: '+v.example;
+    card.appendChild(top); card.appendChild(pos); card.appendChild(d); card.appendChild(dc); card.appendChild(ex);
+    grid.appendChild(card);
+  });
+}
+
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete){
+  var container = document.getElementById(containerId);
+  data.forEach(function(item, idx){
+    var card = document.createElement('div'); card.className='quiz-card';
+    var num = document.createElement('div'); num.className='q-num';
+    num.textContent='Question '+(idx+1)+' of '+data.length; card.appendChild(num);
+    if (item.passage){
+      var pasEl = document.createElement('div'); pasEl.className='passage-box';
+      pasEl.textContent=item.passage; card.appendChild(pasEl);
+    }
+    var qEl = document.createElement('div'); qEl.className='q-text'; qEl.textContent=item.q;
+    var qCn = document.createElement('div'); qCn.className='q-cn cn'; qCn.textContent=item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+    var optsWrap = document.createElement('div'); optsWrap.className='opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className='rationale';
+    var answered = false;
+    item.options.forEach(function(opt){
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/,'');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/,'') : '';
+      var btn = document.createElement('button'); btn.className='opt-btn'; btn.dataset.letter=letter;
+      var strong = document.createElement('strong'); strong.textContent=letter+'. ';
+      var enS = document.createElement('span'); enS.textContent=enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className='cn'; cnS.textContent=cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+      btn.addEventListener('click', function(){
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b){
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+        var ratText, ratCn, ratParts;
+        if (letter === item.correct){
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '✅ ' + ratParts[0]; ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          var wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = '❌ ' + ratParts[0] + ' (Correct: ' + item.correct + ')'; ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+        var rDiv = document.createElement('div'); rDiv.textContent = ratText;
+        if (ratCn){
+          var rBr = document.createElement('br');
+          var rCnS = document.createElement('span'); rCnS.className='cn'; rCnS.textContent=ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+        addProgress(1);
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+      optsWrap.appendChild(btn);
+    });
+    card.appendChild(optsWrap); card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+function checkReadiness(tabKey){
+  var t = TABS[tabKey];
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  var ready = (t.done.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey+'DownloadBtn');
+  var hint = document.getElementById(tabKey+'Hint');
+  if (ready){ btn.classList.add('ready'); hint.classList.add('hidden'); }
+  else { btn.classList.remove('ready'); hint.classList.remove('hidden'); }
+}
+
+function wireListeners(tabKey){
+  ['Ref1','Ref2','Grat'].forEach(function(fld){
+    document.getElementById(tabKey+fld).addEventListener('input', function(){
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+  document.getElementById(tabKey+'DownloadBtn').addEventListener('click', function(){ tryDownload(tabKey); });
+}
+
+function tryDownload(tabKey){
+  var t = TABS[tabKey];
+  var ref1 = document.getElementById(tabKey+'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey+'Ref2').value.trim();
+  var grat = document.getElementById(tabKey+'Grat').value.trim();
+  if (t.done.val < 10 || !ref1 || !ref2 || !grat) return;
+  var name = document.getElementById(tabKey+'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var txt = '';
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Module: TP-CASTT Poetry Analysis\n';
+  txt += 'Section: ' + t.label + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + t.score.val + ' / 10\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+  t.q.forEach(function(item, i){
+    var sel = t.answers[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i+1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/\//g,'-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+
+function renderPoem(boxId, text){
+  var out = document.getElementById(boxId);
+  while (out.firstChild) out.removeChild(out.firstChild);
+  var lines = text.split(/\r?\n/);
+  var n = 0, any = false;
+  lines.forEach(function(line){
+    if (line.trim().length === 0){
+      if (any){ var gap = document.createElement('div'); gap.className='vgap'; out.appendChild(gap); }
+      return;
+    }
+    any = true;
+    if (line.trim().charAt(0) === '*'){
+      var f = document.createElement('div'); f.className='vfoot'; f.textContent=line.trim(); out.appendChild(f); return;
+    }
+    n++;
+    var row = document.createElement('div'); row.className='vline';
+    var num = document.createElement('span'); num.className='vnum'; num.textContent=String(n);
+    var tx = document.createElement('span'); tx.textContent=line;
+    row.appendChild(num); row.appendChild(tx); out.appendChild(row);
+  });
+  if (!any){
+    var m = document.createElement('div'); m.className='vfoot';
+    m.textContent='Poem text will appear here. · 诗歌文本将显示在这里。';
+    out.appendChild(m);
+  }
+}
+
+function switchTab(name, btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function addProgress(pts){
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function startTimer(){
+  setInterval(function(){
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function fmt(s){
+  return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
+}
+
+function trackNavigation(){
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden){
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display='none'; }, 5000);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.tab-btn').forEach(function(b){
+    b.addEventListener('click', function(){ switchTab(b.dataset.tab, b); });
+  });
+  buildVocab();
+  Object.keys(TABS).forEach(function(k){
+    var t = TABS[k];
+    buildQuiz(t.q, k+'QuizContainer', t.answers, t.score, t.done, function(){ checkReadiness(k); });
+    wireListeners(k);
+  });
+  renderPoem('p1Poem', POEM1);
+  renderPoem('p2Poem', POEM2);
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
