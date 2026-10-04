@@ -1,0 +1,1833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essay Structure Studio | 议论文结构练习室</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:       #2d6a4f;
+  --ml-green-dark:  #1b4332;
+  --ml-green-light: #d8f3dc;
+  --ml-red:         #c1121f;
+  --ml-gold:        #e9c46a;
+  --ink:            #1a2a1a;
+  --ink2:           #2d3748;
+  --mist:           #f8faf8;
+  --border:         #e2e8e2;
+  --cobalt:         #1e3a5f;
+  --amber:          #b45309;
+  --amber-light:    #fef3c7;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', 'Noto Sans SC', sans-serif; background: var(--mist); color: var(--ink); line-height: 1.6; padding-bottom: 70px; }
+.cn { font-family: 'Noto Sans SC', sans-serif; color: #4a5568; font-weight: 400; }
+h1, h2, h3 { font-family: 'Literata', serif; }
+
+/* Header */
+header { background: linear-gradient(135deg, var(--ml-green-dark), var(--ml-green)); color: #fff; padding: 18px 20px 14px; }
+header h1 { font-size: 1.5rem; line-height: 1.25; }
+header .sub { font-size: 0.9rem; opacity: 0.9; margin-top: 2px; }
+header .sub .cn { color: #d8f3dc; }
+.hdr-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 12px; }
+.prog-wrap { flex: 1 1 240px; min-width: 200px; }
+.prog-text { font-size: 0.8rem; margin-bottom: 4px; }
+.prog-track { background: rgba(255,255,255,0.25); border-radius: 99px; height: 10px; overflow: hidden; }
+.prog-bar { background: var(--ml-gold); height: 100%; width: 0%; transition: width 0.4s; }
+.badge { background: rgba(0,0,0,0.25); border-radius: 99px; padding: 3px 12px; font-size: 0.8rem; }
+.pips { display: flex; gap: 8px; flex-wrap: wrap; }
+.pip { display: inline-flex; align-items: center; gap: 5px; font-size: 0.75rem; background: rgba(0,0,0,0.2); padding: 3px 10px; border-radius: 99px; }
+.pip::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.35); display: inline-block; }
+.pip.done::before { background: var(--ml-gold); box-shadow: 0 0 6px var(--ml-gold); }
+
+/* Tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; padding: 10px 14px 0; background: #fff; border-bottom: 2px solid var(--border); }
+.tab-btn { font-family: inherit; border: none; background: #edf2ed; padding: 10px 16px; border-radius: 10px 10px 0 0; cursor: pointer; font-size: 0.9rem; font-weight: 600; color: var(--ink2); }
+.tab-btn.active { background: var(--ml-green); color: #fff; }
+.tab-btn .cn { color: inherit; opacity: 0.85; font-size: 0.8rem; margin-left: 4px; }
+.tab-content { display: none; max-width: 980px; margin: 0 auto; padding: 18px 14px 30px; }
+.tab-content.active { display: block; }
+
+/* Blocks */
+.block { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 18px; }
+.block h2 { font-size: 1.2rem; color: var(--ml-green-dark); margin-bottom: 4px; }
+.block h2 .cn { font-size: 0.95rem; display: block; }
+.block h3 { font-size: 1rem; margin: 12px 0 4px; color: var(--cobalt); }
+.block p { margin: 6px 0; }
+.name-row { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 10px 16px; margin-bottom: 16px; }
+.name-row input { font-family: inherit; font-size: 1rem; padding: 6px 10px; border: 1px solid var(--border); border-radius: 8px; width: min(100%, 320px); margin-left: 6px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 12px 0; }
+.card { border-radius: 12px; padding: 12px 14px; border: 2px solid var(--border); background: #fff; }
+.card h4 { font-size: 0.95rem; margin-bottom: 4px; }
+.card.red { border-color: #f5b5b5; background: #fff5f5; }
+.card.green { border-color: #a7d9b4; background: #f1faf3; }
+.card.blue { border-color: #a9c3e6; background: #f1f6fd; }
+.card.amber { border-color: #f0cf8a; background: var(--amber-light); }
+.card.purple { border-color: #cdb8ec; background: #f7f2fd; }
+.callout { border-left: 5px solid var(--amber); background: var(--amber-light); padding: 10px 14px; border-radius: 0 10px 10px 0; margin: 12px 0; }
+.callout.green { border-color: var(--ml-green); background: var(--ml-green-light); }
+.callout.blue { border-color: var(--cobalt); background: #e6eefa; }
+table.tbl { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.9rem; }
+table.tbl th { background: var(--ml-green); color: #fff; text-align: left; padding: 7px 10px; }
+table.tbl td { border: 1px solid var(--border); padding: 7px 10px; vertical-align: top; }
+.tbl-wrap { overflow-x: auto; }
+.bad { color: var(--ml-red); font-weight: 600; }
+.good { color: var(--ml-green); font-weight: 600; }
+.seg { padding: 1px 4px; border-radius: 4px; }
+.seg-hook { background: #fde2e2; } .seg-lead { background: #dbeafe; } .seg-thesis { background: #d8f3dc; }
+.seg-trans { background: #fef3c7; } .seg-point { background: #fde2e2; } .seg-ev { background: #dbeafe; }
+.seg-cite { background: #e9d5ff; } .seg-exp { background: #d8f3dc; } .seg-conc { background: #fed7aa; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.78rem; margin: 6px 0 10px; }
+.paper { font-family: 'Literata', serif; background: #fffef8; border: 1px solid #e8e2c8; border-radius: 10px; padding: 14px 16px; line-height: 1.9; margin: 8px 0; }
+.mini-text { font-family: 'Literata', serif; background: #fffef8; border: 1px dashed #c9bf8d; border-radius: 10px; padding: 12px 14px; line-height: 1.7; margin: 8px 0; font-size: 0.95rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.chip { background: var(--ml-green-light); color: var(--ml-green-dark); border-radius: 99px; padding: 3px 12px; font-size: 0.85rem; font-weight: 500; }
+
+/* Vocab */
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; }
+.vcard { background: #fff; border: 1px solid var(--border); border-top: 5px solid var(--ml-green); border-radius: 12px; padding: 14px; }
+.vcard .vw { font-family: 'Literata', serif; font-size: 1.25rem; font-weight: 700; color: var(--ml-green-dark); }
+.vcard .vpos { font-size: 0.78rem; color: #718096; font-style: italic; margin-left: 6px; }
+.vcard .vcn { font-size: 1.05rem; color: var(--ml-red); font-weight: 600; margin: 2px 0 6px; }
+.vcard .vex { background: var(--mist); border-left: 3px solid var(--ml-gold); padding: 6px 10px; margin-top: 8px; font-size: 0.88rem; font-style: italic; }
+.say-btn { float: right; border: none; background: var(--ml-green-light); border-radius: 99px; padding: 4px 11px; cursor: pointer; font-size: 1rem; }
+.say-btn:hover { background: var(--ml-gold); }
+
+/* Quiz */
+.quiz-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin-bottom: 14px; }
+.q-num { font-size: 0.78rem; font-weight: 700; color: var(--ml-green); text-transform: uppercase; letter-spacing: 0.04em; }
+.passage-box { font-family: 'Literata', serif; background: #fffef8; border: 1px solid #e8e2c8; border-radius: 10px; padding: 10px 14px; margin: 8px 0; font-size: 0.95rem; }
+.q-text { font-weight: 700; margin-top: 6px; }
+.q-cn { margin-bottom: 8px; }
+.opts-wrap { display: grid; gap: 8px; margin-top: 6px; }
+.opt-btn { font-family: inherit; text-align: left; border: 2px solid var(--border); background: #fff; border-radius: 10px; padding: 9px 12px; cursor: pointer; font-size: 0.93rem; line-height: 1.45; }
+.opt-btn:hover:not(:disabled) { border-color: var(--ml-green); background: var(--ml-green-light); }
+.opt-btn:disabled { cursor: default; opacity: 0.85; }
+.opt-btn.show-correct { border-color: #2d6a4f; background: #d8f3dc; opacity: 1; }
+.opt-btn.selected-correct { border-color: #2d6a4f; background: #b7e4c7; }
+.opt-btn.selected-wrong { border-color: #c1121f; background: #fee2e2; }
+.rationale { display: none; margin-top: 10px; padding: 10px 14px; border-radius: 10px; font-size: 0.9rem; }
+.rationale.show { display: block; }
+.correct-rat { background: #ecfdf3; border: 1px solid #a7d9b4; }
+.wrong-rat { background: #fff1f1; border: 1px solid #f5b5b5; }
+
+/* Writing Studio */
+.studio { background: linear-gradient(180deg, #f1faf3, #ffffff); border: 2px solid var(--ml-green); border-radius: 16px; padding: 18px 20px; margin: 22px 0; }
+.studio h2 { font-size: 1.25rem; color: var(--ml-green-dark); }
+.studio .lead { margin: 4px 0 10px; font-size: 0.92rem; }
+.step-label { font-weight: 700; color: var(--cobalt); margin: 14px 0 6px; font-size: 0.95rem; }
+.cat-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.cat-btn { font-family: inherit; border: 2px solid var(--border); background: #fff; border-radius: 99px; padding: 5px 13px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+.cat-btn.active { background: var(--ml-green); border-color: var(--ml-green); color: #fff; }
+.cat-btn.active .cn { color: #fff; }
+.topic-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; margin: 6px 0; }
+.topic-btn { font-family: inherit; text-align: left; border: 2px solid var(--border); background: #fff; border-radius: 10px; padding: 8px 11px; cursor: pointer; font-size: 0.88rem; line-height: 1.4; }
+.topic-btn:hover { border-color: var(--ml-green); background: var(--ml-green-light); }
+.topic-btn.picked { border-color: var(--ml-green); background: #b7e4c7; }
+.rand-btn { font-family: inherit; border: none; background: var(--ml-gold); border-radius: 99px; padding: 6px 15px; cursor: pointer; font-weight: 700; font-size: 0.85rem; margin-top: 6px; }
+.prompt-box { display: none; margin: 10px 0; padding: 12px 14px; border-radius: 12px; background: var(--cobalt); color: #fff; }
+.prompt-box.show { display: block; }
+.prompt-box .cn { color: #cfe0f7; }
+.prompt-box .ptitle { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; }
+.prompt-box .mini-text { color: var(--ink); margin-top: 8px; }
+.prompt-box .mini-text .cn { color: #4a5568; }
+.field { margin: 10px 0; }
+.field label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 3px; }
+.field .hint { font-size: 0.78rem; color: #718096; margin-bottom: 3px; }
+.field textarea, .field input { width: 100%; font-family: 'Literata', 'Noto Sans SC', serif; font-size: 0.95rem; padding: 8px 10px; border: 2px solid var(--border); border-radius: 10px; resize: vertical; line-height: 1.6; }
+.field textarea:focus, .field input:focus { outline: none; border-color: var(--ml-green); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; align-items: center; }
+.btn { font-family: inherit; border: none; border-radius: 10px; padding: 10px 18px; cursor: pointer; font-weight: 700; font-size: 0.92rem; }
+.btn-check { background: var(--ml-green); color: #fff; }
+.btn-save { background: var(--cobalt); color: #fff; }
+.btn:hover { filter: brightness(1.1); }
+.saved-count { font-size: 0.85rem; font-weight: 600; color: var(--ml-green-dark); }
+.feedback { margin-top: 12px; }
+.fb-summary { font-weight: 700; margin-bottom: 6px; }
+.chk { padding: 6px 10px; border-radius: 8px; margin: 4px 0; font-size: 0.88rem; }
+.chk.pass { background: #ecfdf3; border: 1px solid #a7d9b4; }
+.chk.fix { background: #fff1f1; border: 1px solid #f5b5b5; }
+.chk.tip { background: var(--amber-light); border: 1px solid #f0cf8a; }
+.preview { margin-top: 12px; }
+.preview .paper { white-space: pre-wrap; line-height: 1.7; }
+.wc { font-size: 0.78rem; color: #718096; }
+
+/* Reflect */
+.reflect { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-top: 18px; }
+.reflect h2 { font-size: 1.15rem; color: var(--ml-green-dark); margin-bottom: 8px; }
+.reflect textarea { width: 100%; min-height: 80px; font-family: inherit; font-size: 0.95rem; padding: 8px 10px; border: 2px solid var(--border); border-radius: 10px; margin: 4px 0 12px; resize: vertical; }
+.reflect textarea.filled, .grat-input.filled { border-color: var(--ml-green); background: #f6fdf8; }
+.grat-input { font-family: inherit; font-size: 0.95rem; padding: 4px 10px; border: none; border-bottom: 2px solid var(--ml-green); background: transparent; width: min(100%, 360px); }
+.dl-btn { font-family: inherit; margin-top: 14px; padding: 12px 24px; border-radius: 12px; border: none; font-weight: 700; font-size: 1rem; background: #cbd5cb; color: #7a867a; opacity: 0.6; pointer-events: none; }
+.dl-btn.ready { background: var(--ml-green); color: #fff; opacity: 1; pointer-events: auto; cursor: pointer; }
+.hint-text { font-size: 0.82rem; color: #718096; margin-top: 6px; }
+.hint-text.hidden { display: none; }
+
+#timer-display { position: fixed; bottom: 14px; right: 14px; background: var(--ml-green-dark); color: #fff; padding: 7px 14px; border-radius: 99px; font-weight: 700; font-size: 0.9rem; z-index: 900; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+
+@media (max-width: 600px) {
+  header h1 { font-size: 1.2rem; }
+  .tab-btn { padding: 8px 10px; font-size: 0.8rem; }
+  .block, .studio, .reflect { padding: 14px 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- PERSISTENT WARNING BANNER -->
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+
+<!-- LEAVE FLASH ALERT -->
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:0.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span>
+</div>
+
+<!-- HEADER -->
+<header>
+  <h1>Essay Structure Studio</h1>
+  <div class="sub">English 11-1 · <span class="cn">议论文结构练习室</span></div>
+  <div class="hdr-row">
+    <div class="prog-wrap">
+      <div class="prog-text" id="progressText">Progress: 0% · 进度：0%</div>
+      <div class="prog-track"><div class="prog-bar" id="progressBar"></div></div>
+    </div>
+    <div class="badge" id="leaveBadge">🚪 Leaves: 0</div>
+    <div class="pips">
+      <span class="pip" id="pip-intro">Introduction</span>
+      <span class="pip" id="pip-body">Body</span>
+      <span class="pip" id="pip-conc">Conclusion</span>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">📚 Vocab <span class="cn">词汇</span></button>
+  <button class="tab-btn" onclick="switchTab('intro', this)">1 · Introduction <span class="cn">引言段</span></button>
+  <button class="tab-btn" onclick="switchTab('body', this)">2 · Body Paragraphs <span class="cn">主体段</span></button>
+  <button class="tab-btn" onclick="switchTab('conc', this)">3 · Conclusion + Essay <span class="cn">结论段+全文</span></button>
+</div>
+
+<!-- ================= TAB: VOCAB ================= -->
+<div id="tab-vocab" class="tab-content active">
+  <div class="block">
+    <h2>Essay Words You Need <span class="cn">你需要掌握的写作词汇</span></h2>
+    <p>Read each card. Press 🔊 to hear the word. Try to use these words when you write.</p>
+    <p class="cn">阅读每张卡片。点击 🔊 听发音。写作时尽量使用这些词。</p>
+  </div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ================= TAB: INTRODUCTION ================= -->
+<div id="tab-intro" class="tab-content">
+  <div class="name-row">
+    <label>Student name · <span class="cn">姓名</span>:
+      <input id="introName" type="text" placeholder="Type your name · 请输入姓名">
+    </label>
+  </div>
+
+  <div class="block">
+    <h2>Part 1 · Rules for EVERY Essay <span class="cn">第一部分：每篇文章都要遵守的规则</span></h2>
+    <p>Before you learn the paragraphs, learn the four rules. They apply to the introduction, the body, and the conclusion.</p>
+    <p class="cn">在学习各个段落之前，先记住四条规则。它们适用于引言、主体和结论。</p>
+    <div class="grid">
+      <div class="card red"><h4>🚫 1. No first person<br><span class="cn">不用第一人称</span></h4>
+        <p>Do not write: I, me, my, my opinion, my ideas.</p>
+        <p class="cn">不要写：I, me, my, my opinion, my ideas。</p></div>
+      <div class="card red"><h4>🚫 2. No contractions<br><span class="cn">不用缩写</span></h4>
+        <p>Write it out: did not, would not, is not.</p>
+        <p class="cn">要写完整：did not, would not, is not。</p></div>
+      <div class="card blue"><h4>🎩 3. Formal language<br><span class="cn">使用正式语言</span></h4>
+        <p>Choose serious, precise words. Avoid slang and casual words.</p>
+        <p class="cn">选择严肃、准确的词。避免俚语和口语。</p></div>
+      <div class="card amber"><h4>🔗 4. Transition words<br><span class="cn">使用过渡词</span></h4>
+        <p>Start EACH body paragraph and the concluding paragraph with a transition.</p>
+        <p class="cn">每个主体段和结论段都要用过渡词开头。</p></div>
+    </div>
+    <div class="tbl-wrap"><table class="tbl">
+      <tr><th>Do NOT write ❌ <span class="cn">不要这样写</span></th><th>Write this ✅ <span class="cn">要这样写</span></th></tr>
+      <tr><td class="bad">In my opinion, homework is too long.</td><td class="good">Homework is too long for most students.</td></tr>
+      <tr><td class="bad">Teachers don't understand students.</td><td class="good">Teachers do not always understand students.</td></tr>
+      <tr><td class="bad">Kids get really stressed out.</td><td class="good">Children experience serious stress.</td></tr>
+    </table></div>
+  </div>
+
+  <div class="block">
+    <h2>Part 2 · Paragraph 1: The Introduction <span class="cn">第二部分：第一段——引言</span></h2>
+    <p>An introduction has <strong>three parts</strong>, always in this order. It also earns <strong>3 points</strong> for linking to your prompt.</p>
+    <p class="cn">引言有<strong>三个部分</strong>，顺序固定。与题目建立联系还可以得 <strong>3 分</strong>。</p>
+    <div class="grid">
+      <div class="card red"><h4>1️⃣ HOOK <span class="cn">钩子句</span></h4>
+        <p>The FIRST sentence. Average length: 2–3 sentences. It shows readers the essay is worth reading. <strong>NOT A QUESTION.</strong></p>
+        <p class="cn">第一句话。通常 2–3 句。让读者觉得文章值得读。<strong>不能是问句。</strong></p></div>
+      <div class="card blue"><h4>2️⃣ LEAD-IN STATEMENT <span class="cn">引导句</span></h4>
+        <p>Gives the reader an idea of what your essay is about.</p>
+        <p class="cn">让读者大概知道文章要讲什么。</p></div>
+      <div class="card green"><h4>3️⃣ THESIS <span class="cn">论点句</span></h4>
+        <p>Your argument or point of view: clear, concise, compelling. Usually the LAST sentence of the introduction. It links to your prompt.</p>
+        <p class="cn">你的论点或观点：清楚、简洁、有说服力。通常是引言的最后一句。要联系题目。</p></div>
+    </div>
+
+    <h3>Worked example <span class="cn">范例</span></h3>
+    <p><strong>Prompt:</strong> Should schools start later in the morning? <span class="cn">题目：学校是否应该晚一点开始上课？</span></p>
+    <div class="legend"><span class="seg seg-hook">Hook</span><span class="seg seg-lead">Lead-in</span><span class="seg seg-thesis">Thesis</span></div>
+    <div class="paper">
+      <span class="seg seg-hook">Across the world, millions of teenagers drag themselves out of bed before sunrise to reach their first class.</span>
+      <span class="seg seg-lead">Sleep plays a major role in how well students think, remember, and behave at school.</span>
+      <span class="seg seg-thesis">Schools should start later in the morning because extra sleep improves learning, protects health, and reduces stress.</span>
+    </div>
+    <p class="cn">中文大意：钩子句——全世界有数百万青少年在日出前起床上学。引导句——睡眠影响学生的思考、记忆和行为。论点句——学校应该晚点上课，因为更多睡眠能提高学习效果、保护健康、减轻压力。</p>
+
+    <div class="callout green">
+      <strong>Thesis formula · 论点句公式:</strong> Topic + Position + 2–3 reasons.<br>
+      <em>Schools should start later</em> (topic + position) <em>because extra sleep improves learning, protects health, and reduces stress</em> (3 reasons).
+    </div>
+
+    <h3>Common mistakes <span class="cn">常见错误</span></h3>
+    <div class="tbl-wrap"><table class="tbl">
+      <tr><th>Mistake ❌ <span class="cn">错误</span></th><th>Why it is wrong <span class="cn">原因</span></th><th>Fix ✅ <span class="cn">改正</span></th></tr>
+      <tr><td class="bad">Do you get enough sleep?</td><td>The hook is a question.<br><span class="cn">钩子句是问句。</span></td><td class="good">Many students sacrifice sleep for study.</td></tr>
+      <tr><td class="bad">I believe schools start too early.</td><td>First person.<br><span class="cn">第一人称。</span></td><td class="good">Schools start too early for teenagers.</td></tr>
+      <tr><td class="bad">Schools don't care about sleep.</td><td>Contraction.<br><span class="cn">缩写。</span></td><td class="good">Schools do not always consider sleep.</td></tr>
+      <tr><td class="bad">Sleep is a topic.</td><td>No position or reasons.<br><span class="cn">没有观点和理由。</span></td><td class="good">Later start times help students learn because they allow more rest.</td></tr>
+    </table></div>
+  </div>
+
+  <div class="block">
+    <h2>Quiz · Introductions <span class="cn">测验：引言段</span></h2>
+    <p>Select the best answer. You cannot change your answer after you select it.</p>
+    <p class="cn">选择最佳答案。选择后不能更改。</p>
+  </div>
+  <div id="introQuizContainer"></div>
+
+  <div class="studio" id="studioIntro"></div>
+
+  <div class="reflect">
+    <h2>Reflect <span class="cn">反思</span></h2>
+    <p><strong>1.</strong> Why is a question a weak hook for a formal essay? Write one better hook for any topic from the Writing Studio.<br>
+       <span class="cn">为什么问句不适合作为正式文章的钩子句？请为写作练习室中的任意题目写一个更好的钩子句。</span></p>
+    <textarea id="introRef1" placeholder="Type here · 请在此输入"></textarea>
+    <p><strong>2.</strong> Which part of an introduction is hardest for you: the hook, the lead-in, or the thesis? What will you do to practice it?<br>
+       <span class="cn">引言的三部分中，哪一部分对你最难？你打算怎样练习？</span></p>
+    <textarea id="introRef2" placeholder="Type here · 请在此输入"></textarea>
+    <p>Today I am grateful for <input id="introGrat" class="grat-input" type="text" placeholder="type here · 请输入"></p>
+    <button class="dl-btn" id="introDownloadBtn" onclick="tryDownload('intro')">⬇ Download my work · 下载我的作业</button>
+    <div class="hint-text" id="introHint">Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。</div>
+  </div>
+</div>
+
+<!-- ================= TAB: BODY ================= -->
+<div id="tab-body" class="tab-content">
+  <div class="name-row">
+    <label>Student name · <span class="cn">姓名</span>:
+      <input id="bodyName" type="text" placeholder="Type your name · 请输入姓名">
+    </label>
+  </div>
+
+  <div class="block">
+    <h2>Part 1 · Paragraphs 2, 3, 4: Body Paragraphs <span class="cn">第一部分：第2、3、4段——主体段</span></h2>
+    <p>Each body paragraph proves ONE part of your thesis. Use this formula every time:</p>
+    <p class="cn">每个主体段证明论点的<strong>一个</strong>部分。每次都使用这个公式：</p>
+    <div class="callout blue"><strong>Transition + Point. Reporting phrase + Evidence + MLA citation. Explanation. Transition + Concluding sentence.</strong><br>
+      <span class="cn">过渡词 + 观点句。引述短语 + 证据 + MLA 引用。解释。过渡词 + 总结句。</span></div>
+    <div class="grid">
+      <div class="card amber"><h4>🔗 T + P · Transition + Point <span class="cn">过渡词 + 观点句</span></h4>
+        <p>Start with a transition word. Then state the point of the paragraph. The point links to your thesis.</p>
+        <p class="cn">先用过渡词，再写本段观点。观点要联系引言中的论点句。</p></div>
+      <div class="card blue"><h4>📖 E · Evidence <span class="cn">证据</span></h4>
+        <p>Introduce it with a reporting phrase: <em>In the text 'Title,' the author explains that...</em> Then quote, paraphrase, or summarize. Add an MLA citation.</p>
+        <p class="cn">先用引述短语引出，再引用、改写或概括文本内容，最后加 MLA 引用。</p></div>
+      <div class="card green"><h4>💡 E · Explanation <span class="cn">解释</span></h4>
+        <p>Explain WHY the evidence supports your prompt. Use your OWN words to show understanding.</p>
+        <p class="cn">解释证据为什么支持你的观点。用你<strong>自己的话</strong>表达理解。</p></div>
+      <div class="card purple"><h4>🔚 C · Concluding sentence <span class="cn">总结句</span></h4>
+        <p>Start with a transition. Restate the point in other words and link the evidence back to it.</p>
+        <p class="cn">用过渡词开头。换一种说法重述观点，把证据和观点联系起来。</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Part 2 · Your Toolbox <span class="cn">第二部分：工具箱</span></h2>
+    <h3>Transition words <span class="cn">过渡词</span></h3>
+    <div class="tbl-wrap"><table class="tbl">
+      <tr><th>Use for <span class="cn">用途</span></th><th>Words <span class="cn">词语</span></th></tr>
+      <tr><td>Starting a body paragraph<br><span class="cn">开始主体段</span></td><td>Firstly · To begin with · First of all · Secondly · Additionally · Moreover · Furthermore · In addition · Finally</td></tr>
+      <tr><td>Showing a result<br><span class="cn">表示结果</span></td><td>Therefore · As a result · Consequently</td></tr>
+      <tr><td>Showing contrast<br><span class="cn">表示对比</span></td><td>However · On the other hand · In contrast</td></tr>
+      <tr><td>Concluding sentence / paragraph<br><span class="cn">总结句或结论段</span></td><td>Therefore · Clearly · Overall · In conclusion · To conclude · Ultimately</td></tr>
+    </table></div>
+    <h3>Reporting verbs <span class="cn">引述动词</span></h3>
+    <div class="chips"><span class="chip">explains</span><span class="chip">discusses</span><span class="chip">illustrates</span><span class="chip">describes</span><span class="chip">shows</span><span class="chip">suggests</span><span class="chip">demonstrates</span><span class="chip">reveals</span><span class="chip">argues</span><span class="chip">highlights</span></div>
+    <h3>MLA in-text citation <span class="cn">MLA 文内引用</span></h3>
+    <div class="callout">
+      Format: <strong>(Author's last name page number)</strong>. Put the period AFTER the bracket.<br>
+      Example: ...rose above the rooftops <strong>(Reyes 1)</strong>.<br>
+      <span class="cn">格式：（作者姓氏 页码）。句号放在括号后面。</span><br>
+      <span class="bad">Wrong:</span> (Anna 1) · (Reyes, page one) · [Reyes 1]
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Part 3 · Worked Example <span class="cn">第三部分：范例</span></h2>
+    <p><strong>Prompt:</strong> How does the author show the value of persistence? <span class="cn">题目：作者如何表现坚持的价值？</span></p>
+    <p><strong>Text:</strong> 'The Broken Kite' by Anna Reyes</p>
+    <div class="mini-text">Tomas worked for three weeks on his kite. On the first windy day, a gust tore the paper in half. He wanted to throw it away. His grandfather only smiled and handed him new paper and glue. 'A kite does not fly because it is perfect,' the old man said. 'It flies because someone keeps trying.' Tomas rebuilt it twice more before it finally rose above the rooftops.</div>
+    <div class="legend"><span class="seg seg-trans">Transition</span><span class="seg seg-point">Point</span><span class="seg seg-ev">Reporting phrase + Evidence</span><span class="seg seg-cite">MLA citation</span><span class="seg seg-exp">Explanation</span><span class="seg seg-conc">Concluding sentence</span></div>
+    <div class="paper">
+      <span class="seg seg-trans">Firstly,</span> <span class="seg seg-point">the author demonstrates that persistence can turn failure into success.</span>
+      <span class="seg seg-ev">In the text 'The Broken Kite,' Anna Reyes explains that Tomas rebuilt his kite two more times before it finally rose above the rooftops</span> <span class="seg seg-cite">(Reyes 1).</span>
+      <span class="seg seg-exp">This detail proves that the first failure was not the end of the story; each new attempt brought Tomas closer to a kite that could fly.</span>
+      <span class="seg seg-trans">Therefore,</span> <span class="seg seg-conc">persistence changes failure into a step toward success.</span>
+    </div>
+    <p class="cn">中文大意：首先，作者表明坚持可以把失败变成成功。在《破风筝》中，Anna Reyes 说明 Tomas 又重做了两次风筝，最后它飞过了屋顶（Reyes 1）。这个细节证明第一次失败不是故事的结尾；每一次新尝试都让他更接近能飞的风筝。因此，坚持把失败变成通向成功的一步。</p>
+    <div class="callout green"><strong>Notice · 注意:</strong> The explanation does NOT copy the evidence. It adds new thinking in the writer's own words. There is no first person and no contraction.<br><span class="cn">解释部分没有照抄证据，而是用自己的话加入新的思考。没有第一人称，也没有缩写。</span></div>
+  </div>
+
+  <div class="block">
+    <h2>Quiz · Body Paragraphs <span class="cn">测验：主体段</span></h2>
+    <p>Select the best answer. You cannot change your answer after you select it.</p>
+    <p class="cn">选择最佳答案。选择后不能更改。</p>
+  </div>
+  <div id="bodyQuizContainer"></div>
+
+  <div class="studio" id="studioBody"></div>
+
+  <div class="reflect">
+    <h2>Reflect <span class="cn">反思</span></h2>
+    <p><strong>1.</strong> Choose ONE part of a body paragraph (Point, Evidence, Explanation, or Concluding sentence). Explain why it is important for a strong paragraph.<br>
+       <span class="cn">选择主体段的一个部分（观点句、证据、解释或总结句），说明它为什么对一个优秀的段落很重要。</span></p>
+    <textarea id="bodyRef1" placeholder="Type here · 请在此输入"></textarea>
+    <p><strong>2.</strong> Think about a time you explained an idea to a friend using a reason and an example. How is that like the PEEC formula?<br>
+       <span class="cn">想一想你曾用理由和例子向朋友解释一个想法的经历。这和 PEEC 公式有什么相似之处？</span></p>
+    <textarea id="bodyRef2" placeholder="Type here · 请在此输入"></textarea>
+    <p>Today I am grateful for <input id="bodyGrat" class="grat-input" type="text" placeholder="type here · 请输入"></p>
+    <button class="dl-btn" id="bodyDownloadBtn" onclick="tryDownload('body')">⬇ Download my work · 下载我的作业</button>
+    <div class="hint-text" id="bodyHint">Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。</div>
+  </div>
+</div>
+
+<!-- ================= TAB: CONCLUSION ================= -->
+<div id="tab-conc" class="tab-content">
+  <div class="name-row">
+    <label>Student name · <span class="cn">姓名</span>:
+      <input id="concName" type="text" placeholder="Type your name · 请输入姓名">
+    </label>
+  </div>
+
+  <div class="block">
+    <h2>Part 1 · Paragraph 5: The Conclusion <span class="cn">第一部分：第5段——结论</span></h2>
+    <p>The conclusion has <strong>three jobs</strong>. It starts with a transition word.</p>
+    <p class="cn">结论段有<strong>三项任务</strong>，并且要用过渡词开头。</p>
+    <div class="grid">
+      <div class="card green"><h4>1️⃣ Restate the thesis <span class="cn">重述论点</span></h4>
+        <p>Say your thesis again using DIFFERENT words.</p><p class="cn">用<strong>不同的词</strong>再说一次论点。</p></div>
+      <div class="card blue"><h4>2️⃣ Final thoughts <span class="cn">最后的思考</span></h4>
+        <p>Give a closing idea about the question that was asked. Do NOT add new evidence.</p><p class="cn">对题目给出收尾的想法。不要加入新证据。</p></div>
+      <div class="card amber"><h4>3️⃣ Answer the prompt <span class="cn">回答题目</span></h4>
+        <p>Make sure the reader can clearly see your answer to the prompt.</p><p class="cn">确保读者能清楚看到你对题目的回答。</p></div>
+    </div>
+    <h3>Worked example <span class="cn">范例</span></h3>
+    <div class="callout"><strong>Original thesis:</strong> Schools should start later in the morning because extra sleep improves learning, protects health, and reduces stress.</div>
+    <div class="legend"><span class="seg seg-trans">Transition</span><span class="seg seg-thesis">Restated thesis</span><span class="seg seg-conc">Final thoughts</span></div>
+    <div class="paper">
+      <span class="seg seg-trans">In conclusion,</span>
+      <span class="seg seg-thesis">delaying the first bell would clearly benefit students, since additional rest strengthens learning, supports physical and mental health, and lowers pressure.</span>
+      <span class="seg seg-conc">Ultimately, giving young people more sleep is an investment in better learning for the whole community.</span>
+    </div>
+    <p class="cn">中文大意：总之，推迟第一节课的铃声显然对学生有益，因为更多休息能增强学习、支持身心健康、减轻压力。归根结底，让年轻人多睡觉，是对整个社区更好学习的投资。</p>
+    <div class="callout green"><strong>Check · 检查:</strong> The restatement keeps the same idea but changes the words (start later → delaying the first bell; extra sleep → additional rest).<br><span class="cn">重述保留了相同的意思，但换了词语（start later → delaying the first bell；extra sleep → additional rest）。</span></div>
+  </div>
+
+  <div class="block">
+    <h2>Part 2 · The Whole Essay Map <span class="cn">第二部分：全文结构图</span></h2>
+    <div class="tbl-wrap"><table class="tbl">
+      <tr><th>Paragraph <span class="cn">段落</span></th><th>Parts <span class="cn">组成</span></th><th>Starts with <span class="cn">开头</span></th></tr>
+      <tr><td>1 · Introduction<br><span class="cn">引言</span></td><td>Hook → Lead-in → Thesis (links to prompt)</td><td>Hook (not a question)</td></tr>
+      <tr><td>2 · Body 1<br><span class="cn">主体1</span></td><td>Transition + Point → Reporting phrase + Evidence + Citation → Explanation → Transition + Concluding sentence</td><td>Transition</td></tr>
+      <tr><td>3 · Body 2<br><span class="cn">主体2</span></td><td>Same PEEC formula</td><td>Transition</td></tr>
+      <tr><td>4 · Body 3<br><span class="cn">主体3</span></td><td>Same PEEC formula</td><td>Transition</td></tr>
+      <tr><td>5 · Conclusion<br><span class="cn">结论</span></td><td>Restated thesis → Final thoughts → Answer to the prompt</td><td>Transition</td></tr>
+    </table></div>
+    <h3>Final checklist before you submit <span class="cn">提交前的最终检查</span></h3>
+    <div class="callout green">
+      ☐ No first person (I, me, my, we, our) · <span class="cn">没有第一人称</span><br>
+      ☐ No contractions · <span class="cn">没有缩写</span><br>
+      ☐ Formal language · <span class="cn">语言正式</span><br>
+      ☐ Hook is NOT a question · <span class="cn">钩子句不是问句</span><br>
+      ☐ Thesis links to the prompt · <span class="cn">论点句联系题目</span><br>
+      ☐ Each body paragraph and the conclusion start with a transition · <span class="cn">每个主体段和结论段都以过渡词开头</span><br>
+      ☐ Reporting phrase + MLA citation in each body paragraph · <span class="cn">每个主体段都有引述短语和 MLA 引用</span><br>
+      ☐ Explanations are in your OWN words · <span class="cn">解释是用你自己的话写的</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Quiz · Conclusions and Review <span class="cn">测验：结论段与复习</span></h2>
+    <p>Select the best answer. You cannot change your answer after you select it.</p>
+    <p class="cn">选择最佳答案。选择后不能更改。</p>
+  </div>
+  <div id="concQuizContainer"></div>
+
+  <div class="studio" id="studioConc"></div>
+  <div class="studio" id="studioFull"></div>
+
+  <div class="reflect">
+    <h2>Reflect <span class="cn">反思</span></h2>
+    <p><strong>1.</strong> Rewrite this thesis in different words: 'Public libraries remain valuable because they offer free learning resources.'<br>
+       <span class="cn">用不同的词重写这个论点句：'Public libraries remain valuable because they offer free learning resources.'</span></p>
+    <textarea id="concRef1" placeholder="Type here · 请在此输入"></textarea>
+    <p><strong>2.</strong> Look at your writing practice. Name ONE rule you are now good at and ONE rule you still need to practice (first person, contractions, transitions, citations, formal words).<br>
+       <span class="cn">回顾你的写作练习。写出一条你现在做得好的规则，和一条仍需练习的规则（第一人称、缩写、过渡词、引用、正式用词）。</span></p>
+    <textarea id="concRef2" placeholder="Type here · 请在此输入"></textarea>
+    <p>Today I am grateful for <input id="concGrat" class="grat-input" type="text" placeholder="type here · 请输入"></p>
+    <button class="dl-btn" id="concDownloadBtn" onclick="tryDownload('conc')">⬇ Download my work · 下载我的作业</button>
+    <div class="hint-text" id="concHint">Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。</div>
+  </div>
+</div>
+
+<!-- TIMER -->
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+// ===================== STATE =====================
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 30; // 10 quiz questions x 3 content tabs
+
+const introAnswers = {}; const introScore = { val: 0 }; const introDone = { val: 0 };
+const bodyAnswers  = {}; const bodyScore  = { val: 0 }; const bodyDone  = { val: 0 };
+const concAnswers  = {}; const concScore  = { val: 0 }; const concDone  = { val: 0 };
+
+// ===================== VOCAB =====================
+const VOCAB = [
+  { word: "thesis", pos: "noun", cn: "论点句", def: "The sentence that states your main argument. It is usually the last sentence of the introduction.", cn_def: "表达你主要论点的句子，通常是引言的最后一句。", example: "The thesis tells the reader what the essay will prove." },
+  { word: "hook", pos: "noun", cn: "钩子句", def: "The opening sentence or sentences that make readers want to continue. It is not a question.", cn_def: "开头的句子，让读者想继续读下去。不能是问句。", example: "A strong hook may use a surprising fact or a bold statement." },
+  { word: "lead-in", pos: "noun", cn: "引导句", def: "A statement that gives the reader an idea of what the essay is about.", cn_def: "让读者大致了解文章内容的句子。", example: "The lead-in connects the hook to the thesis." },
+  { word: "transition", pos: "noun", cn: "过渡词", def: "A word or phrase that connects ideas, such as firstly, however, or in conclusion.", cn_def: "连接想法的词或短语，如 firstly, however, in conclusion。", example: "Each body paragraph begins with a transition." },
+  { word: "evidence", pos: "noun", cn: "证据", def: "Details from the text that support your point.", cn_def: "来自文本、支持你观点的细节。", example: "Strong evidence comes directly from the story or article." },
+  { word: "reporting phrase", pos: "noun", cn: "引述短语", def: "A short phrase that introduces evidence, such as 'In the text, the author explains that'.", cn_def: "引出证据的短语，如 In the text, the author explains that。", example: "A reporting phrase names the text and the author." },
+  { word: "paraphrase", pos: "verb", cn: "改写", def: "To express an idea from the text in different words.", cn_def: "用不同的词表达文本中的想法。", example: "The student paraphrased the sentence instead of copying it." },
+  { word: "quotation", pos: "noun", cn: "引用原文", def: "The exact words from a text, placed inside quotation marks.", cn_def: "原文的准确词句，放在引号里。", example: "A short quotation can make evidence more powerful." },
+  { word: "citation", pos: "noun", cn: "引用标注", def: "A note in brackets that shows where evidence came from. MLA uses the author's last name and a page number.", cn_def: "括号里的标注，说明证据的出处。MLA 格式用作者姓氏和页码。", example: "The citation (Reyes 1) appears before the period." },
+  { word: "explanation", pos: "noun", cn: "解释", def: "Your own words showing why the evidence supports your point.", cn_def: "用你自己的话说明证据为什么支持你的观点。", example: "A good explanation adds new thinking and does not repeat the evidence." },
+  { word: "restate", pos: "verb", cn: "重述", def: "To say the same idea again using different words.", cn_def: "用不同的词再说一遍相同的意思。", example: "The conclusion must restate the thesis in new words." },
+  { word: "formal language", pos: "noun", cn: "正式语言", def: "Serious, precise language used in academic writing, without slang or casual words.", cn_def: "学术写作中使用的严肃、准确的语言，没有俚语或口语。", example: "Formal language uses 'children' instead of 'kids'." },
+  { word: "contraction", pos: "noun", cn: "缩写形式", def: "A short form of two words, such as did not becoming didn't. Do not use in formal essays.", cn_def: "两个词的缩短形式，如 didn't。正式文章中不要使用。", example: "Write 'does not' instead of the contraction 'doesn't'." },
+  { word: "first person", pos: "noun", cn: "第一人称", def: "Words that talk about yourself: I, me, my, we, our. Do not use in formal essays.", cn_def: "谈论自己的词：I, me, my, we, our。正式文章中不要使用。", example: "The sentence 'I think' uses the first person, so it must be removed." }
+];
+
+// ===================== QUIZ: INTRODUCTION =====================
+const INTRO_Q = [
+  {
+    id: "i1", title: "Choosing a hook",
+    q: "Which sentence is the BEST hook for an essay about students and sleep?",
+    q_cn: "哪一句最适合作为关于学生睡眠的文章钩子句？",
+    options: [
+      "A. Do you get enough sleep every night?|A. 你每晚睡够了吗？",
+      "B. I think students should sleep more.|B. 我认为学生应该多睡觉。",
+      "C. Across the world, millions of students give up sleep to study, yet the brain stores new knowledge only while resting.|C. 全世界有数百万学生为了学习而牺牲睡眠，但大脑只有在休息时才会储存新知识。",
+      "D. Sleep is something people do at night.|D. 睡眠是人们在夜里做的事。"
+    ],
+    correct: "C",
+    rat_right: "It is a formal statement, not a question, and it makes readers curious about the topic.|这是正式的陈述句，不是问句，而且能引起读者对话题的兴趣。",
+    rat_wrong: {
+      A: "This is a question. A hook must NOT be a question.|这是问句。钩子句不能是问句。",
+      B: "It uses first person ('I think'). Formal essays do not use first person.|它使用了第一人称（I think）。正式文章不用第一人称。",
+      D: "It is true, but too plain. A hook should make readers want to keep reading.|虽然正确，但太平淡。钩子句要让读者想继续读下去。"
+    }
+  },
+  {
+    id: "i2", title: "Purpose of a hook",
+    q: "What is the purpose of a hook?",
+    q_cn: "钩子句的作用是什么？",
+    options: [
+      "A. To list all of your evidence|A. 列出所有证据",
+      "B. To show readers that the essay is worth reading|B. 让读者看到这篇文章值得阅读",
+      "C. To restate the thesis in new words|C. 用新的词重述论点",
+      "D. To say goodbye to the reader|D. 向读者道别"
+    ],
+    correct: "B",
+    rat_right: "The hook is the first sentence and it shows the content is worth reading.|钩子句是第一句话，它表明文章内容值得阅读。",
+    rat_wrong: {
+      A: "Evidence belongs in the body paragraphs, not the hook.|证据属于主体段，而不是钩子句。",
+      C: "Restating the thesis is the job of the conclusion.|换一种说法重述论点是结论段的任务。",
+      D: "Saying goodbye is not part of a formal essay.|正式文章中不需要道别。"
+    }
+  },
+  {
+    id: "i3", title: "Hook length",
+    q: "What is the average length of a hook?",
+    q_cn: "钩子句的平均长度是多少？",
+    options: [
+      "A. One word|A. 一个词",
+      "B. One full page|B. 整整一页",
+      "C. Five paragraphs|C. 五个段落",
+      "D. 2–3 sentences, but it depends on the topic|D. 2–3 句话，但要看题目而定"
+    ],
+    correct: "D",
+    rat_right: "A hook usually has 2–3 sentences, and the topic can change this.|钩子句通常有 2–3 句，题目不同长度也可能不同。",
+    rat_wrong: {
+      A: "One word is too short to interest readers.|一个词太短，无法吸引读者。",
+      B: "A full page would be longer than the whole introduction.|一整页比整个引言段还长。",
+      C: "Five paragraphs would be an entire essay, not a hook.|五个段落就是整篇文章，而不是钩子句。"
+    }
+  },
+  {
+    id: "i4", title: "Lead-in statement",
+    q: "What does the lead-in statement do?",
+    q_cn: "引导句的作用是什么？",
+    options: [
+      "A. It gives the reader an idea of what the essay is about|A. 让读者大致了解文章内容",
+      "B. It gives the final thought of the essay|B. 给出文章最后的想法",
+      "C. It quotes the text with a citation|C. 引用文本并加上引用标注",
+      "D. It answers the prompt in one word|D. 用一个词回答题目"
+    ],
+    correct: "A",
+    rat_right: "The lead-in connects the hook to the thesis and introduces the topic.|引导句连接钩子句和论点句，并引入话题。",
+    rat_wrong: {
+      B: "Final thoughts belong in the conclusion.|最后的思考属于结论段。",
+      C: "Quotations and citations belong in the body paragraphs.|引用和标注属于主体段。",
+      D: "A one-word answer does not introduce the topic.|一个词的回答不能引入话题。"
+    }
+  },
+  {
+    id: "i5", title: "Thesis position",
+    q: "Where is the thesis usually placed?",
+    q_cn: "论点句通常放在哪里？",
+    options: [
+      "A. The first sentence of the introduction|A. 引言的第一句",
+      "B. The first sentence of body paragraph 2|B. 第2段（主体段）的第一句",
+      "C. The last sentence of the introduction|C. 引言的最后一句",
+      "D. The last sentence of the conclusion|D. 结论的最后一句"
+    ],
+    correct: "C",
+    rat_right: "The thesis is usually the last sentence of the introduction.|论点句通常是引言的最后一句。",
+    rat_wrong: {
+      A: "The first sentence is the hook.|第一句是钩子句。",
+      B: "Body paragraphs begin with a transition and a point.|主体段以过渡词和观点句开头。",
+      D: "The conclusion restates the thesis, but the thesis itself is in the introduction.|结论段会重述论点，但论点本身在引言中。"
+    }
+  },
+  {
+    id: "i6", title: "Strong thesis",
+    passage: "Prompt: Should schools start later in the morning?",
+    q: "Which sentence is a strong thesis for this prompt?",
+    q_cn: "对于这个题目，哪一句是有力的论点句？",
+    options: [
+      "A. Many schools start at 8:00 in the morning.|A. 许多学校早上8点开始上课。",
+      "B. Schools should start later because teenagers need more sleep, perform better, and stay healthier.|B. 学校应该晚点开始上课，因为青少年需要更多睡眠、表现更好、更健康。",
+      "C. I believe later start times are good.|C. 我认为晚一点上课很好。",
+      "D. Is a later start time a good idea?|D. 晚一点上课是个好主意吗？"
+    ],
+    correct: "B",
+    rat_right: "It has a clear position (should start later) and three reasons, and it answers the prompt.|它有清楚的立场（应该晚点开始）和三个理由，并且回答了题目。",
+    rat_wrong: {
+      A: "It is only a fact. It does not state a position or an argument.|它只是事实，没有表达立场或论点。",
+      C: "It uses first person ('I believe') and gives no reasons.|它使用了第一人称（I believe），也没有给出理由。",
+      D: "A thesis must be a statement, not a question.|论点句必须是陈述句，不能是问句。"
+    }
+  },
+  {
+    id: "i7", title: "Linking to the prompt",
+    passage: "Prompt: How does the author show the value of persistence in 'The Broken Kite'?",
+    q: "Which thesis links most clearly to this prompt?",
+    q_cn: "哪个论点句与这个题目联系最清楚？",
+    options: [
+      "A. The author writes about a boy and a kite.|A. 作者写了一个男孩和一只风筝。",
+      "B. Kites are fun to fly on windy days.|B. 在有风的日子放风筝很有趣。",
+      "C. Persistence is difficult for many people.|C. 对许多人来说，坚持很难。",
+      "D. In 'The Broken Kite,' Anna Reyes shows that persistence is valuable because it turns failure into success.|D. 在《破风筝》中，Anna Reyes 表明坚持很有价值，因为它能把失败变成成功。"
+    ],
+    correct: "D",
+    rat_right: "It names the text and author, repeats the key idea (persistence), and gives a reason.|它写出了文本和作者，使用了关键词（persistence），并给出理由。",
+    rat_wrong: {
+      A: "It describes the story but does not answer the prompt.|它只描述了故事，没有回答题目。",
+      B: "It is off-topic. It does not talk about persistence.|它偏题了，没有谈到坚持。",
+      C: "It is about persistence, but it does not link to the text or answer how the author shows its value.|它谈到了坚持，但没有联系文本，也没有回答作者如何表现其价值。"
+    }
+  },
+  {
+    id: "i8", title: "No first person",
+    q: "Which sentence follows the formal essay rules?",
+    q_cn: "哪一句符合正式文章的规则？",
+    options: [
+      "A. In my opinion, homework is too long.|A. 在我看来，作业太长了。",
+      "B. I think homework should be reduced.|B. 我认为作业应该减少。",
+      "C. Homework should be reduced because it harms student sleep.|C. 作业应该减少，因为它损害学生的睡眠。",
+      "D. My ideas about homework are clear.|D. 我对作业的想法很清楚。"
+    ],
+    correct: "C",
+    rat_right: "It states a position and a reason with no first-person words.|它陈述了立场和理由，没有任何第一人称词语。",
+    rat_wrong: {
+      A: "'In my opinion' uses 'my', which is first person.|'In my opinion' 中的 'my' 是第一人称。",
+      B: "'I think' is first person.|'I think' 是第一人称。",
+      D: "'My ideas' is first person.|'My ideas' 是第一人称。"
+    }
+  },
+  {
+    id: "i9", title: "No contractions",
+    q: "Which sentence has NO contraction?",
+    q_cn: "哪一句没有缩写形式？",
+    options: [
+      "A. Students did not finish the assignment.|A. 学生们没有完成作业。",
+      "B. Students didn't finish the assignment.|B. 学生们没有完成作业。",
+      "C. The rule isn't fair to students.|C. 这条规定对学生不公平。",
+      "D. Teachers can't help every student.|D. 老师不能帮助每一个学生。"
+    ],
+    correct: "A",
+    rat_right: "'Did not' is written out in full, which is correct for formal essays.|'Did not' 写成了完整形式，符合正式文章的要求。",
+    rat_wrong: {
+      B: "'Didn't' is a contraction. Write 'did not'.|'Didn't' 是缩写。应写成 'did not'。",
+      C: "'Isn't' is a contraction. Write 'is not'.|'Isn't' 是缩写。应写成 'is not'。",
+      D: "'Can't' is a contraction. Write 'cannot'.|'Can't' 是缩写。应写成 'cannot'。"
+    }
+  },
+  {
+    id: "i10", title: "Order of the introduction",
+    q: "What is the correct order of an introduction paragraph?",
+    q_cn: "引言段的正确顺序是什么？",
+    options: [
+      "A. Thesis, hook, lead-in|A. 论点句、钩子句、引导句",
+      "B. Hook, lead-in, thesis|B. 钩子句、引导句、论点句",
+      "C. Lead-in, thesis, hook|C. 引导句、论点句、钩子句",
+      "D. Hook, thesis, lead-in|D. 钩子句、论点句、引导句"
+    ],
+    correct: "B",
+    rat_right: "The hook comes first, the lead-in connects to the topic, and the thesis comes last.|钩子句在最前，引导句连接话题，论点句放在最后。",
+    rat_wrong: {
+      A: "The thesis is last, not first.|论点句在最后，不在最前。",
+      C: "The hook must be the first sentence.|钩子句必须是第一句。",
+      D: "The thesis should be the last sentence, after the lead-in.|论点句应在引导句之后，作为最后一句。"
+    }
+  }
+];
+
+// ===================== QUIZ: BODY PARAGRAPHS =====================
+const BODY_Q = [
+  {
+    id: "b1", title: "Body paragraph formula",
+    q: "Which choice shows the correct structure formula for a body paragraph?",
+    q_cn: "哪个选项是主体段的正确结构公式？",
+    options: [
+      "A. Point, transition, explanation|A. 观点句、过渡词、解释",
+      "B. Transition + Point, Reporting phrase + Evidence + Citation, Explanation, Transition + Concluding sentence|B. 过渡词 + 观点句，引述短语 + 证据 + 引用，解释，过渡词 + 总结句",
+      "C. Hook, lead-in, thesis|C. 钩子句、引导句、论点句",
+      "D. Restated thesis, final thoughts|D. 重述的论点句、最后的思考"
+    ],
+    correct: "B",
+    rat_right: "This is the full PEEC formula from the essay structure guide.|这是文章结构指南中完整的 PEEC 公式。",
+    rat_wrong: {
+      A: "This order is wrong and it leaves out the evidence and citation.|顺序错误，并且漏掉了证据和引用。",
+      C: "This is the structure of the introduction.|这是引言段的结构。",
+      D: "This is the structure of the conclusion.|这是结论段的结构。"
+    }
+  },
+  {
+    id: "b2", title: "Transition words",
+    q: "Which phrase is a suitable transition to begin a body paragraph?",
+    q_cn: "哪个短语适合作为主体段开头的过渡词？",
+    options: [
+      "A. Anyway,|A. 反正，",
+      "B. I think that|B. 我认为",
+      "C. To begin with,|C. 首先，",
+      "D. Because of|D. 由于"
+    ],
+    correct: "C",
+    rat_right: "'To begin with' is a formal transition that opens the first body paragraph.|'To begin with' 是正式的过渡语，适合开启第一个主体段。",
+    rat_wrong: {
+      A: "'Anyway' is casual spoken language, not a formal transition.|'Anyway' 是口语，不是正式的过渡词。",
+      B: "'I think that' is first person and not a transition.|'I think that' 是第一人称，也不是过渡词。",
+      D: "'Because of' is not a transition word for starting a paragraph.|'Because of' 不是用来开始段落的过渡词。"
+    }
+  },
+  {
+    id: "b3", title: "Reporting phrase",
+    q: "Which is the best reporting phrase to introduce evidence?",
+    q_cn: "哪一个是引出证据的最佳引述短语？",
+    options: [
+      "A. In the text 'The Broken Kite,' the author illustrates that|A. 在《破风筝》中，作者说明了",
+      "B. It says that|B. 它说",
+      "C. I read that|C. 我读到",
+      "D. Then the kite flew up|D. 然后风筝飞了起来"
+    ],
+    correct: "A",
+    rat_right: "It names the text, mentions the author, and uses a reporting verb (illustrates).|它写出了文本名称，提到了作者，并使用了引述动词（illustrates）。",
+    rat_wrong: {
+      B: "It does not name the text or the author. It is too vague.|没有写出文本名称或作者，太模糊。",
+      C: "'I read' is first person and gives no text or author.|'I read' 是第一人称，也没有文本或作者。",
+      D: "This is a plot detail, not a reporting phrase.|这是情节细节，不是引述短语。"
+    }
+  },
+  {
+    id: "b4", title: "Types of evidence",
+    q: "What kind of evidence from the text can you use?",
+    q_cn: "你可以使用哪种来自文本的证据？",
+    options: [
+      "A. Only quotations|A. 只能用直接引用",
+      "B. Only your own opinion|B. 只能用你自己的观点",
+      "C. Only the title of the text|C. 只能用文本的标题",
+      "D. A quotation, a paraphrase, or a summary|D. 直接引用、改写或概括都可以"
+    ],
+    correct: "D",
+    rat_right: "The guide says evidence can be quoted, paraphrased, or summarized.|指南说明证据可以是引用、改写或概括。",
+    rat_wrong: {
+      A: "Paraphrases and summaries are also allowed.|改写和概括同样可以使用。",
+      B: "Your opinion is not evidence from the text.|你的观点不是来自文本的证据。",
+      C: "A title alone does not prove a point.|仅凭标题不能证明观点。"
+    }
+  },
+  {
+    id: "b5", title: "MLA citation",
+    passage: "The quotation comes from page 1 of a text written by Anna Reyes.",
+    q: "Which is the correct MLA in-text citation?",
+    q_cn: "哪一个是正确的 MLA 文内引用格式？",
+    options: [
+      "A. (Anna 1)|A. （Anna 1）",
+      "B. (Reyes, page one)|B. （Reyes, page one）",
+      "C. (Reyes 1)|C. （Reyes 1）",
+      "D. [Reyes 1]|D. [Reyes 1]"
+    ],
+    correct: "C",
+    rat_right: "MLA uses the author's last name and the page number in round brackets, with no comma.|MLA 在圆括号中使用作者姓氏和页码，中间没有逗号。",
+    rat_wrong: {
+      A: "MLA uses the last name (Reyes), not the first name.|MLA 使用姓氏（Reyes），而不是名字。",
+      B: "Use the number 1, not the words 'page one', and do not add a comma.|要用数字 1，而不是 'page one'，也不要加逗号。",
+      D: "MLA uses round brackets, not square brackets.|MLA 使用圆括号，而不是方括号。"
+    }
+  },
+  {
+    id: "b6", title: "The explanation",
+    q: "What should the explanation in a body paragraph do?",
+    q_cn: "主体段中的解释应该做什么？",
+    options: [
+      "A. Copy the evidence again|A. 再抄一遍证据",
+      "B. Explain why the evidence supports the prompt, in your OWN words|B. 用你自己的话解释证据为什么支持题目",
+      "C. Add a new point that is not connected|C. 加入一个无关的新观点",
+      "D. Ask the reader a question|D. 向读者提问"
+    ],
+    correct: "B",
+    rat_right: "The explanation shows your understanding by connecting the evidence to the prompt.|解释通过把证据与题目联系起来，展示你的理解。",
+    rat_wrong: {
+      A: "Copying shows no understanding.|照抄不能显示理解。",
+      C: "Each paragraph should have one clear point linked to the thesis.|每个段落应有一个与论点句相关的清楚观点。",
+      D: "Questions are not used in formal body paragraphs.|正式的主体段中不使用问句。"
+    }
+  },
+  {
+    id: "b7", title: "The concluding sentence",
+    q: "What does the concluding sentence of a body paragraph do?",
+    q_cn: "主体段的总结句有什么作用？",
+    options: [
+      "A. It introduces brand new evidence|A. 引入全新的证据",
+      "B. It asks the reader a question|B. 向读者提问",
+      "C. It gives a personal opinion using 'I'|C. 用 'I' 表达个人看法",
+      "D. It restates the point in other words and links the evidence back to it|D. 换一种说法重述观点，并把证据和观点联系起来"
+    ],
+    correct: "D",
+    rat_right: "The concluding sentence closes the paragraph by returning to the point in new words.|总结句用新的词语回到观点上，从而结束本段。",
+    rat_wrong: {
+      A: "New evidence would start a new paragraph.|新证据应该放在新的段落里。",
+      B: "Formal paragraphs do not end with questions.|正式的段落不以问句结尾。",
+      C: "First person is not allowed in formal essays.|正式文章不允许使用第一人称。"
+    }
+  },
+  {
+    id: "b8", title: "Formal language",
+    q: "Which sentence uses the most formal language?",
+    q_cn: "哪一句使用的语言最正式？",
+    options: [
+      "A. The boy felt discouraged and considered quitting.|A. 男孩感到泄气，并考虑放弃。",
+      "B. The kid got really sad and gave up.|B. 小孩变得特别难过，然后放弃了。",
+      "C. He was super down.|C. 他特别沮丧。",
+      "D. The little guy felt bad.|D. 那个小家伙觉得难受。"
+    ],
+    correct: "A",
+    rat_right: "'Discouraged' and 'considered quitting' are precise, serious words.|'Discouraged' 和 'considered quitting' 是准确而严肃的用词。",
+    rat_wrong: {
+      B: "'Kid', 'got really sad', and 'gave up' are casual.|'Kid'、'got really sad' 和 'gave up' 都比较口语化。",
+      C: "'Super down' is slang.|'Super down' 是俚语。",
+      D: "'Little guy' and 'felt bad' are casual and vague.|'Little guy' 和 'felt bad' 口语化且不具体。"
+    }
+  },
+  {
+    id: "b9", title: "Find the missing part",
+    passage: "Firstly, the author demonstrates that persistence leads to success. In the text 'The Broken Kite,' Anna Reyes explains that Tomas rebuilt his kite two more times before it rose above the rooftops (Reyes 1). Therefore, persistence leads to success.",
+    q: "Which part of the body paragraph formula is MISSING?",
+    q_cn: "这个主体段缺少公式中的哪一部分？",
+    options: [
+      "A. The transition at the start|A. 开头的过渡词",
+      "B. The point|B. 观点句",
+      "C. The citation|C. 引用标注",
+      "D. The explanation|D. 解释"
+    ],
+    correct: "D",
+    rat_right: "After the evidence, there is no explanation of WHY it supports the point. The paragraph jumps to the concluding sentence.|证据之后没有解释它为什么支持观点，段落直接跳到了总结句。",
+    rat_wrong: {
+      A: "The paragraph begins with 'Firstly,'.|段落以 'Firstly,' 开头。",
+      B: "The point is stated in the first sentence.|观点在第一句中已经写出。",
+      C: "The citation (Reyes 1) is present.|引用标注（Reyes 1）已经存在。"
+    }
+  },
+  {
+    id: "b10", title: "Linking to the thesis",
+    passage: "Thesis: Persistence is valuable because it brings success and builds patience.",
+    q: "Which topic sentence (transition + point) links best to this thesis?",
+    q_cn: "哪一个主题句（过渡词 + 观点句）与这个论点句联系最紧密？",
+    options: [
+      "A. Kites are made of paper and glue.|A. 风筝是用纸和胶水做的。",
+      "B. Firstly, persistence brings success even after repeated failure.|B. 首先，即使多次失败，坚持也能带来成功。",
+      "C. The grandfather smiled at the boy.|C. 祖父对男孩微笑。",
+      "D. Tomas worked for three weeks.|D. Tomas 工作了三周。"
+    ],
+    correct: "B",
+    rat_right: "It starts with a transition and states a point that matches the first reason in the thesis (success).|它以过渡词开头，观点与论点句中的第一个理由（成功）相呼应。",
+    rat_wrong: {
+      A: "It is a detail about the kite and does not support the thesis.|这只是风筝的细节，不支持论点句。",
+      C: "It is a story event with no transition and no point about persistence.|这是故事情节，没有过渡词，也没有关于坚持的观点。",
+      D: "It is a story detail. It has no transition and does not make a point.|这是故事细节，没有过渡词，也没有表达观点。"
+    }
+  }
+];
+
+// ===================== QUIZ: CONCLUSION + REVIEW =====================
+const CONC_Q = [
+  {
+    id: "c1", title: "Jobs of the conclusion",
+    q: "Which of these is NOT a job of the conclusion?",
+    q_cn: "下面哪一项不是结论段的任务？",
+    options: [
+      "A. Restate the thesis in different words|A. 用不同的词重述论点句",
+      "B. Give final thoughts on the question|B. 对题目给出最后的思考",
+      "C. Introduce a brand new quotation and argument|C. 引入全新的引文和论点",
+      "D. Make sure the prompt has been answered|D. 确保已经回答了题目"
+    ],
+    correct: "C",
+    rat_right: "New evidence belongs in the body paragraphs. The conclusion only wraps up.|新证据属于主体段。结论段只负责收尾。",
+    rat_wrong: {
+      A: "Restating the thesis is a main job of the conclusion.|重述论点句是结论段的主要任务之一。",
+      B: "Final thoughts are part of the conclusion.|最后的思考是结论段的一部分。",
+      D: "Answering the prompt is one of the conclusion's jobs.|回答题目也是结论段的任务。"
+    }
+  },
+  {
+    id: "c2", title: "Starting the conclusion",
+    q: "How should the concluding paragraph begin?",
+    q_cn: "结论段应该怎样开头？",
+    options: [
+      "A. With a transition such as 'In conclusion,'|A. 用过渡词开头，如 'In conclusion,'",
+      "B. With a question|B. 用一个问句",
+      "C. With the word 'I'|C. 用 'I' 开头",
+      "D. With a new hook|D. 用一个新的钩子句"
+    ],
+    correct: "A",
+    rat_right: "The general rules say to start the concluding paragraph with a transition word.|总规则要求结论段以过渡词开头。",
+    rat_wrong: {
+      B: "Formal essays do not use questions to open the conclusion.|正式文章不用问句开启结论段。",
+      C: "First person is not allowed.|不允许使用第一人称。",
+      D: "A hook belongs in the introduction.|钩子句属于引言段。"
+    }
+  },
+  {
+    id: "c3", title: "Restating the thesis",
+    passage: "Thesis: Schools should start later because teenagers need more sleep.",
+    q: "Which sentence is the best restatement of this thesis?",
+    q_cn: "哪一句是对这个论点句的最佳重述？",
+    options: [
+      "A. Schools should start later because teenagers need more sleep.|A. 学校应该晚点开始上课，因为青少年需要更多睡眠。",
+      "B. Clearly, delaying the first bell would benefit teenagers, who require additional rest.|B. 显然，推迟第一节课的铃声会让青少年受益，因为他们需要更多休息。",
+      "C. I still think schools start too early.|C. 我仍然认为学校开始得太早。",
+      "D. Is it time to change school hours?|D. 是时候改变上学时间了吗？"
+    ],
+    correct: "B",
+    rat_right: "It keeps the same idea but uses different words (delaying the first bell, additional rest).|它保留了相同的意思，但换了词语（delaying the first bell, additional rest）。",
+    rat_wrong: {
+      A: "This copies the thesis word for word. The restatement must use different words.|这是逐字照抄论点句。重述必须使用不同的词。",
+      C: "It uses first person ('I think') and does not give the reason.|它使用了第一人称（I think），也没有给出理由。",
+      D: "A restatement must be a statement, not a question.|重述必须是陈述句，不能是问句。"
+    }
+  },
+  {
+    id: "c4", title: "Final thoughts",
+    q: "Which sentence is the best final thought for an essay about sleep?",
+    q_cn: "对于一篇关于睡眠的文章，哪一句是最好的最后思考？",
+    options: [
+      "A. That is all I wanted to say.|A. 这就是我想说的全部。",
+      "B. Thank you for reading my essay.|B. 感谢你阅读我的文章。",
+      "C. Maybe sleep is good or maybe not.|C. 也许睡眠是好的，也许不是。",
+      "D. Ultimately, giving students more rest is an investment in better learning for the whole community.|D. 归根结底，让学生多休息是对整个社区更好学习的投资。"
+    ],
+    correct: "D",
+    rat_right: "It is formal, confident, and gives the reader a meaningful closing idea.|它正式、自信，并给读者一个有意义的结束想法。",
+    rat_wrong: {
+      A: "It uses first person and adds no idea.|它使用了第一人称，也没有新的想法。",
+      B: "It uses first person ('my') and is not a final thought about the topic.|它使用了第一人称（my），也不是对话题的最后思考。",
+      C: "It is uncertain and does not answer the prompt.|它含糊不清，没有回答题目。"
+    }
+  },
+  {
+    id: "c5", title: "Answering the prompt",
+    q: "Why must you check that your conclusion answers the prompt?",
+    q_cn: "为什么要检查结论是否回答了题目？",
+    options: [
+      "A. So the teacher can count the words|A. 方便老师数字数",
+      "B. So the essay ends with a clear answer to the question that was asked|B. 让文章以对所问问题的清楚回答来结尾",
+      "C. So you can add a new topic|C. 方便你加入新话题",
+      "D. So the essay becomes longer|D. 让文章变得更长"
+    ],
+    correct: "B",
+    rat_right: "The essay must finish by clearly answering the question in the prompt.|文章必须以清楚回答题目中的问题来结束。",
+    rat_wrong: {
+      A: "Word count is not the reason for this check.|检查的目的不是字数。",
+      C: "A new topic would confuse the reader.|新话题会让读者困惑。",
+      D: "Length is not the goal. Clarity is.|目标不是长度，而是清楚。"
+    }
+  },
+  {
+    id: "c6", title: "Essay structure",
+    q: "How many body paragraphs are in the five-paragraph essay structure?",
+    q_cn: "五段式文章结构中有几个主体段？",
+    options: [
+      "A. One|A. 一个",
+      "B. Two|B. 两个",
+      "C. Three|C. 三个",
+      "D. Five|D. 五个"
+    ],
+    correct: "C",
+    rat_right: "Paragraph 1 is the introduction, paragraphs 2, 3, and 4 are the body, and paragraph 5 is the conclusion.|第1段是引言，第2、3、4段是主体，第5段是结论。",
+    rat_wrong: {
+      A: "There are three body paragraphs, not one.|主体段有三个，不是一个。",
+      B: "There are three body paragraphs, not two.|主体段有三个，不是两个。",
+      D: "Five is the total number of paragraphs, not the number of body paragraphs.|五是总段数，不是主体段的数量。"
+    }
+  },
+  {
+    id: "c7", title: "Rule check",
+    q: "Which sentence BREAKS the formal essay rules?",
+    q_cn: "哪一句违反了正式文章的规则？",
+    options: [
+      "A. Moreover, libraries provide free internet access.|A. 此外，图书馆提供免费上网服务。",
+      "B. In conclusion, public libraries remain valuable.|B. 总之，公共图书馆仍然很有价值。",
+      "C. Therefore, communities should protect their libraries.|C. 因此，社区应该保护自己的图书馆。",
+      "D. In conclusion, I think libraries don't matter anymore.|D. 总之，我认为图书馆不再重要了。"
+    ],
+    correct: "D",
+    rat_right: "It uses first person ('I think') AND a contraction ('don't'). Both are not allowed.|它既使用了第一人称（I think），又使用了缩写（don't）。两者都不允许。",
+    rat_wrong: {
+      A: "It starts with a transition and uses formal language.|它以过渡词开头，语言正式。",
+      B: "It is a formal conclusion sentence with a transition.|这是带有过渡词的正式结论句。",
+      C: "It follows the rules: transition, formal words, no first person.|它符合规则：有过渡词、用词正式、没有第一人称。"
+    }
+  },
+  {
+    id: "c8", title: "Where does it belong?",
+    q: "Which item belongs in the CONCLUSION and not in the introduction?",
+    q_cn: "哪一项属于结论段而不是引言段？",
+    options: [
+      "A. A hook about the topic|A. 关于话题的钩子句",
+      "B. A lead-in statement|B. 引导句",
+      "C. A restated thesis in different words|C. 用不同的词重述的论点句",
+      "D. A statement of the first reason only|D. 只陈述第一个理由"
+    ],
+    correct: "C",
+    rat_right: "The thesis is stated in the introduction and restated in different words in the conclusion.|论点句在引言中提出，在结论中用不同的词重述。",
+    rat_wrong: {
+      A: "Hooks belong in the introduction.|钩子句属于引言段。",
+      B: "Lead-in statements belong in the introduction.|引导句属于引言段。",
+      D: "Reasons are developed in the body paragraphs.|理由在主体段中展开。"
+    }
+  },
+  {
+    id: "c9", title: "Revise the sentence",
+    passage: "Original sentence: Schools shouldn't give too much homework, I think.",
+    q: "Which revision fixes ALL the problems in the original sentence?",
+    q_cn: "哪一个修改版本解决了原句中的所有问题？",
+    options: [
+      "A. Schools shouldn't assign too much homework.|A. 学校不应该布置太多作业。",
+      "B. Schools should not assign excessive homework.|B. 学校不应该布置过多的作业。",
+      "C. I think schools should not give much homework.|C. 我认为学校不应该布置很多作业。",
+      "D. Homework, in my opinion, should be less.|D. 在我看来，作业应该少一点。"
+    ],
+    correct: "B",
+    rat_right: "It removes the first person and the contraction and uses a more formal word (excessive).|它去掉了第一人称和缩写，并使用了更正式的词（excessive）。",
+    rat_wrong: {
+      A: "It still has a contraction ('shouldn't').|它仍然有缩写（shouldn't）。",
+      C: "It still uses first person ('I think').|它仍然使用第一人称（I think）。",
+      D: "It still uses first person ('my opinion').|它仍然使用第一人称（my opinion）。"
+    }
+  },
+  {
+    id: "c10", title: "Final check",
+    q: "Which is a good final check before you submit an essay?",
+    q_cn: "提交文章前，哪一项是好的最终检查？",
+    options: [
+      "A. Check for first-person words, contractions, transitions, and MLA citations|A. 检查第一人称、缩写、过渡词和 MLA 引用",
+      "B. Add more 'I think' sentences|B. 多加一些 'I think' 句子",
+      "C. Delete the thesis|C. 删除论点句",
+      "D. Change every sentence into a question|D. 把每个句子都改成问句"
+    ],
+    correct: "A",
+    rat_right: "These checks cover the main rules of the essay structure guide.|这些检查涵盖了文章结构指南的主要规则。",
+    rat_wrong: {
+      B: "'I think' is first person and is not allowed.|'I think' 是第一人称，不允许使用。",
+      C: "The thesis is the most important sentence of the introduction.|论点句是引言中最重要的句子。",
+      D: "Formal essays use statements, not questions.|正式文章使用陈述句，而不是问句。"
+    }
+  }
+];
+
+// ===================== WRITING STUDIO DATA =====================
+// Practice texts: cite each one as (LastName 1)
+const TEXTS = [
+  { id: "kite", title: "The Broken Kite", author: "Anna Reyes", last: "Reyes",
+    prompt: "How does the author show the value of persistence?",
+    prompt_cn: "作者如何表现坚持的价值？",
+    gist: "男孩 Tomas 的风筝被风吹坏，祖父鼓励他再试，他最终成功了。",
+    text: "Tomas worked for three weeks on his kite. On the first windy day, a gust tore the paper in half. He wanted to throw it away. His grandfather only smiled and handed him new paper and glue. 'A kite does not fly because it is perfect,' the old man said. 'It flies because someone keeps trying.' Tomas rebuilt it twice more before it finally rose above the rooftops." },
+  { id: "library", title: "More Than Books", author: "Marcus Bell", last: "Bell",
+    prompt: "How does the author show that public libraries still matter?",
+    prompt_cn: "作者如何说明公共图书馆依然重要？",
+    gist: "图书馆提供免费网络、学习空间和课程，还帮助人们找到可靠信息。",
+    text: "In many towns, the public library is more than a room full of books. It offers free internet, quiet places to study, and classes for children and adults. For families who cannot afford a computer at home, the library is often the only place to complete school work online. Librarians also help visitors find reliable information in a world full of rumors." },
+  { id: "roof", title: "Gardens in the Sky", author: "Sofia Alvarez", last: "Alvarez",
+    prompt: "What argument does the author make for adding green space to cities?",
+    prompt_cn: "作者为在城市中增加绿地提出了什么论点？",
+    gist: "屋顶绿化能吸收雨水、降低建筑内部温度、给小动物提供家园，是明智的投资。",
+    text: "Cities are hot, crowded, and full of concrete, but some have found a simple answer: plants on rooftops. A green roof absorbs rainwater, so streets flood less often. It also lowers the temperature inside the building in summer, which reduces the cost of air conditioning. Birds and insects find a home there too. For this reason, planners in many cities now see green roofs as a smart investment, not a luxury." },
+  { id: "sleep", title: "The Midnight Myth", author: "Priya Nair", last: "Nair",
+    prompt: "What does the author suggest about the relationship between sleep and studying?",
+    prompt_cn: "作者对睡眠和学习的关系有什么看法？",
+    gist: "大脑在睡眠中储存新知识，熬夜学习可能学得更少。",
+    text: "Many students feel proud of studying until midnight. However, researchers explain that the brain stores new knowledge during sleep. Without enough rest, students forget more, make more mistakes, and feel more stress. A tired student who studies until midnight may learn less than a rested student who studies for one focused hour. Sleep, in other words, is part of studying, not a rival to it." },
+  { id: "bridge", title: "One Stone at a Time", author: "Oliver Grant", last: "Grant",
+    prompt: "How does the author show that one person can create change?",
+    prompt_cn: "作者如何表现一个人可以带来改变？",
+    gist: "Kwan 老师每周搬一块石头，邻居们也加入，最后村里有了石桥。",
+    text: "Every morning, Mr. Kwan crossed the river on a wobbling rope bridge to reach his school. The villagers said a new bridge was too expensive, and the village leaders agreed. Mr. Kwan said nothing. Each weekend he carried one stone to the riverbank. After two years the pile was large, and neighbors began to carry stones too. By spring the village had a strong stone bridge." },
+  { id: "dinner", title: "The Dinner Rule", author: "Jada Thompson", last: "Thompson",
+    prompt: "What does the author suggest about technology and family life?",
+    prompt_cn: "作者对科技和家庭生活有什么看法？",
+    gist: "Wu 家规定餐桌上不许用手机，家人开始交谈，晚餐变成孩子最喜欢的时间。",
+    text: "In the Wu family, a new rule was introduced: no phones at the dinner table. At first, everyone complained. Within a month, the family talked about school, work, and weekend plans. The youngest child said dinner had become her favorite time of day. The rule did not remove technology from the house, but it gave the family time to listen to one another." }
+];
+
+const CATS = [
+  { id: "school", en: "School & Learning", cn: "校园与学习", icon: "🎒" },
+  { id: "tech", en: "Technology", cn: "科技", icon: "💻" },
+  { id: "society", en: "Society & Community", cn: "社会与社区", icon: "🏘️" },
+  { id: "health", en: "Health & Lifestyle", cn: "健康与生活", icon: "🍎" },
+  { id: "env", en: "Environment", cn: "环境", icon: "🌳" },
+  { id: "ideas", en: "Ideas & Character", cn: "思想与品格", icon: "💡" },
+  { id: "read", en: "Read & Respond (with a text)", cn: "阅读与回应（带文本）", icon: "📖" }
+];
+
+const TOPICS = [
+  { cat: "school", en: "Should students be allowed to choose some of their own classes?", cn: "学生是否应该可以自己选择部分课程？" },
+  { cat: "school", en: "Is homework helpful or harmful for learning?", cn: "作业对学习是有帮助还是有害？" },
+  { cat: "school", en: "Should schools start later in the morning?", cn: "学校是否应该晚一点开始上课？" },
+  { cat: "school", en: "Does failing teach students more than succeeding?", cn: "失败比成功更能教会学生吗？" },
+  { cat: "school", en: "Should every student learn a second language?", cn: "每个学生都应该学习第二语言吗？" },
+  { cat: "tech", en: "Do smartphones help or harm students' focus in school?", cn: "智能手机对学生在校的专注力是帮助还是伤害？" },
+  { cat: "tech", en: "Should social media have an age limit?", cn: "社交媒体是否应该设置年龄限制？" },
+  { cat: "tech", en: "Can online learning be as effective as classroom learning?", cn: "网络学习能和课堂学习一样有效吗？" },
+  { cat: "tech", en: "Do video games teach useful skills?", cn: "电子游戏能教会有用的技能吗？" },
+  { cat: "tech", en: "Should people spend less time on screens?", cn: "人们是否应该减少看屏幕的时间？" },
+  { cat: "society", en: "Should community service be required for graduation?", cn: "社区服务是否应该成为毕业的必要条件？" },
+  { cat: "society", en: "Is it better to live in a big city or a small town?", cn: "住在大城市好还是小城镇好？" },
+  { cat: "society", en: "Do public libraries still matter today?", cn: "公共图书馆在今天依然重要吗？" },
+  { cat: "society", en: "Should young people be required to save part of their money?", cn: "是否应该要求年轻人存下一部分钱？" },
+  { cat: "society", en: "What qualities make a person a good leader?", cn: "什么品质能让一个人成为好领导者？" },
+  { cat: "health", en: "Should schools provide more time for physical education?", cn: "学校是否应该增加体育课时间？" },
+  { cat: "health", en: "Is sleep more important than studying late?", cn: "睡眠比熬夜学习更重要吗？" },
+  { cat: "health", en: "Should unhealthy snacks be removed from school canteens?", cn: "学校食堂是否应该撤掉不健康的零食？" },
+  { cat: "health", en: "Does listening to music help people study?", cn: "听音乐有助于学习吗？" },
+  { cat: "health", en: "Is having a hobby important for a balanced life?", cn: "拥有爱好对平衡的生活重要吗？" },
+  { cat: "env", en: "Should plastic bags be banned?", cn: "是否应该禁止塑料袋？" },
+  { cat: "env", en: "Should cities create more green space?", cn: "城市是否应该建设更多绿地？" },
+  { cat: "env", en: "Is individual action or government action more effective against pollution?", cn: "对抗污染，个人行动还是政府行动更有效？" },
+  { cat: "env", en: "Should students learn about nature outdoors?", cn: "学生是否应该在户外学习自然知识？" },
+  { cat: "env", en: "Is recycling enough to protect the environment?", cn: "仅靠回收足以保护环境吗？" },
+  { cat: "ideas", en: "Is honesty always the best policy?", cn: "诚实永远是上策吗？" },
+  { cat: "ideas", en: "Is it more important to be kind or to be successful?", cn: "善良与成功，哪个更重要？" },
+  { cat: "ideas", en: "Can one person change the world?", cn: "一个人能改变世界吗？" },
+  { cat: "ideas", en: "Does money bring happiness?", cn: "金钱能带来幸福吗？" },
+  { cat: "ideas", en: "Is it better to follow tradition or to try new ideas?", cn: "遵循传统好还是尝试新想法好？" }
+];
+// Add one topic per text for the Read & Respond category
+TEXTS.forEach(function(t) {
+  TOPICS.push({ cat: "read", en: t.prompt, cn: t.prompt_cn, textId: t.id });
+});
+
+// ===================== RULE LISTS =====================
+const TRANSITIONS = ["firstly","first of all","to begin with","first","secondly","second","thirdly","third","additionally","moreover","furthermore","in addition","also","finally","lastly","however","on the other hand","in contrast","for example","for instance","therefore","consequently","as a result","similarly","likewise","clearly","overall","in conclusion","to conclude","to sum up","in summary","ultimately","above all","in short","for this reason"];
+const CONC_TRANSITIONS = ["in conclusion","to conclude","to sum up","in summary","overall","ultimately","finally","clearly","therefore","in short","as a result","above all"];
+const REPORT_STEMS = ["explain","discuss","illustrat","describ","show","suggest","state","argue","reveal","demonstrat","present","portray","highlight","emphasi","explor","note","indicate","convey","express","point"];
+const INFORMAL = { "kind of": "somewhat", "sort of": "somewhat", "a lot of": "many / much", "a lot": "many / much", "lots of": "many", "tons of": "many", "stuff": "things / materials / items", "gonna": "going to", "wanna": "want to", "gotta": "must", "kids": "children / young people", "guys": "people", "really": "(delete) or extremely", "super": "extremely", "pretty much": "largely", "okay": "acceptable", "cool": "impressive", "awesome": "remarkable", "nice": "pleasant / beneficial", "totally": "completely", "basically": "(delete)", "anyway": "nevertheless", "yeah": "(delete)" };
+const STOPWORDS = ["the","and","that","this","with","from","have","has","for","are","was","were","because","should","would","could","their","there","about","which","what","when","will","more","than","into","also","been","they","them","does","not","but","can","its","his","her","our","your","how","why","who","all","any","each","such","very","much","many","most","some","only","over","these","those","then","while","where","author","text","shows","show","suggest","suggests","does","make","makes"];
+
+// ===================== TAB REGISTRY =====================
+const TABS = {
+  intro: { q: INTRO_Q, answers: introAnswers, score: introScore, done: introDone, label: "Introduction", studios: ["intro"] },
+  body:  { q: BODY_Q,  answers: bodyAnswers,  score: bodyScore,  done: bodyDone,  label: "Body Paragraphs", studios: ["body"] },
+  conc:  { q: CONC_Q,  answers: concAnswers,  score: concScore,  done: concDone,  label: "Conclusion + Full Essay", studios: ["conc", "full"] }
+};
+
+// ===================== TEXT HELPERS =====================
+function norm(t) { return String(t || "").replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D]/g, '"'); }
+function wc(t) { return (norm(t).trim().match(/\S+/g) || []).length; }
+function uniq(a) { return a.filter(function(x, i) { return a.indexOf(x) === i; }); }
+function sentences(t) { return (norm(t).match(/[^.!?]+[.!?]+/g) || (norm(t).trim() ? [norm(t).trim()] : [])).map(function(s) { return s.trim(); }); }
+function endPunct(s) { s = s.trim(); if (!s) return ""; return /[.!?]["')\]]?$/.test(s) ? s : s + "."; }
+function cap(s) { s = s.trim(); return s ? s.charAt(0).toUpperCase() + s.slice(1) : ""; }
+function stems(t) {
+  var words = (norm(t).toLowerCase().match(/[a-z]+/g) || []).filter(function(w) { return w.length >= 4 && STOPWORDS.indexOf(w) === -1; });
+  return uniq(words.map(function(w) { return w.slice(0, 4); }));
+}
+function overlap(a, b) { var sb = stems(b); return stems(a).filter(function(x) { return sb.indexOf(x) !== -1; }).length; }
+function jaccard(a, b) {
+  var A = stems(a), B = stems(b);
+  if (!A.length || !B.length) return 0;
+  var inter = A.filter(function(x) { return B.indexOf(x) !== -1; }).length;
+  return inter / (A.length + B.length - inter);
+}
+function startsWithList(text, list) {
+  var s = norm(text).trim().toLowerCase().replace(/^[^a-z]+/, "");
+  var sorted = list.slice().sort(function(a, b) { return b.length - a.length; });
+  for (var i = 0; i < sorted.length; i++) {
+    var tr = sorted[i];
+    if (s === tr || s.indexOf(tr + ",") === 0 || s.indexOf(tr + " ") === 0) return true;
+  }
+  return false;
+}
+function hasReportVerb(t) {
+  var s = norm(t).toLowerCase();
+  return REPORT_STEMS.some(function(st) { return new RegExp("\\b" + st + "\\w*").test(s); });
+}
+
+// ===================== RESULT BUILDERS =====================
+function R(status, en, cn) { return { status: status, en: en, cn: cn }; }
+
+// Universal rules: first person, contractions, informal words
+function universal(text) {
+  var out = [];
+  var t = norm(text);
+  var fp = t.match(/\b(?:I|[Mm]e|[Mm]y|[Mm]ine|[Mm]yself|[Ww]e|[Oo]ur|[Oo]urs|[Oo]urselves|us|Us)\b/g) || [];
+  if (fp.length) out.push(R("fix", "First-person word found: " + uniq(fp).join(", ") + ". Rewrite without it.", "发现第一人称：" + uniq(fp).join(", ") + "。请改写，去掉它。"));
+  else out.push(R("pass", "No first-person words.", "没有第一人称。"));
+
+  var ct = t.match(/\b\w+n't\b|\b(?:it|that|there|here|he|she|what|who|let|where|how)'s\b|\b\w+'(?:re|ve|ll|d|m)\b/gi) || [];
+  if (ct.length) out.push(R("fix", "Contraction found: " + uniq(ct).join(", ") + ". Write the words out in full.", "发现缩写：" + uniq(ct).join(", ") + "。请写完整。"));
+  else out.push(R("pass", "No contractions.", "没有缩写。"));
+
+  var low = t.toLowerCase();
+  var found = [];
+  Object.keys(INFORMAL).forEach(function(w) {
+    if (new RegExp("\\b" + w + "\\b").test(low)) found.push(w + " → " + INFORMAL[w]);
+  });
+  if (found.length) out.push(R("tip", "Casual word(s): " + found.join("; ") + ". Try a more formal word.", "发现口语词：" + found.join("；") + "。请换成更正式的词。"));
+  else out.push(R("pass", "No casual words detected.", "没有发现口语词。"));
+  return out;
+}
+
+function checkQuestionMarks(text, label_en, label_cn) {
+  return /\?/.test(text)
+    ? R("fix", label_en + " contains a question mark. Use statements, not questions.", label_cn + "含有问号。请使用陈述句，不要用问句。")
+    : R("pass", label_en + " is not a question.", label_cn + "不是问句。");
+}
+
+// ===================== VOCAB BUILD =====================
+function buildVocab() {
+  var grid = document.getElementById("vocabGrid");
+  VOCAB.forEach(function(v) {
+    var card = document.createElement("div"); card.className = "vcard";
+    var btn = document.createElement("button"); btn.className = "say-btn"; btn.textContent = "🔊"; btn.title = "Listen · 听发音";
+    btn.addEventListener("click", function() {
+      if (!("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(v.word); u.lang = "en-US"; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    });
+    var w = document.createElement("div");
+    var ws = document.createElement("span"); ws.className = "vw"; ws.textContent = v.word;
+    var ps = document.createElement("span"); ps.className = "vpos"; ps.textContent = v.pos;
+    w.appendChild(ws); w.appendChild(ps);
+    var cn = document.createElement("div"); cn.className = "vcn cn"; cn.textContent = v.cn;
+    var d = document.createElement("div"); d.textContent = v.def;
+    var dc = document.createElement("div"); dc.className = "cn"; dc.textContent = v.cn_def;
+    var ex = document.createElement("div"); ex.className = "vex"; ex.textContent = v.example;
+    card.appendChild(btn); card.appendChild(w); card.appendChild(cn); card.appendChild(d); card.appendChild(dc); card.appendChild(ex);
+    grid.appendChild(card);
+  });
+}
+
+// ===================== QUIZ (LOCKED) =====================
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+  data.forEach(function(item, idx) {
+    var card = document.createElement("div"); card.className = "quiz-card";
+    var num = document.createElement("div"); num.className = "q-num";
+    num.textContent = "Question " + (idx + 1) + " of " + data.length;
+    card.appendChild(num);
+    if (item.passage) {
+      var pasEl = document.createElement("div"); pasEl.className = "passage-box"; pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+    var qEl = document.createElement("div"); qEl.className = "q-text"; qEl.textContent = item.q;
+    var qCn = document.createElement("div"); qCn.className = "q-cn cn"; qCn.textContent = item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement("div"); optsWrap.className = "opts-wrap";
+    var ratDiv = document.createElement("div"); ratDiv.className = "rationale";
+    var answered = false;
+
+    item.options.forEach(function(opt) {
+      var parts = opt.split("|");
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/, "");
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/, "") : "";
+      var btn = document.createElement("button"); btn.className = "opt-btn"; btn.dataset.letter = letter;
+      var strong = document.createElement("strong"); strong.textContent = letter + ". ";
+      var enS = document.createElement("span"); enS.textContent = enText;
+      var br = document.createElement("br");
+      var cnS = document.createElement("span"); cnS.className = "cn"; cnS.textContent = cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener("click", function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+        optsWrap.querySelectorAll(".opt-btn").forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add("show-correct");
+        });
+        var ratText, ratCn, ratParts;
+        if (letter === item.correct) {
+          btn.classList.add("selected-correct");
+          ratParts = item.rat_right.split("|");
+          ratText = "✅ " + ratParts[0]; ratCn = ratParts[1] || "";
+          ratDiv.className = "rationale show correct-rat";
+          addProgress(1);
+          scoreObj.val++;
+        } else {
+          btn.classList.add("selected-wrong");
+          var wr = item.rat_wrong[letter] || "";
+          ratParts = wr.split("|");
+          ratText = "❌ " + ratParts[0] + " (Correct: " + item.correct + ")"; ratCn = ratParts[1] || "";
+          ratDiv.className = "rationale show wrong-rat";
+        }
+        var rDiv = document.createElement("div"); rDiv.textContent = ratText;
+        if (ratCn) {
+          var rBr = document.createElement("br");
+          var rCnS = document.createElement("span"); rCnS.className = "cn"; rCnS.textContent = ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+      optsWrap.appendChild(btn);
+    });
+    card.appendChild(optsWrap); card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+// ===================== GATING =====================
+function checkReadiness(tabKey) {
+  var tab = TABS[tabKey];
+  var ref1 = document.getElementById(tabKey + "Ref1").value.trim();
+  var ref2 = document.getElementById(tabKey + "Ref2").value.trim();
+  var grat = document.getElementById(tabKey + "Grat").value.trim();
+  var ready = (tab.done.val >= 10) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey + "DownloadBtn");
+  var hint = document.getElementById(tabKey + "Hint");
+  if (ready) { btn.classList.add("ready"); hint.classList.add("hidden"); }
+  else { btn.classList.remove("ready"); hint.classList.remove("hidden"); }
+}
+
+function wireListeners(tabKey) {
+  ["Ref1", "Ref2", "Grat"].forEach(function(fld) {
+    document.getElementById(tabKey + fld).addEventListener("input", function() {
+      this.classList.toggle("filled", this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+}
+
+// ===================== WRITING STUDIO ENGINE =====================
+const STUDIOS = {};
+
+function getText(id) { return TEXTS.filter(function(t) { return t.id === id; })[0]; }
+
+function renderResults(box, results) {
+  box.textContent = "";
+  var fixes = results.filter(function(r) { return r.status === "fix"; }).length;
+  var tips = results.filter(function(r) { return r.status === "tip"; }).length;
+  var sum = document.createElement("div"); sum.className = "fb-summary";
+  if (fixes === 0 && tips === 0) sum.textContent = "🌟 Excellent! Every check passed. · 太棒了！所有检查都通过了。";
+  else if (fixes === 0) sum.textContent = "👍 Almost there! Look at the tips below. · 快完成了！请看下面的建议。";
+  else sum.textContent = "✏️ " + fixes + " thing(s) to fix. Edit your writing and press Check again. · 有 " + fixes + " 处需要修改。请修改后再次检查。";
+  box.appendChild(sum);
+  results.forEach(function(r) {
+    var d = document.createElement("div"); d.className = "chk " + r.status;
+    var icon = r.status === "pass" ? "✅ " : (r.status === "fix" ? "❌ " : "💡 ");
+    d.appendChild(document.createTextNode(icon + r.en));
+    var br = document.createElement("br");
+    var c = document.createElement("span"); c.className = "cn"; c.textContent = r.cn;
+    d.appendChild(br); d.appendChild(c);
+    box.appendChild(d);
+  });
+}
+
+function buildStudio(key, cfg) {
+  var st = { topic: null, values: {}, attempts: [], els: {} };
+  STUDIOS[key] = st;
+  var root = document.getElementById(cfg.containerId);
+
+  function mk(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; }
+  function bilingual(parent, en, cn, tag, cls) {
+    var e = mk(tag || "div", cls || "");
+    e.appendChild(document.createTextNode(en + " "));
+    var s = mk("span", "cn", cn); e.appendChild(s);
+    parent.appendChild(e); return e;
+  }
+
+  var h = mk("h2"); h.appendChild(document.createTextNode(cfg.title + " ")); h.appendChild(mk("span", "cn", cfg.title_cn)); root.appendChild(h);
+  var lead = mk("div", "lead"); lead.appendChild(document.createTextNode(cfg.lead)); lead.appendChild(document.createElement("br")); lead.appendChild(mk("span", "cn", cfg.lead_cn)); root.appendChild(lead);
+
+  // Step 1: choose a topic
+  bilingual(root, "Step 1 · Choose a topic", "第1步：选择题目", "div", "step-label");
+  var catRow = mk("div", "cat-row"); root.appendChild(catRow);
+  var topicList = mk("div", "topic-list"); root.appendChild(topicList);
+  var randBtn = mk("button", "rand-btn", "🎲 Surprise me! · 随机选题"); root.appendChild(randBtn);
+  var promptBox = mk("div", "prompt-box"); root.appendChild(promptBox);
+
+  var allowed = CATS.filter(function(c) { return cfg.cats.indexOf(c.id) !== -1; });
+  var catBtns = {};
+
+  function topicsFor(catId) { return TOPICS.filter(function(t) { return t.cat === catId; }); }
+
+  function showPrompt() {
+    promptBox.textContent = "";
+    if (!st.topic) { promptBox.classList.remove("show"); return; }
+    promptBox.classList.add("show");
+    promptBox.appendChild(mk("div", "ptitle", "Your prompt · 你的题目"));
+    promptBox.appendChild(mk("div", "", st.topic.en));
+    promptBox.appendChild(mk("div", "cn", st.topic.cn));
+    if (st.topic.textId) {
+      var t = getText(st.topic.textId);
+      var box = mk("div", "mini-text");
+      box.appendChild(mk("div", "", "Text: '" + t.title + "' by " + t.author + "  ·  Cite as (" + t.last + " 1)"));
+      box.appendChild(mk("div", "", t.text));
+      box.appendChild(mk("div", "cn", "大意：" + t.gist));
+      promptBox.appendChild(box);
+    }
+    var all = topicList.querySelectorAll(".topic-btn");
+    all.forEach(function(b) { b.classList.toggle("picked", b.dataset.en === st.topic.en); });
+  }
+
+  function selectTopic(t) { st.topic = t; showPrompt(); }
+
+  function renderTopics(catId) {
+    topicList.textContent = "";
+    Object.keys(catBtns).forEach(function(k) { catBtns[k].classList.toggle("active", k === catId); });
+    topicsFor(catId).forEach(function(t) {
+      var b = mk("button", "topic-btn"); b.dataset.en = t.en;
+      b.appendChild(document.createTextNode(t.en));
+      b.appendChild(document.createElement("br"));
+      b.appendChild(mk("span", "cn", t.cn));
+      b.addEventListener("click", function() { selectTopic(t); });
+      topicList.appendChild(b);
+    });
+    showPrompt();
+  }
+
+  allowed.forEach(function(c) {
+    var b = mk("button", "cat-btn");
+    b.appendChild(document.createTextNode(c.icon + " " + c.en + " "));
+    b.appendChild(mk("span", "cn", c.cn));
+    b.addEventListener("click", function() { renderTopics(c.id); });
+    catBtns[c.id] = b; catRow.appendChild(b);
+  });
+
+  randBtn.addEventListener("click", function() {
+    var pool = TOPICS.filter(function(t) { return cfg.cats.indexOf(t.cat) !== -1; });
+    var pick = pool[Math.floor(Math.random() * pool.length)];
+    renderTopics(pick.cat);
+    selectTopic(pick);
+  });
+
+  // Step 2: write
+  bilingual(root, "Step 2 · Write", "第2步：写作", "div", "step-label");
+  var fieldWrap = mk("div"); root.appendChild(fieldWrap);
+  cfg.fields.forEach(function(f) {
+    var wrap = mk("div", "field");
+    var lab = mk("label"); lab.appendChild(document.createTextNode(f.label + " ")); lab.appendChild(mk("span", "cn", f.cn)); wrap.appendChild(lab);
+    if (f.hint) { var hn = mk("div", "hint"); hn.textContent = f.hint; wrap.appendChild(hn); }
+    var inp;
+    if (f.type === "input") { inp = document.createElement("input"); inp.type = "text"; }
+    else { inp = document.createElement("textarea"); inp.rows = f.rows || 3; }
+    inp.placeholder = f.ph || "Type here · 请在此输入";
+    inp.addEventListener("input", function() { st.values[f.id] = inp.value; });
+    st.els[f.id] = inp; st.values[f.id] = "";
+    wrap.appendChild(inp);
+    fieldWrap.appendChild(wrap);
+  });
+
+  // Step 3: check + save
+  bilingual(root, "Step 3 · Check, improve, save", "第3步：检查、改进、保存", "div", "step-label");
+  var btnRow = mk("div", "btn-row"); root.appendChild(btnRow);
+  var checkBtn = mk("button", "btn btn-check", "✅ Check my writing · 检查我的写作");
+  var saveBtn = mk("button", "btn btn-save", "💾 Save & try another topic · 保存并换题");
+  var savedCount = mk("span", "saved-count", "Saved practices: 0 · 已保存：0");
+  btnRow.appendChild(checkBtn); btnRow.appendChild(saveBtn); btnRow.appendChild(savedCount);
+  var feedback = mk("div", "feedback"); root.appendChild(feedback);
+  var preview = mk("div", "preview"); root.appendChild(preview);
+
+  function msg(en, cn) { renderResults(feedback, [R("tip", en, cn)]); }
+  function anyText() { return cfg.fields.some(function(f) { return (st.values[f.id] || "").trim().length > 0; }); }
+
+  function showPreview() {
+    preview.textContent = "";
+    var assembled = cfg.assemble(st.values);
+    if (!assembled.trim()) return;
+    preview.appendChild(mk("div", "step-label", "Your paragraph so far · 目前的段落"));
+    preview.appendChild(mk("div", "paper", assembled));
+    preview.appendChild(mk("div", "wc", "Words · 字数: " + wc(assembled)));
+  }
+
+  checkBtn.addEventListener("click", function() {
+    if (!st.topic) { msg("Choose a topic first (Step 1).", "请先选择题目（第1步）。"); return; }
+    if (!anyText()) { msg("Write something first (Step 2).", "请先写一些内容（第2步）。"); return; }
+    renderResults(feedback, cfg.check(st.values, st.topic));
+    showPreview();
+  });
+
+  saveBtn.addEventListener("click", function() {
+    if (!st.topic) { msg("Choose a topic first (Step 1).", "请先选择题目（第1步）。"); return; }
+    if (!anyText()) { msg("Write something first before saving.", "请先写一些内容再保存。"); return; }
+    var snap = {};
+    cfg.fields.forEach(function(f) { snap[f.id] = (st.values[f.id] || "").trim(); });
+    st.attempts.push({ topic: st.topic.en, values: snap, assembled: cfg.assemble(st.values) });
+    cfg.fields.forEach(function(f) { st.els[f.id].value = ""; st.values[f.id] = ""; });
+    st.topic = null; showPrompt();
+    topicList.querySelectorAll(".topic-btn").forEach(function(b) { b.classList.remove("picked"); });
+    preview.textContent = "";
+    savedCount.textContent = "Saved practices: " + st.attempts.length + " · 已保存：" + st.attempts.length;
+    msg("Saved! Choose a NEW topic and write again. More practice makes you stronger.", "已保存！请选择新题目继续写。练习越多，进步越大。");
+  });
+
+  // initial render
+  renderTopics(allowed[0].id);
+  st.topic = null; showPrompt();
+  topicList.querySelectorAll(".topic-btn").forEach(function(b) { b.classList.remove("picked"); });
+}
+
+// ===================== STUDIO CONFIGS =====================
+const ALL_CATS = ["school", "tech", "society", "health", "env", "ideas", "read"];
+
+const INTRO_STUDIO = {
+  containerId: "studioIntro",
+  title: "✍️ Writing Studio: Write an Introduction", title_cn: "写作练习室：写引言段",
+  lead: "Pick any topic. Write a hook, a lead-in, and a thesis. Check it, fix it, save it, then choose another topic. Practice as many times as you like!",
+  lead_cn: "任选一个题目，写钩子句、引导句和论点句。检查、修改、保存，然后换一个题目。想练几次就练几次！",
+  cats: ALL_CATS,
+  fields: [
+    { id: "hook", label: "Hook (2–3 sentences, NOT a question)", cn: "钩子句（2–3句，不能是问句）", rows: 3 },
+    { id: "lead", label: "Lead-in statement", cn: "引导句（让读者知道文章讲什么）", rows: 2 },
+    { id: "thesis", label: "Thesis (last sentence: position + reasons, linked to the prompt)", cn: "论点句（最后一句：观点+理由，并联系题目）", rows: 2 }
+  ],
+  assemble: function(v) { return [v.hook, v.lead, v.thesis].map(endPunct).filter(Boolean).join(" "); },
+  check: function(v, topic) {
+    var out = [];
+    var hook = v.hook || "", lead = v.lead || "", thesis = v.thesis || "";
+    var all = [hook, lead, thesis].join(" ");
+    if (!hook.trim()) out.push(R("fix", "The hook is empty.", "钩子句是空的。"));
+    else {
+      out.push(checkQuestionMarks(hook, "The hook", "钩子句"));
+      var n = sentences(hook).length;
+      out.push(n >= 1 && n <= 3 ? R("pass", "The hook has " + n + " sentence(s).", "钩子句有 " + n + " 句。") : R("tip", "The hook has " + n + " sentences. The average is 2–3.", "钩子句有 " + n + " 句。通常是 2–3 句。"));
+    }
+    out.push(wc(lead) >= 6 ? R("pass", "The lead-in is developed enough.", "引导句内容足够。") : R("fix", "The lead-in is missing or too short. Tell the reader what the essay is about.", "引导句缺失或太短。请告诉读者文章讲什么。"));
+    if (wc(thesis) < 8) out.push(R("fix", "The thesis is missing or too short. State your position and 2–3 reasons.", "论点句缺失或太短。请写出观点和 2–3 个理由。"));
+    else {
+      out.push(R("pass", "The thesis is a full statement.", "论点句是完整的陈述句。"));
+      out.push(overlap(thesis, topic.en) >= 2 ? R("pass", "The thesis links to the prompt (key words match).", "论点句联系了题目（关键词吻合）。") : R("fix", "The thesis does not clearly link to the prompt. Use key words from the prompt.", "论点句没有清楚联系题目。请使用题目中的关键词。"));
+      if (checkQuestionMarks(thesis, "", "").status === "fix") out.push(R("fix", "The thesis contains a question mark. It must be a statement.", "论点句含有问号。必须是陈述句。"));
+      if (topic.textId) {
+        var tx = getText(topic.textId);
+        out.push(new RegExp(tx.last, "i").test(thesis) || /author/i.test(thesis) ? R("pass", "The thesis mentions the author.", "论点句提到了作者。") : R("tip", "For a text-based prompt, mention the text or author in the thesis.", "针对文本类题目，论点句中最好提到文本或作者。"));
+      }
+    }
+    return out.concat(universal(all));
+  }
+};
+
+const BODY_STUDIO = {
+  containerId: "studioBody",
+  title: "✍️ Writing Studio: Build a Body Paragraph (PEEC)", title_cn: "写作练习室：写主体段（PEEC）",
+  lead: "Choose a text. Build ONE body paragraph piece by piece. The studio assembles it for you and checks every part. Save it and try a different text or a different point!",
+  lead_cn: "选择一篇文本，一步一步写一个主体段。系统会帮你组合并检查每个部分。保存后可以换文本或换观点再练！",
+  cats: ["read"],
+  fields: [
+    { id: "thesis", type: "input", label: "Your thesis (optional, to help you link back)", cn: "你的论点句（可选，帮助你联系论点）", ph: "Copy your thesis here · 在此粘贴论点句" },
+    { id: "t1", type: "input", label: "Transition", cn: "过渡词", ph: "e.g. Firstly," },
+    { id: "point", type: "textarea", rows: 2, label: "Point of the paragraph (links to the thesis)", cn: "本段观点句（联系论点句）" },
+    { id: "report", type: "textarea", rows: 2, label: "Reporting phrase", cn: "引述短语", hint: "In the text 'Title,' Author explains that" },
+    { id: "evidence", type: "textarea", rows: 2, label: "Evidence from the text (quote, paraphrase, or summary)", cn: "文本证据（引用、改写或概括）" },
+    { id: "cite", type: "input", label: "MLA citation", cn: "MLA 引用", ph: "e.g. (Reyes 1)" },
+    { id: "explain", type: "textarea", rows: 3, label: "Explanation (your OWN words: why does the evidence support the point?)", cn: "解释（用你自己的话：证据为什么支持观点？）" },
+    { id: "t2", type: "input", label: "Transition for the concluding sentence", cn: "总结句的过渡词", ph: "e.g. Therefore," },
+    { id: "conc", type: "textarea", rows: 2, label: "Concluding sentence (restate the point in other words)", cn: "总结句（换一种说法重述观点）" }
+  ],
+  assemble: function(v) {
+    var t1 = (v.t1 || "").trim(); if (t1 && !/[,]$/.test(t1)) t1 += ",";
+    var t2 = (v.t2 || "").trim(); if (t2 && !/[,]$/.test(t2)) t2 += ",";
+    var first = [t1, (v.point || "").trim()].filter(Boolean).join(" ");
+    var ev = [(v.report || "").trim(), (v.evidence || "").trim().replace(/[.]+$/, ""), (v.cite || "").trim()].filter(Boolean).join(" ");
+    var last = [t2, (v.conc || "").trim()].filter(Boolean).join(" ");
+    return [cap(first), cap(ev), (v.explain || "").trim(), cap(last)].map(endPunct).filter(Boolean).join(" ");
+  },
+  check: function(v, topic) {
+    var out = [];
+    var tx = getText(topic.textId);
+    if (!tx) return [R("fix", "Choose a Read & Respond topic so there is a text to use.", "请选择“阅读与回应”中的题目，这样才有文本可用。")];
+    var assembled = BODY_STUDIO.assemble(v);
+    out.push((v.t1 || "").trim() && startsWithList(v.t1, TRANSITIONS) ? R("pass", "The paragraph starts with a transition.", "段落以过渡词开头。") : R("fix", "Start with a transition word, such as Firstly, To begin with, Moreover.", "请用过渡词开头，如 Firstly, To begin with, Moreover。"));
+    if (wc(v.point) < 6) out.push(R("fix", "The point is missing or too short.", "观点句缺失或太短。"));
+    else {
+      out.push(R("pass", "The point is stated.", "已写出观点句。"));
+      if ((v.thesis || "").trim()) out.push(overlap(v.point, v.thesis) >= 1 ? R("pass", "The point links to your thesis.", "观点句联系了论点句。") : R("tip", "The point shares no key words with your thesis. Make the link clearer.", "观点句与论点句没有共同的关键词。请让联系更清楚。"));
+    }
+    var rep = (v.report || "");
+    out.push(new RegExp(tx.title, "i").test(rep) ? R("pass", "The reporting phrase names the text.", "引述短语写出了文本名称。") : R("fix", "Name the text in your reporting phrase: '" + tx.title + "'.", "请在引述短语中写出文本名称：'" + tx.title + "'。"));
+    out.push(/author/i.test(rep) || new RegExp(tx.last, "i").test(rep) ? R("pass", "The reporting phrase mentions the author.", "引述短语提到了作者。") : R("fix", "Mention the author (the author, or " + tx.author + ").", "请提到作者（the author 或 " + tx.author + "）。"));
+    out.push(hasReportVerb(rep) ? R("pass", "A reporting verb is used.", "使用了引述动词。") : R("fix", "Add a reporting verb: explains, shows, illustrates, suggests...", "请加入引述动词：explains, shows, illustrates, suggests..."));
+    if (wc(v.evidence) < 6) out.push(R("fix", "The evidence is missing or too short.", "证据缺失或太短。"));
+    else out.push(overlap(v.evidence, tx.text) >= 2 ? R("pass", "The evidence comes from the text.", "证据来自文本。") : R("fix", "The evidence does not match the text. Use details from '" + tx.title + "'.", "证据与文本不符。请使用《" + tx.title + "》中的细节。"));
+    var citeRe = new RegExp("\\(\\s*" + tx.last + "\\s+\\d+\\s*\\)", "i");
+    out.push(citeRe.test((v.cite || "") + " " + (v.evidence || "")) ? R("pass", "The MLA citation is correct.", "MLA 引用正确。") : R("fix", "Use the MLA format (" + tx.last + " 1) with round brackets, last name, and page number.", "请使用 MLA 格式（" + tx.last + " 1）：圆括号、姓氏、页码。"));
+    if (wc(v.explain) < 12) out.push(R("fix", "The explanation is missing or too short. Explain WHY the evidence supports the point.", "解释缺失或太短。请解释证据为什么支持观点。"));
+    else out.push(jaccard(v.explain, v.evidence) >= 0.6 ? R("fix", "The explanation is too similar to the evidence. Use your OWN words and add new thinking.", "解释与证据太相似。请用你自己的话，并加入新的思考。") : R("pass", "The explanation uses new words.", "解释使用了新的表达。"));
+    out.push((v.t2 || "").trim() && startsWithList(v.t2, TRANSITIONS) ? R("pass", "The concluding sentence starts with a transition.", "总结句以过渡词开头。") : R("fix", "Start the concluding sentence with a transition such as Therefore, Clearly, Overall.", "总结句请用过渡词开头，如 Therefore, Clearly, Overall。"));
+    if (wc(v.conc) < 6) out.push(R("fix", "The concluding sentence is missing or too short.", "总结句缺失或太短。"));
+    else out.push(overlap(v.conc, v.point) >= 1 ? R("pass", "The concluding sentence returns to the point.", "总结句回到了观点上。") : R("tip", "The concluding sentence should restate the point in other words.", "总结句应换一种说法重述观点。"));
+    return out.concat(universal(assembled));
+  }
+};
+
+const CONC_STUDIO = {
+  containerId: "studioConc",
+  title: "✍️ Writing Studio: Write a Conclusion", title_cn: "写作练习室：写结论段",
+  lead: "Choose any topic. Write your own thesis, then write a conclusion that restates it in DIFFERENT words and adds a final thought.",
+  lead_cn: "任选一个题目。先写出你的论点句，再写结论：用不同的词重述论点，并加上最后的思考。",
+  cats: ALL_CATS,
+  fields: [
+    { id: "thesis", type: "textarea", rows: 2, label: "Your original thesis", cn: "你原来的论点句" },
+    { id: "trans", type: "input", label: "Transition", cn: "过渡词", ph: "e.g. In conclusion," },
+    { id: "restate", type: "textarea", rows: 3, label: "Restated thesis (different words, same idea)", cn: "重述的论点句（词不同，意思相同）" },
+    { id: "final", type: "textarea", rows: 2, label: "Final thoughts (no new evidence)", cn: "最后的思考（不要加入新证据）" }
+  ],
+  assemble: function(v) {
+    var t = (v.trans || "").trim(); if (t && !/[,]$/.test(t)) t += ",";
+    var first = [t, (v.restate || "").trim()].filter(Boolean).join(" ");
+    return [cap(first), (v.final || "").trim()].map(endPunct).filter(Boolean).join(" ");
+  },
+  check: function(v, topic) {
+    var out = [];
+    var assembled = CONC_STUDIO.assemble(v);
+    out.push((v.trans || "").trim() && startsWithList(v.trans, CONC_TRANSITIONS) ? R("pass", "The conclusion starts with a transition.", "结论以过渡词开头。") : R("fix", "Start with a conclusion transition: In conclusion, To conclude, Overall, Ultimately.", "请用结论过渡词开头：In conclusion, To conclude, Overall, Ultimately。"));
+    if (wc(v.restate) < 8) out.push(R("fix", "The restated thesis is missing or too short.", "重述的论点句缺失或太短。"));
+    else {
+      if ((v.thesis || "").trim()) {
+        var j = jaccard(v.restate, v.thesis);
+        out.push(j >= 0.7 ? R("fix", "The restatement is too close to the original thesis. Change more words.", "重述与原论点句太接近。请多换一些词。") : R("pass", "The restatement uses different words.", "重述使用了不同的词。"));
+        out.push(overlap(v.restate, v.thesis) >= 1 ? R("pass", "The restatement keeps the same idea.", "重述保留了相同的意思。") : R("fix", "The restatement does not seem to match the thesis idea.", "重述似乎与论点句的意思不一致。"));
+      } else out.push(R("tip", "Paste your thesis above so the studio can compare the words.", "请在上面粘贴论点句，系统才能比较用词。"));
+      out.push(overlap(v.restate + " " + v.final, topic.en) >= 1 ? R("pass", "The conclusion answers the prompt topic.", "结论围绕题目的话题。") : R("tip", "Make sure the conclusion clearly answers the prompt.", "请确保结论清楚地回答了题目。"));
+      out.push(checkQuestionMarks(v.restate + " " + v.final, "The conclusion", "结论"));
+    }
+    out.push(wc(v.final) >= 8 ? R("pass", "Final thoughts are included.", "包含了最后的思考。") : R("fix", "Add final thoughts (at least one full sentence).", "请加入最后的思考（至少一个完整的句子）。"));
+    return out.concat(universal(assembled));
+  }
+};
+
+const FULL_STUDIO = {
+  containerId: "studioFull",
+  title: "🏆 Challenge Studio: Write a Full Essay", title_cn: "挑战练习室：写一篇完整的文章",
+  lead: "Choose a text from Read & Respond. Write all five paragraphs. Use the Check button to test the whole essay against the rules. Save it and write another with a different text!",
+  lead_cn: "从“阅读与回应”中选一篇文本，写完整的五个段落。用检查按钮对照规则测试整篇文章。保存后换一篇文本再写！",
+  cats: ["read"],
+  fields: [
+    { id: "p1", type: "textarea", rows: 5, label: "Paragraph 1: Introduction (hook, lead-in, thesis)", cn: "第1段：引言（钩子句、引导句、论点句）" },
+    { id: "p2", type: "textarea", rows: 6, label: "Paragraph 2: Body 1 (PEEC)", cn: "第2段：主体1（PEEC）" },
+    { id: "p3", type: "textarea", rows: 6, label: "Paragraph 3: Body 2 (PEEC)", cn: "第3段：主体2（PEEC）" },
+    { id: "p4", type: "textarea", rows: 6, label: "Paragraph 4: Body 3 (PEEC), optional if the text is short", cn: "第4段：主体3（PEEC），文本较短时可不写" },
+    { id: "p5", type: "textarea", rows: 5, label: "Paragraph 5: Conclusion", cn: "第5段：结论" }
+  ],
+  assemble: function(v) { return ["p1", "p2", "p3", "p4", "p5"].map(function(k) { return (v[k] || "").trim(); }).filter(Boolean).join("\n\n"); },
+  check: function(v, topic) {
+    var out = [];
+    var tx = getText(topic.textId);
+    if (!tx) return [R("fix", "Choose a Read & Respond topic so there is a text to use.", "请选择“阅读与回应”中的题目，这样才有文本可用。")];
+    var p1 = (v.p1 || "").trim();
+    if (!p1) out.push(R("fix", "Paragraph 1 is empty.", "第1段是空的。"));
+    else {
+      var s1 = sentences(p1);
+      out.push(/\?/.test(s1[0] || "") ? R("fix", "The hook (first sentence) is a question. Use a statement.", "钩子句（第一句）是问句。请改成陈述句。") : R("pass", "The hook is not a question.", "钩子句不是问句。"));
+      out.push(s1.length >= 3 ? R("pass", "The introduction has a hook, lead-in, and thesis (3+ sentences).", "引言有钩子句、引导句和论点句（3句以上）。") : R("fix", "The introduction needs at least three sentences: hook, lead-in, thesis.", "引言至少需要三句：钩子句、引导句、论点句。"));
+      out.push(overlap(s1[s1.length - 1] || "", topic.en) >= 2 ? R("pass", "The last sentence (thesis) links to the prompt.", "最后一句（论点句）联系了题目。") : R("fix", "The last sentence should be a thesis that links to the prompt.", "最后一句应是联系题目的论点句。"));
+    }
+    var citeRe = new RegExp("\\(\\s*" + tx.last + "\\s+\\d+\\s*\\)", "i");
+    [["p2", "Body 1", "主体1", true], ["p3", "Body 2", "主体2", true], ["p4", "Body 3", "主体3", false]].forEach(function(b) {
+      var p = (v[b[0]] || "").trim();
+      if (!p) { if (b[3]) out.push(R("fix", b[1] + " is empty.", b[2] + "是空的。")); return; }
+      out.push(startsWithList(p, TRANSITIONS) ? R("pass", b[1] + " starts with a transition.", b[2] + "以过渡词开头。") : R("fix", b[1] + " must start with a transition word.", b[2] + "必须以过渡词开头。"));
+      out.push((/author/i.test(p) || new RegExp(tx.last, "i").test(p)) && hasReportVerb(p) ? R("pass", b[1] + " has a reporting phrase.", b[2] + "有引述短语。") : R("fix", b[1] + " needs a reporting phrase with the author and a reporting verb.", b[2] + "需要含有作者和引述动词的引述短语。"));
+      out.push(citeRe.test(p) ? R("pass", b[1] + " has an MLA citation.", b[2] + "有 MLA 引用。") : R("fix", b[1] + " needs an MLA citation: (" + tx.last + " 1).", b[2] + "需要 MLA 引用：（" + tx.last + " 1）。"));
+      out.push(wc(p) >= 40 ? R("pass", b[1] + " is developed (" + wc(p) + " words).", b[2] + "内容充分（" + wc(p) + " 词）。") : R("tip", b[1] + " is short (" + wc(p) + " words). Add explanation.", b[2] + "偏短（" + wc(p) + " 词）。请补充解释。"));
+    });
+    var p5 = (v.p5 || "").trim();
+    if (!p5) out.push(R("fix", "The conclusion is empty.", "结论是空的。"));
+    else {
+      out.push(startsWithList(p5, CONC_TRANSITIONS) ? R("pass", "The conclusion starts with a transition.", "结论以过渡词开头。") : R("fix", "The conclusion must start with a transition such as In conclusion.", "结论必须以 In conclusion 等过渡词开头。"));
+      out.push(p1 && jaccard(p5, p1) < 0.8 ? R("pass", "The conclusion is not a copy of the introduction.", "结论没有照抄引言。") : R("tip", "The conclusion looks too similar to the introduction. Use different words.", "结论与引言太相似。请使用不同的词。"));
+    }
+    out.push(R("pass", "Total length: " + wc(FULL_STUDIO.assemble(v)) + " words.", "全文字数：" + wc(FULL_STUDIO.assemble(v)) + " 词。"));
+    return out.concat(universal(FULL_STUDIO.assemble(v)));
+  }
+};
+
+// ===================== REPORT =====================
+function practiceReport(tabKey) {
+  var labels = { intro: "WRITING STUDIO: INTRODUCTIONS", body: "WRITING STUDIO: BODY PARAGRAPHS", conc: "WRITING STUDIO: CONCLUSIONS", full: "CHALLENGE STUDIO: FULL ESSAYS" };
+  var cfgs = { intro: INTRO_STUDIO, body: BODY_STUDIO, conc: CONC_STUDIO, full: FULL_STUDIO };
+  var txt = "";
+  TABS[tabKey].studios.forEach(function(sk) {
+    var st = STUDIOS[sk]; var cfg = cfgs[sk];
+    var list = st.attempts.slice();
+    var hasDraft = cfg.fields.some(function(f) { return (st.values[f.id] || "").trim(); });
+    if (hasDraft) {
+      var snap = {}; cfg.fields.forEach(function(f) { snap[f.id] = (st.values[f.id] || "").trim(); });
+      list.push({ topic: st.topic ? st.topic.en : "(no topic chosen)", values: snap, assembled: cfg.assemble(st.values), draft: true });
+    }
+    txt += "================================================================\n";
+    txt += labels[sk] + " (" + list.length + " piece(s))\n";
+    txt += "================================================================\n\n";
+    if (!list.length) txt += "(No practice writing submitted)\n\n";
+    list.forEach(function(a, i) {
+      txt += "--- Practice " + (i + 1) + (a.draft ? " (unsaved draft)" : "") + " ---\n";
+      txt += "Topic: " + a.topic + "\n";
+      cfg.fields.forEach(function(f) { if (a.values[f.id]) txt += "[" + f.label + "]\n" + a.values[f.id] + "\n"; });
+      txt += "\nAssembled text (" + wc(a.assembled) + " words):\n" + a.assembled + "\n\n";
+    });
+  });
+  return txt;
+}
+
+// ===================== DOWNLOAD REPORT =====================
+function tryDownload(tabKey) {
+  var tab = TABS[tabKey];
+  var ref1 = document.getElementById(tabKey + "Ref1").value.trim();
+  var ref2 = document.getElementById(tabKey + "Ref2").value.trim();
+  var grat = document.getElementById(tabKey + "Grat").value.trim();
+  if (tab.done.val < 10 || !ref1 || !ref2 || !grat) return;
+
+  var name = document.getElementById(tabKey + "Name").value.trim() || "Unknown";
+  var now = new Date().toLocaleString();
+  var txt = "";
+  txt += "================================================================\n";
+  txt += "MLWS ENGLISH MODULE — QUIZ RESULTS\n";
+  txt += "================================================================\n";
+  txt += "Student: " + name + "\n";
+  txt += "Module: Essay Structure Studio (English 11-1)\n";
+  txt += "Day: " + tab.label + "\n";
+  txt += "Date/Time: " + now + "\n";
+  txt += "Session Time: " + fmt(secondsElapsed) + "\n";
+  txt += "Tab Switches (recorded leaves): " + leaveCount + "\n";
+  txt += "Quiz Score: " + tab.score.val + " / 10\n";
+  txt += "\n--- Quiz Question Breakdown ---\n\n";
+  tab.q.forEach(function(item, i) {
+    var sel = tab.answers[item.id] || "Not answered";
+    var result = sel === item.correct ? "CORRECT" : "INCORRECT (Correct: " + item.correct + ")";
+    txt += (i + 1) + ". " + item.title + "\n";
+    txt += "   Question: " + item.q + "\n";
+    txt += "   Selected: " + sel + " | Result: " + result + "\n\n";
+  });
+  txt += "================================================================\n";
+  txt += "STUDENT WORK — REFLECTIONS AND RESPONSES\n";
+  txt += "================================================================\n\n";
+  txt += "REFLECTION Q1:\n" + ref1 + "\n\n";
+  txt += "REFLECTION Q2:\n" + ref2 + "\n\n";
+  txt += "GRATITUDE:\nToday I am grateful for " + grat + "\n\n";
+  txt += practiceReport(tabKey);
+  txt += "================================================================\nEnd of report\n";
+
+  var blob = new Blob([txt], { type: "text/plain" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = "MLWS_" + tabKey.toUpperCase() + "_" + name.replace(/\s+/g, "_") + "_" + new Date().toLocaleDateString().replace(/\//g, "-") + ".txt";
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById("pip-" + tabKey).classList.add("done");
+}
+
+// ===================== UTILITY =====================
+function switchTab(name, btn) {
+  document.querySelectorAll(".tab-content").forEach(function(t) { t.classList.remove("active"); });
+  document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
+  document.getElementById("tab-" + name).classList.add("active");
+  btn.classList.add("active");
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("progressText").textContent = "Progress: " + pct + "% · 进度：" + pct + "%";
+}
+
+function fmt(s) { return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById("timer-display").textContent = "⏱ " + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function trackNavigation() {
+  document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById("leaveBadge").textContent = "🚪 Leaves: " + leaveCount;
+      var notice = document.getElementById("leaveNotice");
+      notice.style.display = "block";
+      setTimeout(function() { notice.style.display = "none"; }, 5000);
+    }
+  });
+}
+
+// ===================== INIT =====================
+document.addEventListener("DOMContentLoaded", function() {
+  buildVocab();
+  buildQuiz(INTRO_Q, "introQuizContainer", introAnswers, introScore, introDone, function() { checkReadiness("intro"); });
+  buildQuiz(BODY_Q,  "bodyQuizContainer",  bodyAnswers,  bodyScore,  bodyDone,  function() { checkReadiness("body"); });
+  buildQuiz(CONC_Q,  "concQuizContainer",  concAnswers,  concScore,  concDone,  function() { checkReadiness("conc"); });
+  buildStudio("intro", INTRO_STUDIO);
+  buildStudio("body", BODY_STUDIO);
+  buildStudio("conc", CONC_STUDIO);
+  buildStudio("full", FULL_STUDIO);
+  wireListeners("intro"); wireListeners("body"); wireListeners("conc");
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
