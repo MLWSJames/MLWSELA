@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Short Story Skills Practice | 短篇故事技能练习</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ml-green:#2d6a4f; --ml-green-dark:#1b4332; --ml-green-light:#d8f3dc;
+  --ml-red:#c1121f; --ml-gold:#e9c46a; --ink:#1a2a1a; --ink2:#2d3748;
+  --mist:#f8faf8; --border:#e2e8e2; --cobalt:#1e3a5f; --amber:#b45309; --amber-light:#fef3c7;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--mist);color:var(--ink);line-height:1.6;font-size:16px;}
+.cn{font-family:'Noto Sans SC',sans-serif;color:var(--ink2);font-weight:400;}
+h1,h2,h3{font-family:'Literata',serif;}
+.warn-banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;}
+.leave-notice{display:none;background:#fee2e2;border-left:4px solid var(--ml-red);padding:8px 16px;font-size:0.82rem;color:#7f1d1d;font-weight:600;text-align:center;}
+header{background:var(--ml-green-dark);color:#fff;padding:18px 20px 14px;}
+header h1{font-size:1.45rem;line-height:1.25;}
+header .sub{font-size:0.9rem;opacity:0.9;margin-top:2px;}
+.hdr-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:12px;}
+.progress-wrap{flex:1 1 260px;}
+.progress-track{background:rgba(255,255,255,0.25);border-radius:99px;height:12px;overflow:hidden;}
+.progress-fill{background:var(--ml-gold);height:100%;width:0%;transition:width .4s;}
+.progress-text{font-size:0.8rem;margin-top:3px;}
+.leave-badge{background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:99px;font-size:0.82rem;}
+.pips{display:flex;gap:8px;align-items:center;font-size:0.78rem;}
+.pip{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.3);border:2px solid rgba(255,255,255,0.6);display:inline-block;}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold);}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;padding:12px 16px 0;background:#fff;border-bottom:2px solid var(--border);}
+.tab-btn{font-family:'DM Sans','Noto Sans SC',sans-serif;border:none;background:#eef3ee;padding:10px 16px;border-radius:10px 10px 0 0;cursor:pointer;font-weight:700;font-size:0.9rem;color:var(--ink2);}
+.tab-btn.active{background:var(--ml-green);color:#fff;}
+.tab-content{display:none;max-width:900px;margin:0 auto;padding:22px 16px 90px;}
+.tab-content.active{display:block;}
+.name-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px;background:#fff;border:1px solid var(--border);padding:12px 14px;border-radius:12px;}
+.name-row input{flex:1 1 220px;padding:9px 12px;border:2px solid var(--border);border-radius:8px;font-size:1rem;font-family:inherit;}
+h2.sec{color:var(--ml-green-dark);font-size:1.3rem;margin:26px 0 8px;border-bottom:3px solid var(--ml-gold);padding-bottom:4px;}
+h3.sub{color:var(--cobalt);font-size:1.05rem;margin:14px 0 4px;}
+p{margin:6px 0;}
+.concept-card{background:#fff;border:1px solid var(--border);border-left:6px solid var(--ml-green);border-radius:12px;padding:14px 16px;margin:12px 0;}
+.concept-card.blue{border-left-color:var(--cobalt);}
+.concept-card.amber{border-left-color:var(--amber);background:var(--amber-light);}
+.concept-card.red{border-left-color:var(--ml-red);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:12px 0;}
+.mini{background:#fff;border:1px solid var(--border);border-top:5px solid var(--ml-green);border-radius:12px;padding:12px;}
+.mini.b{border-top-color:var(--cobalt);} .mini.a{border-top-color:var(--amber);} .mini.r{border-top-color:var(--ml-red);}
+.mini h4{font-family:'Literata',serif;font-size:1rem;margin-bottom:4px;}
+.callout{background:var(--ml-green-light);border-radius:10px;padding:10px 14px;margin:12px 0;border-left:5px solid var(--ml-green);}
+.callout.warn{background:var(--amber-light);border-left-color:var(--amber);}
+table.t{width:100%;border-collapse:collapse;margin:10px 0;background:#fff;font-size:0.92rem;}
+table.t th{background:var(--ml-green-dark);color:#fff;text-align:left;padding:8px;}
+table.t td{border:1px solid var(--border);padding:8px;vertical-align:top;}
+.wrap-x{overflow-x:auto;}
+.bad{color:var(--ml-red);font-weight:700;} .good{color:var(--ml-green);font-weight:700;}
+.passage-box{background:#fffdf5;border:1px solid #eadfb4;border-left:5px solid var(--ml-gold);padding:12px 14px;border-radius:8px;font-family:'Literata',serif;font-size:0.97rem;margin:8px 0 12px;white-space:pre-line;}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:14px;}
+.vcard{background:#fff;border:1px solid var(--border);border-top:5px solid var(--ml-green);border-radius:12px;padding:14px;}
+.vcard .w{font-family:'Literata',serif;font-size:1.2rem;font-weight:700;color:var(--ml-green-dark);}
+.vcard .pos{font-size:0.8rem;color:var(--amber);font-weight:700;}
+.vcard .ex{font-style:italic;margin-top:6px;font-size:0.92rem;}
+.speak-btn{border:none;background:var(--ml-green-light);border-radius:99px;padding:3px 10px;cursor:pointer;font-size:1rem;margin-left:8px;}
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px;margin:16px 0;}
+.q-num{font-size:0.78rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.04em;}
+.q-text{font-weight:700;margin-top:6px;}
+.q-cn{margin-bottom:10px;}
+.opts-wrap{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.opt-btn{text-align:left;font-family:'DM Sans','Noto Sans SC',sans-serif;font-size:0.95rem;background:#fff;border:2px solid var(--border);border-radius:10px;padding:10px 12px;cursor:pointer;color:var(--ink);}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:var(--mist);}
+.opt-btn:disabled{cursor:default;opacity:0.85;}
+.opt-btn.show-correct{background:var(--ml-green-light);border-color:var(--ml-green);}
+.opt-btn.selected-correct{background:#b7e4c7;border-color:var(--ml-green-dark);}
+.opt-btn.selected-wrong{background:#fee2e2;border-color:var(--ml-red);}
+.rationale{display:none;margin-top:10px;padding:10px 12px;border-radius:8px;font-size:0.92rem;}
+.rationale.show{display:block;}
+.correct-rat{background:var(--ml-green-light);border-left:4px solid var(--ml-green);}
+.wrong-rat{background:#fff1f1;border-left:4px solid var(--ml-red);}
+.reflect{background:#fff;border:2px solid var(--ml-gold);border-radius:14px;padding:16px;margin-top:24px;}
+.reflect label{display:block;font-weight:700;margin-top:12px;}
+.reflect textarea{width:100%;min-height:90px;padding:10px;border:2px solid var(--border);border-radius:8px;font-family:inherit;font-size:0.95rem;margin-top:6px;}
+.reflect textarea.filled,.reflect input.filled{border-color:var(--ml-green);}
+.grat{margin-top:16px;font-weight:700;}
+.grat input{border:none;border-bottom:2px solid var(--ml-green);background:transparent;font-family:inherit;font-size:1rem;padding:2px 6px;min-width:200px;width:60%;}
+.dl-btn{margin-top:18px;background:var(--ml-green);color:#fff;border:none;padding:12px 22px;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;opacity:0.35;pointer-events:none;font-family:inherit;}
+.dl-btn.ready{opacity:1;pointer-events:auto;}
+.hint{font-size:0.85rem;color:var(--amber);margin-top:8px;}
+.hint.hidden{display:none;}
+.timer{position:fixed;bottom:12px;right:12px;background:var(--ml-green-dark);color:#fff;padding:8px 14px;border-radius:99px;font-weight:700;z-index:900;font-size:0.9rem;}
+@media(max-width:560px){header h1{font-size:1.2rem;}.tab-btn{padding:8px 10px;font-size:0.8rem;}}
+</style>
+</head>
+<body>
+
+<div class="warn-banner">⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. · <span class="cn" style="color:#fff;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span></div>
+<div class="leave-notice" id="leaveNotice">🚨 Tab switch recorded! Your teacher will see this. · <span class="cn">标签页切换已记录！</span></div>
+
+<header>
+  <h1>Short Story Skills Practice<br><span class="cn" style="color:#fff;font-size:1.05rem;">短篇故事技能练习</span></h1>
+  <div class="sub">Build your skills in 3 areas · 三个能力方向的专项练习</div>
+  <div class="hdr-row">
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+      <div class="progress-text" id="progressText">Progress: 0% · 进度：0%</div>
+    </div>
+    <div class="leave-badge" id="leaveBadge">🚪 Leaves: 0</div>
+    <div class="pips"><span>Done · 完成</span>
+      <span class="pip" id="pip-ku" title="Knowledge"></span>
+      <span class="pip" id="pip-com" title="Communication"></span>
+      <span class="pip" id="pip-app" title="Application"></span>
+    </div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('vocab', this)">Vocab · 词汇</button>
+  <button class="tab-btn" onclick="switchTab('ku', this)">1 Knowledge · 知识与理解</button>
+  <button class="tab-btn" onclick="switchTab('com', this)">2 Communication · 表达</button>
+  <button class="tab-btn" onclick="switchTab('app', this)">3 Application &amp; Problem Solving · 应用与解决问题</button>
+</div>
+
+<!-- ================= VOCAB ================= -->
+<div class="tab-content active" id="tab-vocab">
+  <h2 class="sec">Key Words for This Module · 本模块关键词</h2>
+  <p>Learn these 14 words first. Press 🔊 to hear each word. <span class="cn">先学习这14个词。点击🔊听发音。</span></p>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ================= KU ================= -->
+<div class="tab-content" id="tab-ku">
+  <div class="name-row"><strong>Name · 姓名:</strong><input type="text" id="kuName" placeholder="Type your name here · 请输入姓名"></div>
+
+  <h2 class="sec">Part 1: Knowledge &amp; Understanding · 知识与理解</h2>
+  <p>This section checks that you know the rules of English and that you understand what you read. Four skills are practiced here.<br><span class="cn">这一部分检查你是否掌握英语规则，以及是否理解所读内容。这里练习四项技能。</span></p>
+
+  <div class="grid">
+    <div class="mini"><h4>1. Fix sentence errors</h4><p>Comma splice, run-on, word form, verb tense.</p><p class="cn">改正句子错误：逗号拼接、连写句、词形、时态。</p></div>
+    <div class="mini b"><h4>2. Name literary devices</h4><p>Simile, metaphor, personification, hyperbole, assonance.</p><p class="cn">辨认修辞手法。</p></div>
+    <div class="mini a"><h4>3. Words in context</h4><p>Use clues around a word to find its meaning.</p><p class="cn">利用上下文推测词义。</p></div>
+    <div class="mini r"><h4>4. Story details</h4><p>Find true and false facts in a text.</p><p class="cn">判断文章细节的真假。</p></div>
+  </div>
+
+  <h2 class="sec">A. Fix Four Common Sentence Errors · 改正四种常见句子错误</h2>
+  <div class="wrap-x"><table class="t">
+    <tr><th>Error · 错误</th><th>How to spot it · 如何发现</th><th>How to fix it · 如何改正</th><th>Example · 例子</th></tr>
+    <tr><td><strong>Comma splice</strong><br><span class="cn">逗号拼接</span></td>
+      <td>Two complete sentences joined by ONLY a comma.<br><span class="cn">两个完整句子只用逗号连接。</span></td>
+      <td>Add a joining word after the comma (and, but, so) OR use a period.<br><span class="cn">逗号后加连接词（and, but, so）或改用句号。</span></td>
+      <td><span class="bad">✗ Leo studied hard, he passed the test.</span><br><span class="good">✓ Leo studied hard, so he passed the test.</span></td></tr>
+    <tr><td><strong>Run-on sentence</strong><br><span class="cn">连写句</span></td>
+      <td>Two complete sentences with NO punctuation between them.<br><span class="cn">两个完整句子之间没有任何标点。</span></td>
+      <td>Add a period, OR a comma + joining word.<br><span class="cn">加句号，或逗号加连接词。</span></td>
+      <td><span class="bad">✗ Mina packed her bag she ran to the bus.</span><br><span class="good">✓ Mina packed her bag, and she ran to the bus.</span></td></tr>
+    <tr><td><strong>Word form</strong><br><span class="cn">词形</span></td>
+      <td>A noun is used where an adjective is needed (often after was, felt, very).<br><span class="cn">需要形容词的地方用了名词（常在was, felt, very后）。</span></td>
+      <td>Change the word to the correct form (see list below).<br><span class="cn">改成正确形式（见下表）。</span></td>
+      <td><span class="bad">✗ Leo felt very nerve before his speech.</span><br><span class="good">✓ Leo felt very nervous before his speech.</span></td></tr>
+    <tr><td><strong>Verb tense</strong><br><span class="cn">动词时态</span></td>
+      <td>The verb does not match the time of the story, or does not match the subject (he/she/it + s in present).<br><span class="cn">动词与故事时间或主语不一致（现在时he/she/it要加s）。</span></td>
+      <td>Match every verb to the time. Past story = past tense.<br><span class="cn">让所有动词与时间一致。过去的故事用过去时。</span></td>
+      <td><span class="bad">✗ Yesterday, Mina walk home.</span> <span class="good">✓ walked</span><br><span class="bad">✗ Mina carry a bag every day.</span> <span class="good">✓ carries</span></td></tr>
+  </table></div>
+
+  <h3 class="sub">Word form helper list · 词形对照表</h3>
+  <div class="wrap-x"><table class="t">
+    <tr><th>Noun 名词</th><th>Adjective 形容词</th><th>Noun 名词</th><th>Adjective 形容词</th></tr>
+    <tr><td>courage 勇气</td><td>courageous 勇敢的</td><td>hope 希望</td><td>hopeful 充满希望的</td></tr>
+    <tr><td>nerve 紧张</td><td>nervous 紧张的</td><td>success 成功</td><td>successful 成功的</td></tr>
+    <tr><td>patience 耐心</td><td>patient 有耐心的</td><td>strength 力量</td><td>strong 强壮的</td></tr>
+  </table></div>
+
+  <div class="callout warn"><strong>Proofreading habit:</strong> After you fix a sentence, read it out loud in your head. Does it sound complete? Is every word spelled correctly?<br><span class="cn">养成检查习惯：改完句子后默读一遍。句子完整吗？每个单词拼写正确吗？</span></div>
+
+  <h2 class="sec">B. Literary Devices · 修辞手法</h2>
+  <div class="wrap-x"><table class="t">
+    <tr><th>Device 手法</th><th>What it does 作用</th><th>Example 例子</th></tr>
+    <tr><td><strong>Simile</strong> 明喻</td><td>Compares with <em>like</em> or <em>as</em>.<br><span class="cn">用like或as比较。</span></td><td>The baby slept like a log.</td></tr>
+    <tr><td><strong>Metaphor</strong> 暗喻</td><td>Says one thing <em>is</em> another (no like/as).<br><span class="cn">直接说A就是B（没有like/as）。</span></td><td>The classroom was a zoo.</td></tr>
+    <tr><td><strong>Personification</strong> 拟人</td><td>Gives human actions to a non-human thing.<br><span class="cn">让非人的事物有人的动作。</span></td><td>The wind whispered at the window.</td></tr>
+    <tr><td><strong>Hyperbole</strong> 夸张</td><td>Extreme exaggeration.<br><span class="cn">极度夸大。</span></td><td>I have told you a million times!</td></tr>
+    <tr><td><strong>Assonance</strong> 元音重复</td><td>Repeats the same vowel SOUND in nearby words.<br><span class="cn">邻近单词重复同一个元音发音。</span></td><td>Go slow over the road.</td></tr>
+  </table></div>
+  <div class="callout"><strong>Quick test · 快速判断:</strong> See <em>like / as</em>? → simile. Says <em>is / was</em> about two different things? → metaphor. A thing does a human action? → personification. Too big to be true? → hyperbole. Same vowel sound repeated? → assonance.</div>
+
+  <h2 class="sec">C. Reading Strategies · 阅读策略</h2>
+  <div class="grid">
+    <div class="mini"><h4>Context clues</h4><p>Read the sentence before and after the word. Ask: what meaning fits ALL the clues?</p><p class="cn">读目标词前后的句子，找出符合所有线索的词义。</p></div>
+    <div class="mini b"><h4>True / False</h4><p>A statement is true only if EVERY part is true in the text. Find the exact line.</p><p class="cn">只有每个部分都符合原文才是真。找到原文那一句。</p></div>
+    <div class="mini a"><h4>Eliminate</h4><p>Cross out options you know are wrong first. Then compare the rest.</p><p class="cn">先排除明显错误的选项，再比较剩下的。</p></div>
+  </div>
+
+  <h2 class="sec">Practice Questions · 练习题</h2>
+  <p>Select the best answer. You cannot change your answer after you select it.<br><span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="kuQuizContainer"></div>
+
+  <div class="reflect">
+    <h3 style="font-family:'Literata',serif;">Reflect · 反思</h3>
+    <label for="kuRef1">1. Write ONE comma splice sentence about a story character. Then fix it in two different ways.<br><span class="cn">写一个关于故事人物的逗号拼接句，然后用两种不同方法改正。</span></label>
+    <textarea id="kuRef1"></textarea>
+    <label for="kuRef2">2. Which of the four sentence errors is hardest for you? What will you do next time to check for it?<br><span class="cn">四种句子错误中哪一种对你最难？下次你会怎样检查它？</span></label>
+    <textarea id="kuRef2"></textarea>
+    <div class="grat">Today I am grateful for <input type="text" id="kuGrat" placeholder="..."></div>
+    <button class="dl-btn" id="kuDownloadBtn" onclick="tryDownload('ku')">⬇ Download my work · 下载我的作业</button>
+    <div class="hint" id="kuHint">Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。</div>
+  </div>
+</div>
+
+<!-- ================= COMMUNICATION ================= -->
+<div class="tab-content" id="tab-com">
+  <div class="name-row"><strong>Name · 姓名:</strong><input type="text" id="comName" placeholder="Type your name here · 请输入姓名"></div>
+
+  <h2 class="sec">Part 2: Communication · 表达</h2>
+  <p>This section checks how clearly you explain your ideas in writing. A good answer is more than a few words.<br><span class="cn">这一部分检查你书面表达想法是否清楚。好的答案不只是几个单词。</span></p>
+
+  <div class="grid">
+    <div class="mini"><h4>Full sentences</h4><p>Start with a capital. End with punctuation.</p><p class="cn">完整句子：大写开头，标点结尾。</p></div>
+    <div class="mini b"><h4>Answer the question</h4><p>Use words from the question in your answer.</p><p class="cn">直接回答问题，用问题中的词。</p></div>
+    <div class="mini a"><h4>Use evidence</h4><p>Show the exact detail from the story.</p><p class="cn">用证据：引用故事中的具体细节。</p></div>
+    <div class="mini r"><h4>Check your writing</h4><p>Spelling, tense, and punctuation.</p><p class="cn">检查拼写、时态和标点。</p></div>
+  </div>
+
+  <h2 class="sec">A. The ACE Method · ACE 答题法</h2>
+  <div class="concept-card"><h3 class="sub" style="margin-top:0;">A = Answer · 回答</h3>
+    <p>Answer the question in a full sentence. Turn the question into the start of your answer.</p><p class="cn">用完整句子回答问题。把问题改成答案的开头。</p>
+    <p><em>Question: Why was Sam worried? → Sam was worried because...</em></p></div>
+  <div class="concept-card blue"><h3 class="sub" style="margin-top:0;">C = Cite evidence · 引用证据</h3>
+    <p>Give a detail from the story. Use a starter: <em>In the story... / The text says... / For example...</em></p><p class="cn">给出故事中的细节。用引导语：In the story... / The text says... / For example...</p></div>
+  <div class="concept-card amber"><h3 class="sub" style="margin-top:0;">E = Explain · 解释</h3>
+    <p>Say HOW the evidence proves your answer. Use: <em>This shows that... / This means...</em></p><p class="cn">说明证据如何证明你的答案。用：This shows that... / This means...</p></div>
+
+  <h2 class="sec">B. Worked Example · 示范</h2>
+  <p>Read the story first. 先读故事。</p>
+  <h3 class="sub" style="font-family:'Literata',serif;">The Borrowed Pencil</h3>
+  <div class="passage-box" data-fill="pencil"></div>
+  <p><strong>Question:</strong> Why did Sam leave a new pencil on Rina's desk? <span class="cn">山姆为什么把新铅笔放在丽娜的桌上？</span></p>
+  <div class="wrap-x"><table class="t">
+    <tr><th>Level · 水平</th><th>Answer · 答案</th><th>What is missing? · 缺少什么？</th></tr>
+    <tr><td class="bad">Weak 弱</td><td>He was nice.</td><td>Too short. No reason, no evidence. 太短，没有原因和证据。</td></tr>
+    <tr><td style="color:var(--amber);font-weight:700;">Better 较好</td><td>Sam left a pencil because he wanted to thank Rina.</td><td>Full sentence and reason, but no evidence. 有完整句子和原因，但没有证据。</td></tr>
+    <tr><td class="good">Best 最好</td><td>Sam left a new pencil because he wanted to thank Rina and pass on her kindness. In the story, he leaves a note that says 'Pass it on.' This shows that he wants other people to be helped too.</td><td>Has A, C, and E. 包含A、C、E三部分。</td></tr>
+  </table></div>
+
+  <h2 class="sec">C. Four Question Types · 四种问题类型</h2>
+  <div class="wrap-x"><table class="t">
+    <tr><th>Question type 类型</th><th>What to include 内容</th><th>Sentence starter 句子开头</th></tr>
+    <tr><td><strong>Why...?</strong> 为什么</td><td>The cause + one detail. 原因加一个细节。</td><td>___ because ... In the story, ...</td></tr>
+    <tr><td><strong>How did ___ feel / respond?</strong> 感受/反应</td><td>Name the feeling + show the action that proves it. 说出感受并给出证明的动作。</td><td>___ felt ... He/She showed this when ...</td></tr>
+    <tr><td><strong>Predict / What if?</strong> 预测</td><td>A logical result + because. 合理结果加原因。</td><td>If ___ had ..., then ___ might ... because ...</td></tr>
+    <tr><td><strong>Theme</strong> 主题</td><td>A full-sentence message + proof from the story. 完整句子的信息加故事证据。</td><td>The theme is that ... This is shown when ...</td></tr>
+  </table></div>
+
+  <h2 class="sec">D. Theme Is Not a Topic · 主题不是话题</h2>
+  <div class="wrap-x"><table class="t">
+    <tr><th>Topic (one or two words) 话题</th><th>Theme (full sentence message) 主题</th></tr>
+    <tr><td>Friendship</td><td>True friends help each other even when it is hard.</td></tr>
+    <tr><td>Honesty</td><td>Telling the truth builds trust, even when it is difficult.</td></tr>
+    <tr><td>Hard work</td><td>Effort and patience can turn a small start into success.</td></tr>
+  </table></div>
+
+  <div class="callout warn"><strong>Final check · 最后检查:</strong> Capital letter? Period? Names spelled correctly? All verbs in the same tense? No comma splices?<br><span class="cn">大写字母？句号？人名拼写正确？时态一致？没有逗号拼接？</span></div>
+
+  <h2 class="sec">Practice Questions · 练习题</h2>
+  <p>Select the best answer. You cannot change your answer after you select it.<br><span class="cn">选择最佳答案。选择后不能更改。</span></p>
+  <div id="comQuizContainer"></div>
+
+  <div class="reflect">
+    <h3 style="font-family:'Literata',serif;">Reflect · 反思</h3>
+    <label for="comRef1">1. Write 2 to 3 full sentences using ACE: Why do you think Sam left a note that says 'Pass it on'?<br><span class="cn">用ACE写2到3个完整句子：你认为山姆为什么留下写着 'Pass it on' 的纸条？</span></label>
+    <textarea id="comRef1"></textarea>
+    <label for="comRef2">2. Describe a time someone helped you. Explain it in full sentences with a reason.<br><span class="cn">描述一次别人帮助你的经历。用完整句子并给出原因。</span></label>
+    <textarea id="comRef2"></textarea>
+    <div class="grat">Today I am grateful for <input type="text" id="comGrat" placeholder="..."></div>
+    <button class="dl-btn" id="comDownloadBtn" onclick="tryDownload('com')">⬇ Download my work · 下载我的作业</button>
+    <div class="hint" id="comHint">Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。</div>
+  </div>
+</div>
+
+<!-- ================= APPLICATION & PS ================= -->
+<div class="tab-content" id="tab-app">
+  <div class="name-row"><strong>Name · 姓名:</strong><input type="text" id="appName" placeholder="Type your name here · 请输入姓名"></div>
+
+  <h2 class="sec">Part 3: Application &amp; Problem Solving · 应用与解决问题</h2>
+  <p>Application means using plot knowledge to map a story. Problem solving means using a story's lesson to solve a real problem.<br><span class="cn">应用：用情节知识梳理故事结构。解决问题：用故事中的道理解决现实问题。</span></p>
+
+  <h2 class="sec">A. The Plot Map · 情节图</h2>
+  <div class="wrap-x"><table class="t">
+    <tr><th>Part 部分</th><th>Ask yourself 问自己</th><th>Sentence starter 句子开头</th></tr>
+    <tr><td><strong>Exposition</strong> 开端<br><span class="cn">时间、地点、主角、冲突</span></td><td>When? Where? Who? What is the problem?</td><td>The story takes place ... The protagonist is ...</td></tr>
+    <tr><td><strong>Rising Action</strong> 发展<br><span class="cn">问题变得更紧张的事件</span></td><td>What events make the problem bigger or more tense?</td><td>First, ... Then, ...</td></tr>
+    <tr><td><strong>Climax</strong> 高潮<br><span class="cn">最紧张/最关键的时刻</span></td><td>What is the turning point? What choice or change happens?</td><td>The turning point comes when ... This changes the story because ...</td></tr>
+    <tr><td><strong>Falling Action</strong> 回落<br><span class="cn">高潮之后发生的事</span></td><td>What happens right after the climax?</td><td>After this, ...</td></tr>
+    <tr><td><strong>Resolution</strong> 结局<br><span class="cn">问题如何收尾</span></td><td>How does the story end? How is the character changed?</td><td>In the end, ...</td></tr>
+  </table></div>
+
+  <div class="callout"><strong>Conflict formula · 冲突公式:</strong> [Character] wants ___, but ___ gets in the way.<br><span class="cn">【人物】想要___，但___阻碍了他/她。</span><br><em>Example: Mina wants to join the choir, but she is afraid to sing alone.</em></div>
+  <div class="callout warn"><strong>A strong climax has three parts · 好的高潮写三点:</strong> (1) what happens, (2) what the character chooses or realizes, (3) why it changes the story.<br><span class="cn">(1) 发生了什么，(2) 人物做出什么选择或领悟，(3) 为什么这改变了故事。</span></div>
+
+  <h2 class="sec">B. Worked Plot Outline · 情节示范</h2>
+  <h3 class="sub" style="font-family:'Literata',serif;">The Borrowed Pencil</h3>
+  <div class="passage-box" data-fill="pencil"></div>
+  <div class="wrap-x"><table class="t">
+    <tr><th>Part</th><th>Model answer 示范答案</th></tr>
+    <tr><td>Setting</td><td>Time: the day of a big math test. Place: a classroom.</td></tr>
+    <tr><td>Protagonist</td><td>Sam</td></tr>
+    <tr><td>Conflict</td><td>Sam needs a pencil for the test, but he forgot his and cannot talk to anyone.</td></tr>
+    <tr><td>Rising action</td><td>Sam looks around the room with his heart pounding, then hears a quiet voice from the next desk.</td></tr>
+    <tr><td>Climax</td><td>Rina slides her spare pencil to Sam. This is the turning point because his problem is solved by a classmate's kindness.</td></tr>
+    <tr><td>Falling action</td><td>After the test, Sam asks Rina why she helped him, and she explains that he once shared his lunch.</td></tr>
+    <tr><td>Resolution</td><td>The next morning, Sam leaves a new pencil and a note that says 'Pass it on.'</td></tr>
+  </table></div>
+
+  <h2 class="sec">C. The Problem-Solving Steps · 解决问题四步法</h2>
+  <div class="grid">
+    <div class="mini"><h4>P · Problem</h4><p>Name the central problem AND the two competing concerns.</p><p class="cn">说出核心问题以及两个相互冲突的考虑。</p></div>
+    <div class="mini b"><h4>C · Choices</h4><p>Give two realistic choices. Give a likely result for each.</p><p class="cn">给出两个现实的选择，并说明各自可能的结果。</p></div>
+    <div class="mini a"><h4>D · Decision</h4><p>Pick the best action. Explain WHY it is the most responsible.</p><p class="cn">选择最佳行动，解释为什么它最负责任。</p></div>
+    <div class="mini r"><h4>S · Story link</h4><p>Name one specific event from the story and explain how it supports your decision.</p><p class="cn">指出故事中一个具体事件，并解释它如何支持你的决定。</p></div>
+  </div>
+
+  <h3 class="sub">Worked example · 示范</h3>
+  <div class="concept-card">
+    <p><strong>Scenario:</strong> Ava finds a wallet in the hallway with money inside. She wants to buy a new notebook, but the wallet belongs to someone.</p>
+    <p><span class="cn">情景：阿娃在走廊捡到一个装有钱的钱包。她想买新笔记本，但钱包是别人的。</span></p>
+    <p><span class="bad">Weak:</span> She should be good. (No choices, no story link.)</p>
+    <p><span class="good">Strong:</span> The central problem is that Ava is tempted to keep the money, but the owner needs it back. One choice is to keep it, but the owner would lose money and Ava might feel guilty. Another choice is to give it to a teacher, so the owner gets it back. The best action is to give it to a teacher because it is honest and fair. In 'The Borrowed Pencil,' Rina helps Sam even though she could ignore him. This shows that doing the kind and right thing helps another person in real need.</p>
+  </div>
+
+  <h2 class="sec">Practice Questions · 练习题</h2>
+  <p>Questions 1-5 use a new story. Questions 6-10 use a new scenario. Select the best answer. You cannot change your answer after you select it.<br><span class="cn">第1-5题使用新故事，第6-10题使用新情景。选择最佳答案。选择后不能更改。</span></p>
+  <div id="appQuizContainer"></div>
+
+  <div class="reflect">
+    <h3 style="font-family:'Literata',serif;">Reflect · 反思</h3>
+    <label for="appRef1">1. Choose any story you know. Write its conflict using the formula (___ wants ___, but ___) and describe its climax in 1 to 2 sentences.<br><span class="cn">选一个你知道的故事。用公式写出冲突，并用1到2句话描述高潮。</span></label>
+    <textarea id="appRef1"></textarea>
+    <label for="appRef2">2. Think of a real problem at school. Which step is hardest for you: Problem, Choices, Decision, or Story link? Why?<br><span class="cn">想一个学校里的真实问题。哪一步对你最难：问题、选择、决定还是故事联系？为什么？</span></label>
+    <textarea id="appRef2"></textarea>
+    <div class="grat">Today I am grateful for <input type="text" id="appGrat" placeholder="..."></div>
+    <button class="dl-btn" id="appDownloadBtn" onclick="tryDownload('app')">⬇ Download my work · 下载我的作业</button>
+    <div class="hint" id="appHint">Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。</div>
+  </div>
+</div>
+
+<div class="timer" id="timer-display">⏱ 00:00</div>
+
+<script>
+let leaveCount = 0;
+let secondsElapsed = 0;
+let progressPoints = 0;
+const totalPoints = 30;
+
+// ============== DATA ==============
+const VOCAB = [
+  {word:"comma splice", pos:"noun phrase", cn:"逗号拼接", def:"A mistake where two complete sentences are joined with only a comma.", cn_def:"只用逗号把两个完整句子连在一起的错误。", example:"Fix a comma splice by adding a joining word such as 'but' after the comma."},
+  {word:"run-on sentence", pos:"noun phrase", cn:"连写句", def:"Two or more complete sentences joined with no punctuation or joining word.", cn_def:"两个或多个完整句子之间没有标点或连接词。", example:"A run-on sentence is hard to read because there is no stop between ideas."},
+  {word:"word form", pos:"noun phrase", cn:"词形", def:"The correct form of a word for its job in a sentence, such as noun, adjective, or verb.", cn_def:"单词在句中需要的正确形式，例如名词、形容词或动词。", example:"Change the noun 'courage' to the adjective 'courageous' to fix the word form."},
+  {word:"verb tense", pos:"noun phrase", cn:"动词时态", def:"The form of a verb that shows when something happens. It must also match the subject.", cn_def:"表示动作发生时间的动词形式，还必须和主语一致。", example:"In a story told in the past, use the past tense: She walked home."},
+  {word:"simile", pos:"noun", cn:"明喻", def:"A comparison of two things using the word like or as.", cn_def:"用like或as比较两样事物。", example:"The baby slept like a log."},
+  {word:"metaphor", pos:"noun", cn:"暗喻", def:"A comparison that says one thing is another thing.", cn_def:"直接说一个事物就是另一个事物的比较。", example:"My bedroom is a messy jungle."},
+  {word:"personification", pos:"noun", cn:"拟人", def:"Giving human actions or feelings to an object, animal, or idea.", cn_def:"让物体、动物或概念有人的动作或感情。", example:"The alarm clock screamed at me."},
+  {word:"hyperbole", pos:"noun", cn:"夸张", def:"Extreme exaggeration used for effect. It is not meant to be taken literally.", cn_def:"为了效果而极度夸大，不是字面意思。", example:"My backpack weighs a ton."},
+  {word:"assonance", pos:"noun", cn:"元音重复", def:"The repeating of the same vowel sound in nearby words.", cn_def:"邻近的单词重复同一个元音发音。", example:"Go slow over the road."},
+  {word:"theme", pos:"noun", cn:"主题", def:"The big message or lesson about life in a story, written as a full sentence.", cn_def:"故事关于生活的核心信息或道理，要写成完整句子。", example:"One theme of many stories is that honesty builds trust."},
+  {word:"protagonist", pos:"noun", cn:"主角", def:"The main character of a story, the person the story follows.", cn_def:"故事的主要人物，故事围绕他或她展开。", example:"The protagonist must solve the problem."},
+  {word:"conflict", pos:"noun", cn:"冲突", def:"The main problem in a story. A character wants something, but something stands in the way.", cn_def:"故事的核心问题。人物想要某物，但有阻碍。", example:"The conflict is that Mina wants to sing but is afraid."},
+  {word:"climax", pos:"noun", cn:"高潮", def:"The most tense or important moment, when the main character makes a key choice or change.", cn_def:"最紧张或最重要的时刻，主角做出关键选择或改变。", example:"The climax comes when the hero decides to tell the truth."},
+  {word:"evidence", pos:"noun", cn:"证据", def:"Specific details from the text that prove your answer.", cn_def:"文中能证明你答案的具体细节。", example:"Start with 'In the story' to introduce your evidence."}
+];
+
+const LANTERN = "Every autumn, old Mr. Chen made paper lanterns in a small shop at the end of Willow Lane. His hands were steady, and his lanterns glowed like tiny moons. One evening, a girl named Pia pushed open the door. She was very nervous because she wanted to learn the craft, but she had no money to pay for lessons. Mr. Chen studied her for a long moment. 'I do not sell lessons,' he said. 'I only share them with people who are willing to sweep the floor first.' Pia grinned, grabbed the broom, and swept until the shop shone. The wooden floor sang under her broom. By closing time, she had earned her first lesson.";
+
+const PENCIL = "Sam forgot his pencil on the day of the big math test. He looked around the room. Everyone was writing, and the teacher had said, 'No talking.' His heart pounded. Then a quiet voice came from the next desk. Rina slid her spare pencil across the floor with her foot, and she gave him a small smile. Sam nodded his thanks.\n\nWhen the test ended, he waited by the door. 'Why did you help me?' he whispered. Rina shrugged. 'Last month, you shared your lunch when I had none,' she said.\n\nThe next morning, Sam left a new pencil with a note on her desk: 'Pass it on.'";
+
+const KITE = "On a windy Saturday afternoon in a seaside village, twelve-year-old Omar carried his handmade kite to the town field. The village contest was today, and the winner would receive a silver medal. Omar wanted to win more than anything because his grandmother, who had taught him to build kites, was watching from a bench.\n\nBut when the contest began, his rival Dev's kite crashed into a tree and tore. Omar could keep flying and win easily. Instead, he ran to Dev, and the two boys spent twenty minutes patching the tear with tape and string.\n\nWhen Dev's kite finally rose, both kites danced side by side in the sky. Omar did not win the medal. However, his grandmother hugged him tightly and said she had never been prouder. That evening, he and Dev planned to build a giant kite together next summer.";
+
+const SCEN = "Scenario: Zara is the captain of her school debate team. One teammate, Jun, has missed several practices because he helps at his family's shop after school. The final is in one week. Some teammates want to replace Jun with a substitute. Jun says he can study alone at night, but Zara worries the team will not be ready.\n\nStory reminder: In 'The Kite Contest,' Omar stops his own race to help his rival Dev repair a torn kite.";
+
+const PASSAGES = { pencil: PENCIL };
+
+// ---------- Knowledge & Understanding ----------
+const KU_Q = [
+  {
+    id:"k1", title:"Comma Splice",
+    q:"Which sentence correctly fixes this comma splice? 'Pia wanted to learn, Mr. Chen wanted her to work first.'",
+    q_cn:"哪个句子正确改正了这个逗号拼接错误？",
+    options:[
+      "A. Pia wanted to learn, but Mr. Chen wanted her to work first.|A. 皮娅想学习，但陈先生想让她先工作。",
+      "B. Pia wanted to learn Mr. Chen wanted her to work first.|B. 去掉逗号，没有连接词。",
+      "C. Pia wanted to learn, however Mr. Chen wanted her to work first.|C. 逗号后用however。",
+      "D. Pia wanting to learn, Mr. Chen wanted her to work first.|D. 把wanted改成wanting。"
+    ],
+    correct:"A",
+    rat_right:"Correct. The joining word 'but' after the comma connects the two complete sentences properly.|正确。逗号后的连接词but把两个完整句子正确连接。",
+    rat_wrong:{
+      B:"This removes the comma and leaves no joining word, so it becomes a run-on sentence.|这样去掉了逗号又没有连接词，变成了连写句。",
+      C:"The word 'however' after only a comma is still a comma splice. It needs a period or semicolon before it.|只用逗号加however仍然是逗号拼接。前面需要句号或分号。",
+      D:"Changing the verb form does not fix the problem and makes the first part incomplete.|改变动词形式并没有解决问题，还让前半句不完整。"
+    }
+  },
+  {
+    id:"k2", title:"Run-on Sentence",
+    q:"Which sentence correctly fixes this run-on? 'Mr. Chen folded the paper he glued the edges together.'",
+    q_cn:"哪个句子正确改正了这个连写句？",
+    options:[
+      "A. Mr. Chen folded the paper, he glued the edges together.|A. 只加了逗号。",
+      "B. Mr. Chen folded the paper, and he glued the edges together.|B. 逗号加and。",
+      "C. Mr. Chen folded the paper he, glued the edges together.|C. 逗号放在he后面。",
+      "D. Mr. Chen folded the paper glued the edges together.|D. 去掉he。"
+    ],
+    correct:"B",
+    rat_right:"Correct. A comma plus the joining word 'and' separates the two complete ideas.|正确。逗号加连接词and把两个完整的意思分开。",
+    rat_wrong:{
+      A:"A comma alone creates a comma splice, which is a different error.|只用逗号会造成逗号拼接，这是另一种错误。",
+      C:"The comma is in the wrong place. It splits the subject he from its verb.|逗号位置错误，把主语he和动词分开了。",
+      D:"Removing 'he' makes the sentence confusing and does not separate the two ideas.|去掉he会让句子混乱，也没有分开两个意思。"
+    }
+  },
+  {
+    id:"k3", title:"Word Form",
+    q:"Choose the correct word to complete the sentence: 'Pia was very ______ to finish her first lantern.'",
+    q_cn:"选择正确的词完成句子：'Pia was very ______ to finish her first lantern.'",
+    options:[
+      "A. determine|A. determine（动词）",
+      "B. determining|B. determining（动名词/现在分词）",
+      "C. determined|C. determined（形容词：下定决心的）",
+      "D. determinedly|D. determinedly（副词）"
+    ],
+    correct:"C",
+    rat_right:"Correct. After 'was very' we need an adjective. 'Determined' describes how Pia felt.|正确。was very后面需要形容词。determined描述皮娅的状态。",
+    rat_wrong:{
+      A:"'Determine' is a verb. We need an adjective after 'was very'.|determine是动词，was very后面需要形容词。",
+      B:"'Determining' is not the right form to describe a feeling here.|determining不适合用来描述这里的感受。",
+      D:"'Determinedly' is an adverb. It describes an action, not a person after 'was'.|determinedly是副词，描述动作，不能放在was后描述人。"
+    }
+  },
+  {
+    id:"k4", title:"Verb Tense (past)",
+    q:"Which sentence uses the correct verb tense?",
+    q_cn:"哪个句子的动词时态正确？",
+    options:[
+      "A. Last autumn, Pia learn to fold paper, and she loved it.|A. learn（原形）",
+      "B. Last autumn, Pia learned to fold paper, and she loved it.|B. learned（过去式）",
+      "C. Last autumn, Pia learns to fold paper, and she loved it.|C. learns（现在时）",
+      "D. Last autumn, Pia will learn to fold paper, and she loved it.|D. will learn（将来时）"
+    ],
+    correct:"B",
+    rat_right:"Correct. 'Last autumn' tells us the time is past, so both verbs use the past tense: learned and loved.|正确。Last autumn表示过去，所以两个动词都用过去式：learned和loved。",
+    rat_wrong:{
+      A:"'Learn' is the base form. The time clue 'Last autumn' needs 'learned'.|learn是原形。时间线索Last autumn需要learned。",
+      C:"'Learns' is present tense and does not match 'loved' or 'Last autumn'.|learns是现在时，与loved和Last autumn不一致。",
+      D:"'Will learn' is future tense. The sentence is about the past.|will learn是将来时，句子说的是过去。"
+    }
+  },
+  {
+    id:"k5", title:"Verb Tense (subject agreement)",
+    q:"What is the error in this sentence? 'Every autumn, Mr. Chen make paper lanterns.'",
+    q_cn:"这个句子的错误是什么？'Every autumn, Mr. Chen make paper lanterns.'",
+    options:[
+      "A. 'make' should be 'makes' because Mr. Chen is one person in the present tense.|A. make应改为makes，因为陈先生是一个人，用现在时。",
+      "B. 'lanterns' should be 'lantern'.|B. lanterns应改为lantern。",
+      "C. 'Every' should be 'All'.|C. Every应改为All。",
+      "D. There is no error.|D. 没有错误。"
+    ],
+    correct:"A",
+    rat_right:"Correct. With he, she, it, or one person in the present tense, the verb adds -s: Mr. Chen makes.|正确。现在时中he, she, it或单个人作主语，动词要加-s：Mr. Chen makes。",
+    rat_wrong:{
+      B:"'Lanterns' is correct because he made many lanterns.|lanterns是正确的，因为他做了很多灯笼。",
+      C:"'Every autumn' is correct and does not cause the error.|Every autumn是正确的，不是错误来源。",
+      D:"There is an error. The verb does not match the subject.|有错误。动词与主语不一致。"
+    }
+  },
+  {
+    id:"k6", title:"Literary Device: Simile", passage:LANTERN,
+    q:"Which literary device is used in this line? 'his lanterns glowed like tiny moons'",
+    q_cn:"这一句使用了哪种修辞手法？'his lanterns glowed like tiny moons'",
+    options:[
+      "A. Metaphor|A. 暗喻",
+      "B. Assonance|B. 元音重复",
+      "C. Personification|C. 拟人",
+      "D. Simile|D. 明喻"
+    ],
+    correct:"D",
+    rat_right:"Correct. The word 'like' compares the lanterns to moons, which makes it a simile.|正确。like把灯笼和月亮作比较，这是明喻。",
+    rat_wrong:{
+      A:"A metaphor would say the lanterns WERE moons, without 'like' or 'as'.|暗喻会直接说灯笼就是月亮，不用like或as。",
+      B:"Assonance repeats vowel sounds. This line is a comparison.|元音重复是重复元音发音。这一句是比较。",
+      C:"Personification gives human actions to objects. Here the lanterns are compared, not given human actions.|拟人是赋予物体人的动作。这里是比较，不是人的动作。"
+    }
+  },
+  {
+    id:"k7", title:"Literary Device: Personification", passage:LANTERN,
+    q:"Which literary device is used in this line? 'The wooden floor sang under her broom.'",
+    q_cn:"这一句使用了哪种修辞手法？'The wooden floor sang under her broom.'",
+    options:[
+      "A. Simile|A. 明喻",
+      "B. Personification|B. 拟人",
+      "C. Hyperbole|C. 夸张",
+      "D. Assonance|D. 元音重复"
+    ],
+    correct:"B",
+    rat_right:"Correct. A floor cannot sing. Giving a human action to a floor is personification.|正确。地板不会唱歌。让地板有人的动作就是拟人。",
+    rat_wrong:{
+      A:"There is no 'like' or 'as', so this is not a simile.|没有like或as，所以不是明喻。",
+      C:"Hyperbole is exaggeration. The line is not an exaggeration. It gives the floor a human action.|夸张是夸大。这一句不是夸大，而是给地板人的动作。",
+      D:"Assonance is repeated vowel sounds. The key idea here is a floor that sings.|元音重复是重复元音发音。这里的重点是会唱歌的地板。"
+    }
+  },
+  {
+    id:"k8", title:"Literary Device: Hyperbole",
+    q:"Which literary device is used in this sentence? 'I am so hungry I could eat a horse!'",
+    q_cn:"这个句子使用了哪种修辞手法？'I am so hungry I could eat a horse!'",
+    options:[
+      "A. Simile|A. 明喻",
+      "B. Metaphor|B. 暗喻",
+      "C. Hyperbole|C. 夸张",
+      "D. Personification|D. 拟人"
+    ],
+    correct:"C",
+    rat_right:"Correct. Nobody can really eat a horse. The speaker exaggerates to show strong hunger.|正确。没有人真能吃下一匹马。说话者用夸张表示非常饿。",
+    rat_wrong:{
+      A:"There is no 'like' or 'as' comparison.|没有like或as的比较。",
+      B:"The sentence does not say that one thing IS another thing.|句子没有说一个东西就是另一个东西。",
+      D:"No object is given human actions.|没有物体被赋予人的动作。"
+    }
+  },
+  {
+    id:"k9", title:"Words in Context", passage:LANTERN,
+    q:"In the passage, what does the word 'craft' most likely mean in 'learn the craft'?",
+    q_cn:"在文章中，'learn the craft' 里的 craft 最可能是什么意思？",
+    options:[
+      "A. A skill of making things by hand|A. 手工制作东西的技能",
+      "B. A small boat|B. 一条小船",
+      "C. A trick to fool someone|C. 欺骗别人的把戏",
+      "D. A kind of paper|D. 一种纸"
+    ],
+    correct:"A",
+    rat_right:"Correct. Clues: Mr. Chen makes lanterns, and Pia wants lessons. Craft means the skill of making things by hand.|正确。线索：陈先生做灯笼，皮娅想上课。craft指手工制作的技能。",
+    rat_wrong:{
+      B:"A boat does not fit the lantern shop or the lessons.|船与灯笼店和课程不符。",
+      C:"Nothing in the passage suggests tricking anyone.|文章中没有任何欺骗的线索。",
+      D:"Paper is a material, but Pia wants to learn a skill, not a kind of paper.|纸是材料，但皮娅想学的是技能，不是一种纸。"
+    }
+  },
+  {
+    id:"k10", title:"True or False", passage:LANTERN,
+    q:"True or False: Mr. Chen charged Pia money for her first lesson.",
+    q_cn:"判断对错：陈先生向皮娅收取了第一节课的钱。",
+    options:[
+      "A. True|A. 对",
+      "B. False|B. 错"
+    ],
+    correct:"B",
+    rat_right:"Correct. Mr. Chen said he does not sell lessons. Pia earned her lesson by sweeping the floor.|正确。陈先生说他不卖课程。皮娅通过扫地换来了第一节课。",
+    rat_wrong:{
+      A:"The text says Pia had no money, and Mr. Chen said, 'I do not sell lessons.' She earned the lesson by sweeping.|文中说皮娅没有钱，陈先生说不卖课程。她是靠扫地得到课程的。"
+    }
+  }
+];
+
+// ---------- Communication ----------
+const COM_Q = [
+  {
+    id:"c1", title:"Full-Sentence Answer", passage:PENCIL,
+    q:"Question: Why did Sam feel worried at the start of the story? Which answer is written best?",
+    q_cn:"问题：故事开头山姆为什么感到担心？哪个答案写得最好？",
+    options:[
+      "A. Forgot pencil.|A. 忘了铅笔。（不是完整句子）",
+      "B. Sam felt worried because he forgot his pencil on the day of the big math test.|B. 山姆感到担心，因为他在数学大考那天忘了带铅笔。",
+      "C. Because he forgot.|C. 因为他忘了。（句子片段）",
+      "D. worried he forgot pencil math test.|D. 没有大写和完整结构。"
+    ],
+    correct:"B",
+    rat_right:"Correct. It is a full sentence, it restates the question, and it gives the specific reason.|正确。这是完整句子，重复了问题的词，并给出了具体原因。",
+    rat_wrong:{
+      A:"This is a fragment. It is missing a subject, a full verb, and punctuation.|这是句子片段，缺少主语、完整动词和标点。",
+      C:"This starts with 'Because' and does not say who or what. It is not a full sentence.|这以Because开头，没有说明谁和什么，不是完整句子。",
+      D:"There is no capital letter and the words are not in sentence order."
+        + "|没有大写字母，词语也不是正常的句子顺序。"
+    }
+  },
+  {
+    id:"c2", title:"Using Evidence", passage:PENCIL,
+    q:"Question: Why did Rina help Sam? Which answer uses evidence best?",
+    q_cn:"问题：丽娜为什么帮助山姆？哪个答案使用证据最好？",
+    options:[
+      "A. Rina helped Sam because she is a kind girl.|A. 丽娜帮助山姆，因为她是个善良的女孩。",
+      "B. Rina helped Sam because the teacher told her to.|B. 丽娜帮助山姆，因为老师让她这样做。",
+      "C. Rina helped Sam because he had been kind to her first. In the story, she tells him, 'Last month, you shared your lunch when I had none.'|C. 丽娜帮助山姆，因为他先对她好。在故事中，她告诉他上个月他在她没有午餐时分享了自己的午餐。",
+      "D. Rina helped Sam because he asked.|D. 丽娜帮助山姆，因为他请求了。"
+    ],
+    correct:"C",
+    rat_right:"Correct. It gives the reason and proves it with a detail from the text, introduced with 'In the story.'|正确。它给出原因，并用文中细节证明，还用In the story引出证据。",
+    rat_wrong:{
+      A:"This gives an opinion but no detail from the story.|这只是看法，没有故事中的细节。",
+      B:"This is not true. The teacher had said no talking, so she did not tell Rina to help.|这不对。老师说不许说话，并没有让丽娜帮忙。",
+      D:"Sam did not ask. Rina slid the pencil to him on her own.|山姆没有请求。丽娜是主动把铅笔递给他的。"
+    }
+  },
+  {
+    id:"c3", title:"Predicting", passage:PENCIL,
+    q:"Question: What might have happened if Rina had NOT helped Sam? Which prediction is best?",
+    q_cn:"问题：如果丽娜没有帮助山姆，可能会发生什么？哪个预测最好？",
+    options:[
+      "A. Sam would be happy.|A. 山姆会很开心。",
+      "B. Rina is a kind girl.|B. 丽娜是个善良的女孩。",
+      "C. Nothing would change, because the teacher said no talking.|C. 什么都不会改变，因为老师说不许说话。",
+      "D. If Rina had not helped, Sam might not have been able to write his test, so he could have received a low mark because he had no pencil.|D. 如果丽娜没有帮忙，山姆可能无法写考试，因此可能因为没有铅笔而得到低分。"
+    ],
+    correct:"D",
+    rat_right:"Correct. It uses 'If... might... because,' gives a logical result, and connects to the story details.|正确。它使用了If... might... because，给出合理的结果，并联系了故事细节。",
+    rat_wrong:{
+      A:"This does not make sense. Without a pencil, Sam would be more worried, not happier.|这不合理。没有铅笔，山姆会更担心，而不是更开心。",
+      B:"This describes Rina but does not predict what would happen.|这是在描述丽娜，没有预测会发生什么。",
+      C:"Something would change. Sam could not write the test without a pencil.|会有改变。没有铅笔，山姆无法写考试。"
+    }
+  },
+  {
+    id:"c4", title:"Feeling + Evidence", passage:PENCIL,
+    q:"Question: How did Sam feel when Rina slid the pencil to him? Which answer shows the feeling AND the evidence?",
+    q_cn:"问题：丽娜把铅笔递给山姆时，他感觉如何？哪个答案既说明感受又给出证据？",
+    options:[
+      "A. Sam felt grateful. He nodded his thanks, which shows that he was thankful for her help.|A. 山姆感到感激。他点头致谢，这表明他感谢她的帮助。",
+      "B. Sam felt grateful.|B. 山姆感到感激。",
+      "C. Sam nodded his thanks.|C. 山姆点头致谢。",
+      "D. Sam felt angry because Rina helped him.|D. 山姆生气，因为丽娜帮助了他。"
+    ],
+    correct:"A",
+    rat_right:"Correct. It names the feeling, gives the action as evidence, and explains what the action shows.|正确。它说出感受，用动作作证据，并解释这个动作说明了什么。",
+    rat_wrong:{
+      B:"It names the feeling, but gives no evidence from the story.|它说出了感受，但没有故事证据。",
+      C:"It gives evidence, but does not name the feeling or explain it.|它给了证据，但没有说出感受或解释。",
+      D:"This is not true. Sam smiled and nodded his thanks, so he was not angry.|这不对。山姆点头致谢，并没有生气。"
+    }
+  },
+  {
+    id:"c5", title:"Theme vs. Topic", passage:PENCIL,
+    q:"Which sentence states a THEME of The Borrowed Pencil, not just a topic?",
+    q_cn:"哪个句子表达的是《The Borrowed Pencil》的主题，而不只是话题？",
+    options:[
+      "A. Kindness|A. 善良",
+      "B. Small acts of kindness can be returned and passed on to others.|B. 小小的善举可以得到回报并传递给他人。",
+      "C. A pencil|C. 一支铅笔",
+      "D. Sam and Rina|D. 山姆和丽娜"
+    ],
+    correct:"B",
+    rat_right:"Correct. A theme is a full-sentence message about life. This sentence tells a lesson from the story.|正确。主题是关于生活的完整句子信息。这句话说出了故事的道理。",
+    rat_wrong:{
+      A:"'Kindness' is a topic. It is only one word and does not give a message.|Kindness是话题，只有一个词，没有给出信息。",
+      C:"'A pencil' is an object in the story, not a message.|A pencil是故事中的物品，不是信息。",
+      D:"These are the characters, not a message about life.|这是人物，不是关于生活的信息。"
+    }
+  },
+  {
+    id:"c6", title:"Explaining a Theme", passage:PENCIL,
+    q:"Question: Identify and explain the theme. Which response does BOTH?",
+    q_cn:"问题：指出并解释主题。哪个回答两者都做到了？",
+    options:[
+      "A. The theme is kindness.|A. 主题是善良。",
+      "B. The theme is that kindness comes back to us.|B. 主题是善良会回到我们身上。",
+      "C. The theme is that kindness can spread from person to person. Sam shared lunch with Rina, and later Rina gave Sam a pencil. Then Sam left a new pencil with a note that says 'Pass it on.'|C. 主题是善良可以在人与人之间传递。山姆和丽娜分享午餐，后来丽娜给山姆铅笔。然后山姆留下新铅笔和写着Pass it on的纸条。",
+      "D. Sam forgot his pencil, and Rina gave him hers.|D. 山姆忘了铅笔，丽娜给了他自己的。"
+    ],
+    correct:"C",
+    rat_right:"Correct. It states the theme in a full sentence and explains it with story evidence in order.|正确。它用完整句子说出主题，并按顺序用故事证据解释。",
+    rat_wrong:{
+      A:"This is only a topic word. It has no explanation.|这只是话题词，没有解释。",
+      B:"The theme is stated, but there is no explanation or evidence.|主题说出来了，但没有解释和证据。",
+      D:"This only retells part of the plot. It does not state a theme.|这只是复述部分情节，没有说出主题。"
+    }
+  },
+  {
+    id:"c7", title:"Proofreading",
+    q:"Which sentence has NO spelling or grammar errors?",
+    q_cn:"哪个句子没有拼写或语法错误？",
+    options:[
+      "A. Sam was very thankfull to Rina.|A. thankfull拼写错误。",
+      "B. Rina give Sam a spare pencil.|B. give时态/主谓不一致。",
+      "C. Sam left a new pencil, he wanted to thank her.|C. 逗号拼接。",
+      "D. Sam left a new pencil on Rina's desk because he wanted to thank her.|D. 山姆把新铅笔放在丽娜的桌上，因为他想感谢她。"
+    ],
+    correct:"D",
+    rat_right:"Correct. It is spelled correctly, uses past tense, and joins the ideas with 'because.'|正确。拼写正确，用过去时，并用because连接两个意思。",
+    rat_wrong:{
+      A:"'Thankfull' is misspelled. The correct spelling is 'thankful.'|thankfull拼写错误，正确拼写是thankful。",
+      B:"'Give' should be 'gave' in a past-tense story.|在过去时的故事中，give应为gave。",
+      C:"This is a comma splice. It needs 'because' or a period after 'pencil.'|这是逗号拼接。pencil后需要because或句号。"
+    }
+  },
+  {
+    id:"c8", title:"Evidence Starters",
+    q:"Which sentence starter best introduces TEXT EVIDENCE?",
+    q_cn:"哪个句子开头最适合引出文本证据？",
+    options:[
+      "A. In the story, Rina tells Sam that...|A. 在故事中，丽娜告诉山姆……",
+      "B. I like this one because...|B. 我喜欢这个因为……",
+      "C. Yes, and...|C. 是的，而且……",
+      "D. Maybe...|D. 也许……"
+    ],
+    correct:"A",
+    rat_right:"Correct. 'In the story' tells the reader that you are pointing to a real detail in the text.|正确。In the story告诉读者你要引用文中的真实细节。",
+    rat_wrong:{
+      B:"This gives a personal opinion, not evidence from the text.|这是个人看法，不是文本证据。",
+      C:"This does not point to any detail in the story.|这没有指向故事中的任何细节。",
+      D:"This is uncertain and does not point to a detail in the story.|这不确定，也没有指向故事细节。"
+    }
+  },
+  {
+    id:"c9", title:"Answering Every Part", passage:PENCIL,
+    q:"Question: Do you think Sam learned a lesson by the end? Use evidence from the text. Which answer fully responds?",
+    q_cn:"问题：你认为山姆到最后学到了教训吗？请用文本证据。哪个答案回答完整？",
+    options:[
+      "A. Yes.|A. 是的。",
+      "B. Yes, Sam learned that kindness matters.|B. 是的，山姆学到了善良很重要。",
+      "C. Yes, I think Sam learned a lesson about kindness. At the end, he leaves a new pencil with a note that says 'Pass it on,' which shows he wants to spread the kindness he received.|C. 是的，我认为山姆学到了关于善良的教训。结尾他留下新铅笔和写着Pass it on的纸条，这表明他想传递自己得到的善意。",
+      "D. Sam left a note on the desk.|D. 山姆在桌上留了纸条。"
+    ],
+    correct:"C",
+    rat_right:"Correct. It gives an opinion (yes), evidence (the note), and an explanation (what it shows).|正确。它有看法（是）、证据（纸条）和解释（说明了什么）。",
+    rat_wrong:{
+      A:"This gives only an opinion. There is no reason or evidence.|只有看法，没有原因和证据。",
+      B:"This gives an opinion and a reason, but no specific evidence.|有看法和原因，但没有具体证据。",
+      D:"This gives a detail, but does not answer the question or explain it.|给出了细节，但没有回答问题，也没有解释。"
+    }
+  },
+  {
+    id:"c10", title:"Depth of Answer",
+    q:"A student wrote only this answer to a 2-mark question: 'Sam felt thankful.' Why is it NOT a full answer?",
+    q_cn:"一名学生对一道2分题只写了：'Sam felt thankful.' 为什么这不是完整答案？",
+    options:[
+      "A. It has a spelling error.|A. 有拼写错误。",
+      "B. It names a feeling but gives no evidence or explanation.|B. 它说出了感受，但没有证据或解释。",
+      "C. It is too long.|C. 太长了。",
+      "D. It is about the wrong story.|D. 写的是错误的故事。"
+    ],
+    correct:"B",
+    rat_right:"Correct. Strong answers add evidence and an explanation after the first idea, using ACE.|正确。好答案在第一个观点之后还要加上证据和解释，也就是ACE。",
+    rat_wrong:{
+      A:"The sentence is spelled correctly.|这个句子拼写正确。",
+      C:"The answer is very short, not too long.|这个答案很短，不是太长。",
+      D:"The feeling matches The Borrowed Pencil. The problem is missing detail.|感受与《The Borrowed Pencil》相符。问题是缺少细节。"
+    }
+  }
+];
+
+// ---------- Application & Problem Solving ----------
+const APP_Q = [
+  {
+    id:"a1", title:"Exposition: Setting and Protagonist", passage:KITE,
+    q:"Which answer correctly gives the setting (time and place) and the protagonist of The Kite Contest?",
+    q_cn:"哪个答案正确写出《The Kite Contest》的背景（时间和地点）和主角？",
+    options:[
+      "A. Time: next summer. Place: a bench. Protagonist: Dev.|A. 时间：明年夏天。地点：长椅。主角：德夫。",
+      "B. Time: a windy Saturday afternoon. Place: the town field in a seaside village. Protagonist: Omar.|B. 时间：一个有风的周六下午。地点：海边村庄的镇上空地。主角：奥马尔。",
+      "C. Time: that evening. Place: the sky. Protagonist: the grandmother.|C. 时间：那天晚上。地点：天空。主角：奶奶。",
+      "D. Time: midnight. Place: Omar's home. Protagonist: Dev.|D. 时间：午夜。地点：奥马尔的家。主角：德夫。"
+    ],
+    correct:"B",
+    rat_right:"Correct. The story starts on a windy Saturday afternoon at the town field, and it follows Omar's choice.|正确。故事从一个有风的周六下午在镇上空地开始，围绕奥马尔的选择展开。",
+    rat_wrong:{
+      A:"'Next summer' is only a future plan. The story follows Omar, not Dev.|明年夏天只是未来计划。故事围绕奥马尔，不是德夫。",
+      C:"'That evening' is the end of the story, and the main character is Omar.|那天晚上是故事结尾，主角是奥马尔。",
+      D:"The story does not happen at midnight or at home, and the protagonist is Omar.|故事不在午夜或家里发生，主角是奥马尔。"
+    }
+  },
+  {
+    id:"a2", title:"Exposition: Conflict", passage:KITE,
+    q:"Which sentence states the main conflict best?",
+    q_cn:"哪个句子最好地表达了主要冲突？",
+    options:[
+      "A. Omar wants to win the contest, but he also feels he should help his rival Dev.|A. 奥马尔想赢得比赛，但他也觉得应该帮助对手德夫。",
+      "B. The kites fly in the sky.|B. 风筝在天空中飞。",
+      "C. Omar and Dev become friends.|C. 奥马尔和德夫成为朋友。",
+      "D. It is a windy day.|D. 这是个有风的日子。"
+    ],
+    correct:"A",
+    rat_right:"Correct. It follows the formula: a character wants something, but something stands in the way.|正确。它符合公式：人物想要某物，但有阻碍。",
+    rat_wrong:{
+      B:"This is a description, not a problem.|这是描述，不是问题。",
+      C:"This is the result at the end, not the conflict.|这是结尾的结果，不是冲突。",
+      D:"This is part of the setting, not the conflict.|这是背景的一部分，不是冲突。"
+    }
+  },
+  {
+    id:"a3", title:"Rising Action", passage:KITE,
+    q:"Which event belongs in the RISING ACTION?",
+    q_cn:"哪个事件属于情节发展（上升动作）？",
+    options:[
+      "A. Omar and Dev plan a giant kite for next summer.|A. 奥马尔和德夫计划明年夏天做一个巨型风筝。",
+      "B. Omar's grandmother hugs him and says she is proud.|B. 奥马尔的奶奶拥抱他并说她很骄傲。",
+      "C. Omar stops flying and runs to help Dev.|C. 奥马尔停止飞行并跑去帮德夫。",
+      "D. The contest begins and Dev's kite crashes into a tree and tears.|D. 比赛开始，德夫的风筝撞上树并撕破。"
+    ],
+    correct:"D",
+    rat_right:"Correct. The crash makes the problem more tense and sets up Omar's big choice.|正确。风筝撞树使问题更紧张，并引出奥马尔的重要选择。",
+    rat_wrong:{
+      A:"This is the ending (resolution).|这是结局。",
+      B:"This happens after the climax, so it is falling action.|这发生在高潮之后，所以是回落部分。",
+      C:"This is Omar's turning-point choice, the climax.|这是奥马尔的转折选择，也就是高潮。"
+    }
+  },
+  {
+    id:"a4", title:"Climax", passage:KITE,
+    q:"Which moment is the CLIMAX?",
+    q_cn:"哪一刻是高潮？",
+    options:[
+      "A. The contest begins.|A. 比赛开始。",
+      "B. Omar chooses to stop and patch Dev's kite instead of trying to win.|B. 奥马尔选择停下来帮德夫修风筝，而不是争取获胜。",
+      "C. Omar carries his kite to the field.|C. 奥马尔把风筝带到空地。",
+      "D. The boys plan a giant kite.|D. 两个男孩计划做巨型风筝。"
+    ],
+    correct:"B",
+    rat_right:"Correct. This is the key choice and turning point. It shows what Omar values and changes the rest of the story.|正确。这是关键选择和转折点。它显示了奥马尔看重什么，并改变了故事后面的发展。",
+    rat_wrong:{
+      A:"This starts the rising action.|这是情节发展的开始。",
+      C:"This is part of the exposition at the beginning.|这是开头背景的一部分。",
+      D:"This is the resolution at the end.|这是结尾的结局。"
+    }
+  },
+  {
+    id:"a5", title:"Falling Action", passage:KITE,
+    q:"Which event is the FALLING ACTION (what happens right after the climax)?",
+    q_cn:"哪个事件是回落部分（高潮之后紧接着发生的事）？",
+    options:[
+      "A. Omar carries his kite to the town field.|A. 奥马尔把风筝带到镇上空地。",
+      "B. Dev's kite crashes into a tree.|B. 德夫的风筝撞上树。",
+      "C. Both kites fly side by side, Omar does not win, and his grandmother says she has never been prouder.|C. 两只风筝并肩飞翔，奥马尔没有获胜，奶奶说她从未如此骄傲。",
+      "D. Omar chooses to help Dev.|D. 奥马尔选择帮助德夫。"
+    ],
+    correct:"C",
+    rat_right:"Correct. It shows what happens right after the climax. The resolution comes next: Omar and Dev plan a giant kite together.|正确。它是高潮之后发生的事。接下来才是结局：奥马尔和德夫计划一起做巨型风筝。",
+    rat_wrong:{
+      A:"This is at the beginning, in the exposition.|这是开头的背景部分。",
+      B:"This is the rising action before the climax.|这是高潮之前的情节发展。",
+      D:"This is the climax, not what happens after it.|这是高潮，不是高潮之后发生的事。"
+    }
+  },
+  {
+    id:"a6", title:"Problem Solving: Understand the Problem", passage:SCEN,
+    q:"Which statement best identifies the central problem in the scenario?",
+    q_cn:"哪个陈述最好地指出了情景中的核心问题？",
+    options:[
+      "A. Zara must decide how to keep the team ready for the final while also being fair to Jun, who has family duties.|A. 扎拉必须决定如何让队伍为决赛做好准备，同时对有家庭责任的俊保持公平。",
+      "B. Jun does not like debating.|B. 俊不喜欢辩论。",
+      "C. The team wants to win a trophy.|C. 队伍想赢得奖杯。",
+      "D. Zara should study alone at night.|D. 扎拉应该晚上独自学习。"
+    ],
+    correct:"A",
+    rat_right:"Correct. It names the problem and BOTH competing concerns: team readiness and fairness to Jun.|正确。它说出了问题以及两个相互冲突的考虑：队伍准备和对俊公平。",
+    rat_wrong:{
+      B:"The scenario does not say Jun dislikes debating. He misses practice because of family duties.|情景没有说俊不喜欢辩论。他缺席练习是因为家庭责任。",
+      C:"This is a goal, but it does not name the problem or the competing concerns.|这是目标，没有说出问题或冲突的考虑。",
+      D:"This is a possible action, not the central problem.|这是一个可能的行动，不是核心问题。"
+    }
+  },
+  {
+    id:"a7", title:"Problem Solving: Choices and Consequences", passage:SCEN,
+    q:"Which answer gives TWO realistic choices and a likely consequence for EACH?",
+    q_cn:"哪个答案给出了两个现实的选择，并为每个选择说明可能的结果？",
+    options:[
+      "A. Zara could replace Jun. Zara could keep Jun. Both are fine.|A. 扎拉可以换掉俊。扎拉可以留下俊。两个都可以。",
+      "B. Zara could replace Jun, which would help the team prepare but might hurt Jun.|B. 扎拉可以换掉俊，这会帮助队伍准备，但可能伤害俊。",
+      "C. Zara could replace Jun, so the team practices together, but Jun may feel unfairly treated. Or she could hold extra lunchtime practices for Jun, so he stays on the team, but she will need to organize more.|C. 扎拉可以换掉俊，这样队伍一起练习，但俊可能觉得不公平。或者她可以为俊安排午餐时间的额外练习，这样他留在队里，但她需要多做组织工作。",
+      "D. Zara could win the debate alone. Zara could quit the team.|D. 扎拉可以一个人赢得辩论。扎拉可以退出队伍。"
+    ],
+    correct:"C",
+    rat_right:"Correct. There are two realistic choices, and each one has a logical consequence.|正确。有两个现实的选择，每个选择都有合理的结果。",
+    rat_wrong:{
+      A:"There are two choices, but no consequences are explained.|有两个选择，但没有解释结果。",
+      B:"This gives only one choice with consequences. A second choice is needed.|只有一个选择及其结果，还需要第二个选择。",
+      D:"These choices are not realistic and have no consequences explained.|这些选择不现实，也没有解释结果。"
+    }
+  },
+  {
+    id:"a8", title:"Problem Solving: Decision and Justification", passage:SCEN,
+    q:"Which recommendation is the strongest?",
+    q_cn:"哪个建议最有力？",
+    options:[
+      "A. Zara should replace Jun because it is easier.|A. 扎拉应该换掉俊，因为这样更容易。",
+      "B. Zara should ignore the problem because it will fix itself.|B. 扎拉应该忽视问题，因为它会自己解决。",
+      "C. Zara should replace Jun because rules are rules.|C. 扎拉应该换掉俊，因为规则就是规则。",
+      "D. Zara should hold lunchtime practices for Jun and share notes with him. This is the most responsible choice because it keeps the team prepared while respecting Jun's family duties.|D. 扎拉应该为俊安排午餐时间练习并与他分享笔记。这是最负责任的选择，因为既让队伍做好准备，又尊重俊的家庭责任。"
+    ],
+    correct:"D",
+    rat_right:"Correct. It recommends a workable action and gives clear reasons that address both concerns.|正确。它提出了可行的行动，并给出了兼顾两方面的清晰理由。",
+    rat_wrong:{
+      A:"'Easier' is a weak reason and ignores Jun's situation.|更容易是个弱理由，还忽视了俊的情况。",
+      B:"Ignoring the problem is not a workable action.|忽视问题不是可行的行动。",
+      C:"'Rules are rules' is not a clear reason and does not consider both concerns.|规则就是规则不是清晰的理由，也没有考虑两方面。"
+    }
+  },
+  {
+    id:"a9", title:"Problem Solving: Story Connection", passage:SCEN,
+    q:"Which sentence makes the BEST connection to The Kite Contest to support the recommendation?",
+    q_cn:"哪个句子最好地联系《The Kite Contest》来支持这个建议？",
+    options:[
+      "A. The Kite Contest is about kites, so Zara should be nice.|A. 《The Kite Contest》讲的是风筝，所以扎拉应该友善。",
+      "B. In 'The Kite Contest,' Omar stops his own race to help Dev repair his kite. This supports my recommendation because it shows that caring for another person can matter more than winning.|B. 在《The Kite Contest》中，奥马尔停下自己的比赛去帮德夫修风筝。这支持我的建议，因为它说明关心他人有时比获胜更重要。",
+      "C. In the story, Omar won the medal because he helped Dev, so Zara will win too.|C. 在故事中，奥马尔因为帮助德夫赢得了奖牌，所以扎拉也会赢。",
+      "D. Omar is a good character.|D. 奥马尔是个好人物。"
+    ],
+    correct:"B",
+    rat_right:"Correct. It names a specific, accurate event and explains how it supports the decision.|正确。它指出了具体而准确的事件，并解释了它如何支持决定。",
+    rat_wrong:{
+      A:"This is too general. It does not name a specific event.|太笼统，没有指出具体事件。",
+      C:"This evidence is inaccurate. Omar did NOT win the medal.|这个证据不准确。奥马尔没有赢得奖牌。",
+      D:"This is a general opinion with no event or explanation.|这是笼统的看法，没有事件或解释。"
+    }
+  },
+  {
+    id:"a10", title:"Problem Solving: Checking a Response",
+    q:"A student's response names the problem, gives two choices with consequences, and recommends an action with reasons. But the story link says only, 'The story is about kites.' Which area needs the MOST improvement?",
+    q_cn:"一名学生的回答说明了问题，给出带结果的两个选择，并提出了有理由的行动。但故事联系只写了：'The story is about kites.' 哪个方面最需要改进？",
+    options:[
+      "A. Understanding the problem|A. 理解问题",
+      "B. Choices and consequences|B. 选择与结果",
+      "C. Story connection and evidence|C. 故事联系与证据",
+      "D. Decision and justification|D. 决定与理由"
+    ],
+    correct:"C",
+    rat_right:"Correct. The story link needs a specific event and an explanation of how it supports the decision.|正确。故事联系需要一个具体事件，并解释它如何支持决定。",
+    rat_wrong:{
+      A:"The student already named the problem.|学生已经说明了问题。",
+      B:"The student already gave two choices with consequences.|学生已经给出了带结果的两个选择。",
+      D:"The student already recommended an action with reasons.|学生已经提出了有理由的行动。"
+    }
+  }
+];
+
+// ============== STATE ==============
+const TABS = {
+  ku:  { label:"Knowledge & Understanding", data:KU_Q,  answers:{}, score:{val:0}, done:{val:0} },
+  com: { label:"Communication",             data:COM_Q, answers:{}, score:{val:0}, done:{val:0} },
+  app: { label:"Application & Problem Solving", data:APP_Q, answers:{}, score:{val:0}, done:{val:0} }
+};
+
+// ============== FUNCTIONS ==============
+function buildVocab() {
+  var grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div'); card.className = 'vcard';
+
+    var top = document.createElement('div');
+    var w = document.createElement('span'); w.className = 'w'; w.textContent = v.word;
+    var sp = document.createElement('button'); sp.className = 'speak-btn'; sp.textContent = '🔊';
+    sp.addEventListener('click', function() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(v.word);
+        u.lang = 'en-US'; u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+      }
+    });
+    top.appendChild(w); top.appendChild(sp);
+
+    var pos = document.createElement('div'); pos.className = 'pos'; pos.textContent = v.pos + ' · ' + v.cn;
+    var def = document.createElement('div'); def.textContent = v.def;
+    var cdef = document.createElement('div'); cdef.className = 'cn'; cdef.textContent = v.cn_def;
+    var ex = document.createElement('div'); ex.className = 'ex'; ex.textContent = v.example;
+
+    card.appendChild(top); card.appendChild(pos); card.appendChild(def); card.appendChild(cdef); card.appendChild(ex);
+    grid.appendChild(card);
+  });
+}
+
+function fillPassages() {
+  document.querySelectorAll('[data-fill]').forEach(function(el) {
+    el.textContent = PASSAGES[el.getAttribute('data-fill')] || '';
+  });
+}
+
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div'); card.className = 'quiz-card';
+
+    var num = document.createElement('div'); num.className = 'q-num';
+    num.textContent = 'Question ' + (idx + 1) + ' of ' + data.length + ' · ' + item.title;
+    card.appendChild(num);
+
+    if (item.passage) {
+      var pasEl = document.createElement('div'); pasEl.className = 'passage-box';
+      pasEl.textContent = item.passage;
+      card.appendChild(pasEl);
+    }
+
+    var qEl = document.createElement('div'); qEl.className = 'q-text'; qEl.textContent = item.q;
+    var qCn = document.createElement('div'); qCn.className = 'q-cn cn'; qCn.textContent = item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement('div'); optsWrap.className = 'opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className = 'rationale';
+    var answered = false;
+
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/, '');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/, '') : '';
+
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn';
+      btn.dataset.letter = letter;
+
+      var strong = document.createElement('strong'); strong.textContent = letter + '. ';
+      var enS = document.createElement('span'); enS.textContent = enText;
+      var br = document.createElement('br');
+      var cnS = document.createElement('span'); cnS.className = 'cn'; cnS.textContent = cnText;
+      btn.appendChild(strong); btn.appendChild(enS); btn.appendChild(br); btn.appendChild(cnS);
+
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+
+        var ratText, ratCn, ratParts;
+        if (letter === item.correct) {
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '✅ ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          var wr = item.rat_wrong[letter] || '';
+          ratParts = wr.split('|');
+          ratText = '❌ ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show wrong-rat';
+        }
+        addProgress(1);
+
+        var rDiv = document.createElement('div'); rDiv.textContent = ratText;
+        if (ratCn) {
+          var rBr = document.createElement('br');
+          var rCnS = document.createElement('span'); rCnS.className = 'cn'; rCnS.textContent = ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+
+      optsWrap.appendChild(btn);
+    });
+
+    card.appendChild(optsWrap);
+    card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+function checkReadiness(tabKey) {
+  var t = TABS[tabKey];
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  var ready = (t.done.val >= t.data.length) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(tabKey + 'DownloadBtn');
+  var hint = document.getElementById(tabKey + 'Hint');
+  if (ready) { btn.classList.add('ready'); hint.classList.add('hidden'); }
+  else { btn.classList.remove('ready'); hint.classList.remove('hidden'); }
+}
+
+function wireListeners(tabKey) {
+  ['Ref1', 'Ref2', 'Grat'].forEach(function(fld) {
+    document.getElementById(tabKey + fld).addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(tabKey);
+    });
+  });
+}
+
+function tryDownload(tabKey) {
+  var t = TABS[tabKey];
+  var ref1 = document.getElementById(tabKey + 'Ref1').value.trim();
+  var ref2 = document.getElementById(tabKey + 'Ref2').value.trim();
+  var grat = document.getElementById(tabKey + 'Grat').value.trim();
+  if (t.done.val < t.data.length || !ref1 || !ref2 || !grat) return;
+
+  var name = document.getElementById(tabKey + 'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var txt = '';
+
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE — SHORT STORY SKILLS PRACTICE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Section: ' + t.label + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + t.score.val + ' / ' + t.data.length + '\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+
+  t.data.forEach(function(item, i) {
+    var sel = t.answers[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i + 1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  var blob = new Blob([txt], {type: 'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + tabKey.toUpperCase() + '_' + name.replace(/\s+/g, '_') + '_' + new Date().toLocaleDateString().replace(/\//g, '-') + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+
+  document.getElementById('pip-' + tabKey).classList.add('done');
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function fmt(s) {
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  fillPassages();
+  Object.keys(TABS).forEach(function(key) {
+    var t = TABS[key];
+    buildQuiz(t.data, key + 'QuizContainer', t.answers, t.score, t.done, function() { checkReadiness(key); });
+    wireListeners(key);
+  });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
