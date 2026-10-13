@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLA 9th Edition Citation Lab | MLA第九版引用实验室</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;
+  --ml-red:#c1121f;--ml-gold:#e9c46a;--ink:#1a2a1a;--ink2:#2d3748;
+  --mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans','Noto Sans SC',sans-serif;background:var(--mist);color:var(--ink);line-height:1.6;font-size:16px}
+.cn{font-family:'Noto Sans SC',sans-serif;color:#4a5568}
+h1,h2,h3{font-family:'Literata',serif}
+em{font-style:italic}
+
+.warn{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+.warn span{font-family:'Noto Sans SC',sans-serif;font-weight:400}
+#leaveNotice{display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center}
+#leaveNotice span{font-family:'Noto Sans SC',sans-serif}
+
+header{background:linear-gradient(135deg,var(--ml-green-dark),var(--ml-green));color:#fff;padding:16px 18px 12px}
+header h1{font-size:1.35rem;line-height:1.3}
+header h1 .cn{display:block;color:#d8f3dc;font-size:1rem;font-weight:400;font-family:'Noto Sans SC',sans-serif}
+.hdr-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:10px 0 8px}
+.badge{background:rgba(0,0,0,.25);padding:3px 10px;border-radius:12px;font-size:.8rem}
+.pips{display:flex;gap:6px;align-items:center;font-size:.75rem}
+.pip{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.3);border:2px solid rgba(255,255,255,.6)}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.prog-wrap{background:rgba(255,255,255,.25);border-radius:8px;height:10px;overflow:hidden}
+#progressBar{height:100%;width:0;background:var(--ml-gold);transition:width .4s}
+#progressText{font-size:.8rem;margin-top:4px}
+
+nav.tabs{display:flex;flex-wrap:wrap;gap:4px;background:#fff;border-bottom:2px solid var(--border);padding:8px 10px;position:sticky;top:38px;z-index:900}
+.tab-btn{border:1px solid var(--border);background:var(--mist);padding:8px 12px;border-radius:8px;cursor:pointer;font:inherit;font-size:.85rem;font-weight:500;color:var(--ink2)}
+.tab-btn.active{background:var(--ml-green);color:#fff;border-color:var(--ml-green)}
+.tab-btn .cn{color:inherit;font-size:.75rem;display:block}
+
+main{max-width:920px;margin:0 auto;padding:16px 14px 90px}
+.tab-content{display:none}.tab-content.active{display:block}
+.name-row{background:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.name-row input{flex:1;min-width:180px;padding:8px 10px;border:1px solid var(--border);border-radius:6px;font:inherit}
+
+.concept{background:#fff;border:1px solid var(--border);border-left:5px solid var(--ml-green);border-radius:10px;padding:16px 18px;margin-bottom:16px}
+.concept h3{color:var(--ml-green-dark);font-size:1.15rem;margin-bottom:2px}
+.concept h3 .cn{display:block;font-size:.9rem;font-weight:400}
+.concept p{margin:8px 0}
+.concept ul{margin:6px 0 6px 22px}
+.concept li{margin:4px 0}
+.callout{border-radius:8px;padding:10px 14px;margin:10px 0;font-size:.95rem}
+.callout.tip{background:var(--ml-green-light);border-left:4px solid var(--ml-green)}
+.callout.note{background:var(--amber-light);border-left:4px solid var(--amber)}
+.callout.blue{background:#e6eef7;border-left:4px solid var(--cobalt)}
+table.mla{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+table.mla th{background:var(--ml-green-dark);color:#fff;text-align:left;padding:7px 9px}
+table.mla td{border:1px solid var(--border);padding:7px 9px;vertical-align:top}
+table.mla tr:nth-child(even) td{background:var(--mist)}
+.ex{background:var(--mist);border:1px dashed var(--ml-green);border-radius:8px;padding:10px 14px;margin:10px 0;font-family:'Literata','Noto Serif SC',serif;font-size:.95rem}
+.ex .lbl{display:block;font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ml-green);margin-bottom:3px}
+.ex .hang{padding-left:2em;text-indent:-2em}
+.ex .blockq{margin:8px 0 8px 2rem;font-size:.92rem}
+.parts{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.parts span{padding:3px 8px;border-radius:6px;font-size:.82rem;font-weight:600;background:#e6eef7;color:var(--cobalt)}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-top:10px}
+.vcard{background:#fff;border:1px solid var(--border);border-top:4px solid var(--ml-green);border-radius:10px;padding:12px 14px}
+.vcard .w{font-family:'Literata',serif;font-size:1.15rem;font-weight:700;color:var(--ml-green-dark)}
+.vcard .pos{font-size:.75rem;color:#718096;font-style:italic;margin-left:6px}
+.vcard .cnw{font-size:1.05rem;font-weight:700;margin:2px 0 6px}
+.vcard .def{font-size:.9rem}
+.vcard .ex2{font-size:.85rem;background:var(--mist);border-left:3px solid var(--ml-gold);padding:5px 8px;margin-top:7px}
+.say{margin-top:8px;border:1px solid var(--ml-green);background:#fff;color:var(--ml-green);border-radius:6px;padding:3px 10px;cursor:pointer;font:inherit;font-size:.85rem}
+.say:hover{background:var(--ml-green-light)}
+
+h2.sec{font-size:1.3rem;color:var(--cobalt);margin:22px 0 4px}
+h2.sec .cn{display:block;font-size:.9rem;font-weight:400}
+.q-instr{background:var(--amber-light);border-radius:8px;padding:8px 12px;margin:8px 0 14px;font-size:.9rem}
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px}
+.q-num{font-size:.75rem;font-weight:700;color:var(--ml-green);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.passage-box{background:var(--mist);border-left:4px solid var(--cobalt);padding:9px 12px;margin:6px 0 10px;font-family:'Literata',serif;font-size:.93rem;white-space:pre-line}
+.q-text{font-weight:600}
+.q-cn{margin-bottom:10px}
+.opts-wrap{display:flex;flex-direction:column;gap:8px}
+.opt-btn{text-align:left;background:#fff;border:2px solid var(--border);border-radius:8px;padding:9px 12px;font:inherit;font-size:.93rem;cursor:pointer;color:var(--ink)}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:var(--ml-green-light)}
+.opt-btn:disabled{cursor:default}
+.opt-btn .cn{font-size:.85rem}
+.opt-btn.show-correct{border-color:#2d6a4f;background:#d8f3dc}
+.opt-btn.selected-correct{border-color:#2d6a4f;background:#b7e4c7}
+.opt-btn.selected-wrong{border-color:var(--ml-red);background:#fee2e2}
+.rationale{display:none;margin-top:10px;padding:9px 12px;border-radius:8px;font-size:.9rem}
+.rationale.show{display:block}
+.rationale.correct-rat{background:#d8f3dc;border-left:4px solid #2d6a4f}
+.rationale.wrong-rat{background:#fee2e2;border-left:4px solid var(--ml-red)}
+
+.reflect{background:#fff;border:2px solid var(--ml-green);border-radius:12px;padding:16px 18px;margin-top:20px}
+.reflect h3{color:var(--ml-green-dark);margin-bottom:8px}
+.reflect label{display:block;font-weight:600;margin-top:12px}
+.reflect textarea{width:100%;min-height:90px;margin-top:6px;padding:9px 10px;border:2px solid var(--border);border-radius:8px;font:inherit;resize:vertical}
+.reflect textarea.filled,.reflect input.filled{border-color:var(--ml-green)}
+.grat-row{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:600}
+.grat-row input{flex:1;min-width:200px;padding:8px 10px;border:2px solid var(--border);border-radius:8px;font:inherit}
+.dl-btn{margin-top:18px;width:100%;padding:13px;border:none;border-radius:10px;background:#a0aec0;color:#fff;font:inherit;font-weight:700;font-size:1rem;opacity:.5;pointer-events:none}
+.dl-btn.ready{background:var(--ml-green);opacity:1;pointer-events:auto;cursor:pointer}
+.hint{margin-top:8px;font-size:.82rem;color:#718096;text-align:center}
+.hint.hidden{display:none}
+
+#timer-display{position:fixed;bottom:12px;right:12px;background:var(--ml-green-dark);color:#fff;padding:6px 12px;border-radius:20px;font-size:.85rem;font-weight:700;z-index:1001}
+@media(max-width:600px){header h1{font-size:1.1rem}.tab-btn{padding:6px 8px;font-size:.78rem}main{padding:12px 10px 90px}}
+</style>
+</head>
+<body>
+
+<div class="warn">⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. · <span>请留在此模块。每次切换标签页都会被记录，老师可以看到。</span></div>
+<div id="leaveNotice">🚨 Tab switch recorded! Your teacher will see this. · <span>标签页切换已记录！老师可以看到。</span></div>
+
+<header>
+  <h1>MLA 9th Edition Citation Lab<span class="cn">MLA第九版引用实验室</span></h1>
+  <div class="hdr-row">
+    <span class="badge" id="leaveBadge">🚪 Leaves: 0</span>
+    <div class="pips"><span>Done · 完成：</span>
+      <span class="pip" id="pip-t1" title="Day 1"></span>
+      <span class="pip" id="pip-t2" title="Day 2"></span>
+      <span class="pip" id="pip-t3" title="Day 3"></span>
+      <span class="pip" id="pip-t4" title="Day 4"></span>
+    </div>
+  </div>
+  <div class="prog-wrap"><div id="progressBar"></div></div>
+  <div id="progressText">Progress: 0% · 进度：0%</div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="vocab">Vocab<span class="cn">词汇</span></button>
+  <button class="tab-btn" data-tab="t1">Day 1: Format &amp; In-Text<span class="cn">格式与文内引用</span></button>
+  <button class="tab-btn" data-tab="t2">Day 2: Quotes<span class="cn">引用语句</span></button>
+  <button class="tab-btn" data-tab="t3">Day 3: Works Cited<span class="cn">参考文献表</span></button>
+  <button class="tab-btn" data-tab="t4">Day 4: Online &amp; Review<span class="cn">网络来源与复习</span></button>
+</nav>
+
+<main>
+
+<!-- ================= VOCAB ================= -->
+<section id="tab-vocab" class="tab-content active">
+  <div class="concept">
+    <h3>Welcome! How to use this module<span class="cn">欢迎！如何使用本模块</span></h3>
+    <p>This module teaches you <strong>MLA 9th Edition</strong>, the citation style used in English class. Each Day has: (1) lessons to read, (2) 10 practice questions, (3) two short reflection questions, and (4) a gratitude line.</p>
+    <p class="cn">本模块教你 <strong>MLA 第九版</strong>，也就是英语课使用的引用格式。每一天包括：(1) 要阅读的讲解，(2) 10 道练习题，(3) 两个简短的反思问题，(4) 一句感恩的话。</p>
+    <div class="callout note"><strong>Important · 重要：</strong> Read the lesson first. Choose each answer carefully — you <strong>cannot change</strong> an answer after you click. When everything is finished, the download button turns green. Download your report and give it to your teacher.<br><span class="cn">请先阅读讲解。认真选择答案——点击后<strong>不能更改</strong>。全部完成后，下载按钮会变绿。下载你的报告并交给老师。</span></div>
+    <p>Study the 12 words below. Click 🔊 to hear each word. · <span class="cn">学习下面 12 个词。点击 🔊 听发音。</span></p>
+  </div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</section>
+
+<!-- ================= DAY 1 ================= -->
+<section id="tab-t1" class="tab-content">
+  <div class="name-row"><label for="t1Name"><strong>Your name · 你的名字：</strong></label><input id="t1Name" type="text" placeholder="Type your name · 输入姓名"></div>
+
+  <div class="concept">
+    <h3>1. Why do we cite sources?<span class="cn">我们为什么要标注引用来源？</span></h3>
+    <p>When you use another person’s words or ideas, you must tell the reader where they came from. This is called <strong>citing</strong> (or documenting) a source.</p>
+    <p class="cn">当你使用别人的文字或想法时，必须告诉读者它们来自哪里。这叫做<strong>引用标注</strong>。</p>
+    <ul>
+      <li><strong>Give credit</strong> to other people’s work. · 尊重他人的成果。</li>
+      <li><strong>Let the reader check</strong> the information. · 让读者能够核实信息。</li>
+      <li><strong>Make your paper stronger</strong> (more believable). · 让你的论文更有说服力。</li>
+      <li><strong>Avoid plagiarism.</strong> · 避免抄袭。</li>
+    </ul>
+    <div class="callout tip"><strong>Plagiarism</strong> (抄袭) comes from the Latin word <em>plagiarius</em>, which means “kidnapper.” Plagiarism is using someone else’s language, ideas, or other original material without saying where it came from.<br><span class="cn">Plagiarism 来自拉丁语 <em>plagiarius</em>，意思是「绑架者」。抄袭就是使用别人的语言、想法或原创材料，却不说明来源。</span></div>
+    <div class="callout note"><strong>Common knowledge</strong> (常识) does not need a citation. Example: “The Earth goes around the Sun.” But you <em>do</em> cite exact quotes, paraphrases, statistics, and special ideas.<br><span class="cn">常识不需要标注来源。例如：「地球绕着太阳转。」但是直接引用、改写、统计数字和独特的观点<em>必须</em>标注。</span></div>
+  </div>
+
+  <div class="concept">
+    <h3>2. MLA paper format checklist<span class="cn">MLA 论文格式清单</span></h3>
+    <table class="mla">
+      <tr><th>Part · 部分</th><th>MLA rule · 规则</th></tr>
+      <tr><td>Font · 字体</td><td>12-point Times New Roman<br><span class="cn">12 号 Times New Roman</span></td></tr>
+      <tr><td>Spacing · 行距</td><td>Double spacing (the whole paper)<br><span class="cn">全文双倍行距</span></td></tr>
+      <tr><td>Margins · 页边距</td><td>1 inch on all four sides<br><span class="cn">四边都是 1 英寸</span></td></tr>
+      <tr><td>Page number · 页码</td><td>Your <strong>last name + page number</strong> in the upper right corner, on every page. Example: <em>Chen 1</em><br><span class="cn">每页右上角写<strong>姓 + 页码</strong>，例如 Chen 1</span></td></tr>
+      <tr><td>Heading · 页首信息</td><td>Upper left of page 1, four lines: your name, teacher’s name, course, date<br><span class="cn">第一页左上角四行：你的姓名、老师姓名、课程、日期</span></td></tr>
+      <tr><td>Title · 标题</td><td>Centered on the next line. <strong>Not</strong> bold, underlined, or italic.<br><span class="cn">下一行居中。<strong>不</strong>加粗、不加下划线、不用斜体。</span></td></tr>
+    </table>
+    <div class="ex"><span class="lbl">Example · 示例（first page）</span>
+      <div style="text-align:right">Chen 1</div>
+      Li Wei<br>Ms. Chen<br>English 12<br>12 October 2026
+      <div style="text-align:center;margin-top:6px">Why Citing Matters</div>
+    </div>
+    <div class="callout tip">Dates in MLA go in this order: <strong>day, month, year</strong> → <em>12 October 2026</em>. <span class="cn">MLA 日期顺序：<strong>日、月、年</strong>。</span></div>
+  </div>
+
+  <div class="concept">
+    <h3>3. In-text citations<span class="cn">文内引用</span></h3>
+    <p>An <strong>in-text citation</strong> is a short note in parentheses <em>inside</em> your sentence. It points the reader to the full entry on the Works Cited page. MLA uses <strong>author + page number</strong>. The citation looks the same for a quote, a paraphrase, or a summary.</p>
+    <p class="cn"><strong>文内引用</strong>是写在句子里括号中的简短标注，指向参考文献表中的完整条目。MLA 用<strong>作者 + 页码</strong>。无论是直接引用、改写还是概括，格式都一样。</p>
+    <table class="mla">
+      <tr><th>Situation · 情况</th><th>Example · 示例</th></tr>
+      <tr><td>Author is <strong>not</strong> in your sentence<br><span class="cn">句子里没有作者名</span></td><td>Gatsby keeps hoping for a better future (Fitzgerald 55).</td></tr>
+      <tr><td>Author <strong>is</strong> in your sentence — put only the page<br><span class="cn">句子里有作者名——括号里只写页码</span></td><td>Fitzgerald shows that Gatsby keeps hoping for a better future (55).</td></tr>
+      <tr><td>Source is online with no page numbers — author only<br><span class="cn">网络来源没有页码——只写作者</span></td><td>Hitchens explains the history of the novel (Hitchens).</td></tr>
+    </table>
+    <div class="callout note"><strong>Three punctuation rules · 三条标点规则：</strong> (1) No comma between author and page: <em>(Fitzgerald 55)</em>. (2) No “p.” or “page.” (3) The sentence period goes <strong>after</strong> the parentheses.<br><span class="cn">(1) 作者和页码之间<strong>没有逗号</strong>。(2) 不写 p. 或 page。(3) 句号放在括号<strong>后面</strong>。</span></div>
+  </div>
+
+  <h2 class="sec">Practice Quiz · Day 1<span class="cn">练习题 · 第一天</span></h2>
+  <div class="q-instr">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></div>
+  <div id="t1QuizContainer"></div>
+  <div id="t1Reflect"></div>
+</section>
+
+<!-- ================= DAY 2 ================= -->
+<section id="tab-t2" class="tab-content">
+  <div class="name-row"><label for="t2Name"><strong>Your name · 你的名字：</strong></label><input id="t2Name" type="text" placeholder="Type your name · 输入姓名"></div>
+
+  <div class="concept">
+    <h3>1. Short quotations<span class="cn">短引用</span></h3>
+    <p>A <strong>quotation</strong> uses the author’s exact words. Put the words in quotation marks. Start with an introductory phrase. After the closing quotation mark, add the citation, and then the period.</p>
+    <p class="cn"><strong>直接引用</strong>使用作者的原话，要加引号。先写引导语。右引号之后写文内引用，最后写句号。</p>
+    <div class="parts"><span>Intro phrase</span><span>“quote”</span><span>(Author page)</span><span>.</span></div>
+    <div class="ex"><span class="lbl">Author NOT in the sentence · 句中没有作者</span>
+      In <em>The Glass Menagerie</em>, the mother Amanda is a true Southern belle, and she recalls, “Among my callers were some of the most prominent young planters of the Mississippi delta” (Williams 981).</div>
+    <div class="ex"><span class="lbl">Author IS in the sentence · 句中有作者</span>
+      In <em>The Glass Menagerie</em>, Williams pens Amanda as a Southern belle, and she recalls, “Among my callers were some of the most prominent young planters of the Mississippi delta” (981).</div>
+    <div class="callout tip"><strong>Short quotation</strong> = fewer than four lines of prose, or three lines of poetry or less. <span class="cn">短引用 = 少于四行散文，或不超过三行诗。</span></div>
+  </div>
+
+  <div class="concept">
+    <h3>2. Block quotations<span class="cn">块引用（长引用）</span></h3>
+    <p>If a quotation is <strong>longer than four lines of prose</strong> (or <strong>more than three lines of poetry</strong>), set it apart as a <strong>block quotation</strong>:</p>
+    <ul>
+      <li>End your introduction with a <strong>colon (:)</strong>. · 引导语以<strong>冒号</strong>结尾。</li>
+      <li>Start the quote on a <strong>new line</strong>. · 另起一行。</li>
+      <li><strong>Indent the whole quote 1 inch</strong> from the left margin. · 整段从左边距缩进 <strong>1 英寸</strong>。</li>
+      <li><strong>Do not use quotation marks.</strong> · <strong>不加引号</strong>。</li>
+      <li>Put the citation <strong>after</strong> the final punctuation of the quote. · 引用标注放在引文最后的标点<strong>之后</strong>。</li>
+    </ul>
+    <div class="ex"><span class="lbl">Sample block quotation (made-up source) · 示例（虚构来源）</span>
+      Writer Dana Lee explains why daily reading matters:
+      <div class="blockq">Students who read for twenty minutes each day slowly build a larger vocabulary. They also learn how good writers organize ideas, and that knowledge helps them in every class they take. Over many months, the habit changes how they write. (Lee 12)</div>
+      Lee’s idea shows that small habits can lead to big growth.</div>
+  </div>
+
+  <div class="concept">
+    <h3>3. Quoting poems<span class="cn">引用诗歌</span></h3>
+    <p>When you quote <strong>two or three lines</strong> of a poem inside a sentence, separate the lines with a <strong>slash with a space on each side ( / )</strong>. For poems, cite the <strong>author and line numbers</strong>, not pages.</p>
+    <p class="cn">在句子中引用<strong>两三行</strong>诗时，用<strong>前后各有空格的斜线（ / ）</strong>分隔诗行。诗歌标注<strong>作者和行号</strong>，而不是页码。</p>
+    <div class="ex"><span class="lbl">Example · 示例</span>
+      The poem begins with strange, playful words: “’Twas brillig, and the slithy toves / Did gyre and gimble in the wabe” (Carroll lines 1-2).</div>
+    <div class="callout note">The first time you cite lines, write the word <em>lines</em>. <span class="cn">第一次标注行号时，要写出 <em>lines</em> 这个词。</span></div>
+  </div>
+
+  <div class="concept">
+    <h3>4. Special cases for the author<span class="cn">作者的特殊情况</span></h3>
+    <table class="mla">
+      <tr><th>Case · 情况</th><th>In-text citation · 文内引用</th></tr>
+      <tr><td>Two authors · 两位作者</td><td>(Gerson and Gerson 102)</td></tr>
+      <tr><td>Three or more authors · 三位或以上作者<br><span class="cn">只写第一位 + et al.（等人）</span></td><td>(Daniels et al. 73)</td></tr>
+      <tr><td>Two works by the same author — add a short title in italics · 同一作者的两部作品——加斜体短标题</td><td>(Williams, <em>The Glass Menagerie</em> 999)</td></tr>
+      <tr><td>No author — use the title in quotation marks (shorten if long, but keep the first words) · 没有作者——用带引号的标题（太长可缩短，但保留开头的词）</td><td>(“Why Students Need Sleep”)</td></tr>
+      <tr><td>Quote found inside another source — use <strong>qtd. in</strong> · 引文来自另一个来源——用 <strong>qtd. in</strong></td><td>Jones says, “…” (qtd. in Smith 37).</td></tr>
+    </table>
+    <div class="callout note">Some older examples write a comma before <em>et al.</em>. MLA 9 does <strong>not</strong>: write <em>(Daniels et al. 73)</em>. <span class="cn">有些旧的例子在 et al. 前加逗号。MLA 第九版<strong>不加</strong>逗号。</span></div>
+    <div class="callout tip"><strong>Secondary source · 二手来源：</strong> You read Smith’s article, and Smith quotes Jones. Give credit to both: name Jones in your sentence, and cite Smith with <em>qtd. in</em>. On the Works Cited page, list <strong>Smith</strong>, because Smith is what you actually read.<br><span class="cn">你读的是 Smith 的文章，其中 Smith 引用了 Jones。要同时标注两人：句中写 Jones，括号里用 <em>qtd. in</em> 加 Smith。参考文献表里列 <strong>Smith</strong>，因为你实际读的是 Smith 的文章。</span></div>
+  </div>
+
+  <h2 class="sec">Practice Quiz · Day 2<span class="cn">练习题 · 第二天</span></h2>
+  <div class="q-instr">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></div>
+  <div id="t2QuizContainer"></div>
+  <div id="t2Reflect"></div>
+</section>
+
+<!-- ================= DAY 3 ================= -->
+<section id="tab-t3" class="tab-content">
+  <div class="name-row"><label for="t3Name"><strong>Your name · 你的名字：</strong></label><input id="t3Name" type="text" placeholder="Type your name · 输入姓名"></div>
+
+  <div class="concept">
+    <h3>1. The Works Cited page<span class="cn">参考文献表页面</span></h3>
+    <p>The <strong>Works Cited</strong> page lists every source you used. Every in-text citation must match an entry here.</p>
+    <ul>
+      <li>Start on a <strong>new page</strong> after your paper. · 在论文后<strong>另起一页</strong>。</li>
+      <li>Write <strong>Works Cited</strong> centered at the top (no bold, no italics). · 顶部居中写 <strong>Works Cited</strong>。</li>
+      <li>Use a <strong>hanging indent</strong> on every entry: the first line is at the left margin, and all other lines are indented. · 每个条目用<strong>悬挂缩进</strong>：第一行靠左，其余各行缩进。</li>
+      <li><strong>Alphabetize</strong> by the first item (usually the author’s last name, or the title if there is no author). · 按第一项<strong>字母顺序</strong>排列（通常是作者姓氏；没有作者则按标题）。</li>
+      <li>If an entry starts with <em>The</em>, use the next word to alphabetize. · 如果以 <em>The</em> 开头，按下一个词排序。</li>
+      <li>Keep double spacing. · 保持双倍行距。</li>
+    </ul>
+    <div class="ex"><span class="lbl">Example · 示例</span>
+      <div style="text-align:center">Works Cited</div>
+      <div class="hang">Bronte, Charlotte. <em>Jane Eyre</em>. E.P. Dutton and Co., 1922.</div>
+      <div class="hang">Fitzgerald, F. Scott. <em>The Great Gatsby</em>. Hayes Barton Press, 2007.</div>
+      <div class="hang">Gerson, Sharon, and Steven Gerson. <em>Technical Communication: Process and Product</em>. 7th ed., Prentice Hall, 2012.</div>
+    </div>
+  </div>
+
+  <div class="concept">
+    <h3>2. The nine core elements<span class="cn">九个核心要素</span></h3>
+    <p>Every Works Cited entry is built from the same nine elements, <strong>in this order</strong>. If an element does not apply to your source, skip it.</p>
+    <p class="cn">每个条目都由这九个要素按<strong>固定顺序</strong>组成。如果某个要素不适用，就跳过。</p>
+    <table class="mla">
+      <tr><th>#</th><th>Element · 要素</th><th>Ends with · 结尾</th><th>Notes · 说明</th></tr>
+      <tr><td>1</td><td>Author · 作者</td><td>.</td><td>Last name, First name</td></tr>
+      <tr><td>2</td><td>Title of source · 来源标题</td><td>.</td><td>Italics (big work) or “quotation marks” (small work)</td></tr>
+      <tr><td>3</td><td>Title of container · 载体标题</td><td>,</td><td>The larger work that holds the source (italics)</td></tr>
+      <tr><td>4</td><td>Contributor · 贡献者</td><td>,</td><td>Edited by, Translated by, Directed by…</td></tr>
+      <tr><td>5</td><td>Version · 版本</td><td>,</td><td>7th ed.</td></tr>
+      <tr><td>6</td><td>Number · 编号</td><td>,</td><td>vol. 39 no. 3</td></tr>
+      <tr><td>7</td><td>Publisher · 出版者</td><td>,</td><td>Name only, no city</td></tr>
+      <tr><td>8</td><td>Publication date · 出版日期</td><td>,</td><td>Give all the date information shown</td></tr>
+      <tr><td>9</td><td>Location · 位置</td><td>.</td><td>Page numbers (p. 74 / pp. 74-82) or URL / DOI</td></tr>
+    </table>
+    <div class="callout tip"><strong>Pattern · 公式：</strong><br>Author. Title of source. Title of container, Contributor, version, number, publisher, publication date, location.</div>
+    <div class="parts"><span>1 Author.</span><span>2 Title.</span><span>3 Container,</span><span>4 Contributor,</span><span>5 Version,</span><span>6 Number,</span><span>7 Publisher,</span><span>8 Date,</span><span>9 Location.</span></div>
+  </div>
+
+  <div class="concept">
+    <h3>3. Author names<span class="cn">作者姓名写法</span></h3>
+    <table class="mla">
+      <tr><th>Type · 类型</th><th>Works Cited · 参考文献</th><th>In-text · 文内</th></tr>
+      <tr><td>One author · 一位</td><td>Smith, John R.</td><td>(Smith)</td></tr>
+      <tr><td>Two authors · 两位<br><span class="cn">第二位按正常顺序</span></td><td>Stanley, Claire, and Robert Jones.</td><td>(Stanley and Jones)</td></tr>
+      <tr><td>Three or more · 三位或以上</td><td>Holland, Marie, et al.</td><td>(Holland et al.)</td></tr>
+      <tr><td>Editor · 编者</td><td>Wingfield, Tom, editor.</td><td>(Wingfield)</td></tr>
+      <tr><td>Organization · 机构</td><td>United Nations.</td><td>(United Nations)</td></tr>
+    </table>
+  </div>
+
+  <div class="concept">
+    <h3>4. Italics or quotation marks?<span class="cn">用斜体还是引号？</span></h3>
+    <div class="parts"><span style="background:#d8f3dc;color:#1b4332">Big, stand-alone works → <em>italics</em></span><span style="background:#fef3c7;color:#b45309">Small parts of a bigger work → “quotation marks”</span></div>
+    <table class="mla">
+      <tr><th><em>Italics</em> · 斜体（大的、独立的作品）</th><th>“Quotation marks” · 引号（较小的部分）</th></tr>
+      <tr><td><em>The Great Gatsby</em> (book)<br><em>The New York Times</em> (newspaper)<br><em>Pride and Prejudice</em> (novel)<br><em>YouTube</em> (website)</td><td>“A Rose for Emily” (short story)<br>“The Writing Center” (web page)<br>“Group Prenatal Care: An Analysis of Cost” (article)<br>“Me, Garfield, and I” (TV episode)</td></tr>
+    </table>
+    <div class="ex"><span class="lbl">Worked example: a book with one author · 例：一位作者的书</span>
+      <div class="parts"><span>1 Bronte, Charlotte.</span><span>2 <em>Jane Eyre</em>.</span><span>7 E.P. Dutton and Co.,</span><span>8 1922.</span></div>
+      <div class="hang"><strong>Works Cited:</strong> Bronte, Charlotte. <em>Jane Eyre</em>. E.P. Dutton and Co., 1922.</div>
+      <div><strong>In-text:</strong> (Bronte 35).</div>
+    </div>
+    <div class="ex"><span class="lbl">Worked example: a book with an edition number · 例：有版次的书</span>
+      <div class="hang">Gerson, Sharon, and Steven Gerson. <em>Technical Communication: Process and Product</em>. 7th ed., Prentice Hall, 2012.</div>
+      <div><strong>In-text:</strong> (Gerson and Gerson 102).</div>
+    </div>
+    <div class="ex"><span class="lbl">Worked example: a story inside an anthology · 例：选集中的一篇作品</span>
+      <div class="hang">Traherne, Thomas. “On Leaping Over the Moon.” <em>The Norton Anthology of English Literature</em>. Edited by Stephen Greenblatt, 9th ed., vol. 1, W.W. Norton and Company, 2012, pp. 1883-1886.</div>
+    </div>
+  </div>
+
+  <h2 class="sec">Practice Quiz · Day 3<span class="cn">练习题 · 第三天</span></h2>
+  <div class="q-instr">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></div>
+  <div id="t3QuizContainer"></div>
+  <div id="t3Reflect"></div>
+</section>
+
+<!-- ================= DAY 4 ================= -->
+<section id="tab-t4" class="tab-content">
+  <div class="name-row"><label for="t4Name"><strong>Your name · 你的名字：</strong></label><input id="t4Name" type="text" placeholder="Type your name · 输入姓名"></div>
+
+  <div class="concept">
+    <h3>1. What is a container?<span class="cn">什么是「载体」？</span></h3>
+    <p>Many sources are part of a <strong>larger work</strong>. The larger work is the <strong>container</strong>. The container’s title goes in <em>italics</em>, followed by a comma.</p>
+    <p class="cn">很多来源是<strong>更大作品</strong>的一部分。这个更大的作品就是<strong>载体</strong>，它的标题用<em>斜体</em>，后面加逗号。</p>
+    <table class="mla">
+      <tr><th>Source (small) · 来源</th><th>Container (big) · 载体</th></tr>
+      <tr><td>“The Warmth of Glass &amp; Stone” (article)</td><td><em>Our State: Celebrating North Carolina</em> (magazine)</td></tr>
+      <tr><td>“Making the Vaccine Decision” (web page)</td><td><em>CDC</em> (website)</td></tr>
+      <tr><td>“On Leaping Over the Moon” (poem)</td><td><em>The Norton Anthology of English Literature</em> (book)</td></tr>
+      <tr><td>“Grammar Girl: How to Use ‘Who vs. Whom’” (video)</td><td><em>YouTube</em> (website)</td></tr>
+    </table>
+    <div class="callout tip">If a source stands alone (a whole book), it has <strong>no container</strong> — skip element 3. <span class="cn">如果来源是独立的（整本书），就<strong>没有载体</strong>——跳过第 3 项。</span></div>
+    <div class="callout note"><strong>Web page vs. website:</strong> the web page is the small piece (“The Writing Center”); the website is the container (<em>Caldwell Community College and Technical Institute</em>). <span class="cn">网页是小的部分，网站是载体。</span></div>
+  </div>
+
+  <div class="concept">
+    <h3>2. Elements 4 to 9 in detail<span class="cn">第 4 到第 9 项详解</span></h3>
+    <table class="mla">
+      <tr><th>Element · 要素</th><th>What to write · 怎么写</th></tr>
+      <tr><td>4 Contributor · 贡献者</td><td>Other people who helped: <em>Edited by Mansi Daga</em>, <em>Directed by Andrew Stanton</em>, <em>uploaded by Ragan Communications</em>. If you used the editor as the author, do not repeat. · 如果已把编者放在作者位置，就不要重复。</td></tr>
+      <tr><td>5 Version · 版本</td><td>Edition or version: <em>7th ed.</em></td></tr>
+      <tr><td>6 Number · 编号</td><td>Volume and number, with abbreviations: <em>vol. 39 no. 3</em></td></tr>
+      <tr><td>7 Publisher · 出版者</td><td>The organization that produced the work. Do not list the city. · 不写城市。</td></tr>
+      <tr><td>8 Date · 日期</td><td>Day Month Year as shown: <em>27 Apr. 2016</em>. Long month names are shortened (Apr., Sept.). May, June, and July stay in full. · 较长的月份名要缩写；May、June、July 不缩写。</td></tr>
+      <tr><td>9 Location · 位置</td><td>Print: <em>p. 74</em> or <em>pp. 68-71</em>. Online: URL or DOI. · 纸质：页码；网络：网址或 DOI。</td></tr>
+    </table>
+    <div class="callout tip"><strong>URL tip · 网址提示：</strong> MLA 9 asks you to copy the URL <strong>without</strong> <em>http://</em> or <em>https://</em>. For a DOI, write it as a link: <em>https://doi.org/10.1007/s11069-008-9299-2</em>. (Some examples in your booklet still show http:// — follow your teacher.)<br><span class="cn">MLA 9 要求复制网址时<strong>不要</strong>写 http:// 或 https://。DOI 要写成链接形式。（你的小册子里有些例子仍带 http://——请听老师的。）</span></div>
+    <div class="callout note"><strong>No date on a web page? · 网页没有日期？</strong> Add the date you looked at it, at the very end: <em>Accessed 21 June 2016.</em> · 在条目最后加上你访问的日期。</div>
+  </div>
+
+  <div class="concept">
+    <h3>3. Model entries<span class="cn">示范条目</span></h3>
+    <div class="ex"><span class="lbl">Web page with an author · 有作者的网页</span>
+      <div class="hang">Hitchens, Christopher. “The Road to West Egg.” <em>Vanity Fair</em>, Conde Nast, May 2000, www.vanityfair.com/news/2000/05/hitchens200005.</div>
+      <div><strong>In-text:</strong> (Hitchens).</div></div>
+    <div class="ex"><span class="lbl">Web page with NO author · 没有作者的网页</span>
+      <div class="hang">“Bullying and Teasing: No Laughing Matter.” <em>Scholastic</em>, 2016, www.scholastic.com/parents/resources/article/social-emotional-skills/bullying-and-teasing-no-laughing-matter.</div>
+      <div><strong>In-text:</strong> (“Bullying and Teasing: No Laughing Matter”).</div></div>
+    <div class="ex"><span class="lbl">Organization as author · 机构作者</span>
+      <div class="hang">Centers for Disease Control and Prevention. “Making the Vaccine Decision.” <em>CDC</em>, U.S. Department of Health and Human Services, 27 Apr. 2016, www.cdc.gov/vaccines/parents/vaccine-decision/index.html.</div>
+      <div><strong>In-text:</strong> (Centers for Disease Control and Prevention).</div></div>
+    <div class="ex"><span class="lbl">Journal article with a DOI · 带 DOI 的期刊文章</span>
+      <div class="hang">Gandomi, A.H., et al. “Discussion on ‘Alternative Data-Driven Methods to Estimate Wind Waves by Inverse Modeling.’” <em>Natural Hazards</em>, edited by Mansi Daga, vol. 52 no. 3, 2008, https://doi.org/10.1007/s11069-008-9299-2.</div>
+      <div><strong>In-text:</strong> (Gandomi et al.).</div></div>
+    <div class="ex"><span class="lbl">YouTube video · 视频</span>
+      <div class="hang">“Grammar Girl: How to Use ‘Who vs. Whom.’” <em>YouTube</em>, uploaded by Ragan Communications, 4 Mar. 2014, www.youtube.com/watch?v=x3aEGrmsZ5c.</div>
+      <div><strong>In-text:</strong> (Ragan Communications).</div></div>
+    <div class="ex"><span class="lbl">Film · 电影</span>
+      <div class="hang">Stanton, Andrew, et al., writers. <em>Finding Dory</em>. Directed by Andrew Stanton and Angus MacLane, Pixar, 17 June 2016. <em>Netflix</em> app.</div></div>
+    <div class="ex"><span class="lbl">Print magazine article · 纸质杂志文章</span>
+      <div class="hang">Wenner, Jann S. “How Chris Martin Fixed Himself.” <em>Rolling Stone</em>, vol. 1335, Penske Business Media, Jan. 2020, pp. 68-71.</div>
+      <div><strong>In-text:</strong> (Wenner 68).</div></div>
+    <div class="ex"><span class="lbl">Image / figure in your paper · 论文中的图片</span>
+      Label photographs, charts, and other images <strong>Fig.</strong> (Figure), number them, and put the citation under the image:
+      <div class="hang">Fig. 1. USDA. “Food Guide Pyramid.” <em>USDA Center for Nutrition Policy and Promotion</em>, 2015, www.cnpp.usda.gov/sites/default/files/archived_projects/FGPLargeGIF.gif.</div></div>
+  </div>
+
+  <h2 class="sec">Practice Quiz · Day 4<span class="cn">练习题 · 第四天</span></h2>
+  <div class="q-instr">Select the best answer. You cannot change your answer after you select it. · <span class="cn">选择最佳答案。选择后不能更改。</span></div>
+  <div id="t4QuizContainer"></div>
+  <div id="t4Reflect"></div>
+</section>
+
+</main>
+
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+var VOCAB = [
+  {word:"plagiarism",pos:"noun",cn:"抄袭",def:"Using someone else's words or ideas without saying where they came from.",cn_def:"使用别人的文字或想法，却不说明来源。",example:"Copying a paragraph from a website without credit is plagiarism."},
+  {word:"citation",pos:"noun",cn:"引用标注",def:"A note that tells the reader where information came from.",cn_def:"告诉读者信息来源的标注。",example:"Every quote in your essay needs a citation."},
+  {word:"paraphrase",pos:"verb",cn:"改写",def:"To say another person's idea in your own words.",cn_def:"用自己的话表达别人的想法。",example:"I paraphrased the article, but I still cited it."},
+  {word:"quotation",pos:"noun",cn:"直接引语",def:"The exact words of another writer, placed inside quotation marks.",cn_def:"另一位作者的原话，放在引号里。",example:"Put a quotation inside quotation marks."},
+  {word:"in-text citation",pos:"noun phrase",cn:"文内引用",def:"A short note in parentheses inside a sentence, such as (Fitzgerald 55).",cn_def:"句子里括号中的简短标注，例如 (Fitzgerald 55)。",example:"The in-text citation comes before the period."},
+  {word:"Works Cited",pos:"noun phrase",cn:"参考文献表",def:"The page at the end of a paper that lists all sources used.",cn_def:"论文末尾列出所有使用来源的一页。",example:"Start the Works Cited on a new page."},
+  {word:"container",pos:"noun",cn:"载体",def:"The larger work that holds a source, such as a magazine or website.",cn_def:"包含某个来源的更大作品，例如杂志或网站。",example:"The container of an article is the magazine."},
+  {word:"hanging indent",pos:"noun phrase",cn:"悬挂缩进",def:"A format where the first line is at the margin and the other lines are indented.",cn_def:"第一行靠左，其余各行缩进的格式。",example:"Every Works Cited entry has a hanging indent."},
+  {word:"block quotation",pos:"noun phrase",cn:"块引用",def:"A long quotation set apart from the paragraph and indented one inch.",cn_def:"与段落分开并缩进一英寸的长引用。",example:"Do not use quotation marks in a block quotation."},
+  {word:"contributor",pos:"noun",cn:"贡献者",def:"A person who helped create a work, such as an editor or translator.",cn_def:"帮助完成作品的人，例如编者或译者。",example:"The editor is listed as a contributor."},
+  {word:"publisher",pos:"noun",cn:"出版者",def:"The company or group that produces and releases a work.",cn_def:"制作并发布作品的公司或机构。",example:"The publisher of the book is Prentice Hall."},
+  {word:"et al.",pos:"abbreviation",cn:"等人",def:"A Latin abbreviation meaning 'and others'; used for three or more authors.",cn_def:"拉丁语缩写，意思是「以及其他人」；用于三位或以上作者。",example:"Write Holland, Marie, et al. for a book with many authors."}
+];
+
+function Q(id,title,passage,q,qcn,opts,correct,right,wrong){
+  return {id:id,title:title,passage:passage,q:q,q_cn:qcn,options:opts,correct:correct,rat_right:right,rat_wrong:wrong};
+}
+
+/* ================= DAY 1 ================= */
+var T1_Q = [
+Q("a1","MLA basics","","What does MLA stand for?","MLA 是什么的缩写？",[
+"A. Modern Learning Academy|A. 现代学习学院",
+"B. Modern Language Association|B. 现代语言协会",
+"C. Major Library Archive|C. 主要图书馆档案",
+"D. Modern Literature Alliance|D. 现代文学联盟"],"B",
+"MLA means Modern Language Association. It makes rules for writing and citing sources.|MLA 是 Modern Language Association（现代语言协会）。它制定写作和引用资料的规则。",
+{A:"The name has no word 'Academy'. The last word is Association.|名称里没有 Academy（学院）。最后一个词是 Association（协会）。",
+ C:"The letters are M, L, A: Modern, Language, Association.|三个字母是 M、L、A：Modern、Language、Association。",
+ D:"Close, but the last word is Association, not Alliance.|很接近，但最后一个词是 Association，不是 Alliance。"}),
+
+Q("a2","What MLA controls","","MLA gives rules for three parts of your paper. Which one is NOT controlled by MLA?","MLA 规定论文的三个部分。下面哪一项不是 MLA 规定的？",[
+"A. How the paper looks (format)|A. 论文的外观（格式）",
+"B. In-text citations|B. 文内引用",
+"C. The Works Cited page|C. 参考文献表",
+"D. Which topic you choose|D. 你选择什么主题"],"D",
+"MLA controls format, in-text citations, and the Works Cited page. It does not choose your topic.|MLA 规定格式、文内引用和参考文献表，不决定你的主题。",
+{A:"Format IS part of MLA: font, spacing, margins, and heading.|格式属于 MLA：字体、行距、页边距和页首信息。",
+ B:"In-text citations ARE part of MLA, for example (Fitzgerald 55).|文内引用属于 MLA，例如 (Fitzgerald 55)。",
+ C:"The Works Cited page IS part of MLA.|参考文献表属于 MLA。"}),
+
+Q("a3","Plagiarism","","Which action is plagiarism?","下面哪种做法是抄袭？",[
+"A. Using a direct quote with quotation marks and a citation|A. 使用带引号和标注的直接引用",
+"B. Writing an idea in your own words and citing the source|B. 用自己的话写出想法并标注来源",
+"C. Copying a writer's sentences into your essay without giving credit|C. 把作者的句子复制到你的文章里却不说明来源",
+"D. Writing that the Earth goes around the Sun, with no citation|D. 写「地球绕着太阳转」，没有标注来源"],"C",
+"Copying sentences without credit is plagiarism. You used the writer's language and did not say so.|不说明来源就复制句子就是抄袭。你使用了作者的语言却没有说明。",
+{A:"This is correct MLA practice. The quote and citation give credit.|这是正确的 MLA 做法。引号和标注表示给了作者署名。",
+ B:"This is also correct. A paraphrase with a citation gives credit.|这也是正确的。改写并标注来源，就是给了署名。",
+ D:"This is common knowledge. Everyone knows it, so no citation is needed.|这是常识。人人都知道，所以不需要标注。"}),
+
+Q("a4","Paraphrasing","","You read an article and write its main idea in your own words. What must you do?","你读了一篇文章，并用自己的话写出它的主要观点。你必须做什么？",[
+"A. Still cite the source|A. 仍然要标注来源",
+"B. Nothing, because the words are yours|B. 什么都不用做，因为文字是你自己的",
+"C. Put quotation marks around it|C. 给它加上引号",
+"D. Cite it only if it is longer than a page|D. 只有超过一页才需要标注"],"A",
+"A paraphrase still uses another person's idea. You must cite the source.|改写仍然使用了别人的想法，所以必须标注来源。",
+{B:"The words are yours, but the IDEA is not. Ideas need credit too.|文字是你的，但想法不是。想法也需要署名。",
+ C:"Quotation marks are only for exact words. A paraphrase uses your own words.|引号只用于原话。改写用的是你自己的话。",
+ D:"Length does not matter. Any borrowed idea needs a citation.|长度无关。任何借用的想法都需要标注。"}),
+
+Q("a5","Paper format","","Which setup follows MLA format?","哪一种设置符合 MLA 格式？",[
+"A. 14-point Arial, single spacing, 2-inch margins|A. 14 号 Arial，单倍行距，2 英寸页边距",
+"B. 12-point Times New Roman, single spacing, 1-inch margins|B. 12 号 Times New Roman，单倍行距，1 英寸页边距",
+"C. 12-point Calibri, double spacing, 1-inch margins|C. 12 号 Calibri，双倍行距，1 英寸页边距",
+"D. 12-point Times New Roman, double spacing, 1-inch margins|D. 12 号 Times New Roman，双倍行距，1 英寸页边距"],"D",
+"MLA uses 12-point Times New Roman, double spacing, and 1-inch margins on all sides.|MLA 使用 12 号 Times New Roman、双倍行距，四边都是 1 英寸页边距。",
+{A:"Wrong font, size, spacing, and margins. All four are different from MLA.|字体、字号、行距和页边距都不对，四项都与 MLA 不同。",
+ B:"Single spacing is wrong. MLA papers are double spaced.|单倍行距不对。MLA 论文是双倍行距。",
+ C:"Calibri is the wrong font. MLA uses Times New Roman.|Calibri 字体不对。MLA 使用 Times New Roman。"}),
+
+Q("a6","Page numbers","","Where do your last name and page number go in an MLA paper?","在 MLA 论文中，你的姓和页码写在哪里？",[
+"A. Bottom center of each page|A. 每页底部中间",
+"B. Upper right corner of each page|B. 每页右上角",
+"C. Upper left corner of the first page only|C. 只在第一页左上角",
+"D. Bottom right corner of each page|D. 每页右下角"],"B",
+"The last name and page number go in the upper right corner on every page, for example Chen 1.|姓和页码写在每页的右上角，例如 Chen 1。",
+{A:"MLA does not use the bottom center. The number goes at the top.|MLA 不用底部中间。页码在页面顶部。",
+ C:"The upper left holds your heading on page 1. The page number goes on the right, on every page.|左上角是第一页的页首信息。页码在右边，而且每页都有。",
+ D:"The number goes at the top of the page, not the bottom.|页码在页面顶部，不在底部。"}),
+
+Q("a7","Heading","Student: Li Wei\nTeacher: Ms. Chen\nCourse: English 12\nDate: October 12, 2026 (today)","Which heading is correct for the top left of page 1 in MLA?","在 MLA 中，第一页左上角的哪种页首信息是正确的？",[
+"A. Li Wei / Ms. Chen / English 12 / 12 October 2026|A. Li Wei / Ms. Chen / English 12 / 12 October 2026",
+"B. 12 October 2026 / Li Wei / Ms. Chen / English 12|B. 12 October 2026 / Li Wei / Ms. Chen / English 12",
+"C. Ms. Chen / Li Wei / 12 October 2026 / English 12|C. Ms. Chen / Li Wei / 12 October 2026 / English 12",
+"D. English 12 / Ms. Chen / October 12, 2026 / Li Wei|D. English 12 / Ms. Chen / October 12, 2026 / Li Wei"],"A",
+"The order is your name, teacher, course, then date. The date is written day, month, year. (The slashes show line breaks.)|顺序是：你的姓名、老师、课程、日期。日期按日、月、年书写。（斜线表示换行。）",
+{B:"The date is last, not first.|日期应该在最后，不是第一行。",
+ C:"Your own name comes first, before the teacher's name.|你自己的姓名在第一行，要在老师姓名之前。",
+ D:"The order is wrong, and the date is not in day-month-year order.|顺序错误，日期也不是日-月-年的顺序。"}),
+
+Q("a8","Title","","Which title is formatted correctly in MLA?","哪一种标题格式在 MLA 中是正确的？",[
+"A. Bold and underlined, at the left margin|A. 加粗并加下划线，靠左对齐",
+"B. In italics, in the upper right corner|B. 斜体，在右上角",
+"C. Centered on the line after the heading, with no bold, underline, or italics|C. 在页首信息下一行居中，不加粗、不加下划线、不用斜体",
+"D. In quotation marks, at the bottom of the page|D. 加引号，放在页面底部"],"C",
+"The title is centered on the next line. It is plain text, with no bold, underline, or italics.|标题在下一行居中，是普通文字，不加粗、不加下划线、不用斜体。",
+{A:"MLA titles are not bold or underlined, and they are centered, not left.|MLA 标题不加粗也不加下划线，而且是居中，不是靠左。",
+ B:"The upper right holds your last name and page number. The title is plain and centered.|右上角放姓和页码。标题是普通文字并居中。",
+ D:"The title goes at the top, under the heading, with no quotation marks.|标题在顶部、页首信息下面，不加引号。"}),
+
+Q("a9","In-text citation","Source: The Great Gatsby by F. Scott Fitzgerald, page 55.\n\nGatsby keeps hoping for a better future (_____).","Which in-text citation goes in the blank?","空白处应填哪一个文内引用？",[
+"A. (Fitzgerald, p. 55)|A. (Fitzgerald, p. 55)",
+"B. (Fitzgerald 55)|B. (Fitzgerald 55)",
+"C. (Fitzgerald, 55)|C. (Fitzgerald, 55)",
+"D. (F. Scott Fitzgerald, page 55)|D. (F. Scott Fitzgerald, page 55)"],"B",
+"MLA uses the author's last name and the page number, with no comma and no 'p.'.|MLA 使用作者姓氏和页码，中间没有逗号，也不写 p.。",
+{A:"Do not use a comma or 'p.' in MLA.|MLA 中不要用逗号，也不要写 p.。",
+ C:"There is no comma between the author and the page number.|作者和页码之间没有逗号。",
+ D:"Use only the last name, and do not write the word 'page'.|只写姓氏，不要写 page 这个词。"}),
+
+Q("a10","Author in the sentence","Source: The Great Gatsby by F. Scott Fitzgerald, page 55.\n\nFitzgerald shows that Gatsby keeps hoping for a better future (_____).","The author's name is already in the sentence. Which citation goes in the blank?","作者的名字已经在句子里了。空白处应填哪一个引用？",[
+"A. (Fitzgerald 55)|A. (Fitzgerald 55)",
+"B. (Fitzgerald, p. 55)|B. (Fitzgerald, p. 55)",
+"C. (Scott Fitzgerald 55)|C. (Scott Fitzgerald 55)",
+"D. (55)|D. (55)"],"D",
+"When the author's name is in your sentence, put only the page number in the parentheses.|当作者名字已经在句子里时，括号里只写页码。",
+{A:"This repeats the author's name, which is already in the sentence.|这重复了作者的名字，而句子里已经有了。",
+ B:"This repeats the name and also uses a comma and 'p.', which MLA does not use.|这既重复了名字，又用了逗号和 p.，而 MLA 不这样写。",
+ C:"This repeats the name, and it is not the correct form of the name.|这重复了名字，而且名字的形式也不对。"})
+];
+
+/* ================= DAY 2 ================= */
+var T2_Q = [
+Q("b1","Period placement","","A sentence ends with a short quotation and a citation. Which sentence has the punctuation in the right place?","一个句子以短引用和引用标注结尾。哪个句子的标点位置正确？",[
+"A. Amanda says, “I had many callers.” (Williams 981)|A. Amanda says, “I had many callers.” (Williams 981)",
+"B. Amanda says, “I had many callers” (Williams 981).|B. Amanda says, “I had many callers” (Williams 981).",
+"C. Amanda says, “I had many callers.” (Williams 981).|C. Amanda says, “I had many callers.” (Williams 981).",
+"D. Amanda says, “I had many callers”. Williams 981.|D. Amanda says, “I had many callers”. Williams 981."],"B",
+"The order is: closing quotation mark, citation in parentheses, then the sentence period.|顺序是：右引号、括号里的引用标注、最后是句号。",
+{A:"The sentence has no period after the citation. The period must come after the parentheses.|引用标注后面没有句号。句号必须放在括号之后。",
+ C:"This has two periods. Remove the one inside the quotation marks.|这里有两个句号。要去掉引号里面的那个。",
+ D:"The citation must be in parentheses, and the period goes after it.|引用标注必须放在括号里，句号放在它后面。"}),
+
+Q("b2","Block quotation: when","","When must you use a block quotation?","什么时候必须使用块引用？",[
+"A. Whenever the author has a famous name|A. 作者名气很大时",
+"B. Whenever you quote one sentence|B. 引用一句话时",
+"C. When the quote is more than four lines of prose, or more than three lines of poetry|C. 引文超过四行散文，或超过三行诗时",
+"D. Whenever the source is a website|D. 来源是网站时"],"C",
+"A long quotation (more than four lines of prose or three lines of poetry) is set apart as a block quotation.|长引用（超过四行散文或三行诗）要单独设置为块引用。",
+{A:"A famous name does not change the rule. Only the LENGTH of the quote matters.|名气不改变规则。只有引文的长度才重要。",
+ B:"One sentence is usually short. Use quotation marks inside your paragraph.|一句话通常很短。在段落里用引号即可。",
+ D:"The type of source does not decide this. The length of the quote decides.|来源类型不决定这一点。由引文长度决定。"}),
+
+Q("b3","Block quotation: format","","Which description of a block quotation is correct?","哪一项对块引用的描述是正确的？",[
+"A. Start on a new line, indent the whole quote 1 inch, and use no quotation marks|A. 另起一行，整段缩进 1 英寸，不加引号",
+"B. Keep it inside the paragraph with quotation marks|B. 留在段落里并加引号",
+"C. Center it and write it in italics|C. 居中并用斜体",
+"D. Use single quotation marks and no indent|D. 用单引号，不缩进"],"A",
+"A block quotation starts on a new line, is indented 1 inch, and has no quotation marks. The introduction ends with a colon.|块引用另起一行，缩进 1 英寸，不加引号。引导语以冒号结尾。",
+{B:"That is how you format a SHORT quotation, not a block quotation.|那是短引用的格式，不是块引用。",
+ C:"Block quotations are not centered or italic. They are indented from the left.|块引用不居中也不用斜体，而是从左边缩进。",
+ D:"There must be an indent of 1 inch, and there are no quotation marks at all.|必须缩进 1 英寸，而且完全不加引号。"}),
+
+Q("b4","Quoting poetry","","You quote two lines of a poem inside a sentence. What separates the lines?","你在句子中引用了诗的两行。用什么符号分隔诗行？",[
+"A. A comma|A. 逗号",
+"B. A semicolon|B. 分号",
+"C. A slash with a space on each side ( / )|C. 前后各有空格的斜线（ / ）",
+"D. A new paragraph|D. 新的段落"],"C",
+"A slash with a space before and after shows where one line of poetry ends and the next begins.|前后各有空格的斜线表示一行诗在哪里结束、下一行从哪里开始。",
+{A:"A comma is a normal punctuation mark and would confuse the reader. Use a slash.|逗号是普通标点，会让读者混淆。要用斜线。",
+ B:"A semicolon does not show a line break. Use a slash.|分号不能表示换行。要用斜线。",
+ D:"A new paragraph is not used for two lines. Keep them in your sentence with a slash.|两行诗不用新段落。用斜线把它们留在句子里。"}),
+
+Q("b5","Citing poetry","Quote: “’Twas brillig, and the slithy toves / Did gyre and gimble in the wabe” (lines 1-2 of a poem by Lewis Carroll)","Which in-text citation is correct for these two lines?","这两行诗的文内引用，哪一个是正确的？",[
+"A. (Carroll p. 1-2)|A. (Carroll p. 1-2)",
+"B. (Carroll lines 1-2)|B. (Carroll lines 1-2)",
+"C. (Carroll page 1)|C. (Carroll page 1)",
+"D. (Lewis, lines 1-2)|D. (Lewis, lines 1-2)"],"B",
+"For poems, use the author's last name and the line numbers. The first time, write the word lines.|引用诗歌时，用作者姓氏和行号。第一次要写出 lines 这个词。",
+{A:"Poems use line numbers, not page numbers, so do not write 'p.'.|诗歌用行号，不用页码，所以不要写 p.。",
+ C:"Use line numbers, not a page number.|要用行号，不用页码。",
+ D:"Lewis is the first name. Use the last name, Carroll, and no comma.|Lewis 是名字。要用姓 Carroll，而且不加逗号。"}),
+
+Q("b6","Two authors","Book: Technical Communication: Process and Product\nAuthors: Sharon Gerson and Steven Gerson\nYou use information from page 102.","Which in-text citation is correct?","哪一个文内引用是正确的？",[
+"A. (Gerson, Gerson 102)|A. (Gerson, Gerson 102)",
+"B. (Gerson & Gerson 102)|B. (Gerson & Gerson 102)",
+"C. (Gerson, Sharon, and Steven 102)|C. (Gerson, Sharon, and Steven 102)",
+"D. (Gerson and Gerson 102)|D. (Gerson and Gerson 102)"],"D",
+"For two authors, write both last names joined by the word and, then the page number.|两位作者时，写出两个姓，用 and 连接，再写页码。",
+{A:"Use the word 'and' instead of a comma between the two names.|两个姓之间要用 and，不用逗号。",
+ B:"MLA writes the word 'and', not the symbol &.|MLA 写 and 这个词，不用符号 &。",
+ C:"In-text citations use last names only, not first names.|文内引用只用姓，不用名。"}),
+
+Q("b7","Three or more authors","Book authors: David Daniels, Ann Lee, and Tom Ruiz\nYou use information from page 73.","Which in-text citation is correct?","哪一个文内引用是正确的？",[
+"A. (Daniels et al. 73)|A. (Daniels et al. 73)",
+"B. (Daniels, Lee, and Ruiz 73)|B. (Daniels, Lee, and Ruiz 73)",
+"C. (Daniels and others 73)|C. (Daniels and others 73)",
+"D. (Daniels 73, Lee 73, Ruiz 73)|D. (Daniels 73, Lee 73, Ruiz 73)"],"A",
+"For three or more authors, write the first author's last name and et al. (meaning 'and others').|三位或以上作者时，写第一位作者的姓加 et al.（意思是「以及其他人」）。",
+{B:"Listing all three is too long. MLA uses the first author plus et al.|列出三个人太长。MLA 用第一位作者加 et al.。",
+ C:"The correct Latin abbreviation is et al., not the English words 'and others'.|正确的拉丁语缩写是 et al.，不是英语的 and others。",
+ D:"Do not repeat the page number for each author. Use et al. instead.|不要给每位作者重复页码。要改用 et al.。"}),
+
+Q("b8","Two works by one author","You use two works by Tennessee Williams in your paper: The Glass Menagerie and A Streetcar Named Desire. You quote The Glass Menagerie, page 999.","Which in-text citation shows the reader which work you used?","你的论文使用了 Williams 的两部作品。哪一个文内引用能让读者知道你用的是哪一部？",[
+"A. (Williams 999)|A. (Williams 999)",
+"B. (999)|B. (999)",
+"C. (Williams, *The Glass Menagerie* 999)|C. (Williams, *The Glass Menagerie* 999)",
+"D. (Glass Menagerie Williams 999)|D. (Glass Menagerie Williams 999)"],"C",
+"When you use two works by the same author, add the title (in italics) after the author's name and a comma.|使用同一作者的两部作品时，在作者姓名和逗号之后加上标题（用斜体）。",
+{A:"The reader cannot tell which of the two works you used.|读者无法知道你用的是两部作品中的哪一部。",
+ B:"This only works if the author is named in the sentence AND only one work is used. Here the reader still cannot tell which work.|只有句中已有作者名且只用了一部作品时才可以这样写。这里读者仍然无法知道是哪部作品。",
+ D:"The order is wrong. Write the author first, then a comma, then the title, then the page.|顺序错误。先写作者，然后逗号，再写标题，最后写页码。"}),
+
+Q("b9","No author","Works Cited entry: “Why Students Need Sleep.” Teen Health Now, 2022, www.teenhealthnow.example/sleep.\nThere is no author and no page numbers.","Which in-text citation is correct?","哪一个文内引用是正确的？",[
+"A. (Anonymous 2022)|A. (Anonymous 2022)",
+"B. (“Why Students Need Sleep”)|B. (“Why Students Need Sleep”)",
+"C. (*Teen Health Now*)|C. (*Teen Health Now*)",
+"D. (Unknown, Teen Health Now)|D. (Unknown, Teen Health Now)"],"B",
+"With no author, use the title of the source in quotation marks, the first thing in the Works Cited entry. No page is needed for an online source.|没有作者时，用来源标题并加引号，也就是参考文献条目里的第一项。网络来源不需要页码。",
+{A:"Do not write 'Anonymous'. Use the title instead.|不要写 Anonymous（匿名）。要改用标题。",
+ C:"That is the container (the website). The article title comes first in the entry, so use it.|那是载体（网站）。条目里第一项是文章标题，所以要用文章标题。",
+ D:"Do not write 'Unknown'. Use the title of the article in quotation marks.|不要写 Unknown（未知）。要用带引号的文章标题。"}),
+
+Q("b10","Secondary source","You read Smith's article. In it, Smith quotes Jones. The quote is on page 37 of Smith's article. Your sentence names Jones.","Which citation gives credit to both writers, and what do you list on the Works Cited page?","哪一个标注能同时给两位作者署名？参考文献表里应该列谁？",[
+"A. (Jones 37); list Jones|A. (Jones 37)；列出 Jones",
+"B. (Smith 37); list Smith|B. (Smith 37)；列出 Smith",
+"C. (Jones, Smith 37); list both|C. (Jones, Smith 37)；两人都列",
+"D. (qtd. in Smith 37); list Smith|D. (qtd. in Smith 37)；列出 Smith"],"D",
+"Use qtd. in (quoted in) before the source you actually read. List Smith on the Works Cited page, because you read Smith's article.|在你实际读的来源前面用 qtd. in（引自）。参考文献表里列 Smith，因为你读的是 Smith 的文章。",
+{A:"You did not read Jones's work. Jones is the original speaker, but you must show where you found the quote.|你没有读 Jones 的作品。Jones 是原作者，但你必须说明你是在哪里找到这句话的。",
+ B:"This gives credit to Smith only. Jones's name is in your sentence, but the citation needs qtd. in.|这只给了 Smith 署名。句中有 Jones 的名字，但标注里需要 qtd. in。",
+ C:"This is not the MLA form. Use qtd. in, and list only the source you read.|这不是 MLA 的形式。要用 qtd. in，并且只列你读过的来源。"})
+];
+
+/* ================= DAY 3 ================= */
+var T3_Q = [
+Q("c1","Core elements","","How many core elements are there in an MLA Works Cited entry?","MLA 参考文献条目有多少个核心要素？",[
+"A. Five|A. 五个",
+"B. Seven|B. 七个",
+"C. Nine|C. 九个",
+"D. Twelve|D. 十二个"],"C",
+"There are nine core elements: author, title of source, title of container, contributor, version, number, publisher, publication date, and location.|有九个核心要素：作者、来源标题、载体标题、贡献者、版本、编号、出版者、出版日期和位置。",
+{A:"There are more than five. Count them: author, title, container, contributor, version, number, publisher, date, location.|不止五个。数一数：作者、标题、载体、贡献者、版本、编号、出版者、日期、位置。",
+ B:"Seven is too few. The correct number is nine.|七个太少了。正确的数字是九。",
+ D:"Twelve is too many. The correct number is nine.|十二个太多了。正确的数字是九。"}),
+
+Q("c2","Works Cited page","","Which description of the Works Cited page is correct?","哪一项对参考文献表页面的描述是正确的？",[
+"A. It starts on a new page, has a centered title, and lists entries alphabetically with hanging indents|A. 另起一页，标题居中，条目按字母顺序排列并使用悬挂缩进",
+"B. It goes at the top of page 1 before the paper|B. 放在第一页顶部，在论文之前",
+"C. Entries are listed in the order they appear in the paper, with no indent|C. 条目按在论文中出现的顺序排列，不缩进",
+"D. Entries are sorted by date and centered|D. 条目按日期排序并居中"],"A",
+"The Works Cited page begins on a new page after the paper. Entries are alphabetical and use hanging indents.|参考文献表在论文之后另起一页。条目按字母顺序排列并使用悬挂缩进。",
+{B:"It goes at the END of the paper, on its own page.|它放在论文的末尾，单独一页。",
+ C:"Entries are in alphabetical order, not in the order used, and each has a hanging indent.|条目按字母顺序排列，不是按使用顺序，而且每个条目都有悬挂缩进。",
+ D:"Entries are alphabetical, not sorted by date, and they are not centered.|条目按字母顺序，不按日期排序，也不居中。"}),
+
+Q("c3","Hanging indent","","What is a hanging indent?","什么是悬挂缩进？",[
+"A. The first line is indented 1 inch|A. 第一行缩进 1 英寸",
+"B. The whole entry is centered|B. 整个条目居中",
+"C. The whole entry is indented 1 inch|C. 整个条目缩进 1 英寸",
+"D. The first line is at the left margin and the other lines are indented|D. 第一行靠左边距，其余各行缩进"],"D",
+"In a hanging indent, the first line starts at the margin, and every line after it is indented.|在悬挂缩进中，第一行从边距开始，之后的每一行都缩进。",
+{A:"That is a normal paragraph indent, the opposite of a hanging indent.|那是普通的段落缩进，与悬挂缩进正好相反。",
+ B:"Centering is not a hanging indent. Works Cited entries are not centered.|居中不是悬挂缩进。参考文献条目不居中。",
+ C:"If the whole entry is indented, the first line is not at the margin. A hanging indent leaves the first line at the margin.|如果整个条目都缩进，第一行就不在边距上。悬挂缩进让第一行留在边距上。"}),
+
+Q("c4","Alphabetical order","Entries to arrange:\n• Gerson, Sharon, and Steven Gerson. Technical Communication…\n• Fitzgerald, F. Scott. The Great Gatsby…\n• Bronte, Charlotte. Jane Eyre…\n• “Bullying and Teasing: No Laughing Matter.” Scholastic…","Which list is in the correct alphabetical order for a Works Cited page?","哪一个列表的字母顺序对参考文献表来说是正确的？",[
+"A. Bronte; “Bullying and Teasing”; Fitzgerald; Gerson|A. Bronte；“Bullying and Teasing”；Fitzgerald；Gerson",
+"B. Bronte; Fitzgerald; Gerson; “Bullying and Teasing”|B. Bronte；Fitzgerald；Gerson；“Bullying and Teasing”",
+"C. “Bullying and Teasing”; Bronte; Fitzgerald; Gerson|C. “Bullying and Teasing”；Bronte；Fitzgerald；Gerson",
+"D. Gerson; Fitzgerald; “Bullying and Teasing”; Bronte|D. Gerson；Fitzgerald；“Bullying and Teasing”；Bronte"],"A",
+"Sort by the first word of each entry. Bro comes before Bul, then F, then G. An entry with no author is sorted by its title.|按每个条目的第一个词排序。Bro 在 Bul 之前，然后是 F，再是 G。没有作者的条目按标题排序。",
+{B:"The entry with no author is sorted by its title. 'Bullying' starts with B, so it goes near the top, not last.|没有作者的条目按标题排序。Bullying 以 B 开头，所以应靠前，不是最后。",
+ C:"Compare the second letters: Br (Bronte) comes before Bu (Bullying).|比较第二个字母：Br（Bronte）在 Bu（Bullying）之前。",
+ D:"This list is in reverse order. Alphabetical order starts with A and goes toward Z.|这个列表是倒序。字母顺序应从 A 开始，向 Z 排列。"}),
+
+Q("c5","Ignoring 'The'","Entry to place on the Works Cited page: The New Testament. King James Version, The National Publishing Company, 1968.","Which word do you use to alphabetize this entry?","排列这个条目时，应该用哪个词来排序？",[
+"A. The|A. The",
+"B. New|B. New",
+"C. Testament|C. Testament",
+"D. King|D. King"],"B",
+"If an entry starts with the word The, use the next word to alphabetize. Here, that word is New.|如果条目以 The 开头，就用下一个词来排序。这里下一个词是 New。",
+{A:"Skip 'The'. Alphabetize by the next word.|跳过 The，按下一个词排序。",
+ C:"Testament is the third word. Use the first word after 'The'.|Testament 是第三个词。要用 The 之后的第一个词。",
+ D:"King James Version is a later element in the entry. Alphabetize by the first word of the entry (after 'The').|King James Version 是条目里靠后的要素。要按条目的第一个词（The 之后）排序。"}),
+
+Q("c6","One author","Author: F. Scott Fitzgerald","How do you write one author's name in the Author element?","在「作者」要素里，应如何写一位作者的名字？",[
+"A. F. Scott Fitzgerald.|A. F. Scott Fitzgerald.",
+"B. Fitzgerald F. Scott.|B. Fitzgerald F. Scott.",
+"C. Fitzgerald, F. Scott.|C. Fitzgerald, F. Scott.",
+"D. Fitzgerald, F. Scott, author.|D. Fitzgerald, F. Scott, author."],"C",
+"Write the last name, a comma, the rest of the name, and end with a period.|写姓、逗号、名字的其余部分，最后以句号结束。",
+{A:"Do not use normal order. The last name comes first.|不要用正常顺序。姓要放在前面。",
+ B:"A comma is needed after the last name.|姓后面需要逗号。",
+ D:"The word 'author' is not added. Only editors, translators, and similar roles are labeled.|不加 author 这个词。只有编者、译者等角色才需要标明。"}),
+
+Q("c7","Two authors","Authors: Sharon Gerson and Steven Gerson","How do you write these two authors in the Author element?","在「作者」要素里，应如何写这两位作者？",[
+"A. Gerson, Sharon, and Gerson, Steven.|A. Gerson, Sharon, and Gerson, Steven.",
+"B. Sharon Gerson and Steven Gerson.|B. Sharon Gerson and Steven Gerson.",
+"C. Gerson, Sharon & Steven Gerson.|C. Gerson, Sharon & Steven Gerson.",
+"D. Gerson, Sharon, and Steven Gerson.|D. Gerson, Sharon, and Steven Gerson."],"D",
+"Reverse the first author's name, add a comma and the word and, and write the second author's name in normal order.|把第一位作者的名字倒过来，加逗号和 and，第二位作者按正常顺序写。",
+{A:"Only the first author's name is reversed. The second is in normal order.|只有第一位作者的名字要倒过来。第二位按正常顺序。",
+ B:"The first author's name must be reversed (last name first).|第一位作者的名字必须倒过来（姓在前）。",
+ C:"Use the word 'and', not the symbol &, and put a comma after the first name.|要用 and 这个词，不用符号 &，而且第一个名字后要加逗号。"}),
+
+Q("c8","Three or more authors","Authors: Marie Holland, Tom Lee, and Ann Ruiz","How do you write three authors in the Author element?","在「作者」要素里，应如何写三位作者？",[
+"A. Holland, Marie, et al.|A. Holland, Marie, et al.",
+"B. Holland, Marie, Lee, Tom, and Ruiz, Ann.|B. Holland, Marie, Lee, Tom, and Ruiz, Ann.",
+"C. Holland, Marie, and others.|C. Holland, Marie, and others.",
+"D. Marie Holland et al.|D. Marie Holland et al."],"A",
+"For three or more authors, write only the first author (last name first), then a comma and et al.|三位或以上作者时，只写第一位作者（姓在前），然后加逗号和 et al.。",
+{B:"Do not list all the authors. Use et al. after the first.|不要列出所有作者。第一位之后用 et al.。",
+ C:"Use the Latin abbreviation et al., not the words 'and others'.|要用拉丁语缩写 et al.，不要写 and others。",
+ D:"The first author's name must be reversed: Holland, Marie.|第一位作者的名字必须倒过来：Holland, Marie。"}),
+
+Q("c9","Italics or quotes","","Which of these is a small work inside a larger work, so its title goes in quotation marks?","下面哪一个是较大作品中的小部分，所以标题要放在引号里？",[
+"A. *The Great Gatsby* (a novel)|A. *The Great Gatsby*（一部小说）",
+"B. “A Rose for Emily” (a short story)|B. “A Rose for Emily”（一篇短篇小说）",
+"C. *The New York Times* (a newspaper)|C. *The New York Times*（一份报纸）",
+"D. *YouTube* (a website)|D. *YouTube*（一个网站）"],"B",
+"A short story is a smaller part that is often printed inside a larger book, so its title uses quotation marks.|短篇小说是较小的部分，经常印在更大的书里，所以标题用引号。",
+{A:"A novel is a big, stand-alone work. Its title is in italics.|小说是大型的独立作品。标题用斜体。",
+ C:"A newspaper is a big work that holds articles. Its title is in italics.|报纸是包含文章的大作品。标题用斜体。",
+ D:"A website is a big container. Its title is in italics.|网站是大型载体。标题用斜体。"}),
+
+Q("c10","Build an entry","Author: F. Scott Fitzgerald\nTitle: The Great Gatsby (a book)\nPublisher: Hayes Barton Press\nYear: 2007","Which Works Cited entry is correct?","哪一个参考文献条目是正确的？",[
+"A. F. Scott Fitzgerald. *The Great Gatsby*. Hayes Barton Press, 2007.|A. F. Scott Fitzgerald. *The Great Gatsby*. Hayes Barton Press, 2007.",
+"B. Fitzgerald, F. Scott. “The Great Gatsby.” Hayes Barton Press, 2007.|B. Fitzgerald, F. Scott. “The Great Gatsby.” Hayes Barton Press, 2007.",
+"C. Fitzgerald, F. Scott. *The Great Gatsby*. Hayes Barton Press, 2007.|C. Fitzgerald, F. Scott. *The Great Gatsby*. Hayes Barton Press, 2007.",
+"D. Fitzgerald, F. Scott. 2007. *The Great Gatsby*. Hayes Barton Press.|D. Fitzgerald, F. Scott. 2007. *The Great Gatsby*. Hayes Barton Press."],"C",
+"Author (last name first). Title in italics. Publisher, year. The order of the core elements is correct.|作者（姓在前）。标题用斜体。出版者，年份。核心要素的顺序正确。",
+{A:"The author's name must be reversed: Fitzgerald, F. Scott.|作者名字必须倒过来：Fitzgerald, F. Scott。",
+ B:"A whole book is a big work, so the title is in italics, not quotation marks.|整本书是大作品，所以标题用斜体，不用引号。",
+ D:"The date must come after the publisher, not before the title.|日期要放在出版者之后，不是放在标题之前。"})
+];
+
+/* ================= DAY 4 ================= */
+var T4_Q = [
+Q("d1","What is a container?","","In MLA, what is a container?","在 MLA 中，什么是载体（container）？",[
+"A. The author's name|A. 作者的名字",
+"B. The larger work that holds the source, such as a magazine, website, or book of stories|B. 包含该来源的更大作品，例如杂志、网站或故事集",
+"C. The page number|C. 页码",
+"D. The publisher's address|D. 出版者的地址"],"B",
+"A container is the larger work that holds your source. Its title is written in italics.|载体是包含你所用来源的更大作品。它的标题用斜体书写。",
+{A:"The author is element 1. The container is element 3.|作者是第 1 项。载体是第 3 项。",
+ C:"A page number is part of the Location element.|页码属于「位置」要素。",
+ D:"MLA does not list the publisher's address, and it is not a container.|MLA 不列出版者的地址，它也不是载体。"}),
+
+Q("d2","Find the container","You read the article “The Warmth of Glass & Stone” in the magazine Our State: Celebrating North Carolina, March 2009.","What is the container?","载体是什么？",[
+"A. “The Warmth of Glass & Stone”|A. “The Warmth of Glass & Stone”",
+"B. The author of the article|B. 文章的作者",
+"C. March 2009|C. March 2009",
+"D. *Our State: Celebrating North Carolina*|D. *Our State: Celebrating North Carolina*"],"D",
+"The article is the source. The magazine that holds it is the container, written in italics.|文章是来源。包含它的杂志是载体，用斜体书写。",
+{A:"This is the title of the source (the small work), in quotation marks.|这是来源的标题（小作品），用引号。",
+ B:"The author is element 1, not a container.|作者是第 1 项，不是载体。",
+ C:"This is the publication date (element 8).|这是出版日期（第 8 项）。"}),
+
+Q("d3","Web page with author","Author: Christopher Hitchens\nPage title: The Road to West Egg\nWebsite: Vanity Fair\nPublisher: Conde Nast\nDate: May 2000\nURL: www.vanityfair.com/news/2000/05/hitchens200005","Which Works Cited entry is correct?","哪一个参考文献条目是正确的？",[
+"A. Hitchens, Christopher. *The Road to West Egg*. “Vanity Fair,” Conde Nast, May 2000, www.vanityfair.com/news/2000/05/hitchens200005.|A. Hitchens, Christopher. *The Road to West Egg*. “Vanity Fair,” Conde Nast, May 2000, www.vanityfair.com/news/2000/05/hitchens200005.",
+"B. Christopher Hitchens. “The Road to West Egg.” *Vanity Fair*, Conde Nast, May 2000, www.vanityfair.com/news/2000/05/hitchens200005.|B. Christopher Hitchens. “The Road to West Egg.” *Vanity Fair*, Conde Nast, May 2000, www.vanityfair.com/news/2000/05/hitchens200005.",
+"C. Hitchens, Christopher. “The Road to West Egg.” *Vanity Fair*, Conde Nast, May 2000, www.vanityfair.com/news/2000/05/hitchens200005.|C. Hitchens, Christopher. “The Road to West Egg.” *Vanity Fair*, Conde Nast, May 2000, www.vanityfair.com/news/2000/05/hitchens200005.",
+"D. Hitchens, Christopher. “The Road to West Egg.” *Vanity Fair*, May 2000, Conde Nast.|D. Hitchens, Christopher. “The Road to West Egg.” *Vanity Fair*, May 2000, Conde Nast."],"C",
+"The web page title is in quotation marks, the website (container) is in italics, and the elements follow the correct order with the URL at the end.|网页标题用引号，网站（载体）用斜体，各要素顺序正确，网址放在最后。",
+{A:"The italics and quotation marks are swapped. The page title uses quotation marks, and the website uses italics.|斜体和引号用反了。网页标题用引号，网站名用斜体。",
+ B:"The author's name must be reversed: Hitchens, Christopher.|作者名字必须倒过来：Hitchens, Christopher。",
+ D:"The order is wrong, and the URL is missing. The order is publisher, date, then location.|顺序错误，而且缺少网址。顺序应是出版者、日期、位置。"}),
+
+Q("d4","Web page with no author","Page title: Bullying and Teasing: No Laughing Matter\nWebsite: Scholastic\nDate: 2016\nThere is no author.","How should this Works Cited entry begin?","这个参考文献条目应该如何开头？",[
+"A. “Bullying and Teasing: No Laughing Matter.” *Scholastic*, 2016, …|A. “Bullying and Teasing: No Laughing Matter.” *Scholastic*, 2016, …",
+"B. Anonymous. “Bullying and Teasing: No Laughing Matter.” *Scholastic*, 2016, …|B. Anonymous. “Bullying and Teasing: No Laughing Matter.” *Scholastic*, 2016, …",
+"C. *Scholastic*. “Bullying and Teasing: No Laughing Matter.” 2016, …|C. *Scholastic*. “Bullying and Teasing: No Laughing Matter.” 2016, …",
+"D. Unknown author. “Bullying and Teasing: No Laughing Matter.” *Scholastic*, 2016, …|D. Unknown author. “Bullying and Teasing: No Laughing Matter.” *Scholastic*, 2016, …"],"A",
+"If there is no author, skip the Author element and begin with the title of the source in quotation marks.|如果没有作者，就跳过「作者」要素，直接以带引号的来源标题开头。",
+{B:"Do not write 'Anonymous'. Skip the author element.|不要写 Anonymous。跳过作者要素。",
+ C:"The website is the container (element 3), not the author. Start with the page title.|网站是载体（第 3 项），不是作者。要从网页标题开始。",
+ D:"Do not write 'Unknown author'. Skip the author element.|不要写 Unknown author。跳过作者要素。"}),
+
+Q("d5","Organization as author","Web page: Making the Vaccine Decision\nWebsite: CDC\nMade by: Centers for Disease Control and Prevention\nPublished: 27 Apr. 2016","What goes in the Author spot?","「作者」位置应写什么？",[
+"A. “Making the Vaccine Decision.”|A. “Making the Vaccine Decision.”",
+"B. *CDC*|B. *CDC*",
+"C. 27 Apr. 2016|C. 27 Apr. 2016",
+"D. Centers for Disease Control and Prevention.|D. Centers for Disease Control and Prevention."],"D",
+"An author does not have to be a person. When an organization creates a work, the organization is the author.|作者不一定是个人。当机构创作作品时，机构就是作者。",
+{A:"This is the title of the source (element 2).|这是来源的标题（第 2 项）。",
+ B:"This is the website name, the container (element 3).|这是网站名称，即载体（第 3 项）。",
+ C:"This is the publication date (element 8).|这是出版日期（第 8 项）。"}),
+
+Q("d6","No date","A web page shows no publication date. You looked at it on 21 June 2016.","What do you add to the Works Cited entry?","你要在参考文献条目里加什么？",[
+"A. Today's date in the paper's heading|A. 在论文页首信息里写今天的日期",
+"B. Accessed 21 June 2016. after the URL|B. 在网址之后写 Accessed 21 June 2016.",
+"C. The letters n.d. before the title|C. 在标题之前写 n.d.",
+"D. Nothing, leave it blank|D. 什么都不加，留空"],"B",
+"When an online source has no date, put the date you accessed it at the end of the entry, after the URL.|当网络来源没有日期时，把你访问的日期放在条目末尾、网址之后。",
+{A:"The heading date is for your paper, not for the source.|页首信息里的日期是你论文的日期，不是来源的日期。",
+ C:"MLA does not use n.d. in this place. Add the access date at the end.|MLA 不在这个位置用 n.d.。要在末尾加访问日期。",
+ D:"The reader needs to know when you saw the page, because web pages can change.|读者需要知道你什么时候看过这个网页，因为网页可能会变化。"}),
+
+Q("d7","Using a DOI","A journal article has a DOI: 10.1007/s11069-008-9299-2","Which Location is best for an article with a DOI in MLA 9?","对于带 DOI 的文章，在 MLA 9 中哪一个「位置」写法最好？",[
+"A. https://doi.org/10.1007/s11069-008-9299-2|A. https://doi.org/10.1007/s11069-008-9299-2",
+"B. DOI only|B. 只写 DOI 三个字母",
+"C. The name of the school library website|C. 学校图书馆网站的名称",
+"D. pp. 9299-2|D. pp. 9299-2"],"A",
+"A DOI is a permanent link. Write it as a full link beginning with https://doi.org/ so the reader can open it.|DOI 是永久链接。把它写成以 https://doi.org/ 开头的完整链接，读者就能打开它。",
+{B:"The letters 'DOI' alone give no way to find the article. You need the full number as a link.|只写 DOI 这三个字母无法找到文章。需要把完整号码写成链接。",
+ C:"The library website is not the location of the article. The DOI is.|图书馆网站不是文章的位置。DOI 才是。",
+ D:"These numbers are part of the DOI, not page numbers.|这些数字是 DOI 的一部分，不是页码。"}),
+
+Q("d8","Volume and number","A journal article is in volume 39, issue 3, summer 2003.","How do you write the Number element?","应如何写「编号」要素？",[
+"A. Volume 39, Issue 3|A. Volume 39, Issue 3",
+"B. v39 i3|B. v39 i3",
+"C. vol. 39 no. 3|C. vol. 39 no. 3",
+"D. 39-3|D. 39-3"],"C",
+"MLA uses the abbreviations vol. and no. For example: vol. 39 no. 3.|MLA 使用缩写 vol. 和 no.，例如：vol. 39 no. 3。",
+{A:"MLA abbreviates these words. Write vol. and no., not the full words.|MLA 要缩写这些词。写 vol. 和 no.，不写完整单词。",
+ B:"This is not an MLA abbreviation. Use vol. and no.|这不是 MLA 的缩写。要用 vol. 和 no.。",
+ D:"Numbers alone do not tell the reader which is the volume and which is the issue.|只有数字无法让读者知道哪个是卷、哪个是期。"}),
+
+Q("d9","Contributor","Film: Finding Dory\nDirected by Andrew Stanton and Angus MacLane\nStudio: Pixar\nReleased: 17 June 2016\nWatched on Netflix","Where does the phrase Directed by Andrew Stanton and Angus MacLane go in the entry?","「Directed by Andrew Stanton and Angus MacLane」这句话应放在条目的哪个位置？",[
+"A. The Author spot|A. 作者位置",
+"B. The Contributor spot (element 4)|B. 贡献者位置（第 4 项）",
+"C. The Publisher spot|C. 出版者位置",
+"D. The Location spot|D. 位置的位置"],"B",
+"People who helped create a work, like a director, editor, or translator, go in the Contributor element after the title.|帮助创作作品的人，例如导演、编者或译者，放在标题之后的「贡献者」要素里。",
+{A:"The Author spot is for the writers (or the main creators), not for the directors.|作者位置放编剧（或主要创作者），不放导演。",
+ C:"Pixar is the publisher. A director is a person who helped create the film.|Pixar 是出版者。导演是帮助创作电影的人。",
+ D:"The Location here is Netflix, where you watched it.|这里的位置是 Netflix，也就是你观看的地方。"}),
+
+Q("d10","Images","","How do you label a photograph or chart in the body of your MLA paper?","在你的 MLA 论文正文里，应如何标注照片或图表？",[
+"A. Picture 1|A. Picture 1",
+"B. Image #|B. Image #",
+"C. Chart A|C. Chart A",
+"D. Fig. 1. followed by the full citation under the image|D. 在图片下方写 Fig. 1. 并接完整的引用"],"D",
+"Label images as Fig. (Figure) with a number, and put the citation directly under the image.|图片要标为 Fig.（Figure）加编号，并把引用直接写在图片下方。",
+{A:"MLA does not use the word 'Picture'. Use Fig.|MLA 不用 Picture 这个词。要用 Fig.。",
+ B:"Do not use 'Image #'. Use Fig. and a number.|不要用 Image #。要用 Fig. 加编号。",
+ C:"MLA uses Fig. with a number, not letters like 'Chart A'.|MLA 用 Fig. 加数字，不用 Chart A 这样的字母。"})
+];
+
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 40;
+
+var TABS = {
+  t1: {label:'Day 1 - Format and In-Text Basics', data:T1_Q, answers:{}, score:{val:0}, done:{val:0}},
+  t2: {label:'Day 2 - Quotations and Special Cases', data:T2_Q, answers:{}, score:{val:0}, done:{val:0}},
+  t3: {label:'Day 3 - Works Cited Core Elements', data:T3_Q, answers:{}, score:{val:0}, done:{val:0}},
+  t4: {label:'Day 4 - Containers, Online Sources and Review', data:T4_Q, answers:{}, score:{val:0}, done:{val:0}}
+};
+
+var REFLECT = {
+  t1: {
+    q1:'Explain in your own words the difference between plagiarism and citing a source. Give one example from school.',
+    q1cn:'用你自己的话解释抄袭和标注来源有什么不同。请举一个学校里的例子。',
+    q2:'Think of a time you used information from the internet or a book. What will you do next time to give credit?',
+    q2cn:'想一想你使用网络或书中信息的一次经历。下次你会怎样给作者署名？'
+  },
+  t2: {
+    q1:'Why do you think MLA uses a block quotation for long quotes instead of quotation marks? How does this help the reader?',
+    q1cn:'你认为 MLA 为什么对长引用使用块引用而不是引号？这对读者有什么帮助？',
+    q2:'Which is hardest for you: quoting, paraphrasing, or putting the citation in the sentence? Why? What will you try next?',
+    q2cn:'对你来说哪一项最难：直接引用、改写，还是在句子里写引用标注？为什么？下一步你会尝试什么？'
+  },
+  t3: {
+    q1:'Why does MLA put sources in alphabetical order and use a hanging indent? How does this help a reader find a source?',
+    q1cn:'MLA 为什么要把来源按字母顺序排列并使用悬挂缩进？这如何帮助读者找到来源？',
+    q2:'Choose one of the nine core elements that you often forget. What strategy will you use to remember it?',
+    q2cn:'选择一个你经常忘记的核心要素。你会用什么方法记住它？'
+  },
+  t4: {
+    q1:'Explain how you decide what the container is for a source. Use one example (an article, a video, or a web page).',
+    q1cn:'解释你如何判断一个来源的载体是什么。请用一个例子（文章、视频或网页）。',
+    q2:'Now you can cite a book, an article, and a website. Which source will you cite first in your next essay? What steps will you follow?',
+    q2cn:'现在你会引用书、文章和网站了。在下一篇文章里你会先引用哪个来源？你会按哪些步骤做？'
+  }
+};
+
+/* Rich text: *text* becomes italic. Built with DOM nodes only. */
+function addRich(parent, text) {
+  var parts = String(text).split('*');
+  parts.forEach(function(p, i) {
+    if (!p) return;
+    if (i % 2 === 1) {
+      var em = document.createElement('em');
+      em.textContent = p;
+      parent.appendChild(em);
+    } else {
+      parent.appendChild(document.createTextNode(p));
+    }
+  });
+}
+
+function buildVocab() {
+  var grid = document.getElementById('vocabGrid');
+  VOCAB.forEach(function(v) {
+    var card = document.createElement('div'); card.className = 'vcard';
+    var w = document.createElement('div'); w.className = 'w'; w.textContent = v.word;
+    var pos = document.createElement('span'); pos.className = 'pos'; pos.textContent = v.pos;
+    w.appendChild(pos);
+    var cnw = document.createElement('div'); cnw.className = 'cnw cn'; cnw.textContent = v.cn;
+    var def = document.createElement('div'); def.className = 'def'; def.textContent = v.def;
+    var cdef = document.createElement('div'); cdef.className = 'def cn'; cdef.textContent = v.cn_def;
+    var ex = document.createElement('div'); ex.className = 'ex2'; ex.textContent = v.example;
+    var btn = document.createElement('button'); btn.className = 'say'; btn.textContent = '🔊 Listen · 听';
+    btn.addEventListener('click', function() {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(v.word);
+      u.lang = 'en-US'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    });
+    card.appendChild(w); card.appendChild(cnw); card.appendChild(def); card.appendChild(cdef);
+    card.appendChild(ex); card.appendChild(btn);
+    grid.appendChild(card);
+  });
+}
+
+function buildQuiz(data, containerId, answers, scoreObj, doneObj, onComplete) {
+  var container = document.getElementById(containerId);
+  data.forEach(function(item, idx) {
+    var card = document.createElement('div'); card.className = 'quiz-card';
+    var num = document.createElement('div'); num.className = 'q-num';
+    num.textContent = 'Question ' + (idx + 1) + ' of ' + data.length + ' · 第 ' + (idx + 1) + ' 题';
+    card.appendChild(num);
+    if (item.passage) {
+      var pas = document.createElement('div'); pas.className = 'passage-box';
+      addRich(pas, item.passage);
+      card.appendChild(pas);
+    }
+    var qEl = document.createElement('div'); qEl.className = 'q-text'; addRich(qEl, item.q);
+    var qCn = document.createElement('div'); qCn.className = 'q-cn cn'; qCn.textContent = item.q_cn;
+    card.appendChild(qEl); card.appendChild(qCn);
+
+    var optsWrap = document.createElement('div'); optsWrap.className = 'opts-wrap';
+    var ratDiv = document.createElement('div'); ratDiv.className = 'rationale';
+    var answered = false;
+
+    item.options.forEach(function(opt) {
+      var parts = opt.split('|');
+      var letter = parts[0].charAt(0);
+      var enText = parts[0].replace(/^[A-D]\.\s*/, '');
+      var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/, '') : '';
+      var btn = document.createElement('button');
+      btn.className = 'opt-btn'; btn.dataset.letter = letter;
+      var strong = document.createElement('strong'); strong.textContent = letter + '. ';
+      var enS = document.createElement('span'); addRich(enS, enText);
+      btn.appendChild(strong); btn.appendChild(enS);
+      if (cnText && cnText !== enText) {
+        var br = document.createElement('br');
+        var cnS = document.createElement('span'); cnS.className = 'cn'; addRich(cnS, cnText);
+        btn.appendChild(br); btn.appendChild(cnS);
+      }
+      btn.addEventListener('click', function() {
+        if (answered) return;
+        answered = true;
+        answers[item.id] = letter;
+        optsWrap.querySelectorAll('.opt-btn').forEach(function(b) {
+          b.disabled = true;
+          if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+        });
+        var ratParts, ratText, ratCn;
+        if (letter === item.correct) {
+          btn.classList.add('selected-correct');
+          ratParts = item.rat_right.split('|');
+          ratText = '✅ ' + ratParts[0];
+          ratCn = ratParts[1] || '';
+          ratDiv.className = 'rationale show correct-rat';
+          scoreObj.val++;
+        } else {
+          btn.classList.add('selected-wrong');
+          ratParts = (item.rat_wrong[letter] || '').split('|');
+          ratText = '❌ ' + ratParts[0] + ' (Correct answer: ' + item.correct + ')';
+          ratCn = (ratParts[1] || '') + ' （正确答案：' + item.correct + '）';
+          ratDiv.className = 'rationale show wrong-rat';
+          var rt = item.rat_right.split('|');
+          ratText += '  ' + rt[0];
+          ratCn += ' ' + (rt[1] || '');
+        }
+        addProgress(1);
+        var rDiv = document.createElement('div'); addRich(rDiv, ratText);
+        if (ratCn) {
+          var rBr = document.createElement('br');
+          var rCnS = document.createElement('span'); rCnS.className = 'cn'; rCnS.textContent = ratCn;
+          rDiv.appendChild(rBr); rDiv.appendChild(rCnS);
+        }
+        ratDiv.appendChild(rDiv);
+        doneObj.val++;
+        if (doneObj.val >= data.length) onComplete();
+      });
+      optsWrap.appendChild(btn);
+    });
+    card.appendChild(optsWrap); card.appendChild(ratDiv);
+    container.appendChild(card);
+  });
+}
+
+function buildReflect(key) {
+  var host = document.getElementById(key + 'Reflect');
+  var r = REFLECT[key];
+  var box = document.createElement('div'); box.className = 'reflect';
+  var h = document.createElement('h3');
+  h.textContent = 'Reflect · 反思';
+  box.appendChild(h);
+
+  function addArea(id, en, cn) {
+    var lab = document.createElement('label'); lab.setAttribute('for', id);
+    lab.textContent = en;
+    var cnSpan = document.createElement('span'); cnSpan.className = 'cn'; cnSpan.style.display = 'block'; cnSpan.style.fontWeight = '400';
+    cnSpan.textContent = cn;
+    lab.appendChild(cnSpan);
+    var ta = document.createElement('textarea'); ta.id = id;
+    ta.placeholder = 'Write your answer here · 在这里写你的答案';
+    box.appendChild(lab); box.appendChild(ta);
+  }
+  addArea(key + 'Ref1', 'Reflection 1: ' + r.q1, r.q1cn);
+  addArea(key + 'Ref2', 'Reflection 2: ' + r.q2, r.q2cn);
+
+  var gr = document.createElement('div'); gr.className = 'grat-row';
+  var gl = document.createElement('label'); gl.setAttribute('for', key + 'Grat');
+  gl.textContent = 'Today I am grateful for ';
+  var gi = document.createElement('input'); gi.type = 'text'; gi.id = key + 'Grat';
+  gi.placeholder = 'Type here · 在这里写';
+  gr.appendChild(gl); gr.appendChild(gi);
+  var gcn = document.createElement('span'); gcn.className = 'cn'; gcn.style.fontWeight = '400';
+  gcn.textContent = '今天我感激……';
+  gr.appendChild(gcn);
+  box.appendChild(gr);
+
+  var dl = document.createElement('button'); dl.className = 'dl-btn'; dl.id = key + 'DownloadBtn';
+  dl.textContent = '⬇ Download my report · 下载我的报告';
+  dl.addEventListener('click', function() { tryDownload(key); });
+  var hint = document.createElement('div'); hint.className = 'hint'; hint.id = key + 'Hint';
+  hint.textContent = 'Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。';
+  box.appendChild(dl); box.appendChild(hint);
+  host.appendChild(box);
+}
+
+function checkReadiness(key) {
+  var t = TABS[key];
+  var ref1 = document.getElementById(key + 'Ref1').value.trim();
+  var ref2 = document.getElementById(key + 'Ref2').value.trim();
+  var grat = document.getElementById(key + 'Grat').value.trim();
+  var ready = (t.done.val >= t.data.length) && ref1.length > 0 && ref2.length > 0 && grat.length > 0;
+  var btn = document.getElementById(key + 'DownloadBtn');
+  var hint = document.getElementById(key + 'Hint');
+  if (ready) { btn.classList.add('ready'); hint.classList.add('hidden'); }
+  else { btn.classList.remove('ready'); hint.classList.remove('hidden'); }
+}
+
+function wireListeners(key) {
+  ['Ref1', 'Ref2', 'Grat'].forEach(function(f) {
+    var el = document.getElementById(key + f);
+    el.addEventListener('input', function() {
+      this.classList.toggle('filled', this.value.trim().length > 0);
+      checkReadiness(key);
+    });
+  });
+}
+
+function tryDownload(key) {
+  var t = TABS[key];
+  var ref1 = document.getElementById(key + 'Ref1').value.trim();
+  var ref2 = document.getElementById(key + 'Ref2').value.trim();
+  var grat = document.getElementById(key + 'Grat').value.trim();
+  if (t.done.val < t.data.length || !ref1 || !ref2 || !grat) return;
+
+  var name = document.getElementById(key + 'Name').value.trim() || 'Unknown';
+  var now = new Date().toLocaleString();
+  var txt = '';
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH MODULE - QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Module: MLA 9th Edition Citation Lab\n';
+  txt += 'Day: ' + t.label + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + t.score.val + ' / ' + t.data.length + '\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+  t.data.forEach(function(item, i) {
+    var sel = t.answers[item.id] || 'Not answered';
+    var result = sel === item.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + item.correct + ')';
+    txt += (i + 1) + '. ' + item.title + '\n';
+    txt += '   Question: ' + item.q.replace(/\*/g, '') + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK - REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  txt += 'REFLECTION Q1: ' + REFLECT[key].q1 + '\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2: ' + REFLECT[key].q2 + '\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+
+  var blob = new Blob([txt], {type: 'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + key.toUpperCase() + '_' + name.replace(/\s+/g, '_') + '_' + new Date().toLocaleDateString().replace(/[\/\\]/g, '-') + '.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  document.getElementById('pip-' + key).classList.add('done');
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function addProgress(pts) {
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+function fmt(s) {
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
+
+function startTimer() {
+  setInterval(function() {
+    secondsElapsed++;
+    document.getElementById('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+      leaveCount++;
+      document.getElementById('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = document.getElementById('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function() { notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  buildVocab();
+  Object.keys(TABS).forEach(function(k) {
+    var t = TABS[k];
+    buildReflect(k);
+    buildQuiz(t.data, k + 'QuizContainer', t.answers, t.score, t.done, function() { checkReadiness(k); });
+    wireListeners(k);
+  });
+  document.querySelectorAll('.tab-btn').forEach(function(b) {
+    b.addEventListener('click', function() { switchTab(b.dataset.tab, b); });
+  });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
