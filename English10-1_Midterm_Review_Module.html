@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English 10-1 Midterm Review | 英语10-1期中复习</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;--ml-red:#c1121f;--ml-gold:#e9c46a;
+  --ink:#1a2a1a;--ink2:#2d3748;--mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans','Noto Sans SC',sans-serif;background:var(--mist);color:var(--ink);line-height:1.55;font-size:16px}
+.cn{font-family:'Noto Sans SC','DM Sans',sans-serif;color:var(--ink2)}
+h1,h2,h3,.passage-box,.paper-passage{font-family:'Literata','Noto Sans SC',serif}
+header{background:var(--ml-green-dark);color:#fff;padding:14px 18px 12px}
+header h1{font-size:1.35rem;line-height:1.25}
+header .sub,header .sub.cn{font-size:.9rem;color:#d8f3dc}
+.hdr-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:10px}
+.pips{display:flex;gap:6px;align-items:center;font-size:.78rem}
+.pip{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5)}
+.pip.done{background:var(--ml-gold);border-color:var(--ml-gold)}
+.badge{font-size:.8rem;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:12px}
+.prog-wrap{flex:1;min-width:200px}
+.prog-bar{height:9px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}
+#progressBar{height:100%;width:0;background:var(--ml-gold);transition:width .4s}
+#progressText{font-size:.78rem;margin-top:3px}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;background:#fff;border-bottom:2px solid var(--border);padding:8px 12px 0;position:sticky;top:38px;z-index:900}
+.tab-btn{border:none;background:#eef3ee;padding:9px 14px;border-radius:8px 8px 0 0;font:inherit;font-weight:600;font-size:.88rem;cursor:pointer;color:var(--ink2)}
+.tab-btn.active{background:var(--ml-green);color:#fff}
+.tab-btn .cn{color:inherit;font-weight:500;font-size:.8rem;display:block}
+main{max-width:860px;margin:0 auto;padding:18px 14px 90px}
+.tab-content{display:none}.tab-content.active{display:block}
+.name-row{display:flex;flex-wrap:wrap;gap:10px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:16px}
+.name-row label{font-size:.82rem;font-weight:700;display:flex;flex-direction:column;gap:3px;flex:1;min-width:140px}
+.name-row input{padding:8px 10px;border:2px solid var(--border);border-radius:8px;font:inherit}
+.name-row input:focus,textarea:focus,.grat-input:focus{outline:none;border-color:var(--ml-green)}
+.block{background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}
+.block h2{font-size:1.15rem;color:var(--ml-green-dark);margin-bottom:2px}
+.block h3{font-size:1rem;color:var(--cobalt);margin:12px 0 4px}
+.block p{margin:6px 0}
+.block ul,.block ol{margin:6px 0 6px 22px}
+.call{border-left:5px solid;border-radius:8px;padding:10px 14px;margin:10px 0;font-size:.95rem}
+.call-blue{background:#e8f0fa;border-color:var(--cobalt)}
+.call-amber{background:var(--amber-light);border-color:var(--amber)}
+.call-green{background:var(--ml-green-light);border-color:var(--ml-green)}
+.call-red{background:#fee2e2;border-color:var(--ml-red)}
+.call .t{font-weight:700;margin-bottom:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:10px 0}
+.card-c{border-radius:10px;padding:12px;border-top:6px solid;background:#fff;border:1px solid var(--border);border-top-width:6px}
+.card-c h4{font-size:1rem;margin-bottom:4px}
+.card-c .lbl{font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;margin-top:6px;color:var(--ink2)}
+.c1{border-top-color:#2d6a4f}.c2{border-top-color:#1e3a5f}.c3{border-top-color:#b45309}.c4{border-top-color:#7c3aed}.c5{border-top-color:#c1121f}
+table.t{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+table.t th{background:var(--ml-green);color:#fff;text-align:left;padding:7px 9px}
+table.t td{border:1px solid var(--border);padding:7px 9px;vertical-align:top}
+table.t tr:nth-child(even) td{background:#f4f8f4}
+.stems{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.stem{background:var(--ml-green-light);border:1px dashed var(--ml-green);border-radius:16px;padding:4px 12px;font-size:.88rem;font-family:'DM Sans','Noto Sans SC',sans-serif}
+.sec-head{margin:22px 0 10px;padding:8px 14px;background:var(--ml-green-dark);color:#fff;border-radius:8px}
+.sec-head h3{font-size:1.05rem;color:#fff}
+.sec-head .cn{color:#d8f3dc;font-size:.9rem}
+.sec-head .note{font-size:.85rem;margin-top:3px;opacity:.95}
+.paper-box{border:2px solid var(--ink);padding:12px 14px;margin:10px 0;background:#fff;border-radius:4px}
+.paper-box .row{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.paper-box img{max-width:140px;height:auto}
+.paper-passage{border:1px solid var(--ink);padding:12px 14px;margin:10px 0;background:#fff;line-height:1.75}
+.paper-passage img{height:26px;vertical-align:middle;margin:0 4px}
+.paper-title{font-weight:700;font-size:1.05rem;margin-bottom:4px}
+.numlist li{margin:4px 0}
+.mini-cn{font-size:.88rem;margin-top:4px}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.vcard{background:#fff;border:1px solid var(--border);border-left:6px solid var(--ml-green);border-radius:10px;padding:12px}
+.vcard .w{font-family:'Literata',serif;font-size:1.2rem;font-weight:700;color:var(--ml-green-dark)}
+.vcard .pos{font-size:.78rem;color:var(--amber);font-weight:700;margin-left:6px}
+.vcard .cnw{font-size:1.1rem;font-weight:700;color:var(--cobalt)}
+.vcard .ex{font-style:italic;margin-top:6px;font-size:.92rem}
+.speak{border:none;background:var(--ml-green);color:#fff;border-radius:16px;padding:3px 10px;cursor:pointer;font-size:.85rem;margin:6px 6px 0 0}
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px}
+.q-num{font-size:.78rem;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.passage-box{background:#f4f8f4;border-left:5px solid var(--ml-green);padding:10px 14px;margin:8px 0 10px;font-size:1rem;line-height:1.7;white-space:pre-line}
+.q-note{font-size:.85rem;color:var(--amber);margin-bottom:6px;font-weight:600}
+.q-text{font-weight:700;margin-bottom:2px}
+.q-cn{margin-bottom:10px;font-size:.95rem}
+.opts-wrap{display:flex;flex-direction:column;gap:8px}
+.opt-btn{text-align:left;font:inherit;background:#fff;border:2px solid var(--border);border-radius:10px;padding:9px 12px;cursor:pointer}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green);background:#f4f8f4}
+.opt-btn:disabled{cursor:default;color:var(--ink)}
+.opt-btn .cn{font-size:.9rem}
+.opt-btn.show-correct{background:var(--ml-green-light);border-color:var(--ml-green)}
+.opt-btn.selected-correct{background:var(--ml-green-light);border-color:var(--ml-green);box-shadow:0 0 0 2px var(--ml-green)}
+.opt-btn.selected-wrong{background:#fee2e2;border-color:var(--ml-red)}
+.rationale{display:none;margin-top:10px;padding:10px 12px;border-radius:8px;font-size:.92rem}
+.rationale.show{display:block}
+.correct-rat{background:var(--ml-green-light);border-left:5px solid var(--ml-green)}
+.wrong-rat{background:#fee2e2;border-left:5px solid var(--ml-red)}
+.write-card{background:#fffdf5;border:2px solid var(--ml-gold);border-radius:12px;padding:14px;margin-bottom:16px}
+.write-card .wl{font-weight:700;color:var(--amber);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+.write-card .wp{font-weight:700;margin:4px 0}
+.stem-btn{border:1px dashed var(--ml-green);background:var(--ml-green-light);border-radius:16px;padding:5px 12px;font:inherit;font-size:.88rem;cursor:pointer}
+.stem-btn:hover{background:#b7e4c7}
+textarea{width:100%;min-height:110px;padding:10px;border:2px solid var(--border);border-radius:8px;font:inherit;font-size:1rem;resize:vertical;line-height:1.6}
+textarea.filled,.grat-input.filled{border-color:var(--ml-green);background:#f4fbf6}
+.model-btn{margin-top:8px;border:none;background:var(--cobalt);color:#fff;border-radius:8px;padding:8px 14px;font:inherit;font-weight:600;cursor:pointer}
+.model-btn:disabled{opacity:.35;cursor:not-allowed}
+.model-box{display:none;margin-top:10px;background:#e8f0fa;border-left:5px solid var(--cobalt);padding:10px 12px;border-radius:8px}
+.model-box.show{display:block}
+.reflect{background:#fff;border:2px solid var(--ml-green);border-radius:12px;padding:16px;margin-top:22px}
+.reflect h2{color:var(--ml-green-dark);font-size:1.1rem}
+.reflect .rq{font-weight:700;margin:12px 0 2px}
+.grat-line{margin:14px 0;font-weight:700;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.grat-input{flex:1;min-width:200px;padding:8px 10px;border:none;border-bottom:3px solid var(--ml-gold);font:inherit;font-size:1rem;background:#fffdf5}
+.dl-btn{display:block;margin:14px 0 4px;padding:12px 22px;font:inherit;font-weight:700;font-size:1rem;border:none;border-radius:10px;background:#9ca3af;color:#fff;opacity:.45;cursor:not-allowed}
+.dl-btn.ready{background:var(--ml-green);opacity:1;cursor:pointer}
+.hint{font-size:.85rem;color:var(--amber)}
+.hint.hidden{display:none}
+#timer-display{position:fixed;bottom:12px;right:12px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-weight:700;font-size:.9rem;z-index:1100}
+@media (max-width:600px){body{font-size:15px}.tab-btn{padding:8px 10px;font-size:.8rem}.tabs{top:52px}}
+</style>
+</head>
+<body>
+
+<!-- Layer 1: persistent warning -->
+<div style="background:#7f1d1d;color:#fff;padding:9px 18px;font-size:0.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000;">
+  ⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span>
+</div>
+<!-- Layer 2: flash alert -->
+<div id="leaveNotice" style="display:none;background:#fee2e2;border-left:4px solid #c1121f;padding:8px 16px;font-size:0.82rem;color:#7f1d1d;font-weight:600;text-align:center;">
+  🚨 Tab switch recorded! Your teacher will see this. ·
+  <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span>
+</div>
+
+<header>
+  <h1>English 10-1 · Midterm Review</h1>
+  <div class="sub cn">英语 10-1 · 期中复习 — Reading Strategies · Predicting · Summarizing · Inferring · Grammar</div>
+  <div class="hdr-row">
+    <div class="prog-wrap">
+      <div class="prog-bar"><div id="progressBar"></div></div>
+      <div id="progressText">Progress: 0% · 进度：0%</div>
+    </div>
+    <span class="badge" id="leaveBadge">🚪 Leaves: 0</span>
+    <div class="pips" id="pips"></div>
+  </div>
+</header>
+
+<div class="tabs" id="tabBar"></div>
+
+<main>
+
+<!-- ============ TAB: VOCAB ============ -->
+<div class="tab-content active" id="tab-vocab">
+  <div class="block">
+    <h2>Key Words for This Review</h2>
+    <div class="cn">本次复习的重点词汇</div>
+    <p>Tap 🔊 to hear the word. Learn these words first. You will see them in every part of the review.<br><span class="cn">点击 🔊 听发音。先学会这些词，复习的每个部分都会用到。</span></p>
+  </div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<!-- ============ TAB: STUDY GUIDE ============ -->
+<div class="tab-content" id="tab-guide">
+  <div class="name-row">
+    <label>Name 姓名<input type="text" id="guideName" autocomplete="off"></label>
+    <label>Block 班级<input type="text" id="guideBlock" autocomplete="off"></label>
+    <label>Date 日期<input type="text" id="guideDate" autocomplete="off"></label>
+  </div>
+
+  <div class="block">
+    <h2>English 10-1 · Midterm Exam Study Guide</h2>
+    <div class="cn">英语 10-1 期中考试学习指南</div>
+    <div class="call call-blue"><div class="t">How this module works · 本模块怎么用</div>
+      <ol>
+        <li>Read the teaching boxes first. <span class="cn">先读讲解。</span></li>
+        <li>Answer the questions. The order and the words are the same as your paper copy. <span class="cn">做题。题目顺序和文字与纸质版相同。</span></li>
+        <li>Use the sentence stems to help you write. <span class="cn">用句子框架帮助你写作。</span></li>
+        <li>You cannot change an answer after you click it. Read the explanation. <span class="cn">点击后不能改答案，请阅读解释。</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Part A: Reading Comprehension — 3 Steps</h2>
+    <div class="cn">A部分：阅读理解——三步法</div>
+    <div class="grid">
+      <div class="card-c c1"><h4>1. Read the question first<br><span class="cn">先读问题</span></h4><p>Know what you are looking for before you read.</p><p class="cn">读文章之前，先知道要找什么。</p></div>
+      <div class="card-c c2"><h4>2. Find the key word<br><span class="cn">找关键词</span></h4><p>Look for the same word in the passage. The answer is near it.</p><p class="cn">在文章里找同一个词，答案就在它附近。</p></div>
+      <div class="card-c c3"><h4>3. Cross out wrong answers<br><span class="cn">排除错误选项</span></h4><p>Remove answers that are not in the text. Pick the best one left.</p><p class="cn">划掉文章里没有的选项，在剩下的里面选最好的。</p></div>
+    </div>
+    <div class="call call-green"><div class="t">Worked example · 示范</div>
+      <p><b>Question:</b> Why does the author suggest taking dogs for walks?</p>
+      <p><b>Key words:</b> <i>walks</i> → find 'take them for walks' in the passage → the sentence before it says dogs have <i>a lot of energy</i> and need to stay <i>healthy</i>.</p>
+      <p class="cn">关键词：walks → 在文章中找到 take them for walks → 前面说狗精力很多，需要保持健康。</p>
+    </div>
+    <h3>Sentence stems for short answers · 简答题句子框架</h3>
+    <div class="stems">
+      <span class="stem">You should ___ .</span>
+      <span class="stem">___ means ___ .</span>
+      <span class="stem">Dogs are (not) hard to take care of because the text says ___ .</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Study Guide: Key Reading Strategies</h2>
+    <div class="cn">学习指南：重点阅读策略</div>
+    <div class="grid">
+      <div class="card-c c1"><h4>1. Summarizing · 概括</h4>
+        <div class="lbl">What it is · 是什么</div><p>Condensing a text into its main ideas using your own words.</p><p class="cn">用自己的话把文章压缩成主要观点。</p>
+        <div class="lbl">Why it matters · 为什么重要</div><p>Helps you focus on the most important points and improves retention.</p><p class="cn">帮你抓住最重要的内容，也让你记得更牢。</p>
+        <div class="lbl">How to do it · 怎么做</div><ul><li>Identify the topic and main idea.</li><li>Pick out key supporting details.</li><li>Write a short version that captures the essence of the text.</li></ul>
+        <p class="cn">找出主题和中心思想；挑出关键的支持细节；写一个简短版本，抓住文章的核心。</p></div>
+      <div class="card-c c2"><h4>2. Predicting · 预测</h4>
+        <div class="lbl">What it is · 是什么</div><p>Making an educated guess about what will happen next.</p><p class="cn">对接下来会发生什么做有依据的猜测。</p>
+        <div class="lbl">Why it matters · 为什么重要</div><p>Keeps you engaged and helps you anticipate outcomes.</p><p class="cn">让你保持专注，并能预想结果。</p>
+        <div class="lbl">How to do it · 怎么做</div><ul><li>Use clues from the text (setting, actions, dialogue).</li><li>Combine with your own experience.</li><li>Ask: 'What's likely to happen next?'</li></ul>
+        <p class="cn">利用文中线索（场景、动作、对话）；结合自己的经验；问自己：接下来最可能发生什么？</p></div>
+      <div class="card-c c3"><h4>3. Inferring · 推断</h4>
+        <div class="lbl">What it is · 是什么</div><p>Drawing conclusions based on evidence and reasoning.</p><p class="cn">根据证据和推理得出结论。</p>
+        <div class="lbl">Why it matters · 为什么重要</div><p>Helps uncover deeper meaning that isn't directly stated.</p><p class="cn">帮你发现文中没有直接说出的深层含义。</p>
+        <div class="lbl">How to do it · 怎么做</div><ul><li>Look for hints in character behavior, tone, or setting.</li><li>Use logic and background knowledge.</li><li>Ask: 'What does this suggest?'</li></ul>
+        <p class="cn">寻找人物行为、语气或场景中的暗示；运用逻辑和已有知识；问自己：这说明了什么？</p></div>
+      <div class="card-c c4"><h4>4. Visualizing · 想象画面</h4>
+        <div class="lbl">What it is · 是什么</div><p>Creating mental images based on descriptive language.</p><p class="cn">根据描写性的语言在脑中形成图像。</p>
+        <div class="lbl">Why it matters · 为什么重要</div><p>Makes reading more vivid and memorable.</p><p class="cn">让阅读更生动，更容易记住。</p>
+        <div class="lbl">How to do it · 怎么做</div><ul><li>Pay attention to sensory details.</li><li>Picture the scene or action in your mind.</li><li>Sketch or describe what you imagine.</li></ul>
+        <p class="cn">注意感官细节；在脑中想象场景或动作；画出来或描述你想象的画面。</p></div>
+      <div class="card-c c5"><h4>5. Connecting · 联系</h4>
+        <div class="lbl">What it is · 是什么</div><p>Relating the text to your own life, other texts, or the world.</p><p class="cn">把文章和自己的生活、其他文章或世界联系起来。</p>
+        <div class="lbl">Why it matters · 为什么重要</div><p>Builds personal engagement and deeper understanding.</p><p class="cn">让你更投入，理解更深。</p>
+        <div class="lbl">Types · 类型</div><ul><li>Text-to-self · 文本与自己</li><li>Text-to-text · 文本与文本</li><li>Text-to-world · 文本与世界</li></ul></div>
+    </div>
+    <h3>Match the strategy to its definition · 把策略和定义配对</h3>
+    <table class="t">
+      <tr><th>Strategy 策略</th><th>Definition 定义</th></tr>
+      <tr><td><b>Predicting</b> 预测</td><td>To guess what might happen next · 猜测接下来可能发生什么</td></tr>
+      <tr><td><b>Summarizing</b> 概括</td><td>To shorten a text using main ideas · 用主要观点缩短文章</td></tr>
+      <tr><td><b>Inferring</b> 推断</td><td>To figure out hidden meaning · 找出隐藏的意思</td></tr>
+      <tr><td><b>Connecting</b> 联系</td><td>To relate the text to your own life · 把文章和自己的生活联系起来</td></tr>
+      <tr><td><b>Visualizing</b> 想象画面</td><td>To picture scenes in your mind · 在脑中想象场景</td></tr>
+    </table>
+  </div>
+
+  <div id="guideFlow"></div>
+</div>
+
+<!-- ============ TAB: PRACTICE ============ -->
+<div class="tab-content" id="tab-work">
+  <div class="name-row">
+    <label>Name 姓名<input type="text" id="workName" autocomplete="off"></label>
+    <label>Block 班级<input type="text" id="workBlock" autocomplete="off"></label>
+    <label>Date 日期<input type="text" id="workDate" autocomplete="off"></label>
+  </div>
+
+  <div class="block">
+    <h2>Summary and Main Idea · Predictions · Grammar Review</h2>
+    <div class="cn">概括与中心思想 · 预测 · 语法复习</div>
+    <h3>Main idea and summary · 中心思想与概括</h3>
+    <table class="t">
+      <tr><th>Part 部分</th><th>Meaning 意思</th><th>Example (dogs passage) 例子</th></tr>
+      <tr><td><b>Topic</b> 主题</td><td>Who or what the passage is about (1–3 words). <span class="cn">文章写的是谁或什么（1–3个词）。</span></td><td>Dogs</td></tr>
+      <tr><td><b>Main idea</b> 中心思想</td><td>The most important thing the author says about the topic. <span class="cn">作者对这个主题说的最重要的一件事。</span></td><td>Dogs are energetic pets that need care.</td></tr>
+      <tr><td><b>Supporting detail</b> 支持细节</td><td>A fact that helps prove the main idea. <span class="cn">帮助证明中心思想的事实。</span></td><td>They need love, food, water, and walks.</td></tr>
+    </table>
+    <div class="call call-amber"><div class="t">Summary rules · 概括的规则</div>
+      <ul><li>Use your own words. <span class="cn">用自己的话。</span></li><li>Include all key ideas. <span class="cn">包含所有关键信息。</span></li><li>No opinions and no personal information. <span class="cn">不写观点，不写个人信息。</span></li></ul></div>
+    <div class="call call-blue"><div class="t">Sentence stems for a title and summary · 标题和概括的句子框架</div>
+      <div class="stems"><span class="stem">The Origins of ___</span><span class="stem">The word ___ comes from ___ .</span><span class="stem">It means ___ .</span><span class="stem">Over time, ___ became ___ .</span><span class="stem">This probably happened because ___ .</span></div></div>
+
+    <h3>Predicting · 预测</h3>
+    <div class="call call-green"><div class="t">Clue + experience = prediction · 线索 + 经验 = 预测</div>
+      <p>Find the clues. Think about what usually happens. Then say what comes next <b>and</b> show the evidence.</p>
+      <p class="cn">找线索，想想通常会发生什么，然后说出接下来的事，并给出证据。</p>
+      <div class="stems"><span class="stem">I predict that ___ will ___ .</span><span class="stem">I think this because the text says ___ .</span></div></div>
+  </div>
+
+  <div id="workFlow"></div>
+</div>
+
+<!-- ============ TAB: MOCK A/B ============ -->
+<div class="tab-content" id="tab-mockab">
+  <div class="name-row">
+    <label>Name 姓名<input type="text" id="mockabName" autocomplete="off"></label>
+    <label>Block 班级<input type="text" id="mockabBlock" autocomplete="off"></label>
+    <label>Date 日期<input type="text" id="mockabDate" autocomplete="off"></label>
+  </div>
+
+  <div class="block">
+    <h2>Practice Exam: Prediction · Summarization · Inference</h2>
+    <div class="cn">模拟考试：预测 · 概括 · 推断</div>
+    <table class="t">
+      <tr><th>Skill 技能</th><th>Ask yourself 问自己</th><th>Stem 句子框架</th></tr>
+      <tr><td><b>Prediction</b> 预测</td><td>What clues do I see? What usually happens next? <span class="cn">我看到了哪些线索？接下来通常会发生什么？</span></td><td>They probably ___ because ___ .</td></tr>
+      <tr><td><b>Summarization</b> 概括</td><td>What is the main idea? Which 3 things matter most? <span class="cn">中心思想是什么？哪三件事最重要？</span></td><td>The passage is about ___ . First, ___ . Then, ___ . Finally, ___ .</td></tr>
+      <tr><td><b>Inference</b> 推断</td><td>What does the text say + what do I know = what is true? <span class="cn">文中说了什么 + 我知道什么 = 什么是真的？</span></td><td>The text says ___ , so I infer ___ .</td></tr>
+    </table>
+    <div class="call call-amber"><div class="t">Remember · 记住</div>
+      <p>An inference is <b>not</b> written in the text. It is a conclusion from clues. Wrong answers often use words from the text but say something the text does not support.</p>
+      <p class="cn">推断的答案不会直接写在文中，而是根据线索得出的结论。错误选项常常用了文中的词，但表达了文章不支持的意思。</p></div>
+    <div class="call call-blue"><div class="t">Retell stems (3–4 sentences) · 复述框架（3–4句）</div>
+      <div class="stems"><span class="stem">___ is ___ .</span><span class="stem">Climbers ___ , but ___ .</span><span class="stem">Some ___ , while others ___ .</span><span class="stem">Still, ___ .</span></div></div>
+  </div>
+
+  <div id="mockabFlow"></div>
+</div>
+
+<!-- ============ TAB: MOCK C ============ -->
+<div class="tab-content" id="tab-mockc">
+  <div class="name-row">
+    <label>Name 姓名<input type="text" id="mockcName" autocomplete="off"></label>
+    <label>Block 班级<input type="text" id="mockcBlock" autocomplete="off"></label>
+    <label>Date 日期<input type="text" id="mockcDate" autocomplete="off"></label>
+  </div>
+
+  <div class="block">
+    <h2>Part C: Language and Grammar — Tools</h2>
+    <div class="cn">C部分：语言与语法——工具</div>
+    <div class="grid">
+      <div class="card-c c1"><h4>Simple sentence · 简单句</h4><p>One subject + one verb = one complete idea.</p><p class="cn">一个主语 + 一个动词 = 一个完整意思。</p><p><i>The cat jumps on the table.</i></p></div>
+      <div class="card-c c5"><h4>Fragment · 残句</h4><p>Missing a verb (or a subject). It is not a complete sentence.</p><p class="cn">缺动词（或主语），不是完整句子。</p><p><i>Smiles on their faces.</i> ✗</p></div>
+      <div class="card-c c2"><h4>Question · 问句</h4><p>Did + subject + base verb + rest?</p><p class="cn">Did + 主语 + 动词原形 + 其他？</p><p><i>Did the cat jump on the table?</i></p></div>
+      <div class="card-c c4"><h4>Contraction · 缩写</h4><p>An apostrophe takes the place of missing letters.</p><p class="cn">撇号代替省略的字母。</p><p><i>Where's = Where is</i></p></div>
+    </div>
+    <table class="t">
+      <tr><th>Base verb 原形</th><th>Past 过去式</th><th>Not 错误形式</th></tr>
+      <tr><td>take</td><td><b>took</b></td><td>taked ✗</td></tr>
+      <tr><td>go</td><td><b>went</b></td><td>goed ✗</td></tr>
+      <tr><td>run</td><td><b>ran</b></td><td>runned ✗</td></tr>
+    </table>
+    <div class="call call-amber"><div class="t">Subject–verb agreement · 主谓一致</div>
+      <p>One thing (he, she, it, the sun) → verb + <b>s</b>. The sun <b>rises</b>. The cat <b>jumps</b>.</p>
+      <p class="cn">一个人或物（he, she, it, the sun）→ 动词加 s。</p></div>
+    <div class="call call-blue"><div class="t">Sentence stems · 句子框架</div>
+      <div class="stems"><span class="stem">Did the ___ ___ on the table?</span><span class="stem">There were ___ on their ___ .</span><span class="stem">They had ___ on their ___ .</span><span class="stem">It took him ___ to ___ .</span></div></div>
+  </div>
+
+  <div id="mockcFlow"></div>
+</div>
+
+</main>
+
+<div id="timer-display">⏱ 00:00</div>
+
+<!-- ================= TEMPLATES (paper-copy content) ================= -->
+<template id="tpl-dogs">
+  <div class="block">
+    <div class="paper-title">Activities</div>
+    <p><b>Part A: Reading Comprehension.</b> This section requires students to analyze the story and answer questions about it.</p>
+    <p class="cn">A部分：阅读理解。这一部分要求学生分析故事并回答问题。</p>
+    <div class="paper-passage"><b>Example passage:</b> Dogs have a lot of energy. They enjoy running and playing. Some dogs have soft fur, while others have curly fur. Dogs come in different sizes and colors. They eat good food and drink water to stay healthy. Dogs are good at learning tricks like sitting and shaking hands. If you have a dog, make sure to give them love and take them for walks. They make great pets and bring joy to your life.</div>
+    <div class="mini-cn cn">例文：狗精力充沛，喜欢跑步和玩耍。有些狗毛软，有些毛卷。狗有不同的体型和颜色。它们吃好的食物、喝水来保持健康。狗擅长学习把戏，比如坐下和握手。如果你养狗，要给它们爱，并带它们散步。它们是很棒的宠物，给你的生活带来快乐。</div>
+  </div>
+</template>
+
+<template id="tpl-ninja">
+  <div class="block">
+    <div class="paper-title">Summary and Main Idea Worksheet 2</div>
+    <div class="paper-box"><div class="row">
+      <div style="flex:1;min-width:220px">
+        <p><b>Directions:</b> Read each passage and on a separate sheet of paper...</p>
+        <ol class="numlist">
+          <li>Create a title for the passage related to the main idea.</li>
+          <li>Accurately summarize the text.</li>
+          <li>Your summary must describe all key ideas from the text.</li>
+          <li>Do <b>not</b> include opinions or personal info in your summary.</li>
+          <li>Highlight or underline key ideas in each passage.</li>
+        </ol>
+        <p class="mini-cn cn">说明：阅读每篇短文。1. 写一个与中心思想有关的标题。2. 准确概括文章。3. 概括必须包含所有关键信息。4. 不要写个人观点或个人信息。5. 画出或划出每篇短文的关键信息。<br><b>在本模块中，请使用下面的输入框，不需要另外的纸。</b></p>
+      </div>
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAIAAAAiOjnJAACA60lEQVR42u19d3xcxdX2lHv3bl+tVrvqvVuSbbl3GxsbjOklQCBAaKEkBBISAiHBCYEEAiGV0EIvIfQSDG4Y997Ve6/b6y0z8/1xpUWoWZJlIO/n+RFHWt2dnb33zMyZ5zznOZBSCk63022yGzp9C06304Z1up02rNPttGGdbqfbN2NYjLHTd+p0G1eDp43mdDsVjRt2ZYIQjr5WqRcM+uuwL47ljZM5Ub6W/k+3E9+o0zjW6XbaeT/dTvtY/xcbIUTdChE6PSHHY1hDfaxBLw61wmF9DsbYKE7YWHygYa+cmH8z7GdNuH/VczhtWKd9rEnz2SORSG1tbWFhIYTwtAt/2seahMYYA4xBCH/3u4def/11hBCl5PRtOQHccHryDetNAQAZQAAQxhiAHFEUQRDOP//cRx955Jxz1thsVsZkBnkGID59t064Yg3rjjDG1NdZfxv4+sA/jfT6wDaoz1H6GTSA0ccw6CMm3H//r7DvfwAyxiCVFcYAAIGwVN3U9fGn6wGAlAAIGBzzmjesLzuSrznsOCfQ/xivn/Txn/axRrqRfSYDGaBUoYDynLBtz567f/s3vTUxXhf+97N/p4QiABhip92JyfSxxmvy/2N2BSEFgAEKKMOY5znh3Q8//N5tv7DNuDBzwSWt3S6P34MwOj0jT8rHUg1oIHzwf/5YRBlFgEBKISf4/cFfPfrEG5/tmXH+HamzL/K21iKNLuj3x5hiGAIA4tPr1fCGNSw0NawjAr4KUw1rcCPhXsP+PEpcbyTMbBDSNuyvI33uWDAF9WLECKMAYL6713nDj++vDZtW/egv2JrukQFEQKPRaDVC39I2wi0aNPFGwv+igN8ok3li/Ue/zjfS/+Ag9NhJMsO6b4PeONKfxuL6jXSMmPBnjQtKVRhilPII/vj+h+qZffkN9zkVbUCULFrk87Yb9UKM1UYoA5BBwhiaCNFowjdhvM/om+offavRIzC5QQYA2DD3ZaiNQgA0Gn7n7r07D9ecffltXqKRiAIg1nGg5fDWOVMLMMaEEQQAOI3VnAoca9CONrmO16lw4wZ2qfavHooHGhnGmBD5pddfe+k/73nD4a0fv5m76AK9JZXjcXflrnDLge898k8GAAcBgPA0jeakgtCDYn+DHJdBhjWStY3FCkf3w0bysYZ+xAn7V+0JQjhs1O8nv3zgi8qeohVXQl1M+Z7trY0NF1x3WygQ+OTJe/563/XfvfQShVAOUgYRBQgBNq4D0KB7NZb3Trj/cS0Nkzv+CeJYQy1mAjdu6LcaZK/DBsVHMuLRzTT6K6UUQohxH2Ducrk6OztbW1u7urrcbreiKK2tLf/+aEPx0suwLQPqzan2hD2b3wr2NpkFfMN31tx2w7WSKCPMOAQp4CkEGLDx3rH/0bjWuMbPTaDrsXMTRh/K0L8OemXE2TCe/qNelGpSHMcBAOrq6rZt27Zv376mpiaX2wUYwBirMArH4VlTcvzNBwMNuyOK1KZgDGVPbcX0RfOn5me43J5YawwAQFEUChQO4TG6Wf/re+Z4xz8RPtag5WrQkvNtu4PqkkwpVU1q166dL7344pGjRyGAsVar1WYzm8wajQZjjBCEEAHAFEoBgIgRSpii0EhEVBTJ7ertdvbqTYZ5c2ZfeumVU6eWAAAYJQCi047WmLbCoT7KsK7VWPjvJwRaT8iXGoklNhYgV/2VUqq65M3NjY8/9tiGDRsS4uNz8/JMJhNCkCiMUqZeA2Gff08BZQBBiCAAkCEEGcQAQJ4R2edz1Tc0ePz+BfMX3XTDjdNKpwEACKUYoRPiQMO6CmNfFSbQ/7gIZ5M7/pOKFY7k4nzj65Z6xoOAMgYARAihN//z5hN/eoznuKlTpxlNJkmUCSF9UQQAB30RCBhgmAEGoAIYApBSABlDGFAOc5yGD4R8NdX1Po9v5Zln3PrD2xOTUmSFIAwBgAgwACgA6P9zKOL/ZhCaMgYBo5RAiBDCf/jDw6++8ur06TNSklMkSVQIxRBBQCEAbNjDI2BMdckZBBD2w1/R+QoQghoNHwoFqyorKGB333336tXnEipTCjDkICQATo5hndIpOsYj4eTDDWM5xA7aJceFaZ26L8aoQhkAmMMAPPT737/84vMrV5yp1RtEUUZqnJNBABiAALJhFzzKIFNNCQKoGhlTfwMMAkgBBYwiBDjB1NHWcWz/rltuv+22H90JABAJERCYLMP6P8V5H2glI4VWRjmvjYItjeJjjSXmOBJ29dXrIYQMMJkCLhKOvP7aq3/9yxNLli3neV6WJQQRAhBAxqIhB4j6d86B8CkEAALGIGAD7IMhFUdV/2OQAUAA0+v0shTZvnP76rPPufmWW1KTkyilg+Cx0cc8yk2b2Npzwtk+6f0P7fD/4FZIKcMYHj567P7fPnKssi7ZbplRmK3V6SDkKGGUSIBSBlULgQNnlWpCEEAKAQAIAAaZui1+ubRBwCADCCGMMUQcRCwcDDndvur23hA2p8Zb/7T2zsLc3Kht/X97YOTANwSgnVKWHgNo4+fbmkXj6l+8cHjX5xuObNSBSJLNEGfWmUxGnSCwPowAor43MAD6lyMIoOpjMQAhBBCp/0cBY4wBCCihEVEMeEI+f6DT6fXIGs6elbri0pnzl3367EMvvPjaY7//LSEkygH5/9O2uLFj/6MTML49tw8jBAFobW31hWQ+LqP4/FvFWSvbqw+31B2o7eqgzd0aGjZooJFHAo81HNJwHOY4jDGCGCHIAISAAsAopYwCWVEUQiRFkRQiKTQkKkEFKpye8CadOcsxuyAlZ3pMWjFkYO8XH1Qc3eutUc4/f8+S+XNVYPb/25SeE/hYo/Orht1lx67dMC6y1NgXToRQfX39VT/6ZaOfc+TMyF58kdaewSOgYZIU9IU8PaK3O+zpDnt7wyEvCfuoHKZEYYoCGGFUzZ6AEEEEEMM8xBrMaZBG4HVmwWA1mKy6GIfGZNfGJHAGC4FAZkDyuWu2f+JpK88pnmbRsMoNL73614dKS0sJIQihYV2QCbA8xhUcmwCFZHL750bh9J2Q8zT0yrHzkE6RdIfq3FRU1ciC7arrf3KwsikiEU4hosIQRIiP1STE6RILY2Gfq84YYYrEFAUQiTHKKAWAAYAAQhBAgBDEAsQaxHEUAQYAUDnLDIiEhEQCKMMQMMhlTJtnOuM8S6w5VLtHliKqSzbeHAdwcjyib1X/3Nccbzp1axUYgDXptJqGI9tiMqdmLbmcaixEYRKECgWEMVkmADJIGYIQMkghBFCLMIQYwP5DoIo0QEYBZQBCQAAjhAHAAGSQAUAZBBBAACBCjEHEG0wxZhMKueq2/bd644vQ0+71eP4/V6fhTgjzTy6wPsb48UlSrirKy+MFJXz0k+3HdsflzIhNyzcm5OjNNo3OwDCWKVAIoBSo6V2EMsoIYwwByCCAfVk6fZCVun4xBiFgCDCgumIQcAhoMAAUikF3uKOjofZgd+UO2Vm7sCinCSVs3bpt2bLl/z/bFjcWMxqWPz6UlDIWDvt4NbRG4bkPK8Sg/lxVW5Oa7Jg3I7u5o6eleUtzxaYwwRqLA+ssQky8yZFusCVrzTZer9do9BwvYI6DmGcAUAZoPx6qLkoAAIT69k0ii3IkoIRDUsDr7m11tjcEXG3E1w783RZOyY2zpGQXGY16Z5ehvr5+FFzqW45jDXRsVNBkAjgWN4ojNd69eSwc6nER6sfokw19vafHyWmECJEtsbbYuAQiR2Qi7zt40B7vyIulRw9vqnZ6RQUzqFE4LeN1vNbIa02c3sQJeo2gw7wWIgQZo0SisqhIYSkclsN+KAcBCWMa4kAk2WZZWVzYEKo9UnF4+aIlGo2WIijLkiSJRr3W5XKJoiQImoEw4XiTAMb7LEZ6+wT6Z4xSyhBCKtdoAv1zY8yQGXovxrghnjp3ahTysSKGOYgp0CpEYSTCQUaQJtYk/O0P92UVFpFQTzAY6ux0dnW7nG6ny+PzeAPeQERSRApkf7AdAMgoZYzqdIJGw+kF3qDXmoxxNmtsnM2S6LAlJNgNBj2nj60rP/K979+uEMARQJQIgAwwnkcarxRQFFkQNN9actVoVgUAQhghcDLg+fA+1lj4FdFF8oTmdZK0+rEMJqoupHrfOq026A9CCBEgkAFeo2lqqM/LTc/Ky5a93TyGZqPZXBCbV8wBCFWQHQCho7766NHDZ61ZAxB65MGH8goKLrriekD8AHP9pwICAAUyAbJEFUL8XclJCWkpic7enrS0TCLJEEAIMaEMY4wxGojwfduQ0r7BsL5/IFRtCBHGMITO3p5Dh4+uOHNFH1QMwXjp/Wj0/OaRNBGGujvD6jKMIt8w7F9HWmlH0m74EhTFWKWAKrICALA77P6gH0AGAKWAUQQ9HveUwnyGEYSUMUZkWQqEZJ8XhPwgEgBiGABU19j067W/9brdRJS2bt9RV1unKMGIx6l4exW/U/b1Eq+H+vwsEmaEAAQYZIJen5SUEAr6EEIMIggpRCwYDhmNJkHQ/i8ki1MAqHpcAYCqYApjlOf5Rx955NXXX4UQUkIpo+P9LtzouanDmt1IXvwYMZux/2mMQJqiKB9++CEh5MILLxQEgTFWVFS0YcNGQgmEiDEKAQgEAyaDCTAKKaWQYo0OGw1MEnt6nc5eV4/LKRMa9EcuvPjKji53IhZe//e/zQY95ABnMjJJJJRC2rf6QJWVAxhTABQQ7TtJqs+GMcB8fl9efi6EUFEUjPG4/MtvwLAYYAABoGIvCqZQUhSzJebSi87/w+//cN6ac2PMFkIkgPhxDZ+b0N78FX4S+EYZ/hjjmpqaH/7w9lAo+Pbbb998840rV55ls9kCgUAkHOZ5DaOAMaAopLW1DUKeIY4zm3taO9d9+u6WLVtrahu8Pj/mEUQ8z2n0BsP6jV9YLIbk5MScrMy83Kz8nKy01FSN2QIQBlQEsgioAihDCCOTtb2h4eChw4mJGYSpilmYKNTn802dNu1/AhSgEEMGUZ+JIQoBgCpfFjR2ueu7/J9t2Hz5pRcDwE5hXuGAzYgihKN+wzfoOiCEGGOpqanXX3/Diy8+//HHH+zdu/vSSy+tqqry+329vb0pyakUEACgyWT55NMN1113rd1ufeHpF5954eVAQMxIz545d3Gc3aHTCxpeYEw91kUCAZ/H7T5wpHLrjr0cgmajITMzIy83KyMzJT0jxWQyIIh9Hv++fVufefaFhsbWvLyplCoQAoyxx+vFHJ4/f37UYfg241gQMIhIv6uFKQOAMYHn3nzn/fd2Vi666Mb1X+z4zqUXA8SP90HDMQL56lpFKcVYpbBRShmE42CGnCStbySMjVKq5nJ98cUXf/zjo7t376aUCIJACElOTlm2dBlRCM/zXV1dGzauK8zPxQg0t7UtOWPlrFlzjQYLo5QCSokCGIMQ9wPqECEMISMKCQUDPr+3p6urq6tLFENEkTgOUcr8gRBCPIS4ta19yZLFGHNEoTqDfs/evfl5ec8880w0dfFrM6yB7sHQIODwVk4ZAApDlAGOKQBjDCB4/sVXfv7488tv+JWG17Z//tz7L/3VZDBSRjFEJ+VjjTRo9RG6XL2vvvrqZZddmpiYoigEYzQxfYTJk6lFhFAA2NKlS+fPn/eXvzzx97/9PRQJxjsSwuFwfX1DXk6uKIlxcXEJCamhiFJUNOW8Cy+3xyeEI5FQyAdV1jugAEAIaF/QhlHIAICQAcRrdQ6DISkpFSGsKCQU8kuiqBDC80JsrPXNN9+Ms9m1glYUJY7jfR5/T1f3Q797UD2oqhZ/ql0r9dEAABGCaswbjKz6rIbYMYJfMq1VG6AAcygYCt3/8ONvrD+46Lq1MQULXU01jDOEvF6zwchYP137VPhYoij96Ec/0gj8TTfdTIgC4Vcplt/kyRnKsqzRCJJEvF5ffkFuTEzsypUrX3zxJXuczWQyIwQLCgsrKsqKi6fFOxI9Xh/HIQS/vL8Qqt63amgIQsqASpynlCiKeuiGkNcI6nHPaDR8vmVzTU31GcuWK4oCIOB5buOm7atWrVy0aPFQEumkG1PUXjHG0c+KREI9PU6v1xsKBRVFAQBqeN5gMMRYY+z2eI7DUVIjJTIAkEIEEICAYYS8Hs+NP73vQLew+kd/odZUv0ghRFgQOF6dHuN70NwoWYEDfyWUYoyfevrpDz/dtGf7Fp1OrygywpgBgL5RHyL64RByjDG9Xn/9DTf++tf3v/XWW1u2bJGkyK49O1csXwEgSk5KcDmdzzz77HXXXZeWmhoKh9W0CPXpDEyWgBBGRWQQgACqMA6glDFCAEI6nXb79u2fffbZwvkL9TqdJEkGg37/gYNGk+G+X97HGD0VO+BAzEW1J/X1rq6uvXv3Hj18sLKirKfHKSqUEkqZQgmBCGKAMeYxj3itLjU5uaS4cOaceTNnz9VwfN/XBkBRJAXBX//hr1Ve48pb1/pkvSwqBi0KB3rMOi7GGksZQAiNy48ZMa9w4H6szr/G5pbv3fzDpu7gnx/46cUXrJZkheNUEiYaukiOhfM+Xmh42KT7gf1HY1tqKy8//uQ/n3r/vXdjrbalS5fwnAYAcOTokZbW1jVr1kydOhUhJMuyGrUYiGSO8FApQlgQhFAotG3btj2798yaNTM5OUmMSHq9vqamprKq6uVXXp41a5aiyBzHnwp9LDX/Uc287ejo2LZ124bN68vKK4L+oFFvsNttMSazVmvUCBpeg4G63xEgSXJYikhyJOT3d/V0h6WwJTZu+Rmrli1ZwiGWkZkZb3fUtzZf8P2fLrz24WBcbiCkQEBNBk31B38/Lxffd9etRFHZQV9ZtEbnx8JBwaxhr1PdhX8++8LzmyrSSua0bHl13b//ZY2NZURCSPPtyUaJfhfVyHieBwBs27bt0UceqaqqXrZ0qcVioYw1NjZUVFQkp6TMmzcvIyNDEARFUWRZHim+jhDieR5BEAgGKisq9+7dFwlHSmeUxlhiZFnW6XRVlVVV1VWP/enxNWvWKIrSn1ENJrsuhqLaa1VV5ZtvvvnFF1/4fD6H3ZaYmGSNsSMOUUoopZQwSCgAgADKGOAw4ngOYBgMhN2eQE8w4PFLHZ6wxBvT0rI4Ijo0wRuvvODjz3d9sOVQUvHinDnn6NKnMswrbRXlb/32rb//Jjc/jyoyVmEIOHl5heoCjDH6/m331JpnTl9x/oZ//Lw0NvLKM09iCBlgEH1bFKmHBVQxxl6v97777nv3nXfnzpmTk5ODEfb6vDU1NZ1dnVZrbH5BflZWlsPhEARh4NGpnwMP/H5/R0dnXW11TU21LMsZ6ZkZ6ZkQ9dnc7j173G7Xn//yl1WrVqk1USZ3E4zGrDiO8/s9f/nLXz788COdTpuZkWmLi+MBJITJCqOAAkSgupMziCDmOA4gGAiH27qczT1OERkEe15MWnFMYpbFkaozmjkWqt750fa3/wlE78KLfpAw9Yz6qrKqg7uWXnCNzZH4/hM/vf/G1XfcdotMKEIEncgjH8TxPzHcoO6DsixfcP1PwaxrbLmz+GD3xn/cff6cjL89+ltKFBXT+jrhmnHF3RRFUfeO55577tE//lErCKWlpQ6Hg0PY6/E0trS0trbIsmwwGKxWq9Vq1ev1Go2GMSaKYiAQcLlcHq9HEiWj0ZCRlp6UlMRxvHpPent7d+/ZnZSc/Ne//rW4uJgQEvV7JivZRN3+VLmlPXv2/vKX9zmdzpkzZ9issYqiEEUhEECIIYOAETUFl8cCwzQsiU5PqKXL0x0CfHxectFCR84UwZogY5NCASAMhNwH1r8u+bvyps6J+H2hoM+UkFkwY3Hb8Z273/mbAEPXXbDyt7/8uUIpgphBgBkFwy3DI7GqRvOxBpJywuHQZbf8UjP3Bk1qESDQGOlc99Q9N66Z+Zuf3TH2YjWTGJMfe/9RIgZCqKKi4oknnvj8888NBkNhQWF8fLxeryeEeD0el8vl8/tDwaAky/1oJ6fVCnq93mKJsVjMOr0BQcwoJYR4vN6ammqf33fZZZfecccdFotVlmWO40ZnOE1AuyHq273wwguPP/54RkZG4ZRCIiuKrKhRYQIBAxAxyCGAOV5WqNMdaHf29kYoMWVac2Ym5s8wJ2QoWBdRgExlxChjWMPhlvoKFnAVTiuVsAEBxvw9x7a872yrO/Pc7x786PF7rl1z+aWXE8rU5BJGIQQMomHGr5pHMBhkjBkMhihmfuKtUA2MQQi+c+MvwoUXxRTMD4tEIyDeXb/9n3c/+7s7l5+xRKE06tipW2f/aWuoCCMb6Cn3h9j6EvpGAVEnPOPVb04pJYyqR6GdO3e+9dZ//vvfTziOS05MjI9PsFqtBoNBxfEBAxQQCPuO11HhP1mSA4GQ0+lsaWn2+QMQMYvF8sbrb2RmZUtShOP40f2qcY6fqXNeddUff/zx559/Ye6cOXE2W0QUQR9/mkIIMcAcxgBBbyDQ2OFs90pQH2fJmmHPnxuTmMsMlrDC5D74l0MMYkYoggQAzJjAc6JECCAKBQatJo50vvTAdTNmLzIqrj/9+o7szHSqEMyp7H1IIEAAwhGyV3w+X1tbW0FBQfQJnhjHQhBSShHCWWn2HW3lCVPmhxklEdmSlp235MK3Pvh4xfKlACIOje+pK4oCVAxSNVsG+7HKyeTeRC0YIQQBVhTCGF2wYEFTU+OGDevj4uI6Ojtqaqu1Wq3ZbDZbzNYYq0Gvxxynro5EYbIsB4NBj8fjdruCoUAoFExPz5g/b16szVZVWfn971//4ksvZGRkKgrBeNK4QwwwRpm6sT7z9FNPP/3UGcvPNOoM4bCEEIKIQQQw5hmFUiTS1umt7XS7FN6aOTV78XJL2lSkt8kMBAilEQUigCBSBSggYoT1YaMUwIgkQQB4TmPkAPQ1b1/3PBfubdzz8RmLFyUlJjDGIELRLN5RJAMopQaDIRwOh0Ihg8HQNx/GSNYDAJy1bM6HD73AFpyv09tRMNC0/1B3Q4UcqAmLEQzx9r17rBYL5rXNbU1drc0tLW29rl5RlBkFPM8ZTcbYWFtiQkJycnJaenpSUpIgqIrWQFZECDGCECJ4ql0zCAHH8a+//vqDv31w3vx5drtdEsVgMFBeXt7U1OR2u8sC5YQQjuc0PI8x5nkeQIwA0uq0DofDbMkuKysvyJ9it9vD4XBRUfHBQ/t/85vfPPPMc6oRTJafSSjkMHJ7fevX/ffJv//1zBXLLRaDqDCtQUsVRZYlvy/c7Q65vKKHIhyb6ph/buGU+fq4FIlxEZlQharZthzkAO1bAFkfAswogJQxDiOB03CERHqq6o9+3rx/XSz1X7x01ubPN8yfVaDXaVVqxpexoBNRAbRardvtNhgMfdN4jPpYjDFCyfdv/9khj37O2dds/eQtEPHbExJRqC3Hooh+X013yGRP6Wlvaak4YNPS/Lw8syWGEglQoqZ9irIUCUUAAIJWiIuzF07Jmzt33pw5c63WWHUBG6gIOon6WNGfCSEcx+3fv//Gm26cOX2G1WoVI5KaG/HFli1paWlpaWm9vb1Op7Oru9PpdhFFSUpKysrKio9P0ul1gJJgILhp8+fz5s612+2RSARCKGiFjZs23H33z6+66qrokzhJfSnKGIJw+559a//++vEDu7XEl5udhQGFAIZFOSSyIOWJLlYbnxWXWmjNmmZMSIecPiIDWSEqH4/17+GQsT6hgL7KQBBzSMMDDVMUb2d3fVnr8R2+xgMWECxIT0hMTOAFXVVVuVGv/dfzL6kEpJE474PUEhFCra2tHo+nuLi4DxccI/2UMYYQbO9ov+XutduPtOQvOWf+2Vd5AoGO2sP7P/6Xs7l62pIL55x/nU8mgdZqZ9UBb2t5kpEVZaYZTEZJURghEAAIoSzL4XDY5/M5nb2+gNegNy5cuPiKK68oLCyMmtcpgq3V/q+97tqgP1g0pTAQCEGIdTpNTU1Na2vr4sWLJVFSNdhEKez2uNva2jo6OjiOs9niMjOzkpOSIACfrV+fkpySn58vaAQVjt+4eYPdnrBu3bpJHLYoilfd8YCcd7bRZG49tqenowUQEfOCwRxriku2xKcZ7CmcycE4vUiBpFDI+vWW1BgbBIAxCgCDjEKAABIw0iDAA6B4292NR5qP7+htOMJFnElxpuykRIfVigAME4VxmCjy7p27/v63vy1YsGDgVDlhkrDf7y8vL58zZ06f/z52XrNCFJ7jm1taVl1956Jrfnl4945upzujcFZCahqHlUNbP4W8MOvcG4Bg5mnE31bVsOO/gYY9SRaUlZxoMeplRSKEcmqkFCGEMSVKr9NZU1sbCARWrlx53XXXlZSUAAAURcaYm3TsFGN85MiRiy+5qDC/MDc3FzBIKfH6vUcOH5ZkWafTBQMBSZIVRWYAYAwRwkp/QwglJiZNmza1srLS4/bEWGMNej3P813dXe3tbTExsZ999ll6evrA1IOTyeT2eD1X3PFQxkX3RnSxiAFAGVYiFELAaWUAZAJkChhhEDDI1HgTYRBQBgCFEEAAGMaIh4DnAWCEhN1hZ4enpbK75mBvUyX0dSbE6DJS4pMT4jQagRBIFKlPLQxAQeB37tp97vnn33PPPWom9xh9WVmW9+7dO3v2bBWsGQcfS91WAgG/XsC1eza0lB2+6M4/isYUolAA4MLLp5Tv2tzd2GDLLg4RXkieNvWKacGOmoa9H++o3ZkkyHkZyUajQZRkSimhClQUCIDdFpeYkOjz+Q4eOLBt27azzz77tttuSUhIioZZJte8qqoqA37/kaOHOzs7TCaTrCjBYKCruyvK3YhmxFMKAFCPF5DneQhhW1uLx+OWZXn16tUrVpx54403CIKg1Woxxooiezye9PT0yXKzKKFNtcd7Pn4xY8ZKZIgjGgOn0WEAqaRQgAAEAAGoJkEyCpmKUmMOA14AWg5QokR8zlBna29TpbejKtJbT9wdGhCxmoT8DHt83CydVkcppbJEIhKDAEIKIGCMUw+AsTHm8vLy6D44xm+kxjkkSdJoNINPhaPH9TBADICkpOR4Ez689S3B6Ij4PUyfFJYUCFAE8dmzzxKlsMwABoBIig9AzpFbeP6dkY6VzXv++8Wxnek2PjcrneewLEl9Zq4okiwLgjB79hy317Nx48Zt2764555fnH32akoohQwP2eNP6K+MMH4VQw8oiqLVajs6O44dP5aTm7P8jDNef/0Ng8FACKGUKooySJNCbQghjaCRJFFRyObNm6dNm3bnnXe+8cYbvb29AAC93mC320+YqTeWvELVvt/68BO/ArmA8/iW94XYREtaYXzOdMrrVYcJMQCoKvMMsAbwGPAMiMFgxNXd01nX1Xjc21YFg90WJJfkpLiVzqMNh1YsXm4xx2AOMEoIoWJEZFCNr6sbJwSAUkgYQAqARnNsV1eX3+8zmy0Dw96jxH9VxBhjLEmSesnYtRsYAIRRrDcYNCScF6fVxOg+/ftPF1z1M1vBIr/MyZRJhGKNIDMEIEMQQAAVhSoMaB3FBRcWBJvPKtv4Wt3eY6WZcckOO2WIKAoEACFIKCGRsFFvXLhwcVNj45133HXr7dU//vGPCaOEEgghoH16amA8dXWGfrXExHgIod/vRwgtXbrkogsvfv3frzFGGWNaQavT63RaLc/zUMW9CJFEUZQkURQVRVEUmTKCOexyOt9+++1NmzZdceV3H3vssfKy4z/60Y+TkvpW2TEy+of9mVCqgo3PPf986fKris7+fq8rwCBHeC1Vj/4QMkARVZgUkb0eMeT1Ods9HU2+jjrF0wrDPXYDNyMnferZOTNLzi7ISbOlpH368ad3Hj+i0WoooIrUL7uK+pQE+s57DAKGEGAUMECJIGj8fm8wGIwa1uAbOwCAZJRSShkDGg1Saf7qldw4eBCMYI7/y5+frKmuPfesVQRznNC889WHM2adk3/GFRprSkhChBCsQlNArdhAAaQRSkME61OmL7wut/XYF0d2vlvfXjslNd5us1CqKDLlIQUQyESRiZKWnmyLMf3zyX92tLf95re/5XmBnbTjAgBACDNGly074557frFt29azzjrr+utvCIfDv3vod7m5eRkZGTExsTpBq4phQQgZU7MMGCFEFMVQKOTz+dxel9vl8UJPXW3trl27Fi5c/MLzL0QiEa1WSydjkJAxiJDf7/P0tLdvfM8bVEyxyZDXy0CWIyEaCYWDHjnskQMuEPJogahFktWgmZ1sz1ocX5A5tSAnLTUlkTcaAdYBJoKgnxK5p8cVCcsKIUKf3tdgnQvwpen0qYUhDBVFHsX5jqqyUkoxBJjnhxB7xqzzTilFCNbU1l7xncuLi4vttlhZUjRardPjPVhe70SxOYsvzZyziuis4QjDFGAAFAQoBOqRF1HIGKMQaAWEAs72Axva939sYa6inPRYi1mWIlQVTAeAMqLheErZ5i1bVp115u9//0gf9w5AhOCkRBgZoypK3tPTc8UVl6enp8fF2SVJAoSCIUsOghBAlZkJKKBiRPL5vNXV1Saz6btXXXXZpZeZTGZ1mnIcPknSY9TVe+CBB5567rmM7HSoNWgFvY5HVqOJMJSYGJ8Ub4m3WZMTHPGO2Hi7zR5rgQIPOAEACiSJyTKhhFIKIYMMcEbrTTff8dnGbeefe5EGYzKGWsMYY6fLWVtX/e677zsc8dF7NZxJEIQwVeQ3/v2GopCrv3fN3r17c3Nz4+LixrFiMcYAQP95802BRwkJtlBYxgiTiBhnFM6cW9zY1nPwkz/X73pv6srvJU1dHuF0ogIIUxiEkOJ+uVgAAYxECNLYkpdckTx1QcOujzbuX5ceiwtzMg2ChskyIYABragwHrFly5Z98t91CQkJP/nJzwghAE5CXlC/njskRMEYGwyGuDgbY0CSJEopHBCy+FIATF3tCWWqI8/x8Y5Eg8FYX18bCPjvvffe88+/YNWqVf2kneGzS8bO91evLC6asnrJrL8++UevN6DV6I1mY0tD010/ufuH996cM6UQyAGAMFAIJTIlCgtKjIX6gmKAQcAwBAhhaHSs+/D9Dz9el5SUiTHXL2Q/WnCpPy4cNpnMer0+uq4N8l/7Y6+4rq72xeeeef+DD2Lt8ZdcepmKFI6D865Cq16vZ/u2L9LTMwjBAEI1OigTyhDLSEtOTbRVVNcceuPByq0fZy6+IL5gpl4fG5SxRCmCkOvTvkYYIEZpIEJ4Q3L+6luSpy0t//ztTfsP5cTirBS7zmAkFFBCZIVyHF60cPEzTz1TUjJ95cqVkiKfPFW1f5tj0TgppQxjBKO1A4bTw1GTCWH/JiBJosloEjRaWZJvvPGGDz74cPfuXRdffHFxcQkAQJZlNXX2ZPj+4Yhfq9WYrdn//Nt9DTV1T738PMAkHAkGA34AMAAQQAx4DvEaQFXdHAhUKUIMAYSAoZA38Nazzz786BMA4JiYGMwhIsuqCOaXOdBw+FvkdrtTUlP0eoPKAhq0zVFKeF6jyNIn6/77yosvNbc0z5w1+6c/+7lWq41EIjqdbhycd7XH8vLjvb3OrKw8RWFInccQAMRBAGVJhBBMLZ6SlSXW1TfUvfPbeltWZumq5OnLjLEpIQIlGUEAsCpEzCBCnMKIS4Ta+OK5V+a5Go417Pmk4dgBu64lK9lus1k1Gp2syOaYmKKikgcffHDOnDkWi2WMeN3YpZQEQdDpdIoiw7GGjftQZkmSsrNzXnnltX379l9wwflGo/Hjjz/auvWLCy+8WPXiT5LzbjCbKQSEeKaVTnH2dkc83ZTQG2+65cjxyqPHy3iO1+sNJqPRoNdptRqtVsNxGEAoSYo/EGrv6DhWVrFz57729u45cxft3bvPGmNRM2n7p86Ab8cGiEIzpsYnfF7fgsvnI4REURxI2WAMIAh4XlNbW/3Ga69uWP+Zhue/f8ON1133fa1W5/V6OY7jeV7tZxyxwoqKKgCxVqcjcgQDwCAkkIeAQUoQYBTAkEh5jWZqyZTcrEhjW2fN589V7XgndfrytBlnxiYXiBCHZQAIA5AByCCEiCFJoSLgtJkzp6UXBdqrmg5t3l62TV/elGgzxjscFpM+Nye7rb3tt7998Ff33x9jjZkUBYQooMDzvMVi6e7uQnFIZV1GzQdjBCHq16hVM/DYlyLLDHA8n5OTk5SUdPz48ebm5uXLl5tMpmeeeaqwcMoll1yicrYmAMWp5piamCGJFLPI8hXLqmvbLr3qZlevC2m0qiSvSt1hhGLI+iv5UDXVSKYMQGS2WNPS8y+67HvlZRWiKMfHOyglAPUtyP3iTAOc8AHLeSQS8fl8GONwJKzT6qKEPMaYmovx3rtvv/32WxVlZdOnT/vxnT+ZVjqTMUAp9Xq9KkNErdtwAn2sgTBGU1OzTqdDECgMMIgYAIhRVVifAsQYw5ABysQIQbyQm5uZl5NYXVG394Mnmve8Z8qYkTlntS1nBqe3iQpUCGWEAkgAhoAiSSYS4LmUaVMySsiSy9qP7W45vqW8shWE67RQlAh6dd3eo00/ffrPD2alJBFCIAKIIQAARRQwhPo3qhPW/BmSI4nj4x0tLc19zglUT0gUIuT1eCVJiouzczyvyAoDfelg6ocwxoiiWExmSZT/+MfHDhzY/+KLL2GM5syZXVdX+4c//P7iiy+eMqVYDSJFQdfoGjYKjqW+npmZESFs+86jj/zxsdqa5mXLzlhxZp7BaFKxR8oAJYQQogYziEJU3xEhqNEIOp1OELQAUkVWtm/fmpAYbzAYZElBUR+cRf2xqH5HnycpCEJ9fT0D7N+vv/nOW++cuWrV1VdfHRcXp9pWS3Pj8889+/kXXxBCrrv+hltvu53nNWrlGIyxy+WyWCxq/xBB/MADD4wxzvDhh+/19vYkJiQRMjyZsO/wBiFilCgip+E7O3qS7aann/iVEO6q2P7fmr2feXrbtXq9xRorCLzMkEJULRMEAZIpjRDGBFNcTlH6zDOSpi61FSw0585JmLl6xkU/cIq04/i2lUsXq8kn/dWU+oUTJho8aWpq2r9/X0JCoqwosE8kA6r5uAcOHDheVgYgssXa+o/lfewujuMQQlqdtq6ububMmdOnT1+zZo3dHnfo0CF1xq9fv76pqTEjI8NstvTHQMfqIjLG9HrdF1988djjT8Q7kq77/g3Z2bm8RgMhUjdZ1l9yUcNrBI2g0+n0er1er9fp9OpOJIoRjGBFRfnOnTtnzZyp1xkIGR0N6dviRUnct39/YWHhlClFWp3u/ffff++994qLi5KTkz7578d//tPje3bvzssv+OX9v7r4kssQgpQQNUBHCKmurs7KytLpdGrJWm48XI4BQoojp+UAABBjEEJKYWdPz+xpebNmTZk1q+BHnc6tew59tGnvrrc2h4XElJIl6VMXxsYmiwyHZSoxAgHEFFJAAyEFQR6a0yxxaToECAO8DsSl5nrqyoecrU52W5w7d97zz7/g8/stJjMhBEKOEEIp0eq0KSkpF11ycW1t7cH9B0pKSiiFjAGe58PhUHePy+fzu90un9+vKIoK2c+ePWf27DlNTQ2HDx8+cuTIa6+99q9//evWW2+98cabNRp1ZsMxFkDgODxj+uwvvth64UWXMgYDwTCC6gn1K8zSkQ4DCCFFUbZt25aSkuxwOGSJwCGaU/0/f/krz/OHDh/ieT4tLU2SJV7DCwJ/7NiRW2/5weqzz9q7b284LF7z/Ruuve5ao9EsyzJCCCLUF9z0eGJiYmJiYlTHG0KI165dC0/U1Mf5xRdbm1uakpNT6IDDwginaMQghAhWV1dYY4wXrFlJRNFoMBQUF5x/1pLzlk5LFPz1e9cf2vheR+1xBBWTRWfQGwSORxAyAKm68FHq7erwNFWHOqp9DWV733/+/KWlC2bPZIQgjPr4jHDiTaWVxsXFhcPh119/3eV0ut1uURQ5njeaDE5nb35Bwd13/+zMM890ezybN22Kj3colFRUlh08dLC2rq6ltYUBoNfri4qKp0yZEj03Wa2xBQWFixcvXr16tdVq/eCDDz788IPU1JS0tFQwnuHGxyd88sk6s9lit8cRhQzy1gY+l2j2s/ozY1Sr1e7du/fokaOLFi1GkBvk4QzNtWeM8TzX0dleXVO1cOEiQRAYo0eOHK6rqzObzR6Pp6qqIi8//ze/fejCCy/SaAT1FDVwtBzHORyOgfwtbmxwCwMAJCYmhEPhvvoMcBg/7Ms8RKgir4zD+HhZeWenKyUtUQpHoBLigJKWbL/p5mtvuua7hw4fW7dp65aDL+zZCnl7fnzGdEdGsd6RSrQ6RQGAEsQpvZ42X3uD4nOysK+6qqoPFGAnzLuHY6wzDQC44IILnn3uObfH3dTYoFBqMBrT0lI4jlu8ZIka2LnjjjssRvMbb75R31Dn9/tV7EGr1a45Z01rW2tdXV1fEIPjBlDsUVpa+i233HrLLbfu3r2rpqYmNzffbrePUaeOUiUpOWnNmjXvvvtOTk4WQipHC45OPlPPdIIgdHZ0fLHl86lTpxn0RkkSowjnsMmMlFKe44Kh4O49uw0GQ1tbK6UUI9jU1KiSMSmlCYlJTz75zxhrHCEKQngonqLRaAbd+WF8rKHOr7rc9fb2bNywISU1FZ1YBFCFCnFXT29NdTWgysrVKzFRqEIZBJQQJRxmgCWnpyxeuvA7Zy2cX5QeC3rdtTtr9nxad3Crp7kaR7w6AVvjU1PzpqQXzytesDwlKWnfp69dev55RqORMgoBgoDRvnJKE8cdCCEWi6W9vc3n9VhiLC63CyHUUF+fkJjw618/oIKElNIZM2cUFRVv2LChs7PLYNCrxJ/m5ubDh4/Onz9/8eLFX2WY9NHk1ahIamratGnT+vHGMXpZBEJYXFzy7rvvtrQ0TZ02VRSlYSsdD3xSaopYJBJ5/fXXYiwxhYVTFJmMXh+ZUsrzfESSNm3eZDAYzjzzzNWrV1922aWMkkOHDnrcHlGSFEJ/cc8vFixcLMvjoDNxY8Hx1KFMmVIoaAW/zx8TE6OeBUYqOgfVqBdEHMLpmTlvf7BOZuTBtb/Ux8QAMUhlhUFGCZH9XgYIz2vmzp42d94MEgo2NbcfOl69c3/54QP7dn3sC2OT2eow2uIFge+q3ufvaHW5XHZHHKMsGj49eUyLUnrrrbds3LD+6LFjWq02EAgmJCQ88MBvbLa4qHKaLMulM0pfeunlBx98cMOG9ZIkchzndDoFQZg5c+ZwZ2oY5V6On70IIcSE0JgYy+OP/+nyKy6zxzkWL1oWCAUgHLE2O6VUo+HFiPTyKy8zwEpLZ1BCB0w6NpRWDxgQBMHn96/79JPVq89+4IG1SUnJoVDw6aee3LV9u8VsmlJUpNMZrrzyuxdccAHpr308mTWhWZ8zTq6++nsul6ukpESKiCckCgsa4eDBA8Fw+OxzzvrPm28kxsde970rFi+cl5qciPQ6AAFgBFAZEAIIY4QCACDCQG/buvGzTz7deOWVlx0+Wl5d01xRXtvc0drQVH/1ldf+8ZFHOA4DCNAkpRpHcYfKyorf//4PHo8nJydHpRwOAqKiaYNbtmzZsGF9Q0MjhOD888+/9NLLTlGhL0Ioxmj9+vW333b78hUrFi9eJElS1Ez7VSYApQQAqNVqPG7Xm2++LUvSwoULo8XVhwXwGGOIQxpeaGlp3rVz18WXXfynx58AAGza+NlLzz9fW1ubmJp2150/WbR48ZeV0eDJ1dIZqW6gevdffOHFxx5/bNXKVbR/xRoJA1PX2KampuPHj9/+o9t1OmHHtu0V5cd4DUpPTc7LzcrISE+KT3A4HNZYs3pW1mq1UKMB2PzI7+7fvXvfex+8CRDYu+PAtClTW7s7f3jXz/755PMZmZknxN+HheJGkiMfZDTR7NYoKjgo1DiQmD/2OOAofKzRtRvUgX22fv3Pf/az5OTEc88932QyiaI4kKKj0WgQQmVlx9Z/tt5kNM+YMWOkRIFoMhyv0YQi4cOHDjmdzh//+Ee33np7Z0f7G6+98um6daIonrPm3Jtuuc1qtfYd/QYcFMY4/nHUK1S76O3tXbNmTVJSUl5ObiQSGSVqoRpiMBjcvGnTxZdeUjK1GAAoinJHR2tba3NXV6ff75MiEiUEIiAIglarMRkNNntsRkZ6QkLijKlTp0xf8Mm7L/z8np9v+XyT3x+56xdrn3/xDWtMjBrAmkSRoP71mEZ3xoFaLsOwpggZKBo9UATrVFD1Vc+pvLz8F7+4p6qq8swzV86aNVsQNKIoQogwxm1tbVu3bq2rq8nPy8vJzhsk1dyniQUAgBAjxPN8RBKrqqvLy8qmTp3629/+ZsaMmRs+++Sdt946dvRYembmLbffvmTJsmjQc+KJd2PnvBMic5zmmWeeefzxx1efdfYJ4+Tq4/n8888zsjIvvuTCYDCCMc9zmOMwhEBRFFlWIpFIIBAIBv2BQMDn9Thdzt6eHn/Aa9brzjtn9dRpxZijK89Z9ck7H33w6fannnkeMEBPjUjQ2I1j2IpZp05tW11mMMayLD/zzFP//Oc/EULz5s0rLCyMRMSDBw9VVFRYLJbi4inWmJhIWAoGg+FwWF3qBEEwGo0qaVghxB/wNzY2NjY2xMbG3nrrrddff0Mo4H/yH3/bvHGjPxA8++zVP7rzLrPFolAFMhW5OInaNmMPuavqPFXVFeeec152VnZJSYkoiaNkmTLGNDxfXVtbW1dz22236nQ6Slmf09g3q9CA1Aquf4ayQMBfV1+zd+cOiOGvHrhn+YrVjz60lhPifnL33ZRRBE+hoBn49paN7Ytqt7W1vv766+vWfeJyuVwuF0K4uLgkNTWV57meru6mphZCFJUlHE3MMpvNlNKenp5AKJifn7dmzTlXXnGlyWzZsX3rKy++WH78WFJa2rXX37D67HMAAJQQhPDJKwiNSR8r6uHu3bv73nvvFUWpp6t3zpzZjniHLMnDVhIYyIZe99mny5YtWbJkSSQchl/W7+ur3d1X3ZSphBYAAUQY8wJGjG3Z+sUXWzc99vCDn6xbf92Nt8+fNz/qkA5bFmbspcXGWKN6pJI+I+lXndDPOxl9LBVUU5efYDDwpz/96cUXX4iz2f1+P1EI5hGCKD+/ICEhQdD0yeZIkhQIBLq6uiorKxHGTz3z9NIlS3iedzp7X33pxQ3r13u8nvPOPe+Gm2+Os8fLlGCIEBjCNB21PtJIywo37KlhUHeqVdXV1f7kJz+Ji4ubOTPvyKEje/bsWb58ucFgGHhOGQQNq3HN/Pz8ffv2zZgxQyNoVbXM/sIFX+oB9sUr1FpIlCghGQF6xhkreE5z++13XXjRRTNnzhxLXZfxlusZY92esZS+mVjtv/F0AjHGatKHwWB0Ot05uXklRcU+ry8SiezesyszKzMnNzccDitEUeEFjHFMTEx8fLzdbt+2fbvH7eF5ftu2LS+/+FJ1ZUWMxfLQQw8vXX4mAECRZQ5zgAEKB+ppjFVL9wSGNcA4aLRohbqkybL80O8eNBr0+Xn5kXCkuLjY6/N9sfXzpUvP0OkNRJH7witRFjXsM1NRlnJyclpamnbu3Lly1apIOAIghnAAJf9LLZB+EAwCCBAjTJbknJw8rcF8+RVXa3iNQgj+/7X8X//96WP7dHR2HD1yOC0tnVKmM+htNpvdbmeEQcoAoarMLYR9tIWIKLa1t3t9nl/ef8/+/XuOHzkS8AeWLlv+4zvvtNkdClEQhJjjBhY8O/mGRoqkDTxZYIw/++zTPXt2lZSUiKJICCWELlu21GKxbN68yeP1aAQhWooEgq9iHgwghKZNm3bgwIHmpkatIDBGvwr0qXogoD8mqubxMsRxDLA33/z3pZddvnjpMkII1x+fAuBkgoQnDoye0v4nZYTVVdWhUCjGbFYIoYxFIpHszOyOjs6Ozk6tICCMKCXhcMjn84YjkYrKsrLy43qD1ufzvfbaa0aT6ee/uOe3Dz1sszsUReEwhxAe8Mwnp42UV9hfZxRCxmhjY8Mrr7zs9vjaOzptNtu+A/sjkYhOq/UHAgjjLZ9/XlpampudI0kSIYQhONDuIQBElu12e1pa2nvvfXDDDTfq9XoVIBnWmwGsb+flef61V19LTEy8//77B2pATm692hM6Z6NXTR7XQXIC+lgj+WE1NTUcz/MaTUTqQ6qTU5JFObL/wL6YGAtjwB8IiBGRUgIAEMUIxlAtGetIdDz8+99nZedGQZOxHP0mMP7R8grVB/zqq6/de9/PeZ6DEGzdutVkMrlcrrS0tPMvOG/58uXTp894/fXX165d29rSMmvWLKPeKMkSY7SfnQUgBIxBRVKKphRt277jtVdf/d611woajSzLw6AG/YgfIeTVl18VJfHFF180Go2DitJM2J6G2sG4avmNvWDieMsEjb1/9efGxkaT0Ygx4jlOURS3z9Nb1+PxuMKRcG9dTz/3hkMIIgjUACJDOBAIlJaWZmXnyrKEEO5Ppj4l4x+N6KeitGVlxzd/vkmWZTXWHQwGAQA5OTlnnLE8ISERY7xkyZLzzjuvrLx867bt4UjIYrFodVoIAKUsijoCACll6WlpDQ0NFeUV2TnZJpOpXyILRgUReZ7nOK6xsfGVV16JT4h/4fkXEhMTVRLmIC7RoDpk45XLmtzad+Mi2p88rIUQevPNfytEhhDU1NaWl5VXVJa3tDQ7nS71Xul0+pTUpPh4u9ViSUtNY4BxHGcyWzIzszs7OyRJnjdvXvSoNEa3arzjP8HJnDGgKFJ1ddXatWvff/99k8lkMplkWZFl6b77fpmentHU1CTLckZGRlJS4vHjxz/66MOW1pbEhMTU1FSzyYIRVg/JA5GY/fv3B0LB8847Lz8/T5JExvpkiQkhba2tO3furK2rw4g7Y/kZj/zhD4YBy1UUbY9G8U4R3v1tbuoEu+qqKw8dOqTIst/vZwBgjNV7Yo2JTU9PT0pyhIIBIhNJklwujyMxMTEhngEk8II34Dt27Nijjz66ZMmSKK3qVIwTr127diSual/2NUTx8QkrVpxptVpVLbxgKJiYkJCUlJyVlV1aWpqfn08Iqaio9Pu9SUlJjLLt27fX1Nb09jolUUIQqWQdjuMwwpjDGRmZClG2b98WDocSExMhhE6ns6Ki4tNPP9m0aaMiSzNKS2eUzqgoq9iwceOyZcuMRqNqlAM1mZqamgKBgNFoHCjgNDF86FRD56Omzo7vQ9Xrw+Hw008/VVNdjTHGHAYQEEKt1tjp06bPKJ1hjYnt6eoksuRxewLBYH5BocORwACCCFNFNplMCMNgMLh06dKBd3XSxz9SSIcNJK1SSjHmIAShUGju3Dmrz1l990/v3rBhQ2VlVVdXl1arTUtLy8/Pj7HGAMC8Xt+RI4f37N5TUVHZ1dXFYWQymWw2m9FoEgSNuh1pNLzL7aqvr7fb7UaDwef3t7W1TZlSNKWwMMYSQxllDAiC8Mm6T7KyMp966umEhMRBsfpwONzY2BgIBBISElJTU9V47dCUwK9B/fuUftbQ0D7GuLz8+MqVK9VVXJIlg96Qm5OXn1+g1Wi6utq9bhehLBAImM2WnJxcgJCiKH01KBjBHOf2eMwxlscfe+wUkTLGFCsc6NuqT+748ePJyckOh0N9PRAI1NTUHDt2rLKysre3lxM0GenpM0pnJCUkipJUV1ezd+/egwcPNDc3h0IhXsObTWatVqvuaxqNRqPRNDY0XHLJJV6PZ+/e/VmZ2QmJCbyGD0ciDQ31x44d7ejoWrRowZtv/icxMWnQRFHlPRoaGiRJys/PN5lM6ggH1af4v2dY3d2dq1evbmho1Om1KUmpBfmFCYkOn8fT3dXJGAkE/ISh1LTMOJtNlCTYpygDGYNq6dSuri5HQvzjjz9+ShfpE6ujDH2cUXqkmisSvd7tdjc2Nr700ksvv/xSYWHBlClT5s+fP23atPj4eKfTWVZWfuTIkcrKymAwaLFYbLY4g8Gg1+s62tvqGxqeeuqpsuPlr7/xRl1tbTgS8fl8oVBo3ry5s2bNnjZt2jnnnKOKWw485UYNqKOjo6amJisrKyUlJVoc+ut58N+IgyWK4TVr1rS0tJaWzkhKSOQxamtvDgZ9EKCeHpfdnpCWngExooRwGp5RRhSi3gNKqV6vLysrO//CC2666SaiKOiU+VjDFOEdFBdzuVyMMZvNpj6zQZykPnlSQlR1MgDAsWPHzj57lSSLsiQjxCUnJ+bm5s+ZM2fmzFmZmZmKojQ1NR0+fLi6urq7u5tSYrPFlpWVTZky5ZVXXlMRmurq6s7OTp1Od8EFF6j2NKzu5UAORTAYPHjwoN1uLygoGFQocHTO+yTGCieMAw0bnB22f8ooYJQxcNttt4XD4ZSUVE9vT093l6yIsqIEA6GsnDybzSFJEgAUc1xTc3Nvb++UwikaXgMhEAShp6fH5XE//fTTDodj7HVMT6iPNXTAo22F6pLgcrm6uroKCwujVw7FgRBCkUhk//79Xq+3tbX1D394WFZEjHk1zsNxPABQqxViY22FhQXTp0+fOnWqKvBSW1tTUVFeWVm5Y8eORYsW//SndxcUFPADZHFEUVQd/6hDMGxWrZpyc+DAAZ1OpxaJ+PZXNx03wYGpAsgUIe6HP7wtFAgxyvw+p6JIwWBErzdlZmdzHC/LEkIIAlRWUVZVXW02m1csX85zvKzIbW1tPp/vgbVrFyxYMHYZyFPiY6k51+Xl5SUlJRzHDTVMVWCkoaHh7rvvbmpq0uv1kiS53W6v18MA4Pr1NjiOxxiqui6iKGq12szMzGnTps2bN2/KlCnx8fE+n+/IkaONjU0+n0+v1+fn50+bNjU3N2+gezFwKRqWdAshPHjwIM/zJSUlg2SY/y/sg0BNrpc1Gu3jf3zk/fffT01K7nV1U0rT07OsVodCCKOUQarR8JUVVVk52VdfffXrr79WUVEe8Ad4DV9YWHTbbbeVlJScaqsaC47FIISHDx9OSUlRdY8GOjfRXemKK66oras9Y9kZalarJMsdHR319fUul1OSxIEbk+qTUUpV+jZjLCYmJicnZ8GCBQsWLMzOzsEYt7a2VlRU1NXVAsBycnKmTJmSnZ0bHx8/sMydysL+SoWLfnmdnTt32mw2dU/8ZktWg1NAgQcAVFdW/ONvf2lubvJ6vHqjKSc3H2GsKDKCSE0ulGW5sanxr3/7a1ZWFiFyfX29x+O2xsTm5Oap9OtTB1+NyceK7jvNzc1+vz8rK0tRFKPRqBpWlEDdUN9w0UUXzp8/X683KLIMIQQQYg5TQl0uV1dXR29vr8/vjYiSIiuEkGhC95dLESEAAmtMrMFoLCkpXrRoscMRn5SUpChyT09PS0uz3x/AGMfHJ2RnZ+Xk5CQkJA5cMqO7njoeRVG2bt2al5en+vKTfgdHypMZ5YNGx89GIjJ8VdaLYsyFQ4GPP/7w7bfecvb0en2+nJzctLTMiCgxRoBao4UBhLiIGPH6PH/605/i4xPUN0ZzrBn7CnZ18uMHY68JPcg1ZowlJia2tLR4PB63211QUDCIi9Pr7NVoBIxwNEOaUaZIMoTQFhtrj4uTZSkSiQRDoVA4HIlEZEVmlKqkCZ7ntYJGp9Mb9AaDwXD02JGNGzeUls7wer27du0CABgMupSUlMzMTI7D4XCksrJi9+6dHMfbbLbCwoLc3FyLJRYMqKGiHshnzpx54MCBmJiYqO9/6orXTYCDNVINqWhVuoFXKgrhOIQQV3bsyH/+/fruXbswz91y2+1VVTWff74lPSMbIchx2j5SG6UAgBiduae3c9OmjVdffQ0hLJqrh/q4NOOLVE4sPsuNhRTL83x8fLzX62WMdXR0JCcnD1wJ1CwRlczTTzvum3CEEFWzQK83GIxG2K8DBFUBCIhUfSBKGWOMUjZ92gy/P7B+/fq3/vOfa6+9tqmpoaam9vDhw1u3bpdl2WDQZ2fnZGZmIIQVRd66dceHH/7XZrOVlJQUFRXFx8dHx2yxWFJSUioqKmbPnn2qa32ffEMIeb1eQoh69B7ITqOE8DwnS+K7b//nww8+aGtvKyouufOuu3LzCru6Oj9bv+Hg4YNZWVmdTZ0etzsUCjHAEERmi9nr9bpcroHSSF9zG2u9QkmSjhw5kpKS0tjYOGvWLPXgpk61zs7Oiy++uLi42Kg3qP710AU2Oi85jFl/ossAjvKXdbN9Pu97H7xXVFT0zNPPFBROifbT3NxcUVFRWVnZ2Nio1n7W6XQIIY/H3dbW2tXVZTKZ5s6dO2vWrMLCwvj4RAjh1q1bp06dqrqG31pPS71XkiQdP368pKQkeiKODriutvrVl17cuWMHr9VeeNFF1153Pc9rZFnieU11dfXdd/+0vLzMbDEThciy7Ha71TXb5/PdeOONf/7zX0912fPx+VjDuvD19fWSJGm1WqfTqRKFo8ZxySWXcByXnpYmiZJqHxBBlVkV7RMhpFClt6dXkZW4uDi1fsHA1GFV2quhoaGs4rjNZiOE3HfffRdccNHAADboq9Ue6ejocLlcbrfb5/NGImGn09nU1OT3+yGE8fHxZ5yxYtmyZc3NTeFwJD8/P/r20Qnyo9SEHopjDQt6jTelZ2CfdXV1wWBw6tSp0XM6pfStt/795htv+NzuadOmXX/zLSVTpzHGKCUYc2oKZGVl5V13/Xj16tUajWbLli179uyWFQkjLhQK5+XlbdiwSa/XD0ufGjqAcY1/pJpLX4qOjCf9i+zdu7ewsLClpUVlsqv8a57n//KXv7z88stnrVoVEcOAsVA4TAhBEGl4QdAKlFAIoT/g37t3t0bQTiuZZjQao4vWwOHyPH+s7NihQwfvvPPObdu27du374orrrz++htKSkoGxgFHLWRKg8GQWpRRNcGoKua3HFJnjO3Zsyc/P99isVDKNBq+oaFh8eIFtljbz+6++9JLv6PV61WdLaRmPPRjPc8++8zmzZtMJtNHH32EOQQAhQATQnV63Y7tuxISEk7FCWbS8grVA1d3d3dlZeWCBQv27t2bnJycnp6unl2dTudll12m0wm22NjKiopel1OSZI7jjEaj1WpNS8swGAxfbP2it6db0ArJScnFU0rsdnu/B/bl7OF4/vCRg/v27TvrrLMikciuXbsIYUajcePGjaodD4Q5BjG0Bmn6RGM7J08x/Xq8NJXlUVdXm5eX39zcUlhYACH89NNP0tPTS0qmMcoopQjDvrKkkKnAFmOAUnbvvfc988w/DXoDL/CUKhBAQpjJZNy2bafdbh9oWF/f1xn7x6gbSmVlpc/nKy0t3bVrV3JycnZ2tpobWVdXt3btAx9//LHZbNJptQDCYDAoyzJjVNUv/O5VV5955oqa6prPPvv0wIFDMWZLydTiuDi7QghVCAOMUcprNIePHDp69KjRaFSTfLxe3+rVa5577lmtVjswSvOlXPaQHW3Q9vS/gmOpX6eyspIxYDQa29vbZs+erU4kRVEQwoP0sfoRU4YQEkXpj3989LnnnnW73TzPcRzv8XgvvfSSl156ZWLEGDC5fKxRfKxokqDD4ejo6PB4PKWlpRUVFR6PJzExkVJqs9mWL19eUVHR1tZ+6WWX2e32pqYmxphOp3O7Pddee83vHnwoLS29tLT04osvmT17dndP59atW9va24xGk8FoFAQBQMBx2Ov1dnV1qcUzPB7PggULnnzyydjY2EFiCqNzQaOKA6PE+EafUaPUnJ6AOzI6pX3gzzabrbm5SasVzGZzVVWVw+Hoj2WBIeJpMCrCznF46dJlc+bM1usNAEBB0C5btvz++3+lKnKNkQV68uMfMVZ4wtNTtJcdO3bYbLYpU6bs3btXFMXZs2drtVoAQCAQePDB37399n+CwYAq9OZ2uxctWvT22+/qdFpVCVMtsgUAOHTo4LPPPrt58+cQwsTExLi4WLPZ7HQ6d+7cqVJszz13zaOPPm6326MSsQD832eHEkJ27tyZmZkJAGhoaCgtLTWZTIQMSm0ahoSiup5q5R/VxfwaQjfj87FGyQtVnS1Zlnfv3q3X62fMmFFTU9PU1JSZmZmWlqby4j/66MMnn/xHVVUVIWTWrFmPPvpodnauWoUwql0T9cGrq6s/++yznTt3tra2BgI+hJBOp8vLy7vwwgvPO+88CPEkRpTHslZNmAB+whk/ljusggWSJO3ZsycjI0Or1ZaXl6empmZmZg5ULvmqJ9BXviYqZ9JfG4GOdMo5deOfiI81dGIdP37cZDJlZWV5vd6qqqpQKORwOFJTU00mE6WkqqqKMVZQUKAWSIoKFg5QaaJRgTIAQE9Pj9vtYgxYrTEOR/wgzYJvMxZ1akhX4v79+202W1ZWVllZWSgUys7OTkhIGFQwd6hdDvIvv6mbBkdB98cSPFIzBNWZ4XK5Ghoaenp6OI6zWq1Go1GWZafTaTAYioqKdDrdsMbRr1GOhkoVDFzGx7hNT/iaSel/7C7I0Iy8r4i4UqoGPQ8ePCiK4ty5c30+X1lZGQAgLy8vISFh0IIxlFk11MImNjMnNv7x4VjDC8P1T5qBe3xPT09vb28oFFKrTsbGxqalpUUx5a8qaQ+SmGbf7Dz7xheqQS4HhLCqqqq5ubmwsDAlJaWtra2mpgZCGBcXFxcXZzAYtFqtqhRHCIlEIl1dXa2trTabTa2x/ZVqU6d4yZ8EwxqpvvzA2zF0WRryIhxWG/N0G7QeIITcbndFRYWiKDk5OQkJCS6Xq6Ojw+/3RwkwqtKpWsPM4XBkZGTExMR8s8zsUwKXDVyfx85/Pd1GV8bq6Ohwu91paWlGoxH002tDoZAkSep81uv1JpPpWzLs0fSxJvHMNUbNqtFlFIbG9b5xfaxx3agTnqRGv59DKf9DoYRoTvkoM/lUj3/cscJJX9UG5ZqebmNMlxp9rk44DXVyGzd2V30Sx6palSiKjDEV+jrdxuoUDxG4G5TVohIGv/FwFhpaM2dozZlBQZKT1JdS71RTU9PNN9/c29t7qvWuvnEtq0GSJBOo+RP9Ibr3DfqT+kEIof/85z+PPf54VJkn6uB+/ePnJsZSHRcZfNgrH3jgAYPBoJJRx7gnjuJjTbo+1uj9jytqNvppemKxvJGo5LNnz/7DH34fYzbfeNNN0bzwk4kVTnj8aGjEZsKPig1oI/1VNaOKisqPP/k0MytHRfD738L6BLIABYAOSnwa1O3Ehjr0LdFXxtU/G66d8IKhV07sXV+5klL1FwCBQkhmZuaKlWf/6jcP1tXXD1IUO1H3kzx+NOkaTiMdSdSK3ZQBAMDHn25IKpr/0fYjFZWVPM9LMmG0z/gphAwyAAb8A5gqJzmSJs63WR9rpG1lEl0wtdA2YQRhHA6FK1rclvTS519+LVozp7/kMPk6x899ff4dgxQyzEHA2OGqmqyll0fC0hU3//T5P/925oyZjBIKEISAYwwAxKJV5WG/xDKDQ9etQbZ1wlvwLZExmlQnGRMAIFAQAZiDf3zizw0B7cLv/nTrp0/19Pba4+IoVcs/AthXBfrrGtewqxwbWxt21xh5B1FXSCQrsi9CRENSzrIrDVPPv+wH9zz93L8AwgBBRlU9aAoBVXdAyBRGZaLIpF8zAo/cVGeWEKJWPR2Yo3bCfW0C2+goN2p092Asm9EYt10GGAVMoQxz/FPP/OuZ97dNO/cmkDTNy4x1dfXq+yEjlMFBu9OpHj93Mm77+MTWGYP9St8cxyNe5yZc4aqbEnNKfvfa0wfK6v/80C90OoPCKGSIUUYhA5TxGCHEqYchl8vd0dHe0tLS2dnp8XjUwh4cxxkMhtjY2MTExJSUlMTExCj6rIoJDq0xNEiEYiSp1pPJrZvAkWj0rJaRIE3GCGBUgzV/e/qFR555Z+F1a3FCoQgZNtqdbrea48kwYH010ukYN/2THP+YcKxJdDcoAIwRDc/HWw0NPlcMhH5R0ecsOPvHUz5/bu1dv/zdPx9/iDKAIOJUIhECDLDqioovvtiyY9eu1rZ2t9vNcZxWq+UwhxECEFJGZVmWZTkcCQMGbDZbRkbGggULFi1alJOTowZoo1WsBp1l1BxXnucHcQG+IRl3OOzCPxBEHMpLo4zyWPPm2x/89pm3z7rlYT5xulckRi3gONynpg8hBAz1JXMyANApSggbdPcm7mNNIMaJGKCUQQyn5mcf2Hk4a86qMFLCEiTIePbNv/7kzz/cuXvfogXziSLW1DX5I+KRY8fXffhRU22VUSfEJSRkZWUZDAa1HDyH8Jc+llp3mzFJklwuV2tLy1NPPfXU00/l5+WvWLFi1apVSUlJA2vHRdEdWZIaGhszMzOH5KJ93Rgo7Q/FjF4xD/TnRve54wxgzDU2Nj769GtLr/o5nzLdF1J4hLHox0rAGhsLAIBILTUMIQShsBgOh20229fwZU9cE3rsC+BIelTRa1XpYwbA+Wef/Y/X7+qtPyZkTA2FJQGRzvoqb1B58PEnf8Pxmzd//um2/Tg2sb65Lex1OkzJvFHrEQEfEXleo9MKavyVUhqt0Kj+gxBKSEhQsbFgMNje0fb0k/945aWXV69e/f3rr7fF2QghQDVMACilglZrMpnKysqmTZs2kjbVSepjjZpXyCillAEOY9QvjBMMBnt7ezs6Onp6e31+vxgJQ0o1gtZgMsXFxaUkJyckJmgF7cCP2LXvII5Nzyxd2uqlEDCOg6HmOgMM5+Rk9ZNIkDoQnuerq6vNZjPP82O0rRPmRZ5svcJJORUCQBgiROF4Dj31wku/fm79Bbc/pou17/zo1ebje6bPnq2FoYqtH9XXVMxbfVXJ6usUo0MUI6LP5+9qCnRUuZuOS66OGF5OdVgS4qx6nQ4AqFDGiKLWh2YqSZURADBGUMNDRllXr6uqqhIj9LOf3nXhpZdTBhgRIdYARgCACOHy8nKEUEFBwalWMR3IHaKUQAgw5gEAhNLqiuovtm4+dOhgS2ub2+1BGCEOY4Q5wBBjlEGGOAIgkUNarZBbXGpLSO5obblkzVmLFy36wU/u+2R3ders8/JnLdWn5ukEfu8zP79wVvyv77lbUYi6IzIGGaAI4cOHDzscjqSkpFOdbPj1GRaFEACCGGGMZ4xijO/81a8/2ladmFtSU9924fU/Q4hvrjnSWnPYaDI5PX5JJNPOuNCQUqwApOUBgozKUqSnqbfmYG/dQdHVbOLkBIs2KUZv0OshpyGUUKIw9X4hTgV4AAQY8xyHmhvrDh89ct5Fl/z6/vtMRrOkUB4jdcYBxnbv3p2XlxcXF3eqFdsGSoAAACoryzdv/OyLLVvr6ho5jSbGarXHxVnMFg2P1VoSAGLMCwwCv9/X1NXb2uVzhpjGmpqYXSj7Opv3fuSIs2mz5iWXLGxpbmquPDZnxYXujlqpcuOHb7wQb4+jlCL0ZTIPQqilpcXlck2bNu2UG9bXRi6gAEDGIKMMIsIABAQC8vqbb//m0X/kr7lNa0/fs+nj/NlnJRfN57Q6yJTu2kM9Ll9GyUKCNZAxxiBDDHNY4AGSFbG32VV/1NVwNNJTKSiBeJMm0W4zm8wYIkJkhRHAWF+NIgAZYzpB8EuRXbt25Wel/+Wv/4iPT1CIghGnyvq43e7y8vK5c+eqaPUpwjPVBAf1PLF9x47/vPnmwYMHKINJifGJCfF6rQFCTiYyJRKgjDDE8TxEoNvlqWvt8VFeSCpKKJgXmzHdGpco9Tbt//R1V3cD4jTpRQv01qSMvAJPW8265x8tzTA/9rtfTiueQgjtP7HAqA52IBAoKyubO3fu/wAfa6RD+zAalSrIiRhjgDKIGYAY3vqTX7ShpMMHDhXMPytnxRWdHgIZQxByAgYKZQQoGDIAMGVqN5QBBqGGQwICmERCni53c7m7Zq+/5bggexNsxpQEm9lgxAgplBICKGOQEcQIwBzm8J7du4wm4ysvvWyPT2KUqGaHMS4vLxcEQc2/Hf3QNF5l9gE/QIRgVVXVn/70p/379tnt9vT0DLPZAgCRZAlQCBhmEFJIOYx4zPX0usvqWwJ8bHzJssTiRTpHtogFhQLm7tq/7o2MzIzMmUsJ5P3Otpby/Q1H9qxcc27VvnW//8FFq85YoigKhxEDAxUM+o46+/btKykpGaPywNgDiIPaaCVPJlvpkBDECESQAcQYhEyhFAJQ09CwZeMGxdMphiMxqbk6cwxGCFIiEsYYQgAy2B+TABgCiBEEEBIGRMpEhpDOakrOjS9anFS8CFqS2lzh8ob2js5OfyDAGOMxFDQchzHH8RwEkMGcvMK62tq9e/bkFhTFxlo5zKlTwmAwNDQ02O12dUWZ3L1PzcSCEL744ot33313IBCYPWt2cnIyhyBTIgolFGIAEWKU55gGQ7fPe7i6udwJbLMumHre7dbCZYrWLilIUihGLOhzxiWlpE9f5FW0MuA5fUxR6fS2Q5+2lO2IM2oXTS/IysgAgPYntX75ACijCKHOzk6TyaTT6aIY8v+2jwUAUSBgAGMKMaAMKhRADDiP33/2qrMYApze1OrnU6atSJq23JhUAAVtWAEyIYBSBBGDCKpVGgGgADEI+0/cDKrxMg5rNIBniujqcDYe7204HmmvwqEegYk6La/TCHoNgghKCvD6fUdrWuzpuasXlj54zx1mi0X1+crKjhsMxoyMjJH8j4lxaxVF4Xm+t7f3/vt/uXXrtlmzZiXGJ4iiSBmFAEJICeAYgDyGPATdHn9NS7cTxMQXLcqYvQrHpgcjjFIKAWAQQQgoZBAjHgBFkihAGDKDgJzlO8rf+p3k7crMzP73S/9MiHdQ+mW+3aCkxaNHjyYkJDgcjlOK3n19Ppa6JzEGEEAAAIoIpYBDuKGh9juXf6dk6gybNbarvb2qubsngnhHZlLhwviC2QZHCscbwgRECKCUIdDvOfX5DqzPtAas2xzGGh4gRmnYE+huDfS2BLqag852KehSlAhgWGe0OArnpRfPqdr81oVTLT+9/QZFIRyHnU5nfX39rFmzJvF2E6JgzLW0tNx2261OZ++cOXMw4mRJUqsDUsYYAhzkBI5ze13H6tt6YFxSyfKUGWfqrMkhAkTCEEQIAAgo60+rV0XqMKR6AeOIq+zzd5p3vLkw10alSKfb8+4779htcYwBhL6UuRtILj1+/HhsbGxSUtIpRbO4sQRixzWCUTGefjELFVyhFCDwxr/flGUaZ7WJkbDD4bDHxwf8/qb21qbN/6xa/5whISchb7Y9d4YpMRPpzQBpZAIIZYwCwhgDDKnFYCFmgEF1TVFokDAAIeStmrRYR/rUJMowI4CKRJER4jGvFRHGWpBeNKela6d67wll1thYpbbG5/VZYixqb2ME+Ya+qNYhpkThONzV1XXt968DhCxeuCgiK5KsYAQgI4xijHnMgWAweLC+vcUPkmetnjfvXByTJknIJ/YlPKE+Bwmq1sUYhRBrNVBPQ53Hdh355DnB37KytNhuMWIONW75/G9/++uDv3lQURQ1hAb7C6cNZMqrFNMTimOdjI818bzCyWDcIkWRLr74Yg5zudk5oiQBCAEDCGMOc4xKbre7tbO7tdcXkDFnijMm5VmT88wp+Ya4VK3FhnkdQChCgUyA6qQDRhFjqh/GoOrm9z0TtXAighQABYgBEvTJ7rbDHz21ONfy6nNPEkJVaY2KykpG6JSiKSd1GmeAMUKZgiDnD4Suueb7zt6exQvnhCIiYwAwBCDieQ5A5vV56lu6WkMac+6igoXnGuOzfTKMUIAAgBAgppbKJhRCRhFhAGNo5CCU/D3VB+p3feCr31OQGluYn4cBIpKo4TmPz7Nr75733n0vLy9/4F4MAEAIMAYxxmVlZWazOTU19ZQqO3yNscLhGFqtra3dPd3Tp5bKau3CvsWDyFRBAMRYrba4uBLCgqGIy+PpdR7ytOxujTCJM3DWRG1cqtmRZk3KsTpSzBYbEHSM0xAGZAUwhVHKAICqciWEBACmPtGg1+eq2hnqqvV5vdak/LL6Izv37lswZzZRFACA3W6vKK9Q4a2TEWRXPxZg/OBDD7e0Nq9YdkYoKDEIEcYaHjHCOnp6atp6vEBvzT1z5ozl+pSiEEHOsIIQ4hkEkDEAaX+VbEYZ4mAMD5m/u+3QjsZ966TOqsxY/bIFU/UmkyjJhCkQQYkQW5xdJ+hefvnlW2+9tbOr22I2JycnqwdARZHV/tRsxFMdG51IrHCMKoOjb5HqStnW1kYURSsIA1dBBKDqh8mESYoMERD0fIrRkZHigAjXNTQePXro7hvPdns9ZRWbGqo/qHWFJGzSxaXq4lJM8ZlWR6rJlmgwmCCnB5wAMFQAogBAAigDvM0RO3s1BwnPc3FmzadP3P7qK68smDMbIsCoYrVaRFkKR0S9TjvhxZtBABjHYW79xvWbNn16xpLFGFJBK1BGQ5FQbWNbQ0evpEtMLr0od+oywZ4pAeQTKYAE8kiVcMUMQsAIIBBiDccZoRR21VYd+Lxp30ZtoDUnOTZtbonRYACyJIsRDCDtL8StKKQgv+Cdd94+dvRIKCRSRlXhlu9855Kioqnq8CRJUk++pzTfkxuLezRokz5hPvQJdV2ioXu3260WwmSUDqhRTtUQDQQIIggYZJTKhIoACrxGUYhBy196wdnWhERAgj6nr7PbWdvQXF5dV9tY31m/33NYrAkDojEIOivSxXB6q2CyCjqjRtAjQYvVPBZZIYHeA63lx/duKLIuYkxdJRjGnF6nd7tc+uSkkb71SDkzrB8pggBI4cjfX3jlmeeeNgpCZ0dvICL6Rcnpj/hlzNtzU1ddk1KyGJvsERl4ZUoRgAgjwAClgAEGAaFA0CA9hizs8TVVVu3f0Hl8u0Fxz8xKS58xWxA4RZaJGAGAgxADSCCD6o5PCbFarQgik8mUm5MXjohuj/ull17817+evf76G37yk5/ExFhFUVQrSJ5SfSxuEA1oJAMaL1dpjGLofdV7EWKUDcy9R4BBBpjqOCHUN7soYIDyGo2z13W8rGy+zSwFvSaTzmzNyCvKPQeuAoCxUMDjDXi8vo7Ors7u3q5uZ7fL5fG2BNyR3lAkIBJZFCOiSCCCko+P+FOM9DuXXAIhVBQGEEQAGA06v88DkpMmqOfOGEDo8adeem9XnWXmFe62uj09YaSL1cfarNNy8zOmGRNzAK8Pi0wOU4YRRgyrJbQpBIwJHKfVAEAj7uaKuiPbuqp2e9sr0uMsiwvTkh2FkOMiMhVFBQPKAUBAdCgQ9acGcDxnMOgDgQBIYBqe7+zoUKMLDz/8UEdH+1//+ndCSBQdHdd3HJcQPPd11kUe2lQJGkbpwBMYBZACTl3yAGOwbyVgGBBAkcFgDEXkt99+b/GKJQAjWQpDSQQMAEgBhAhx1hiT1RaTmZ0GMACqcxqRgUb3xeZtr//7P7/94y91RoPLF9RzUCfor7/1TpvV0vdoGAQAaDS8JMknky/p9np3lzXNuvxuxRBP/T4KKMW8oOEZ0oQV4KeERRQMIUaMUUYB4AHjMeS0CAEU7qqrPLKt9fg2rdi5ojQr/4KSf/xzd1FOUWK8IxIJA0IQQAhACpACozALhP1RDQoYz3GCVggGg3q9vqWltbauNhQKMsaKiopmzJjh83kghIIg9ANd7FvkY4FJUs0HANjtDgSQLMs8z1Pw1ZSSaJH1vmUMQggYA1qdzuaIf+u9D0tnlFx30/WASEAUGSVMZUkSmVAC1MIrCEIIAcIAQIC0XndX+fGDeoPWYDT86Lbbzluz5tLvfV/L85FIpA9w4jgAoMFg0usnInqjrveUMaNOb+SIu6XckmWGWKCIkwASZQYYUZnn/XEkqMGYQwDJRHQ2tNQfbj62Ve6qKEgy3/edxecsvzUlIxUo7LXXXuvs6EhwJACglrxiFLA+YwKw/8z7JXYMAMKYVwipqa3dt2+f1+udOXPWz372s1mzZtnt9iNHDseqPC0IBxVW+TpwrGH9pJF2yWFjhaMImQ7sMzMjU6vVejze+HgHpUr0eyKmJucMojZDRqlW0FgsMaGQ/9HH/3H4SPlVV1yan5dttpihoOnPZqNAVhRJCofDkUgkGAh7vd5wJKLRmX5x7y+DQZkQv92RkJGdTZUwxsgfDAAABEGjbs1qmeqBfPlxxQohAABDd0/bnl1/TC+eZzAnQVtSXG6J1pJEKMMIajDmOcADIAW97o4GV8M+V1OZJtCeY8MXLClcvuznRcVFQNACMUDDAX+ISIoiScoAdR44QpZS37quLv81NTVJSYnz58/HmH/kkUfUsh2SJLlc7tLSUnBy+lgnlPkbppbO6FljY4izjvViVc4w1habm59bX9+QnJKkhJXowNiwrgtglFGM+YSEBGev86yz11SUld/yw7vtdltCYkKMxaLTalUOYCAY8gcCoVAoFAqKogxUqBpreJ4DgCYlOpYtW1xUPA1RGgiGnnj8iU/++8n06TMuvvgSh8M+kJUFxpk4qpIXjhw97Aor51x9dy8QBK1FE+PQWa0aDvOMMjni7mppaarorTtInLVxGmlKZvzc80vmzry0IDuN0+uBLNFwhESClChCTNyRPTta2zunO1IZpQMLdX/FkNmXiwJCiDIW8Aeuu+66X/3qAXWwWq1WPQmKopidnW2xWFSUbgJZmeDbyHkfQb5i1aqzfv3AryVZBqOvBFA9UlOiSKmpyUePHvMHItfdcFNbW3NnZ7vb7Wrv8hCiQAg1vEanN9gTYnVanU6n02m1glan0QgAAFkSA8FAU2P93/7x3Ecff3rfvfd4fYHk5FSfz/faa6+9++67d9xxx7nnnnuS8dP9+w+0d3TMsdmscakikSLBgL+2ztfR7Gqv7m0qj4G+7Hjd2TOnLJh9aVFBTpzdCngtUAiRJMnrR4BBQAGjgk5PZfrMsy9EIpJGo0Fjo8wjCGVZVhTl/PPPFwRBZWOrKScAAIPBYDKZThETa3A+/jco9qJOMp/Pd/bZZycmJmZmZEqiiDBmI35zdRslGq3mwMEDTqfzBzf/wGAwYYwRhAz0BaYhQBD2rR/qv5QCxiiADAKIEOJ5Phjwv//eO81NTSazZc7cuRpBiEQiO3bsaG5uvffee++6664JaAtGWQwf//ej79/yA8JZ9bYkLPA8U+wGTaxZSLBbzz/7jOn5melZ6UAQAGUgIsqyBBiBjEDEAICI00BOAII24PQ++Ls/vPXefxnip08tzcnKlGRlGAejbzqy/tIeXHdPd01t7QcffGC3O75BcbJhaDNfpz4WpVSn0xFCPv744+ysLDVHaUTIpB+ap5RZzJbKqgq9XpeelhEKBWVZkWVZlmRZUmRZkiRJnbiKohBCGKNq6Wq1fLUoihzPFxWX7Nq9x253ZGSkuz2erVu3Op1OQdCsX7/BbDbPmTNn4Lo1dn0sxlhWVnZjTZ0WSXfecMl3V8y8/arzf3D9d/JTbP/96N27f3xbQmqSEgkxRYZMgRhjrQ7rBKQTkFaPtAZIaXNr60fvr7v/gYeq65sXLlrWUN+QlZmtNxgYo9GzzABgVi1T3yecrBE0x8uO5uXlX3XV1SM5u1+PPhYHJkkRZPQ3jv6nK6644p133qmoqCgpKYlEIiPOMEgBQxAgRoHRYC7Im7J1y/aiKVPNZrOsKGpZKPDVeP6QBU8t0wkRQk1NTQCB+Pj4xoamiuqK9o42RVYghJSCw4cPR72QobNlWJ8y+qtadz0zI0urka677tZXnnm8o73juttustgsiQkORZEB1hIaioRFMRIWRTEsRny+QG+vq621s6Gxubq2pqW1XaFoSvHU7yxdsW/PXiIrMTEmqgLGIx8gGGMIQUkU29vb77jjzoFZSWPxiU/exxp02TfpY6k3iBBiNpt//vOf3/KDHyQmJ8XGWCVJGh7mHnBnZUXOy81va2378IP3v3fNNRAwQPsXtBHn4lfKpWzd+kVnR0e1oRpB3NzUkpqafvFFF0+fPt1kMpeWlqrVy8cVo4Vf5guBxOSko4c2U+oJSaEP3v/wqusuj4m1nXvBpX/6y9MtLa0ejzcUCsuiIopiRBIpY5jntXpjjMWakJCwes3C1LQUzPGAgarqqpjYWI1Wq8gKgmj4J92Xj8g0gqa6uioxMWn16nOigu/f1JM95TjWCWMCKotj+fLlN9x0/b+ee2HlipVarTCwoOGX7xrAxWKMAgjnL5i/afPGjRs3rFp1ViQiqrd+UDbEUDVig8GwY8cOn8/30O8eWrR4SWxs7JYtW+bPn5+enj4UaRu3b4ExAKC4eMqb/46EPD0/uO2W7Kzce37+2z0H91HK2Wx2qzU2PSvJoDdqdXpBK2gFjVan1Wq1PM+rVTtkWRFFkVLm9/tbW1sKCgow4hSgjO4vI4QkWa6qrvrFL35hMBiiBaS/McMaKth9kvpYJ9wQBy0nUWnDX9xz7/Fj5Rs3bli1apUgCGop8pHVZaAamli0cNH2HTv1esOSJUvD4fDoPgGl1GAw1NXVbdq06c9//vPq1avV16+44goVxIpmjUatavy1dCADoKSkCCHc2Nzeu//4/fc/FOdIXHPOpfGJiVpBCyBSmVKMEUoIZaqKE4hEpIFdaTSaqqoqSmlaapoiSRCcAAERBOHg4cPZ2bmXXfadkdCEyaqlMxZ9LG5SvKtBUpmjK7oM8lc4jgOArVv333fffbe5uREhtGXLlgULFpjNZlmWh6VRRGURFVmxxsTOnzd/8+bPZVlZvny5mm6vWmr0XA2hWmeb6fX6hoaGZ5999u677169erUkSdErUX8bPVg2sFswIgWb8Lx25Zmrf/fQH5uaW0tKZ52x4ixJkmRZCobEqA8I+zTA4BCfGkAII5HwwYMHs7KydDqtGBFH+URKKa/he5y9jY0N//rXvwwGIyEEIXgy3vMY/bBRkM6vTx9rWKYlQqi+vv6aa665+qqrNmzYkJuTe/bqs2NiYjZv3tzU1MRxHEJ42K8WFUeUZTnOZlu8cNHOnTvffPPNQCCgRlj7SZKAMUYI5ThOp9Pt27fv+eef/+EPf/jjH/9Y9W3VxYnjuEFamCeTpaOGni686Dt79h1NS89ZfubKQCAgyRKEDCGAEEAQIMgg7LOhQbIllDJB0Bw7dszr9ebm5CiSMlAveWChxj6Ag+fCkcjmzZtvvPHGpUuXqgWtvnF9L7x27dpvUKKTEHL11Ve/++67doeDEhKOhDPS0pKSkhBGx48fc7tcMTEWk8moWghgw6hiqJ0YjcbU1NTauroDBw5gDBMTEw0GvQo0YMzp9Tq32/3OO28dOXLkgQfW3nrrrSq8Pi5hVQih2+2WZTlaOXEU3VBKmdUa4/F4a2trioqKCFFQnxmpKf4walWDjrBqybRAwP/ee+9mZ2fFOxKigjmDxqNaGMdjRVHWr19/1llnPfjgg8MKuoJvQuL1K/UKv0713wE1UYHP5+3u6hLFSCgcttlibTZbbKzV4XB0dHaUV5SLkbDeoNfrdRhxw2o6qraFMZeWlgog27dv37FjRwkhNluswaD3+bwbN258663/ZGSk/+MfT65YcWZ0Tg/ED0/It4YQ9vb2hsNhtejDqBczxgiEYMqUKS+//HIoFCosKIxExP7tCfbvFep/g74L0Gj4t956SxLF0tIZsqwgGH3XV+8eAxpeI0riuk8/WbRo0d///ndV2mSU5WqyaumMJME/CbV0JnH3VGteHj586NFHH1m/fn1MTExBQUF2VpZaN/rQ4YNlZeVmk9kaG5uakhoXF6fTajHmothBHw2i3zvRCIKiyLV1tTU1NYpCHA5Hd3d3UlLSD37wg8svv0JlMahrxgT4MF1dXT09PcXFxWNQeVBReG7Lls9vvPGGC86/YObMWcFQEADQn5UFB51I1Amj0wkbNmzYs3vvyjPP5Hme0i+BUMAYhID2T0hew3V1dW/dtnXVqlVPPPGE6lqNqyrTSdZEGb3/b96woqfCYDDw8MMPybIcDoe3fP55enp6UVHR9h3b9QZDYkJiTU2Nx+2mlBoMJqPRaDGb9XqDRqNRGaGUMUKILMsej8fj8UiKKIqiyWQpLS0999xzV6xYodVqo9K6EyZaeb3e6urq2bNnDwLlR/lqGON33nnrvvvuPeOMFYsWLZYkUZa/UtRz4IFAq9Vu2/rF1q1fLFywJCbGop5CvhozYgBBntfIinz0+OHGxsabbrz55z+/h+O4KJP9VNczG6thfbOFIQYCAQPvy/r1nz3+2ONdXR2yLM+dO88e55AVWYxE3C630+Xyer2hUEgSRcpolF2DEBQlOScnJz8vLzsne8aMGVOmFDscDtBPVT35FGdCyJ49e6ZPn87zfJQ2fsK3YIzXr//0Zz/7WUJC0vnnXxATY+nTYBqwUPE8jxBav379/n17582bY49LUE/Eg5hIPK+hlDQ0NR46dCg9PeNXv/rlihVnMsYoJQjhb5WGKhzqr4w1ZWBsvKuRit4MfV2NGUePe36//+67f7p9+7azVp5FFAIAhAhh3AcKKIpCqCLLkiTLlBLAgEYQjhw5cu+995533gWDdDiiTvrYuWJD8VW1n6NHj5pMJoxxQkICz/NjWRLUTOiKioq77767qqrqrLPOKioqUgstqVLkHMe5XK6PPvqoqalpyeJFVmuMJCmof7/GGKmVaUORcGtra2VlJYTwmmuuueOOHxuNhoHqSMNiwie5Vv0v6GONfQ2DQJJkrSB8+tmnDz/40KxZsxRFQRBijmOMyYocDkcCAX8g4PMHAsFgMBQKiaLIcVwgEJg2bdoDDzwwe/ZshDhZlicxrKGuqR0dHb29vYIgGI3GpKSkgal5g4AAda0aVNbmxRdfWLv2AbPZUlQ0JTMz0+FwYIwrKyv37t2r1xtKS0u1glbuJ0YzxmRZDgaDPT09He3t3oA/MTFx5cqVV111VVZWFgDg0KFDJpMpJyfnW1gzmwPfsqauKxgjxlhtTY1G0HAYQwgVonT3dvd09/Y6u71ebyQSUSkMHOaMJpPFYjEaDenpGaFQ+K677ioqKrrzrruKphSfkLU33oHFxcV1dHSYzWb1TDC0KIg6UTmO6y8LKvn9PkmSAgF/V1dXWdlxURQ7Oto7OzsEQYiNjcUYd3d3JyYmxlgs9fV1jAKMsKIo/oA/GAiKksgYS0xMXHPuuQsWzZ82bXpCQqJabVQQhO3bt/f29t57773DZt18w4b1LRQ3jzqzbo9bpxMUqtRU1Ta3NLu9zn4sHjDAjEZjSkpKUlJyTIxVEASEMGQMQihJUlVN5W233vr0088WFBRMlkKBOiqe57VarbqL9fT02O32QSV3Vd+ru7tr/fr1H338cVdnl/pdCCGRSFAQhOysrO6enoDfr8hyT3c3AwBj3NPTEwgGeI5XZMXj8kpETE5Oio9PqKiouPrqq9eu/c2mTRtra2tEURRFOT09vbS09NixY1qtdt68edu2bVu5cuU3WLB+TLHCU6qPNZIfM9yOrqZfys0tLY2Njd3dPQghrEEqjTQ2JjYjPSMlJdVoNKosb0qZQmTYH46dOWPWsWPHXnv11Qd/97tJPJ2oXSUmJjY0NKSkpFRXV9tstoEEeYxxfX393/72102bNrS1thUUFKSkpGp1ep7jeZ7T63Ucx1FCAsFge1tbQ0Oj0+VUdY0ppRjhtLQ0WZK1Wi3CGEIwc8YMWZa7uro0GsFhd1RUVEKISkun7969e8eOHRzHnXfeeZ2dnZWVFVFK46RLXU4YAZgEPtbo/KRRuPCjkMdVCqjP62toaDCbTRpBAIDKkmK1WnNzc1NTUnVavaIQWZL7IGzwFQ8jHAqnJKc0NDT6/f5JJOOqBbCtVmt9fT0AIDY2trq6WhUvVf/a2tp65ZWXi6JYUFDo9XizsrJSU9JEUerzuhSqyCIAQCvocnPzU1PTW1paqmoqPW4Px3NOp9PpdGKMFy9enJKcum/v3k2bNul1+va2NgjArNlzZs2e89hjj6WnZ1x55Xc/+eST2NjYjIyMV199pahoirpWqVSfk6ERTAofa5hY4benYYyDwWB5eYUgCBhziiITQgsLC5YuXZadncPzGlmWGVMz49Cw3wJjHAwF/X7/pKuoAQAyMzNrampycnLUsuoYY0VRIIQffvjhwYMHMzIycnNzJVmuq6sLh8MqjTUqRqWuT5IkYYxzcrLPWLasoLBgIKuC5zmikOnTS1NTU7u6u+rr65988u+7d+3q6GgPh0OyLP7jH3+/9dbbrrnmmnXr1s2cOXPz5s3V1dWhUKi5uXnC7N//L3ysKG8kISFBZRjHxFimTp2WkpJKCCGEwgHFFgGgQ7woCCEKh8N6vd5qtU66SAGlNDY2Vq/XV1dXT58+fd++fQsWLOB5HgCg0+m0Wu3BgwdVUCAUDhNCEOIGpR1FsQ9FITqtfuaMWTZb3KFDB8PhMGAsFAyhOKgoNDMjOzEhqaWt+eGHH5Jl4oh36HS6M85Y1tra4nL18rymvb39hhtusFjMH3/80e7de66++uq0tDT1NPqNP9avxAonoPM+Xs77WBbqqJt85MiRQ4cPTp82vbR0hs1qU2TyZSS3D+ZRA7EcYEBdM1Q5fkEQmlta5i+Yv2TJkoFCyKMXkB4jZ1/dEO12e1lZmcPhMJlMR44cSUlJ4TguNTV1x47tDQ0N6q4UY41JS0uDDIDhgqT9qxejlNribA6Hw+12+3w+QkhycgrH8ZIkY4wSExK0Ol1HR3swGPT5fB999NF3vvOds85ade65a5YuXbpp00ZFUSRJXrBgwXnnnTeQnzg0qjO6KP94Y4Uj9d8Hv31tGqTjamoeXEVFeSgYLCmeygCgZKif1Bfed7ldR44cMRiMZosFAKbT6Ts7OggjP/3p3WpdnUmfviqx3Ww2Hzx4sLi4GEJ47NixhIQEi8Uye/asxsbGmpoaAMDMGTNtdjtRyCicuyjLQ2cwJiclBny+tra2YDBos9kMBiMDjBJmNBm9Xk8oHAYAuFwujUazdu3aqVOn/e1vfwsEgnl5edOnT587d963y5k51YY1sXBvZWWlJEldXZ21tbUmo5kotJ9k8pUreY7vcXZXVVX5A35bnA1AEAqF6uvr/D7/2rVrCwoKvgwOsglmk48kRkopNRqNjLEjR47MmDGDUnr48OG4uLi0tPSLLrqooKCgvLzc4/HodQaO5zUaXkW21NXuq7O/TxaOEKrR8ImJCW63p6W5qbOjXRQlDachhETECMaopaXFZDI99tjjCQnx27dvz83N27Zt+wMPPJCWlh4TYx0jYve1bZET9PUmcAodYxhBXV0PHz7s9/sRgo89+ses7GxVFe0rvBHAOMz5fL5eV8+f//yXlpbmt99+x+l0Msby8/Ouv/7G5ORkFdqB0cQ7OPnnIwihOgemTp3a0tJSXl6WmZmZl5cHAGxvb3n44d/v27c/HA5DhLS8xmyx2Gw2e1ycXm+QJIlSNf0DQbXmJ4CUEY7HAX9g67YvPB4PYBAibLVaCwsKLTGW0hml5553XkZ6BqX0mWeewRhXVFT87ncParUCY/DbhrzD0auZjUUfa6T6yqMQxofd7AeG5Orr6+vq6mbPnv3D2243m80aLccogwB/lWGiO3T40FVXf/faa7+vvu71ejUajcogHVpqerx+3lg47+qww+GwRqPBGPt8vmPHjiuKnJGRoaZmdHV1VlZW1tfX19fX19XV1tfXezyeeEf81JLpgqBRudGDl2Ge7+xq37ZtGwPA7/dfeeV3H3nkUaPRCPuk1fpYDFu3bt2xY+f3v39dYmLiKKyNk6wJ/b+qjzUU7lIH53A4KioqYmJipk2fvnPHjty8nEgkHD1bRSuwCRrB5XIxxlSfzGKxAACiIcKx4GonmSOpxgQFQVAdL7PZvHDhgtbW1pqa2oqKiri4uJSUlNLSGTNnztLr9QCw3t7egwcPvPzSq59++sn8BfMddof81fxmCKEsy/HxCfn5+cfKyjDGK1asMJlMUXp+tNLz0qVLly5dGo3cT2KxxUnRxxo+CD3hGvETQ+cGvUt1s7Zs2VJQUCBGItdde13J1CKe5wFD6h1UQQc1nljXUPvss88mJiZHT4UnJN2fPNIzKJ9sULRfXTy6urra2tqcTmcwGFQUJTk5eebMmdGg3muvvvLEE49PmVJkj4uPjvzL6Y2AKEa+2Lq1o6Pjgw8+XLx4yaDsU/WpqVj/6Ak5YxfMmZiwzEgXcCeZOHAq3hUFIauqqpYuXXrlVd99+eWXiouLnb29vb29Pp9PURQAIYcxz/OU0XA4or59LMX+JteBHWTEAxeP+Ph4VTxokCkQQiBEV139PZvN9sADvzboTVqtdlA0hjFiMBgcDocoillZmVF6/qDsxUEFMk/yy450TJnYzfwm9bFG8rfUo1NKSkpDQ0Nra+vNN9+s1Qp/+tPj6sFKo9UEnAGXy6XeXEppWdnxrKzsgSVJR3K0x6XdNYFHNfAxD+on6gNxHKci72evPufAwYPr/rtu/vz5A5O/B2IuP/7xj1NS0hRl+HSukW74UB9gwiXNJqyPhQYVix6lbPgJlWpHL1c+tM9hStL3N5X8VFhYePz48XA4fM0111500YXTp0//+c9+fv5559tsNp7neZ4XBEGW5b1794KRC2gP62OdcGwnDOyMsRL7V99Fo39SEdTvXX2N3+/3eDyq5/TluxiglEZEcebMGdGxq+7UCUu+j6to+bi+xbj6/5bGCtW8+/j4+IyMjJ07d4qieMcdd0YikXWfrvvoo48qKyujTwIh1NHROeGM+G/2O9bU1nR1damxZ7U8WJ/nxGGPx2M2GtPS0tX8i6Ew3vhFJU4tGDFpNaG/hjg0Y6ygoEAUxd27dy9duvQPf3j0hhuuLysrU09/queh5jd/U+K847350cmNMfZ6PU899WROXq4lxqI6Xv3XUI7X1Dc0LF6yJDU1XaU9gv+1hiasUzP6RjPKjjl6avagt1NKp02bZrVat2zZkpyc/Oqrr1966XdCobDX6w+Fwj6fFwCwcuWZ0dTnCQMl490Qx0WIGHKvKITwvffe3bZtG4QM4b64J4SAUsLzmu7u7nA4fO21147xkH/qGA0n3GG/DWXlJtjC4bBOp6upqWlqapo7d67ZbF6/fv369RtaWpoRgueee+5VV12luh//E7uh6krLsnTJJRfv2LGd43iTybhw/uK4uDhZlgVBI4rip+s//cUvfnHDDTcRoiCEwf9g+7YbFoTQ6XRWVlbOnDkzEAiosd7CwsIoEKruhieZIge+XuVVjHFTU/M555ztdPaYTCaPx5uQkHDmijMFQXA6e7ds2XLZdy5/+OHfTyy3Fvx/wnkfb8mdoW+32WzJycmff/55cXHx0qVLy8vLP//889zc3JSUlEHJT5PyXU61jUYjM6qQZVHxlMTElP9+9NGxY8ci4XBLW8sNN9x4//2/VgX+vykF0f8lfawTiiqN5JlRSjMyMmJiYg4dOtTW1lZYWJicnFxbW9vZ2ZmYmBgbG6vT6aJBnpMZ80iaopOFXA+khSUlJeTk5NTV1Xo9/uQkyPG8x+0tLCz89QNrV511lirMOwoxbiQW1NhxplOtj/WVrXCyChGeEIQc18bRnxCGAQBNTY2trW0GgyE+Pp4x5vf7I5EIz/OxsbE2m20Q8j6uMZyicqPD3nd1N9y3b++f//yEy+1x2O3Lli1bc865jngHAIBSJXqoGovjeEqX2K+1EOY3mIyv4lvd3d3d3d2yLOt0Op1Ox3GcVqu12+1jmbXftiy3iBjR6/RRg2OUIvw/6a1/Y9oNJ78k9COifYI+4XDY7Xb39PSEw2GMsSAIOp1Oo9GodhYTE6PO9dF3jVO9Yo3ybSj9cjUihPSDoPDbc8MnU21mXD7WsLzpk4/HnZB0P0gXn1IaCATC4XA4HBZFEWNsNptjY2OHGtbo/U9A72Bcwf+hLw7q84Su26T7WCc5/tEqOf6vbIVD6QNRhz3KVJlEPdX/Sy16077OBeyb18f6xt3MbwSYGBdR+xRthd9Sfaz/IUzydPs2ct4nnFc4CrNxdL7XWF4fVqtpwv2M3v8otXROkb7UuCbtsD7WaX2s0+3/ZkOnb8Hp9r+NY51u/1+1b60+1slK701iTs7J5GKc6rPqt7b/0z7W6fa/72ON0eQnpSjBt0GH4rSPdbqdbl+XavIg92h032j0nMRx4Ubj1YuflGvGnv84Up+D8tzHGBI94XuH/vWEOZ4jVeEbiT518uMf9lP+H2gGDdDte/PAAAAAAElFTkSuQmCC" alt="ninja picture">
+    </div></div>
+    <div class="paper-passage">What's dressed in all black, practices stealth, and is a master of espionage, sabotage, and assassination? You guessed it: it's a ninja!<br><br>
+    Perhaps the only thing more elusive than a ninja is the source of the word <i>ninja</i>. In Japan ninja are more often referred to as shinobi. The word <i>shinobi</i>, short for <i>shinobi-no-mono</i>, means 'to steal away.' The word <i>shinobi</i> appears in poems as far back as the eighth century. So how did this word become <i>ninja</i>? Some believe that during the Edo period in Japan, the word <i>shinobi-no-mono</i> was transformed to the very similar word <i>ninja</i>. This probably happened because it was a lot quicker and easier to just say <i>ninja</i>. It is difficult to see how such a transformation could have occurred when we look at the words using our alphabet, but if you look at the kanji representing these words, it may make more sense to you. This is how you write <i>shinobi-no-mono</i>: <img src="data:image/png;base64,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" alt="kanji for shinobi-no-mono">. And this is how you write ninja: <img src="data:image/png;base64,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" alt="kanji for ninja">. Now do you see the similarities?</div>
+    <div class="mini-cn cn">什么东西一身黑衣、擅长潜行，是间谍、破坏和暗杀的高手？你猜对了：是忍者！……（“ninja”这个词的来源比忍者本身更难捉摸。在日本，忍者更常被叫作 shinobi，意思是“偷偷溜走”。这个词在八世纪的诗中就出现了。有人认为在江户时期，shinobi-no-mono 变成了相似的 ninja，很可能是因为说 ninja 更快更容易。用字母看很难看出这种变化，但看汉字（kanji）就更容易理解了。）</div>
+  </div>
+</template>
+
+<template id="tpl-jim">
+  <div class="block">
+    <div class="paper-title">Predictions</div>
+    <p><b>DIRECTIONS</b>: What do you think happens next? Explain your answer using evidence from the text.</p>
+    <p class="cn">说明：你认为接下来会发生什么？用文中的证据解释你的答案。</p>
+    <div class="paper-box"><div class="row">
+      <img src="data:image/jpeg;base64,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" alt="a cartoon of a child running">
+      <div style="flex:1;min-width:220px"><b>1.</b> Jim wants to win the big race. He goes running every day after school. As the weeks go by, he gets faster and faster. On the day of the big race, he is neck-in-neck with Joe, who has always been the fastest boy in school. The finish line appears before them. Jim has been saving his last burst of energy for just this moment...</div>
+    </div></div>
+    <div class="mini-cn cn">吉姆想赢得大赛。他每天放学后都去跑步。几周过去，他越来越快。比赛那天，他和学校里一直最快的乔并驾齐驱。终点线出现在他们面前。吉姆一直把最后一股冲劲留到这一刻……</div>
+  </div>
+</template>
+
+<template id="tpl-wordforms">
+  <div class="block">
+    <div class="paper-title">Grammar Review</div>
+    <p><b>Word Forms:</b> This section is about how words can be in different forms, meaning that a word can be a noun or adjective or a different part of speech depending on how it is used in a sentence or how the word is changed.</p>
+    <p class="cn">词形：同一个词可以有不同的形式，根据它在句子中的用法或变化，可以是名词、形容词或其他词性。</p>
+    <p><b>Example:</b> Participate. This is a verb. It can be used like this: I participated in class. This is its natural form. However, the word can change to a noun form: participation. Example: I graded for participation on the exam. <b>When the word changes form, it changes its meaning.</b> The change can be slight or vast.</p>
+    <table class="t">
+      <tr><th>Form 形式</th><th>Word 词</th><th>Job in the sentence 句中作用</th></tr>
+      <tr><td>verb 动词</td><td>participate / participated</td><td>shows an action 表示动作</td></tr>
+      <tr><td>noun 名词</td><td>participation</td><td>names a thing or idea (after on, for, the) 表示事物或概念</td></tr>
+    </table>
+    <p><b>Activity:</b> Circle/underline the incorrect word and rewrite the sentence correctly.</p>
+    <p class="cn">活动：圈出或划出错误的词，并正确改写句子。（本模块中请选择正确答案。）</p>
+    <div class="call call-green"><div class="t">Example · 例子</div><p><b>1.</b> I running to catch the bus. → <b>I ran to catch the bus.</b></p>
+      <p class="cn">'I running' 缺少正确的动词形式，改为过去式 ran。</p></div>
+  </div>
+</template>
+
+<template id="tpl-homophones">
+  <div class="block">
+    <p><b>Homophones:</b></p>
+    <p>These are words that sound the same, but they do not mean the same thing. <i>Example: to, two and too.</i> I went to the store. <i>To</i> is a preposition. I have two dogs. <i>Two</i> is a number. I too like chicken. <i>Too</i> means also.</p>
+    <p class="cn">同音异形词：读音相同但意思不同的词。例如 to, two, too。</p>
+    <table class="t">
+      <tr><th>Pair 词组</th><th>Meaning 意思</th><th>Memory trick 记忆法</th></tr>
+      <tr><td>sea / see</td><td>ocean 海 / look 看</td><td>see has two e's = two eyes 👀</td></tr>
+      <tr><td>dessert / desert</td><td>sweet food 甜点 / dry land 沙漠</td><td>dessert has two s's: you want seconds</td></tr>
+      <tr><td>capital / capitol</td><td>big letter or main city 大写字母/首都 / government building 国会大厦</td><td>capital = a big letter</td></tr>
+      <tr><td>principal / principle</td><td>school leader 校长 / rule 原则</td><td>principal is your pal</td></tr>
+      <tr><td>their / there / they're</td><td>owned by them / place / they are</td><td>they're = they are</td></tr>
+    </table>
+    <p><b>Correct the homophones and rewrite the sentence correctly using the correct homophones.</b></p>
+    <p class="cn">改正同音异形词，并用正确的词改写句子。（本模块中请选择正确答案。）</p>
+  </div>
+</template>
+
+<template id="tpl-examhead">
+  <div class="block" style="text-align:center">
+    <div class="paper-title" style="font-size:1.3rem">English 10-1 practice exam</div>
+    <div class="cn">英语 10-1 模拟练习考试</div>
+  </div>
+</template>
+
+<template id="tpl-partc">
+  <div class="block">
+    <div class="paper-title">Part C: Language and Grammar</div>
+    <p><b>Suggested Time: 20 minutes</b></p>
+    <p>The questions below are based on the passage. <b>Write the CORRECT answers in the response booklet.</b></p>
+    <p class="cn">建议用时：20分钟。下面的题目都基于这篇短文。（本模块中请点击选择正确答案。）</p>
+    <div class="paper-passage"><b>Text:</b>
+      <ol class="numlist">
+        <li>Every morning, the sun rise in the east and lights up the town.</li>
+        <li>Children wake up and rush to the kitchen for breakfast.</li>
+        <li>Smiles on their faces.</li>
+        <li>"Where's my cereal!" one of them says with a laugh.</li>
+        <li>The cat jumps on the table.</li>
+        <li>A loud noise comes from the hallway as dad drops a box of toys.</li>
+        <li>It taked him a while to clean it up.</li>
+      </ol>
+    </div>
+  </div>
+</template>
+
+<script>
+/* ===================== STATE ===================== */
+var leaveCount = 0;
+var secondsElapsed = 0;
+var progressPoints = 0;
+var totalPoints = 0;
+
+/* ===================== VOCAB ===================== */
+const VOCAB = [
+  {word:"predict", pos:"verb", cn:"预测", def:"To guess what will happen next, using clues.", cn_def:"根据线索猜测接下来会发生什么。", example:"I predict that Jim will win the race."},
+  {word:"infer", pos:"verb", cn:"推断", def:"To figure out something that the text does not say directly.", cn_def:"想出文中没有直接说出的意思。", example:"I infer that she is proud because she smiles."},
+  {word:"summarize", pos:"verb", cn:"概括", def:"To tell the main ideas of a text in a shorter way, in your own words.", cn_def:"用自己的话简短地说出文章的主要观点。", example:"Please summarize the passage in three sentences."},
+  {word:"main idea", pos:"noun phrase", cn:"中心思想", def:"The most important point of a passage.", cn_def:"一段文章最重要的观点。", example:"The main idea is that bees help plants grow."},
+  {word:"supporting detail", pos:"noun phrase", cn:"支持细节", def:"A fact that helps explain the main idea.", cn_def:"帮助解释中心思想的事实。", example:"Dogs need food and water is a supporting detail."},
+  {word:"evidence", pos:"noun", cn:"证据", def:"Words from the text that prove your answer.", cn_def:"文中能证明你答案的词句。", example:"Use evidence from the text to explain your answer."},
+  {word:"visualize", pos:"verb", cn:"想象画面", def:"To make a picture in your mind while you read.", cn_def:"阅读时在脑中形成画面。", example:"I visualize a stormy night when I read about thunder."},
+  {word:"connect", pos:"verb", cn:"联系", def:"To link the text to your life, another text, or the world.", cn_def:"把文章与你的生活、其他文章或世界联系起来。", example:"I connect the story to my own school life."},
+  {word:"passage", pos:"noun", cn:"短文；段落", def:"A short piece of writing that you read.", cn_def:"你阅读的一小段文字。", example:"Read the passage and answer the questions."},
+  {word:"homophone", pos:"noun", cn:"同音异形词", def:"Words that sound the same but have different meanings and spellings.", cn_def:"读音相同但意思和拼写不同的词。", example:"Sea and see are homophones."},
+  {word:"contraction", pos:"noun", cn:"缩写形式", def:"A short form of two words, with an apostrophe.", cn_def:"两个词的缩写，带撇号。", example:"Where's is a contraction of where is."},
+  {word:"word form", pos:"noun phrase", cn:"词形", def:"The different shapes a word can take, such as verb or noun.", cn_def:"一个词可以有的不同形式，比如动词或名词。", example:"Participation is the noun form of participate."}
+];
+
+/* ===================== QUIZ + WRITING BLOCKS ===================== */
+/* Every item below mirrors the numbering and wording of the paper copies. */
+const TABS = [
+{ key:'guide', label:'Study Guide', cn:'学习指南', blocks:[
+  {t:'tpl', id:'tpl-dogs'},
+  {t:'sec', en:'Example multiple choice questions', cn:'选择题示例'},
+  {t:'q', id:'g1', label:'Part A · 1', q:'What is this passage about?', q_cn:'这篇文章讲的是什么？', note:'Use the dogs passage above. 请用上面关于狗的文章。',
+   options:['A. Cats|A. 猫','B. Fish|B. 鱼','C. Dogs|C. 狗','D. Shaking Hands|D. 握手'], correct:'C',
+   rat_right:'The passage talks about dogs from the first word to the last. Dogs are the topic.|整篇文章从头到尾都在讲狗。狗就是主题。',
+   rat_wrong:{A:'Cats are never mentioned in the passage.|文章没有提到猫。',B:'Fish are never mentioned in the passage.|文章没有提到鱼。',D:'Shaking hands is only one trick dogs can do. It is a detail, not the topic.|握手只是狗会的一个把戏，是细节，不是主题。'}},
+  {t:'q', id:'g2', label:'Part A · 2', q:'Which tricks are mentioned in the passage?', q_cn:'文章提到了哪些把戏？', note:'Use the dogs passage above. 请用上面关于狗的文章。',
+   options:['A. Joy and life|A. 快乐和生活','B. Sitting and Shaking Hands|B. 坐下和握手','C. Fetch and roll over|C. 捡东西和打滚','D. Eat and Drink|D. 吃和喝'], correct:'B',
+   rat_right:'The text says dogs are good at learning tricks like sitting and shaking hands.|文章说狗擅长学习把戏，比如坐下和握手。',
+   rat_wrong:{A:'Joy and life are in the last sentence, but they are not tricks.|最后一句里有 joy 和 life，但它们不是把戏。',C:'Fetch and roll over are real tricks, but the passage does not mention them. Use only the text.|捡东西和打滚确实是把戏，但文章没有提到。只能用文章里的信息。',D:'Eating and drinking help dogs stay healthy. They are not tricks.|吃和喝是让狗保持健康的方式，不是把戏。'}},
+  {t:'q', id:'g3', label:'Part A · 3', q:'Why does the author suggest taking dogs for walks?', q_cn:'作者为什么建议带狗散步？', note:'Use the dogs passage above. 请用上面关于狗的文章。',
+   options:['A. To help them learn new tricks|A. 帮助它们学新把戏','B. So they can meet other animals|B. 让它们见到其他动物','C. To keep them healthy and happy|C. 让它们保持健康和快乐','D. To clean their fur|D. 清洁它们的毛'], correct:'C',
+   rat_right:'Dogs have a lot of energy. Walks help them stay active, healthy, and happy.|狗精力很多，散步帮助它们保持活跃、健康和快乐。',
+   rat_wrong:{A:'Tricks are mentioned, but the text does not say walks are for learning tricks.|文章提到了把戏，但没有说散步是为了学把戏。',B:'The text never talks about meeting other animals.|文章从没提到见其他动物。',D:'Walks do not clean fur. The text only says fur can be soft or curly.|散步不能清洁毛发。文章只说毛可能柔软或卷曲。'}},
+  {t:'sec', en:'Example: Short answer question', cn:'简答题示例'},
+  {t:'q', id:'g4', label:'Short Answer · 1', q:'What should you do with the dog?', q_cn:'你应该怎样对待这只狗？', note:'Pick the best short answer. 选出最好的简答。',
+   options:['A. You should give it love and take it for walks.|A. 你应该给它爱，带它散步。','B. You should keep it inside all day.|B. 你应该整天把它关在屋里。','C. You should give it only water.|C. 你应该只给它水。','D. You should cut its fur every day.|D. 你应该每天剪它的毛。'], correct:'A',
+   rat_right:'The text says: give them love and take them for walks.|文章说：给它们爱，带它们散步。',
+   rat_wrong:{B:'Dogs need walks, so keeping them inside all day is wrong.|狗需要散步，所以整天关在屋里是错的。',C:'Dogs also need good food, not only water.|狗还需要好的食物，不只是水。',D:'Cutting fur is never mentioned in the passage.|文章没有提到剪毛。'}},
+  {t:'q', id:'g5', label:'Short Answer · 2', q:'What does the word energy mean?', q_cn:'energy 这个词是什么意思？', note:'Hint: read the next sentence. It gives a clue. 提示：读下一句，里面有线索。',
+   options:['A. The strength to run, play, and be active|A. 跑步、玩耍和活动的力量','B. A kind of dog food|B. 一种狗粮','C. A trick that dogs learn|C. 狗学的一种把戏','D. Soft or curly fur|D. 柔软或卷曲的毛'], correct:'A',
+   rat_right:'Energy means the strength needed for physical activities. The next sentence says dogs enjoy running and playing.|energy 指做体力活动需要的力量。下一句说狗喜欢跑步和玩耍。',
+   rat_wrong:{B:'Dog food is mentioned later as good food. That is not energy.|狗粮在后面被叫作 good food，不是 energy。',C:'Tricks are things dogs learn. They are not energy.|把戏是狗学的东西，不是 energy。',D:'Fur is described as soft or curly. It has nothing to do with the word energy.|毛被描述为柔软或卷曲，和 energy 无关。'}},
+  {t:'q', id:'g6', label:'Short Answer · 3', q:'Are dogs easy or hard to take care of? Use the text to explain your answer.', q_cn:'养狗容易还是困难？请用文章内容解释你的答案。', note:'Always use evidence from the text. 一定要用文章中的证据。',
+   options:['A. Not hard. The text says dogs need love, good food, water, and walks.|A. 不难。文章说狗需要爱、好的食物、水和散步。','B. Hard. The text says dogs cost a lot of money.|B. 难。文章说养狗要花很多钱。','C. Hard. The text says dogs cannot learn tricks.|C. 难。文章说狗学不会把戏。','D. Easy. The text says dogs do not need anything.|D. 容易。文章说狗什么都不需要。'], correct:'A',
+   rat_right:'The text lists simple needs: love, good food, water, and exercise. That is not hard.|文章列出的需求很简单：爱、好的食物、水和运动。这并不难。',
+   rat_wrong:{B:'The text never mentions money. Your answer must come from the text.|文章从没提到钱。答案必须来自文章。',C:'The text says dogs are good at learning tricks.|文章说狗擅长学习把戏。',D:'The text lists what dogs need. They do need things.|文章列出了狗需要的东西，所以狗是有需求的。'}},
+  {t:'w', id:'wg1', label:'Part B', prompt:'Part B. Summarize the above passage using your own words.', prompt_cn:'B部分：用自己的话概括上面的文章。',
+   stems:['This passage is about ___ .','Dogs are ___ pets that ___ .','They enjoy ___ , ___ , and ___ .','Dogs need ___ , ___ , and ___ .','In the end, dogs ___ .'],
+   model:'Dogs are energetic pets that come in different sizes, colors, and types of fur. They enjoy activities like running, playing, and learning tricks. Dogs need to be cared for by giving them love, feeding them well, and ensuring they stay active through walks. They are wonderful companions who bring joy to people\'s lives.',
+   model_cn:'狗是精力充沛的宠物，有不同的体型、颜色和毛发类型。它们喜欢跑步、玩耍和学习把戏。要照顾好狗：给它们爱，喂好食物，并通过散步让它们保持活跃。它们是很棒的伙伴，给人们的生活带来快乐。'},
+  {t:'sec', en:'Reading Strategies Study Guide & Quiz', cn:'阅读策略学习指南与小测验', note:'Mini Quiz: Practice Your Skills · 小测验：练习你的技能'},
+  {t:'q', id:'g7', label:'Mini Quiz · 1', q:'Which strategy involves guessing what will happen next?', q_cn:'哪种策略是猜测接下来会发生什么？',
+   options:['A. Summarizing|A. 概括','B. Predicting|B. 预测','C. Inferring|C. 推断','D. Visualizing|D. 想象画面'], correct:'B',
+   rat_right:'Predicting means making an educated guess about what happens next.|预测就是对接下来会发生什么做有依据的猜测。',
+   rat_wrong:{A:'Summarizing makes a text shorter.|概括是把文章变短。',C:'Inferring finds hidden meaning.|推断是找出隐藏的意思。',D:'Visualizing makes pictures in your mind.|想象画面是在脑中形成图像。'}},
+  {t:'q', id:'g8', label:'Mini Quiz · 2', q:'What does inferring help you do?', q_cn:'推断能帮你做什么？',
+   options:['A. Memorize facts|A. 记住事实','B. Understand what\'s not directly said|B. 理解文中没有直接说出的意思','C. Create images in your mind|C. 在脑中创造图像','D. Retell the story|D. 复述故事'], correct:'B',
+   rat_right:'Inferring uses clues and logic to understand what the text does not say directly.|推断利用线索和逻辑，理解文中没有直接说出的意思。',
+   rat_wrong:{A:'Memorizing facts is not inferring. Inferring means thinking about clues.|记事实不是推断。推断是思考线索。',C:'Creating images is visualizing.|创造画面是想象画面（visualizing）。',D:'Retelling the story is summarizing.|复述故事是概括（summarizing）。'}},
+  {t:'q', id:'g9', label:'Mini Quiz · 3', q:'Which strategy helps you make a shorter version of a text?', q_cn:'哪种策略帮你写出文章的简短版本？',
+   options:['A. Connecting|A. 联系','B. Visualizing|B. 想象画面','C. Summarizing|C. 概括','D. Predicting|D. 预测'], correct:'C',
+   rat_right:'Summarizing means shortening a text using its main ideas.|概括就是用主要观点缩短文章。',
+   rat_wrong:{A:'Connecting links the text to your life.|联系是把文章和你的生活连起来。',B:'Visualizing is picturing scenes in your mind.|想象画面是在脑中想象场景。',D:'Predicting is guessing what happens next.|预测是猜测接下来发生什么。'}},
+  {t:'q', id:'g10', label:'Mini Quiz · 4', q:'If you imagine a stormy night while reading, which strategy are you using?', q_cn:'如果你在阅读时想象出一个暴风雨的夜晚，你用的是哪种策略？',
+   options:['A. Inferring|A. 推断','B. Visualizing|B. 想象画面','C. Connecting|C. 联系','D. Summarizing|D. 概括'], correct:'B',
+   rat_right:'Making a picture in your mind from descriptive words is visualizing.|根据描写性的词语在脑中形成画面，就是想象画面。',
+   rat_wrong:{A:'Inferring finds hidden meaning. You are making a picture, not finding a hidden meaning.|推断是找隐藏的意思，而你是在想象画面。',C:'Connecting links the text to your life or another text.|联系是把文章和你的生活或其他文章连起来。',D:'Summarizing makes the text shorter.|概括是把文章变短。'}}
+ ],
+ reflect:{
+  r1:'Which reading strategy is easiest for you? Which is hardest? Explain why.', r1_cn:'哪种阅读策略对你最容易？哪种最难？请解释原因。', r1_ph:'The easiest strategy for me is ___ because ___ . The hardest is ___ because ___ .',
+  r2:'Think of one time in real life when you made a prediction or an inference. What clues did you use?', r2_cn:'想一想你在现实生活中做预测或推断的一次经历。你用了哪些线索？', r2_ph:'One time, I predicted/inferred that ___ . The clues were ___ .'}
+},
+
+{ key:'work', label:'Practice', cn:'练习', blocks:[
+  {t:'tpl', id:'tpl-ninja'},
+  {t:'q', id:'w1', label:'Worksheet 2 · 1', q:'Main idea related title for the passage:', q_cn:'与中心思想有关的文章标题：', note:'Read the ninja passage above. 请读上面关于忍者的短文。',
+   options:['A. The Origins of the Word Ninja|A. 【忍者】一词的由来','B. How to Become a Ninja|B. 如何成为忍者','C. Ninja Weapons and Clothes|C. 忍者的武器和服装','D. How to Write Kanji|D. 如何书写汉字（kanji）'], correct:'A',
+   rat_right:'The whole passage explains where the word ninja came from (shinobi became ninja). A good title shows the main idea.|整篇文章都在解释【ninja】这个词从哪里来（shinobi 变成 ninja）。好标题要体现中心思想。',
+   rat_wrong:{B:'The passage does not teach how to become a ninja.|文章没有教怎样成为忍者。',C:'Black clothes appear only in the first sentence as a hook. They are not the main idea.|黑衣只出现在第一句，是用来吸引读者的，不是中心思想。',D:'Kanji is a detail used to show the similarity between two words. It is not the main idea.|汉字只是用来说明两个词相似的细节，不是中心思想。'}},
+  {t:'w', id:'ww1', label:'Worksheet 2 · 1 and 2', prompt:'1. Main idea related title for the passage:  2. Summarize the passage in your own words:', prompt_cn:'1. 写一个与中心思想有关的标题。2. 用自己的话概括这篇短文。',
+   stems:['Title: The Origins of ___','The word ninja comes from ___ .','The word shinobi means ___ .','The word was used in ___ .','Over time, ___ became ___ .','This probably happened because ___ .'],
+   model:'Title: The Origins of the Word \'Ninja\'. The word \'ninja\' comes from the Japanese term \'shinobi,\' which means \'to steal away.\' The term \'shinobi-no-mono\' was used in ancient poems, but over time it was shortened to \'ninja.\' The change likely happened because it was easier to say.',
+   model_cn:'标题：【忍者】一词的由来。【ninja】来自日语词 shinobi，意思是偷偷溜走。shinobi-no-mono 曾出现在古代诗歌中，但随着时间推移被缩短为 ninja。这种变化很可能是因为这样说更容易。'},
+  {t:'tpl', id:'tpl-jim'},
+  {t:'q', id:'w2', label:'Predictions · 1', q:'What do you think happens next? Choose the prediction with the best evidence from the text.', q_cn:'你认为接下来会发生什么？选择文中证据最充分的预测。', note:'Read the Jim passage above. 请读上面关于吉姆的短文。',
+   options:['A. Jim uses his last burst of energy and passes Joe at the finish line.|A. 吉姆用最后一股冲劲，在终点线前超过乔。','B. Jim stops running and walks home.|B. 吉姆停下来走回家。','C. Joe decides not to race.|C. 乔决定不比赛了。','D. The race is canceled.|D. 比赛被取消了。'], correct:'A',
+   rat_right:'Clues: Jim trained every day, he got faster, he is neck-and-neck with Joe, and he saved his last burst of energy for this moment. All clues point to Jim winning.|线索：吉姆每天训练，越来越快，和乔并驾齐驱，而且把最后一股冲劲留到这一刻。所有线索都指向吉姆会赢。',
+   rat_wrong:{B:'Nothing in the text says Jim wants to stop. He wants to win.|文中没有说吉姆想停下来。他想赢。',C:'Joe is already racing next to Jim.|乔已经在吉姆旁边比赛了。',D:'The finish line appears before them, so the race is happening.|终点线就在他们面前，说明比赛正在进行。'}},
+  {t:'w', id:'ww2', label:'Predictions · 1', prompt:'Make your prediction:', prompt_cn:'写出你的预测（并用文中证据解释）：',
+   stems:['I predict that Jim will ___ .','I think this because the text says ___ .','Evidence: \'___\' .','This clue shows that ___ .'],
+   model:'Jim will probably win the race by using his last burst of energy to overtake Joe at the finish line.',
+   model_cn:'吉姆很可能会在终点线前用最后一股冲劲超过乔，赢得比赛。'},
+  {t:'tpl', id:'tpl-wordforms'},
+  {t:'q', id:'w3', label:'Word Forms · 2', q:'A high mark is achieve in the class. Choose the correct word form.', q_cn:'A high mark is achieve in the class. 请选择正确的词形。',
+   options:['A. achieved|A. achieved（过去分词）','B. achieve|B. achieve（动词原形）','C. achievement|C. achievement（名词）','D. achieving|D. achieving（-ing形式）'], correct:'A',
+   rat_right:'After is we need a past participle for the passive: A high mark is achieved.|is 后面用过去分词构成被动语态：A high mark is achieved。',
+   rat_wrong:{B:'Achieve is the base verb. After is we need the -ed form.|achieve 是动词原形。is 后面需要 -ed 形式。',C:'Achievement is a noun. A mark is achievement makes no sense.|achievement 是名词，A mark is achievement 说不通。',D:'Is achieving needs a person doing the action, not a mark.|is achieving 需要有人做这个动作，而不是分数。'}},
+  {t:'q', id:'w4', label:'Word Forms · 3', q:'Maple Leaf has establishment a high curriculum. Choose the correct word form.', q_cn:'Maple Leaf has establishment a high curriculum. 请选择正确的词形。',
+   options:['A. establish|A. establish（动词原形）','B. established|B. established（过去分词）','C. establishing|C. establishing（-ing形式）','D. establishment|D. establishment（名词）'], correct:'B',
+   rat_right:'Has + past participle (present perfect): has established.|has + 过去分词（现在完成时）：has established。',
+   rat_wrong:{A:'Has establish is wrong. Has needs the -ed form.|has establish 是错的，has 后面需要 -ed 形式。',C:'Has establishing mixes up the verb forms.|has establishing 把动词形式弄混了。',D:'Establishment is a noun. This sentence needs a verb (an action).|establishment 是名词。这个句子需要动词（动作）。'}},
+  {t:'q', id:'w5', label:'Word Forms · 4', q:'The students need to be graded on participate in the class so that they will try every day. Choose the correct word form.', q_cn:'请选择正确的词形来改正这个句子。',
+   options:['A. participate|A. participate（动词原形）','B. participated|B. participated（过去式）','C. participation|C. participation（名词）','D. participating|D. participating（-ing形式）'], correct:'C',
+   rat_right:'After the preposition on we need a noun: graded on participation.|介词 on 后面需要名词：graded on participation。',
+   rat_wrong:{A:'Participate is a verb. After on we need a noun.|participate 是动词，on 后面需要名词。',B:'Participated is a past tense verb, not a noun.|participated 是过去式动词，不是名词。',D:'Participating is an -ing form. The correct noun phrase is graded on participation.|participating 是 -ing 形式。正确的名词短语是 graded on participation。'}},
+  {t:'tpl', id:'tpl-homophones'},
+  {t:'q', id:'w6', label:'Homophones · 1', q:'I went to visit the see side. Choose the correct word for the mistake.', q_cn:'I went to visit the see side. 请选择能改正错误的词。',
+   options:['A. sea|A. sea（海）','B. see|B. see（看见）','C. sees|C. sees（看见，第三人称）','D. seat|D. seat（座位）'], correct:'A',
+   rat_right:'Sea means the ocean. Seaside means beside the ocean.|sea 是海。seaside 是海边。',
+   rat_wrong:{B:'See is a verb (to look). Here we need a noun for the ocean.|see 是动词（看）。这里需要表示海的名词。',C:'Sees is the verb see with -s.|sees 是 see 加 s 的动词形式。',D:'Seat is a different word (a chair).|seat 是另一个词（座位）。'}},
+  {t:'q', id:'w7', label:'Homophones · 2', q:'I eat desert. Choose the correct word for the mistake.', q_cn:'I eat desert. 请选择能改正错误的词。',
+   options:['A. dessert|A. dessert（甜点）','B. desert|B. desert（沙漠）','C. deserts|C. deserts（沙漠，复数）','D. deserted|D. deserted（荒废的）'], correct:'A',
+   rat_right:'Dessert (two s) is sweet food after a meal. Trick: you want seconds, so it has two s.|dessert（两个 s）是饭后甜点。记忆法：想再来一份，所以有两个 s。',
+   rat_wrong:{B:'Desert is dry, sandy land. You cannot eat it.|desert 是干燥的沙地，不能吃。',C:'Deserts is the plural of desert (dry land).|deserts 是 desert（沙漠）的复数。',D:'Deserted means empty with no people.|deserted 的意思是空无一人的。'}},
+  {t:'q', id:'w8', label:'Homophones · 3', q:'Each sentence needs to start with a capitol letter. Choose the correct word for the mistake.', q_cn:'请选择能改正错误的词。',
+   options:['A. capital|A. capital（大写的）','B. capitol|B. capitol（国会大厦）','C. capitals|C. capitals（大写字母，复数）','D. capitalize|D. capitalize（使大写）'], correct:'A',
+   rat_right:'A capital letter is a big letter. A capitol is a government building.|capital letter 是大写字母。capitol 是政府大楼。',
+   rat_wrong:{B:'Capitol is a government building, not a type of letter.|capitol 是政府大楼，不是一种字母。',C:'Capitals is plural, but the sentence says a ... letter (one).|capitals 是复数，但句子里是 a ... letter（单数）。',D:'Capitalize is a verb. We need an adjective before letter.|capitalize 是动词，letter 前面需要形容词。'}},
+  {t:'q', id:'w9', label:'Homophones · 4', q:'The principal of China is to follow the law. Choose the correct word for the mistake.', q_cn:'请选择能改正错误的词。',
+   options:['A. principle|A. principle（原则）','B. principal|B. principal（校长；主要的）','C. principals|C. principals（校长们）','D. principally|D. principally（主要地）'], correct:'A',
+   rat_right:'A principle is a rule or belief. Principle = rule (both end in -le).|principle 是规则或信念。principle = rule（都以 -le 结尾）。',
+   rat_wrong:{B:'A principal is the head of a school. Trick: the principal is your pal.|principal 是校长。记忆法：校长是你的 pal（朋友）。',C:'Principals means more than one school leader.|principals 指多位校长。',D:'Principally means mainly. It does not fit here.|principally 是主要地，这里不合适。'}},
+  {t:'q', id:'w10', label:'Homophones · 5', q:'Their walking to the grocery store. Choose the correct word for the mistake.', q_cn:'请选择能改正错误的词。',
+   options:['A. They\'re|A. They\'re（= They are）','B. Their|B. Their（他们的）','C. There|C. There（那里）','D. Theyre|D. Theyre（拼写错误）'], correct:'A',
+   rat_right:'They\'re means they are. They are walking to the grocery store is a complete sentence.|They\'re = they are。They are walking to the grocery store 是完整的句子。',
+   rat_wrong:{B:'Their shows ownership (their bag). It cannot be the subject of walking.|their 表示所属（他们的包）。它不能作 walking 的主语。',C:'There shows a place (over there).|there 表示地点（在那里）。',D:'Theyre is a spelling mistake. It needs an apostrophe.|Theyre 是拼写错误，需要撇号。'}}
+ ],
+ reflect:{
+  r1:'Look at the questions you got wrong in Grammar Review. What pattern do you see? What will you check next time?', r1_cn:'看看你在语法复习中做错的题。你发现了什么规律？下次你会检查什么？', r1_ph:'I notice that I often ___ . Next time I will check ___ .',
+  r2:'Which homophone pair is hardest for you? Write one sentence with each word.', r2_cn:'哪一组同音异形词对你最难？每个词各写一个句子。', r2_ph:'The hardest pair is ___ and ___ . Sentence 1: ___ . Sentence 2: ___ .'}
+},
+
+{ key:'mockab', label:'Mock Exam: A & B', cn:'模拟考试 A、B', blocks:[
+  {t:'tpl', id:'tpl-examhead'},
+  {t:'sec', en:'Prediction', cn:'预测', note:'Instruction: Read each story event and predict what happened next by choosing the best answer.｜说明：阅读每个故事事件，选择最佳答案，预测接下来发生了什么。'},
+  {t:'q', id:'m1', label:'Prediction · 1', title:'Prediction 1', passage:'Liam placed the bowl of popcorn on the table and dimmed the lights. His friends sat on the couch with their blankets, and the movie had just started.', q:'What probably happened next?', q_cn:'接下来可能发生了什么？',
+   options:['A. They probably started watching the movie together while eating popcorn and enjoying the film.|A. 他们很可能一起开始看电影，边吃爆米花边享受。','B. They probably turned off the movie and went outside.|B. 他们很可能关掉电影出去了。','C. Liam probably threw the popcorn away.|C. 利亚姆很可能把爆米花扔掉了。','D. Liam\'s friends probably went home to sleep.|D. 利亚姆的朋友们很可能回家睡觉了。'], correct:'A',
+   rat_right:'Clues: popcorn on the table, lights dimmed, friends on the couch, movie just started. Every clue points to watching the movie.|线索：桌上的爆米花、调暗的灯、沙发上的朋友、电影刚开始。所有线索都指向看电影。',
+   rat_wrong:{B:'The lights were dimmed for the movie, so nobody leaves.|灯是为看电影调暗的，所以没人会离开。',C:'Liam just put the popcorn out to share.|利亚姆刚把爆米花摆出来分享。',D:'The movie had just started. Nobody goes home to sleep yet.|电影才刚开始，还不会有人回家睡觉。'}},
+  {t:'q', id:'m2', label:'Prediction · 2', title:'Prediction 2', passage:'Tara stood in line with her roller skates on, helmet secured. The music inside the skating rink was loud and fun. The staff member waved her forward with a smile.', q:'What probably happened next?', q_cn:'接下来可能发生了什么？',
+   options:['A. Tara likely skated into the rink and joined the other skaters on the floor.|A. 塔拉很可能滑进场地，加入其他滑冰的人。','B. Tara likely took off her skates and went home.|B. 塔拉很可能脱下轮滑鞋回家了。','C. Tara likely waited in line for another hour.|C. 塔拉很可能又排了一个小时队。','D. Tara likely bought food at the snack bar.|D. 塔拉很可能去小吃店买了吃的。'], correct:'A',
+   rat_right:'Skates on, helmet secured, and the staff waves her forward. She is ready to skate.|穿好轮滑鞋、戴好头盔，工作人员招手让她进场。她准备好滑了。',
+   rat_wrong:{B:'She is wearing her skates and being waved forward, so she is about to start.|她穿着轮滑鞋，被招手让进场，马上要开始滑了。',C:'The staff member already waved her forward. The waiting is over.|工作人员已经招手让她进场，等待结束了。',D:'Nothing in the text says she is hungry.|文中没有说她饿了。'}},
+  {t:'q', id:'m3', label:'Prediction · 3', title:'Prediction 3', passage:'David was watering the plants on the porch when dark clouds quickly covered the sky and the wind picked up. He heard thunder rumble in the distance.', q:'What probably happened next?', q_cn:'接下来可能发生了什么？',
+   options:['A. David likely rushed inside to avoid getting wet from the coming storm.|A. 大卫很可能赶紧跑进屋里，避免被即将到来的暴风雨淋湿。','B. David likely kept watering the plants.|B. 大卫很可能继续浇花。','C. David likely went for a swim.|C. 大卫很可能去游泳了。','D. David likely sat on the porch and read a book.|D. 大卫很可能坐在门廊上看书。'], correct:'A',
+   rat_right:'Dark clouds, strong wind, and thunder are clues that a storm is coming. People go inside.|乌云、大风和雷声是暴风雨要来的线索。人们会进屋。',
+   rat_wrong:{B:'The storm will water the plants. Nobody keeps watering in a storm.|暴风雨会浇灌植物，没人会在暴风雨中继续浇花。',C:'Swimming during thunder is dangerous and nothing in the text suggests it.|打雷时游泳很危险，文中也没有任何暗示。',D:'Reading on the porch in a storm would get him wet.|暴风雨中坐在门廊看书会被淋湿。'}},
+  {t:'w', id:'wm1', label:'Prediction · 1 (write it)', prompt:'1. What probably happened next?', prompt_cn:'1. 接下来可能发生了什么？（用自己的话写出预测）',
+   stems:['They probably ___ .','I think this because ___ .','The clues are ___ , ___ , and ___ .'],
+   model:'They probably started watching the movie together while eating popcorn and enjoying the film.',
+   model_cn:'他们很可能一起开始看电影，边吃爆米花边享受。'},
+  {t:'sec', en:'Summarization', cn:'概括', note:'Read each passage below then answer the summarization question.｜阅读下面每篇短文，然后回答概括问题。'},
+  {t:'q', id:'m4', label:'Summarization · 4', title:'Summarization 4', passage:'Honeybees play a key role in nature. As they collect nectar to make honey, they also move pollen from flower to flower. This process helps plants grow, make fruit, and produce seeds. Without bees, many plants would not be able to grow properly.', q:'What is the main idea of the passage?', q_cn:'这篇短文的中心思想是什么？',
+   options:['A. Bees make honey for people to eat.|A. 蜜蜂为人们酿蜜。','B. Bees help plants grow by spreading pollen while collecting nectar.|B. 蜜蜂在采蜜时传播花粉，帮助植物生长。','C. Plants can grow well without bees.|C. 没有蜜蜂植物也能长得很好。','D. Flowers make nectar just for fun.|D. 花朵产蜜只是为了好玩。'], correct:'B',
+   rat_right:'The main idea is the big idea of the whole passage. Every sentence is about how bees help plants grow.|中心思想是整篇短文的大意。每句话都在讲蜜蜂怎样帮助植物生长。',
+   rat_wrong:{A:'Honey is only a detail in the first sentences. It is not the whole passage.|蜂蜜只是开头的一个细节，不是整篇的重点。',C:'The passage says the opposite: without bees many plants cannot grow properly.|文章说的正相反：没有蜜蜂，许多植物不能正常生长。',D:'Nectar is a detail. The passage does not say flowers make it for fun.|花蜜是细节，文章没有说花产蜜是为了好玩。'}},
+  {t:'q', id:'m5', label:'Summarization · 5', title:'Summarization 5', passage:'In art class, James worked hard on a painting of his favorite animal—a tiger. He used bold colors and carefully painted every stripe. When he was done, his teacher praised his work and hung it on the classroom wall. James felt proud and smiled all day.', q:'Which three important things happened in the passage?', q_cn:'短文里发生的三件重要的事是什么？',
+   options:['A. James painted a tiger; he used bold colors; his teacher praised him and hung up the painting.|A. 詹姆斯画了一只老虎；他用了鲜艳的颜色；老师表扬了他并把画挂起来。','B. James went to the zoo; he saw a tiger; he took a photo.|B. 詹姆斯去了动物园；他看到一只老虎；他拍了照片。','C. James felt sad; he threw away his painting; he went home.|C. 詹姆斯很难过；他扔掉了画；他回家了。','D. James painted a dog; he ate lunch; his teacher gave homework.|D. 詹姆斯画了一只狗；他吃了午饭；老师布置了作业。'], correct:'A',
+   rat_right:'These are the three key events in order: he painted a tiger, he used bold colors, and the teacher praised and displayed it.|这是按顺序发生的三件关键事：他画了老虎、用了鲜艳的颜色、老师表扬并展示了画。',
+   rat_wrong:{B:'The passage happens in art class, not at the zoo.|短文发生在美术课，不是动物园。',C:'James felt proud and smiled all day. He was not sad.|詹姆斯感到自豪，笑了一整天，他并不难过。',D:'He painted a tiger, not a dog. Lunch and homework are not in the text.|他画的是老虎，不是狗。文中没有午饭和作业。'}},
+  {t:'q', id:'m6', label:'Summarization · 6', title:'Summarization 6', passage:'Mount Everest is the highest mountain in the world. Climbers from all over try to reach its peak, but it is very dangerous due to its freezing weather and thin air. Some climbers make it to the top, while others must turn back. Still, many are drawn to its challenge and beauty.', q:'How would you retell the passage in your own words using only 3–4 sentences?', q_cn:'你会怎样用自己的话，只用3–4句话复述这篇短文？',
+   options:['A. Mount Everest is the tallest mountain in the world. People try to climb it, but it is dangerous because of the cold and thin air. Some reach the top, while others do not. Still, it is an exciting place to climb.|A. 珠穆朗玛峰是世界最高的山。人们尝试攀登，但寒冷和稀薄的空气使它很危险。有些人到达山顶，有些人没有。但它仍是令人兴奋的攀登地。','B. Mount Everest is very cold.|B. 珠穆朗玛峰很冷。','C. I think climbing Mount Everest is a terrible idea and people should stay home.|C. 我觉得攀登珠穆朗玛峰是个糟糕的主意，人们应该待在家里。','D. Climbers from all over try to reach its peak, but it is very dangerous due to its freezing weather and thin air. Some climbers make it to the top, while others must turn back.|D. 来自各地的登山者试图登顶，但由于严寒天气和稀薄空气，非常危险。有些登山者登顶，有些必须返回。'], correct:'A',
+   rat_right:'A good retelling uses your own words and has 3–4 key ideas: tallest mountain, dangerous (cold and thin air), some reach the top and others do not, still exciting.|好的复述用自己的话，包含3–4个要点：最高的山、危险（寒冷和稀薄空气）、有些人登顶有些人没有、依然令人向往。',
+   rat_wrong:{B:'This has only one idea. The task asks for 3–4 sentences.|这里只有一个要点，题目要求3–4句话。',C:'This is your opinion. A summary has no opinions.|这是你的个人观点，概括里不能写观点。',D:'This copies the passage almost word for word. Use your own words.|这几乎是照抄原文。要用自己的话。'}},
+  {t:'w', id:'wm2', label:'Summarization · 6 (write it)', prompt:'6. How would you retell the passage in your own words using only 3–4 sentences?', prompt_cn:'6. 用自己的话，只用3–4句话复述这篇短文。',
+   stems:['Mount Everest is ___ .','Climbers ___ , but ___ .','Some climbers ___ , while others ___ .','Still, ___ .'],
+   model:'Mount Everest is the tallest mountain in the world. People from all over try to climb it, but it is dangerous because of the cold and thin air. Some reach the top, while others don\'t. Still, it is a beautiful and exciting place to climb.',
+   model_cn:'珠穆朗玛峰是世界最高的山。世界各地的人都尝试攀登，但寒冷和稀薄的空气使它很危险。有些人到达山顶，有些人没有。不过，它依然是美丽又令人兴奋的攀登地。'},
+  {t:'sec', en:'Making Inference', cn:'做推断', note:'Instructions: Use what you already know and what the story says to make inferences. Choose the best answer.｜说明：运用你已知的知识和故事内容做推断，选择最佳答案。'},
+  {t:'q', id:'m7', label:'Making Inference · 7', title:'The Cracked Jar', passage:'The Cracked Jar\nIn a faraway village, a woman carried two jars of water from the river each day. One jar was perfect, and the other had a small crack. By the time she got home, the cracked jar was only half full. The perfect jar always boasted about how useful it was. The cracked jar felt ashamed and said, \'I\'m sorry I can\'t bring back all the water.\' The woman smiled. \'Did you notice the flowers on your side of the path?\' she asked. \'I planted seeds there, and your leak waters them every day.\'', q:'Why did the cracked jar feel ashamed?', q_cn:'有裂缝的罐子为什么感到羞愧？',
+   options:['A. It couldn\'t carry any water|A. 它一点水也运不了','B. It was old and rusty|B. 它又旧又生锈','C. It couldn\'t carry as much water as the other jar|C. 它运的水没有另一个罐子多','D. It wanted to carry flowers instead|D. 它想运花'], correct:'C',
+   rat_right:'By the time she got home, the cracked jar was only half full. It carried less water than the perfect jar.|到家时，有裂缝的罐子只装了半罐水。它运的水比完好的罐子少。',
+   rat_wrong:{A:'It carried half a jar, not no water.|它运了半罐水，不是一点也没有。',B:'Nothing says it was old or rusty.|文中没有说它又旧又生锈。',D:'The jar never wanted to carry flowers.|罐子从没想过要运花。'}},
+  {t:'q', id:'m8', label:'Making Inference · 8', title:'The Cracked Jar', note:'Read The Cracked Jar above. 请读上面的《有裂缝的罐子》。', q:'What does the woman\'s smile tell us?', q_cn:'女人的微笑告诉我们什么？',
+   options:['A. She was tired of carrying jars|A. 她厌倦了挑罐子','B. She was proud of the cracked jar|B. 她为有裂缝的罐子感到骄傲','C. She was angry at the perfect jar|C. 她对完好的罐子很生气','D. She was sad the jar was broken|D. 她为罐子裂了而难过'], correct:'B',
+   rat_right:'She smiles and points to the flowers. She is proud because the leak helped flowers grow.|她微笑着指出花。她感到骄傲，因为漏出的水让花长了出来。',
+   rat_wrong:{A:'Nothing in the story says she is tired.|故事里没有说她累了。',C:'She speaks kindly to the cracked jar, not angrily to the perfect jar.|她温和地对有裂缝的罐子说话，没有生完好罐子的气。',D:'A smile shows she is happy, not sad.|微笑说明她开心，不是难过。'}},
+  {t:'q', id:'m9', label:'Making Inference · 9', title:'The Cracked Jar', note:'Read The Cracked Jar above. 请读上面的《有裂缝的罐子》。', q:'Why did the woman plant seeds along the path?', q_cn:'女人为什么沿着小路种种子？',
+   options:['A. So she could pick flowers when tired|A. 这样累的时候可以摘花','B. To make the walk shorter|B. 让路程变短','C. To use the water from the cracked jar|C. 利用有裂缝罐子漏出的水','D. To teach the perfect jar a lesson|D. 给完好的罐子一个教训'], correct:'C',
+   rat_right:'She planted seeds on the cracked jar\'s side so its leak waters them every day.|她把种子种在有裂缝罐子那一侧，让漏出的水每天浇灌它们。',
+   rat_wrong:{A:'The story says nothing about picking flowers when tired.|故事没有说累了摘花。',B:'Flowers do not make a walk shorter.|花不会让路程变短。',D:'She never tries to teach the perfect jar a lesson.|她从没想给完好的罐子一个教训。'}},
+  {t:'q', id:'m10', label:'Making Inference · 10', title:'The Cracked Jar', note:'Read The Cracked Jar above. 请读上面的《有裂缝的罐子》。', q:'What can we learn from this story?', q_cn:'我们能从这个故事中学到什么？',
+   options:['A. Only perfect things are useful|A. 只有完美的东西才有用','B. Cracks and flaws can have value|B. 裂缝和缺点也可能有价值','C. Water should not be wasted|C. 不应该浪费水','D. Carrying jars is hard work|D. 挑罐子很辛苦'], correct:'B',
+   rat_right:'The cracked jar looked like a problem, but its leak watered the flowers. A flaw can be useful.|有裂缝的罐子看起来是个问题，但它漏的水浇灌了花。缺点也可以有用。',
+   rat_wrong:{A:'The story shows the opposite: the cracked jar was very useful.|故事表达的正相反：有裂缝的罐子非常有用。',C:'The water was not wasted. It watered the flowers.|水没有被浪费，它浇灌了花。',D:'The story is not about hard work. It is about the value of flaws.|故事不是讲辛苦，而是讲缺点的价值。'}}
+ ],
+ reflect:{
+  r1:'How did you choose between the answers in the inference questions? Which clue in the text helped you most?', r1_cn:'做推断题时，你是怎样在选项中做选择的？文中哪条线索对你帮助最大？', r1_ph:'I chose my answer because the text says ___ . This clue helped me infer ___ .',
+  r2:'Connect The Cracked Jar to your own life. When did something you thought was a weakness turn out to be useful?', r2_cn:'把《有裂缝的罐子》和你自己的生活联系起来。你曾经认为是缺点的东西，什么时候变得有用了？', r2_ph:'Something I thought was a weakness was ___ . It was useful when ___ .'}
+},
+
+{ key:'mockc', label:'Mock Exam: Part C', cn:'模拟考试 C部分', blocks:[
+  {t:'tpl', id:'tpl-partc'},
+  {t:'q', id:'c1', label:'Part C · 12', title:'Question 12', q:'Change sentence 5 into a question.', q_cn:'把第5句改成问句。', note:'Sentence 5: The cat jumps on the table.',
+   options:['A. Did the cat jump on the table?|A. Did the cat jump on the table?','B. The cat jumps on the table?|B. The cat jumps on the table?','C. Did the cat jumps on the table?|C. Did the cat jumps on the table?','D. The cat did jump on table?|D. The cat did jump on table?'], correct:'A',
+   rat_right:'Question pattern: Did + subject + base verb + rest. After Did, the verb is jump (no -s).|问句结构：Did + 主语 + 动词原形 + 其他。Did 后面动词用 jump（不加 s）。',
+   rat_wrong:{B:'Only a question mark was added. The word order did not change.|只加了问号，词序没有变。',C:'After Did the verb must be the base form: jump, not jumps.|Did 后面动词必须用原形：jump，不是 jumps。',D:'The word order is still a statement and the word the is missing before table.|词序仍是陈述句，而且 table 前缺少 the。'}},
+  {t:'w', id:'wc1', label:'Part C · 12 (write it)', prompt:'12. Change sentence 5 into a question.', prompt_cn:'12. 把第5句改成问句。',
+   stems:['Did the ___ ___ on the ___ ?'],
+   model:'Did the cat jump on the table?',
+   model_cn:'猫跳到桌子上了吗？（也可接受：Did the cat jump onto the table?）'},
+  {t:'q', id:'c2', label:'Part C · 13', title:'Question 13', q:'Write down a simple sentence from the passage.', q_cn:'从短文中写出一个简单句。', note:'Simple sentence = one subject + one verb = one complete idea.',
+   options:['A. The cat jumps on the table.|A. The cat jumps on the table.','B. Children wake up and rush to the kitchen for breakfast.|B. Children wake up and rush to the kitchen for breakfast.','C. Smiles on their faces.|C. Smiles on their faces.','D. A loud noise comes from the hallway as dad drops a box of toys.|D. A loud noise comes from the hallway as dad drops a box of toys.'], correct:'A',
+   rat_right:'One subject (the cat) + one verb (jumps) = one complete idea.|一个主语（the cat）+ 一个动词（jumps）= 一个完整的意思。',
+   rat_wrong:{B:'This sentence has two actions joined by and (wake up and rush). It is not the simplest form.|这句有两个动作用 and 连接（wake up and rush），不是最简单的形式。',C:'This has no verb. It is a fragment, not a sentence.|这句没有动词，是残句，不是完整句子。',D:'This has two parts joined by as (a noise comes, dad drops). It is not simple.|这句由 as 连接两部分（噪音传来、爸爸掉了箱子），不是简单句。'}},
+  {t:'q', id:'c3', label:'Part C · 15', title:'Question 15', q:'Sentence 3 has no verb. Rewrite the sentence so it contains a verb.', q_cn:'第3句没有动词。请改写句子，使它含有动词。', note:'Sentence 3: Smiles on their faces.',
+   options:['A. There were smiles on their faces.|A. There were smiles on their faces.','B. Smiles on their happy faces.|B. Smiles on their happy faces.','C. Their faces smiling.|C. Their faces smiling.','D. Happy smiles.|D. Happy smiles.'], correct:'A',
+   rat_right:'Were is the verb. Now the sentence is complete. (They had smiles on their faces is also correct.)|were 是动词，句子完整了。（They had smiles on their faces 也正确。）',
+   rat_wrong:{B:'Adding happy does not add a verb.|加 happy 并没有加动词。',C:'Smiling alone is not a full verb here. It needs is/are: Their faces are smiling.|这里单独的 smiling 不是完整动词，需要 is/are：Their faces are smiling。',D:'Still no verb.|仍然没有动词。'}},
+  {t:'w', id:'wc2', label:'Part C · 15 (write it)', prompt:'15. Sentence 3 has no verb. Rewrite the sentence so it contains a verb.', prompt_cn:'15. 第3句没有动词。请改写句子使它含有动词。',
+   stems:['There were ___ on their ___ .','They had ___ on their ___ .'],
+   model:'There were smiles on their faces. OR They had smiles on their faces.',
+   model_cn:'他们脸上带着微笑。'},
+  {t:'q', id:'c4', label:'Part C · 16', title:'Question 16', q:'In sentence 4, the word Where\'s appears. Write the two words it is made from.', q_cn:'第4句中出现了 Where\'s。写出组成它的两个词。', note:'Sentence 4: "Where\'s my cereal!" one of them says with a laugh.',
+   options:['A. Where is|A. Where is','B. Where has|B. Where has','C. Where was|C. Where was','D. Were is|D. Were is'], correct:'A',
+   rat_right:'The apostrophe replaces the missing letter i: Where + is = Where\'s. Where is my cereal makes sense.|撇号代替省略的字母 i：Where + is = Where\'s。Where is my cereal 说得通。',
+   rat_wrong:{B:'Where\'s can sometimes mean where has, but Where has my cereal is not correct here.|Where\'s 有时可以是 where has，但 Where has my cereal 在这里不对。',C:'Was is past tense and does not shorten to \'s.|was 是过去式，不会缩写成 \'s。',D:'Were is a different word and is not used with it here.|were 是另一个词，这里不用。'}},
+  {t:'q', id:'c5', label:'Part C · 17 (1)', title:'Question 17 (1)', q:'Look at sentence 7. Fill in the correct form of the word: taked →', q_cn:'看第7句。填入正确的词形：taked →', note:'Sentence 7: It taked him a while to clean it up.',
+   options:['A. taken|A. taken','B. took|B. took','C. takes|C. takes','D. taking|D. taking'], correct:'B',
+   rat_right:'Take is an irregular verb: take → took. We never say taked.|take 是不规则动词：take → took。没有 taked 这个词。',
+   rat_wrong:{A:'Taken needs has/have/had before it (has taken). It is not the simple past.|taken 前面需要 has/have/had（has taken），不是一般过去式。',C:'Takes is present tense. The sentence is past.|takes 是现在时，句子是过去时。',D:'Taking is the -ing form. It does not fit after It.|taking 是 -ing 形式，放在 It 后面不合适。'}},
+  {t:'q', id:'c6', label:'Part C · 17 (2)', title:'Question 17 (2)', q:'Fill in the correct form: him a while to clean it up →', q_cn:'填入正确形式：him a while to clean it up →',
+   options:['A. It took him a while to clean it up.|A. It took him a while to clean it up.','B. Took him a while to clean it up.|B. Took him a while to clean it up.','C. It take him a while to clean it up.|C. It take him a while to clean it up.','D. It him took a while to clean it up.|D. It him took a while to clean it up.'], correct:'A',
+   rat_right:'Every sentence needs a subject. Add It at the start and use the past verb took.|每个句子都需要主语。开头加 It，并用过去式动词 took。',
+   rat_wrong:{B:'The subject It is missing.|缺少主语 It。',C:'Take is not past tense. Use took.|take 不是过去式，要用 took。',D:'The word order is wrong. Use subject + verb + object: It took him...|词序错了。要用主语 + 动词 + 宾语：It took him...'}},
+  {t:'q', id:'c7', label:'Part C · 18', title:'Question 18', q:'Find the spelling mistake in sentence 1 and write down the correction.', q_cn:'找出第1句中的错误并写出改正。', note:'Sentence 1: Every morning, the sun rise in the east and lights up the town.',
+   options:['A. rise → rises|A. rise → rises','B. east → eastern|B. east → eastern','C. town → towns|C. town → towns','D. lights → light|D. lights → light'], correct:'A',
+   rat_right:'The sun is one thing, so the verb needs -s: the sun rises. It matches lights.|the sun 是一个事物，动词要加 -s：the sun rises，和 lights 保持一致。',
+   rat_wrong:{B:'In the east is correct. Eastern would change the meaning.|in the east 是正确的。改成 eastern 会改变意思。',C:'The town is one place. Towns would be wrong.|the town 是一个地方，towns 是错的。',D:'The sun lights up the town is correct. Light would break the agreement.|the sun lights up the town 是正确的，改成 light 会破坏主谓一致。'}},
+  {t:'w', id:'wc3', label:'Part C · 17 (write it)', prompt:'17. Look at sentence 7. Write the whole sentence correctly.', prompt_cn:'17. 看第7句。把整句话正确地写出来。',
+   stems:['It ___ him a while to ___ it up.','It took him ___ .'],
+   model:'It took him a while to clean it up.',
+   model_cn:'他花了一些时间才把它收拾干净。'}
+ ],
+ reflect:{
+  r1:'Which grammar mistake do you make most often in your own writing? How will you catch it?', r1_cn:'你在自己的写作中最常犯哪种语法错误？你怎样发现它？', r1_ph:'The mistake I make most is ___ . I will catch it by ___ .',
+  r2:'Checking one sentence for errors is like checking a whole essay. What will you do differently on the real exam?', r2_cn:'检查一个句子的错误，就像检查整篇作文。在真正的考试中你会有什么不同的做法？', r2_ph:'On the real exam, I will ___ first. Then I will ___ .'}
+}
+];
+
+/* ===================== HELPERS ===================== */
+function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+function byId(id){ return document.getElementById(id); }
+function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+
+function addProgress(pts){
+  progressPoints = Math.min(progressPoints + pts, totalPoints);
+  var pct = Math.round((progressPoints / totalPoints) * 100);
+  byId('progressBar').style.width = pct + '%';
+  byId('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+/* ===================== VOCAB ===================== */
+function speak(text){
+  try {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  } catch(e){}
+}
+function buildVocab(){
+  var grid = byId('vocabGrid');
+  VOCAB.forEach(function(v){
+    var c = el('div','vcard');
+    var top = el('div');
+    top.appendChild(el('span','w', v.word));
+    top.appendChild(el('span','pos', v.pos));
+    c.appendChild(top);
+    c.appendChild(el('div','cnw cn', v.cn));
+    c.appendChild(el('div','', v.def));
+    c.appendChild(el('div','cn', v.cn_def));
+    c.appendChild(el('div','ex', '“' + v.example + '”'));
+    var b1 = el('button','speak','🔊 word');
+    b1.addEventListener('click', function(){ speak(v.word); });
+    var b2 = el('button','speak','🔊 sentence');
+    b2.addEventListener('click', function(){ speak(v.example); });
+    c.appendChild(b1); c.appendChild(b2);
+    grid.appendChild(c);
+  });
+}
+
+/* ===================== QUIZ CARD ===================== */
+function buildQ(item, tab, num){
+  var card = el('div','quiz-card');
+  card.appendChild(el('div','q-num', (item.label ? item.label + ' · ' : '') + 'Question ' + num + ' of ' + tab.total));
+  if (item.passage){
+    card.appendChild(el('div','passage-box', item.passage));
+  }
+  if (item.note) card.appendChild(el('div','q-note', item.note));
+  card.appendChild(el('div','q-text', item.q));
+  card.appendChild(el('div','q-cn cn', item.q_cn));
+
+  var optsWrap = el('div','opts-wrap');
+  var ratDiv = el('div','rationale');
+  var answered = false;
+
+  item.options.forEach(function(opt){
+    var parts = opt.split('|');
+    var letter = parts[0].charAt(0);
+    var enText = parts[0].replace(/^[A-D]\.\s*/,'');
+    var cnText = parts[1] ? parts[1].replace(/^[A-D]\.\s*/,'') : '';
+    var btn = el('button','opt-btn');
+    btn.dataset.letter = letter;
+    btn.appendChild(el('strong','', letter + '. '));
+    btn.appendChild(el('span','', enText));
+    if (cnText && cnText !== enText){
+      btn.appendChild(document.createElement('br'));
+      btn.appendChild(el('span','cn', cnText));
+    }
+    btn.addEventListener('click', function(){
+      if (answered) return;
+      answered = true;
+      tab.answers[item.id] = letter;
+      optsWrap.querySelectorAll('.opt-btn').forEach(function(b){
+        b.disabled = true;
+        if (b.dataset.letter === item.correct) b.classList.add('show-correct');
+      });
+      var ratParts, ratText, ratCn;
+      if (letter === item.correct){
+        btn.classList.add('selected-correct');
+        ratParts = item.rat_right.split('|');
+        ratText = '✅ ' + ratParts[0];
+        ratCn = ratParts[1] || '';
+        ratDiv.className = 'rationale show correct-rat';
+        tab.score++;
+      } else {
+        btn.classList.add('selected-wrong');
+        ratParts = (item.rat_wrong[letter] || '').split('|');
+        ratText = '❌ ' + ratParts[0] + ' (Correct: ' + item.correct + ')';
+        ratCn = ratParts[1] || '';
+        ratDiv.className = 'rationale show wrong-rat';
+        /* always also explain the correct answer */
+      }
+      var rDiv = el('div','', ratText);
+      if (ratCn){ rDiv.appendChild(document.createElement('br')); rDiv.appendChild(el('span','cn', ratCn)); }
+      ratDiv.appendChild(rDiv);
+      if (letter !== item.correct){
+        var cp = item.rat_right.split('|');
+        var rr = el('div','', '✅ ' + cp[0]);
+        rr.style.marginTop = '8px';
+        if (cp[1]){ rr.appendChild(document.createElement('br')); rr.appendChild(el('span','cn', cp[1])); }
+        ratDiv.appendChild(rr);
+      }
+      tab.done++;
+      addProgress(1);
+      checkReadiness(tab);
+    });
+    optsWrap.appendChild(btn);
+  });
+  card.appendChild(optsWrap);
+  card.appendChild(ratDiv);
+  return card;
+}
+
+/* ===================== WRITING CARD (sentence stems) ===================== */
+function buildWrite(b, tab){
+  var card = el('div','write-card');
+  card.appendChild(el('div','wl','✍️ Write it · 写一写 — ' + b.label));
+  card.appendChild(el('div','wp', b.prompt));
+  card.appendChild(el('div','cn', b.prompt_cn));
+  var stemWrap = el('div','stems');
+  var ta = el('textarea');
+  ta.placeholder = 'Type here. Tap a sentence stem to start. · 在这里输入。点一个句子框架开始写。';
+  b.stems.forEach(function(s){
+    var sb = el('button','stem-btn', s);
+    sb.addEventListener('click', function(){
+      var cur = ta.value;
+      ta.value = cur + (cur && !/\s$/.test(cur) ? '\n' : '') + s;
+      ta.focus();
+      ta.dispatchEvent(new Event('input'));
+    });
+    stemWrap.appendChild(sb);
+  });
+  card.appendChild(stemWrap);
+  card.appendChild(ta);
+  var mb = el('button','model-btn','Show model answer · 查看示范答案');
+  mb.disabled = true;
+  var box = el('div','model-box');
+  box.appendChild(el('div','', b.model));
+  box.appendChild(el('div','cn', b.model_cn));
+  mb.addEventListener('click', function(){ box.classList.add('show'); });
+  ta.addEventListener('input', function(){
+    ta.classList.toggle('filled', ta.value.trim().length > 0);
+    mb.disabled = ta.value.trim().length === 0;
+  });
+  card.appendChild(mb);
+  card.appendChild(box);
+  tab.writeList.push({label: b.label, prompt: b.prompt, ta: ta});
+  return card;
+}
+
+/* ===================== FLOW BUILDER ===================== */
+function buildFlow(tab){
+  var container = byId(tab.key + 'Flow');
+  tab.answers = {}; tab.score = 0; tab.done = 0; tab.writeList = [];
+  tab.total = tab.blocks.filter(function(b){ return b.t === 'q'; }).length;
+  totalPoints += tab.total;
+  var n = 0;
+  tab.blocks.forEach(function(b){
+    if (b.t === 'sec'){
+      var s = el('div','sec-head');
+      s.appendChild(el('h3','', b.en));
+      s.appendChild(el('div','cn', b.cn));
+      if (b.note) s.appendChild(el('div','note', b.note));
+      container.appendChild(s);
+    } else if (b.t === 'tpl'){
+      var tpl = byId(b.id);
+      container.appendChild(document.importNode(tpl.content, true));
+    } else if (b.t === 'q'){
+      n++;
+      container.appendChild(buildQ(b, tab, n));
+    } else if (b.t === 'w'){
+      container.appendChild(buildWrite(b, tab));
+    }
+  });
+  container.appendChild(buildReflect(tab));
+}
+
+/* ===================== REFLECTION + GRATITUDE + DOWNLOAD ===================== */
+function buildReflect(tab){
+  var k = tab.key, r = tab.reflect;
+  var wrap = el('div','reflect');
+  wrap.appendChild(el('h2','','Reflect · 反思'));
+  wrap.appendChild(el('div','cn','Answer both questions in English. Use the sentence stem to start. · 请用英语回答两个问题，用句子框架开头。'));
+  [['Ref1', r.r1, r.r1_cn, r.r1_ph],['Ref2', r.r2, r.r2_cn, r.r2_ph]].forEach(function(x){
+    wrap.appendChild(el('div','rq', x[1]));
+    wrap.appendChild(el('div','cn', x[2]));
+    var ta = el('textarea'); ta.id = k + x[0]; ta.placeholder = x[3];
+    wrap.appendChild(ta);
+  });
+  var gl = el('div','grat-line');
+  gl.appendChild(el('span','','Today I am grateful for'));
+  var gi = el('input','grat-input'); gi.type = 'text'; gi.id = k + 'Grat'; gi.autocomplete = 'off';
+  gl.appendChild(gi);
+  gl.appendChild(el('span','cn','今天我感谢……'));
+  wrap.appendChild(gl);
+  var btn = el('button','dl-btn','⬇ Download my work · 下载我的作业');
+  btn.id = k + 'DownloadBtn'; btn.disabled = true;
+  btn.addEventListener('click', function(){ tryDownload(tab); });
+  wrap.appendChild(btn);
+  var hint = el('div','hint','Complete all questions and reflection fields to unlock the download. · 完成所有题目和反思后才能下载。');
+  hint.id = k + 'Hint';
+  wrap.appendChild(hint);
+  ['Ref1','Ref2','Grat'].forEach(function(f){
+    var inp = wrap.querySelector('#' + k + f);
+    inp.addEventListener('input', function(){
+      inp.classList.toggle('filled', inp.value.trim().length > 0);
+      checkReadiness(tab);
+    });
+  });
+  return wrap;
+}
+
+function checkReadiness(tab){
+  var k = tab.key;
+  var ok = tab.done >= tab.total &&
+    byId(k+'Ref1').value.trim().length > 0 &&
+    byId(k+'Ref2').value.trim().length > 0 &&
+    byId(k+'Grat').value.trim().length > 0;
+  var btn = byId(k+'DownloadBtn');
+  btn.disabled = !ok;
+  btn.classList.toggle('ready', ok);
+  byId(k+'Hint').classList.toggle('hidden', ok);
+}
+
+function tryDownload(tab){
+  var k = tab.key;
+  var ref1 = byId(k+'Ref1').value.trim(), ref2 = byId(k+'Ref2').value.trim(), grat = byId(k+'Grat').value.trim();
+  if (tab.done < tab.total || !ref1 || !ref2 || !grat) return;
+  var name = byId(k+'Name').value.trim() || 'Unknown';
+  var block = byId(k+'Block').value.trim() || '-';
+  var now = new Date().toLocaleString();
+  var txt = '';
+  txt += '================================================================\n';
+  txt += 'MLWS ENGLISH 10-1 MODULE — QUIZ RESULTS\n';
+  txt += '================================================================\n';
+  txt += 'Student: ' + name + '\n';
+  txt += 'Block: ' + block + '\n';
+  txt += 'Section: ' + tab.label + '\n';
+  txt += 'Date/Time: ' + now + '\n';
+  txt += 'Session Time: ' + fmt(secondsElapsed) + '\n';
+  txt += 'Tab Switches (recorded leaves): ' + leaveCount + '\n';
+  txt += 'Quiz Score: ' + tab.score + ' / ' + tab.total + '\n';
+  txt += '\n--- Quiz Question Breakdown ---\n\n';
+  var i = 0;
+  tab.blocks.forEach(function(b){
+    if (b.t !== 'q') return;
+    i++;
+    var sel = tab.answers[b.id] || 'Not answered';
+    var result = sel === b.correct ? 'CORRECT' : 'INCORRECT (Correct: ' + b.correct + ')';
+    txt += i + '. [' + b.label + '] ' + b.q + '\n';
+    txt += '   Selected: ' + sel + ' | Result: ' + result + '\n\n';
+  });
+  txt += '================================================================\n';
+  txt += 'STUDENT WORK — WRITING, REFLECTIONS AND RESPONSES\n';
+  txt += '================================================================\n\n';
+  tab.writeList.forEach(function(w){
+    txt += 'WRITING [' + w.label + ']: ' + w.prompt + '\n' + (w.ta.value.trim() || '(left blank)') + '\n\n';
+  });
+  txt += 'REFLECTION Q1:\n' + ref1 + '\n\n';
+  txt += 'REFLECTION Q2:\n' + ref2 + '\n\n';
+  txt += 'GRATITUDE:\nToday I am grateful for ' + grat + '\n\n';
+  txt += '================================================================\nEnd of report\n';
+  var blob = new Blob([txt], {type:'text/plain'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'MLWS_' + k.toUpperCase() + '_' + name.replace(/\s+/g,'_') + '_' + new Date().toLocaleDateString().replace(/[\/\s,]/g,'-') + '.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  byId('pip-' + k).classList.add('done');
+}
+
+/* ===================== NAV, TIMER, ANTI-CHEAT ===================== */
+function switchTab(name){
+  document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  byId('tab-' + name).classList.add('active');
+  byId('btn-' + name).classList.add('active');
+  window.scrollTo(0,0);
+}
+function buildTabs(){
+  var bar = byId('tabBar'), pips = byId('pips');
+  var all = [{key:'vocab', label:'Vocab', cn:'词汇'}].concat(TABS);
+  all.forEach(function(t){
+    var b = el('button','tab-btn' + (t.key === 'vocab' ? ' active' : ''));
+    b.id = 'btn-' + t.key;
+    b.appendChild(el('span','', t.label));
+    b.appendChild(el('span','cn', t.cn));
+    b.addEventListener('click', function(){ switchTab(t.key); });
+    bar.appendChild(b);
+  });
+  TABS.forEach(function(t){
+    var p = el('span','pip'); p.id = 'pip-' + t.key; p.title = t.label;
+    pips.appendChild(p);
+  });
+}
+function startTimer(){
+  setInterval(function(){
+    secondsElapsed++;
+    byId('timer-display').textContent = '⏱ ' + fmt(secondsElapsed);
+  }, 1000);
+}
+function trackNavigation(){
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden){
+      leaveCount++;
+      byId('leaveBadge').textContent = '🚪 Leaves: ' + leaveCount;
+      var notice = byId('leaveNotice');
+      notice.style.display = 'block';
+      setTimeout(function(){ notice.style.display = 'none'; }, 5000);
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  buildTabs();
+  buildVocab();
+  var today = new Date().toLocaleDateString();
+  TABS.forEach(function(t){
+    buildFlow(t);
+    byId(t.key + 'Date').value = today;
+  });
+  startTimer();
+  trackNavigation();
+});
+</script>
+</body>
+</html>
