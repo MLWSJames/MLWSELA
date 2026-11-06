@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essay Practice | 作文练习</title>
+<link href="https://fonts.googleapis.com/css2?family=Literata:wght@400;600;700&family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ml-green:#2d6a4f;--ml-green-dark:#1b4332;--ml-green-light:#d8f3dc;--ml-red:#c1121f;--ml-gold:#e9c46a;--ink:#1a2a1a;--ink2:#2d3748;--mist:#f8faf8;--border:#e2e8e2;--cobalt:#1e3a5f;--amber:#b45309;--amber-light:#fef3c7;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans','Noto Sans SC',sans-serif;background:var(--mist);color:var(--ink);line-height:1.6;font-size:16px}
+.cn{font-family:'Noto Sans SC',sans-serif;color:#4a5a4a;font-weight:400}
+h1,h2,h3{font-family:'Literata',serif;color:var(--ml-green-dark)}
+h2{font-size:1.5rem;margin-bottom:6px} h3{font-size:1.1rem;margin:14px 0 6px}
+.banner{background:#7f1d1d;color:#fff;padding:9px 18px;font-size:.83rem;font-weight:600;text-align:center;position:sticky;top:0;z-index:1000}
+#leaveNotice{display:none;background:#fee2e2;border-left:4px solid var(--ml-red);padding:8px 16px;font-size:.82rem;color:#7f1d1d;font-weight:600;text-align:center;position:sticky;top:38px;z-index:999}
+#toast{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:70px;background:var(--cobalt);color:#fff;padding:10px 18px;border-radius:10px;font-size:.88rem;z-index:2000;max-width:90vw;text-align:center}
+header{background:var(--ml-green-dark);color:#fff;padding:14px 18px}
+.hrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;max-width:980px;margin:0 auto}
+header h1{color:#fff;font-size:1.3rem}
+header .sub{font-size:.85rem;opacity:.85}
+.badge{background:rgba(255,255,255,.14);padding:4px 10px;border-radius:20px;font-size:.8rem;white-space:nowrap}
+.draftbtn{background:var(--ml-gold);color:var(--ml-green-dark);border:none;border-radius:20px;padding:5px 12px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:inherit}
+.progwrap{max-width:980px;margin:10px auto 0}
+.progbar{height:9px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}
+#progressBar{height:100%;width:0;background:var(--ml-gold);transition:width .4s}
+#progressText{font-size:.8rem;margin-top:4px;opacity:.95}
+.pips{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pip{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.4)}
+.pip.done{background:#74c69d;border-color:#74c69d}.pip.gold{background:var(--ml-gold);border-color:var(--ml-gold)}
+nav.stepper{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;max-width:980px;margin:0 auto}
+.step-btn{flex:0 0 auto;border:2px solid var(--border);background:#fff;border-radius:10px;padding:6px 12px;font-family:inherit;font-size:.82rem;cursor:pointer;text-align:center;line-height:1.25;color:var(--ink2)}
+.step-btn .cn{display:block;font-size:.75rem}
+.step-btn.active{border-color:var(--ml-green);background:var(--ml-green-light);font-weight:700}
+.step-btn.done{border-color:#74c69d}
+.step-btn.locked{opacity:.5;cursor:not-allowed;background:#f1f3f1}
+main{max-width:980px;margin:0 auto;padding:6px 14px 100px}
+.panel{display:none}.panel.active{display:block}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:12px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.callout{border-left:5px solid var(--ml-green);background:var(--ml-green-light);padding:10px 14px;border-radius:8px;margin:10px 0;font-size:.93rem}
+.callout.warn{border-color:var(--amber);background:var(--amber-light)}
+.callout.blue{border-color:var(--cobalt);background:#e3edf8}
+.callout.red{border-color:var(--ml-red);background:#fde8e8}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.9rem}
+th,td{border:1px solid var(--border);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--ml-green-light);color:var(--ml-green-dark)}
+.good{color:var(--ml-green);font-weight:700}.bad{color:var(--ml-red);font-weight:700}
+.ex{font-family:'Literata',serif;background:#fffdf5;border:1px dashed #d6c98a;padding:8px 12px;border-radius:8px;margin:6px 0;font-size:.95rem}
+.ex.badx{background:#fff5f5;border-color:#e3a5a5}.ex.goodx{background:#f3fbf5;border-color:#9ad1ab}
+.prompt{font-family:'Literata',serif;font-size:1.25rem;font-weight:700;color:var(--ml-green-dark);background:var(--ml-gold);padding:14px 18px;border-radius:12px;margin:10px 0}
+.passage{font-family:'Literata',serif;font-size:1rem;line-height:1.75}
+.passage p{margin:8px 0}
+.poem .ln{display:flex;gap:12px}.poem .num{color:#8a978a;width:26px;text-align:right;font-family:'DM Sans',sans-serif;font-size:.78rem;padding-top:3px;flex:0 0 26px;user-select:none}
+.poem .stz{margin-bottom:12px}
+.tabs2{display:flex;gap:8px;margin-bottom:8px}.tabs2 button{border:1px solid var(--border);background:#fff;padding:5px 12px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:.85rem}.tabs2 button.on{background:var(--ml-green-light);border-color:var(--ml-green);font-weight:700}
+label.chk{display:flex;gap:9px;align-items:flex-start;margin:8px 0;font-size:.93rem;cursor:pointer}
+label.chk input{margin-top:5px;width:18px;height:18px;flex:0 0 18px}
+input[type=text]{font-family:inherit;font-size:1rem;padding:9px 12px;border:2px solid var(--border);border-radius:9px;width:100%}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--ml-green)}
+textarea{width:100%;font-family:'Literata',serif;font-size:1.02rem;line-height:1.6;padding:10px 12px;border:2px solid var(--border);border-radius:10px;resize:vertical;min-height:72px}
+textarea.filled{border-color:#74c69d}
+.btn{background:var(--ml-green);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer}
+.btn.alt{background:var(--cobalt)}
+.btn:disabled,.btn.dl:not(.ready){background:#b9c2b9;cursor:not-allowed;opacity:.6;pointer-events:none}
+.btn.dl.ready{background:var(--ml-gold);color:var(--ml-green-dark);opacity:1;pointer-events:auto;cursor:pointer}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;align-items:center}
+.box{margin:14px 0;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:#fff}
+.box .lab{font-weight:700;color:var(--ml-green-dark)}
+.box .tag{font-size:.72rem;background:var(--amber-light);color:var(--amber);padding:1px 8px;border-radius:10px;margin-left:6px;font-weight:700}
+.box .def{font-size:.85rem;color:#556;margin:2px 0 6px}
+details.frames{font-size:.85rem;margin:4px 0 8px;color:var(--cobalt)}
+details.frames summary{cursor:pointer;font-weight:600}
+details.frames ul{margin:6px 0 0 20px}
+.meta{font-size:.76rem;color:#788;text-align:right}
+.fb{margin-top:10px}
+.fbbox{border-radius:10px;padding:8px 12px;margin:8px 0;background:#f6f8f6;border:1px solid var(--border)}
+.fbbox .t{font-weight:700;font-size:.9rem;margin-bottom:3px}
+.fbi{font-size:.88rem;padding:4px 0;border-top:1px dashed #e6ebe6}.fbi:first-of-type{border-top:none}
+.fbi.err{color:#8b1a1a}.fbi.warn{color:#8a5a00}.fbi.ok{color:#1b6b3a}
+.fbi code{background:#fff;border:1px solid #ddd;padding:0 5px;border-radius:5px;font-size:.82rem;color:#333}
+.summary{padding:10px 14px;border-radius:10px;font-weight:700;margin:8px 0}
+.summary.bad{background:#fde8e8;color:#8b1a1a}.summary.good{background:var(--ml-green-light);color:var(--ml-green-dark)}
+.preview{font-family:'Literata',serif;background:#fffdf5;border:1px solid #eadfa8;border-radius:10px;padding:12px 16px;margin:10px 0;line-height:1.8}
+.essay h3{text-align:center;margin:0 0 12px}.essay p{text-indent:1.6em;margin:8px 0;font-family:'Literata',serif;line-height:1.85}
+.quiz-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;margin:12px 0}
+.q-num{font-size:.78rem;color:#788;font-weight:700}.q-text{font-weight:700;margin:4px 0}.q-cn{margin-bottom:8px}
+.opt-btn{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--border);border-radius:10px;padding:9px 12px;margin:6px 0;font-family:inherit;font-size:.92rem;cursor:pointer}
+.opt-btn:hover:not(:disabled){border-color:var(--ml-green)}
+.opt-btn:disabled{cursor:default}
+.opt-btn.show-correct{border-color:#2d9d5f;background:#e4f7ea}.opt-btn.selected-correct{border-color:#2d9d5f;background:#c8efd5}.opt-btn.selected-wrong{border-color:var(--ml-red);background:#fde1e1}
+.rationale{display:none;margin-top:8px;padding:9px 12px;border-radius:9px;font-size:.88rem}.rationale.show{display:block}
+.correct-rat{background:#e4f7ea}.wrong-rat{background:#fdeaea}
+#timer-display{position:fixed;right:12px;bottom:12px;background:var(--ml-green-dark);color:#fff;padding:7px 14px;border-radius:20px;font-weight:700;font-size:.9rem;z-index:900}
+#dockBtn{position:fixed;left:12px;bottom:12px;background:var(--cobalt);color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:700;font-size:.88rem;z-index:900;cursor:pointer;font-family:inherit}
+.hint{font-size:.85rem;color:var(--amber);margin-top:6px}.hidden{display:none !important}
+.pointlabel{display:inline-block;background:var(--ml-gold);color:var(--ml-green-dark);font-weight:700;padding:3px 12px;border-radius:14px;font-size:.9rem}
+
+/* ---- reader / annotation ---- */
+.layout{max-width:980px;margin:0 auto}
+.layout main{max-width:none}
+#dock{position:fixed;top:0;right:-100%;width:min(480px,100%);height:100%;background:#fff;box-shadow:-4px 0 18px rgba(0,0,0,.2);z-index:1500;padding:12px 14px;overflow-y:auto;transition:right .25s}
+#dock.open{right:0}
+.dock .reader,#dock .reader{border:none;box-shadow:none;padding:0;margin:0}
+.dockhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+#dock .x{background:none;border:none;font-size:1.5rem;cursor:pointer}
+@media(min-width:1100px){
+  body.docked .layout{max-width:1560px;display:grid;grid-template-columns:minmax(0,1fr) 470px;gap:16px;padding:0 14px}
+  body.docked #dock{position:sticky;right:auto;top:50px;width:auto;height:calc(100vh - 66px);box-shadow:none;border:1px solid var(--border);border-radius:14px;margin-top:12px;z-index:1;transition:none}
+  body.docked #dock .x{display:none}
+  body.docked main{padding-left:0;padding-right:0}
+}
+.reader .legend{display:flex;flex-wrap:wrap;gap:6px;font-size:.76rem;margin:6px 0 8px}
+.reader .legend span{padding:2px 8px;border-radius:10px;border:1px solid rgba(0,0,0,.12)}
+.reader .hintline{font-size:.78rem;color:#667;margin-bottom:6px}
+.unit{display:flex;gap:10px;margin:4px 0;padding:3px 4px;border-radius:6px;scroll-margin-top:70px}
+.unit .num{flex:0 0 34px;text-align:right;font-family:'DM Sans',sans-serif;font-size:.74rem;font-weight:700;color:#7a8a7a;padding-top:4px;user-select:none}
+.unit .txt{flex:1}
+.unit.flash{background:#fff7d6;transition:background .3s}
+.poem .unit{margin:0}
+.stzlabel{font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;color:var(--cobalt);margin:10px 0 2px 44px;text-transform:uppercase;letter-spacing:.04em}
+.mark{border-radius:3px;cursor:pointer;padding:1px 0}
+.mark.ev{background:#fde68a}.mark.idea{background:#bbf7d0}.mark.vocab{background:#fbcfe8}.mark.device{background:#bfdbfe}
+.mark.hasnote{border-bottom:2px solid #333}
+.lg-ev{background:#fde68a}.lg-idea{background:#bbf7d0}.lg-vocab{background:#fbcfe8}.lg-device{background:#bfdbfe}
+#annoBar{display:none;position:fixed;z-index:2100;background:#1a2a1a;border-radius:10px;padding:5px;gap:5px;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+#annoBar button{border:none;border-radius:7px;padding:6px 9px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;color:#1a2a1a}
+#annoPop{display:none;position:fixed;z-index:2100;background:#fff;border:2px solid var(--ml-green);border-radius:12px;padding:10px 12px;width:min(320px,92vw);box-shadow:0 6px 20px rgba(0,0,0,.3);font-size:.85rem}
+#annoPop textarea{min-height:56px;font-size:.9rem;font-family:'DM Sans',sans-serif}
+#annoPop .q{font-family:'Literata',serif;font-style:italic;color:#444;margin-bottom:6px}
+#annoPop .cite{background:#f1f7f2;border-radius:8px;padding:5px 8px;margin:6px 0;font-size:.8rem}
+#annoPop .row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+#annoPop .row button{border:none;border-radius:8px;padding:5px 10px;cursor:pointer;font-family:inherit;font-weight:700;font-size:.8rem}
+.annolist details{margin-top:12px;border-top:1px solid var(--border);padding-top:8px}
+.annolist summary{cursor:pointer;font-weight:700;font-size:.88rem}
+.annoitem{display:flex;gap:8px;align-items:flex-start;font-size:.82rem;padding:5px 0;border-bottom:1px dashed #e5ebe5;cursor:pointer}
+.annoitem .dot{width:12px;height:12px;border-radius:50%;flex:0 0 12px;margin-top:4px;border:1px solid rgba(0,0,0,.2)}
+.annoitem .where{font-weight:700;flex:0 0 auto;color:var(--cobalt)}
+
+/* ---- support / stems ---- */
+.supbar{display:flex;gap:4px;align-items:center;background:rgba(255,255,255,.12);border-radius:20px;padding:3px 4px 3px 12px;flex-wrap:wrap}
+.suplab{font-size:.74rem;opacity:.9;margin-right:4px}
+.supbtn{border:none;background:transparent;color:#fff;border-radius:16px;padding:4px 10px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:inherit}
+.supbtn.on{background:var(--ml-gold);color:var(--ml-green-dark)}
+.stems{margin:4px 0 8px}
+.stems .stl{font-size:.8rem;font-weight:700;color:var(--cobalt);margin-bottom:3px}
+.stem{display:flex;gap:8px;align-items:center;justify-content:space-between;background:#eef4fb;border:1px solid #c9d9ec;border-radius:9px;padding:6px 10px;margin:4px 0;font-size:.88rem}
+.stem .st{flex:1;font-family:'Literata',serif}
+.stem .st .scn{display:block;font-family:'Noto Sans SC',sans-serif;font-size:.78rem;color:#55667a;margin-top:1px}
+.stem button{border:none;background:var(--cobalt);color:#fff;border-radius:8px;padding:5px 10px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+.stems details{margin-top:6px;font-size:.85rem}
+.stems details summary{cursor:pointer;font-weight:700;color:var(--ml-green-dark)}
+.hlpick button{display:block;width:100%;text-align:left;border:1px solid var(--border);background:#fff;border-radius:8px;padding:5px 9px;margin:4px 0;font-family:'Literata',serif;font-size:.82rem;cursor:pointer}
+.hlpick button:hover{border-color:var(--ml-green)}
+.bank,.modelbox{margin:10px 0}
+.bank summary,.modelbox summary{cursor:pointer;font-weight:700;color:var(--ml-green-dark);font-size:.92rem}
+.bank .grp{margin:8px 0 2px;font-size:.78rem;font-weight:700;color:#556}
+.chip{display:inline-block;border:1px solid var(--border);background:#fff;border-radius:16px;padding:3px 10px;margin:3px 4px 3px 0;font-size:.82rem;cursor:pointer;font-family:inherit}
+.chip:hover{border-color:var(--ml-green);background:var(--ml-green-light)}
+.chip .cn{font-size:.74rem;margin-left:4px}
+.modelbox .mp{font-family:'Literata',serif;line-height:1.8;background:#fffdf5;border:1px solid #eadfa8;border-radius:10px;padding:10px 14px;margin-top:6px}
+.modelbox .part{padding:1px 3px;border-radius:4px}
+.modelbox .part b{font-family:'DM Sans',sans-serif;font-size:.66rem;text-transform:uppercase;letter-spacing:.03em;color:#fff;border-radius:4px;padding:0 5px;margin-right:3px;vertical-align:1px}
+.pt-a{background:#e4f7ea}.pt-a b{background:#2d9d5f}.pt-b{background:#e3edf8}.pt-b b{background:#1e3a5f}.pt-c{background:#fef3c7}.pt-c b{background:#b45309}.pt-d{background:#fbe4f0}.pt-d b{background:#b0306f}
+/* ---- infographic + quiz tabs ---- */
+.ig .igh{background:var(--ml-green-dark);color:#fff;border-radius:12px 12px 0 0;padding:10px 14px}
+.ig .igh h3{color:#fff;margin:0;font-size:1.15rem}.ig .igh .sub{font-size:.74rem;opacity:.85;font-family:'DM Sans',sans-serif}
+.ig .igwrap{border:2px solid var(--ml-green-dark);border-radius:14px;overflow:hidden;background:#fbfdfb}
+.ig .igbody{padding:8px}
+.unit.igp{display:flex;gap:8px;margin:8px 0;background:#fff;border:1px solid var(--border);border-left:6px solid var(--ml-green);border-radius:10px;padding:8px 10px}
+.unit.igp:nth-child(3n+2){border-left-color:var(--cobalt)}.unit.igp:nth-child(3n){border-left-color:var(--amber)}
+.unit.igp .num{flex:0 0 26px;font-size:.72rem}
+.unit.igp .igicon{font-size:1.7rem;line-height:1;flex:0 0 36px;text-align:center;padding-top:2px}
+.unit.igp .igtxt{flex:1;min-width:0}
+.unit.igp .txt{display:block;white-space:pre-line;font-family:'DM Sans','Noto Sans SC',sans-serif;font-size:.88rem;line-height:1.45}
+.unit.igp .txt::first-line{font-family:'Literata',serif;font-weight:700;font-size:1.35rem;color:var(--ml-green-dark);line-height:1.5}
+.igbar{height:9px;background:#e6ece6;border-radius:6px;overflow:hidden;margin-top:6px}
+.igbar i{display:block;height:100%;background:var(--ml-green)}
+.igbar.b2 i{background:var(--cobalt)}.igbar.b3 i{background:var(--amber)}
+.reader .tabs2{flex-wrap:wrap}
+.qgroup h3{margin:6px 0}.qtype{display:inline-block;font-size:.7rem;font-weight:700;background:var(--amber-light);color:var(--amber);padding:1px 8px;border-radius:10px;margin-left:6px}
+.tabs2 button .done{color:#2d9d5f;margin-left:4px}
+@media(max-width:600px){h2{font-size:1.25rem}.card{padding:12px}}
+</style>
+</head>
+<body>
+
+<div class="banner">⚠️ Stay in this module. Every time you leave this tab, it is recorded and your teacher can see it. · <span style="font-family:'Noto Sans SC',sans-serif;font-weight:400;">请留在此模块。每次切换标签页都会被记录，老师可以看到。</span></div>
+<div id="leaveNotice">🚨 Tab switch recorded! Your teacher will see this. · <span style="font-family:'Noto Sans SC',sans-serif;">标签页切换已记录！</span></div>
+<div id="toast"></div>
+
+<header>
+  <div class="hrow">
+    <div>
+      <h1>Essay Practice <span class="cn" style="color:#d8f3dc">作文练习</span></h1>
+      <div class="sub">Full exam practice: four passages, 24 questions, then your 5-paragraph essay. · 完整考试练习：四篇材料、24 道题，然后写五段式作文。</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <span class="supbar"><span class="suplab">Support 学习支持</span><button class="supbtn" data-lv="full">Full stems 完整句型</button><button class="supbtn" data-lv="starters">Starters 句首</button><button class="supbtn" data-lv="none">No stems 无</button></span>
+      <span class="badge" id="leaveBadge">🚪 Leaves: 0</span>
+      <button class="draftbtn" id="draftBtn">💾 Save draft 保存草稿</button>
+    </div>
+  </div>
+  <div class="progwrap">
+    <div class="progbar"><div id="progressBar"></div></div>
+    <div id="progressText">Progress: 0% · 进度：0%</div>
+    <div class="pips" id="pips"></div>
+  </div>
+</header>
+
+<nav class="stepper" id="stepper"></nav>
+
+<div class="layout">
+<main>
+
+<!-- ============ STEP 1: READ ============ -->
+<section class="panel active" id="panel-read">
+  <h2>Step 1: Read the prompt and the four passages <span class="cn">第一步：读题目和四篇阅读材料</span></h2>
+  <div class="callout blue"><b>Read the prompt BEFORE the passages</b>, then read all four passages (article, story, poem, infographic) and annotate as you read: mark ideas that answer the prompt and good quotations you could use.<br><span class="cn">先读作文题目，再读四篇材料（说明文、故事、诗歌、信息图）。边读边做标记：划出能回答题目的想法和可以引用的句子。</span></div>
+  <div class="prompt" id="promptText"></div>
+  <div id="readSlot"></div>
+  <div class="card">
+    <label for="nameInput"><b>Student name</b> <span class="cn">学生姓名</span></label>
+    <input type="text" id="nameInput" autocomplete="off" placeholder="Type your name · 请输入姓名">
+    <label class="chk"><input type="checkbox" id="chkRead1"><span>I read the prompt first, then all four passages. <span class="cn">我先读了题目，再读了全部四篇材料。</span></span></label>
+    <div class="callout warn" id="annoCount">Highlight at least <b>4</b> useful passages in the texts (select words, then pick a colour). Use at least 2 different texts. · 请在材料中至少标出 <b>4</b> 处有用的内容（选中文字后选择颜色），至少涉及 2 篇不同的材料。 <b id="annoN">0 / 4</b></div>
+    <div class="btnrow"><button class="btn" id="readNext" disabled>Continue to Step 2 ➜ 继续</button></div>
+    <div class="hint" id="readHint">Enter your name, tick the box and make 4 highlights. · 请输入姓名、勾选选项并做 4 处标注。</div>
+  </div>
+</section>
+
+<!-- ============ STEP 2: READING QUIZZES ============ -->
+<section class="panel" id="panel-quiz">
+  <h2>Step 2: Reading questions <span class="cn">第二步：阅读理解题</span></h2>
+  <div class="callout blue">This is the same pattern as your system exam: <b>6 questions for each passage</b> (2 recall, 2 infer, 1 author's craft, 1 vocabulary). The texts stay open beside the questions. You cannot change an answer after you click.<br><span class="cn">与系统考试题型相同：每篇材料 <b>6 道题</b>（2 道回忆、2 道推断、1 道写作手法、1 道词汇）。材料会显示在题目旁边。点击后不能更改答案。</span></div>
+  <div class="tabs2" id="quizTabs"></div>
+  <div id="quizArea"></div>
+  <div class="btnrow"><button class="btn" id="quizNext" disabled>Continue to Step 3 ➜ 继续</button></div>
+  <div class="hint" id="quizHint">Answer all 24 questions to continue. · 回答全部 24 题后才能继续。</div>
+</section>
+
+<!-- ============ STEP 3: LEARN ============ -->
+<section class="panel" id="panel-learn">
+  <h2>Step 3: Learn the structure <span class="cn">第三步：学习作文结构</span></h2>
+
+  <div class="card">
+    <h3>1. The 5-paragraph map <span class="cn">五段式结构</span></h3>
+    <table>
+      <tr><th>Paragraph 段落</th><th>Parts in order 组成部分（按顺序）</th></tr>
+      <tr><td><b>1. Introduction</b><br><span class="cn">引言</span></td><td>Hook → Lead-in → <b>Thesis (3 points)</b><br><span class="cn">吸引句 → 引入句 → 论点句（三个要点）</span></td></tr>
+      <tr><td><b>2. Body 1</b><br><span class="cn">主体段 1</span></td><td>Topic sentence → Evidence 1 → Evidence 2 → (Evidence 3) → Synthesized Explanation → Concluding sentence<br><span class="cn">主题句 → 证据1 → 证据2 →（证据3）→ 综合解释 → 结尾句</span></td></tr>
+      <tr><td><b>3. Body 2</b> and <b>4. Body 3</b></td><td>Same parts as Body 1, one new point each.<br><span class="cn">结构与主体段 1 相同，每段一个新要点。</span></td></tr>
+      <tr><td><b>5. Conclusion</b><br><span class="cn">结论</span></td><td>Restated thesis → Wrap-up of your 3 points → Final thought<br><span class="cn">重述论点 → 总结三个要点 → 最后的感想</span></td></tr>
+    </table>
+    <div class="callout"><b>Why this matters:</b> if every part is in your essay, you earn most of the structure points, even when your grammar is not perfect yet. Learn the order by heart!<br><span class="cn">只要每个部分都写到了，即使语法还不完美，也能拿到大部分结构分。请把顺序背下来！</span></div>
+    <div class="callout warn"><b>Exam rules (from your exam format):</b> 5 paragraphs. Grade 12: <b>2 to 3 pieces of textual evidence in each body paragraph</b>. Use the prompt as your title. Use evidence from <b>at least 3 of the 4 passages</b> across your essay (article, story, poem, infographic).<br><span class="cn">考试要求：五段。十二年级每个主体段落用 2–3 条文本证据。用题目作为标题。全文要用到四篇材料中的<b>至少 3 篇</b>（说明文、故事、诗歌、信息图）。</span></div>
+  </div>
+
+  <div class="card">
+    <h3>2. What each part does <span class="cn">每个部分的作用</span></h3>
+    <table>
+      <tr><th>Part</th><th>Definition</th><th>中文</th></tr>
+      <tr><td><b>Hook</b></td><td>A statement that grabs the reader's attention.</td><td class="cn">抓住读者注意力的一句话。</td></tr>
+      <tr><td><b>Lead-in</b></td><td>A sentence or two that introduces the topic.</td><td class="cn">一两句话引出主题。</td></tr>
+      <tr><td><b>Thesis Statement</b></td><td>A clear statement that directly answers the prompt and outlines key points.</td><td class="cn">直接回答题目并列出要点的清晰陈述。</td></tr>
+      <tr><td><b>Evidence 1, 2, (3)</b></td><td>Supporting evidence from the texts. Evidence 3 is optional.</td><td class="cn">来自文章的支持证据。证据 3 可选。</td></tr>
+      <tr><td><b>Synthesized Explanation</b></td><td>Explains how the pieces of evidence work together to support the point.</td><td class="cn">解释几条证据如何共同支持你的观点。</td></tr>
+      <tr><td><b>Conclusion</b></td><td>Wraps up the paragraph and ties back to the main thesis.</td><td class="cn">收束本段，并回扣主论点。</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>3. The 3-point thesis and parallelism <span class="cn">三点式论点与平行结构</span></h3>
+    <p>A strong thesis does two jobs: it <b>answers the prompt</b> and it <b>lists your 3 body-paragraph points in order</b>. The 3 points must be <b>parallel</b>: they use the same grammar form.<br><span class="cn">好的论点句做两件事：回答题目，并按顺序列出三个主体段落的要点。三个要点必须平行，即语法形式相同。</span></p>
+    <div class="ex"><b>Formula 公式:</b> Topic + verb + object <b>by</b> (-ing point 1), (-ing point 2), <b>and</b> (-ing point 3).</div>
+    <div class="ex goodx"><span class="good">✅ Parallel (all -ing):</span> Exercise helps students by building strength, reducing stress, and improving focus.</div>
+    <div class="ex goodx"><span class="good">✅ Parallel (all nouns):</span> Sports teach teens discipline, teamwork, and confidence.</div>
+    <div class="ex badx"><span class="bad">❌ Not parallel:</span> Exercise helps students by building strength, to reduce stress, and better focus.</div>
+    <div class="ex badx"><span class="bad">❌ Only 2 points / opinion:</span> I think exercise is good because it builds strength and reduces stress.</div>
+    <div class="callout warn">Your points must match your body paragraphs <b>in the same order</b>. Body 1 = point 1, Body 2 = point 2, Body 3 = point 3.<br><span class="cn">论点句中要点的顺序必须与主体段落顺序一致：主体段 1 = 要点 1，主体段 2 = 要点 2，主体段 3 = 要点 3。</span></div>
+  </div>
+
+  <div class="card">
+    <h3>4. MLA in-text citations <span class="cn">MLA 文内引用</span></h3>
+    <table>
+      <tr><th>Source</th><th>Format</th><th>Example</th></tr>
+      <tr><td><b>Article</b><br>(no author: use the title; paragraphs ¶1–¶7)</td><td>("Short title" par. #)<br>Title in quotation marks, then <b>par.</b> and the number</td><td class="ex" style="border:none">The article explains that "favors build trust" ("Why Helping Matters" par. 4).</td></tr>
+      <tr><td><b>Story</b><br>(author: Oscar Wilde; paragraphs ¶1–¶14)</td><td>(Last name, par. #)</td><td class="ex" style="border:none">Wilde writes that "he was a very selfish Giant" (Wilde, par. 4).</td></tr>
+      <tr><td><b>Poem</b><br>(author: Emily Dickinson; lines 1–7)</td><td>(Last name, line #)<br>Use <b>lines</b> for two or more. Put <b>/</b> where the line breaks.</td><td class="ex" style="border:none">The speaker says, "I shall not live in vain" (Dickinson, line 2).<br>"Or help one fainting robin / Unto his nest again" (Dickinson, lines 5-6).</td></tr>
+      <tr><td><b>Infographic</b><br>(no author: use the title; panels 1–6)</td><td>("Title" panel #)</td><td class="ex" style="border:none">The infographic states that "the estimated value of that work to American communities" ("Volunteering by the Numbers" panel 3).</td></tr>
+    </table>
+    <ul style="margin-left:20px;font-size:.93rem">
+      <li><b>The period goes AFTER the citation.</b> ✅ ...words" (Wilde, par. 4). ❌ ...words." (Wilde, par. 4) <span class="cn">句号放在引用括号后面。</span></li>
+      <li><b>Copy quotations exactly</b>, word for word. Use [brackets] for a change and ... for words you skip. <span class="cn">引文必须逐字照抄；改动用 [ ]，省略用 ...</span></li>
+      <li><b>Introduce every quotation</b> with your own words first (a signal phrase). Never start a sentence with a floating quote. <span class="cn">每条引文前要先用自己的话引入，不要直接用引文开头。</span></li>
+      <li>No year and no first name. Use <b>par.</b> (not "p."), <b>line</b> or <b>panel</b>. The number must match the place where your quotation really is. <span class="cn">引用不要写年份或名字，也不要写 p.。编号必须与引文真实所在位置一致。</span></li>
+      <li>This module's checker reads your quotation and <b>looks for it in the real text</b>. If your words or line numbers are wrong, it will tell you. <span class="cn">检查器会在原文中查找你的引文，措辞或行号不对都会提示。</span></li>
+    </ul>
+    <div class="callout blue">Your exam passages will have different titles or authors. The rule stays the same: use the author's last name, or the title in quotation marks if there is no author. Check with your teacher.<br><span class="cn">正式考试的材料标题或作者会不同，规则不变：有作者时用姓氏；没有作者时用带引号的标题。请向老师确认。</span></div>
+  </div>
+
+  <div class="card">
+    <h3>5. Synthesized explanation vs. summary <span class="cn">综合解释 vs. 简单复述</span></h3>
+    <p>A <b>summary</b> repeats what the evidence says. A <b>synthesized explanation</b> shows <b>how the pieces of evidence connect</b> and why together they prove your point.<br><span class="cn">复述只是重复证据的内容；综合解释说明几条证据如何联系在一起，以及它们为什么共同证明你的观点。</span></p>
+    <div class="ex"><b>Point:</b> Teamwork improves performance.<br><b>Evidence 1:</b> A soccer team that practices together passes more accurately.<br><b>Evidence 2:</b> A choir that rehearses together stays in tune.</div>
+    <div class="ex badx"><span class="bad">❌ Summary:</span> Soccer teams practice. Choirs rehearse too.</div>
+    <div class="ex goodx"><span class="good">✅ Synthesis:</span> Both examples show that shared practice builds trust, and this trust proves that teamwork improves group performance.</div>
+    <p style="font-size:.9rem">Useful linking words: <b>both, together, similarly, likewise, also, whereas, just as, in the same way</b>. No quotations in the synthesis: use your own words.</p>
+  </div>
+
+  <div class="card">
+    <h3>6. Grammar watch-list <span class="cn">语法检查清单</span></h3>
+    <p style="font-size:.93rem">The checker will flag these. Learn them now:<br><span class="cn">检查器会标出以下问题，现在就学会它们：</span></p>
+    <table>
+      <tr><td>Capital letters: every sentence, the word <b>I</b>, names (Wilde, AmeriCorps)</td><td>a / an: <b>an</b> act, <b>a</b> favor</td></tr>
+      <tr><td>Subject-verb agreement: Kindness <b>builds</b> trust… / People <b>help</b>…</td><td>No contractions: write "do not", not "don't"</td></tr>
+      <tr><td>Base verb after can / did / will: "did not <b>learn</b>"</td><td>Comma after transitions: <b>However,</b> / <b>For example,</b></td></tr>
+      <tr><td>Plural after many / several: many <b>volunteers</b></td><td>No "I think / in my opinion / in this essay"</td></tr>
+      <tr><td>Uncountable: evidence, information (no "a", no "-s")</td><td>Period at the end of every sentence</td></tr>
+    </table>
+    <div class="callout warn">The checker catches common patterns, not every possible error. Your teacher will still read your essay. Always read it aloud once. <br><span class="cn">检查器只能发现常见错误，并不能发现所有错误。老师仍会阅读你的作文。请务必大声朗读一遍。</span></div>
+  </div>
+
+  <div class="card">
+    <h3>Quick check <span class="cn">快速检查</span></h3>
+    <p style="font-size:.9rem">Pick the best answer. You cannot change your answer after you click. <span class="cn">选择最佳答案，点击后不能更改。</span></p>
+    <div id="quizContainer"></div>
+    <div class="btnrow"><button class="btn" id="learnNext" disabled>Continue to Step 4 ➜ 继续</button></div>
+    <div class="hint" id="learnHint">Answer all 7 questions to continue. · 回答全部 7 题后才能继续。</div>
+  </div>
+</section>
+
+<!-- ============ STEP 3: PLAN ============ -->
+<section class="panel" id="panel-plan">
+  <h2>Step 4: Plan your 3 points <span class="cn">第四步：计划三个要点</span></h2>
+  <div class="callout">Choose <b>3 different ideas</b> that answer the prompt. Write each as a <b>short, parallel phrase</b> (1 to 4 words). These become your thesis AND your 3 body paragraphs.<br><span class="cn">选择三个不同的想法来回答题目。每个写成简短、平行的短语（1–4 个词）。它们将成为论点句，也是三个主体段落。</span></div>
+  <div class="prompt" id="planPrompt"></div>
+  <div class="card" id="planBoxes"></div>
+  <div class="btnrow"><button class="btn alt" id="planCheck">🔍 Check my plan 检查计划</button></div>
+  <div class="fb" id="fb-plan"></div>
+  <label class="chk hidden" id="planTickWrap"><input type="checkbox" id="planTick"><span>My 3 points match what the passages say. <span class="cn">我的三个要点与材料内容相符。</span></span></label>
+  <div class="btnrow"><button class="btn" id="planNext" disabled>Lock plan and continue ➜ 锁定计划并继续</button></div>
+</section>
+
+<!-- dynamic section panels -->
+<section class="panel" id="panel-intro"></section>
+<section class="panel" id="panel-b1"></section>
+<section class="panel" id="panel-b2"></section>
+<section class="panel" id="panel-b3"></section>
+<section class="panel" id="panel-concl"></section>
+
+<!-- ============ FINAL ============ -->
+<section class="panel" id="panel-final">
+  <h2>Step 10: Final review and download <span class="cn">第十步：终审与下载</span></h2>
+  <div class="card essay" id="essayPreview"></div>
+  <div class="btnrow"><button class="btn alt" id="finalCheck">🔍 Run final check 运行终审检查</button></div>
+  <div class="fb" id="fb-final"></div>
+  <div class="card">
+    <h3>Final habits <span class="cn">最后的习惯</span></h3>
+    <label class="chk"><input type="checkbox" class="fchk"><span>I read my whole essay out loud, from start to finish. <span class="cn">我从头到尾大声朗读了整篇作文。</span></span></label>
+    <label class="chk"><input type="checkbox" class="fchk"><span>I know I must type the prompt as my title at the top of the real exam essay. <span class="cn">我知道正式考试中必须把题目作为标题写在作文最上面。</span></span></label>
+    <label class="chk"><input type="checkbox" class="fchk"><span>I know every quotation needs an MLA citation, with the period after it. <span class="cn">我知道每条引文都需要 MLA 引用，句号放在引用后面。</span></span></label>
+    <label class="chk"><input type="checkbox" class="fchk"><span>I know the real exam needs at least 3 passages in the essay. <span class="cn">我知道正式考试的作文中至少要用到 3 篇文章。</span></span></label>
+  </div>
+  <div class="card">
+    <h3>Reflect <span class="cn">反思</span></h3>
+    <p><b>1.</b> How does the Synthesized Explanation differ from a simple summary of evidence?<br><span class="cn">综合解释与简单复述证据有什么不同？</span></p>
+    <textarea id="finRef1" rows="3" placeholder="Write 2 or more sentences… · 请写两句以上"></textarea>
+    <p style="margin-top:12px"><b>2.</b> Why is it important to have two or three pieces of evidence in each body paragraph? What benefits does this bring to the argument?<br><span class="cn">为什么每个主体段落要有两到三条证据？这对论证有什么好处？</span></p>
+    <textarea id="finRef2" rows="3" placeholder="Write 2 or more sentences… · 请写两句以上"></textarea>
+    <p style="margin-top:14px"><b>Today I am grateful for</b> <input type="text" id="finGrat" style="width:min(380px,100%);display:inline-block" placeholder="…"> <span class="cn">今天我感恩…</span></p>
+  </div>
+  <div class="btnrow"><button class="btn dl" id="finalDownload">⬇ Download my report 下载我的报告</button></div>
+  <div class="hint" id="finalHint">Run the final check, tick all boxes, and finish the reflection to unlock the download. · 完成终审检查、勾选所有选项并写完反思后才能下载。</div>
+</section>
+
+</main>
+<aside id="dock"><div class="dockhead"><b>📖 Texts <span class="cn">阅读材料</span></b><button class="x" id="dockX" aria-label="Close">×</button></div><div id="dockBody"></div></aside>
+</div>
+
+<button id="dockBtn">📖 Texts 阅读材料</button>
+<div id="annoBar" role="toolbar"></div>
+<div id="annoPop"></div>
+<div id="timer-display">⏱ 00:00</div>
+
+<script>
+/* ================= CONTENT: PASSAGES + QUIZZES ================= */
+var PROMPT_TEXT = 'Discuss how acts of kindness benefit both the people who give and the people who receive.';
+
+var SOURCES = [
+  { id: 'info', tab: 'Article 文章', short: 'Article', cn: '文章', noun: 'article', kind: 'par',
+    title: 'Why Helping Matters', byline: 'Informational article · written for this module from public AmeriCorps data',
+    units: [
+      'Many people picture helping as a one-way street. The helper gives, and the person in need receives. Research suggests that the street runs in both directions. When people give their time, the person helped, the helper, and the whole community can gain something.',
+      'Helping comes in two main forms. Formal volunteering happens through an organization, such as a food bank, a school, or a hospital. Informal helping happens outside any organization. Mowing a neighbor\'s lawn, carrying groceries, and watching a friend\'s children are all examples.',
+      'The total amount of help is enormous. According to AmeriCorps, the United States government agency for national service, about 75.7 million Americans volunteered through organizations between September 2022 and September 2023. Together they gave nearly 5 billion hours, work worth an estimated $167 billion. Many food banks, shelters, and schools depend on this free work.',
+      'Informal help is even more common. More than half of Americans, about 137.5 million people, helped a neighbor during that same year. A small favor, such as running an errand or sharing a tool, may seem unimportant. However, favors build trust. Neighbors who trust one another are more likely to work together when a bigger problem appears.',
+      'Helping also changes the helper. In a 2018 AmeriCorps study of older volunteers, 88 percent reported feeling less isolated, 84 percent said their health stayed the same or improved, and 78 percent reported fewer signs of depression. These results show a link between service and well-being, although researchers say more study is needed to prove the cause.',
+      'Young people are taking part, too. In 2023, teenagers ages 16 and 17 had the highest rate of formal volunteering of any age group, at 34.1 percent. Teens who serve often gain new skills, such as teamwork and responsibility, and they learn how their community works.',
+      'Helping, then, is not a one-way street. One act may seem small, but millions of acts add up to stronger communities and healthier, happier people. The next time a neighbor or a local group needs a hand, saying yes may change two lives: theirs and your own.'
+    ] },
+  { id: 'story', tab: 'Story 故事', short: 'Story', cn: '故事', noun: 'story', kind: 'par',
+    title: 'The Selfish Giant', byline: 'By Oscar Wilde (1888) · abridged · public domain',
+    units: [
+      'Every afternoon, as they were coming from school, the children used to go and play in the Giant\'s garden. It was a large lovely garden, with soft green grass. Here and there over the grass stood beautiful flowers like stars, and there were twelve peach-trees that in the springtime broke out into delicate blossoms of pink and pearl. The birds sat on the trees and sang so sweetly that the children used to stop their games in order to listen to them. "How happy we are here!" they cried to each other.',
+      'One day the Giant came back. He had been to visit his friend the Cornish ogre, and had stayed with him for seven years. After the seven years were over he had said all that he had to say, for his conversation was limited, and he determined to return to his own castle. When he arrived he saw the children playing in the garden.',
+      '"What are you doing here?" he cried in a very gruff voice, and the children ran away.',
+      '"My own garden is my own garden," said the Giant; "any one can understand that, and I will allow nobody to play in it but myself." So he built a high wall all round it, and put up a notice-board: TRESPASSERS WILL BE PROSECUTED. He was a very selfish Giant.',
+      'The poor children had now nowhere to play. They tried to play on the road, but the road was very dusty and full of hard stones, and they did not like it. They used to wander round the high wall when their lessons were over, and talk about the beautiful garden inside. "How happy we were there," they said to each other.',
+      'Then the Spring came, and all over the country there were little blossoms and little birds. Only in the garden of the Selfish Giant it was still Winter. The birds did not care to sing in it as there were no children, and the trees forgot to blossom. The only people who were pleased were the Snow and the Frost. "Spring has forgotten this garden," they cried, "so we will live here all the year round."',
+      '"I cannot understand why the Spring is so late in coming," said the Selfish Giant, as he sat at the window and looked out at his cold white garden; "I hope there will be a change in the weather." But the Spring never came, nor the Summer. The Autumn gave golden fruit to every garden, but to the Giant\'s garden she gave none. "He is too selfish," she said. So it was always Winter there.',
+      'One morning the Giant was lying awake in bed when he heard some lovely music. It was really only a little linnet singing outside his window, but it was so long since he had heard a bird sing in his garden that it seemed to him to be the most beautiful music in the world. "I believe the Spring has come at last," said the Giant; and he jumped out of bed and looked out.',
+      'What did he see? Through a little hole in the wall the children had crept in, and they were sitting in the branches of the trees. The trees were so glad to have the children back again that they had covered themselves with blossoms. It was a lovely scene, only in one corner it was still Winter. In it stood a little boy. He was so small that he could not reach up to the branches of the tree, and he was wandering all round it, crying bitterly.',
+      'And the Giant\'s heart melted as he looked out. "How selfish I have been!" he said; "now I know why the Spring would not come here. I will put that poor little boy on the top of the tree, and then I will knock down the wall, and my garden shall be the children\'s playground for ever and ever." He was really very sorry for what he had done.',
+      'So he crept downstairs and went out into the garden. But when the children saw him they were so frightened that they all ran away, and the garden became Winter again. Only the little boy did not run, for his eyes were so full of tears that he did not see the Giant coming. The Giant took him gently in his hand and put him up into the tree. And the tree broke at once into blossom, and the birds came and sang on it, and the little boy flung his arms round the Giant\'s neck and kissed him.',
+      'And the other children, when they saw that the Giant was not wicked any longer, came running back, and with them came the Spring. "It is your garden now, little children," said the Giant, and he took a great axe and knocked down the wall.',
+      'The children played all day, and in the evening they came to the Giant to bid him good-bye. "But where is your little companion?" he said: "the boy I put into the tree." The Giant loved him the best because he had kissed him. "We don\'t know," answered the children; "he has gone away." And the Giant felt very sad.',
+      'Years went by, and the Giant grew very old and feeble. He could not play about any more, so he sat in a huge armchair, and watched the children at their games, and admired his garden. "I have many beautiful flowers," he said; "but the children are the most beautiful flowers of all."'
+    ] },
+  { id: 'poem', tab: 'Poem 诗歌', short: 'Poem', cn: '诗歌', noun: 'poem', kind: 'line',
+    title: 'If I can stop one heart from breaking', byline: 'By Emily Dickinson · public domain',
+    units: [
+      'If I can stop one heart from breaking,',
+      'I shall not live in vain;',
+      'If I can ease one life the aching,',
+      'Or cool one pain,',
+      'Or help one fainting robin',
+      'Unto his nest again,',
+      'I shall not live in vain.'
+    ] },
+  { id: 'graphic', tab: 'Infographic 信息图', short: 'Infographic', cn: '信息图', noun: 'infographic', kind: 'panel',
+    title: 'Volunteering by the Numbers', byline: 'Infographic · data: AmeriCorps, Volunteering and Civic Life in America (2023 survey)',
+    units: [
+      '75.7 million\nAmericans volunteered through an organization between September 2022 and September 2023. That is 28 percent of Americans ages 16 and older.',
+      '4.99 billion hours\nThe total time these volunteers gave in one year. One person volunteering nonstop would need about 570,000 years to give that much time.',
+      '$167.2 billion\nThe estimated value of that work to American communities.',
+      '54 percent\nOf Americans, about 137.5 million people, helped a neighbor informally. This means helping outside any organization, such as running errands or watching children.',
+      '34.1 percent\nOf teenagers ages 16 and 17 volunteered formally in 2023. This was the highest rate of any age group.',
+      '88 percent\nOf older volunteers felt less isolated. In the same 2018 AmeriCorps study, 84 percent said their health stayed the same or improved, and 78 percent reported fewer signs of depression.'
+    ],
+    visuals: [
+      { icon: '👥', bars: [28] }, { icon: '⏳', bars: [] }, { icon: '💵', bars: [] },
+      { icon: '🏘️', bars: [54] }, { icon: '🎓', bars: [34.1] }, { icon: '❤️', bars: [88, 84, 78] }
+    ] }
+];
+
+var QUIZZES = [
+  { id: 'A1', src: 'info', title: 'A.1 Informational article: "Why Helping Matters"', cn: 'A.1 说明文：《为什么帮助很重要》', qs: [
+    { t: 'Recall 回忆', q: 'According to paragraph 2, what is the difference between formal volunteering and informal helping?', qc: '根据第 2 段，正式志愿服务和非正式帮助有什么区别？',
+      o: [['Formal volunteering is paid; informal helping is free.', '正式志愿服务有报酬；非正式帮助是免费的。'], ['Formal volunteering happens through an organization; informal helping happens outside any organization.', '正式志愿服务通过组织进行；非正式帮助在组织之外进行。'], ['Formal volunteering is for adults; informal helping is for teenagers.', '正式志愿服务是给成年人的；非正式帮助是给青少年的。'], ['Formal volunteering happens in hospitals; informal helping happens in schools.', '正式志愿服务在医院进行；非正式帮助在学校进行。']],
+      c: 1, why: ['Paragraph 2 says formal volunteering happens through an organization, and informal helping happens outside any organization.', '第 2 段说明：正式志愿服务通过组织进行，非正式帮助在任何组织之外进行。'] },
+    { t: 'Recall 回忆', q: 'According to paragraph 3, about how many Americans volunteered through organizations between September 2022 and September 2023?', qc: '根据第 3 段，2022 年 9 月到 2023 年 9 月，大约有多少美国人通过组织做志愿者？',
+      o: [['4.99 billion', '49.9 亿'], ['137.5 million', '1.375 亿'], ['75.7 million', '7570 万'], ['28 million', '2800 万']],
+      c: 2, why: ['Paragraph 3 says about 75.7 million Americans volunteered through organizations. (137.5 million is the number who helped neighbors informally, in paragraph 4.)', '第 3 段说约 7570 万美国人通过组织做志愿者。（1.375 亿是第 4 段中非正式帮助邻居的人数。）'] },
+    { t: 'Infer 推断', q: 'Which idea does paragraph 4 mainly support?', qc: '第 4 段主要支持哪个观点？',
+      o: [['Small favors between neighbors matter because they build trust.', '邻居之间的小忙很重要，因为它们能建立信任。'], ['Informal helping is less useful than formal volunteering.', '非正式帮助不如正式志愿服务有用。'], ['Neighbors should stop running errands for each other.', '邻居不应该再互相跑腿。'], ['Only large organizations can solve community problems.', '只有大型组织才能解决社区问题。']],
+      c: 0, why: ['The paragraph says favors build trust, and neighbors who trust one another work together on bigger problems.', '这一段说小忙能建立信任，互相信任的邻居更愿意一起解决更大的问题。'] },
+    { t: 'Infer 推断', q: 'In paragraph 5, why does the author say researchers believe "more study is needed to prove the cause"?', qc: '第 5 段中，作者为什么说研究者认为"还需要更多研究来证明原因"？',
+      o: [['The study was too small to read.', '这项研究太小，无法解读。'], ['Older volunteers did not report any changes.', '老年志愿者没有报告任何变化。'], ['The author does not believe the results.', '作者不相信这些结果。'], ['The study found a link between service and well-being but did not prove that service causes it.', '研究发现服务与幸福感有关联，但没有证明服务是原因。']],
+      c: 3, why: ['The text says the results "show a link," which is different from proving that volunteering causes better well-being.', '文中说结果"显示了关联"，这与证明志愿服务导致更好的幸福感不同。'] },
+    { t: 'Author\'s craft 写作手法', q: 'The article opens and closes with the idea of a "one-way street." What is the effect of this structure?', qc: '文章开头和结尾都用了"单行道"的说法。这种结构有什么效果？',
+      o: [['It shows that the author changed the topic.', '说明作者换了话题。'], ['It frames the main idea: helping runs in both directions, so giver and receiver both gain.', '它构成了主旨：帮助是双向的，给予者和接受者都有收获。'], ['It gives directions to a volunteer center.', '它给出前往志愿者中心的路线。'], ['It proves that volunteering is easy.', '它证明志愿服务很容易。']],
+      c: 1, why: ['Paragraph 1 says helping is not truly one-way, and paragraph 7 returns to the image. This repetition frames the main idea.', '第 1 段说帮助并不只是单向的，第 7 段回到这个比喻。这种首尾呼应突出了主旨。'] },
+    { t: 'Vocabulary 词汇', q: 'In paragraph 5, the word "isolated" means —', qc: '第 5 段中，"isolated"的意思是——',
+      o: [['proud and confident', '骄傲而自信的'], ['tired and weak', '疲惫而虚弱的'], ['separated from other people; lonely', '与他人隔开的；孤独的'], ['angry and upset', '生气而烦恼的']],
+      c: 2, why: ['"Feeling less isolated" means feeling less alone. Volunteers meet other people, so they feel less cut off.', '"feeling less isolated"是"感到不那么孤单"。志愿者会接触他人，所以不那么与世隔绝。'] }
+  ] },
+  { id: 'A2', src: 'story', title: 'A.2 Literary passage: "The Selfish Giant"', cn: 'A.2 文学作品：《自私的巨人》', qs: [
+    { t: 'Recall 回忆', q: 'In paragraph 1, why do the children stop their games in the garden?', qc: '第 1 段中，孩子们为什么停下游戏？',
+      o: [['They are tired from school.', '他们上学累了。'], ['The Giant calls them inside.', '巨人叫他们进屋。'], ['It begins to rain.', '开始下雨了。'], ['They want to listen to the birds sing.', '他们想听鸟儿唱歌。']],
+      c: 3, why: ['Paragraph 1 says the birds sang so sweetly that the children stopped their games to listen.', '第 1 段说鸟儿唱得那么好听，孩子们停下游戏去听。'] },
+    { t: 'Recall 回忆', q: 'What does the Giant do after he returns to his castle (paragraph 4)?', qc: '巨人回到城堡后做了什么（第 4 段）？',
+      o: [['He builds a high wall and puts up a warning notice.', '他筑起一道高墙，并立了一块警告牌。'], ['He invites the children to stay for supper.', '他邀请孩子们留下吃晚饭。'], ['He plants twelve new peach trees.', '他种了十二棵新桃树。'], ['He leaves to visit the ogre again.', '他又去拜访食人魔。']],
+      c: 0, why: ['In paragraph 4 the Giant builds a high wall all round the garden and puts up a notice-board.', '第 4 段中，巨人在花园四周筑起高墙，并立了告示牌。'] },
+    { t: 'Infer 推断', q: 'Why does Spring never come to the Giant\'s garden (paragraphs 6–7)?', qc: '为什么春天一直没有来到巨人的花园（第 6–7 段）？',
+      o: [['The Giant forgot to water the flowers.', '巨人忘了给花浇水。'], ['The Snow and the Frost are too strong to defeat.', '雪和霜太强大，无法战胜。'], ['The garden stays cold and empty because the children, and the Giant\'s kindness, are missing.', '花园又冷又空，因为孩子们和巨人的善意都不在了。'], ['Spring only visits gardens near the school.', '春天只去学校附近的花园。']],
+      c: 2, why: ['The birds will not sing and the trees forget to blossom without the children. The Autumn says "He is too selfish," so the winter reflects his selfishness.', '没有孩子，鸟不唱歌，树也忘了开花。秋天说"他太自私了"，所以冬天反映了他的自私。'] },
+    { t: 'Infer 推断', q: 'In paragraph 10, the Giant\'s "heart melted." What does this show?', qc: '第 10 段中，巨人的"心融化了"。这说明什么？',
+      o: [['The Giant is becoming ill.', '巨人生病了。'], ['The Giant feels sorry and decides to change after seeing the crying boy.', '巨人看到哭泣的男孩后感到抱歉，决定改变。'], ['The Giant wants to build a bigger wall.', '巨人想筑更高的墙。'], ['The Giant is angry at the Spring.', '巨人在生春天的气。']],
+      c: 1, why: ['"Melted" is the opposite of the cold winter and hard wall. He says "How selfish I have been!" and decides to knock down the wall.', '"融化"与寒冷的冬天和坚硬的墙相对。他说"我多么自私！"并决定拆掉墙。'] },
+    { t: 'Author\'s craft 写作手法', q: 'The author describes the Snow, the Frost, and the Spring as if they can speak and have feelings. This is an example of —', qc: '作者把雪、霜和春天写得好像会说话、有感情。这是什么修辞？',
+      o: [['simile', '明喻'], ['alliteration', '头韵'], ['personification', '拟人'], ['hyperbole', '夸张']],
+      c: 2, why: ['Giving human actions and feelings to nature (the Frost "cried," the Autumn "said") is personification.', '赋予自然人的行为和情感（霜"喊道"，秋天"说"）就是拟人。'] },
+    { t: 'Vocabulary 词汇', q: 'In paragraph 3, the word "gruff" describes the Giant\'s voice. It means —', qc: '第 3 段中，"gruff"形容巨人的声音。它的意思是——',
+      o: [['rough and unfriendly', '粗声粗气的；不友好的'], ['soft and shy', '轻柔而害羞的'], ['loud and happy', '大声而快乐的'], ['weak and tired', '虚弱而疲惫的']],
+      c: 0, why: ['The Giant is angry that the children are in his garden, so his voice is harsh and unfriendly.', '孩子们在他的花园里，巨人很生气，所以声音粗暴、不友好。'] }
+  ] },
+  { id: 'A3', src: 'poem', title: 'A.3 Poem: "If I can stop one heart from breaking"', cn: 'A.3 诗歌：《如果我能阻止一颗心破碎》', qs: [
+    { t: 'Recall 回忆', q: 'According to lines 1–4, what does the speaker hope to do?', qc: '根据第 1–4 行，说话者希望做什么？',
+      o: [['Win a prize for being kind', '因善良而获奖'], ['Travel around the world', '环游世界'], ['Stop a heart from breaking and ease the aching or pain of others', '阻止一颗心破碎，减轻他人的痛苦'], ['Find a robin\'s nest', '找到一个知更鸟的巢']],
+      c: 2, why: ['Lines 1–4 name stopping a heart from breaking, easing an aching life, and cooling a pain.', '第 1–4 行提到阻止心碎、减轻生活的痛苦、缓解疼痛。'] },
+    { t: 'Recall 回忆', q: 'What specific act of help does the speaker mention in lines 5–6?', qc: '说话者在第 5–6 行提到了什么具体的帮助行为？',
+      o: [['Feeding a hungry child', '给饥饿的孩子喂食'], ['Helping a weak robin get back to its nest', '帮助一只虚弱的知更鸟回到巢里'], ['Building a nest from branches', '用树枝搭一个巢'], ['Teaching a bird to sing', '教小鸟唱歌']],
+      c: 1, why: ['Lines 5–6 say "help one fainting robin / Unto his nest again."', '第 5–6 行说要帮助一只虚弱的知更鸟回到它的巢里。'] },
+    { t: 'Infer 推断', q: 'What does the speaker mean by "I shall not live in vain"?', qc: '说话者说"我将不会白活"是什么意思？',
+      o: [['The speaker\'s life will have purpose if the speaker helps even one other living thing.', '只要能帮助哪怕一个生命，说话者的一生就有意义。'], ['The speaker wants to live a very long life.', '说话者想活得很久。'], ['The speaker is afraid of being alone.', '说话者害怕孤独。'], ['The speaker believes only big actions matter.', '说话者认为只有大事才重要。']],
+      c: 0, why: ['"In vain" means without purpose. The speaker says that helping even one heart, one life, or one robin gives life meaning.', '"In vain"是"没有意义"。说话者说，哪怕帮助一颗心、一个生命或一只知更鸟，人生也有了意义。'] },
+    { t: 'Infer 推断', q: 'Why might the poet choose a small robin as the final example?', qc: '诗人为什么选择一只小知更鸟作为最后一个例子？',
+      o: [['Because robins are rare.', '因为知更鸟很稀少。'], ['Because the poem is only about birds.', '因为这首诗只写鸟。'], ['To show that helping a bird is more important than helping people.', '为了说明帮助小鸟比帮助人更重要。'], ['To show that even small acts of help matter, and that kindness reaches every living thing.', '为了说明再小的帮助也重要，善意可以惠及每一个生命。']],
+      c: 3, why: ['The examples get smaller and smaller (a heart, a life, a pain, a robin). The robin shows that no act of help is too small.', '例子越来越小（一颗心、一个生命、一种痛苦、一只知更鸟）。知更鸟说明没有哪种帮助是太小的。'] },
+    { t: 'Author\'s craft 写作手法', q: 'Line 2 and line 7 are the same. What is the effect of this repetition?', qc: '第 2 行和第 7 行完全相同。这种重复有什么效果？',
+      o: [['It shows the poet ran out of ideas.', '说明诗人没有新想法了。'], ['It stresses the main idea and gives the poem a sense of completion.', '强调主旨，并使这首诗有完整感。'], ['It changes the mood from happy to sad.', '把情绪从快乐变成悲伤。'], ['It introduces a new character.', '引入了一个新角色。']],
+      c: 1, why: ['A repeated line (a refrain) stresses the central idea, that helping gives life meaning, and ends the poem where it began.', '重复的诗行（叠句）强调核心思想——帮助使人生有意义——并让诗首尾呼应。'] },
+    { t: 'Vocabulary 词汇', q: 'In line 2, "in vain" means —', qc: '第 2 行中，"in vain"的意思是——',
+      o: [['with great fear', '非常害怕地'], ['very quickly', '很快地'], ['without purpose or success', '没有意义；徒劳'], ['in a loud voice', '大声地']],
+      c: 2, why: ['"Not live in vain" means the speaker\'s life will not be wasted or without purpose.', '"not live in vain"是说生命不会被浪费，不会没有意义。'] }
+  ] },
+  { id: 'A4', src: 'graphic', title: 'A.4 Infographic: "Volunteering by the Numbers"', cn: 'A.4 信息图：《数字里的志愿服务》', qs: [
+    { t: 'Recall 回忆', q: 'According to panel 2, about how many hours did volunteers give in one year?', qc: '根据第 2 个板块，志愿者一年大约付出了多少小时？',
+      o: [['4.99 billion', '49.9 亿'], ['75.7 million', '7570 万'], ['137.5 million', '1.375 亿'], ['167.2 billion', '1672 亿']],
+      c: 0, why: ['Panel 2 says 4.99 billion hours. (The other numbers are people or dollars.)', '第 2 个板块写的是 49.9 亿小时。（其他数字是人数或金额。）'] },
+    { t: 'Recall 回忆', q: 'According to panel 5, which group had the highest formal volunteering rate in 2023?', qc: '根据第 5 个板块，2023 年哪个群体的正式志愿服务比例最高？',
+      o: [['Adults over 65', '65 岁以上的成年人'], ['Adults ages 30 to 40', '30 到 40 岁的成年人'], ['Children under 12', '12 岁以下的儿童'], ['Teenagers ages 16 and 17', '16 到 17 岁的青少年']],
+      c: 3, why: ['Panel 5 says 34.1 percent of teenagers ages 16 and 17 volunteered formally, the highest rate of any age group.', '第 5 个板块说 16–17 岁青少年的正式志愿服务比例为 34.1%，是所有年龄段中最高的。'] },
+    { t: 'Infer 推断', q: 'What can a reader conclude from panels 1, 2, and 3 together?', qc: '从第 1、2、3 个板块合起来，读者可以得出什么结论？',
+      o: [['Few people volunteer, but they work very hard.', '志愿者很少，但他们非常努力。'], ['Volunteering costs communities billions of dollars.', '志愿服务让社区花费了数十亿美元。'], ['Volunteering gives communities a very large amount of time and value.', '志愿服务给社区带来了大量的时间和价值。'], ['Most volunteers are paid for their work.', '大多数志愿者的工作是有报酬的。']],
+      c: 2, why: ['Panels 1–3 show millions of people, billions of hours, and billions of dollars of value, so the benefit to communities is huge.', '板块 1–3 显示了数百万人、数十亿小时和数十亿美元的价值，所以对社区的好处非常大。'] },
+    { t: 'Infer 推断', q: 'Why does the designer place panel 6 after the panels about community totals?', qc: '设计者为什么把第 6 个板块放在讲社区总数的板块之后？',
+      o: [['To show that volunteering is difficult for older adults.', '说明志愿服务对老年人很困难。'], ['To show that volunteers themselves also benefit, not only the community.', '说明志愿者自己也受益，而不只是社区。'], ['To prove that older adults volunteer the most.', '证明老年人志愿服务最多。'], ['To explain how AmeriCorps is paid.', '解释 AmeriCorps 如何获得资金。']],
+      c: 1, why: ['Panels 1–5 show what volunteering gives to communities. Panel 6 shows what it gives back to the volunteers: less isolation, better health, fewer signs of depression.', '板块 1–5 展示志愿服务给社区的贡献，板块 6 展示志愿者自己的收获：更少孤独、更好健康、更少抑郁迹象。'] },
+    { t: 'Author\'s craft 写作手法', q: 'Each panel shows its key number in very large type. Why does the designer do this?', qc: '每个板块都用很大的字显示关键数字。设计者为什么这样做？',
+      o: [['To fill empty space', '为了填满空白'], ['To hide the explanation', '为了隐藏说明'], ['To make the infographic look old', '为了让信息图看起来很旧'], ['To draw the reader\'s eye to the most important fact in each panel', '为了让读者一眼看到每个板块最重要的事实']],
+      c: 3, why: ['Large type is a design feature that gives emphasis. The reader sees the key statistic first and the explanation second.', '大字号是一种强调的设计手法。读者先看到关键数据，再看说明。'] },
+    { t: 'Vocabulary 词汇', q: 'In panel 4, "informally" means —', qc: '在第 4 个板块中，"informally"的意思是——',
+      o: [['outside of an official organization', '在正式组织之外'], ['with great skill', '技术高超地'], ['only on weekends', '只在周末'], ['for money', '为了钱']],
+      c: 0, why: ['The panel explains it: "helping outside any organization."', '板块中已有解释："在任何组织之外帮助他人"。'] }
+  ] }
+];
+
+</script>
+<script>
+/* ================= WRITING CHECK ENGINE (pure functions, no DOM) ================= */
+var SRC = {}, SRC_LIST = [];
+function setSources(list) {
+  SRC_LIST = list; SRC = {};
+  list.forEach(function (o) { SRC[o.id] = o.units; });
+}
+/* citation spec per source (MLA): head = text in the parentheses, sep = separator before the locator, word = locator word */
+var CITE = {
+  info:    { head: '"Why Helping Matters"',            sep: ' ',  word: 'par',   required: false, noun: 'article',     loose: /helping matters|why helping/i },
+  story:   { head: 'Wilde',                            sep: ', ', word: 'par',   required: false, noun: 'story',       loose: /wilde|giant/i },
+  poem:    { head: 'Dickinson',                        sep: ', ', word: 'line',  required: true,  noun: 'poem',        loose: /dickinson|robin|heart/i },
+  graphic: { head: '"Volunteering by the Numbers"',    sep: ' ',  word: 'panel', required: true,  noun: 'infographic', loose: /numbers|volunteering by/i }
+};
+function locWord(spec, a, b) {
+  var range = a !== b;
+  if (spec.word === 'par') return range ? 'pars. ' + a + '-' + b : 'par. ' + a;
+  if (spec.word === 'line') return range ? 'lines ' + a + '-' + b : 'line ' + a;
+  return range ? 'panels ' + a + '-' + b : 'panel ' + a;
+}
+function citeStr(id, a, b) {
+  var sp = CITE[id];
+  if (a == null) return '(' + sp.head + ')';
+  return '(' + sp.head + sp.sep + locWord(sp, a, b == null ? a : b) + ')';
+}
+function citeExamples() {
+  return Object.keys(CITE).map(function (k) { return citeStr(k, k === 'graphic' ? 2 : (k === 'poem' ? 3 : 4)); }).join('   ');
+}
+function escRe(x) { return x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+function citeRegex(id) {
+  var sp = CITE[id], head = escRe(sp.head);
+  if (/^"/.test(sp.head)) head = head.replace(/"$/, ',?"');
+  var wordRe = sp.word === 'par' ? 'pars?\\.' : (sp.word === 'line' ? 'lines?' : 'panels?');
+  return new RegExp('^' + head + '(?:,?\\s+' + wordRe + '\\s*(\\d+)(?:\\s*-\\s*(\\d+))?)?$');
+}
+
+function normQ(s) {
+  return String(s).replace(/[\u201C\u201D]/g, '"').replace(/[\u2018\u2019]/g, "'")
+    .replace(/[\u2013\u2014]/g, '-').replace(/\u00A0/g, ' ');
+}
+function normCmp(s) {
+  return normQ(s).toLowerCase().replace(/'/g, '').replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+function wordList(s) { return normQ(s).match(/[A-Za-z]+(?:'[A-Za-z]+)?/g) || []; }
+function wc(s) { return wordList(s).length; }
+function I(lvl, en, cn, ex) { return { lvl: lvl, en: en, cn: cn, ex: ex || '' }; }
+function trim(x) { return x.trim(); }
+
+function scan(g, re, fn) {
+  var flags = re.flags.indexOf('g') > -1 ? re.flags : re.flags + 'g';
+  var r = new RegExp(re.source, flags), m;
+  while ((m = r.exec(g))) { fn(m); if (m[0].length === 0) r.lastIndex++; }
+}
+
+/* ---------- text preparation ---------- */
+function prepGrammar(text) {
+  var t = normQ(text).replace(/\s+/g, ' ').trim();
+  t = t.replace(/\b(i\.e\.|e\.g\.)/gi, 'for example');
+  t = t.replace(/"[^"]*"/g, ' QUOTE ');
+  t = t.replace(/\([^)]*\)/g, ' ');
+  t = t.replace(/\s+/g, ' ').replace(/\s+([.,;:!?])/g, '$1').trim();
+  return t;
+}
+function splitSentences(g) {
+  var m = g.match(/[^.!?]+[.!?]*/g) || [];
+  return m.map(trim).filter(function (x) { return /[A-Za-z]/.test(x); });
+}
+function countSentences(text) { return splitSentences(prepGrammar(text)).length; }
+
+/* ---------- word lists ---------- */
+var MISSPELL = {
+  alot: 'a lot', definately: 'definitely', recieve: 'receive', beleive: 'believe', seperate: 'separate',
+  occured: 'occurred', sucess: 'success', sucessful: 'successful', successfull: 'successful', dificult: 'difficult',
+  diffcult: 'difficult', strenght: 'strength', strengh: 'strength', enviroment: 'environment', knowlege: 'knowledge',
+  grammer: 'grammar', persistance: 'persistence', resiliance: 'resilience', resilence: 'resilience', emphaty: 'empathy',
+  empathty: 'empathy', apreciate: 'appreciate', apreciation: 'appreciation', adveristy: 'adversity', adversety: 'adversity',
+  advercity: 'adversity', charcter: 'character', charater: 'character', caracter: 'character', gratefull: 'grateful',
+  gratitud: 'gratitude', gratatude: 'gratitude', thier: 'their', becuase: 'because', becouse: 'because', beacuse: 'because',
+  freind: 'friend', freinds: 'friends', exampel: 'example', chalenge: 'challenge', chalenges: 'challenges',
+  challange: 'challenge', challanges: 'challenges', struggel: 'struggle', succes: 'success', publically: 'publicly',
+  untill: 'until', kindnes: 'kindness', generousity: 'generosity', genrosity: 'generosity', volunter: 'volunteer', volunters: 'volunteers', comunity: 'community', comunities: 'communities', compasion: 'compassion', benifit: 'benefit', benifits: 'benefits', helpfull: 'helpful', neigbor: 'neighbor', neigbors: 'neighbors', giveing: 'giving', recieving: 'receiving', recever: 'receiver', tommorow: 'tomorrow', wich: 'which', thru: 'through', perseverence: 'perseverance', persevarance: 'perseverance'
+};
+var IRREG = {
+  teached: 'taught', growed: 'grew', choosed: 'chose', becomed: 'became', thinked: 'thought', buyed: 'bought',
+  feeled: 'felt', maked: 'made', taked: 'took', gived: 'gave', goed: 'went', comed: 'came', runned: 'ran',
+  finded: 'found', knowed: 'knew', losed: 'lost', bringed: 'brought', speaked: 'spoke', falled: 'fell',
+  standed: 'stood', builded: 'built', overcomed: 'overcame', writed: 'wrote'
+};
+var VERBS_BAD_AFTER_MODAL = 'makes|helps|teaches|shapes|builds|leads|shows|gives|causes|forces|becomes|brings|learns|finds|fosters|cultivates|strengthens|creates|provides|offers|reveals|turns|pushes|encourages|requires|allows|faces|gets|takes|goes|comes|needs|wants|has|is|are|was|were|made|taught|learned|built|became|found|grew|gave|took|came|went|showed|helped|shaped|caused|forced|led|overcame|overcomed';
+var BASE_VERBS = 'make|help|teach|shape|build|force|lead|show|give|cause|allow|encourage|create|provide|offer|bring|become|remain|strengthen|cultivate|develop|improve|require|need|want|face|learn|get|take|go|come|find|turn|push|reveal|remind|foster|deepen|inspire|test|change|transform|prepare|have|are|do|were|don\'t|grow';
+var CAUSATIVE = { let: 1, lets: 1, make: 1, makes: 1, made: 1, help: 1, helps: 1, helped: 1, watch: 1, watched: 1, see: 1, saw: 1, hear: 1, have: 1, had: 1, having: 1, letting: 1, making: 1, helping: 1 };
+var SUBORD = { when: 1, if: 1, although: 1, though: 1, because: 1, while: 1, since: 1, as: 1, after: 1, before: 1, once: 1, whenever: 1, unless: 1, until: 1, whereas: 1, even: 1,
+  'in': 1, on: 1, at: 1, by: 1, through: 1, throughout: 1, during: 1, 'with': 1, without: 1, from: 1, 'for': 1, to: 1, of: 1, under: 1, over: 1, despite: 1, within: 1, among: 1, between: 1, upon: 1, like: 1, instead: 1, rather: 1, according: 1, given: 1, beyond: 1, across: 1, along: 1, toward: 1, towards: 1, against: 1, 'for': 1 };
+
+/* ---------- general grammar / conventions checker ---------- */
+function grammarCheck(text, opts) {
+  opts = opts || {};
+  var out = [], seen = {};
+  function add(lvl, en, cn, ex) {
+    var k = lvl + en + ex;
+    if (seen[k]) return; seen[k] = 1;
+    out.push(I(lvl, en, cn, ex));
+  }
+  var raw = normQ(text).replace(/\s+/g, ' ').trim();
+  if (!raw) return out;
+  var g = prepGrammar(text);
+  var sents = splitSentences(g);
+
+  /* raw-level checks */
+  if ((raw.match(/"/g) || []).length % 2 === 1) add('err', 'Quotation marks do not match. Every opening " needs a closing ".', '引号不成对，每个开头的引号都需要一个结尾的引号。');
+  if ((raw.match(/\(/g) || []).length !== (raw.match(/\)/g) || []).length) add('err', 'Parentheses do not match. Check your ( and ).', '括号不成对，请检查 ( 和 )。');
+  if (!/[.!?]["')\]]*$/.test(raw)) add('err', 'End your writing with a period (.), question mark (?) or exclamation mark (!).', '句子结尾需要句号、问号或感叹号。');
+  scan(raw, /[A-Za-z],[A-Za-z]/, function (m) { add('err', 'Add a space after the comma.', '逗号后面要加空格。', m[0]); });
+  scan(raw, /[a-z][.!?][A-Z]/, function (m) { add('err', 'Add a space after the period.', '句号后面要加空格。', m[0]); });
+  scan(raw, / [,;:]/, function (m) { add('err', 'Do not put a space before a comma, semicolon or colon.', '逗号、分号、冒号前面不要加空格。', m[0]); });
+  scan(raw, /,,|;;|::|\.\.(?!\.)|,\.|\.,/, function (m) { add('err', 'Extra punctuation. Use only one.', '标点符号重复了，只用一个。', m[0]); });
+
+  /* sentence-level checks */
+  sents.forEach(function (s) {
+    var fl = s.match(/[A-Za-z]/);
+    if (fl && fl[0] === fl[0].toLowerCase() && !/^\d/.test(s)) add('err', 'Every sentence must start with a capital letter.', '每个句子必须以大写字母开头。', s.split(' ').slice(0, 4).join(' ') + '…');
+    var first = s.split(/\s+/)[0].replace(/[^A-Za-z]/g, '').toLowerCase();
+    var tm = s.match(/^(However|Therefore|Moreover|Furthermore|Additionally|Consequently|Similarly|Likewise|Ultimately|Finally|Overall|Nevertheless|Meanwhile|Indeed|Specifically|Besides|Otherwise|Instead)\s+(?!,)(\w+)/);
+    if (tm && !(tm[1] === 'Instead' && tm[2].toLowerCase() === 'of')) add('err', 'Put a comma after the transition word "' + tm[1] + '".', '过渡词 "' + tm[1] + '" 后面要加逗号。', tm[1] + ' ' + tm[2] + '…');
+    var tm2 = s.match(/^(For example|For instance|In addition|In conclusion|In contrast|On the other hand|As a result|In fact|In other words|In summary|To sum up)\s+(?![,])(\w+)/i);
+    if (tm2 && !/^(to|of)$/i.test(tm2[2])) add('err', 'Put a comma after "' + tm2[1] + '".', '"' + tm2[1] + '" 后面要加逗号。', tm2[1] + ' ' + tm2[2] + '…');
+    var n = wc(s);
+    if (n > 35) add('warn', 'This sentence is very long (' + n + ' words). Try splitting it into two sentences.', '这个句子太长了（' + n + ' 个词），试着分成两句。', s.split(' ').slice(0, 6).join(' ') + '…');
+    if (/^(And|But|So|Also)\b/.test(s)) add('warn', 'Avoid starting a sentence with "' + s.split(' ')[0] + '" in academic writing.', '学术写作中避免用 "' + s.split(' ')[0] + '" 开头。', s.split(' ').slice(0, 4).join(' ') + '…');
+    if (/^(Because|Although|When|While|If|Since|Though|Whenever|Unless)\b/.test(s) && s.indexOf(',') === -1 && n <= 9) add('warn', 'This may be a fragment. A "' + s.split(' ')[0] + '" clause needs a main clause too.', '这可能是不完整的句子。以 "' + s.split(' ')[0] + '" 开头的从句还需要主句。', s);
+    /* comma splice (warning) */
+    var cs = s.match(/^(.{25,}?), (it|he|she|they|we|this|that|these|those|there|people|kindness) (is|are|was|were|has|have|had|can|could|will|would|[a-z]+s|[a-z]+ed)\b/);
+    if (cs && !SUBORD[first] && !/ing$/.test(first) && cs[1].indexOf(',') === -1) add('warn', 'Possible comma splice: two full sentences joined only by a comma. Use a period, or add "and" / "but".', '可能是逗号连接错误：两个完整句子只用逗号连接。请用句号，或加 and / but。', cs[1].split(' ').slice(-3).join(' ') + ', ' + cs[2] + ' …');
+  });
+
+  /* repeated words */
+  scan(g, /\b([A-Za-z]+)\s+\1\b/i, function (m) {
+    var w = m[1].toLowerCase();
+    if (w === 'had' || w === 'that' || w === 'quote') return;
+    add('err', 'Repeated word: "' + m[0] + '".', '单词重复了："' + m[0] + '"。', m[0]);
+  });
+
+  /* lowercase i */
+  scan(g, /\bi\b/, function (m) { add('err', 'Write "I" with a capital letter.', '"I" 必须大写。', m[0]); });
+
+  /* a / an */
+  scan(g, /\b(a)\s+([aeiou][A-Za-z]*)/i, function (m) {
+    var w = m[2];
+    if (/^u/i.test(w) || /^eu/i.test(w) || /^(one|once)$/i.test(w)) return;
+    if (w.length > 1 && w === w.toUpperCase()) return;
+    add('err', 'Use "an" before "' + w + '" (it starts with a vowel sound).', '"' + w + '" 以元音音素开头，前面要用 "an"。', m[0]);
+  });
+  scan(g, /\b(an)\s+([bcdfgjklmnpqrstvwyz][A-Za-z]*)/i, function (m) {
+    var w = m[2];
+    if (/^h(our|onest|onor|onour|eir)/i.test(w)) return;
+    if (w.length > 1 && w === w.toUpperCase()) return;
+    add('err', 'Use "a" before "' + w + '" (it starts with a consonant sound).', '"' + w + '" 以辅音音素开头，前面要用 "a"。', m[0]);
+  });
+  scan(g, /\ban\s+(uni\w*|use\w*|usual\w*|euro\w*)\b/i, function (m) { add('err', 'Use "a" before "' + m[1] + '" (it starts with a "y" sound).', '"' + m[1] + '" 读音以 y 开头，前面要用 "a"。', m[0]); });
+  scan(g, /\ba\s+(hour|honest|honor|honour|heir)\w*\b/i, function (m) { add('err', 'Use "an" before "' + m[1] + '" (silent h).', '"' + m[1] + '" 的 h 不发音，前面要用 "an"。', m[0]); });
+
+  /* uncountable nouns */
+  scan(g, /\ban?\s+(evidence|information|advice|knowledge|research|homework|feedback|equipment|furniture|progress)\b/i, function (m) { add('err', '"' + m[1] + '" cannot be counted. Do not use "a/an". Say "a piece of ' + m[1] + '" or just "' + m[1] + '".', '"' + m[1] + '" 是不可数名词，不能用 a/an。可以说 a piece of ' + m[1] + '。', m[0]); });
+  scan(g, /\b(evidences|informations|advices|knowledges|homeworks|feedbacks|equipments|furnitures|childrens|peoples)\b/i, function (m) { add('err', '"' + m[1] + '" is not correct English. Check the plural form.', '"' + m[1] + '" 形式不正确，请检查复数形式。', m[1]); });
+
+  /* spelling + irregular verbs */
+  wordList(g).forEach(function (w) {
+    var lw = w.toLowerCase();
+    if (Object.prototype.hasOwnProperty.call(MISSPELL, lw)) add('err', 'Spelling: "' + w + '" → "' + MISSPELL[lw] + '".', '拼写错误："' + w + '" → "' + MISSPELL[lw] + '"。', w);
+    if (Object.prototype.hasOwnProperty.call(IRREG, lw)) add('err', 'Wrong past tense: "' + w + '" → "' + IRREG[lw] + '".', '过去式错误："' + w + '" → "' + IRREG[lw] + '"。', w);
+  });
+
+  /* subject-verb agreement */
+  var re1 = new RegExp('(?:\\b(\\w+)\\s+)?\\b(he|she|it|kindness|generosity|compassion|everyone|everybody|someone|anyone|volunteering|service)\\s+(' + BASE_VERBS + ')\\b', 'ig');
+  scan(g, re1, function (m) {
+    var prev = (m[1] || '').toLowerCase();
+    if (CAUSATIVE[prev] && /^(he|she|it)$/i.test(m[2])) return;
+    if (CAUSATIVE[prev] && /^(kindness|generosity|compassion|volunteering|service)$/i.test(m[2])) return;
+    add('err', 'Subject-verb agreement: after "' + m[2] + '" the verb needs -s (e.g. "' + m[2] + ' ' + m[3] + 's").', '主谓一致：主语 "' + m[2] + '" 是单数，动词要加 -s（如 ' + m[3] + 's）。', m[2] + ' ' + m[3]);
+  });
+  scan(g, /\b(everyone|everybody|someone|anyone|nobody)\s+(are|were|have|do)\b/i, function (m) { add('err', '"' + m[1] + '" is singular. Use is/was/has/does.', '"' + m[1] + '" 是单数，要用 is/was/has/does。', m[0]); });
+  scan(g, /(?:\b([A-Za-z]+)\s+)?\b(they|we|you|people|volunteers|neighbors|givers|receivers|children|communities|individuals|students|acts)\s+(is|was|has|does|doesn't|makes|helps|teaches|shapes|builds|leads|shows|gives|causes|forces|becomes|brings|learns|finds|fosters|cultivates|strengthens|creates|provides|offers|reveals|turns|pushes|encourages|requires|allows|faces|gets|takes|goes|comes|needs|wants)\b/i, function (m) {
+    if (m[1] && /^(makes|helps|teaches|shapes|builds|leads|shows|gives|causes|forces|brings|learns|finds|fosters|creates|provides|offers|reveals|turns|pushes|encourages|requires|allows|gets|takes|changes|benefits|inspires|lets|sees|connects|unites|reminds|joins|helped|made|let|help|make)$/i.test(m[1])) return;
+    add('err', 'Subject-verb agreement: "' + m[2] + '" is plural, so "' + m[3] + '" is not correct.', '主谓一致："' + m[2] + '" 是复数，"' + m[3] + '" 不正确。', m[2] + ' ' + m[3]);
+  });
+  scan(g, new RegExp('\\b(can|could|will|would|should|must|might|may|did|didn\'t|does|doesn\'t|do|don\'t)\\s+(?:not\\s+)?(' + VERBS_BAD_AFTER_MODAL + ')\\b', 'i'), function (m) {
+    if (/^(does|doesn't|do|don't)$/i.test(m[1]) && /^(is|are|was|were)$/i.test(m[2]) ) return;
+    add('err', 'After "' + m[1] + '" use the base verb (no -s, no -ed).', '"' + m[1] + '" 后面要用动词原形（不加 -s 或 -ed）。', m[0]);
+  });
+  scan(g, /\b(this)\s+(acts|favors|volunteers|neighbors|communities|givers|receivers|examples|experiences|people|lessons|ways|things|benefits|children)\b/i, function (m) { add('err', 'Use "these" with plural nouns: "these ' + m[2] + '".', '复数名词前要用 these："these ' + m[2] + '"。', m[0]); });
+  scan(g, /\b(many|several|these|those|numerous|various|multiple|few|two|three|four|five)\s+(?:[a-z]+\s+)?(person|act|favor|volunteer|neighbor|community|giver|receiver|example|experience|student|problem|lesson|quality|way|thing|reason|effect|benefit|story|gift|hour|panel)\b/i, function (m) { add('err', 'Use the plural noun after "' + m[1] + '": "' + m[2] + 's".', '"' + m[1] + '" 后面要用复数名词："' + m[2] + 's"。', m[0]); });
+  scan(g, /\bone of the (?:(?:most|very|many)\s+)?(?:[a-z]+\s+)?(effect|way|reason|thing|benefit|result|example|lesson|quality|trait|act|favor|volunteer|gift|experience|giver|neighbor|person|aspect|outcome|factor)\b/i, function (m) { add('err', 'After "one of the" use a plural noun: "' + m[1] + 's".', '"one of the" 后面要用复数名词："' + m[1] + 's"。', m[0]); });
+
+  /* common ESL errors */
+  scan(g, /\bin the other hand\b/i, function (m) { add('err', 'Say "on the other hand".', '应该说 on the other hand。', m[0]); });
+  scan(g, /\bdiscuss about\b/i, function (m) { add('err', '"Discuss" does not need "about".', 'discuss 后面不需要加 about。', m[0]); });
+  scan(g, /\baccording (?!to\b)/i, function (m) { add('err', 'Say "according to".', '应该说 according to。', m[0]); });
+  scan(g, /\b(make|makes|made|let|lets)\s+(us|them|him|her|people|students)\s+to\b/i, function (m) { add('err', 'Do not use "to" after "' + m[1] + ' ' + m[2] + '". Say "' + m[1] + ' ' + m[2] + ' grow".', '"' + m[1] + ' ' + m[2] + '" 后面不加 to。', m[0]); });
+  scan(g, /\b(can|could|will)\s+able\b/i, function (m) { add('err', 'Say "can" OR "be able to", not both.', 'can 和 be able to 不能一起用。', m[0]); });
+  scan(g, /\btheir (is|are|was|were)\b|\bthere (own|selves)\b/i, function (m) { add('err', 'there / their mix-up. "their" = belongs to them; "there" = place or "there is".', 'there / their 用混了。their = 他们的；there = 那里 / there is。', m[0]); });
+  scan(g, /\bits (a|an|the|not|very|important|hard|easy|time|true|clear|been)\b/i, function (m) { add('err', '"its" = belongs to it. "it\'s" = "it is". Here you need "it is" (no contractions: write "it is").', 'its 是"它的"；这里需要 it is（学术写作不用缩写）。', m[0]); });
+  scan(g, /\b(more|less|better|stronger|greater|deeper|worse|rather|other)\s+then\b/i, function (m) { add('err', 'Use "than" for comparing, not "then".', '比较时用 than，不是 then。', m[0]); });
+  scan(g, /\b(more|most)\s+(stronger|better|bigger|smaller|wiser|taller|happier|easier|harder|deeper|greater|faster|higher|lower|older|younger|worse|kinder|braver|stronger)\b/i, function (m) { add('err', 'Do not use "' + m[1] + '" with "' + m[2] + '". Use only "' + m[2] + '".', '"' + m[2] + '" 已经是比较级，不要再加 ' + m[1] + '。', m[0]); });
+  var NAMEFIX = { wilde: 'Wilde', dickinson: 'Dickinson', oscar: 'Oscar', emily: 'Emily', americorps: 'AmeriCorps', giant: 'Giant' };
+  scan(g, /\b(wilde|dickinson|oscar|emily|americorps)\b/, function (m) { add('err', 'Names need a capital letter: "' + NAMEFIX[m[1]] + '".', '人名首字母要大写："' + NAMEFIX[m[1]] + '"。', m[1]); });
+
+  /* academic style */
+  scan(g, /\b[A-Za-z]+(?:n't|'ll|'re|'ve|'m|'d)\b|\b(?:it|that|there|here|what|let|he|she|who|where|how)'s\b/i, function (m) { add('err', 'No contractions in academic writing. Write the full words ("' + m[0] + '" → write both words).', '学术写作不要用缩写，请写完整（"' + m[0] + '"）。', m[0]); });
+  scan(g, /\b(i think|i believe|i feel|i know|in my opinion|in my view|i will|i would like|i am going to|i'm going to|in this essay|this essay will|my thesis|i want to|let me)\b/i, function (m) { add('err', 'Do not talk about yourself or the essay ("' + m[0] + '"). State your idea directly.', '不要谈论自己或这篇文章（"' + m[0] + '"），直接陈述你的观点。', m[0]); });
+  if (!opts.allowYou) scan(g, /\b(you|your|yours)\b/i, function (m) { add('warn', 'Avoid "' + m[1] + '" in academic writing. Use "people", "we" or "individuals".', '学术写作中避免用 "' + m[1] + '"，可以用 people / we / individuals。', m[0]); });
+  scan(g, /\b(kinda|sorta|gonna|wanna|gotta|stuff|lots of|a lot of|a lot|really|super|totally|basically|huge|awesome|cool|tons of|kids|guys|okay|etc)\b/i, function (m) { add('warn', 'Too informal: "' + m[1] + '". Choose a more academic word.', '用词太口语化："' + m[1] + '"。请换成更正式的词。', m[1]); });
+  scan(g, /\b(since the (beginning|dawn) of time|in today's society|webster|dictionary (defines|says))\b/i, function (m) { add('warn', 'This opening is a cliché. Try something more original.', '这个开头太俗套了，试试更有新意的写法。', m[0]); });
+  scan(g, /, (however|moreover|furthermore|consequently|nevertheless)\s+(?!,)/i, function (m) { add('err', 'Comma splice: do not join two sentences with a comma + "' + m[1] + '". Use a period or semicolon before it.', '逗号连接错误：不要用 逗号 + ' + m[1] + ' 连接两个句子，请在它前面用句号或分号。', m[0] + '…'); });
+
+  return out;
+}
+
+/* ---------- parallelism ---------- */
+function headWord(item, verbMode) {
+  var s = item.trim().toLowerCase();
+  var strip = /^(a|an|the|more|greater|deeper|stronger|increased|our|their|his|her|its|and|also)\s+/;
+  while (strip.test(s)) s = s.replace(strip, '');
+  if (/^to\s/.test(s)) return 'to';
+  return (s.match(/^[a-z']+/) || [''])[0];
+}
+function classOf(head, verbMode) {
+  if (head === 'to') return 'to-infinitive';
+  if (/ing$/.test(head) && head.length > 4 && !/^(thing|string|spring|bring|during|morning|evening|ceiling|nothing|something|anything|everything)$/.test(head)) return '-ing';
+  if (/ed$/.test(head) && head.length > 4 && !/(eed|hundred|sacred|kindred)$/.test(head)) return '-ed';
+  if (/ly$/.test(head) && head.length > 4) return '-ly';
+  if (verbMode && /[^s]s$/.test(head) && !/(ness|ous|ics|us|is)$/.test(head)) return 'verb-s';
+  return 'base';
+}
+function parallelCheck(heads, classes) {
+  var first = classes[0];
+  for (var i = 1; i < classes.length; i++) if (classes[i] !== first) return false;
+  return true;
+}
+
+/* ---------- thesis point extraction ---------- */
+function thesisPoints(t) {
+  var s = normQ(t).replace(/\s+/g, ' ').trim().replace(/[.!?]+$/, '');
+  var parts = s.split(/\s*,\s*/);
+  var verbMode = false;
+  var first = parts[0];
+  var re = /(?:\sby\s|\sthrough\s|\sinto\s|\sthrough\s|\svia\s|\stoward\s|:\s|\s-\s|\sas\s)/gi, m, last = null;
+  while ((m = re.exec(first))) last = m;
+  var item1;
+  if (last) item1 = first.slice(last.index + last[0].length);
+  else {
+    verbMode = true;
+    item1 = first.replace(/^(acts of kindness|acts of giving|acts of service|acts of generosity|kindness|helping others|helping people|helping|volunteering|giving|generosity|compassion|community service|service|volunteers)\s+/i, '');
+  }
+  var items = [];
+  if (parts.length >= 3) items = [item1].concat(parts.slice(1));
+  else if (parts.length === 2) {
+    var m2 = parts[1].match(/^(.*?)\s+and\s+(.*)$/i);
+    items = m2 ? [item1, m2[1], m2[2]] : [item1, parts[1]];
+  } else {
+    var sp = item1.split(/\s+and\s+/i);
+    items = sp;
+  }
+  items = items.map(function (x) { return x.replace(/^(and|or)\s+/i, '').trim(); }).filter(Boolean);
+  var heads = items.map(function (x) { return headWord(x); });
+  var classes = heads.map(function (h) { return classOf(h, verbMode); });
+  return { items: items, heads: heads, classes: classes, verbMode: verbMode };
+}
+
+var STOP_STEMS = { greater: 1, deeper: 1, stronger: 1, simple: 1, everyday: 1, small: 1, little: 1, daily: 1, being: 1, becoming: 1, having: 1, others: 1, people: 1, other: 1 };
+function stemsOf(phrase) {
+  var ws = wordList(phrase).map(function (w) { return w.toLowerCase(); });
+  var c = ws.filter(function (w) { return w.length >= 5 && !/ing$/.test(w) && !STOP_STEMS[w]; });
+  if (!c.length) c = ws.filter(function (w) { return w.length >= 4 && !STOP_STEMS[w]; });
+  if (!c.length && ws.length) c = [ws[ws.length - 1]];
+  return c.map(function (w) { return w.slice(0, 5); });
+}
+function hasStem(text, stems) {
+  var t = normCmp(text);
+  for (var i = 0; i < stems.length; i++) if (t.indexOf(stems[i]) > -1) return true;
+  return false;
+}
+function stemIndex(text, stems) {
+  var t = normCmp(text), best = -1;
+  for (var i = 0; i < stems.length; i++) { var k = t.indexOf(stems[i]); if (k > -1 && (best === -1 || k < best)) best = k; }
+  return best;
+}
+
+/* ---------- plan check ---------- */
+function checkPlan(points, notes) {
+  var items = [];
+  var ok3 = true;
+  points.forEach(function (p, i) {
+    var t = p.trim();
+    if (!t) { items.push(I('err', 'Point ' + (i + 1) + ' is empty.', '要点 ' + (i + 1) + ' 还没写。')); ok3 = false; return; }
+    if (wc(t) > 6) items.push(I('err', 'Point ' + (i + 1) + ' is too long. Use 1 to 4 words (a short phrase, not a sentence).', '要点 ' + (i + 1) + ' 太长了，请用 1–4 个词的短语，不要写句子。', t));
+    if (/[.!?]$/.test(t)) items.push(I('warn', 'Point ' + (i + 1) + ': a phrase does not need a period.', '要点 ' + (i + 1) + '：短语不需要句号。', t));
+  });
+  if (points.every(function (p) { return p.trim(); })) {
+    var st = points.map(function (p) { return stemsOf(p)[0]; });
+    if (st[0] === st[1] || st[1] === st[2] || st[0] === st[2]) items.push(I('err', 'Your 3 points must be 3 different ideas.', '三个要点必须是三个不同的想法。'));
+    var heads = points.map(function (p) { return headWord(p); });
+    var cl = heads.map(function (h) { return classOf(h, false); });
+    if (!parallelCheck(heads, cl)) items.push(I('err', 'Your 3 points are not parallel (same grammar form). You have: ' + heads.join(' / ') + '. Make all three the same type, for example all nouns or all -ing words.', '三个要点语法形式不一致（不平行）：' + heads.join(' / ') + '。请统一，例如全部用名词或全部用 -ing 形式。'));
+    else items.push(I('ok', 'Your 3 points are parallel: ' + heads.join(' / ') + '.', '三个要点形式一致（平行）：' + heads.join(' / ') + '。'));
+  }
+  notes.forEach(function (n, i) {
+    if (n.trim().length < 5) { items.push(I('err', 'Evidence idea ' + (i + 1) + ': write which text (Article, Story, Poem or Infographic) and what idea you will use.', '证据想法 ' + (i + 1) + '：写下你要用哪篇材料（Article / Story / Poem / Infographic）以及什么内容。')); }
+  });
+  return items;
+}
+
+/* ---------- citations & quotes ---------- */
+function parseCitations(text) {
+  var t = normQ(text), res = [], re = /\(([^)]*)\)/g, m;
+  while ((m = re.exec(t))) {
+    var inner = m[1].trim();
+    var c = { raw: m[0], inner: inner, kind: null, ok: false, a: null, b: null };
+    var ids = Object.keys(CITE);
+    for (var i = 0; i < ids.length && !c.kind; i++) {
+      var mm = inner.match(citeRegex(ids[i]));
+      if (mm) {
+        c.kind = ids[i]; c.ok = true;
+        if (mm[1]) {
+          c.a = +mm[1]; c.b = mm[2] ? +mm[2] : c.a;
+          c.ok = c.a >= 1 && c.b <= SRC[c.kind].length && c.b >= c.a;
+          if (!c.ok) c.reason = 'range';
+        } else if (CITE[c.kind].required) { c.ok = false; c.reason = 'missing'; }
+      }
+    }
+    if (!c.kind) {
+      for (var j = 0; j < ids.length && !c.kind; j++) if (CITE[ids[j]].loose.test(inner)) { c.kind = ids[j]; c.reason = 'format'; }
+    }
+    res.push(c);
+  }
+  return res;
+}
+function extractQuotes(text) {
+  var t = normQ(text).replace(/\([^)]*\)/g, ' '), res = [], re = /"([^"]+)"/g, m;
+  while ((m = re.exec(t))) res.push(m[1]);
+  return res;
+}
+function quoteSegments(q) {
+  return q.split(/\.\s?\.\s?\.|…|\[[^\]]*\]|\//).map(trim).filter(function (x) { return normCmp(x).length > 0; });
+}
+function findInUnits(units, segs, maxLen, prefer) {
+  var norm = units.map(normCmp), lo = 99, hi = 0;
+  for (var k = 0; k < segs.length; k++) {
+    var sn = ' ' + normCmp(segs[k]) + ' ', first = null, pick = null;
+    for (var len = 0; len <= maxLen && len < norm.length; len++) {
+      for (var s = 0; s + len < norm.length; s++) {
+        var joined = ' ' + norm.slice(s, s + len + 1).join(' ') + ' ';
+        if (joined.indexOf(sn) > -1) {
+          var hit = { a: s + 1, b: s + len + 1 };
+          if (!first) first = hit;
+          if (!pick && prefer && hit.a >= prefer.a && hit.b <= prefer.b) pick = hit;
+        }
+      }
+    }
+    var h = pick || first;
+    if (!h) return null;
+    lo = Math.min(lo, h.a); hi = Math.max(hi, h.b);
+  }
+  return { a: lo, b: hi };
+}
+function findInSource(id, segs, prefer) {
+  var w = CITE[id].word;
+  return findInUnits(SRC[id], segs, w === 'line' ? 99 : (w === 'panel' ? 0 : 1), prefer);
+}
+function unitNoun(id) { return CITE[id].word === 'line' ? 'line' : (CITE[id].word === 'panel' ? 'panel' : 'paragraph'); }
+function unitNouns(id) { return unitNoun(id) + 's'; }
+function srcLabel(id) { return CITE[id].noun; }
+
+function checkEvidence(text) {
+  var items = [], info = { cite: null, quotes: [] };
+  var tn = normQ(text).trim();
+  var cites = parseCitations(text);
+  if (cites.length === 0) {
+    items.push(I('err', 'Missing MLA in-text citation. End with the correct citation for your source: ' + citeExamples(), '缺少 MLA 文内引用。请按来源写引用：' + citeExamples()));
+  } else if (cites.length > 1) {
+    items.push(I('err', 'Use ONE piece of evidence per box (one citation). Put your next piece in the next box.', '每个框只放一条证据（一个引用）。下一条请放到下一个框。'));
+  } else {
+    var c = cites[0]; info.cite = c;
+    if (!c.ok) {
+      var sp = c.kind ? CITE[c.kind] : null;
+      if (c.reason === 'range') items.push(I('err', 'The ' + unitNoun(c.kind) + ' number must be between 1 and ' + SRC[c.kind].length + ' (the ' + sp.noun + ' has ' + SRC[c.kind].length + ' ' + unitNouns(c.kind) + ').', unitNoun(c.kind) + ' 编号必须在 1 到 ' + SRC[c.kind].length + ' 之间。', c.raw));
+      else if (c.reason === 'missing') items.push(I('err', 'The ' + sp.noun + ' needs a ' + unitNoun(c.kind) + ' number in the citation. Example: ' + citeStr(c.kind, 2), '这篇材料的引用必须写 ' + unitNoun(c.kind) + ' 编号。例如：' + citeStr(c.kind, 2), c.raw));
+      else if (c.kind) items.push(I('err', 'The citation format for the ' + sp.noun + ' is wrong. Use ' + citeStr(c.kind) + (sp.required ? '' : ' or ' + citeStr(c.kind, 3)) + (sp.required ? ' with a number, e.g. ' + citeStr(c.kind, 2) : '') + '. No year, no first name, no "p."', sp.noun + ' 的引用格式不对。应为 ' + citeStr(c.kind) + (sp.required ? '，并加编号，如 ' + citeStr(c.kind, 2) : ' 或 ' + citeStr(c.kind, 3)) + '。不要写年份、名字或 p.。', c.raw));
+      else items.push(I('err', 'This citation is not MLA format for any of the four passages. Examples: ' + citeExamples(), '这个引用不是任何一篇材料的 MLA 格式。示例：' + citeExamples(), c.raw));
+    }
+    if (/[.!?]["']?\s*\(/.test(tn)) items.push(I('err', 'The period goes AFTER the citation, not before it. Correct: ... words" ' + (c.kind ? citeStr(c.kind, 2) : '(Wilde, par. 2)') + '.', '句号要放在引用括号的后面，不是前面。'));
+    else if (!/\)\s*[.!?]$/.test(tn)) items.push(I('err', 'Put the citation at the very end of the sentence, then the period.', '引用要放在句子最后，然后再加句号。'));
+  }
+  if (/^"/.test(tn)) items.push(I('err', 'Do not start with a quotation. Introduce it first, e.g. Wilde writes, "..."', '不要直接用引文开头，先用一个引入语，例如 Wilde writes, "..."。'));
+  if (countSentences(text) > 3) items.push(I('warn', 'This evidence box has many sentences. One idea + one quote is enough.', '这个证据框句子太多，一个想法加一条引文就够了。'));
+  var quotes = extractQuotes(text);
+  info.quotes = quotes;
+  quotes.forEach(function (q) {
+    var segs = quoteSegments(q);
+    if (!segs.length) return;
+    var qw = wc(q);
+    if (qw > 30) items.push(I('warn', 'This quotation is long (' + qw + ' words). Use only the key words.', '引文太长（' + qw + ' 个词），只引用关键部分。', q.slice(0, 40) + '…'));
+    var c2 = info.cite;
+    if (!c2 || !c2.kind) return;
+    var here = findInSource(c2.kind, segs, c2.ok && c2.a != null ? { a: c2.a, b: c2.b } : null);
+    var short = q.slice(0, 50) + (q.length > 50 ? '…' : '');
+    if (here) {
+      if (c2.ok && c2.a != null && (c2.a > here.a || c2.b < here.b)) items.push(I('err', 'Wrong ' + unitNoun(c2.kind) + ' number. This quote is in ' + locWord(CITE[c2.kind], here.a, here.b) + ', so cite ' + citeStr(c2.kind, here.a, here.b) + '.', unitNoun(c2.kind) + ' 编号不对。这条引文在 ' + locWord(CITE[c2.kind], here.a, here.b) + '，应写 ' + citeStr(c2.kind, here.a, here.b) + '。', c2.raw));
+    } else {
+      var other = null, otherId = null;
+      Object.keys(CITE).forEach(function (id) { if (!other && id !== c2.kind) { var r = findInSource(id, segs); if (r) { other = r; otherId = id; } } });
+      if (other) items.push(I('err', 'This quote is from the ' + srcLabel(otherId).toUpperCase() + ', but you cited the ' + srcLabel(c2.kind) + '. Cite it as ' + citeStr(otherId, other.a, other.b) + '.', '这条引文来自' + srcLabel(otherId) + '，但你用了' + srcLabel(c2.kind) + '的引用。应写成 ' + citeStr(otherId, other.a, other.b) + '。', short));
+      else items.push(I('err', 'Your quotation does not match the ' + srcLabel(c2.kind) + ' exactly. Copy the words exactly (use [ ] for changes, ... for missing words' + (CITE[c2.kind].word === 'line' ? ', and / for a line break' : '') + ').', '你的引文与原文不完全一致。请逐字照抄（改动用 [ ]，省略用 ...' + (CITE[c2.kind].word === 'line' ? '，换行用 /' : '') + '）。', short));
+    }
+  });
+  if (!quotes.length && info.cite) items.push(I('ok', 'No quotation marks: this is a paraphrase. Make sure the meaning stays the same and the idea is still cited.', '没有引号：这是转述。请确保意思不变，并保留引用。'));
+  return { items: items, info: info };
+}
+
+/* ---------- section/part checkers ---------- */
+var TOPIC_RE = /kind|help|giv|gave|generos|volunteer|service|serve|compassion|caring|donat|community|neighbor|support/i;
+var ANSWER_RE = /benefit|change|transform|strengthen|improve|enrich|heal|build|creat|bring|inspir|teach|giver|receiv|both|gain|better|stronger|happier|connect|grow|reward|joy|purpose/i;
+var CLOSER_RE = /kind|help|giv|generos|volunteer|service|community|giver|receiv|benefit/i;
+var SYNTH_RE = /\b(both|together|combined|combine|similarly|likewise|also|in the same way|just as|reinforce|reinforces|complement|complements|whereas|while|each|connect|connects|link|links|same)\b/i;
+
+function jaccard(a, b) {
+  var A = {}, B = {}, i, inter = 0, uni = 0;
+  normCmp(a).split(' ').forEach(function (w) { A[w] = 1; });
+  normCmp(b).split(' ').forEach(function (w) { B[w] = 1; });
+  for (i in A) { uni++; if (B[i]) inter++; }
+  for (i in B) if (!A[i]) uni++;
+  return uni ? inter / uni : 0;
+}
+function hasCiteOrQuote(t) { return /\([^)]*\)/.test(t) || /["\u201C\u201D]/.test(t); }
+
+function checkThesis(t, ctx) {
+  var items = [];
+  var n = countSentences(t);
+  if (n !== 1) items.push(I('err', 'The thesis must be ONE sentence (you have ' + n + ').', '论点句必须是一个句子（你写了 ' + n + ' 个）。'));
+  var w = wc(t);
+  if (w < 8) items.push(I('err', 'Your thesis is too short (' + w + ' words). It must answer the prompt AND name your 3 points.', '论点句太短（' + w + ' 个词）。它必须回答题目并列出你的三个要点。'));
+  if (w > 45) items.push(I('warn', 'Your thesis is very long (' + w + ' words). Make it clearer and shorter.', '论点句太长（' + w + ' 个词），请写得更简洁。'));
+  if (hasCiteOrQuote(t)) items.push(I('err', 'No quotations or citations in the thesis. Use your own words.', '论点句里不要有引文或引用，用你自己的话。'));
+  if (!TOPIC_RE.test(t)) items.push(I('err', 'Your thesis must mention the topic: kindness, helping others, giving or generosity.', '论点句必须提到主题：kindness、helping others、giving 或 generosity。'));
+  if (!ANSWER_RE.test(t)) items.push(I('err', 'Answer the prompt: say how kindness BENEFITS or CHANGES the people who give and the people who receive.', '请回答题目：说明善意如何使给予者和接受者受益或改变。'));
+  if (!/giver|receiv|both|people who|those who|others|ourselves|everyone|communit|neighbor|helper|volunteer|children|individual/i.test(t)) items.push(I('warn', 'Your thesis should show WHO benefits: the giver, the receiver, or both.', '论点句最好说明谁受益：给予者、接受者，或两者。'));
+  var tp = thesisPoints(t);
+  if (tp.items.length < 3) items.push(I('err', 'I found only ' + tp.items.length + ' point(s). A 3-point thesis lists 3 ideas: "..., ..., and ...".', '我只找到 ' + tp.items.length + ' 个要点。三点式论点要列出三个想法："..., ..., and ..."。', tp.items.join(' | ')));
+  else if (tp.items.length > 3) items.push(I('err', 'I found ' + tp.items.length + ' points. Use exactly 3.', '我找到了 ' + tp.items.length + ' 个要点，只能是 3 个。', tp.items.join(' | ')));
+  else {
+    if (!parallelCheck(tp.heads, tp.classes)) items.push(I('err', 'Your 3 points are NOT parallel. They start with: ' + tp.heads.join(' / ') + ' (' + tp.classes.join(' / ') + '). Make all three the same grammar form.', '三个要点不平行（语法形式不一致）：' + tp.heads.join(' / ') + '（' + tp.classes.join(' / ') + '）。请统一形式。', tp.items.join(' | ')));
+    else items.push(I('ok', 'Three points found and they are parallel: ' + tp.items.join(' | ') + '.', '找到三个要点，并且形式平行：' + tp.items.join(' | ') + '。'));
+  }
+  if (ctx && ctx.plan) {
+    var idx = [], miss = [];
+    ctx.plan.stems.forEach(function (st, i) { var k = stemIndex(t, st); idx.push(k); if (k < 0) miss.push(ctx.plan.text[i]); });
+    if (miss.length) items.push(I('err', 'Your thesis must include all 3 points from your Plan. Missing: ' + miss.join(', ') + '.', '论点句必须包含你计划中的全部三个要点。缺少：' + miss.join('、') + '。'));
+    else if (!(idx[0] < idx[1] && idx[1] < idx[2])) items.push(I('err', 'Put your points in the SAME ORDER as your body paragraphs: ' + ctx.plan.text.join(' → ') + '.', '要点顺序必须与主体段落顺序一致：' + ctx.plan.text.join(' → ') + '。'));
+  }
+  return items;
+}
+
+function checkPart(box, text, ctx) {
+  var t = text.trim(), items = [], extra = {};
+  if (!t) {
+    if (box.optional) return { items: [], empty: true, extra: extra };
+    return { items: [I('err', 'Write this part before you check.', '请先写完这一部分再检查。')], empty: true, extra: extra };
+  }
+  var ns = countSentences(t);
+  if (/_{2,}/.test(t)) items.push(I('err', 'Replace every blank (____) with your own words.', '请把每一个空格（____）换成你自己的内容。'));
+  var pt = ctx && ctx.pointIndex != null ? ctx.plan.stems[ctx.pointIndex] : null;
+  var pname = ctx && ctx.pointIndex != null ? ctx.plan.text[ctx.pointIndex] : '';
+  switch (box.type) {
+    case 'hook':
+      if (ns !== 1) items.push(I(ns > 2 ? 'err' : 'warn', 'A hook is ONE short sentence (you have ' + ns + ').', '吸引句应该是一个简短的句子（你写了 ' + ns + ' 个）。'));
+      if (wc(t) < 6) items.push(I('warn', 'Your hook is very short. Make it grab the reader\'s attention.', '吸引句太短，要能抓住读者的注意力。'));
+      if (/\([^)]*\)/.test(t)) items.push(I('err', 'No citations in the hook.', '吸引句里不要放引用。'));
+      break;
+    case 'lead':
+      if (ns < 1 || ns > 3) items.push(I('err', 'The lead-in is 1 or 2 sentences (you have ' + ns + ').', '引入句应该是 1–2 句（你写了 ' + ns + ' 句）。'));
+      else if (ns === 3) items.push(I('warn', 'Three sentences is long for a lead-in. Try 1 or 2.', '引入部分三句偏长，试着写 1–2 句。'));
+      if (!TOPIC_RE.test(t)) items.push(I('err', 'The lead-in must introduce the topic: kindness / helping others / giving.', '引入句必须引出主题：kindness / helping others / giving。'));
+      if (hasCiteOrQuote(t)) items.push(I('err', 'No quotations or citations in the lead-in.', '引入句里不要有引文或引用。'));
+      break;
+    case 'thesis':
+      items = items.concat(checkThesis(t, ctx));
+      break;
+    case 'topic':
+      if (ns !== 1) items.push(I('err', 'The topic sentence is ONE sentence (you have ' + ns + ').', '主题句应该是一个句子（你写了 ' + ns + ' 个）。'));
+      if (pt && !hasStem(t, pt)) items.push(I('err', 'Your topic sentence must be about THIS paragraph\'s point from your Plan: "' + pname + '".', '主题句必须围绕你计划中本段的要点："' + pname + '"。'));
+      if (hasCiteOrQuote(t)) items.push(I('err', 'No quotations or citations in the topic sentence. Save evidence for the next boxes.', '主题句里不要有引文或引用，证据放到后面的框里。'));
+      if (ctx.pointIndex > 0 && !/\b(another|second|third|next|finally|in addition|additionally|furthermore|moreover|beyond|similarly|also|lastly|equally)\b/i.test(t)) items.push(I('warn', 'Add a transition so the reader knows this is a new point (e.g. Another, In addition, Finally).', '加一个过渡词，让读者知道这是新的要点（如 Another / In addition / Finally）。'));
+      break;
+    case 'ev':
+      var ev = checkEvidence(t);
+      items = items.concat(ev.items); extra = ev.info;
+      break;
+    case 'synth':
+      if (ns < 1 || ns > 3) items.push(I('err', 'The synthesized explanation is 1 to 3 sentences (you have ' + ns + ').', '综合解释应为 1–3 句（你写了 ' + ns + ' 句）。'));
+      if (hasCiteOrQuote(t)) items.push(I('err', 'No quotations or citations here. Explain in YOUR OWN words.', '这里不要有引文或引用，用你自己的话解释。'));
+      if (!SYNTH_RE.test(t)) items.push(I('err', 'A synthesis connects BOTH pieces of evidence. Use a linking word such as both, together, similarly, also, whereas.', '综合解释要把两条证据联系起来。请用 both / together / similarly / also / whereas 等连接词。'));
+      if (pt && !hasStem(t, pt) && !TOPIC_RE.test(t)) items.push(I('err', 'Tie your explanation back to the point: "' + pname + '".', '请把解释与本段要点联系起来："' + pname + '"。'));
+      if (wc(t) < 15) items.push(I('warn', 'Your explanation is short. Explain HOW the evidence works together, not just what it says.', '解释偏短。请说明证据如何共同支持观点（HOW），不要只复述内容。'));
+      break;
+    case 'closer':
+      if (ns < 1 || ns > 2) items.push(I('err', 'The concluding sentence is 1 sentence (maximum 2). You have ' + ns + '.', '结尾句应为 1 句（最多 2 句）。你写了 ' + ns + ' 句。'));
+      if (hasCiteOrQuote(t)) items.push(I('err', 'No quotations or citations in the concluding sentence.', '结尾句里不要有引文或引用。'));
+      if (!(pt && hasStem(t, pt)) && !CLOSER_RE.test(t)) items.push(I('err', 'Tie back to the thesis: mention kindness / helping others or your point "' + pname + '".', '结尾句要回扣论点：提到 kindness / helping others 或本段要点 "' + pname + '"。'));
+      if (/^\s*in conclusion/i.test(t)) items.push(I('warn', '"In conclusion" is for the last paragraph. Use "Therefore," or "Overall," here.', '"In conclusion" 用于最后一段。这里可以用 Therefore / Overall。'));
+      break;
+    case 'restate':
+      if (ns < 1 || ns > 2) items.push(I('err', 'Restate the thesis in 1 sentence (maximum 2). You have ' + ns + '.', '请用 1 句话重述论点（最多 2 句）。你写了 ' + ns + ' 句。'));
+      if (hasCiteOrQuote(t)) items.push(I('err', 'No quotations or citations in the conclusion.', '结论中不要有引文或引用。'));
+      if (!TOPIC_RE.test(t)) items.push(I('err', 'Mention the topic (kindness / helping others) in your restated thesis.', '重述论点时要提到主题（kindness / helping others）。'));
+      var hits = ctx.plan.stems.filter(function (st) { return hasStem(t, st); }).length;
+      if (hits < 2) items.push(I('err', 'Your restated thesis should still show your 3 points (' + ctx.plan.text.join(', ') + '). Use the same ideas in NEW words.', '重述的论点仍要体现你的三个要点（' + ctx.plan.text.join('、') + '），用新的措辞表达相同的想法。'));
+      if (ctx.thesis && jaccard(t, ctx.thesis) > 0.8) items.push(I('err', 'Too similar to your thesis. Do not copy it. Change the words.', '与你的论点句太相似了，不要照抄，请改写措辞。'));
+      break;
+    case 'wrap':
+      if (ns < 1 || ns > 3) items.push(I('err', 'The wrap-up is 1 to 3 sentences (you have ' + ns + ').', '总结部分应为 1–3 句（你写了 ' + ns + ' 句）。'));
+      if (hasCiteOrQuote(t)) items.push(I('err', 'No new quotations or citations in the conclusion.', '结论中不要出现新的引文或引用。'));
+      if (!ctx.plan.stems.some(function (st) { return hasStem(t, st); })) items.push(I('err', 'Briefly remind the reader of your main points (' + ctx.plan.text.join(', ') + ').', '请简要提醒读者你的主要观点（' + ctx.plan.text.join('、') + '）。'));
+      break;
+    case 'fin':
+      if (ns < 1 || ns > 2) items.push(I('err', 'The final thought is 1 sentence (maximum 2). You have ' + ns + '.', '最后的感想应为 1 句（最多 2 句）。你写了 ' + ns + ' 句。'));
+      if (hasCiteOrQuote(t)) items.push(I('err', 'No quotations or citations in the final thought.', '最后的感想中不要有引文或引用。'));
+      break;
+  }
+  var gr = grammarCheck(t, { allowYou: box.type === 'hook' });
+  return { items: items.concat(gr), empty: false, extra: extra };
+}
+
+/* ---------- node export for tests ---------- */
+if (typeof module !== 'undefined') {
+  module.exports = { setSources: setSources, grammarCheck: grammarCheck, thesisPoints: thesisPoints, checkThesis: checkThesis, checkEvidence: checkEvidence, checkPlan: checkPlan, checkPart: checkPart, stemsOf: stemsOf, parseCitations: parseCitations, countSentences: countSentences, jaccard: jaccard, citeStr: citeStr, findInSource: findInSource };
+}
+
+</script>
+<script>
+(function () {
+'use strict';
+setSources(SOURCES);
+var SRCMAP = {}, SRCIDX = {};
+SOURCES.forEach(function (o, i) { SRCMAP[o.id] = o; SRCIDX[o.id] = i; });
+
+/* ================= CONFIG ================= */
+var PROMPT = PROMPT_TEXT;
+var REQUIRED_PASSAGES = 3;   // exam rule: at least 3 of the 4 passages
+var MIN_ANNOS = 4;
+var BLOCK_PASTE = true;      // set false to allow pasting into writing boxes
+
+var STEPS = [
+  { key: 'read', en: '1 Read', cn: '阅读' },
+  { key: 'quiz', en: '2 Questions', cn: '阅读题' },
+  { key: 'learn', en: '3 Learn', cn: '学习' },
+  { key: 'plan', en: '4 Plan', cn: '计划' },
+  { key: 'intro', en: '5 Intro', cn: '引言' },
+  { key: 'b1', en: '6 Body 1', cn: '主体1' },
+  { key: 'b2', en: '7 Body 2', cn: '主体2' },
+  { key: 'b3', en: '8 Body 3', cn: '主体3' },
+  { key: 'concl', en: '9 Conclusion', cn: '结论' },
+  { key: 'final', en: '10 Final', cn: '终审' }
+];
+var DEPENDS = {
+  plan: ['intro', 'b1', 'b2', 'b3', 'concl', 'final'],
+  intro: ['concl', 'final'], b1: ['final'], b2: ['final'], b3: ['final'], concl: ['final']
+};
+
+/* ================= STATE ================= */
+var passed = {}, attempts = {}, leftover = {}, lastOk = {};
+var texts = {};
+var S = { support: 'starters', stemUses: { full: 0, starters: 0, highlight: 0, chip: 0 }, supportLog: [], leaveCount: 0, seconds: 0, pastes: 0, qAnswers: {}, qDone: 0, qScore: 0, rq: {}, rqDone: 0, rqScore: 0, finalOk: false, finalAttempts: 0, finalNotes: [] };
+var current = 'read';
+var planCtxCache = null;
+
+/* ================= HELPERS ================= */
+function $(id) { return document.getElementById(id); }
+function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+function bi(en, cn, tag, cls) {
+  var d = el(tag || 'div', cls || '');
+  d.appendChild(document.createTextNode(en));
+  if (cn) { d.appendChild(el('br')); d.appendChild(el('span', 'cn', cn)); }
+  return d;
+}
+function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
+function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+function toast(en, cn) {
+  var t = $('toast'); t.textContent = en + ' · ' + cn; t.style.display = 'block';
+  clearTimeout(toast._t); toast._t = setTimeout(function () { t.style.display = 'none'; }, 3500);
+}
+function getName() { return $('nameInput').value.trim(); }
+
+/* ================= PLAN CONTEXT ================= */
+function planInputs() {
+  return [0, 1, 2].map(function (i) { return ($('plan_p' + i) ? $('plan_p' + i).value : '').trim(); });
+}
+function planNotes() {
+  return [0, 1, 2].map(function (i) { return ($('plan_n' + i) ? $('plan_n' + i).value : '').trim(); });
+}
+function planCtx() {
+  var p = planInputs();
+  return { text: p, stems: p.map(stemsOf) };
+}
+
+/* ================= READER + ANNOTATIONS ================= */
+var COLORS = {
+  ev:     { en: 'Evidence', cn: '证据', cls: 'ev' },
+  idea:   { en: 'Answers the prompt', cn: '回答题目', cls: 'idea' },
+  vocab:  { en: 'Unknown word', cn: '生词', cls: 'vocab' },
+  device: { en: 'Literary device', cn: '修辞手法', cls: 'device' }
+};
+var annos = [], annoSeq = 0, reader = null, dockCollapsed = false;
+
+function unitText(src, idx) { return SRCMAP[src].units[idx]; }
+function unitLabel(src, idx) { var k = SRCMAP[src].kind; return k === 'par' ? '¶' + (idx + 1) : (k === 'line' ? 'line ' + (idx + 1) : 'panel ' + (idx + 1)); }
+function citeHint(a) { return citeStr(a.src, a.idx + 1); }
+function srcSort(x, y) { return (SRCIDX[x.src] - SRCIDX[y.src]) || x.idx - y.idx || x.s - y.s; }
+
+function renderUnit(u) {
+  var src = u.dataset.src, idx = +u.dataset.idx, txt = u.querySelector('.txt'), full = unitText(src, idx);
+  clear(txt);
+  var list = annos.filter(function (a) { return a.src === src && a.idx === idx; });
+  var pts = {}; pts[0] = 1; pts[full.length] = 1;
+  list.forEach(function (a) { pts[a.s] = 1; pts[a.e] = 1; });
+  var cuts = Object.keys(pts).map(Number).sort(function (x, y) { return x - y; });
+  for (var i = 0; i < cuts.length - 1; i++) {
+    var from = cuts[i], to = cuts[i + 1], piece = full.slice(from, to);
+    if (!piece) continue;
+    var cover = list.filter(function (a) { return a.s <= from && a.e >= to; });
+    if (!cover.length) { txt.appendChild(document.createTextNode(piece)); continue; }
+    var top = cover[cover.length - 1];
+    var m = el('span', 'mark ' + COLORS[top.color].cls + (cover.some(function (a) { return a.note; }) ? ' hasnote' : ''), piece);
+    m.dataset.ids = cover.map(function (a) { return a.id; }).join(',');
+    txt.appendChild(m);
+  }
+}
+function renderAllUnits() { reader.querySelectorAll('.unit').forEach(renderUnit); }
+
+function buildReader() {
+  reader = el('div', 'reader card');
+  var tabs = el('div', 'tabs2'), panes = {};
+  reader.appendChild(tabs);
+  var lg = el('div', 'legend');
+  Object.keys(COLORS).forEach(function (k) { lg.appendChild(el('span', 'lg-' + COLORS[k].cls, COLORS[k].en + ' ' + COLORS[k].cn)); });
+  reader.appendChild(lg);
+  reader.appendChild(el('div', 'hintline', 'Select words, then pick a colour. Click a highlight to add a note or delete it. · 选中文字后选择颜色；点击标注可添加笔记或删除。'));
+
+  SOURCES.forEach(function (sc, si) {
+    var btn = el('button', si === 0 ? 'on' : '', sc.tab); btn.dataset.src = sc.id; tabs.appendChild(btn);
+    var pane = el('div', 'passage' + (sc.kind === 'line' ? ' poem' : '') + (sc.kind === 'panel' ? ' ig' : '')); pane.dataset.src = sc.id;
+    if (si) pane.style.display = 'none';
+    var holder = pane;
+    if (sc.kind === 'panel') {
+      var wrap = el('div', 'igwrap'), head = el('div', 'igh'); head.appendChild(el('h3', '', sc.title)); head.appendChild(el('div', 'sub', sc.byline));
+      wrap.appendChild(head); holder = el('div', 'igbody'); wrap.appendChild(holder); pane.appendChild(wrap);
+    } else {
+      pane.appendChild(el('h3', '', sc.kind === 'line' ? sc.title : sc.title));
+      pane.appendChild(el('p', 'meta', sc.byline)); pane.lastChild.style.textAlign = 'left';
+    }
+    sc.units.forEach(function (p, i) {
+      var u = el('div', 'unit' + (sc.kind === 'panel' ? ' igp' : '')); u.dataset.src = sc.id; u.dataset.idx = i; u.id = 'u-' + sc.id + '-' + i;
+      u.appendChild(el('span', 'num', sc.kind === 'par' ? '¶' + (i + 1) : (sc.kind === 'line' ? String(i + 1) : String(i + 1))));
+      if (sc.kind === 'panel') {
+        var v = sc.visuals[i]; u.appendChild(el('div', 'igicon', v.icon));
+        var body = el('div', 'igtxt'); body.appendChild(el('span', 'txt'));
+        v.bars.forEach(function (pc, bi2) { var bar = el('div', 'igbar b' + (bi2 + 1)), fill = el('i'); fill.style.width = pc + '%'; bar.appendChild(fill); bar.title = pc + '%'; body.appendChild(bar); });
+        u.appendChild(body);
+      } else u.appendChild(el('span', 'txt'));
+      holder.appendChild(u);
+    });
+    reader.appendChild(pane); panes[sc.id] = pane;
+    btn.addEventListener('click', function () {
+      tabs.querySelectorAll('button').forEach(function (b) { b.className = b === btn ? 'on' : ''; });
+      Object.keys(panes).forEach(function (k) { panes[k].style.display = k === sc.id ? 'block' : 'none'; });
+      hideBar();
+    });
+  });
+  reader._show = function (id) { var b = tabs.querySelector('button[data-src="' + id + '"]'); if (b) b.click(); };
+  var al = el('div', 'annolist'), det = el('details'); det.appendChild(el('summary', '', 'My annotations 我的标注 (0)')); det.id = 'annoDetails';
+  var body2 = el('div'); body2.id = 'annoListBody'; det.appendChild(body2); al.appendChild(det); reader.appendChild(al);
+
+  /* annotation bar buttons */
+  var bar = $('annoBar');
+  Object.keys(COLORS).forEach(function (k) {
+    var b = el('button', 'lg-' + COLORS[k].cls, COLORS[k].en);
+    b.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    b.addEventListener('click', function () { addAnnotationFromSelection(k); });
+    bar.appendChild(b);
+  });
+  reader.addEventListener('mouseup', function () { setTimeout(maybeShowBar, 10); });
+  reader.addEventListener('touchend', function () { setTimeout(maybeShowBar, 300); });
+  reader.addEventListener('keyup', function () { setTimeout(maybeShowBar, 10); });
+  reader.addEventListener('click', function (e) {
+    var m = e.target.closest ? e.target.closest('.mark') : null;
+    if (!m) return;
+    var sel = window.getSelection(); if (sel && !sel.isCollapsed) return;
+    var ids = m.dataset.ids.split(','); openPop(+ids[ids.length - 1], m);
+  });
+  document.addEventListener('mousedown', function (e) {
+    if (!e.target.closest) return;
+    if (!e.target.closest('#annoPop') && !e.target.closest('.mark')) closePop();
+    if (!e.target.closest('#annoBar') && !e.target.closest('.reader')) hideBar();
+  });
+  renderAllUnits(); renderAnnoList();
+}
+
+function hideBar() { $('annoBar').style.display = 'none'; }
+function selectionInfo() {
+  var sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return null;
+  var r = sel.getRangeAt(0);
+  var n1 = r.startContainer.nodeType === 3 ? r.startContainer.parentNode : r.startContainer;
+  var n2 = r.endContainer.nodeType === 3 ? r.endContainer.parentNode : r.endContainer;
+  if (!n1.closest || !n2.closest) return null;
+  var t1 = n1.closest('.txt'), t2 = n2.closest('.txt');
+  if (!t1 || !t2 || t1 !== t2 || !reader.contains(t1)) return { multi: !!(t1 && t2 && t1 !== t2) };
+  var pre = document.createRange(); pre.selectNodeContents(t1);
+  pre.setEnd(r.startContainer, r.startOffset); var s = pre.toString().length;
+  pre.setEnd(r.endContainer, r.endOffset); var e = pre.toString().length;
+  var u = t1.closest('.unit'), full = unitText(u.dataset.src, +u.dataset.idx);
+  while (s < e && /\s/.test(full.charAt(s))) s++;
+  while (e > s && /\s/.test(full.charAt(e - 1))) e--;
+  if (e <= s) return null;
+  return { src: u.dataset.src, idx: +u.dataset.idx, s: s, e: e, range: r };
+}
+function maybeShowBar() {
+  var info = selectionInfo();
+  if (!info) { hideBar(); return; }
+  if (info.multi) { toast('Highlight inside ONE paragraph or line at a time.', '请在同一个段落或同一行内标注。'); hideBar(); return; }
+  var rect = null;
+  try { rect = typeof info.range.getBoundingClientRect === 'function' ? info.range.getBoundingClientRect() : null; } catch (x) { rect = null; }
+  var bar = $('annoBar'); bar.style.display = 'flex';
+  var top = rect && rect.top ? rect.top - 46 : 80, left = rect && rect.left ? rect.left : 20;
+  bar.style.top = Math.max(56, top) + 'px';
+  bar.style.left = Math.max(8, Math.min(left, window.innerWidth - 360)) + 'px';
+}
+function addAnnotationFromSelection(color) {
+  var info = selectionInfo();
+  if (!info || info.multi) { hideBar(); return; }
+  var a = { id: ++annoSeq, src: info.src, idx: info.idx, s: info.s, e: info.e, color: color, note: '' };
+  annos.push(a);
+  var sel = window.getSelection(); if (sel && sel.removeAllRanges) sel.removeAllRanges();
+  hideBar();
+  var u = $('u-' + a.src + '-' + a.idx); renderUnit(u); renderAnnoList(); updateRead();
+  var m = u.querySelector('.mark[data-ids~="' + a.id + '"], .mark[data-ids$="' + a.id + '"]') || u.querySelector('.mark');
+  openPop(a.id, m || u);
+}
+function annoById(id) { for (var i = 0; i < annos.length; i++) if (annos[i].id === id) return annos[i]; return null; }
+function closePop() { $('annoPop').style.display = 'none'; }
+function openPop(id, anchor) {
+  var a = annoById(id); if (!a) return;
+  var pop = $('annoPop'); clear(pop);
+  var full = unitText(a.src, a.idx), q = full.slice(a.s, a.e);
+  pop.appendChild(el('div', 'q', '"' + (q.length > 110 ? q.slice(0, 107) + '…' : q) + '"'));
+  var cols = el('div', 'row');
+  Object.keys(COLORS).forEach(function (k) {
+    var b = el('button', 'lg-' + COLORS[k].cls, COLORS[k].en); if (k === a.color) b.style.outline = '2px solid #1a2a1a';
+    b.addEventListener('click', function () { a.color = k; renderUnit($('u-' + a.src + '-' + a.idx)); renderAnnoList(); openPop(id, anchor); });
+    cols.appendChild(b);
+  });
+  pop.appendChild(cols);
+  var ta = el('textarea'); ta.placeholder = 'Add a note (optional) · 添加笔记（可选）'; ta.value = a.note; ta.setAttribute('autocomplete', 'off');
+  ta.style.marginTop = '8px';
+  wireNoPaste(ta);
+  ta.addEventListener('input', function () { a.note = ta.value; renderUnit($('u-' + a.src + '-' + a.idx)); renderAnnoList(); });
+  pop.appendChild(ta);
+  var c = el('div', 'cite'); c.appendChild(document.createTextNode('If you use this as evidence, cite it as: ')); c.appendChild(el('br')); c.appendChild(el('b', '', citeHint(a)));
+  c.appendChild(el('br')); c.appendChild(el('span', 'cn', '如果用作证据，引用格式如上。'));
+  pop.appendChild(c);
+  var row = el('div', 'row');
+  var done = el('button', '', 'Done 完成'); done.style.background = 'var(--ml-green)'; done.style.color = '#fff'; done.addEventListener('click', closePop);
+  var del = el('button', '', 'Delete 删除'); del.style.background = '#fde1e1'; del.style.color = '#8b1a1a';
+  del.addEventListener('click', function () { annos = annos.filter(function (x) { return x.id !== id; }); renderUnit($('u-' + a.src + '-' + a.idx)); renderAnnoList(); updateRead(); closePop(); });
+  row.appendChild(done); row.appendChild(del); pop.appendChild(row);
+  pop.style.display = 'block';
+  var rect = null; try { rect = anchor.getBoundingClientRect(); } catch (x) { rect = null; }
+  var top = rect ? rect.bottom + 8 : 120, left = rect ? rect.left : 20;
+  if (top + 300 > window.innerHeight) top = Math.max(60, (rect ? rect.top : 200) - 290);
+  pop.style.top = Math.max(56, top) + 'px'; pop.style.left = Math.max(8, Math.min(left, window.innerWidth - 336)) + 'px';
+}
+function renderAnnoList() {
+  var body = $('annoListBody'); if (!body) return; clear(body);
+  var sorted = annos.slice().sort(srcSort);
+  sorted.forEach(function (a) {
+    var it = el('div', 'annoitem');
+    var dot = el('span', 'dot lg-' + COLORS[a.color].cls); it.appendChild(dot);
+    it.appendChild(el('span', 'where', SRCMAP[a.src].short + ' ' + unitLabel(a.src, a.idx)));
+    var full = unitText(a.src, a.idx), q = full.slice(a.s, a.e);
+    var d = el('span', '', '"' + (q.length > 60 ? q.slice(0, 57) + '…' : q) + '"' + (a.note ? ' — ' + a.note : ''));
+    it.appendChild(d);
+    it.addEventListener('click', function () {
+      reader._show(a.src);
+      var u = $('u-' + a.src + '-' + a.idx); u.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      u.classList.add('flash'); setTimeout(function () { u.classList.remove('flash'); }, 1200);
+    });
+    body.appendChild(it);
+  });
+  if (!sorted.length) body.appendChild(el('div', 'meta', 'Nothing yet. · 还没有标注。'));
+  var sum = $('annoDetails').querySelector('summary'); sum.textContent = 'My annotations 我的标注 (' + annos.length + ')';
+}
+function annotationReport() {
+  return annos.slice().sort(srcSort).map(function (a) {
+    var full = unitText(a.src, a.idx);
+    return '[' + COLORS[a.color].en + '] ' + SRCMAP[a.src].short + ' ' + unitLabel(a.src, a.idx) + ': "' + full.slice(a.s, a.e).replace(/\s+/g, ' ') + '"' + (a.note ? ' | Note: ' + a.note : '');
+  });
+}
+
+/* ---- dock placement ---- */
+function wideScreen() { return window.innerWidth >= 1100; }
+function placeReader() {
+  var onRead = current === 'read';
+  var slot = onRead ? $('readSlot') : $('dockBody');
+  if (reader.parentNode !== slot) slot.appendChild(reader);
+  var docked = !onRead && wideScreen() && !dockCollapsed;
+  document.body.classList.toggle('docked', docked);
+  $('dock').classList.toggle('open', !onRead && !wideScreen() && $('dock').classList.contains('open'));
+  $('dockBtn').style.display = onRead ? 'none' : 'block';
+  if (onRead) $('dock').classList.remove('open');
+  hideBar(); closePop();
+}
+function toggleDock() {
+  if (wideScreen()) { dockCollapsed = !dockCollapsed; placeReader(); }
+  else $('dock').classList.toggle('open');
+}
+
+/* ================= QUESTIONS (shared card builder) ================= */
+var QUICK = [
+  { q: 'Which thesis is the best 3-point thesis with parallel points?', qc: '哪一个是最好的、要点平行的三点式论点句？',
+    o: [['Exercise helps students by building strength, to reduce stress, and improvement of focus.', '三个要点形式不同，不平行。'], ['Exercise helps students by building strength, reducing stress, and improving focus.', '三个要点都是 -ing 形式，平行。'], ['Exercise is very good for students in many ways.', '没有列出三个要点。'], ['I think exercise is good for students because it is useful.', '个人观点，没有三个要点。']],
+    c: 1, why: ['Building, reducing, improving are all -ing words, so the three points are parallel.', 'building、reducing、improving 都是 -ing 形式，所以三个要点平行。'] },
+  { q: 'The article "Why Helping Matters" has no author. Which citation is correct for a quotation in paragraph 4?', qc: '文章《Why Helping Matters》没有作者。引用第 4 段的话，哪个引用格式正确？',
+    o: [['(Why Helping Matters par. 4)', '标题没有加引号。'], ['(AmeriCorps, 2024, p. 4)', '用了年份和页码，不是 MLA 的写法。'], ['"Why Helping Matters" par. 4', '没有放在括号里。'], ['("Why Helping Matters" par. 4)', '括号里写带引号的标题和段落号。']],
+    c: 3, why: ['With no author, MLA uses the title in quotation marks, then par. and the number, all inside parentheses.', '没有作者时，MLA 在括号里写带引号的标题，再写 par. 和编号。'] },
+  { q: 'Which is the correct citation for a quotation from paragraph 10 of "The Selfish Giant" by Oscar Wilde?', qc: '引用 Oscar Wilde 的《自私的巨人》第 10 段中的话，哪个引用正确？',
+    o: [['(Oscar Wilde, 1888)', '不要写名字和年份。'], ['(The Selfish Giant 10)', '用了标题且没有 par.。'], ['(Wilde, par. 10)', '作者姓氏 + par. + 编号。'], ['(Wilde, p. 10)', '这里编号的是段落，要用 par.。']],
+    c: 2, why: ['For a story with an author, use the last name, then par. and the paragraph number.', '有作者的故事，用作者姓氏，再写 par. 和段落编号。'] },
+  { q: 'How do you cite lines 5 and 6 of Emily Dickinson\'s poem?', qc: '引用 Emily Dickinson 诗歌的第 5–6 行，该怎么写？',
+    o: [['(Dickinson, lines 5-6)', '姓氏 + lines + 行号范围。'], ['(Dickinson, line 5-6)', '两行以上要用 lines。'], ['(Poem lines 5-6)', '没有作者姓氏。'], ['("Dickinson" lines 5-6)', '姓氏不需要引号。']],
+    c: 0, why: ['Use the poet\'s last name, then "lines" and the range. Put / where the line breaks inside your quotation.', '用诗人姓氏，再写 lines 和行号范围。引文中的换行处用 /。'] },
+  { q: 'Which is a SYNTHESIZED explanation (not just a summary)?', qc: '哪一个是"综合解释"（而不是简单复述）？',
+    o: [['A neighbor shares tools. A volunteer serves a meal.', '只是复述两个例子。'], ['Both examples show that small acts of sharing build trust, which proves that kindness strengthens communities.', '把两个例子联系起来并证明观点。'], ['"Neighbors who trust one another are more likely to work together" ("Why Helping Matters" par. 4).', '只是又一条引文。'], ['Volunteering is popular in many countries.', '与观点无关的常识。']],
+    c: 1, why: ['It connects BOTH pieces of evidence (both, show) and explains why they prove the point.', '它把两条证据联系起来（both, show），并解释它们为什么能证明观点。'] },
+  { q: 'For Grade 12, how many pieces of textual evidence go in each body paragraph?', qc: '十二年级每个主体段落需要几条文本证据？',
+    o: [['Exactly 1', '正好 1 条。'], ['4 or 5', '4 或 5 条。'], ['2 to 3', '2 到 3 条。'], ['None, if the ideas are strong', '想法好的话可以没有。']],
+    c: 2, why: ['The exam format says a minimum of 2 and a maximum of 3 pieces of evidence per body paragraph.', '考试格式要求每个主体段落最少 2 条、最多 3 条文本证据。'] },
+  { q: 'Your essay must use evidence from how many of the four passages?', qc: '你的作文必须用到四篇材料中的几篇？',
+    o: [['Only the article', '只用说明文。'], ['Exactly 1', '正好 1 篇。'], ['2', '2 篇。'], ['At least 3', '至少 3 篇。']],
+    c: 3, why: ['The exam asks for evidence from at least 3 passages. Using all 4 is even better.', '考试要求至少用到 3 篇材料的证据，用满 4 篇更好。'] }
+];
+
+function mcCard(parent, spec, onDone) {
+  var letters = ['A', 'B', 'C', 'D'];
+  var card = el('div', 'quiz-card');
+  var head = el('div', 'q-num', spec.num); if (spec.tag) head.appendChild(el('span', 'qtype', spec.tag)); card.appendChild(head);
+  card.appendChild(el('div', 'q-text', spec.q)); card.appendChild(el('div', 'q-cn cn', spec.qc));
+  var wrap = el('div', 'opts-wrap'), rat = el('div', 'rationale'), answered = false;
+  spec.o.forEach(function (opt, k) {
+    var btn = el('button', 'opt-btn'); btn.dataset.letter = letters[k];
+    btn.appendChild(el('strong', '', letters[k] + '. ')); btn.appendChild(el('span', '', opt[0])); btn.appendChild(el('br')); btn.appendChild(el('span', 'cn', opt[1]));
+    btn.addEventListener('click', function () {
+      if (answered) return; answered = true;
+      wrap.querySelectorAll('.opt-btn').forEach(function (b) { b.disabled = true; if (b.dataset.letter === letters[spec.c]) b.classList.add('show-correct'); });
+      var ok = k === spec.c, d = el('div');
+      if (ok) { btn.classList.add('selected-correct'); rat.className = 'rationale show correct-rat'; d.appendChild(document.createTextNode('✅ Correct. ' + spec.why[0])); }
+      else { btn.classList.add('selected-wrong'); rat.className = 'rationale show wrong-rat'; d.appendChild(document.createTextNode('❌ Not quite. The correct answer is ' + letters[spec.c] + '. ' + spec.why[0])); }
+      d.appendChild(el('br')); d.appendChild(el('span', 'cn', (ok ? '✅ 正确。' : '❌ 不对，正确答案是 ' + letters[spec.c] + '。') + spec.why[1]));
+      rat.appendChild(d);
+      onDone(letters[k], ok);
+    });
+    wrap.appendChild(btn);
+  });
+  card.appendChild(wrap); card.appendChild(rat); parent.appendChild(card);
+}
+
+function buildQuiz() {
+  var box = $('quizContainer');
+  QUICK.forEach(function (item, idx) {
+    mcCard(box, { num: 'Question ' + (idx + 1) + ' of ' + QUICK.length, q: item.q, qc: item.qc, o: item.o, c: item.c, why: item.why }, function (letter, ok) {
+      S.qAnswers[idx] = letter; if (ok) S.qScore++; S.qDone++;
+      if (S.qDone >= QUICK.length) { $('learnNext').disabled = false; $('learnHint').classList.add('hidden'); }
+    });
+  });
+}
+
+function totalReadingQs() { return QUIZZES.reduce(function (a, g) { return a + g.qs.length; }, 0); }
+function buildReadingQuizzes() {
+  var tabs = $('quizTabs'), area = $('quizArea'), groups = {};
+  QUIZZES.forEach(function (g, gi) {
+    S.rq[g.id] = { done: 0, score: 0, ans: [] };
+    var btn = el('button', gi === 0 ? 'on' : '', g.id.replace('A', 'A.') + ' ' + SRCMAP[g.src].short); btn.dataset.g = g.id;
+    var tick = el('span', 'done hidden', '✅'); btn.appendChild(tick); tabs.appendChild(btn);
+    var box = el('div', 'qgroup'); if (gi) box.style.display = 'none';
+    box.appendChild(el('h3', '', g.title)); box.appendChild(el('div', 'cn', g.cn));
+    g.qs.forEach(function (item, qi) {
+      mcCard(box, { num: 'Question ' + (qi + 1) + ' of ' + g.qs.length, tag: item.t, q: item.q, qc: item.qc, o: item.o, c: item.c, why: item.why }, function (letter, ok) {
+        var r = S.rq[g.id]; r.ans[qi] = letter; r.done++; if (ok) { r.score++; S.rqScore++; } S.rqDone++;
+        if (r.done >= g.qs.length) tick.classList.remove('hidden');
+        var left = totalReadingQs() - S.rqDone;
+        if (left <= 0) { $('quizNext').disabled = false; $('quizHint').classList.add('hidden'); }
+        else $('quizHint').textContent = left + ' question' + (left > 1 ? 's' : '') + ' left. · 还剩 ' + left + ' 题。';
+      });
+    });
+    area.appendChild(box); groups[g.id] = box;
+    btn.addEventListener('click', function () {
+      tabs.querySelectorAll('button').forEach(function (b) { b.className = b === btn ? 'on' : ''; });
+      Object.keys(groups).forEach(function (k) { groups[k].style.display = k === g.id ? 'block' : 'none'; });
+      if (reader) reader._show(g.src);
+    });
+  });
+}
+
+/* ================= SECTION DEFINITIONS ================= */
+function bodyBoxes(n) {
+  var p = 'b' + n + '_';
+  return [
+    { id: p + 'topic', type: 'topic', label: 'Topic sentence', cn: '主题句', def: 'Introduces this paragraph\'s point (the lead-in for the paragraph).', defcn: '引出本段的要点（本段的引入句）。', rows: 2,
+      frames: ['One important way helping others changes people is by …', 'Another benefit of kindness is …', 'Finally, kindness …'] },
+    { id: p + 'ev1', type: 'ev', label: 'Evidence 1', cn: '证据 1', def: 'First piece of supporting evidence: introduce it, quote or paraphrase it, then cite it (MLA).', defcn: '第一条证据：先引入，再引用或转述，最后加 MLA 引用。', rows: 3,
+      frames: ['The article explains that "…" ("Why Helping Matters" par. #).', 'Wilde writes, "…" (Wilde, par. #).', 'In the poem, the speaker says, "…" (Dickinson, line #).'] },
+    { id: p + 'ev2', type: 'ev', label: 'Evidence 2', cn: '证据 2', def: 'Second piece of supporting evidence (try a different text from Evidence 1).', defcn: '第二条证据（尽量与证据 1 来自不同的文章）。', rows: 3,
+      frames: ['Similarly, the infographic states that "…" ("Volunteering by the Numbers" panel #).', 'The speaker also declares, "…" (Dickinson, lines #-#).'] },
+    { id: p + 'ev3', type: 'ev', optional: true, label: 'Evidence 3', cn: '证据 3', def: 'Third piece of evidence. Optional. Leave empty if you do not need it. Maximum is 3.', defcn: '第三条证据，可选。不需要就留空。最多 3 条。', rows: 3,
+      frames: ['In addition, the article points out that … ("Why Helping Matters" par. #).'] },
+    { id: p + 'synth', type: 'synth', label: 'Synthesized explanation', cn: '综合解释', def: 'Explain how the pieces of evidence work together to support your point. Your own words. No quotations.', defcn: '解释几条证据如何共同支持你的观点。用自己的话，不要引文。', rows: 3,
+      frames: ['Together, these examples show that …', 'Both … and … prove that …', 'Just as …, … also …, which shows that …'] },
+    { id: p + 'closer', type: 'closer', label: 'Concluding sentence', cn: '结尾句', def: 'Wraps up the paragraph and ties back to the main thesis.', defcn: '收束本段并回扣主论点。', rows: 2,
+      frames: ['Therefore, kindness benefits people by …', 'Clearly, …'] }
+  ];
+}
+var SECTIONS = {
+  intro: { n: 5, title: 'Paragraph 1: Introduction', cn: '第一段：引言', point: null,
+    boxes: [
+      { id: 'intro_hook', type: 'hook', label: 'Hook', cn: '吸引句', def: 'A statement that grabs the reader\'s attention.', defcn: '抓住读者注意力的一句话。', rows: 2,
+        frames: ['A surprising fact or question about kindness.', 'Imagine …', 'One small act can …'] },
+      { id: 'intro_lead', type: 'lead', label: 'Lead-in', cn: '引入句', def: 'A sentence or two that introduces the topic.', defcn: '一两句话引出主题。', rows: 3,
+        frames: ['Everyone can help someone in a small way, such as …', 'Many people think kindness only helps the receiver, but …'] },
+      { id: 'intro_thesis', type: 'thesis', label: 'Thesis statement', cn: '论点句', def: 'Answers the prompt and lists your 3 points, in order, in parallel form.', defcn: '回答题目，并按顺序、以平行形式列出三个要点。', rows: 3,
+        frames: ['Topic + verb + object by (-ing point 1), (-ing point 2), and (-ing point 3).', 'Topic + verb + object in three ways: noun 1, noun 2, and noun 3.'] }
+    ] },
+  b1: { n: 6, title: 'Paragraph 2: Body Paragraph 1', cn: '第二段：主体段 1', point: 0, boxes: bodyBoxes(1) },
+  b2: { n: 7, title: 'Paragraph 3: Body Paragraph 2', cn: '第三段：主体段 2', point: 1, boxes: bodyBoxes(2) },
+  b3: { n: 8, title: 'Paragraph 4: Body Paragraph 3', cn: '第四段：主体段 3', point: 2, boxes: bodyBoxes(3) },
+  concl: { n: 9, title: 'Paragraph 5: Conclusion', cn: '第五段：结论', point: null,
+    boxes: [
+      { id: 'concl_restate', type: 'restate', label: 'Restated thesis', cn: '重述论点', def: 'Say your thesis again in NEW words. Do not copy.', defcn: '用新的措辞重述论点，不要照抄。', rows: 3,
+        frames: ['In conclusion, …', 'Overall, kindness …', 'As shown, helping others …'] },
+      { id: 'concl_wrap', type: 'wrap', label: 'Wrap-up of your 3 points', cn: '总结三个要点', def: 'Briefly remind the reader of your main points. No new evidence.', defcn: '简要提醒读者你的主要观点，不要出现新证据。', rows: 3,
+        frames: ['Whether it is …, …, or …, …'] },
+      { id: 'concl_final', type: 'fin', label: 'Final thought', cn: '最后的感想', def: 'A closing idea for the reader to remember.', defcn: '留给读者的最后一个想法。', rows: 2,
+        frames: ['Everyone can be a giver, so …', 'The next time … , remember that …'] }
+    ] }
+};
+
+/* ================= BUILD SECTION PANELS ================= */
+function buildSection(key) {
+  var spec = SECTIONS[key], panel = $('panel-' + key);
+  panel.appendChild(bi('Step ' + spec.n + ': ' + spec.title, spec.cn, 'h2'));
+  if (spec.point != null) {
+    var pl = el('div', 'callout'); pl.appendChild(document.createTextNode('This paragraph is about point ' + (spec.point + 1) + ' from your Plan: '));
+    var pb = el('span', 'pointlabel', '…'); pb.id = 'pl-' + key; pl.appendChild(pb); pl.appendChild(el('br'));
+    pl.appendChild(el('span', 'cn', '本段围绕你计划中的第 ' + (spec.point + 1) + ' 个要点。'));
+    panel.appendChild(pl);
+    var rule = el('div', 'callout warn');
+    rule.appendChild(bi('Use 2 to 3 pieces of evidence. Put each piece in its OWN box, with ONE citation each. Use at least 3 of the 4 passages across your essay.', '使用 2–3 条证据。每条证据单独放在一个框里，各带一个引用。全文至少要用到四篇材料中的 3 篇。'));
+    panel.appendChild(rule);
+  } else if (key === 'intro') {
+    var ic = el('div', 'callout'); ic.appendChild(bi('Remember: no quotations in the introduction. Your thesis must name your 3 points, in order, in parallel form.', '提醒：引言里不要放引文。论点句必须按顺序、以平行形式列出三个要点。')); panel.appendChild(ic);
+    var pc = el('div', 'callout blue'); pc.id = 'planReminder'; panel.appendChild(pc);
+  } else {
+    var cc = el('div', 'callout'); cc.appendChild(bi('The conclusion has no new evidence. Show that you proved your thesis.', '结论里不要出现新证据，要体现你已经证明了论点。')); panel.appendChild(cc);
+    var tr = el('div', 'callout blue'); tr.id = 'thesisReminder'; panel.appendChild(tr);
+  }
+  var bk = el('div'); bk.id = 'bank-' + key; panel.appendChild(bk);
+  var md = el('div'); md.id = 'model-' + key; panel.appendChild(md);
+  spec.boxes.forEach(function (box) {
+    var w = el('div', 'box');
+    var lab = el('div', 'lab', box.label + ' · '); lab.appendChild(el('span', 'cn', box.cn));
+    if (box.optional) lab.appendChild(el('span', 'tag', 'OPTIONAL 可选'));
+    w.appendChild(lab);
+    w.appendChild(bi(box.def, box.defcn, 'div', 'def'));
+    var sw = el('div', 'stems'); sw.id = 'stems-' + box.id; w.appendChild(sw);
+    var ta = el('textarea'); ta.id = 'ta-' + box.id; ta.rows = box.rows || 3; ta.setAttribute('spellcheck', 'true'); ta.setAttribute('lang', 'en'); ta.setAttribute('autocomplete', 'off');
+    var meta = el('div', 'meta', '0 words'); meta.id = 'meta-' + box.id;
+    ta.addEventListener('input', function () {
+      texts[box.id] = ta.value; meta.textContent = wc(ta.value) + ' words';
+      ta.classList.toggle('filled', ta.value.trim().length > 0);
+      onEdit(key);
+    });
+    wireNoPaste(ta);
+    w.appendChild(ta); w.appendChild(meta); panel.appendChild(w);
+  });
+  var row = el('div', 'btnrow');
+  var cb = el('button', 'btn alt', '🔍 Check my writing 检查我的写作'); cb.id = 'check-' + key;
+  cb.addEventListener('click', function () { runSectionCheck(key); });
+  row.appendChild(cb); panel.appendChild(row);
+  var fb = el('div', 'fb'); fb.id = 'fb-' + key; panel.appendChild(fb);
+  var lab2 = el('label', 'chk hidden'); lab2.id = 'ra-wrap-' + key;
+  var cbx = el('input'); cbx.type = 'checkbox'; cbx.id = 'ra-' + key;
+  var sp = el('span'); sp.appendChild(document.createTextNode('I read this paragraph out loud and checked my grammar. ')); sp.appendChild(el('span', 'cn', '我大声朗读了这一段并检查了语法。'));
+  lab2.appendChild(cbx); lab2.appendChild(sp); panel.appendChild(lab2);
+  cbx.addEventListener('change', function () { updateContinue(key); });
+  var nrow = el('div', 'btnrow');
+  var nb = el('button', 'btn', 'Lock this section and continue ➜ 锁定并继续'); nb.id = 'next-' + key; nb.disabled = true;
+  nb.addEventListener('click', function () { lockSection(key); });
+  nrow.appendChild(nb); panel.appendChild(nrow);
+  var pv = el('div', 'preview hidden'); pv.id = 'pv-' + key; panel.appendChild(pv);
+}
+
+function wireNoPaste(ta) {
+  ta.addEventListener('paste', function (e) {
+    if (!BLOCK_PASTE) return;
+    e.preventDefault(); S.pastes++; toast('Pasting is turned off. Type your own words.', '已禁用粘贴，请自己输入。');
+  });
+  ta.addEventListener('drop', function (e) {
+    if (!BLOCK_PASTE) return;
+    e.preventDefault(); S.pastes++; toast('Dropping text is turned off.', '已禁用拖放文字。');
+  });
+}
+
+/* ================= EDIT / INVALIDATE ================= */
+function onEdit(key) {
+  passed[key] = false; lastOk[key] = false;
+  (DEPENDS[key] || []).forEach(function (k) { passed[k] = false; });
+  var fb = $('fb-' + key); if (fb) clear(fb);
+  var ra = $('ra-' + key); if (ra) ra.checked = false;
+  var wrap = $('ra-wrap-' + key); if (wrap) wrap.classList.add('hidden');
+  var nb = $('next-' + key); if (nb) nb.disabled = true;
+  refresh();
+}
+function updateContinue(key) {
+  var ra = $('ra-' + key), nb = $('next-' + key);
+  if (ra && nb) nb.disabled = !(lastOk[key] && ra.checked);
+}
+
+
+/* ================= SUPPORT: STEMS, WORD BANKS, MODELS ================= */
+var lastField = null;
+function insertAtCursor(field, text) {
+  var s0 = field.selectionStart == null ? field.value.length : field.selectionStart, e0 = field.selectionEnd == null ? s0 : field.selectionEnd;
+  var before = field.value.slice(0, s0), after = field.value.slice(e0);
+  var sp = before && !/\s$/.test(before) ? ' ' : '';
+  field.value = before + sp + text + ' ' + after.replace(/^\s+/, '');
+  var pos = (before + sp + text + ' ').length;
+  field.focus(); try { field.setSelectionRange(pos, pos); } catch (x) {}
+  field.dispatchEvent(new Event('input', { bubbles: true }));
+}
+function insertStem(box, text) {
+  var ta = $('ta-' + box.id), blank = text.indexOf('____');
+  if (ta.value.trim() === '') ta.value = text; else ta.value = ta.value.replace(/\s*$/, ' ') + text;
+  ta.focus();
+  var idx = ta.value.lastIndexOf(text);
+  try { if (blank > -1) ta.setSelectionRange(idx + blank, idx + blank + 4); else ta.setSelectionRange(ta.value.length, ta.value.length); } catch (x) {}
+  ta.dispatchEvent(new Event('input', { bubbles: true }));
+}
+function planWords() { return planCtx().text.map(function (x) { return x || '____'; }); }
+
+function evFrames(n, full) {
+  var intro = [['The article explains that', '文章解释说'], ['Wilde writes that', 'Wilde 写道'], ['In the poem, the speaker says,', '在诗中，说话者说，'], ['The infographic shows that', '信息图显示']];
+  var intro2 = [['The article also notes that', '文章还指出'], ['Similarly, Wilde describes how', '同样，Wilde 描写了'], ['The speaker also says,', '说话者还说，'], ['Similarly, the infographic states that', '同样，信息图指出']];
+  var intro3 = [['In addition, the article points out that', '此外，文章指出'], ['In the story,', '在故事中，'], ['The poem also shows this when the speaker says,', '当说话者说……时，诗也说明了这一点'], ['The infographic also states that', '信息图还指出']];
+  var C = ['("Why Helping Matters" par. __)', '(Wilde, par. __)', '(Dickinson, line __)', '("Volunteering by the Numbers" panel __)'];
+  var base = n === '1' ? intro : (n === '2' ? intro2 : intro3);
+  var cnTail = '（引号里放原文，括号里写引用）';
+  return base.map(function (x, i) { return full ? [x[0] + ' "____" ' + C[i] + '.', x[1] + ' "____" ' + cnTail] : [x[0], x[1]]; });
+}
+function stemsFor(box, spec) {
+  var lv = S.support, full = lv === 'full', pl = planWords(), i = spec.point, P = i != null ? pl[i] : '____';
+  var TR = [['One important way', 'First,'], ['Another way', 'In addition,'], ['A final way', 'Finally,']];
+  var R;
+  switch (box.type) {
+    case 'hook':
+      R = full ? [['Have you ever felt ____ after you helped someone?', '你有没有在帮助别人之后感到____？'], ['One small act of kindness can ____ a whole day.', '一个小小的善举可以____整整一天。'], ['No one is too young to ____ someone else.', '没有人年纪小到不能____别人。']]
+        : [['Have you ever', '你有没有……'], ['One small act of kindness can', '一个小小的善举可以……'], ['No one is too young to', '没有人年纪小到不能……'], ['Imagine', '想象一下……']]; break;
+    case 'lead':
+      R = full ? [['Everyone can help someone in a small way, such as ____, ____, or ____.', '每个人都能以小小的方式帮助别人，例如____、____或____。'], ['Many people think kindness only helps the receiver, but it can also ____.', '很多人认为善意只帮助接受者，但它也可以____。'], ['Kindness means ____. It can ____.', 'kindness 的意思是____。它可以____。']]
+        : [['Everyone can help someone', '每个人都能帮助别人'], ['Many people think kindness only helps', '很多人认为善意只帮助'], ['Kindness means', 'kindness 的意思是']]; break;
+    case 'thesis':
+      R = full ? [['Acts of kindness benefit both givers and receivers through ' + pl[0] + ', ' + pl[1] + ', and ' + pl[2] + '.', '善举通过你计划的三个要点使给予者和接受者都受益。（三个要点都是名词，形式平行）'],
+          ['Helping others benefits everyone in three ways: ' + pl[0] + ', ' + pl[1] + ', and ' + pl[2] + '.', '帮助他人从三个方面使每个人受益：……'],
+          ['Kindness benefits givers and receivers by ____ing ____, ____ing ____, and ____ing ____.', '善意使给予者和接受者受益，通过……三个短语都要用 -ing 形式。']]
+        : [['Acts of kindness benefit both givers and receivers through', '善举使给予者和接受者都受益，通过……'], ['Helping others benefits everyone in three ways:', '帮助他人从三个方面使每个人受益：'], ['Kindness benefits givers and receivers by', '善意使给予者和接受者受益，通过……（用 -ing）']]; break;
+    case 'topic':
+      R = full ? [[TR[i][0] + ' helping others changes people is through ' + P + '.', '帮助他人改变人的方式之一是通过' + P + '。'], [TR[i][1] + ' kindness brings ' + P + ' to both givers and receivers.', '善意给给予者和接受者都带来' + P + '。'], [TR[i][1] + ' ' + P + ' is an important benefit of kindness because ____.', P + ' 是善意的重要好处，因为____。']]
+        : [[TR[i][0] + ' helping others changes people is', '帮助他人改变人的方式之一是……'], [TR[i][1] + ' kindness', '……，善意……'], ['Kindness builds', '善意培养……']]; break;
+    case 'ev':
+      R = evFrames(box.id.slice(-1), full); break;
+    case 'synth':
+      R = full ? [['Both the story and the article show that ' + P + ' helps people ____.', '故事和文章都表明' + P + '帮助人们____。'], ['Together, these examples show that kindness helps people ____ because ____.', '这些例子一起说明善意帮助人们____，因为____。'], ['Similarly, both texts prove that ' + P + ' ____.', '同样，两篇材料都证明' + P + '____。']]
+        : [['Together, these examples show that', '这些例子一起说明'], ['Both the story and the poem show that', '故事和诗歌都表明'], ['Similarly, both texts prove that', '同样，两篇材料都证明']]; break;
+    case 'closer':
+      R = full ? [['Therefore, kindness benefits people by teaching them to ____.', '因此，善意通过教会人们____使人们受益。'], ['Overall, ' + P + ' is one way helping others changes who we become.', '总的来说，' + P + '是帮助他人改变我们的一种方式。'], ['As a result, kindness ____ both the giver and the receiver.', '因此，善意____给予者和接受者。']]
+        : [['Therefore, kindness', '因此，善意……'], ['Overall,', '总的来说，'], ['As a result, kindness', '因此，善意……']]; break;
+    case 'restate':
+      R = full ? [['In conclusion, helping others rewards everyone because it builds ' + pl[0] + ', ' + pl[1] + ', and ' + pl[2] + '.', '总之，帮助他人使每个人受益，因为它培养……（用不同的词重述论点）'], ['Overall, kindness changes givers and receivers by ____ing ____, ____ing ____, and ____ing ____.', '总的来说，善意改变给予者和接受者，通过……']]
+        : [['In conclusion, helping others', '总之，帮助他人……'], ['Overall, kindness', '总的来说，善意……'], ['To sum up, acts of kindness', '总而言之，善举……']]; break;
+    case 'wrap':
+      R = full ? [['These three ideas, ' + pl[0] + ', ' + pl[1] + ', and ' + pl[2] + ', show that ____.', '这三个想法说明____。'], ['With ' + pl[0] + ', ' + pl[1] + ', and ' + pl[2] + ', people can ____.', '有了这三点，人们可以____。']]
+        : [['These three ideas show that', '这三个想法说明'], ['Each point shows that', '每个要点都说明'], ['Together, these points prove that', '这些要点一起证明']]; break;
+    case 'fin':
+      R = full ? [['Everyone can be a giver, so we should ____.', '每个人都可以是给予者，所以我们应该____。'], ['The next time someone needs help, remember that ____.', '下次有人需要帮助时，请记住____。'], ['A small act of kindness is not small; it is ____.', '小小的善举并不小；它是____。']]
+        : [['Everyone can be a giver,', '每个人都可以是给予者，'], ['The next time someone needs help,', '下次有人需要帮助时，'], ['A small act of kindness is not small;', '小小的善举并不小；']]; break;
+    default: R = [];
+  }
+  return R;
+}
+
+function lowerFirst(q) {
+  var w = (q.match(/^[A-Za-z']+/) || [''])[0];
+  if (/^(I|Wilde|Dickinson|Emily|Oscar|Giant|Spring|Winter|Summer|Autumn|Snow|Frost|AmeriCorps|American|Americans|September)$/.test(w)) return q;
+  return q.charAt(0).toLowerCase() + q.slice(1);
+}
+function fillHighlightList(box, host) {
+  clear(host);
+  var list = annos.slice().sort(srcSort);
+  if (!list.length) { host.appendChild(el('div', 'meta', 'Highlight words in the texts first. · 请先在阅读材料中做标注。')); return; }
+  list.forEach(function (a) {
+    var q = unitText(a.src, a.idx).slice(a.s, a.e).replace(/\s+/g, ' ').replace(/[,.;:\s]+$/, '');
+    var b = el('button', '', SRCMAP[a.src].short + ' ' + unitLabel(a.src, a.idx) + ': "' + (q.length > 70 ? q.slice(0, 67) + '…' : q) + '"');
+    b.addEventListener('click', function () {
+      var ql = lowerFirst(q);
+      var C = citeStr(a.src, a.idx + 1);
+      var txt = a.src === 'info' ? 'The article explains that "' + ql + '" ' + C + '.' : (a.src === 'story' ? 'Wilde writes that "' + ql + '" ' + C + '.' : (a.src === 'poem' ? 'The speaker says, "' + q + '" ' + C + '.' : 'The infographic shows that "' + ql + '" ' + C + '.'));
+      var ta = $('ta-' + box.id);
+      ta.value = txt; ta.focus(); ta.dispatchEvent(new Event('input', { bubbles: true }));
+      S.stemUses.highlight++; toast('Quote inserted with its citation. Now change the beginning to fit your idea.', '已插入引文和引用。请修改开头，使其符合你的想法。');
+    });
+    host.appendChild(b);
+  });
+}
+function renderStems(box, spec) {
+  var w = $('stems-' + box.id); if (!w) return; clear(w);
+  if (S.support === 'none') return;
+  var list = stemsFor(box, spec);
+  w.appendChild(el('div', 'stl', S.support === 'full' ? '🧩 Full sentence stems 完整句型（点击 Use，然后把 ____ 换成你自己的内容）' : '🧩 Sentence starters 句子开头（点击 Use，然后继续写完）'));
+  list.forEach(function (st) {
+    var row = el('div', 'stem'), tx = el('div', 'st', st[0]); tx.appendChild(el('span', 'scn', st[1])); row.appendChild(tx);
+    var b = el('button', '', 'Use ➕');
+    b.addEventListener('click', function () { insertStem(box, st[0]); S.stemUses[S.support]++; });
+    row.appendChild(b); w.appendChild(row);
+  });
+  if (box.type === 'ev') {
+    var d = el('details'); d.appendChild(el('summary', '', '📌 Use one of my highlights 使用我的标注'));
+    var host = el('div', 'hlpick'); d.appendChild(host);
+    d.addEventListener('toggle', function () { if (d.open) fillHighlightList(box, host); });
+    w.appendChild(d);
+  }
+}
+
+var BANKS = {
+  topic: [['kindness', '善意'], ['helping others', '帮助他人'], ['generosity', '慷慨'], ['giving', '给予'], ['volunteering', '做志愿者'], ['service', '服务'], ['compassion', '同情心'], ['community', '社区']],
+  points: [['trust', '信任'], ['connection', '联系'], ['gratitude', '感恩'], ['generosity', '慷慨'], ['compassion', '同情心'], ['happiness', '幸福'], ['purpose', '意义'], ['health', '健康'], ['belonging', '归属感'], ['hope', '希望'], ['responsibility', '责任感'], ['friendship', '友谊']],
+  verbs: [['explains that', '解释说'], ['states that', '指出'], ['notes that', '注意到'], ['shows that', '表明'], ['suggests that', '暗示'], ['describes', '描述'], ['reveals that', '揭示'], ['Wilde writes that', 'Wilde 写道'], ['the speaker says', '说话者说'], ['the infographic states that', '信息图指出']],
+  link: [['both', '两者都'], ['together', '一起'], ['similarly,', '同样地，'], ['likewise,', '同样，'], ['also', '也'], ['whereas', '然而'], ['just as', '正如'], ['in the same way,', '以同样的方式，'], ['prove that', '证明'], ['show that', '表明']],
+  trans: [['First,', '首先，'], ['Another', '另一个'], ['In addition,', '此外，'], ['Furthermore,', '而且，'], ['Finally,', '最后，'], ['Therefore,', '因此，'], ['As a result,', '结果，'], ['Overall,', '总的来说，'], ['In conclusion,', '总之，']]
+};
+function bankGroups(key) {
+  if (key === 'intro') return [['Topic words 主题词', 'topic']];
+  if (key === 'concl') return [['Linking words 过渡词', 'trans'], ['Topic words 主题词', 'topic'], ['Idea words 想法词', 'points']];
+  return [['Transitions 过渡词（后面加逗号）', 'trans'], ['Idea words 想法词', 'points'], ['Say what the text does 引入语', 'verbs'], ['Link the evidence 连接证据', 'link']];
+}
+function chipRow(host, arr) {
+  arr.forEach(function (c) {
+    var b = el('button', 'chip', c[0]); b.appendChild(el('span', 'cn', c[1]));
+    b.addEventListener('mousedown', function (e) { e.preventDefault(); });
+    b.addEventListener('click', function () {
+      if (!lastField || !document.body.contains(lastField)) { toast('Click inside a writing box first.', '请先点击一个写作框。'); return; }
+      insertAtCursor(lastField, c[0]); S.stemUses.chip++;
+    });
+    host.appendChild(b);
+  });
+}
+function renderBank(key) {
+  var h = $('bank-' + key); if (!h) return; clear(h);
+  if (S.support === 'none') return;
+  var d = el('details', 'bank card'); d.appendChild(el('summary', '', '📚 Word bank 词汇库（点击词语，插入到你正在写的框里）'));
+  bankGroups(key).forEach(function (g) { d.appendChild(el('div', 'grp', g[0])); var row = el('div'); chipRow(row, BANKS[g[1]]); d.appendChild(row); });
+  h.appendChild(d);
+}
+
+function mpart(cls, label, text) { return [cls, label, text]; }
+var MODELS = {
+  intro: [['pt-a', 'Hook', 'No one has ever won a soccer match alone.'], ['pt-b', 'Lead-in', 'Every student works in a group at some point at school, whether in sports, music, or class projects.'], ['pt-c', 'Thesis', 'Teamwork helps people succeed by sharing work, building trust, and creating new ideas.']],
+  body: [['pt-a', 'Topic', 'One important way teamwork helps people succeed is by sharing work.'], ['pt-b', 'Evidence 1', 'Lee explains that "many hands make a heavy task light" (Lee).'], ['pt-b', 'Evidence 2', 'In the poem, the speaker says, "we lift the load as one" (Park, line 3).'], ['pt-c', 'Synthesis', 'Both texts show that dividing a task makes it easier, which proves that teamwork helps people succeed by sharing work.'], ['pt-d', 'Closer', 'Therefore, teamwork succeeds because no one carries the whole load.']],
+  concl: [['pt-a', 'Restated thesis', 'In conclusion, working together helps people reach goals by dividing tasks, growing trust, and sparking ideas.'], ['pt-b', 'Wrap-up', 'Shared work, trust, and new ideas make groups stronger than any single person.'], ['pt-c', 'Final thought', 'The next time a task feels too big, remember that nobody has to do it alone.']]
+};
+function renderModel(key) {
+  var h = $('model-' + key); if (!h) return; clear(h);
+  if (S.support !== 'full') return;
+  var parts = MODELS[key === 'intro' ? 'intro' : (key === 'concl' ? 'concl' : 'body')];
+  var d = el('details', 'modelbox card'); d.appendChild(el('summary', '', '👀 See a model paragraph 查看范文（不同的题目：团队合作）'));
+  d.appendChild(el('div', 'meta', 'Different topic: "Discuss how teamwork helps people succeed." The sources (Lee, Park) are invented for this model only. · 范文题目不同，文中的来源是虚构的，仅用于示范。'));
+  var p = el('div', 'mp');
+  parts.forEach(function (x) { var sp = el('span', 'part ' + x[0]); sp.appendChild(el('b', '', x[1])); sp.appendChild(document.createTextNode(x[2] + ' ')); p.appendChild(sp); });
+  d.appendChild(p); h.appendChild(d);
+}
+function renderPlanBank() {
+  var h = $('planBank'); if (!h) return; clear(h);
+  if (S.support === 'none') return;
+  var d = el('details', 'bank card'); d.open = true; d.appendChild(el('summary', '', '📚 Idea bank 想法词库（点击词语填入当前的框；选 3 个不同的，词性要一致）'));
+  var row = el('div'); chipRow(row, BANKS.points); d.appendChild(row);
+  d.appendChild(el('div', 'meta', 'Tip: choose 3 nouns, for example resilience, empathy, gratitude. · 提示：选 3 个名词（词性一致）。'));
+  h.appendChild(d);
+}
+function renderAllSupport() {
+  ['intro', 'b1', 'b2', 'b3', 'concl'].forEach(function (k) {
+    SECTIONS[k].boxes.forEach(function (b) { renderStems(b, SECTIONS[k]); });
+    renderBank(k); renderModel(k);
+  });
+  renderPlanBank();
+  document.querySelectorAll('.supbtn').forEach(function (b) { b.classList.toggle('on', b.dataset.lv === S.support); });
+}
+function setSupport(lv) {
+  if (lv !== 'full' && lv !== 'starters' && lv !== 'none') return;
+  S.support = lv; S.supportLog.push(lv + ' @' + fmt(S.seconds));
+  renderAllSupport();
+}
+
+/* ================= CHECK ================= */
+function renderItem(parent, it) {
+  var d = el('div', 'fbi ' + it.lvl);
+  var icon = it.lvl === 'err' ? '❌ ' : (it.lvl === 'warn' ? '⚠️ ' : '✅ ');
+  d.appendChild(document.createTextNode(icon + it.en));
+  if (it.ex) { d.appendChild(document.createTextNode(' ')); d.appendChild(el('code', '', it.ex)); }
+  d.appendChild(el('br')); d.appendChild(el('span', 'cn', it.cn));
+  parent.appendChild(d);
+}
+function renderBox(parent, title, cn, items) {
+  var b = el('div', 'fbbox'), t = el('div', 't', title + ' · '); t.appendChild(el('span', 'cn', cn)); b.appendChild(t);
+  var shown = items.filter(function (i) { return true; });
+  var hasProblem = shown.some(function (i) { return i.lvl !== 'ok'; });
+  if (!hasProblem && !shown.length) b.appendChild(el('div', 'fbi ok', '✅ Looks good 没有发现问题'));
+  else if (!hasProblem) { shown.forEach(function (i) { renderItem(b, i); }); b.appendChild(el('div', 'fbi ok', '✅ Looks good 没有发现问题')); }
+  else shown.forEach(function (i) { renderItem(b, i); });
+  parent.appendChild(b);
+}
+
+function runSectionCheck(key) {
+  var spec = SECTIONS[key], fb = $('fb-' + key); clear(fb);
+  attempts[key] = (attempts[key] || 0) + 1;
+  var ctx = { plan: planCtx(), pointIndex: spec.point, thesis: texts.intro_thesis || '' };
+  var errs = 0, warns = 0, keep = [], evs = [];
+  spec.boxes.forEach(function (box) {
+    var res = checkPart(box, texts[box.id] || '', ctx);
+    if (res.empty && box.optional) return;
+    if (box.type === 'ev' && !res.empty) evs.push({ box: box, info: res.extra, text: texts[box.id] });
+    res.items.forEach(function (i) {
+      if (i.lvl === 'err') errs++; else if (i.lvl === 'warn') { warns++; keep.push(box.label + ': ' + i.en + (i.ex ? ' [' + i.ex + ']' : '')); }
+    });
+    renderBox(fb, box.label, box.cn, res.items);
+  });
+  if (spec.point != null) {
+    var sec = [];
+    if (evs.length < 2) sec.push(I('err', 'You need at least 2 pieces of evidence in this paragraph (Evidence 1 and 2).', '本段至少需要 2 条证据（证据 1 和证据 2）。'));
+    if (evs.length === 2 && evs[0].info && evs[1].info && evs[0].info.cite && evs[1].info.cite) {
+      var q0 = normCmp((evs[0].info.quotes || []).join(' ')), q1 = normCmp((evs[1].info.quotes || []).join(' '));
+      if (q0 && q0 === q1) sec.push(I('err', 'Evidence 1 and 2 use the same quotation. Use two different pieces.', '证据 1 和证据 2 用了同一条引文，请使用两条不同的证据。'));
+    }
+    if (evs.length === 3) {
+      var qs = evs.map(function (e) { return normCmp((e.info.quotes || []).join(' ')); });
+      if ((qs[0] && qs[0] === qs[1]) || (qs[0] && qs[0] === qs[2]) || (qs[1] && qs[1] === qs[2])) sec.push(I('err', 'Two of your evidence boxes use the same quotation. Use different pieces.', '有两个证据框用了同一条引文，请使用不同的证据。'));
+    }
+    if (evs.length >= 2) {
+      var kinds = {}; evs.forEach(function (e) { if (e.info && e.info.cite && e.info.cite.kind) kinds[e.info.cite.kind] = 1; });
+      if (Object.keys(kinds).length === 1) sec.push(I('warn', 'All the evidence in this paragraph comes from one text. A synthesis is stronger when it connects two different texts.', '本段所有证据都来自同一篇文章。连接两篇不同的文章，综合解释会更有力。'));
+    }
+    sec.forEach(function (i) { if (i.lvl === 'err') errs++; else { warns++; keep.push('Paragraph: ' + i.en); } });
+    if (sec.length) renderBox(fb, 'Whole paragraph', '整段', sec);
+  }
+  leftover[key] = keep;
+  lastOk[key] = errs === 0;
+  var sum = el('div', 'summary ' + (errs === 0 ? 'good' : 'bad'));
+  if (errs === 0) {
+    sum.appendChild(bi('All required checks passed' + (warns ? ' (' + warns + ' suggestion' + (warns > 1 ? 's' : '') + ' ⚠️ — read them and improve if you can).' : '.') + ' Now read it out loud and tick the box below.', '所有必需的检查已通过' + (warns ? '（有 ' + warns + ' 条建议 ⚠️，请阅读并尽量改进）' : '') + '。现在请大声朗读，并勾选下面的选项。'));
+    $('ra-wrap-' + key).classList.remove('hidden');
+    var pv = $('pv-' + key); clear(pv); pv.classList.remove('hidden');
+    pv.appendChild(el('div', 'meta', 'Your paragraph so far · 你的段落'));
+    pv.appendChild(el('div', '', paragraphText(key)));
+  } else {
+    sum.appendChild(bi('Fix the ' + errs + ' ❌ item' + (errs > 1 ? 's' : '') + ' and press Check again.', '请修改 ' + errs + ' 个 ❌ 问题，然后再次点击检查。'));
+    $('ra-wrap-' + key).classList.add('hidden'); $('pv-' + key).classList.add('hidden');
+  }
+  fb.insertBefore(sum, fb.firstChild);
+  updateContinue(key);
+  sum.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function paragraphText(key) {
+  return SECTIONS[key].boxes.map(function (b) { return (texts[b.id] || '').trim(); }).filter(Boolean).join(' ');
+}
+
+function lockSection(key) {
+  passed[key] = true;
+  var i = STEPS.map(function (s) { return s.key; }).indexOf(key);
+  refresh();
+  if (i < STEPS.length - 1) showStep(STEPS[i + 1].key);
+}
+
+/* ================= PLAN STEP ================= */
+function buildPlan() {
+  var box = $('planBoxes');
+  var pb = el('div'); pb.id = 'planBank'; box.parentNode.insertBefore(pb, box);
+  var labels = ['Point 1 (Body 1)', 'Point 2 (Body 2)', 'Point 3 (Body 3)'], cn = ['要点 1（主体段 1）', '要点 2（主体段 2）', '要点 3（主体段 3）'];
+  for (var i = 0; i < 3; i++) {
+    (function (i) {
+      var w = el('div', 'box');
+      var lab = el('div', 'lab', labels[i] + ' · '); lab.appendChild(el('span', 'cn', cn[i])); w.appendChild(lab);
+      var inp = el('input'); inp.type = 'text'; inp.id = 'plan_p' + i; inp.placeholder = 'A short phrase, 1–4 words · 1–4 个词的短语'; inp.setAttribute('autocomplete', 'off');
+      w.appendChild(inp);
+      w.appendChild(bi('Evidence idea: which text, and what quotation or idea will you use?', '证据想法：你要用哪篇文章的什么内容？', 'div', 'def'));
+      var n = el('input'); n.type = 'text'; n.id = 'plan_n' + i; n.placeholder = 'e.g. Story par. 10 / Poem line 5 · 例如：故事第 10 段 / 诗歌第 5 行'; n.setAttribute('autocomplete', 'off');
+      w.appendChild(n); box.appendChild(w);
+      [inp, n].forEach(function (x) { wireNoPaste(x); x.addEventListener('input', function () { onEdit('plan'); $('planTickWrap').classList.add('hidden'); $('planTick').checked = false; $('planNext').disabled = true; }); });
+    })(i);
+  }
+}
+function runPlanCheck() {
+  var fb = $('fb-plan'); clear(fb);
+  attempts.plan = (attempts.plan || 0) + 1;
+  var items = checkPlan(planInputs(), planNotes());
+  var errs = items.filter(function (i) { return i.lvl === 'err'; }).length;
+  renderBox(fb, 'Plan', '计划', items);
+  var sum = el('div', 'summary ' + (errs ? 'bad' : 'good'));
+  sum.appendChild(errs ? bi('Fix the ❌ items and check again.', '请修改 ❌ 问题后再次检查。') : bi('Your plan is ready. Tick the box and continue.', '计划完成，勾选下面的选项并继续。'));
+  fb.insertBefore(sum, fb.firstChild);
+  lastOk.plan = !errs;
+  $('planTickWrap').classList.toggle('hidden', !!errs);
+  $('planNext').disabled = true; $('planTick').checked = false;
+}
+
+/* ================= STEPPER / NAV ================= */
+function isUnlocked(i) { for (var j = 0; j < i; j++) if (!passed[STEPS[j].key]) return false; return true; }
+function buildStepper() {
+  var nav = $('stepper'), pips = $('pips');
+  STEPS.forEach(function (s, i) {
+    var b = el('button', 'step-btn'); b.id = 'sb-' + s.key; b.appendChild(document.createTextNode(s.en)); b.appendChild(el('span', 'cn', s.cn));
+    b.addEventListener('click', function () { if (isUnlocked(i)) showStep(s.key); else toast('Finish the earlier steps first.', '请先完成前面的步骤。'); });
+    nav.appendChild(b);
+    var p = el('div', 'pip'); p.id = 'pip-' + s.key; p.title = s.en; pips.appendChild(p);
+  });
+}
+function showStep(key) {
+  current = key;
+  document.querySelectorAll('.panel').forEach(function (p) { p.classList.remove('active'); });
+  $('panel-' + key).classList.add('active');
+  var ctx = planCtx();
+  ['b1', 'b2', 'b3'].forEach(function (k) { var pl = $('pl-' + k); if (pl) pl.textContent = ctx.text[SECTIONS[k].point] || '(complete your plan)'; });
+  var pr = $('planReminder'); if (pr) { clear(pr); pr.appendChild(bi('Your plan: ' + ctx.text.join(' → '), '你的计划：' + ctx.text.join(' → '))); }
+  var tr = $('thesisReminder'); if (tr) { clear(tr); tr.appendChild(bi('Your thesis: ' + (texts.intro_thesis || '').trim(), '你的论点句：' + (texts.intro_thesis || '').trim())); }
+  if (key === 'final') renderFinal();
+  placeReader();
+  if (key !== 'read' && key !== 'learn' && key !== 'quiz') renderAllSupport();
+  if (key === 'quiz') { var qb = document.querySelector('#quizTabs button.on'); if (qb) { var g = QUIZZES.filter(function (x) { return x.id === qb.dataset.g; })[0]; if (g) reader._show(g.src); } }
+  refresh();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function refresh() {
+  var done = 0;
+  STEPS.forEach(function (s, i) {
+    var b = $('sb-' + s.key), unlocked = isUnlocked(i);
+    b.className = 'step-btn' + (s.key === current ? ' active' : '') + (passed[s.key] ? ' done' : '') + (!unlocked ? ' locked' : '');
+    var pip = $('pip-' + s.key); pip.className = 'pip' + (passed[s.key] ? (s.key === 'final' ? ' gold' : ' done') : '');
+    if (passed[s.key]) done++;
+  });
+  var pct = Math.round(done / STEPS.length * 100);
+  $('progressBar').style.width = pct + '%';
+  $('progressText').textContent = 'Progress: ' + pct + '% · 进度：' + pct + '%';
+}
+
+/* ================= READ / LEARN / PLAN WIRING ================= */
+function updateRead() {
+  var n = annos.length, srcs = {}; annos.forEach(function (a) { srcs[a.src] = 1; });
+  var hasAnnos = n >= MIN_ANNOS && Object.keys(srcs).length >= 2;
+  $('annoN').textContent = Math.min(n, MIN_ANNOS) + ' / ' + MIN_ANNOS + ' ' + (hasAnnos ? '✅' : (n >= MIN_ANNOS ? '(use 2+ texts)' : ''));
+  $('annoCount').className = 'callout' + (hasAnnos ? '' : ' warn');
+  var ok = getName().length > 0 && $('chkRead1').checked && hasAnnos;
+  $('readNext').disabled = !ok; $('readHint').classList.toggle('hidden', ok);
+}
+
+/* ================= FINAL ================= */
+var BODY_KEYS = ['b1', 'b2', 'b3'];
+function essayParagraphs() {
+  return ['intro', 'b1', 'b2', 'b3', 'concl'].map(paragraphText);
+}
+function collectEvidence() {
+  var res = [];
+  BODY_KEYS.forEach(function (k) {
+    SECTIONS[k].boxes.filter(function (b) { return b.type === 'ev'; }).forEach(function (b) {
+      var t = (texts[b.id] || '').trim(); if (!t) return;
+      var cs = parseCitations(t); res.push({ key: k, id: b.id, kind: cs[0] ? cs[0].kind : null, q: normCmp(extractQuotes(t).join(' ')) });
+    });
+  });
+  return res;
+}
+function renderFinal() {
+  var box = $('essayPreview'); clear(box);
+  box.appendChild(el('h3', '', PROMPT));
+  var paras = essayParagraphs(), total = 0;
+  paras.forEach(function (p) { box.appendChild(el('p', '', p)); total += wc(p); });
+  box.appendChild(el('div', 'meta', total + ' words · ' + total + ' 词'));
+  S.finalOk = false; clear($('fb-final')); updateDownload();
+}
+function runFinalCheck() {
+  S.finalAttempts++;
+  var fb = $('fb-final'); clear(fb);
+  var items = [], notes = [];
+  var allPassed = ['intro', 'b1', 'b2', 'b3', 'concl'].every(function (k) { return passed[k]; });
+  if (!allPassed) items.push(I('err', 'One or more sections are not locked in. Go back and finish them.', '有部分段落尚未锁定，请返回完成。'));
+  var ev = collectEvidence(), kinds = {};
+  ev.forEach(function (e) { if (e.kind) kinds[e.kind] = 1; });
+  var nk = Object.keys(kinds).length;
+  var usedNames = Object.keys(kinds).map(function (k) { return SRCMAP[k].short; }).join(' + ');
+  if (nk < REQUIRED_PASSAGES) items.push(I('err', 'You used ' + nk + ' passage(s) in your evidence (' + (usedNames || 'none') + '). The exam needs at least ' + REQUIRED_PASSAGES + ' of the 4 passages.', '你的证据只用了 ' + nk + ' 篇材料，考试要求至少用到四篇中的 ' + REQUIRED_PASSAGES + ' 篇。'));
+  else items.push(I('ok', 'Passages used: ' + usedNames + ' (' + nk + ' of 4). The exam needs at least 3.', '使用的材料：' + usedNames + '（4 篇中的 ' + nk + ' 篇）。考试要求至少 3 篇。'));
+  BODY_KEYS.forEach(function (k) {
+    var c = ev.filter(function (e) { return e.key === k; }).length;
+    if (c < 2 || c > 3) items.push(I('err', 'Body paragraph ' + k.charAt(1) + ' has ' + c + ' piece(s) of evidence. You need 2 to 3.', '主体段 ' + k.charAt(1) + ' 有 ' + c + ' 条证据，需要 2–3 条。'));
+  });
+  var dup = false, seen = {}; ev.forEach(function (e) { if (e.q) { if (seen[e.q]) dup = true; seen[e.q] = 1; } });
+  if (dup) items.push(I('err', 'The same quotation is used twice in your essay. Use different evidence each time.', '全文中同一条引文用了两次，请每次使用不同的证据。'));
+  essayParagraphs().forEach(function (p, i) {
+    grammarCheck(p).filter(function (g) { return g.lvl === 'err'; }).forEach(function (g) { items.push(I('err', 'Paragraph ' + (i + 1) + ': ' + g.en, '第 ' + (i + 1) + ' 段：' + g.cn, g.ex)); });
+  });
+  var errs = items.filter(function (i) { return i.lvl === 'err'; }).length;
+  S.finalOk = errs === 0;
+  S.finalNotes = items.filter(function (i) { return i.lvl !== 'err'; }).map(function (i) { return i.en; });
+  renderBox(fb, 'Whole essay', '整篇作文', items);
+  var sum = el('div', 'summary ' + (errs ? 'bad' : 'good'));
+  sum.appendChild(errs ? bi('Fix the ❌ items (go back to the right step), then run the final check again.', '请修改 ❌ 问题（返回相应步骤），然后再次运行终审检查。') : bi('Your essay passed the final check. Finish the habits and reflection to unlock your download.', '作文通过终审检查。完成下面的习惯确认和反思即可解锁下载。'));
+  fb.insertBefore(sum, fb.firstChild);
+  updateDownload();
+}
+function updateDownload() {
+  var ticks = Array.prototype.every.call(document.querySelectorAll('.fchk'), function (c) { return c.checked; });
+  var r1 = $('finRef1').value.trim().length >= 15, r2 = $('finRef2').value.trim().length >= 15, g = $('finGrat').value.trim().length >= 2;
+  var ready = S.finalOk && ticks && r1 && r2 && g;
+  $('finalDownload').classList.toggle('ready', ready);
+  $('finalHint').classList.toggle('hidden', ready);
+}
+
+function buildReport() {
+  var name = getName() || 'Unknown', now = new Date().toLocaleString(), L = [];
+  var bar = '================================================================';
+  L.push(bar, 'MLWS ENGLISH 12 — ESSAY PRACTICE REPORT', bar);
+  L.push('Student: ' + name, 'Date/Time: ' + now, 'Session Time: ' + fmt(S.seconds), 'Tab Switches (recorded leaves): ' + S.leaveCount, 'Paste attempts blocked: ' + S.pastes, '');
+  L.push('Prompt: ' + PROMPT, '');
+  var LET = ['A', 'B', 'C', 'D'];
+  L.push('--- Reading questions: ' + S.rqScore + ' / ' + totalReadingQs() + ' ---');
+  QUIZZES.forEach(function (g) {
+    var r = S.rq[g.id]; L.push(g.title + ': ' + r.score + ' / ' + g.qs.length);
+    g.qs.forEach(function (q, i) { var sel = r.ans[i] || 'Not answered'; L.push('  ' + (i + 1) + '. [' + q.t.split(' ')[0] + '] ' + q.q + '\n     Selected: ' + sel + ' | ' + (sel === LET[q.c] ? 'CORRECT' : 'INCORRECT (Correct: ' + LET[q.c] + ')')); });
+  });
+  L.push('', '--- Quick Check (structure and MLA) : ' + S.qScore + ' / ' + QUICK.length + ' ---');
+  QUICK.forEach(function (q, i) { var sel = S.qAnswers[i] || 'Not answered'; L.push((i + 1) + '. ' + q.q + '\n   Selected: ' + sel + ' | ' + (sel === LET[q.c] ? 'CORRECT' : 'INCORRECT (Correct: ' + LET[q.c] + ')')); });
+  L.push('', '--- Support used ---', 'Level at finish: ' + S.support, 'Level changes: ' + S.supportLog.join(', '), 'Full stems inserted: ' + S.stemUses.full + ' | Starters inserted: ' + S.stemUses.starters + ' | Highlights inserted: ' + S.stemUses.highlight + ' | Word-bank words inserted: ' + S.stemUses.chip);
+  L.push('', '--- Reading annotations (' + annos.length + ') ---');
+  var ar = annotationReport(); if (!ar.length) L.push('None.'); ar.forEach(function (x) { L.push(x); });
+  L.push('', '--- Plan ---');
+  var pi = planInputs(), pn = planNotes();
+  for (var i = 0; i < 3; i++) L.push('Point ' + (i + 1) + ': ' + pi[i] + '   | Evidence idea: ' + pn[i]);
+  L.push('', '--- Passages cited in essay ---');
+  var cites = {}; collectEvidence().forEach(function (e) { if (e.kind) cites[SRCMAP[e.kind].short] = (cites[SRCMAP[e.kind].short] || 0) + 1; });
+  L.push(Object.keys(cites).map(function (k) { return k + ': ' + cites[k]; }).join(' | ') || 'None');
+  L.push('', '--- Check attempts (times the student pressed Check) ---');
+  ['plan', 'intro', 'b1', 'b2', 'b3', 'concl'].forEach(function (k) { L.push(k + ': ' + (attempts[k] || 0)); });
+  L.push('Final check: ' + S.finalAttempts);
+  L.push('', bar, 'FINAL ESSAY', bar, '', PROMPT, '');
+  essayParagraphs().forEach(function (p) { L.push('    ' + p, ''); });
+  L.push('Word count: ' + essayParagraphs().reduce(function (a, p) { return a + wc(p); }, 0));
+  L.push('', bar, 'REMAINING SUGGESTIONS (warnings the student saw but did not have to fix)', bar);
+  var any = false;
+  Object.keys(leftover).forEach(function (k) { (leftover[k] || []).forEach(function (w) { any = true; L.push('[' + k + '] ' + w); }); });
+  if (!any) L.push('None.');
+  L.push('', bar, 'STUDENT REFLECTIONS', bar, '');
+  L.push('Q1. How does the Synthesized Explanation differ from a simple summary of evidence?', $('finRef1').value.trim(), '');
+  L.push('Q2. Why is it important to have two or three pieces of evidence in each body paragraph? What benefits does this bring to the argument?', $('finRef2').value.trim(), '');
+  L.push('GRATITUDE: Today I am grateful for ' + $('finGrat').value.trim(), '', bar, 'End of report');
+  return L.join('\n');
+}
+function downloadText(txt, fname) {
+  var blob = new Blob([txt], { type: 'text/plain' }), url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = fname; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+function dateTag() { return new Date().toLocaleDateString().replace(/[\/\s,]/g, '-'); }
+function nameTag() { return (getName() || 'Unknown').replace(/\s+/g, '_'); }
+
+function saveDraft() {
+  var L = ['MLWS ESSAY PRACTICE DRAFT (work in progress) — ' + getName() + ' — ' + new Date().toLocaleString(), '', PROMPT, ''];
+  var pi = planInputs(); L.push('PLAN: ' + pi.join(' | '), '');
+  L.push('ANNOTATIONS:'); annotationReport().forEach(function (x) { L.push('  ' + x); }); L.push('');
+  ['intro', 'b1', 'b2', 'b3', 'concl'].forEach(function (k) {
+    L.push('## ' + SECTIONS[k].title);
+    SECTIONS[k].boxes.forEach(function (b) { L.push('[' + b.label + '] ' + (texts[b.id] || '')); });
+    L.push('');
+  });
+  downloadText(L.join('\n'), 'MLWS_ESSAYPRACTICE_DRAFT_' + nameTag() + '_' + dateTag() + '.txt');
+  toast('Draft saved to your downloads.', '草稿已保存到下载文件夹。');
+}
+
+/* ================= TIMER / ANTI-CHEAT ================= */
+function startTimer() { setInterval(function () { S.seconds++; $('timer-display').textContent = '⏱ ' + fmt(S.seconds); }, 1000); }
+function trackNavigation() {
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      S.leaveCount++; $('leaveBadge').textContent = '🚪 Leaves: ' + S.leaveCount;
+      var n = $('leaveNotice'); n.style.display = 'block'; setTimeout(function () { n.style.display = 'none'; }, 5000);
+    }
+  });
+  window.addEventListener('beforeunload', function (e) { if (!passed.final) { e.preventDefault(); e.returnValue = ''; } });
+}
+
+/* ================= INIT ================= */
+document.addEventListener('DOMContentLoaded', function () {
+  $('promptText').textContent = PROMPT; $('planPrompt').textContent = PROMPT;
+  buildReader(); placeReader();
+  buildStepper(); buildQuiz(); buildReadingQuizzes(); buildPlan();
+  ['intro', 'b1', 'b2', 'b3', 'concl'].forEach(buildSection);
+  try { var qp = new URLSearchParams(window.location.search).get('support'); if (qp === 'full' || qp === 'starters' || qp === 'none') S.support = qp; } catch (x) {}
+  document.querySelectorAll('.supbtn').forEach(function (b) { b.addEventListener('click', function () { setSupport(b.dataset.lv); }); });
+  document.addEventListener('focusin', function (e) { var t = e.target; if (t && t.matches && t.matches('textarea, input[type=text]') && !t.closest('#annoPop') && t.id !== 'nameInput') lastField = t; });
+  S.supportLog.push(S.support + ' @00:00');
+  renderAllSupport();
+
+  ['nameInput'].forEach(function (id) { $(id).addEventListener('input', updateRead); });
+  $('chkRead1').addEventListener('change', updateRead);
+  $('readNext').addEventListener('click', function () { passed.read = true; refresh(); showStep('quiz'); });
+  $('quizNext').addEventListener('click', function () { passed.quiz = true; refresh(); showStep('learn'); });
+  $('learnNext').addEventListener('click', function () { passed.learn = true; refresh(); showStep('plan'); });
+  $('planCheck').addEventListener('click', runPlanCheck);
+  $('planTick').addEventListener('change', function () { $('planNext').disabled = !(lastOk.plan && $('planTick').checked); });
+  $('planNext').addEventListener('click', function () { passed.plan = true; refresh(); showStep('intro'); });
+  $('finalCheck').addEventListener('click', runFinalCheck);
+  document.querySelectorAll('.fchk').forEach(function (c) { c.addEventListener('change', updateDownload); });
+  ['finRef1', 'finRef2', 'finGrat'].forEach(function (id) { $(id).addEventListener('input', updateDownload); wireNoPaste($(id)); });
+  $('finalDownload').addEventListener('click', function () {
+    if (!$('finalDownload').classList.contains('ready')) return;
+    downloadText(buildReport(), 'MLWS_ESSAYPRACTICE_' + nameTag() + '_' + dateTag() + '.txt');
+    passed.final = true; refresh();
+    toast('Report downloaded. Send it to your teacher.', '报告已下载，请交给老师。');
+  });
+  $('draftBtn').addEventListener('click', saveDraft);
+  $('dockBtn').addEventListener('click', toggleDock);
+  $('dockX').addEventListener('click', function () { $('dock').classList.remove('open'); });
+  window.addEventListener('resize', placeReader);
+
+  startTimer(); trackNavigation(); refresh(); updateRead();
+});
+})();
+
+</script>
+</body>
+</html>
