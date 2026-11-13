@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Are Human Rights? — Class Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dark:#12161F; --cream:#F4EFE6; --amber:#E8A93C; --amber-dark:#9A5B00;
+    --teal:#6FCFC0; --teal-dark:#1F6F66; --card-dark:#1E2430; --card-cream:#FBF8F2;
+    --border-cream:#D9D2C3; --muted-dark:#9AA3B2; --muted-cream:#6B6558;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;background:var(--dark);font-family:"Public Sans",system-ui,sans-serif;}
+  .serif{font-family:"Libre Baskerville",Georgia,serif;}
+
+  /* ---------- deck ---------- */
+  #deck{position:fixed;inset:0;}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 7vw 10vh;opacity:0;pointer-events:none;transform:translateX(4vw);
+    transition:opacity .45s ease,transform .45s ease;}
+  .slide.active{opacity:1;pointer-events:auto;transform:translateX(0);}
+  .slide.dark{background:var(--dark);color:var(--cream);}
+  .slide.cream{background:var(--cream);color:var(--dark);}
+
+  .eyebrow{font-size:14px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:2vh;}
+  .dark .eyebrow{color:var(--amber);}
+  .cream .eyebrow{color:var(--teal-dark);}
+  .eyebrow.amber-on-cream{color:var(--amber-dark);}
+
+  h1{font-size:clamp(40px,6vw,84px);line-height:1.05;font-weight:700;}
+  h2{font-size:clamp(30px,3.6vw,52px);line-height:1.15;margin-bottom:3vh;}
+  .lead{font-size:clamp(20px,1.8vw,28px);line-height:1.45;max-width:60ch;}
+  .dark .lead{color:#D8DCE4;}
+  .cream .lead{color:#3A3A34;}
+  .small{font-size:clamp(15px,1.1vw,18px);line-height:1.5;}
+  .dark .small{color:var(--muted-dark);}
+  .cream .small{color:var(--muted-cream);}
+
+  .cards{display:grid;gap:2vh 2vw;margin-top:2vh;}
+  .cards.c2{grid-template-columns:1fr 1fr;}
+  .cards.c3{grid-template-columns:repeat(3,1fr);}
+  .card{padding:2.2vh 1.6vw;border-radius:14px;font-size:clamp(17px,1.4vw,22px);line-height:1.4;}
+  .dark .card{background:var(--card-dark);}
+  .cream .card{background:var(--card-cream);border:1px solid var(--border-cream);}
+  .card b{display:block;font-size:clamp(18px,1.5vw,24px);margin-bottom:.6vh;}
+  .card .num{display:block;font-family:"Libre Baskerville",serif;font-size:clamp(26px,2.4vw,40px);color:var(--amber-dark);margin-bottom:.8vh;}
+  .dark .card .num{color:var(--amber);}
+  .card .ltr{font-family:"Libre Baskerville",serif;font-size:clamp(24px,2vw,34px);color:var(--amber-dark);margin-right:14px;}
+  .dark .card .ltr{color:var(--amber);}
+
+  /* 2-minute timer (top-left of a slide) */
+  .timer{position:absolute;top:3vh;left:7vw;z-index:5;cursor:pointer;user-select:none;
+    background:var(--card-dark);border:1px solid #2a3140;border-radius:14px;padding:10px 18px;text-align:center;min-width:120px;}
+  .cream .timer{background:var(--card-cream);border-color:var(--border-cream);}
+  .timer .t-time{display:block;font-size:30px;font-weight:700;color:var(--amber);font-variant-numeric:tabular-nums;line-height:1.1;}
+  .timer .t-hint{display:block;font-size:11px;color:var(--muted-dark);margin-top:2px;}
+  .cream .timer .t-hint{color:var(--muted-cream);}
+  .timer.done .t-time{color:#e05b4b;}
+
+  .tag{display:inline-block;margin-top:2.5vh;font-size:13px;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;padding:6px 14px;border-radius:99px;}
+  .dark .tag{background:rgba(232,169,60,.15);color:var(--amber);}
+  .cream .tag{background:rgba(31,111,102,.12);color:var(--teal-dark);}
+
+  /* sentence frames */
+  .frames{display:flex;gap:1.5vw;margin-top:3vh;}
+  .frame{flex:1;padding:1.8vh 1.4vw;border-radius:14px;font-size:clamp(16px,1.3vw,21px);line-height:1.45;}
+  .frame .lvl{display:block;font-size:13px;font-weight:700;letter-spacing:.14em;margin-bottom:.5vh;}
+  .dark .frame{background:var(--card-dark);}
+  .dark .frame .lvl{color:var(--teal);}
+  .cream .frame{background:var(--card-cream);border:1px solid var(--border-cream);}
+  .cream .frame .lvl{color:var(--teal-dark);}
+  .frame.full{flex:1 1 100%;}
+
+  .model-q{font-size:clamp(16px,1.2vw,20px);margin-bottom:2vh;}
+  .dark .model-q{color:var(--muted-dark);}
+  .cream .model-q{color:var(--muted-cream);}
+  .model-a{font-size:clamp(24px,2.4vw,38px);line-height:1.4;font-family:"Libre Baskerville",serif;}
+  .model-a2{font-size:clamp(18px,1.5vw,24px);line-height:1.5;margin-top:1.5vh;}
+  .dark .model-a2{color:#C7CDD8;}
+  .cream .model-a2{color:#4A463C;}
+
+  /* text slide */
+  .textbody{font-family:"Libre Baskerville",serif;font-size:clamp(22px,2vw,32px);line-height:1.6;max-width:58ch;}
+  .textbody p{margin-bottom:1.6vh;}
+  .textbody .tw{color:var(--amber-dark);font-weight:700;}
+
+  /* ---------- nav ---------- */
+  #nav{position:fixed;bottom:2.5vh;right:2.5vw;display:flex;align-items:center;gap:14px;z-index:40;}
+  #nav button{width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;font-size:20px;
+    background:var(--amber);color:var(--dark);font-weight:700;}
+  #nav button:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:14px;color:#8a8f9a;font-variant-numeric:tabular-nums;background:rgba(18,22,31,.75);
+    padding:6px 12px;border-radius:99px;backdrop-filter:blur(4px);}
+  #notesBtn{position:fixed;top:2.5vh;right:2.5vw;z-index:40;background:transparent;border:1.5px solid #5a6272;
+    color:#aab2c0;border-radius:99px;padding:8px 18px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;}
+  #notesBtn:hover{border-color:var(--amber);color:var(--amber);}
+  #notes{position:fixed;top:9vh;right:2.5vw;width:min(420px,80vw);max-height:70vh;overflow:auto;z-index:39;
+    background:#0d1118;color:#cfd6e0;border:1px solid #2a3140;border-radius:14px;padding:20px 22px;
+    font-size:15px;line-height:1.6;display:none;box-shadow:0 12px 40px rgba(0,0,0,.5);}
+  #notes h3{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+
+  /* ---------- spin wheel ---------- */
+  #wheelFab{position:fixed;left:2vw;bottom:2.5vh;z-index:50;width:64px;height:64px;border-radius:50%;
+    border:3px solid var(--amber);background:var(--card-dark);color:var(--amber);cursor:pointer;
+    font-size:13px;font-weight:700;letter-spacing:.05em;font-family:inherit;
+    display:flex;align-items:center;justify-content:center;transition:transform .2s;}
+  #wheelFab:hover{transform:scale(1.08);}
+  #wheelPanel{position:fixed;left:2vw;bottom:2.5vh;z-index:50;width:280px;background:#0d1118;
+    border:1px solid #2a3140;border-radius:18px;padding:16px;color:#e6eaf0;display:none;
+    box-shadow:0 16px 50px rgba(0,0,0,.55);}
+  #wheelPanel.open{display:block;}
+  #wheelPanel header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  #wheelPanel header b{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);}
+  #wheelPanel header button{background:none;border:none;color:#8a8f9a;font-size:18px;cursor:pointer;}
+  #wheelWrap{position:relative;width:220px;height:220px;margin:0 auto;}
+  #wheelCanvas{width:220px;height:220px;}
+  #pointer{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;
+    border-left:11px solid transparent;border-right:11px solid transparent;border-top:18px solid var(--amber);
+    filter:drop-shadow(0 2px 3px rgba(0,0,0,.5));z-index:2;}
+  #spinBtn{display:block;width:100%;margin-top:12px;padding:12px;border:none;border-radius:12px;
+    background:var(--amber);color:var(--dark);font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;}
+  #spinBtn:disabled{opacity:.5;cursor:default;}
+  #result{min-height:30px;margin-top:10px;text-align:center;font-size:22px;font-weight:700;color:var(--teal);}
+  .wheel-row{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:#aab2c0;}
+  .wheel-row label{display:flex;align-items:center;gap:6px;cursor:pointer;flex:1;}
+  #resetWheel{background:none;border:1px solid #2a3140;color:#8a8f9a;border-radius:8px;padding:4px 10px;
+    font-size:12px;cursor:pointer;font-family:inherit;}
+  #editNames{width:100%;margin-top:10px;background:#12161f;border:1px solid #2a3140;color:#cfd6e0;
+    border-radius:10px;padding:8px 10px;font-size:13px;font-family:inherit;resize:vertical;min-height:64px;display:none;}
+  #toggleEdit{background:none;border:none;color:#5a6272;font-size:12px;cursor:pointer;margin-top:8px;font-family:inherit;}
+  #toggleEdit:hover{color:var(--amber);}
+
+  @media (max-width:760px){
+    .cards.c2,.cards.c3{grid-template-columns:1fr;}
+    .frames{flex-direction:column;}
+    .slide{padding:4vh 6vw 14vh;}
+  }
+</style>
+</head>
+<body>
+
+<div id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide dark">
+    <div class="eyebrow">Civics · Our Rights</div>
+    <h1 class="serif">What Are<br>Human Rights?</h1>
+    <p class="lead" style="margin-top:2vh;">Freedoms that every person is born with.</p>
+    <span class="tag">Today: listen, talk, share your opinion</span>
+  </section>
+
+  <!-- 2 GOALS -->
+  <section class="slide cream">
+    <div class="eyebrow">Our goals today</div>
+    <h2 class="serif">By the end of class, you can…</h2>
+    <div class="cards c2">
+      <div class="card"><b>Content goal</b>Name at least 5 universal human rights and explain what "human right" means.</div>
+      <div class="card"><b>Language goal</b>Give your opinion about a right in full English sentences, using a sentence frame.</div>
+    </div>
+    <span class="tag">Strategy 5 · Clear goal-setting</span>
+  </section>
+
+  <!-- 3 HOOK -->
+  <section class="slide dark">
+    <div class="timer" data-seconds="120"><span class="t-time">2:00</span><span class="t-hint">click to start</span></div>
+    <div class="eyebrow">Warm-up · Think–Pair–Share</div>
+    <h2 class="serif">You can keep only ONE.<br>Which do you keep — and why?</h2>
+    <div class="cards c3">
+      <div class="card"><span class="ltr">A</span>Speaking freely</div>
+      <div class="card"><span class="ltr">B</span>Going to school</div>
+      <div class="card"><span class="ltr">C</span>Feeling safe</div>
+    </div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I would keep ___ because ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>If I could keep only one, I would choose ___ because ___.</div>
+    </div>
+    <span class="tag">Strategy 3 · Think-Pair-Share</span>
+  </section>
+
+  <!-- 4 MODEL ANSWER -->
+  <section class="slide dark">
+    <div class="eyebrow" style="color:var(--amber);">Model answer · one possible answer</div>
+    <p class="model-q">You can keep only ONE. Which do you keep — and why?</p>
+    <p class="model-a">“If I could keep only one, I would choose <b>feeling safe</b>, because without safety the other rights are hard to use.”</p>
+    <p class="model-a2">Level 2: “I would keep feeling safe because safety comes first.”</p>
+    <p class="small" style="margin-top:2vh;">Your answer can be different. There is no single right answer — only clear reasons.</p>
+  </section>
+
+  <!-- 5 VOCAB -->
+  <section class="slide cream">
+    <div class="eyebrow">Words we need today</div>
+    <h2 class="serif">Vocabulary preview</h2>
+    <div class="cards c3">
+      <div class="card"><b>entitled to</b>something you have a right to have, just by being human</div>
+      <div class="card"><b>universal</b>true for everyone, everywhere</div>
+      <div class="card"><b>freedom</b>the power to live, speak, or act without being stopped unfairly</div>
+      <div class="card"><b>assembly</b>people coming together peacefully in a group</div>
+      <div class="card"><b>asylum</b>safety in another country when home is dangerous</div>
+      <div class="card"><b>in debate</b>people still arguing about it — not decided yet</div>
+    </div>
+    <div class="frames">
+      <div class="frame full"><span class="lvl">FRAME</span>“___” means ___.</div>
+    </div>
+    <span class="tag">Strategy 4 · Vocabulary enhancement</span>
+  </section>
+
+  <!-- 6 DEFINITION TEXT -->
+  <section class="slide cream">
+    <div class="eyebrow">Reading · Part 1 of 3 — What is a human right?</div>
+    <div class="textbody">
+      <p>Human rights are <span class="tw">freedoms</span>. All humans are <span class="tw">entitled to</span> them — we are born with them.</p>
+      <p>It does not matter what your race, religion, gender, or age is. They belong to everyone.</p>
+      <p>Human rights let everyone live a life <span class="tw">without fear</span>.</p>
+    </div>
+  </section>
+
+  <!-- 7 UDHR -->
+  <section class="slide dark">
+    <div class="eyebrow">Reading · Part 2 of 3 — Where do they come from?</div>
+    <h2 class="serif">One promise, signed by the world</h2>
+    <div class="cards c3">
+      <div class="card"><span class="num">1948</span>After World War II, world leaders met in Paris.</div>
+      <div class="card"><span class="num">UDHR</span>They wrote the Universal Declaration of Human Rights.</div>
+      <div class="card"><span class="num">30</span>It lists 30 basic rights for every person on Earth.</div>
+    </div>
+    <p class="small" style="margin-top:2vh;">Almost every country in the world agreed to this promise.</p>
+  </section>
+
+  <!-- 8 UNIVERSAL RIGHTS I -->
+  <section class="slide cream">
+    <div class="eyebrow">Reading · Part 3 of 3 — Universal rights (1)</div>
+    <h2 class="serif">Rights that protect your life and safety</h2>
+    <div class="cards c2">
+      <div class="card"><b>The right to life</b>No one may take your life.</div>
+      <div class="card"><b>Freedom from torture</b>No one may hurt you to punish or scare you.</div>
+      <div class="card"><b>Freedom from slavery</b>No one may own another person.</div>
+      <div class="card"><b>The right to a fair trial</b>Innocent until proven guilty, in public, with a defense.</div>
+    </div>
+  </section>
+
+  <!-- 9 UNIVERSAL RIGHTS II -->
+  <section class="slide cream">
+    <div class="eyebrow">Universal rights (2)</div>
+    <h2 class="serif">Rights that protect your freedom and future</h2>
+    <div class="cards c3">
+      <div class="card">Freedom of speech</div>
+      <div class="card">Freedom of movement</div>
+      <div class="card">The right to education</div>
+      <div class="card">Freedom of peaceful assembly</div>
+      <div class="card">The right to work — fair pay for fair work</div>
+      <div class="card">The right to clean water &amp; sanitation</div>
+    </div>
+  </section>
+
+  <!-- 10 CHECK -->
+  <section class="slide dark">
+    <div class="eyebrow">Check for understanding · hold up A, B or C</div>
+    <h2 class="serif">Which one is NOT a universal human right yet?</h2>
+    <div class="cards c3">
+      <div class="card"><span class="ltr">A</span>The right to a fair trial</div>
+      <div class="card"><span class="ltr">B</span>The right to clean water</div>
+      <div class="card"><span class="ltr">C</span>The right to carry weapons</div>
+    </div>
+    <span class="tag">Strategy 6 · Frequent checks</span>
+  </section>
+
+  <!-- 11 CHECK MODEL -->
+  <section class="slide dark">
+    <div class="eyebrow">Model answer</div>
+    <p class="model-q">Which one is NOT a universal human right yet?</p>
+    <p class="model-a">Answer: <b>C — the right to carry weapons.</b></p>
+    <p class="model-a2">A fair trial and clean water are in the UDHR. Weapons are still <b>in debate</b> — countries disagree about them.</p>
+  </section>
+
+  <!-- 12 RIGHTS IN DEBATE -->
+  <section class="slide dark">
+    <div class="eyebrow">Rights in debate — the world is still deciding</div>
+    <h2 class="serif">Events can change rights — or create new ones</h2>
+    <div class="cards c3">
+      <div class="card"><b>Bear arms</b>Should people be allowed to buy and carry weapons?</div>
+      <div class="card"><b>Future generations</b>Must we protect the planet for people not born yet?</div>
+      <div class="card"><b>Gender &amp; orientation</b>By 2017, 26 countries had legalized same-sex marriage.</div>
+      <div class="card"><b>Reproductive rights</b>Who decides about abortion and family size?</div>
+      <div class="card"><b>Internet access</b>Should the internet be a guaranteed right? Who may censor it?</div>
+      <div class="card"><b>Seeking asylum</b>May governments turn refugees away?</div>
+    </div>
+  </section>
+
+  <!-- 13 DISCUSSION -->
+  <section class="slide cream">
+    <div class="timer" data-seconds="120"><span class="t-time">2:00</span><span class="t-hint">click to start</span></div>
+    <div class="eyebrow">Your turn · pairs</div>
+    <h2 class="serif">Pick one debated right. Agree or disagree?</h2>
+    <p class="lead">Talk with your partner for 2 minutes. Be ready — the wheel may choose you to share your pair's idea.</p>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think people should / should not have the right to ___ because ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>In my opinion, ___ should be a universal right because ___; however, others argue that ___.</div>
+    </div>
+    <span class="tag">Strategy 3 + 9 · Pair talk &amp; active learning — spin the wheel to cold call</span>
+  </section>
+
+  <!-- 14 CONSOLIDATION -->
+  <section class="slide cream">
+    <div class="eyebrow">Consolidation · 30 rights, 3 groups</div>
+    <h2 class="serif">Sort the rights into three baskets</h2>
+    <div class="cards c3">
+      <div class="card"><b>About ME</b>life, privacy, nationality, marriage, thoughts &amp; religion…</div>
+      <div class="card"><b>About the LAW</b>fair trial, innocent until proven guilty, no arbitrary arrest…</div>
+      <div class="card"><b>About COMMUNITY</b>education, work, voting, culture, rest &amp; leisure…</div>
+    </div>
+    <p class="small" style="margin-top:2vh;">With your partner, place the 30 UDHR rights from the infographic into the three baskets. Some fit in more than one — explain your choice.</p>
+    <span class="tag">Strategy 11 · Consolidation event</span>
+  </section>
+
+  <!-- 15 BASKET ANSWERS: ME -->
+  <section class="slide cream">
+    <div class="eyebrow amber-on-cream">Model answer · Basket 1 of 3</div>
+    <h2 class="serif">About ME — rights that protect my person</h2>
+    <div class="cards c2">
+      <div class="card"><b>1, 2, 3</b>Born free &amp; equal · no discrimination · life, liberty &amp; safety</div>
+      <div class="card"><b>4, 5</b>No slavery · no torture</div>
+      <div class="card"><b>12, 13</b>Privacy · freedom of movement</div>
+      <div class="card"><b>14, 15</b>Asylum · a nationality</div>
+      <div class="card"><b>16, 17</b>Marriage &amp; family · own property</div>
+      <div class="card"><b>18, 19</b>Thought &amp; religion · opinion &amp; expression</div>
+    </div>
+  </section>
+
+  <!-- 16 BASKET ANSWERS: LAW -->
+  <section class="slide cream">
+    <div class="eyebrow amber-on-cream">Model answer · Basket 2 of 3</div>
+    <h2 class="serif">About the LAW — rights that protect me in court</h2>
+    <div class="cards c2">
+      <div class="card"><b>6, 7</b>A person before the law · equal protection of the law</div>
+      <div class="card"><b>8</b>Fair treatment by the constitution and the law</div>
+      <div class="card"><b>9</b>No arbitrary arrest, unfair detention or exile</div>
+      <div class="card"><b>10, 11</b>A fair, public trial · innocent until proven guilty</div>
+    </div>
+  </section>
+
+  <!-- 17 BASKET ANSWERS: COMMUNITY -->
+  <section class="slide cream">
+    <div class="eyebrow amber-on-cream">Model answer · Basket 3 of 3</div>
+    <h2 class="serif">About COMMUNITY — rights we share together</h2>
+    <div class="cards c2">
+      <div class="card"><b>20, 21</b>Peaceful assembly · voting &amp; government</div>
+      <div class="card"><b>22, 23</b>Social security · work &amp; protection</div>
+      <div class="card"><b>24, 25</b>Rest &amp; leisure · a decent standard of living</div>
+      <div class="card"><b>26, 27</b>Education · cultural life</div>
+      <div class="card"><b>28, 29, 30</b>Rights recognized worldwide · duty to the community · rights can never be taken away</div>
+    </div>
+    <p class="small" style="margin-top:2vh;">Some rights fit in more than one basket. If you can explain your choice, your answer is right too.</p>
+  </section>
+
+  <!-- 18 EXIT TICKET -->
+  <section class="slide dark">
+    <div class="eyebrow">Exit ticket · 5 – 2 – 1</div>
+    <h2 class="serif">Before you leave</h2>
+    <div class="cards c3">
+      <div class="card"><span class="num">5</span>human rights you can name (our content goal)</div>
+      <div class="card"><span class="num">2</span>new English words you used today</div>
+      <div class="card"><span class="num">1</span>opinion about a debated right, using a frame (our language goal)</div>
+    </div>
+    <div class="frames">
+      <div class="frame full"><span class="lvl">FRAME</span>I think ___ should / should not be a universal right because ___.</div>
+    </div>
+    <p class="small" style="margin-top:2vh;">Rate yourself: 🟢 5+ rights and a full-frame opinion · 🟡 3–4 rights · 🔴 fewer than 3</p>
+    <span class="tag">Strategy 10 · Track your own progress</span>
+  </section>
+
+</div>
+
+<!-- nav -->
+<button id="notesBtn" title="Teacher notes">Notes</button>
+<div id="notes"><h3>Teacher note</h3><div id="notesBody"></div></div>
+<div id="nav">
+  <span id="counter">1 / 15</span>
+  <button id="prev" aria-label="Previous slide">‹</button>
+  <button id="next" aria-label="Next slide">›</button>
+</div>
+
+<!-- spin wheel -->
+<button id="wheelFab">SPIN</button>
+<div id="wheelPanel">
+  <header><b>Cold Call</b><button id="closeWheel" aria-label="Close">✕</button></header>
+  <div id="wheelWrap"><div id="pointer"></div><canvas id="wheelCanvas" width="440" height="440"></canvas></div>
+  <button id="spinBtn">Spin</button>
+  <div id="result">&nbsp;</div>
+  <div class="wheel-row">
+    <label><input type="checkbox" id="removePick" checked> no repeats</label>
+    <button id="resetWheel">Reset names</button>
+  </div>
+  <button id="toggleEdit">edit names</button>
+  <textarea id="editNames" spellcheck="false"></textarea>
+</div>
+
+<script>
+/* ================= deck ================= */
+const slides=[...document.querySelectorAll('.slide')];
+const notes=[
+ "Cover. 1 min. Read the title aloud, then the subtitle slowly. Ask: 'What do you think a HUMAN RIGHT is?' Take 2 quick guesses — don't correct yet.",
+ "Goals. 1 min. Read both goals. Tell students you will re-check them at the exit ticket. Strategy 5: clear goal-setting.",
+ "Hook, 3 min. Think 30s alone, then pair talk in English, 2 min. Frames on screen. Wait time 3–5s. Cold-call 2 pairs (wheel!). Accept any choice with a reason.",
+ "Model answer. 1 min. Think-aloud: 'First I look at my three options, then I ask which one the others DEPEND on.' Show how L2 and L4 say the same idea at two levels. Stress: answers may differ.",
+ "Vocab, 4 min. Choral read each word + meaning. Quick oral drill using the frame: '\"Asylum\" means safety in another country.' Strategy 4.",
+ "Read Part 1 chorally or teacher-read. Amber words = today's vocab. Ask after: 'Who has human rights?' (Everyone.) 'When do we get them?' (At birth.)",
+ "UDHR, 2 min. Emphasize 1948, after WWII — the world wanted rules so it never happens again. 30 rights = the infographic they will use later.",
+ "Rights I. Read each card, give a one-line example (slavery → 'no person can own you'). Ask thumbs up/down: 'Is this true everywhere in practice?' Brief.",
+ "Rights II. Point out education + water: 'You are using one of these rights right now.' Quick smile moment.",
+ "Check A/B/C, 1 min. All students hold up fingers 1/2/3 for A/B/C at the same time — no language needed. Scan the room before revealing.",
+ "Model answer. C — weapons are 'in debate', the other two are in the UDHR. If many chose wrong, re-read slide 8–9 cards quickly.",
+ "Rights in debate, 3 min. Read the six cards. Note the 2017 same-sex marriage fact is from the 2017 source text — numbers have grown since; the point is change over time.",
+ "Discussion, 4 min. Pairs pick ONE debated right. Frames on screen. Then SPIN THE WHEEL: the chosen student shares their pair's opinion. Spin 2–3 times. No repeats is on by default.",
+ "Consolidation, 6 min. Use the 30-rights infographic (printed or projected). Pairs sort into ME / LAW / COMMUNITY. Debrief 2–3 tricky ones with the wheel.",
+ "Basket answers ME, 1 min. Show AFTER pairs finish sorting. Students check their own work — no need to read every item aloud. Numbers match the infographic.",
+ "Basket answers LAW, 1 min. Point out this is the smallest basket — all court/arrest rights. Ask: 'Which number surprised you?'",
+ "Basket answers COMMUNITY, 1 min. Stress the last card: some rights (14 asylum, 17 property) could sit in ME too — any basket with a good reason is acceptable.",
+ "Exit ticket, 4 min. Now 5-2-1: five rights named (matches the content goal), two words, one opinion with the frame (matches the language goal). Traffic-light self-rating. Collect to group students next lesson. Strategy 10."
+];
+let cur=0;
+const counter=document.getElementById('counter');
+const prevBtn=document.getElementById('prev'), nextBtn=document.getElementById('next');
+function go(i){
+  cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,k)=>s.classList.toggle('active',k===cur));
+  counter.textContent=(cur+1)+' / '+slides.length;
+  prevBtn.disabled=cur===0; nextBtn.disabled=cur===slides.length-1;
+  document.getElementById('notesBody').textContent=notes[cur]||'';
+}
+prevBtn.onclick=()=>go(cur-1); nextBtn.onclick=()=>go(cur+1);
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT')return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+});
+/* touch swipe */
+let tx=null;
+document.addEventListener('touchstart',e=>{if(e.target.closest('#wheelPanel,#nav,#notes'))return;tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;tx=null;
+  if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));
+},{passive:true});
+/* notes toggle */
+const notesEl=document.getElementById('notes');
+document.getElementById('notesBtn').onclick=()=>{notesEl.style.display=notesEl.style.display==='block'?'none':'block';};
+
+/* ================= wheel ================= */
+const ALL_NAMES=["Enku","Loren","Eric","Jimmy","Zhe","Kaito","KAllen","Ella","Mike","Zora","Zoya","Jacob","Enguun","White","Romeo","Born","Patrick"];
+const COLORS=["#1E2430","#1F6F66","#9A5B00","#2A3140"];
+let entries=ALL_NAMES.map(n=>({name:n,used:false}));
+let angle=0, spinning=false;
+const cv=document.getElementById('wheelCanvas'), ctx=cv.getContext('2d');
+function draw(){
+  const n=entries.length, r=220, cx=220, cy=220;
+  ctx.clearRect(0,0,440,440);
+  if(n===0){ctx.fillStyle='#5a6272';ctx.font='20px Public Sans';ctx.textAlign='center';ctx.fillText('add names below',cx,cy);return;}
+  const arc=2*Math.PI/n;
+  for(let i=0;i<n;i++){
+    const e=entries[i];
+    const a0=angle+i*arc, a1=a0+arc;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r-4,a0,a1);ctx.closePath();
+    ctx.fillStyle=e.used?'#171b26':COLORS[i%COLORS.length];ctx.fill();
+    ctx.strokeStyle='#0d1118';ctx.lineWidth=3;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(a0+arc/2);
+    ctx.fillStyle=e.used?'#3d4452':'#F4EFE6';ctx.textAlign='right';ctx.textBaseline='middle';
+    let fs=Math.min(30,(arc*r*0.62)/Math.max(1,e.name.length)*2.2);
+    fs=Math.max(13,fs);ctx.font=`700 ${fs}px "Public Sans"`;
+    ctx.fillText(e.name,r-18,0);ctx.restore();
+  }
+  ctx.beginPath();ctx.arc(cx,cy,10,0,7);ctx.fillStyle='#E8A93C';ctx.fill();
+}
+draw();
+function spin(){
+  const active=entries.map((e,i)=>({e,i})).filter(x=>!x.e.used);
+  if(spinning||active.length===0)return;
+  spinning=true;document.getElementById('spinBtn').disabled=true;
+  document.getElementById('result').innerHTML='&nbsp;';
+  const n=entries.length, arc=2*Math.PI/n;
+  const target=active[Math.floor(Math.random()*active.length)].i;
+  /* pointer is at -PI/2 (top); we want slice `target` centered there */
+  const want=(-Math.PI/2)-(target*arc+arc/2);
+  const turns=5+Math.random()*2;
+  const start=angle;
+  let end=start+turns*2*Math.PI;
+  end+=((want-end)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+  const dur=3800, t0=performance.now();
+  function frame(t){
+    const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    angle=start+(end-start)*e;draw();
+    if(p<1)requestAnimationFrame(frame);
+    else{
+      spinning=false;document.getElementById('spinBtn').disabled=false;
+      const picked=entries[target];
+      document.getElementById('result').textContent='🎤 '+picked.name;
+      /* winner stays under the pointer; the slice only greys out in place */
+      if(document.getElementById('removePick').checked){
+        setTimeout(()=>{picked.used=true;syncEditor();draw();},1500);
+      }
+    }
+  }
+  requestAnimationFrame(frame);
+}
+function syncEditor(){document.getElementById('editNames').value=entries.filter(e=>!e.used).map(e=>e.name).join('\n');}
+const fab=document.getElementById('wheelFab'), panel=document.getElementById('wheelPanel');
+fab.onclick=()=>{panel.classList.add('open');fab.style.display='none';draw();};
+document.getElementById('closeWheel').onclick=()=>{panel.classList.remove('open');fab.style.display='flex';};
+document.getElementById('spinBtn').onclick=spin;
+document.getElementById('resetWheel').onclick=()=>{entries=ALL_NAMES.map(n=>({name:n,used:false}));syncEditor();draw();document.getElementById('result').innerHTML='&nbsp;';};
+const edit=document.getElementById('editNames');
+document.getElementById('toggleEdit').onclick=()=>{
+  edit.style.display=edit.style.display==='block'?'none':'block';
+  if(edit.style.display==='block')syncEditor();
+};
+edit.addEventListener('input',()=>{
+  const v=edit.value.split('\n').map(s=>s.trim()).filter(Boolean);
+  if(v.length){entries=v.map(n=>({name:n,used:false}));draw();}
+});
+syncEditor();
+
+/* ================= timers ================= */
+document.querySelectorAll('.timer').forEach(el=>{
+  const total=+el.dataset.seconds||120;
+  let left=total, iv=null;
+  const timeEl=el.querySelector('.t-time'), hint=el.querySelector('.t-hint');
+  const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  function reset(){clearInterval(iv);iv=null;left=total;timeEl.textContent=fmt(left);
+    el.classList.remove('done');hint.textContent='click to start';}
+  el.addEventListener('click',e=>{
+    e.stopPropagation();
+    if(left<=0){reset();return;}
+    if(iv){clearInterval(iv);iv=null;hint.textContent='paused · click to resume · double-click to reset';}
+    else{
+      iv=setInterval(()=>{
+        left--;timeEl.textContent=fmt(Math.max(0,left));
+        if(left<=0){clearInterval(iv);iv=null;el.classList.add('done');hint.textContent='time! click to reset';}
+      },1000);
+      hint.textContent='running · click to pause';
+    }
+  });
+  el.addEventListener('dblclick',e=>{e.stopPropagation();reset();});
+});
+
+go(0);
+</script>
+</body>
+</html>
