@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Story of Iqbal Masih + Name Wheel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --dark:#12161F; --cream:#F4EFE6; --amber:#E8A93C; --amber-dark:#9A5B00;
+    --teal:#6FCFC0; --teal-dark:#1F6F66; --card-dark:#1E2430; --card-cream:#FBF8F2;
+    --border-cream:#D9D2C3; --muted-dark:#9AA3B2; --muted-cream:#6B6558;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;overflow:hidden;background:var(--dark);font-family:"Public Sans",system-ui,sans-serif;}
+  .serif{font-family:"Libre Baskerville",Georgia,serif;}
+
+  #deck{position:fixed;inset:0;}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 7vw 10vh;opacity:0;pointer-events:none;transform:translateX(4vw);
+    transition:opacity .45s ease,transform .45s ease;}
+  .slide.active{opacity:1;pointer-events:auto;transform:translateX(0);}
+  .slide.dark{background:var(--dark);color:var(--cream);}
+  .slide.cream{background:var(--cream);color:var(--dark);}
+
+  .eyebrow{font-size:14px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:2vh;}
+  .dark .eyebrow{color:var(--amber);}
+  .cream .eyebrow{color:var(--teal-dark);}
+  .eyebrow.amber-on-cream{color:var(--amber-dark);}
+
+  h1{font-size:clamp(40px,6vw,84px);line-height:1.05;font-weight:700;}
+  h2{font-size:clamp(30px,3.6vw,52px);line-height:1.15;margin-bottom:3vh;}
+  .lead{font-size:clamp(20px,1.8vw,28px);line-height:1.45;max-width:60ch;}
+  .dark .lead{color:#D8DCE4;}
+  .cream .lead{color:#3A3A34;}
+  .small{font-size:clamp(15px,1.1vw,18px);line-height:1.5;}
+  .dark .small{color:var(--muted-dark);}
+  .cream .small{color:var(--muted-cream);}
+
+  .cards{display:grid;gap:1.6vh 1.6vw;margin-top:1vh;}
+  .cards.c2{grid-template-columns:1fr 1fr;}
+  .cards.c3{grid-template-columns:repeat(3,1fr);}
+  .card{padding:1.8vh 1.3vw;border-radius:14px;font-size:clamp(15px,1.2vw,19px);line-height:1.4;}
+  .dark .card{background:var(--card-dark);}
+  .cream .card{background:var(--card-cream);border:1px solid var(--border-cream);}
+  .card b{display:block;font-size:clamp(17px,1.4vw,22px);margin-bottom:.4vh;}
+  .dark .card b{color:var(--amber);}
+  .cream .card b{color:var(--amber-dark);}
+  .card .ltr{font-family:"Libre Baskerville",serif;font-size:clamp(24px,2vw,34px);color:var(--amber-dark);margin-right:14px;}
+  .dark .card .ltr{color:var(--amber);}
+
+  .tag{display:inline-block;margin-top:2.5vh;font-size:13px;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;padding:6px 14px;border-radius:99px;width:fit-content;}
+  .dark .tag{background:rgba(232,169,60,.15);color:var(--amber);}
+  .cream .tag{background:rgba(31,111,102,.12);color:var(--teal-dark);}
+
+  .frames{display:flex;gap:1.5vw;margin-top:3vh;}
+  .frame{flex:1;padding:1.8vh 1.4vw;border-radius:14px;font-size:clamp(16px,1.3vw,21px);line-height:1.45;}
+  .frame .lvl{display:block;font-size:13px;font-weight:700;letter-spacing:.14em;margin-bottom:.5vh;}
+  .dark .frame{background:var(--card-dark);}
+  .dark .frame .lvl{color:var(--teal);}
+  .cream .frame{background:var(--card-cream);border:1px solid var(--border-cream);}
+  .cream .frame .lvl{color:var(--teal-dark);}
+  .frame.full{flex:1 1 100%;}
+
+  .model-q{font-size:clamp(16px,1.2vw,20px);margin-bottom:2vh;}
+  .dark .model-q{color:var(--muted-dark);}
+  .cream .model-q{color:var(--muted-cream);}
+  .model-a{font-size:clamp(24px,2.4vw,38px);line-height:1.4;font-family:"Libre Baskerville",serif;}
+  .model-a2{font-size:clamp(18px,1.5vw,24px);line-height:1.5;margin-top:1.5vh;}
+  .dark .model-a2{color:#C7CDD8;}
+  .cream .model-a2{color:#4A463C;}
+
+  /* timer */
+  .timer{position:absolute;top:3vh;left:7vw;z-index:5;cursor:pointer;user-select:none;
+    background:var(--card-dark);border:1px solid #2a3140;border-radius:14px;padding:10px 18px;text-align:center;min-width:120px;}
+  .cream .timer{background:var(--card-cream);border-color:var(--border-cream);}
+  .timer .t-time{display:block;font-size:30px;font-weight:700;color:var(--amber);font-variant-numeric:tabular-nums;line-height:1.1;}
+  .timer .t-hint{display:block;font-size:11px;color:var(--muted-dark);margin-top:2px;}
+  .cream .timer .t-hint{color:var(--muted-cream);}
+  .timer.done .t-time{color:#e05b4b;}
+
+  /* random word machine */
+  #wordMachine{margin-top:3vh;background:var(--card-dark);border-radius:18px;padding:3vh 2vw;text-align:center;}
+  #wordDisplay{font-family:"Libre Baskerville",serif;font-size:clamp(34px,4.2vw,64px);color:var(--amber);min-height:1.3em;}
+  #wordMeaning{font-size:clamp(17px,1.4vw,23px);color:#C7CDD8;margin-top:1.2vh;min-height:1.5em;}
+  #pickWord{margin-top:2vh;padding:12px 34px;border:none;border-radius:12px;background:var(--teal-dark);
+    color:#fff;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;}
+  #revealMeaning{margin-top:2vh;margin-left:10px;padding:12px 24px;border:1.5px solid var(--teal);border-radius:12px;
+    background:transparent;color:var(--teal);font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;}
+
+  #nav{position:fixed;bottom:2.5vh;right:2.5vw;display:flex;align-items:center;gap:14px;z-index:40;}
+  #nav button{width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;font-size:20px;
+    background:var(--amber);color:var(--dark);font-weight:700;}
+  #nav button:disabled{opacity:.35;cursor:default;}
+  #counter{font-size:14px;color:#8a8f9a;font-variant-numeric:tabular-nums;background:rgba(18,22,31,.75);
+    padding:6px 12px;border-radius:99px;backdrop-filter:blur(4px);}
+  #notesBtn{position:fixed;top:2.5vh;right:2.5vw;z-index:40;background:transparent;border:1.5px solid #5a6272;
+    color:#aab2c0;border-radius:99px;padding:8px 18px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;}
+  #notesBtn:hover{border-color:var(--amber);color:var(--amber);}
+  #notes{position:fixed;top:9vh;right:2.5vw;width:min(420px,80vw);max-height:70vh;overflow:auto;z-index:39;
+    background:#0d1118;color:#cfd6e0;border:1px solid #2a3140;border-radius:14px;padding:20px 22px;
+    font-size:15px;line-height:1.6;display:none;box-shadow:0 12px 40px rgba(0,0,0,.5);}
+  #notes h3{font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+
+  /* wheel */
+  #wheelFab{position:fixed;left:2vw;bottom:2.5vh;z-index:50;width:64px;height:64px;border-radius:50%;
+    border:3px solid var(--amber);background:var(--card-dark);color:var(--amber);cursor:pointer;
+    font-size:13px;font-weight:700;letter-spacing:.05em;font-family:inherit;
+    display:flex;align-items:center;justify-content:center;transition:transform .2s;}
+  #wheelFab:hover{transform:scale(1.08);}
+  #wheelPanel{position:fixed;left:2vw;bottom:2.5vh;z-index:50;width:280px;background:#0d1118;
+    border:1px solid #2a3140;border-radius:18px;padding:16px;color:#e6eaf0;display:none;
+    box-shadow:0 16px 50px rgba(0,0,0,.55);}
+  #wheelPanel.open{display:block;}
+  #wheelPanel header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  #wheelPanel header b{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);}
+  #wheelPanel header button{background:none;border:none;color:#8a8f9a;font-size:18px;cursor:pointer;}
+  #wheelWrap{position:relative;width:220px;height:220px;margin:0 auto;}
+  #wheelCanvas{width:220px;height:220px;}
+  #pointer{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;
+    border-left:11px solid transparent;border-right:11px solid transparent;border-top:18px solid var(--amber);
+    filter:drop-shadow(0 2px 3px rgba(0,0,0,.5));z-index:2;}
+  #spinBtn{display:block;width:100%;margin-top:12px;padding:12px;border:none;border-radius:12px;
+    background:var(--amber);color:var(--dark);font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;}
+  #spinBtn:disabled{opacity:.5;cursor:default;}
+  #result{min-height:30px;margin-top:10px;text-align:center;font-size:22px;font-weight:700;color:var(--teal);}
+  .wheel-row{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;color:#aab2c0;}
+  .wheel-row label{display:flex;align-items:center;gap:6px;cursor:pointer;flex:1;}
+  #resetWheel{background:none;border:1px solid #2a3140;color:#8a8f9a;border-radius:8px;padding:4px 10px;
+    font-size:12px;cursor:pointer;font-family:inherit;}
+  #editNames{width:100%;margin-top:10px;background:#12161f;border:1px solid #2a3140;color:#cfd6e0;
+    border-radius:10px;padding:8px 10px;font-size:13px;font-family:inherit;resize:vertical;min-height:64px;display:none;}
+  #toggleEdit{background:none;border:none;color:#5a6272;font-size:12px;cursor:pointer;margin-top:8px;font-family:inherit;}
+  #toggleEdit:hover{color:var(--amber);}
+
+  /* interactive sort */
+  #chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.6vh;}
+  .chip{padding:8px 18px;border-radius:99px;background:var(--dark);color:var(--cream);
+    font-size:clamp(14px,1.1vw,18px);font-weight:600;cursor:pointer;user-select:none;border:2px solid transparent;}
+  .chip.sel{border-color:var(--amber);background:var(--amber-dark);color:#fff;}
+  .chip.ok{background:#2E7D32;color:#fff;}
+  .chip.bad{background:#C62828;color:#fff;}
+  #baskets{display:grid;grid-template-columns:repeat(5,1fr);gap:1vw;}
+  .basket{background:var(--card-cream);border:1px solid var(--border-cream);border-radius:12px;
+    padding:10px;min-height:110px;cursor:pointer;}
+  .basket b{font-size:clamp(12px,.95vw,15px);color:var(--teal-dark);display:block;margin-bottom:6px;}
+  .basket .drop{display:flex;flex-direction:column;gap:6px;}
+  .basket.hover{outline:2px dashed var(--amber);}
+  .drop .chip{font-size:clamp(12px,.95vw,15px);padding:5px 12px;text-align:center;}
+  #checkSort,#resetSort{padding:10px 22px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+  #checkSort{background:var(--amber);color:var(--dark);}
+  #resetSort{background:transparent;border:1.5px solid var(--border-cream);color:var(--muted-cream);}
+
+
+  /* reading slides: text + question together */
+  .slide.reading .card{font-size:clamp(13px,1.0vw,16px);line-height:1.35;padding:1.4vh 1.1vw;}
+  .slide.reading .card b{font-size:clamp(14px,1.1vw,18px);}
+  .slide.reading h2{margin-bottom:1.5vh;}
+  .qbar{margin-top:2vh;padding:1.6vh 1.4vw;border-radius:14px;background:var(--card-dark);color:var(--cream);}
+  .qbar .q{font-family:"Libre Baskerville",serif;font-size:clamp(19px,1.6vw,26px);line-height:1.3;}
+  .qbar .q b{color:var(--amber);}
+  .slide.reading .frames{margin-top:1.6vh;}
+  .slide.reading .frame{padding:1.2vh 1.2vw;font-size:clamp(14px,1.1vw,17px);}
+  @media (max-width:760px){
+    .cards.c2,.cards.c3{grid-template-columns:1fr;}
+    .frames{flex-direction:column;}
+    .slide{padding:4vh 6vw 14vh;}
+  }
+</style>
+</head>
+<body>
+
+<div id="deck">
+
+  <section class="slide dark">
+    <div class="eyebrow">UNIT · BIOGRAPHY · HUMAN RIGHTS</div>
+    <h1 class="serif">The Story of<br>Iqbal Masih</h1>
+    <p class="lead" style="margin-top:2vh;">Essay by David Parker · adapted. A true story about a boy who fought child labor.</p>
+    <span class="tag">Today: cold read + annotate, then we read together</span>
+  </section>
+
+  <section class="slide cream">
+    <div class="eyebrow">Our goals today</div>
+    <h2 class="serif">By the end of class, you can…</h2>
+    <div class="cards c2">
+      <div class="card"><b>Content goal</b>retell Iqbal's story and make inferences from text clues.</div>
+      <div class="card"><b>Language goal</b>use past-tense verbs and say inferences with "I infer … because the text says …".</div>
+    </div>
+    <span class="tag">Strategy 5 · Clear goal-setting</span>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">How we will read today</div>
+    <h2 class="serif">Two reads</h2>
+    <div class="cards c2">
+      <div class="card"><b>Read 1 · Cold read</b>Read quietly by yourself. Annotate every part: ✓ main idea · ? question · ★ key detail.</div>
+      <div class="card"><b>Read 2 · Together</b>We read aloud as a class. We stop, talk, check, and make inferences.</div>
+    </div>
+    <span class="tag">Strategy 1 · Clear routines</span>
+  </section>
+
+  <section class="slide cream">
+    <div class="eyebrow">Cold read · how to annotate</div>
+    <h2 class="serif">Three marks</h2>
+    <div class="cards c3">
+      <div class="card"><b>✓ main idea</b>I understand this part. Underline the main idea.</div>
+      <div class="card"><b>? question</b>I'm not sure. Write a question or an inference.</div>
+      <div class="card"><b>★ key detail</b>An important clue about Iqbal's life.</div>
+    </div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I put ? here because I wonder ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>I marked ¶__ with ★ because this detail shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <div class="eyebrow">Words you will meet</div>
+    <h2 class="serif">Vocabulary preview</h2>
+    <div class="cards c3">
+      <div class="card"><b>intricate</b>very complicated; many small parts</div>
+      <div class="card"><b>stick to his work</b>keep doing your work; don't stop (idiom)</div>
+      <div class="card"><b>bondage</b>not free; controlled by another person</div>
+      <div class="card"><b>perseverance</b>you keep trying, even when it is very hard</div>
+      <div class="card"><b>plight</b>a very difficult or sad situation</div>
+      <div class="card"><b>bonded labor</b>you must work to pay a loan; you cannot leave</div>
+    </div>
+    <div class="frames">
+      <div class="frame full"><span class="lvl">FRAME</span>"___" means ___. For example, ___.</div>
+    </div>
+    <span class="tag">Strategy 4 · Vocabulary enhancement</span>
+  </section>
+
+  <section class="slide dark">
+    <div class="timer" data-seconds="600"><span class="t-time">10:00</span><span class="t-hint">click to start</span></div>
+    <div class="eyebrow">Read 1 · Cold read</div>
+    <h2 class="serif">Read alone. Mark every part.</h2>
+    <div class="cards c3">
+      <div class="card"><b>1 · Read</b>Read ¶1–¶26 quietly. Go slowly. It's okay if some words are hard.</div>
+      <div class="card"><b>2 · Annotate</b>Use ✓, ?, ★ on every slide. Follow the hint at the bottom.</div>
+      <div class="card"><b>3 · Circle</b>Circle words you don't know. We will collect them after.</div>
+    </div>
+    <span class="tag">Strategy 8 · Annotating text</span>
+  </section>
+  <section class="slide cream reading">
+    <div class="eyebrow">Read together · PART 1 · CHILDREN AT WORK</div>
+    <div class="cards c3" style="margin-top:0;">
+      <div class="card"><b>¶1</b>Each morning, six days a week, more than half a million children ages four to fourteen rise before dawn and walk along dark roads to Pakistan's carpet factories. Most must be at work by 6:00 AM. If they are late, they may be hit with a wooden cane — or worse. The weavers work 14 hours a day, with only a 30-minute lunch break.</div>
+      <div class="card"><b>¶2</b>Iqbal Masih was one of these workers. He started working in a carpet factory when he was just four years old. His parents were poor farmers near Lahore, the largest city in Pakistan. They had no money for food or clothes, so for about $16 they sent their son to work until he could pay back the loan. Iqbal was told he would earn three cents a day.</div>
+      <div class="card"><b>¶3</b>A man named Arshad owned the factory. The only light came from two bare light bulbs that hung like a dragon's eyes. The carpet looms looked a hundred years old. Two strong wooden beams ran across the top and bottom of each loom's frame, held up by four large stakes driven into the ground.</div>
+    </div>
+    <div class="qbar"><div class="q"><b>Q · answer with evidence:</b> Why did Iqbal have to work in the carpet factory?</div></div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think ___ because ¶__ says ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>According to ¶__, "___" — this shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Model answer + rationale</div>
+    <p class="model-q">Why did Iqbal have to work in the carpet factory?</p>
+    <p class="model-a">Answer: <b>To help pay back his parents' loan.</b></p>
+    <p class="model-a2">Evidence: ¶2 says his parents took about $16 and sent him to work “until he could pay back the loan.” He was told he would earn three cents a day.</p>
+  </section>
+
+  <section class="slide cream reading">
+    <div class="eyebrow">Read together · PART 1 · INSIDE THE FACTORY</div>
+    <div class="cards c3" style="margin-top:0;">
+      <div class="card"><b>¶4</b>In front of each loom sat a small child on a wooden scaffold. The young weavers tied short pieces of brightly colored thread to a warp of heavier white threads. To make one carpet, workers tied more than a million small knots into intricate designs of circles and squares. In the United States, carpets like these sell for more than $2,000 each.</div>
+      <div class="card"><b>¶5</b>The children never spoke to one another, except for a rare, forbidden whisper. “If I let them talk, I know they will start making mistakes,” Iqbal's boss said. “And when they make mistakes, I lose money.” If the children complained about how they were treated, they were beaten. Over the years, Iqbal received many cuts and bruises from Arshad's punishments.</div>
+      <div class="card"><b>¶6</b>One night, when Iqbal was ten years old, Arshad pulled him out of bed at 3:00 AM and ordered him to repair some carpets. Iqbal went to the local police to complain. He told them that his boss had beaten him, and he showed them the bruises on his arms.</div>
+    </div>
+    <div class="qbar"><div class="q"><b>Q · answer with evidence:</b> Why were the children not allowed to speak to each other?</div></div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think ___ because ¶__ says ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>According to ¶__, "___" — this shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Model answer + rationale</div>
+    <p class="model-q">Why were the children not allowed to speak to each other?</p>
+    <p class="model-a">Answer: <b>The boss believed talking would cause mistakes — and mistakes cost him money.</b></p>
+    <p class="model-a2">Evidence: ¶5 gives his exact words: “If I let them talk, I know they will start making mistakes… when they make mistakes, I lose money.”</p>
+  </section>
+
+  <section class="slide cream reading">
+    <div class="eyebrow">Read together · PART 1 · NO HELP FROM THE POLICE</div>
+    <div class="cards c3" style="margin-top:0;">
+      <div class="card"><b>¶7</b>One police officer glared at Iqbal. He said Iqbal had no right to complain — he had better stick to his work and do what he was told. The officer grabbed Iqbal by his sore arm and led him back to the factory. “If he tries this again, chain him to his loom,” the officer told Arshad.</div>
+      <div class="card"><b>¶8</b>Arshad did chain Iqbal to his loom. Even when Iqbal hurt so much he could hardly move, he fought back. He believed that what Arshad was doing was wrong.</div>
+      <div class="card"><b>¶9</b>At ten years old, Iqbal was just under four feet tall — the size of a child two or three years younger. He weighed less than 60 pounds. From years of sitting hunched in front of the loom, his spine curved like an old man's, and his feet shuffled slowly when he walked.</div>
+    </div>
+    <div class="qbar"><div class="q"><b>Q · answer with evidence:</b> Why do you think the police officer did NOT help Iqbal? (inference)</div></div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think ___ because ¶__ says ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>According to ¶__, "___" — this shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Model answer + rationale</div>
+    <p class="model-q">Why do you think the police officer did NOT help Iqbal? (inference)</p>
+    <p class="model-a">Answer: <b>Sample: the police protected the factory owners, not the children.</b></p>
+    <p class="model-a2">Evidence: Evidence: ¶7 the officer grabbed Iqbal's sore arm and said “chain him to his loom.” ¶17 adds: police did not enforce the labor law.</p>
+  </section>
+
+  <section class="slide cream reading">
+    <div class="eyebrow">Read together · PART 2 · THE DEBT GROWS — AND A MEETING</div>
+    <div class="cards c3" style="margin-top:0;">
+      <div class="card"><b>¶10</b>Arshad told Iqbal that the harder he worked, the faster the loan would be paid off. But no matter what Iqbal did, the loan just got bigger. His father left home, and his mother had to borrow more money from Arshad. By the time Iqbal was eleven, the loan had grown to $419 — more than 25 times the original amount. Iqbal knew he would be trapped forever unless he escaped.</div>
+      <div class="card"><b>¶11</b>In the summer of 1992, Iqbal heard about a meeting in a nearby town. A man named Essan Ulla Khan was going to speak about a new law that forbade carpet factories to employ children. Iqbal decided he must go. On the day of the meeting, he had already worked almost ten hours in 120-degree heat. Exhausted, he pushed through the crowd and sat on the floor below the platform where Khan was speaking.</div>
+      <div class="card"><b>¶12</b>Khan talked about an organization called the Bonded Labor Liberation Front (BLLF). Its goal was to free Pakistan's bonded laborers — workers treated like slaves, owned like property. Thousands of children worked in bondage in carpet, brick, and leather factories. Under the new law, bonded laborers did not have to work if they did not want to.</div>
+    </div>
+    <div class="qbar"><div class="q"><b>Q · answer with evidence:</b> Why did Iqbal's loan keep getting bigger, even though he worked hard?</div></div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think ___ because ¶__ says ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>According to ¶__, "___" — this shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Model answer + rationale</div>
+    <p class="model-q">Why did Iqbal's loan keep getting bigger, even though he worked hard?</p>
+    <p class="model-a">Answer: <b>The debt was a trap — interest grew, and his mother had to borrow even more.</b></p>
+    <p class="model-a2">Evidence: ¶10: “no matter what Iqbal did, the loan just got bigger”; his mother borrowed more from Arshad. By age 11 it was $419 — 25 times the original $16.</p>
+  </section>
+
+  <section class="slide cream reading">
+    <div class="eyebrow">Read together · PART 2 · NEW RIGHTS</div>
+    <div class="cards c3" style="margin-top:0;">
+      <div class="card"><b>¶13</b>When Khan finished speaking, many people jumped up with questions. Finally Khan noticed Iqbal's small raised hand. After a pause, Iqbal asked quietly, “How can I stop working and go to school?” Khan explained that Iqbal had new rights under the law. He could show Arshad some legal papers, and Arshad would have to let him go. Khan also told him about BLLF schools for former bonded laborers.</div>
+      <div class="card"><b>¶14</b>The next morning, Iqbal returned to the factory with the legal papers. He told Arshad he would no longer work, nor pay his debt, because bonded labor was illegal. Arshad's face grew red with anger. He cursed at Iqbal and beat him. But Iqbal escaped and ran out of the factory. Two days later, Arshad came to Iqbal's home, demanding that he return or pay. Iqbal stood his ground — he knew he could count on help from his new friend.</div>
+      <div class="card"><b>¶15</b>Khan did help Iqbal get away from the factory. He threatened to have Arshad arrested if he protested. Khan greatly admired Iqbal's courage and perseverance, and he found Iqbal a place in a BLLF primary school in Lahore.</div>
+    </div>
+    <div class="qbar"><div class="q"><b>Q · answer with evidence:</b> What did Khan tell Iqbal to do so he could stop working?</div></div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think ___ because ¶__ says ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>According to ¶__, "___" — this shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Model answer + rationale</div>
+    <p class="model-q">What did Khan tell Iqbal to do so he could stop working?</p>
+    <p class="model-a">Answer: <b>Show Arshad the legal papers — bonded labor was now illegal, so Arshad had to let him go.</b></p>
+    <p class="model-a2">Evidence: ¶13: Iqbal asked “How can I stop working and go to school?” Khan said he had new rights under the law and told him about BLLF schools.</p>
+  </section>
+
+  <section class="slide cream reading">
+    <div class="eyebrow">Read together · PART 3 · SCHOOL, THEN FIGHTING BACK</div>
+    <div class="cards c3" style="margin-top:0;">
+      <div class="card"><b>¶16</b>Iqbal told his teachers he wanted to become a lawyer and fight for children's rights. He did not want any child to suffer the way he had. Some kids teased him, calling him “Chief Justice,” but he didn't care. He worked hard and was a good student. Every night after school, he brought a book to bed and read late into the night.</div>
+      <div class="card"><b>¶17</b>Other children were not as lucky. Many did not hear about the new law. Factory owners kept workers from talking to the BLLF. The police did not enforce the labor law, and factories just ignored it.</div>
+      <div class="card"><b>¶18</b>Iqbal and Khan started traveling together to talk about the new law and to free young bonded laborers. One day Khan took Iqbal to a carpet factory in a village called Kasur. Because Iqbal was so small, the guards let him in, thinking he was just another worker. Once inside, Iqbal asked the children questions: How often were they beaten? How often did they work overtime? How were they treated?</div>
+    </div>
+    <div class="qbar"><div class="q"><b>Q · answer with evidence:</b> What did Iqbal do inside the carpet factory in Kasur, and why?</div></div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think ___ because ¶__ says ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>According to ¶__, "___" — this shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Model answer + rationale</div>
+    <p class="model-q">What did Iqbal do inside the carpet factory in Kasur, and why?</p>
+    <p class="model-a">Answer: <b>He secretly interviewed the child workers to gather evidence.</b></p>
+    <p class="model-a2">Evidence: ¶18: because he was small, the guards let him in; inside he asked how often they were beaten and forced to work overtime. ¶19: Khan used the information in a report — police freed 300 children.</p>
+  </section>
+
+  <section class="slide cream reading">
+    <div class="eyebrow">Read together · PART 3 · SPEAKING TO THE WORLD</div>
+    <div class="cards c3" style="margin-top:0;">
+      <div class="card"><b>¶19</b>Khan used the information Iqbal gathered to write an investigative report. Because of the report, police raided the factory and found 300 children who had been tortured and beaten. They were all between the ages of four and ten.</div>
+      <div class="card"><b>¶20</b>When Iqbal was twelve, he began speaking to huge crowds to demand better working conditions. People in Europe and the United States invited him to speak. He told audiences that the colorful carpets in their homes were made by children who lived as slaves. In the United States, ABC News named him “Person of the Week,” and the Reebok Corporation honored him with an award.</div>
+      <div class="card"><b>¶21</b>When people learned how their carpets were made, they did not want to buy them anymore. In 1992, factories in Pakistan sold fewer carpets to foreign countries. At first the decline was slight, but two years later sales fell sharply.</div>
+    </div>
+    <div class="qbar"><div class="q"><b>Q · answer with evidence:</b> Why did carpet sales to foreign countries fall after Iqbal spoke?</div></div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think ___ because ¶__ says ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>According to ¶__, "___" — this shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Model answer + rationale</div>
+    <p class="model-q">Why did carpet sales to foreign countries fall after Iqbal spoke?</p>
+    <p class="model-a">Answer: <b>People stopped buying carpets once they learned children made them as slaves.</b></p>
+    <p class="model-a2">Evidence: ¶20: Iqbal told audiences their carpets “were made by children who lived as slaves.” ¶21: “When people learned how their carpets were made, they did not want to buy them anymore.”</p>
+  </section>
+
+  <section class="slide cream reading">
+    <div class="eyebrow">Read together · PART 4 · THREATS — AND A DEATH</div>
+    <div class="cards c3" style="margin-top:0;">
+      <div class="card"><b>¶22</b>Carpet factory owners and managers were furious. They blamed “subversive organizations” and “the child revolutionary.” Threats were made on Iqbal's life.</div>
+      <div class="card"><b>¶23</b>On Easter Sunday in 1995, Iqbal went to visit relatives in a rural village. After spending time with his aunt, he and two cousins rode their bicycles to see his uncle, who was working in a nearby field. As the boys bounced along the dirt path, someone suddenly fired a shotgun at them from a short distance. Iqbal was killed instantly. He was twelve years old.</div>
+      <div class="card"><b>¶24</b>No one knows exactly what happened or who killed Iqbal. Some people say it was an accident. Others say it was a murder arranged by the carpet manufacturers. The real facts may never be known. Many human rights groups accused the police of failing to investigate the crime thoroughly.</div>
+    </div>
+    <div class="qbar"><div class="q"><b>Q · answer with evidence:</b> How did Iqbal die, and why do people suspect the carpet industry?</div></div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think ___ because ¶__ says ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>According to ¶__, "___" — this shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Model answer + rationale</div>
+    <p class="model-q">How did Iqbal die, and why do people suspect the carpet industry?</p>
+    <p class="model-a">Answer: <b>He was shot while riding his bicycle; factory owners had threatened his life.</b></p>
+    <p class="model-a2">Evidence: ¶22: owners were furious and “threats were made on Iqbal's life.” ¶23: a shotgun was fired at the boys and Iqbal was killed instantly. ¶24: many believe it was arranged murder.</p>
+  </section>
+
+  <section class="slide cream reading">
+    <div class="eyebrow">Read together · PART 4 · A VOICE THAT REMAINS</div>
+    <div class="cards c3" style="margin-top:0;">
+      <div class="card"><b>¶25</b>At Iqbal's funeral, 800 mourners crowded into the small village cemetery. A week later, 3,000 protesters — half of them under the age of twelve — marched through the streets of Lahore.</div>
+      <div class="card"><b>¶26</b>For many children working under harsh conditions, Iqbal Masih provided a voice. He gave them the courage to follow him out of bondage. His story brought attention to the plight of the world's working children.</div>
+    </div>
+    <div class="qbar"><div class="q"><b>Q · answer with evidence:</b> What happened after Iqbal's death — and what does it show about his impact?</div></div>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I think ___ because ¶__ says ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>According to ¶__, "___" — this shows ___.</div>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Model answer + rationale</div>
+    <p class="model-q">What happened after Iqbal's death — and what does it show about his impact?</p>
+    <p class="model-a">Answer: <b>Thousands mourned and marched; his story gave working children a voice and courage.</b></p>
+    <p class="model-a2">Evidence: ¶25: 800 mourners at his funeral, then 3,000 protesters marched in Lahore. ¶26: he “brought attention to the plight of the world's working children.”</p>
+  </section>
+
+  <section class="slide dark">
+    <div class="timer" data-seconds="60"><span class="t-time">1:00</span><span class="t-hint">click to start</span></div>
+    <div class="eyebrow">Game · Spin &amp; Define</div>
+    <h2 class="serif">The machine picks a word.<br>The wheel picks a person.</h2>
+    <div id="wordMachine">
+      <div id="wordDisplay">press the button</div>
+      <div id="wordMeaning"></div>
+      <button id="pickWord">Pick a word</button>
+      <button id="revealMeaning">Show meaning</button>
+    </div>
+    <div class="frames">
+      <div class="frame full"><span class="lvl">FRAME</span>"___" means ___. For example, ___.</div>
+    </div>
+  </section>
+
+  <section class="slide cream">
+    <div class="timer" data-seconds="180"><span class="t-time">3:00</span><span class="t-hint">click to start</span></div>
+    <div class="eyebrow">Consolidation · pairs</div>
+    <h2 class="serif" style="margin-bottom:1.5vh;">Sort the words into the 3 groups</h2>
+    <p class="small" style="margin-bottom:1vh;">Pairs decide together. Click a word, then click a group.</p>
+    <div id="chips"></div>
+    <div id="baskets">
+      <div class="basket" data-g="1"><b>1 · Factory words</b><div class="drop"></div></div>
+      <div class="basket" data-g="2"><b>2 · Unfair / painful</b><div class="drop"></div></div>
+      <div class="basket" data-g="3"><b>3 · Hope &amp; change</b><div class="drop"></div></div>
+    </div>
+    <div style="display:flex;gap:12px;margin-top:1.5vh;align-items:center;">
+      <button id="checkSort">Check answers</button>
+      <button id="resetSort">Reset</button>
+      <span id="sortScore" class="small"></span>
+    </div>
+  </section>
+
+  <section class="slide dark">
+    <div class="timer" data-seconds="120"><span class="t-time">2:00</span><span class="t-hint">click to start</span></div>
+    <div class="eyebrow">Mirrors &amp; windows · discussion</div>
+    <h2 class="serif">Did Iqbal die in vain?<br>What do you admire most about him?</h2>
+    <div class="frames">
+      <div class="frame"><span class="lvl">LEVEL 2</span>I admire Iqbal because ___.</div>
+      <div class="frame"><span class="lvl">LEVEL 4</span>Iqbal did / did not die in vain because ¶__ says ___; for example, ___.</div>
+    </div>
+    <span class="tag">Strategy 7 · Higher-order thinking</span>
+  </section>
+
+  <section class="slide dark">
+    <div class="eyebrow">Exit ticket · 5 – 3 – 1</div>
+    <h2 class="serif">Before you leave</h2>
+    <div class="cards c3">
+      <div class="card"><b style="font-family:'Libre Baskerville',serif;font-size:2em;">5</b>facts about Iqbal's story you know well</div>
+      <div class="card"><b style="font-family:'Libre Baskerville',serif;font-size:2em;">3</b>words or past-tense verbs to practice</div>
+      <div class="card"><b style="font-family:'Libre Baskerville',serif;font-size:2em;">1</b>inference sentence (use the frame)</div>
+    </div>
+    <div class="frames"><div class="frame full"><span class="lvl">FRAME</span>I infer that ___ because the text says ___.</div></div>
+    <p class="small" style="margin-top:2vh;">Rate yourself: ● high · ● middle · ● low</p>
+    <span class="tag">Strategy 10 · Track your own progress</span>
+  </section>
+
+</div>
+
+<button id="notesBtn" title="Teacher notes">Notes</button>
+<div id="notes"><h3>Teacher note</h3><div id="notesBody"></div></div>
+<div id="nav">
+  <span id="counter">1 / 19</span>
+  <button id="prev" aria-label="Previous slide">‹</button>
+  <button id="next" aria-label="Next slide">›</button>
+</div>
+
+<button id="wheelFab">SPIN</button>
+<div id="wheelPanel">
+  <header><b>Cold Call</b><button id="closeWheel" aria-label="Close">✕</button></header>
+  <div id="wheelWrap"><div id="pointer"></div><canvas id="wheelCanvas" width="440" height="440"></canvas></div>
+  <button id="spinBtn">Spin</button>
+  <div id="result">&nbsp;</div>
+  <div class="wheel-row">
+    <label><input type="checkbox" id="removePick" checked> no repeats</label>
+    <button id="resetWheel">Reset names</button>
+  </div>
+  <button id="toggleEdit">edit names</button>
+  <textarea id="editNames" spellcheck="false"></textarea>
+</div>
+
+<script>
+/* ================= deck ================= */
+const slides=[...document.querySelectorAll('.slide')];
+const notes=[
+ "Cover. 1 min. Hook: 'What were you doing when you were four years old?' Take 2-3 answers, then read the subtitle aloud.",
+ "Goals. 1 min. Read both goals. Point at the inference frame — students will SAY it before class ends.",
+ "Two reads. 1 min. Explain: first read silent and alone; second read together, with the question waiting under the text.",
+ "Annotation key. 2 min. Model one ✓, one ?, one ★ on a sample sentence. Practice the Level 2 frame chorally.",
+ "Vocabulary. 4 min. Choral read each word + meaning. Pairs: each student picks one word and says the frame sentence.",
+ "Cold read. Start the 10:00 timer. Students arrow through the story silently and annotate on their worksheet — do not define words yet. When time is up, return here.",
+ "¶1-3 + Q1. Choral read the three paragraphs, 10-second mark check, then students answer ON the smartboard — they draw/underline their evidence in ¶2 before speaking. Wheel cold-call. No evidence, no points.",
+ "A1. 1 min. Reveal after board work. Read the ¶2 quote chorally. Ask why guesses without the text fail.",
+ "¶4-6 + Q2. Choral read. Students draw a box around the boss's quote on the board as their evidence before answering.",
+ "A2. 1 min. Read the quote chorally. Connect: the boss sees children as machines, not kids.",
+ "¶7-9 + Q3 (inference). Choral read, calm tone for the violence. Pairs discuss with frames, then students underline their evidence line (¶7) on the smartboard.",
+ "A3. 2 min. Accept other answers WITH board-marked evidence (corruption, fear of owners). Then: 'What does this show about Iqbal's courage?'",
+ "¶10-12 + Q4. Choral read. Do the math on the board: $16 → $419. Students underline the 'loan just got bigger' line in ¶10.",
+ "A4. 1-2 min. Write $16 → $419 next to the answer. Quick culture note: this lending trap is called usury.",
+ "¶13-15 + Q5. Choral read. One student reads Iqbal's question aloud with feeling; another underlines the papers/rights lines in ¶13.",
+ "A5. 1 min. Sequence on the board: papers → tell Arshad → school. Information was Iqbal's real escape tool.",
+ "¶16-18 + Q6. Choral read. Two-part answer: what he did AND why — students mark evidence in ¶18 and ¶19 on the board.",
+ "A6. 1-2 min. Land the payoff: his evidence freed 300 children, ages 4-10. Numbers on the board.",
+ "¶19-21 + Q7. Choral read. Students draw the cause→effect chain on the board: speech → learned → stopped buying → sales fell.",
+ "A7. 1 min. Confirm the chain. Note: THIS is why the owners were furious — sets up the next section.",
+ "¶22-24 + Q8. Quiet choral read; calm tone for ¶23. Evidence from BOTH ¶22 (threats) and ¶23 (the shooting) — students underline both.",
+ "A8. 1-2 min. Read ¶24 honestly: we may never know. Transition: ¶25's numbers (800 mourners, 3,000 marchers) come next.",
+ "¶25-26 + Q9. Slow choral read on ¶26 — the thesis of the essay. Students mark their legacy evidence (¶25 or ¶26) on the board.",
+ "A9. 1 min. His voice outlived him. Bridge to the vocabulary games.",
+ "Spin & Define. 6-8 min. Pick a word, spin the wheel, that student defines with the frame BEFORE you show the meaning. 4-5 rounds.",
+ "Sort. 3 min on timer. Pairs click a word then a basket. Check answers, then wheel-pick students to defend 2-3 placements.",
+ "Mirrors & windows. 3-4 min. Pairs first, then wheel cold-calls. Honor quiet disagreement on 'die in vain' — require a reason.",
+ "Exit ticket. 4 min. On paper: 5-3-1 plus dot self-rating. Collect — the '3 to practice' column is tomorrow's warm-up."
+];
+let cur=0;
+const counter=document.getElementById('counter');
+const prevBtn=document.getElementById('prev'), nextBtn=document.getElementById('next');
+function go(i){
+  cur=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,k)=>s.classList.toggle('active',k===cur));
+  counter.textContent=(cur+1)+' / '+slides.length;
+  prevBtn.disabled=cur===0; nextBtn.disabled=cur===slides.length-1;
+  document.getElementById('notesBody').textContent=notes[cur]||'';
+}
+prevBtn.onclick=()=>go(cur-1); nextBtn.onclick=()=>go(cur+1);
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='TEXTAREA'||e.target.tagName==='INPUT')return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+});
+let tx=null;
+document.addEventListener('touchstart',e=>{if(e.target.closest('#wheelPanel,#nav,#notes'))return;tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;tx=null;
+  if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));
+},{passive:true});
+const notesEl=document.getElementById('notes');
+document.getElementById('notesBtn').onclick=()=>{notesEl.style.display=notesEl.style.display==='block'?'none':'block';};
+
+/* ================= timers ================= */
+document.querySelectorAll('.timer').forEach(el=>{
+  const total=+el.dataset.seconds||120;
+  let left=total, iv=null;
+  const timeEl=el.querySelector('.t-time'), hint=el.querySelector('.t-hint');
+  const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  function reset(){clearInterval(iv);iv=null;left=total;timeEl.textContent=fmt(left);
+    el.classList.remove('done');hint.textContent='click to start';}
+  el.addEventListener('click',e=>{
+    e.stopPropagation();
+    if(left<=0){reset();return;}
+    if(iv){clearInterval(iv);iv=null;hint.textContent='paused · click to resume · double-click to reset';}
+    else{
+      iv=setInterval(()=>{
+        left--;timeEl.textContent=fmt(Math.max(0,left));
+        if(left<=0){clearInterval(iv);iv=null;el.classList.add('done');hint.textContent='time! click to reset';}
+      },1000);
+      hint.textContent='running · click to pause';
+    }
+  });
+  el.addEventListener('dblclick',e=>{e.stopPropagation();reset();});
+});
+
+/* ================= word machine ================= */
+const WORDS=[
+ ["intricate","very complicated; many small parts"],
+ ["stick to his work","keep doing your work; don't stop (idiom)"],
+ ["bondage","not free; controlled by another person, like a slave"],
+ ["perseverance","you keep trying, even when it is very hard"],
+ ["plight","a very difficult or sad situation"],
+ ["bonded labor","you must work to pay back a loan; you cannot leave"],
+ ["loom","a machine for making carpets and cloth"],
+ ["debt","money you must pay back"],
+ ["courage","being brave when something is scary"],
+ ["rights","things every person is allowed to have or do"]
+];
+let lastWord=-1;
+const pickBtn=document.getElementById('pickWord');
+if(pickBtn) pickBtn.onclick=()=>{
+  let i; do{i=Math.floor(Math.random()*WORDS.length);}while(i===lastWord&&WORDS.length>1);
+  lastWord=i;
+  const d=document.getElementById('wordDisplay');
+  d.textContent=WORDS[i][0];
+  document.getElementById('wordMeaning').textContent='';
+};
+const revealBtn=document.getElementById('revealMeaning');
+if(revealBtn) revealBtn.onclick=()=>{
+  if(lastWord>=0)document.getElementById('wordMeaning').textContent=WORDS[lastWord][1];
+};
+
+/* ================= wheel ================= */
+const ALL_NAMES=["Enku","Loren","Eric","Jimmy","Zhe","Kaito","Allen","Ella","Mike","Zora","Zoya","Jacob","Enguun","White","Romeo","Born","Patrick"];  // <-- replace with the class roster, e.g. ["Ana","Bo","Chen"]
+const COLORS=["#1E2430","#1F6F66","#9A5B00","#2A3140"];
+let entries=ALL_NAMES.map(n=>({name:n,used:false}));
+let angle=0, spinning=false;
+const cv=document.getElementById('wheelCanvas'), ctx=cv.getContext('2d');
+function draw(){
+  const n=entries.length, r=220, cx=220, cy=220;
+  ctx.clearRect(0,0,440,440);
+  if(n===0){ctx.fillStyle='#5a6272';ctx.font='20px Public Sans';ctx.textAlign='center';ctx.fillText('add names below',cx,cy);return;}
+  const arc=2*Math.PI/n;
+  for(let i=0;i<n;i++){
+    const e=entries[i];
+    const a0=angle+i*arc, a1=a0+arc;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r-4,a0,a1);ctx.closePath();
+    ctx.fillStyle=e.used?'#171b26':COLORS[i%COLORS.length];ctx.fill();
+    ctx.strokeStyle='#0d1118';ctx.lineWidth=3;ctx.stroke();
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(a0+arc/2);
+    ctx.fillStyle=e.used?'#3d4452':'#F4EFE6';ctx.textAlign='right';ctx.textBaseline='middle';
+    let fs=Math.min(30,(arc*r*0.62)/Math.max(1,e.name.length)*2.2);
+    fs=Math.max(13,fs);ctx.font=`700 ${fs}px "Public Sans"`;
+    ctx.fillText(e.name,r-18,0);ctx.restore();
+  }
+  ctx.beginPath();ctx.arc(cx,cy,10,0,7);ctx.fillStyle='#E8A93C';ctx.fill();
+}
+draw();
+function spin(){
+  const active=entries.map((e,i)=>({e,i})).filter(x=>!x.e.used);
+  if(spinning||active.length===0)return;
+  spinning=true;document.getElementById('spinBtn').disabled=true;
+  document.getElementById('result').innerHTML='&nbsp;';
+  const n=entries.length, arc=2*Math.PI/n;
+  const target=active[Math.floor(Math.random()*active.length)].i;
+  const want=(-Math.PI/2)-(target*arc+arc/2);
+  const turns=5+Math.random()*2;
+  const start=angle;
+  let end=start+turns*2*Math.PI;
+  end+=((want-end)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+  const dur=3800, t0=performance.now();
+  function frame(t){
+    const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);
+    angle=start+(end-start)*e;draw();
+    if(p<1)requestAnimationFrame(frame);
+    else{
+      spinning=false;document.getElementById('spinBtn').disabled=false;
+      const picked=entries[target];
+      document.getElementById('result').textContent='🎤 '+picked.name;
+      if(document.getElementById('removePick').checked){
+        setTimeout(()=>{picked.used=true;syncEditor();draw();},1500);
+      }
+    }
+  }
+  requestAnimationFrame(frame);
+}
+function syncEditor(){document.getElementById('editNames').value=entries.filter(e=>!e.used).map(e=>e.name).join('\n');}
+const fab=document.getElementById('wheelFab'), panel=document.getElementById('wheelPanel');
+fab.onclick=()=>{panel.classList.add('open');fab.style.display='none';draw();};
+document.getElementById('closeWheel').onclick=()=>{panel.classList.remove('open');fab.style.display='flex';};
+document.getElementById('spinBtn').onclick=spin;
+document.getElementById('resetWheel').onclick=()=>{entries=ALL_NAMES.map(n=>({name:n,used:false}));syncEditor();draw();document.getElementById('result').innerHTML='&nbsp;';};
+const edit=document.getElementById('editNames');
+document.getElementById('toggleEdit').onclick=()=>{
+  edit.style.display=edit.style.display==='block'?'none':'block';
+  if(edit.style.display==='block')syncEditor();
+};
+edit.addEventListener('input',()=>{
+  const v=edit.value.split('\n').map(s=>s.trim()).filter(Boolean);
+  if(v.length){entries=v.map(n=>({name:n,used:false}));draw();}
+});
+syncEditor();
+
+/* ================= interactive sort ================= */
+const SORT=[
+["loom",1],["knots",1],["intricate",1],
+ ["bondage",2],["debt",2],["punishment",2],
+ ["perseverance",3],["escape",3],["rights",3],["courage",3]];
+const chipsEl=document.getElementById('chips');
+let selChip=null;
+if(chipsEl){
+function chipEl(w,g){
+  const c=document.createElement('span');c.className='chip';c.textContent=w;c.dataset.g=g;
+  c.onclick=e=>{e.stopPropagation();
+    if(selChip===c){c.classList.remove('sel');selChip=null;return;}
+    document.querySelectorAll('.chip.sel').forEach(x=>x.classList.remove('sel'));
+    c.classList.add('sel');selChip=c;};
+  return c;
+}
+function buildSort(){
+  chipsEl.innerHTML='';selChip=null;
+  document.querySelectorAll('#baskets .drop').forEach(d=>d.innerHTML='');
+  document.getElementById('sortScore').textContent='';
+  [...SORT].sort(()=>Math.random()-.5).forEach(([w,g])=>chipsEl.appendChild(chipEl(w,g)));
+}
+buildSort();
+document.querySelectorAll('.basket').forEach(b=>{
+  b.onclick=()=>{
+    if(!selChip)return;
+    selChip.classList.remove('sel','ok','bad');
+    b.querySelector('.drop').appendChild(selChip);selChip=null;
+  };
+});
+chipsEl.onclick=()=>{
+  if(!selChip)return;
+  selChip.classList.remove('sel','ok','bad');
+  chipsEl.appendChild(selChip);selChip=null;
+};
+document.getElementById('resetSort').onclick=e=>{e.stopPropagation();buildSort();};
+document.getElementById('checkSort').onclick=e=>{
+  e.stopPropagation();
+  const chips=[...document.querySelectorAll('.chip')];
+  const total=chips.length;
+  let right=0,placed=0;
+  chips.forEach(c=>{
+    const inBasket=c.closest('.basket');
+    c.classList.remove('ok','bad');
+    if(!inBasket)return;
+    placed++;
+    if(+inBasket.dataset.g===+c.dataset.g){c.classList.add('ok');right++;}
+    else c.classList.add('bad');
+  });
+  document.getElementById('sortScore').textContent=
+    placed<total?`place all ${total} words first (${placed}/${total} placed)`:`${right} / ${total} correct`;
+};
+}
+
+go(0);
+</script>
+</body>
+</html>
